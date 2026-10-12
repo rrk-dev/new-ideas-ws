@@ -1,0 +1,19 @@
+tasks/01-foundation/FND-02-app-architecture-riverpod.md
+  s_d1e6b7fad9bc97::t_2f51ee84897a1a 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bb0ec9e730f02911a107108ad821c1cfa038fcb0",
+  "prompts": {},
+  "sessions": {
+    "s_d1e6b7fad9bc97": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "69332eed-471c-442d-aed1-2ab2ee673582",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajesred@cisco.com>"
+    }
+  }
+}
