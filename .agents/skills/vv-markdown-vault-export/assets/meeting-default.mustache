@@ -1,0 +1,61 @@
+---
+title: {{#yaml}}{{data.title}}{{/yaml}}
+date: {{meta.date}}
+time: {{#yaml}}{{meta.time}}{{/yaml}}
+duration: {{#yaml}}{{meta.duration_human}}{{/yaml}}
+type: {{#yaml}}{{meta.profile_id}}{{/yaml}}
+attendees: {{#yaml_list}}data.attendees{{/yaml_list}}
+tags: {{#yaml_list}}meta.tags{{/yaml_list}}
+source: vaultvoice
+recording_id: {{#yaml}}{{meta.recording_id}}{{/yaml}}
+{{#meta.has_consent_at}}
+consent_at: {{#yaml}}{{meta.consent_at}}{{/yaml}}
+{{/meta.has_consent_at}}
+---
+
+# {{data.title}}
+
+## Summary
+{{data.summary}}
+
+{{#has_attendees}}
+## Attendees
+{{#data.attendees}}
+- {{.}}
+{{/data.attendees}}
+
+{{/has_attendees}}
+{{#has_decisions}}
+## Decisions
+{{#data.decisions}}
+- {{.}}
+{{/data.decisions}}
+
+{{/has_decisions}}
+## Action Items
+{{#data.action_items}}
+- [ ] {{task}}{{#has_owner}} (@{{owner}}){{/has_owner}}{{#has_due_iso}} 📅 {{due_iso}}{{/has_due_iso}}{{^has_due_iso}}{{#has_due}} — due: {{due}}{{/has_due}}{{/has_due_iso}}{{#has_t}} `[{{t}}]`{{/has_t}}
+{{/data.action_items}}
+{{^has_action_items}}
+_No action items._
+{{/has_action_items}}
+
+{{#has_open_questions}}
+## Open Questions
+{{#data.open_questions}}
+- {{.}}
+{{/data.open_questions}}
+
+{{/has_open_questions}}
+{{#has_topics}}
+## Topics
+{{#data.topics}}
+- {{.}}
+{{/data.topics}}
+
+{{/has_topics}}
+---
+_Generated on-device by VaultVoice · {{meta.duration_human}} · models: {{meta.model_ids.stt}}, {{meta.model_ids.llm}}_
+{{! Front-matter must start on line 1 (no comment above it). Strict mode (lenient: false):
+    sections/inverted sections only on lists, bools, maps or null; every nullable scalar X is
+    paired with a bool has_X built by the context normalizer. }}

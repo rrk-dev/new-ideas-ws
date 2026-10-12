@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.fvm/
+.DS_Store
+# Flutter/Dart (app/)
+.dart_tool/
+build/
+# never commit models or real recordings
+*.gguf
+ggml-*.bin
+tools/bench/corpus/private/
