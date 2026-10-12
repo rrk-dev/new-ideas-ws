@@ -1,0 +1,121 @@
+app/lib/main_prod.dart
+  s_d1e6b7fad9bc97::t_0d923ef12a4c6e 1-4
+app/pubspec.yaml
+  s_d1e6b7fad9bc97::t_03df58ecbe38be 19
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1,4-9,11-14,17-18,20-22
+  s_d1e6b7fad9bc97::t_05ad2aa85b357d 2-3,10,15-16
+app/.gitignore
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-48
+app/android/app/src/profile/AndroidManifest.xml
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-7
+app/ios/Runner/Info.plist
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-70
+app/.metadata
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-33
+app/android/app/src/main/AndroidManifest.xml
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-45
+app/lib/bootstrap.dart
+  s_d1e6b7fad9bc97::t_0d923ef12a4c6e 1-9
+app/ios/RunnerTests/RunnerTests.swift
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-12
+app/analysis_options.yaml
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 2-7,18-20
+  s_d1e6b7fad9bc97::t_0d923ef12a4c6e 1,8-17,21-24
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-650
+app/lib/core/flavor.dart
+  s_d1e6b7fad9bc97::t_0d923ef12a4c6e 1-8
+app/README.md
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-17
+app/android/gradle/wrapper/gradle-wrapper.properties
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-5
+app/android/gradle.properties
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-6
+app/android/app/src/debug/AndroidManifest.xml
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-7
+app/lib/app.dart
+  s_d1e6b7fad9bc97::t_9aa1dbfe49226d 8
+  s_d1e6b7fad9bc97::t_0d923ef12a4c6e 1-7,9-30
+app/lib/main_dev.dart
+  s_d1e6b7fad9bc97::t_0d923ef12a4c6e 1-4
+app/lib/core/app_info.dart
+  s_d1e6b7fad9bc97::t_0d923ef12a4c6e 1-2
+app/android/app/build.gradle.kts
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-49
+.fvmrc
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-3
+app/android/build.gradle.kts
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-24
+app/android/settings.gradle.kts
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-26
+app/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-119
+app/test/unit/app_test.dart
+  s_d1e6b7fad9bc97::t_0d923ef12a4c6e 1-12
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/MainActivity.kt
+  s_d1e6b7fad9bc97::t_a9153f21ac66ad 1-5
+app/android/.gitignore
+  s_d1e6b7fad9bc97::t_44f9bd46731054 1-14
+app/android/app/src/main/res/drawable-v21/launch_background.xml
+  s_d1e6b7fad9bc97::t_95b57dd878e73b 1-12
+app/android/app/src/main/res/drawable/launch_background.xml
+  s_d1e6b7fad9bc97::t_4f5318c85d6f11 1-12
+app/android/app/src/main/res/values-night/styles.xml
+  s_d1e6b7fad9bc97::t_edf9a9dcafc040 1-18
+app/android/app/src/main/res/values/styles.xml
+  s_d1e6b7fad9bc97::t_f32eea49c0ac2e 1-18
+app/ios/.gitignore
+  s_d1e6b7fad9bc97::t_10e9ba68c666d5 1-34
+app/ios/Flutter/AppFrameworkInfo.plist
+  s_d1e6b7fad9bc97::t_2479de0807e091 1-24
+app/ios/Flutter/Debug.xcconfig
+  s_d1e6b7fad9bc97::t_220f4c15c3dbdd 1
+app/ios/Flutter/Release.xcconfig
+  s_d1e6b7fad9bc97::t_c05c7561e665a6 1
+app/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+  s_d1e6b7fad9bc97::t_7bec6c3ef8686f 1-7
+app/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+  s_d1e6b7fad9bc97::t_eefdba4ac52d6d 1-8
+app/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+  s_d1e6b7fad9bc97::t_3cadefe46af008 1-8
+app/ios/Runner.xcworkspace/contents.xcworkspacedata
+  s_d1e6b7fad9bc97::t_bd583ae95d1c86 1-7
+app/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+  s_d1e6b7fad9bc97::t_0c929e99022251 1-8
+app/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+  s_d1e6b7fad9bc97::t_829f5816aac8b8 1-8
+app/ios/Runner/AppDelegate.swift
+  s_d1e6b7fad9bc97::t_0e64e901589011 1-16
+app/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json
+  s_d1e6b7fad9bc97::t_d4d18cfd1865ea 1-122
+app/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json
+  s_d1e6b7fad9bc97::t_c613abf39f4b98 1-23
+app/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md
+  s_d1e6b7fad9bc97::t_3e46eaaf2ec987 1-5
+app/ios/Runner/Base.lproj/LaunchScreen.storyboard
+  s_d1e6b7fad9bc97::t_4bacba3f631217 1-37
+app/ios/Runner/Base.lproj/Main.storyboard
+  s_d1e6b7fad9bc97::t_e87a7c4ba92b6a 1-26
+app/ios/Runner/Runner-Bridging-Header.h
+  s_d1e6b7fad9bc97::t_0495fbdf81e2bf 1
+app/ios/Runner/SceneDelegate.swift
+  s_d1e6b7fad9bc97::t_8c95ae4714d876 1-6
+app/pubspec.lock
+  s_d1e6b7fad9bc97::t_f3cf730a8b3762 1-354
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7d8d89b58ef1deb6036a6bb7c04403439c8293dc",
+  "prompts": {},
+  "sessions": {
+    "s_d1e6b7fad9bc97": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "69332eed-471c-442d-aed1-2ab2ee673582",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajesred@cisco.com>"
+    }
+  }
+}
