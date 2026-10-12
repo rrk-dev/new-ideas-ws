@@ -1,0 +1,109 @@
+app/integration_test/native_bridge_test.dart
+  s_d1e6b7fad9bc97::t_2c7b435477741c 1-6,8-18
+  s_d1e6b7fad9bc97::t_537cda2c1b1b33 7
+tasks/01-foundation/FND-06-native-build-infrastructure.md
+  s_d1e6b7fad9bc97::t_b28dc2326759c1 11-17,23-42
+  s_d1e6b7fad9bc97::t_0b76acaabe4a57 4
+CONTRIBUTING.md
+  s_d1e6b7fad9bc97::t_b28dc2326759c1 59-70
+.gitmodules
+  s_d1e6b7fad9bc97::t_a5910ac2ce7ddc 1-6
+tools/ci/analyze.sh
+  s_d1e6b7fad9bc97::t_537cda2c1b1b33 5-7
+tools/ci/check_codegen.sh
+  s_d1e6b7fad9bc97::t_af3ff56c71a582 12
+packages/vv_native/lib/src/vv_bindings.g.dart
+  s_d1e6b7fad9bc97::t_6822537146362d 1-93
+packages/vv_native/test/vv_native_host_test.dart
+  s_d1e6b7fad9bc97::t_7d2ba81b7e1a75 1-39
+.gitignore
+  s_d1e6b7fad9bc97::t_78ad4861a9eb8c 12-13
+native/bridge/vv_exports.txt
+  s_d1e6b7fad9bc97::t_32117c874dc8c8 1-6
+tools/ci/build_ios.sh
+  s_d1e6b7fad9bc97::t_537cda2c1b1b33 2,4-5
+docs/adr/ADR-FND-06-native-build.md
+  s_d1e6b7fad9bc97::t_b924f19b09c4a2 1-58
+app/android/app/build.gradle.kts
+  s_d1e6b7fad9bc97::t_2c7b435477741c 10-11
+packages/vv_native/ffigen.yaml
+  s_d1e6b7fad9bc97::t_6822537146362d 1-14
+native/bridge/vv_bridge.cpp
+  s_d1e6b7fad9bc97::t_32117c874dc8c8 1-23
+native/build.sh
+  s_d1e6b7fad9bc97::t_9468e2c483a3a4 1-17,19-35,38-71,73-86,89-107,112-122,125-126
+  s_d1e6b7fad9bc97::t_c5a077c657b488 123
+  s_d1e6b7fad9bc97::t_78ad4861a9eb8c 18,72,108-111
+  s_d1e6b7fad9bc97::t_4469ce43a3f06d 36-37,87-88,124
+packages/vv_native/analysis_options.yaml
+  s_d1e6b7fad9bc97::t_6822537146362d 1-5
+tools/ci/check_bindings.py
+  s_d1e6b7fad9bc97::t_af3ff56c71a582 1-26
+tools/ci/build_android.sh
+  s_d1e6b7fad9bc97::t_537cda2c1b1b33 2-3,7
+.github/workflows/ci.yml
+  s_d1e6b7fad9bc97::t_537cda2c1b1b33 103-105,118-119,137-139,148-149,167-169,172-174,176-185
+native/bridge/vv_bridge.h
+  s_d1e6b7fad9bc97::t_32117c874dc8c8 1-45
+tools/ci/check_apk_native.sh
+  s_d1e6b7fad9bc97::t_537cda2c1b1b33 1-12
+native/CMakeLists.txt
+  s_d1e6b7fad9bc97::t_9468e2c483a3a4 42-51,70-72,78-97
+  s_d1e6b7fad9bc97::t_32117c874dc8c8 1-41,52-69,73-77,98-109
+packages/vv_native/lib/vv_native.dart
+  s_d1e6b7fad9bc97::t_7d2ba81b7e1a75 1-57
+app/pubspec.yaml
+  s_d1e6b7fad9bc97::t_2c7b435477741c 27-28
+  s_d1e6b7fad9bc97::t_78ad4861a9eb8c 17-18
+packages/vv_native/ios/vv_native.podspec
+  s_d1e6b7fad9bc97::t_78ad4861a9eb8c 1-21
+docs/test-plans/device/FND-06.md
+  s_d1e6b7fad9bc97::t_b924f19b09c4a2 1-17
+tools/ci/native_host.sh
+  s_d1e6b7fad9bc97::t_537cda2c1b1b33 1-9
+docs/ci.md
+  s_d1e6b7fad9bc97::t_b28dc2326759c1 11-13,15,19
+tools/ci/tests/test_native_build.py
+  s_d1e6b7fad9bc97::t_b0bdc73719030f 42,44
+  s_d1e6b7fad9bc97::t_0b76acaabe4a57 1-41,43,45-60
+packages/vv_native/android/build.gradle
+  s_d1e6b7fad9bc97::t_78ad4861a9eb8c 1-69
+native/VERSIONS.md
+  s_d1e6b7fad9bc97::t_b924f19b09c4a2 1-33
+tools/ci/format.sh
+  s_d1e6b7fad9bc97::t_537cda2c1b1b33 3-5
+packages/vv_native/lib/src/loader.dart
+  s_d1e6b7fad9bc97::t_7d2ba81b7e1a75 1-17
+packages/vv_native/pubspec.yaml
+  s_d1e6b7fad9bc97::t_6822537146362d 1-27
+native/tests/check_exports.cmake
+  s_d1e6b7fad9bc97::t_32117c874dc8c8 1-33
+native/tests/smoke.c
+  s_d1e6b7fad9bc97::t_32117c874dc8c8 1-23
+app/pubspec.lock
+  s_d1e6b7fad9bc97::t_23b9fc1dba5391 265-269,317-321,394-398,543-550,567-574,716-723,788-794,827-834
+native/bridge/vv_exports.map
+  s_d1e6b7fad9bc97::t_ef97aa89c7a865 1-11
+native/llama.cpp
+  s_d1e6b7fad9bc97::t_5c9fde8fbb7125 1
+native/whisper.cpp
+  s_d1e6b7fad9bc97::t_e8d4e0bdbe4ed8 1
+packages/vv_native/pubspec.lock
+  s_d1e6b7fad9bc97::t_a9be714cf78a29 1-349
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "87963175263cf3aba56fc55cca584d490ce26a6d",
+  "prompts": {},
+  "sessions": {
+    "s_d1e6b7fad9bc97": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "69332eed-471c-442d-aed1-2ab2ee673582",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajesred@cisco.com>"
+    }
+  }
+}
