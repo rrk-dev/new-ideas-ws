@@ -1,30 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/app_info.dart';
-import 'package:vaultvoice/core/flavor.dart';
+import 'package:vaultvoice/core/flavor_provider.dart';
+import 'package:vaultvoice/core/routing/app_router.dart';
+import 'package:vaultvoice/core/theme/app_theme.dart';
 
-/// Root widget. Placeholder until FND-02 adds routing and theming.
-class App extends StatelessWidget {
-  /// Creates the root widget for [flavor].
-  const new({required this.flavor, super.key});
-
-  /// Active build flavor.
-  final Flavor flavor;
+/// Root widget: theme + router. Providers come from the enclosing scope.
+class App extends ConsumerWidget {
+  const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
       title: kAppName,
-      debugShowCheckedModeBanner: flavor.isDev,
-      theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
-      darkTheme: ThemeData(
-        colorSchemeSeed: Colors.indigo,
-        brightness: Brightness.dark,
-        useMaterial3: true,
-      ),
-      home: Scaffold(
-        appBar: AppBar(title: const Text(kAppName)),
-        body: Center(child: Text('${flavor.name} flavor')),
-      ),
+      debugShowCheckedModeBanner: ref.watch(flavorProvider).isDev,
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      routerConfig: ref.watch(appRouterProvider),
     );
   }
 }

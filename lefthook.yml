@@ -7,7 +7,7 @@ pre-commit:
       run: cd app && fvm dart format --set-exit-if-changed .
     analyze:
       glob: "app/**/*.{dart,yaml}"
-      run: cd app && fvm flutter analyze
+      run: cd app && fvm flutter analyze && fvm dart analyze
     tasks-validate:
       glob: "tasks/**/*.md"
       run: python3 .agents/skills/vv-task-workflow/scripts/tasks.py validate

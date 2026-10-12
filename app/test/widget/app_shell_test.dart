@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:vaultvoice/app.dart';
+import 'package:vaultvoice/core/flavor.dart';
+import 'package:vaultvoice/core/flavor_provider.dart';
+import 'package:vaultvoice/features/library/presentation/library_screen.dart';
+import 'package:vaultvoice/features/profiles/presentation/profiles_screen.dart';
+import 'package:vaultvoice/features/recording/presentation/recording_screen.dart';
+import 'package:vaultvoice/features/settings/presentation/settings_screen.dart';
+
+void main() {
+  Future<void> pumpApp(WidgetTester tester) => tester.pumpWidget(
+    ProviderScope(
+      overrides: [flavorProvider.overrideWithValue(Flavor.dev)],
+      child: const App(),
+    ),
+  );
+
+  testWidgets('[FND-02/AC1] boots into the tab shell on Record', (t) async {
+    await pumpApp(t);
+    await t.pumpAndSettle();
+
+    expect(find.byType(NavigationBar), findsOneWidget);
+    for (final label in ['Record', 'Library', 'Profiles', 'Settings']) {
+      expect(
+        find.descendant(
+          of: find.byType(NavigationBar),
+          matching: find.text(label),
+        ),
+        findsOneWidget,
+      );
+    }
+    expect(find.byType(RecordScreen), findsOneWidget);
+  });
+
+  testWidgets('[FND-02/AC1] each tab shows its placeholder screen', (t) async {
+    await pumpApp(t);
+    await t.pumpAndSettle();
+
+    final screens = <String, Type>{
+      'Library': LibraryScreen,
+      'Profiles': ProfilesScreen,
+      'Settings': SettingsScreen,
+      'Record': RecordScreen,
+    };
+    for (final MapEntry(key: label, value: type) in screens.entries) {
+      await t.tap(
+        find.descendant(
+          of: find.byType(NavigationBar),
+          matching: find.text(label),
+        ),
+      );
+      await t.pumpAndSettle();
+      expect(find.byType(type), findsOneWidget);
+    }
+  });
+}

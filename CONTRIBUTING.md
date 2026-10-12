@@ -17,6 +17,7 @@ the toolchain.
 ```bash
 fvm dart format --set-exit-if-changed .
 fvm flutter analyze          # zero issues
+fvm dart analyze             # also runs the riverpod_lint plugin (flutter analyze does not)
 fvm flutter test
 ```
 Also from the repo root: `python3 .agents/skills/vv-task-workflow/scripts/tasks.py validate`.
