@@ -1,7 +1,7 @@
 # FND-03 — Continuous Integration Pipeline
 
 **Workstream:** Foundation | **Phase:** 1 | **Size:** M | **Depends on:** FND-01 | **Source:** Gap (no CI defined)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-ci-release, vv-testing, vv-privacy-security, vv-native-build, vv-ffi-bridge
 
 ## Notes
