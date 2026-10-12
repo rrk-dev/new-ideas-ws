@@ -1,0 +1,37 @@
+docs/adr/ADR-QA-05-device-lab.md
+  s_99a8a99f2882f6::t_19b9a26db52788 1-115
+docs/device-matrix.md
+  s_99a8a99f2882f6::t_fed5c290c2ede5 1-123
+docs/parity.md
+  s_99a8a99f2882f6::t_93b2eed061647a 1-119
+docs/test-plans/device/QA-05.md
+  s_99a8a99f2882f6::t_0570092378a02a 1-15
+tasks/01-foundation/FND-03-ci-pipeline.md
+  s_99a8a99f2882f6::t_5aca413149aeaa 28-30
+tasks/01-foundation/FND-06-native-build-infrastructure.md
+  s_99a8a99f2882f6::t_18c6e6e6b2d201 23-25
+tasks/11-quality/QA-05-device-matrix-lab.md
+  s_99a8a99f2882f6::t_8f79096dc53281 4,11-14,19-30
+tasks/12-release/REL-04-beta-program.md
+  s_99a8a99f2882f6::t_2987557c7da813 18-20
+tasks/13-milestones/GATE-01-phase1-foundation-recording.md
+  s_99a8a99f2882f6::t_d31f84d34f9659 21-23
+tasks/README.md
+  s_99a8a99f2882f6::t_6e338792b02f3e 199
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b3f05085208411cff8e6610fc6065f7e0e6e3f85",
+  "prompts": {},
+  "sessions": {
+    "s_99a8a99f2882f6": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "dbe12172-a261-469f-8130-81366f2d1fbc",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajesred@cisco.com>"
+    }
+  }
+}
