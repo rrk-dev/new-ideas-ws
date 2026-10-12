@@ -1,0 +1,13 @@
+# Pre-commit hooks. Install once: `lefthook install` (brew install lefthook).
+pre-commit:
+  parallel: false
+  commands:
+    format:
+      glob: "app/**/*.dart"
+      run: cd app && fvm dart format --set-exit-if-changed .
+    analyze:
+      glob: "app/**/*.{dart,yaml}"
+      run: cd app && fvm flutter analyze
+    tasks-validate:
+      glob: "tasks/**/*.md"
+      run: python3 .agents/skills/vv-task-workflow/scripts/tasks.py validate
