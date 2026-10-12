@@ -1,7 +1,7 @@
 # FND-01 — Initialize Flutter Repository & Code Standards
 
 **Workstream:** Foundation | **Phase:** 1 (Weeks 1–3) | **Size:** S | **Depends on:** — | **Source:** §5 Phase 1
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-testing
 
 ## Goal
