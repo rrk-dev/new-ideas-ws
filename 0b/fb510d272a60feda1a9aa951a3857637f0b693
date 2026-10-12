@@ -1,0 +1,19 @@
+tasks/11-quality/QA-05-device-matrix-lab.md
+  s_99a8a99f2882f6::t_c838a6b2277ceb 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0bfb510d272a60feda1a9aa951a3857637f0b693",
+  "prompts": {},
+  "sessions": {
+    "s_99a8a99f2882f6": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "dbe12172-a261-469f-8130-81366f2d1fbc",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajesred@cisco.com>"
+    }
+  }
+}
