@@ -24,6 +24,10 @@ writes it into user-chosen folders (Obsidian/Logseq vaults). **No user content e
 - **Pushing:** you may create and push `task/<ID>-…` branches (that is how tasks are claimed) and
   open PRs. **Never push to `main`, never force-push shared branches, never change global git
   config** (only repo-local settings).
+- **Containers:** use **podman** only (`podman`, `podman build`, `podman run`, `podman compose`);
+  Docker is not available on the user's machines — never use or require `docker` commands,
+  Docker Desktop, or Docker-only features. Containerfiles must build with `podman build`.
+  iOS builds (Xcode) cannot run in containers; they run natively on macOS.
 - **Physical devices:** device-only acceptance criteria never block your hand-off: write the
   device-checklist rows, mark the evidence ⏳, set `review`, report which devices are needed, and
   continue with the next ready task (`tasks.py ready` shows `[provisional]` tasks whose deps only
