@@ -1,7 +1,7 @@
 # FND-02 — App Architecture Skeleton (Riverpod, Routing, Error Handling)
 
 **Workstream:** Foundation | **Phase:** 1 | **Size:** M | **Depends on:** FND-01 | **Source:** §4.1
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-testing, vv-decision-records
 
 ## Goal
