@@ -1,7 +1,7 @@
 # QA-05 — Device Test Matrix & Lab
 
 **Workstream:** Quality | **Phase:** 1 (procure) – 4 | **Size:** S | **Depends on:** — | **Source:** §2.1, §5 Phase 4
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-testing, vv-benchmark-eval
 
 ## Goal
