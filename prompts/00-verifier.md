@@ -14,7 +14,8 @@ Tasks to verify: `<IDs>` — list candidates with
 `python3 .agents/skills/vv-task-workflow/scripts/tasks.py list --status review`.
 
 ## Procedure
-1. Read `AGENTS.md`, then load the **`vv-task-verify`** skill and follow it exactly for each task:
+1. Read `AGENTS.md` (incl. "Before anything: environment & git facts") and run
+   `tools/setup/doctor.sh` — you need the same toolchain to re-run gates. Then load the **`vv-task-verify`** skill and follow it exactly for each task:
    fresh checkout / worktree of the task branch → read task file, Completion Notes, diff and the
    skills on its `**Skills:**` line → run all gates → `tasks.py verify <ID> --run` → read every
    tagged test and confirm it truly asserts the criterion (break the code once and see it fail)

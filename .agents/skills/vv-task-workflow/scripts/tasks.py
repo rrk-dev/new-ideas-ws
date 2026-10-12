@@ -158,6 +158,23 @@ def cmd_list(tasks, args):
         print(fmt(t))
 
 
+def device_pending_only(t: Task, tasks, root: Path) -> bool:
+    """True if t is in review, passes the implementer check, and every pending (⏳) item is a
+    physical-device run — i.e. dependents may *start* (they still can't be done before t)."""
+    if t.status != "review":
+        return False
+    errs, _, _ = check_evidence(t, tasks, root, "review")
+    if errs:
+        return False
+    notes = section(t.path.read_text(encoding="utf-8"), "Completion Notes") or ""
+    for ln in notes.splitlines():
+        if (m := EVIDENCE_RE.match(ln)) and m["mark"] == "⏳":
+            kinds = {x.split(":")[0].strip().lower() for x in m["rest"].split(";") if x.strip()}
+            if kinds != {"device"}:
+                return False
+    return True
+
+
 def cmd_ready(tasks, args, root):
     claimed = set() if args.no_git else claimed_branches(root, fetch=not args.no_fetch)
     found = False
@@ -174,6 +191,11 @@ def cmd_ready(tasks, args, root):
             continue
         if all(tasks.get(d) and tasks[d].status == "done" for d in t.deps):
             print(fmt(t))
+            found = True
+        elif all(tasks.get(d) and (tasks[d].status == "done" or device_pending_only(tasks[d], tasks, root))
+                 for d in t.deps):
+            waiting = [d for d in t.deps if tasks[d].status != "done"]
+            print(fmt(t) + f"   [provisional: {', '.join(waiting)} awaiting device runs — may start, can't be done before them]")
             found = True
     if skipped_claimed:
         print(f"(skipped {len(skipped_claimed)} claimed via task/* branches: {', '.join(sorted(skipped_claimed))})")

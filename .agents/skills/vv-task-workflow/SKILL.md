@@ -32,6 +32,10 @@ python3 .agents/skills/vv-task-workflow/scripts/tasks.py verify FND-04  # what t
 ```
 **Bootstrap first:** FND-01 → FND-02 → FND-03 (CI) → QA-01 (test framework), plus QA-05. No
 other task can reach `done` until FND-03 and QA-01 are done, so pick those first.
+Run `tools/setup/doctor.sh` before your first task; if the core toolchain is missing, stop and ask
+the user (never install system tools without approval).
+`ready` also lists **[provisional]** tasks: their deps are in `review` with only physical-device
+runs pending. You may start those; they cannot become `done` before their deps.
 A task is *ready* when its status is `todo` and every `Depends on` task is `done`, and no
 `task/<ID>-*` branch exists locally or on the remote (someone else claimed it).
 If the user named a task, use it — but if dependencies are not `done`, tell the user which ones

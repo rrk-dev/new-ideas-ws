@@ -20,6 +20,12 @@ self-contained: paste it into a fresh Claude Code, Codex or Cursor session opene
 | [13-milestones.md](13-milestones.md) | Milestones | GATE-01…04 (4) |
 | [00-verifier.md](00-verifier.md) | Independent verifier | any task in `review` |
 
+## Prerequisites (once per machine)
+Run `tools/setup/doctor.sh`. Agents will not install system tools themselves. Install what it
+reports as missing first. At minimum, `core` must pass before the Foundation agent can start
+(FVM + Flutter). Then `ios`/`android` (simulator, emulator), then `native` (CMake, Ninja, NDK r28+)
+before FND-06.
+
 ## Start order (groups depend on each other)
 Starting all 13 at once would leave most agents blocked. Recommended waves:
 

@@ -13,6 +13,22 @@ writes it into user-chosen folders (Obsidian/Logseq vaults). **No user content e
 - Skills (procedures for doing the tasks): `.agents/skills/<skill>/SKILL.md`
   (`.claude/skills` is a symlink to the same folder).
 
+## Before anything: environment & git facts
+- **Toolchain check:** run `tools/setup/doctor.sh` (read-only). If the *core* section fails, stop
+  and report the missing tools to the user — **never install system tools (brew, Xcode, Android
+  Studio, SDKs) without the user's explicit approval.** Later sections (ios/android/native) only
+  block the tasks listed next to them.
+- **Repo:** `main` already exists with an initial commit and is pushed to `origin`
+  (`git@github.com-rrkdev:rrk-dev/new-ideas-ws.git`). Do not create another initial commit. If
+  your local view says "no commits", run `git fetch && git status` — your snapshot is stale.
+- **Pushing:** you may create and push `task/<ID>-…` branches (that is how tasks are claimed) and
+  open PRs. **Never push to `main`, never force-push shared branches, never change global git
+  config** (only repo-local settings).
+- **Physical devices:** device-only acceptance criteria never block your hand-off: write the
+  device-checklist rows, mark the evidence ⏳, set `review`, report which devices are needed, and
+  continue with the next ready task (`tasks.py ready` shows `[provisional]` tasks whose deps only
+  await device runs).
+
 ## How to work (every agent, every task)
 1. Start with the **`vv-task-workflow`** skill. It tells you how to pick/claim a task, which skills
    to load (each task file lists them on its `**Skills:**` line), and the Definition of Done.
@@ -73,6 +89,7 @@ native/bridge/            vv_bridge.h / .cpp — the ONLY C ABI Dart talks to
 native/CMakeLists.txt     superproject (one ggml) + native/build.sh {android|ios|host}
 packages/vv_native/       (Dart FFI bindings + plugin build glue; C sources live in native/bridge/)
 tools/bench/              STT/LLM/perf benchmarks; tools/bench/eval/ = extraction eval (PRF-09)
+tools/setup/doctor.sh     read-only toolchain check (run first)
 tools/ci/                 CI scripts (format, analyze, egress, recording policy, size, eval…)
 tools/spikes/             throw-away spike code referenced by ADRs
 tools/model-catalog/      manifest generation + signing CLI
