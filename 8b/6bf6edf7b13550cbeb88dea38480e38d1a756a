@@ -1,0 +1,619 @@
+tasks/06-profiles/PRF-01-profile-data-model.md
+  s_9f6fcf8c1840a0::t_801c49d9654f0a 1-2,6-10,12,14-18
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_78d5eb22d30817 3
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 11,13
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+tasks/06-profiles/PRF-03-meeting-action-items-profile.md
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 3,11
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 8
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_a766d9839d6e1d 1-2,6-7,9-10,12-18
+tasks/10-security-privacy/SEC-03-app-lock-biometrics.md
+  s_9f6fcf8c1840a0::t_790a178024560c 1-3,6-12,14-17
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 13
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+prompts/01-foundation.md
+  s_9f6fcf8c1840a0::t_48ad8498c32dd8 1-65
+.agents/skills/vv-audio-capture/SKILL.md
+  s_9f6fcf8c1840a0::t_79466dd64f2d1a 8-35,86,99-100,131-132,150-151,157-158
+  s_9f6fcf8c1840a0::t_05a3cd821c1298 48-51,104-117,123-129,137-138,142-149
+  s_9f6fcf8c1840a0::t_0536ff9ebf3c62 70-74
+  s_9f6fcf8c1840a0::t_160278be4fc9cf 81-84,87-89
+  s_9f6fcf8c1840a0::t_3879131ba190d1 1-2,4-7,36-47,52-69,75-80,85,90-98,101-103,118-122,130,133-136,139-141,152-156
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+tasks/04-llm/LLM-08-default-model-evaluation.md
+  s_9f6fcf8c1840a0::t_ee9496438d6d85 1-3,6-16
+  s_9f6fcf8c1840a0::t_3a1ccceeaccf9f 17
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+tasks/09-licensing/LIC-02-in-app-purchases.md
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_ed49a9e47f45f5 1-3,6-10,12,14-19
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 11,13
+tasks/04-llm/LLM-07-memory-management-device-tiering.md
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_70bb9dab29e30d 1-3,6-19
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+.agents/skills/vv-benchmark-eval/SKILL.md
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_07789d9c2a5747 24
+  s_9f6fcf8c1840a0::t_0342bfaaa59048 33-39,70-76
+  s_9f6fcf8c1840a0::t_ac7c6e3935457c 1-2,4-23,25-32,40-69,77-81
+tasks/05-models/MDL-04-offline-model-sideload.md
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_14a7456e3a554f 1-3,6-16
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+prompts/04-llm.md
+  s_9f6fcf8c1840a0::t_48ad8498c32dd8 1-65
+prompts/11-quality.md
+  s_9f6fcf8c1840a0::t_48ad8498c32dd8 1-62
+tasks/07-export/EXP-08-share-and-alternate-outputs.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_f604f7b7f2bbe0 1-3,6-17
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+tasks/06-profiles/PRF-09-extraction-eval-harness.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_0d5bc5c3114d8a 1-2,6-10,12-17,19
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 3,11,18
+tasks/10-security-privacy/SEC-01-encryption-at-rest.md
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_ed80703b19829d 11
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_60b92206832af1 1-3,6-10,12,15-20
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 13-14
+tasks/08-app-ux/APP-03-settings.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_df3270e2ea1bf4 1-3,6-19
+.agents/skills/vv-markdown-vault-export/assets/meeting-default.mustache
+  s_9f6fcf8c1840a0::t_160278be4fc9cf 6,10,12
+  s_9f6fcf8c1840a0::t_fb3b4699df47ef 4
+  s_9f6fcf8c1840a0::t_c779c64e414f25 1-3,5,7-9,14-36,38,40,42-58
+  s_9f6fcf8c1840a0::t_cce1dfd58a1862 11,13,37,39,41
+  s_9f6fcf8c1840a0::t_b25160e2cd517f 59-61
+.agents/skills/vv-markdown-vault-export/references/android-saf.md
+  s_9f6fcf8c1840a0::t_a6de25bdff8efd 1-17,20-26,29-30,33-42
+  s_9f6fcf8c1840a0::t_160278be4fc9cf 18-19,27-28,31-32
+tasks/02-audio/AUD-06-audio-import-conversion.md
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 18-19
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 3,8,15
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_0ad43f56eadd40 1-2,6-7,9-14,16-17,20
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+tasks/02-audio/AUD-03-silence-detection-vad.md
+  s_9f6fcf8c1840a0::t_7f08a76ffcb8c3 1-2,6-12,14-19
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 3
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 13
+tasks/07-export/EXP-04-ios-security-scoped-bookmarks.md
+  s_9f6fcf8c1840a0::t_e7f4e704e1ec66 1-3,6-19
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+tasks/01-foundation/FND-05-processing-pipeline-orchestrator.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+  s_9f6fcf8c1840a0::t_07789d9c2a5747 8
+  s_9f6fcf8c1840a0::t_6b8bee0dc62aec 1-3,6-7,9-22
+tasks/07-export/EXP-06-write-failure-outbox.md
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_c2eadbfdec0a50 1-3,6-17
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+tasks/06-profiles/PRF-04-warranty-receipt-profile.md
+  s_9f6fcf8c1840a0::t_aa0ccf06583bcc 1-2,6-19
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 3
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+tasks/03-stt/STT-04-long-form-chunked-transcription.md
+  s_9f6fcf8c1840a0::t_6dff5b6f1ac42d 1-3,6-10,13-21
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 11-12
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+tasks/07-export/EXP-07-template-editor-preview.md
+  s_9f6fcf8c1840a0::t_53b67127bcc4cc 1-3,6-17
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+.agents/skills/vv-background-execution/SKILL.md
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_160278be4fc9cf 17-18,31-32,53-56
+  s_9f6fcf8c1840a0::t_803592e47a4013 1-2,4-14,16,19-30,33-52
+  s_9f6fcf8c1840a0::t_79466dd64f2d1a 15
+prompts/10-security-privacy.md
+  s_9f6fcf8c1840a0::t_48ad8498c32dd8 1-66
+.agents/skills/vv-benchmark-eval/scripts/wer.py
+  s_9f6fcf8c1840a0::t_abd8d5c82aaa63 1-20,24-74,76-81
+  s_9f6fcf8c1840a0::t_0536ff9ebf3c62 21-23,75
+.agents/skills/vv-ci-release/SKILL.md
+  s_9f6fcf8c1840a0::t_a06a10967f968d 79-80
+  s_9f6fcf8c1840a0::t_4e8dbe2d6b3330 1-2,4-12,14-16,18-20,22,28,33-34,36-61,65-78,81-86,89-91
+  s_9f6fcf8c1840a0::t_aff193149f9918 23-27,35,62
+  s_9f6fcf8c1840a0::t_79466dd64f2d1a 21,87-88
+  s_9f6fcf8c1840a0::t_680fda0428c510 13,30
+  s_9f6fcf8c1840a0::t_ebe76eef16e978 31-32
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_160278be4fc9cf 17,29,63-64
+tasks/08-app-ux/APP-02-library-search.md
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 15
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_a13956473aa0df 1-3,6-14,16-19
+tasks/10-security-privacy/SEC-07-recording-consent-features.md
+  s_9f6fcf8c1840a0::t_e3ec1cc4fa5e09 1-2,6-7,9-10,17-18
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 14
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 3,8,11-13,15-16,19-21
+.agents/skills/vv-decision-records/assets/adr-template.md
+  s_9f6fcf8c1840a0::t_3a1ccceeaccf9f 1
+  s_9f6fcf8c1840a0::t_ce21cfdd60133f 2-41
+tasks/05-models/MDL-02-model-downloader.md
+  s_9f6fcf8c1840a0::t_e42c72d1826105 1-3,6-13,15-21
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 14
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+tasks/03-stt/STT-07-stt-model-variants-language.md
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 13
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+  s_9f6fcf8c1840a0::t_16afc014fb7bef 1-3,6-12,14-18
+.gitattributes
+  s_9f6fcf8c1840a0::t_07789d9c2a5747 1-9
+tasks/08-app-ux/APP-06-accessibility-localization.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+  s_9f6fcf8c1840a0::t_b37146abccaf74 1-3,6-18
+.agents/skills/vv-native-build/SKILL.md
+  s_9f6fcf8c1840a0::t_0536ff9ebf3c62 14-16,18,26-27,29-41,49-50,52-59,63-64,66-68,70-76,79-81,90-94,98-103
+  s_9f6fcf8c1840a0::t_39ca7689bee3a1 17
+  s_9f6fcf8c1840a0::t_48355224876faa 1-2,4-13,19-25,28,42-48,51,60-62,65,69,77-78,82-89,95-97,104-124
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+tasks/13-milestones/GATE-04-release-candidate.md
+  s_9f6fcf8c1840a0::t_f68c6e001c04fd 1-20
+tasks/03-stt/STT-03-whisper-dart-ffi-binding.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 11
+  s_9f6fcf8c1840a0::t_8e81f6bc60a25c 1-3,6-10,12-21
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+.agents/skills/vv-task-workflow/assets/task-template.md
+  s_9f6fcf8c1840a0::t_ef6e7189f322bd 1-14
+tasks/12-release/REL-05-store-listing-technical-assets.md
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 14
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+  s_9f6fcf8c1840a0::t_2f1f5f5f397bf1 1-3,6-13,15-17
+prompts/07-export.md
+  s_9f6fcf8c1840a0::t_48ad8498c32dd8 1-64
+tasks/07-export/EXP-01-markdown-template-engine.md
+  s_9f6fcf8c1840a0::t_a06a10967f968d 14
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_2367baf298f098 1-3,6-13,15-20
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+tasks/07-export/EXP-05-vault-writer-routing-rules.md
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_bce62847ad59b7 1-3,6-19
+tasks/01-foundation/FND-07-local-logging-diagnostics.md
+  s_9f6fcf8c1840a0::t_b94d71f77d7312 1-3,6-19
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+tasks/06-profiles/PRF-02-system-prompt-builder.md
+  s_9f6fcf8c1840a0::t_78d5eb22d30817 3
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+  s_9f6fcf8c1840a0::t_0aa8c8e94ddd2e 1-2,6-18
+.gitignore
+  s_9f6fcf8c1840a0::t_07789d9c2a5747 1-11
+tasks/10-security-privacy/SEC-09-recording-safeguards-no-call-capture.md
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 3,14,32-33
+  s_9f6fcf8c1840a0::t_77cd8b30cd35b1 1-2,4-12,15-31,34-40
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 13
+tasks/03-stt/STT-01-whisper-ios-build-metal.md
+  s_9f6fcf8c1840a0::t_43beef8ecc81b3 1-3,6-10,13,15-19
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 11-12,14
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+tasks/03-stt/STT-05-speaker-diarization.md
+  s_9f6fcf8c1840a0::t_2f49a366bfad38 1-3,6-13,15-20
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 14,21
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+tasks/04-llm/LLM-01-runtime-selection-spike.md
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 14
+  s_9f6fcf8c1840a0::t_3a1ccceeaccf9f 15,18
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+  s_9f6fcf8c1840a0::t_14546d2c483351 1-3,6-13,16-17
+.agents/skills/vv-extraction-profiles/SKILL.md
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_93a191cf2fb327 37
+  s_9f6fcf8c1840a0::t_ef8842b19806d3 1-2,4-36,38-79
+prompts/09-licensing.md
+  s_9f6fcf8c1840a0::t_48ad8498c32dd8 1-60
+tasks/04-llm/LLM-05-structured-output-grammar.md
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_fd48c40dc1d7df 1-2,6-18
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 3
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+tasks/10-security-privacy/SEC-05-model-and-oss-license-compliance.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_e855b5c6eb5f58 1-3,6-18
+tasks/11-quality/QA-01-test-strategy.md
+  s_9f6fcf8c1840a0::t_a06a10967f968d 11
+  s_9f6fcf8c1840a0::t_ebe76eef16e978 18
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+  s_9f6fcf8c1840a0::t_6058eb71641fa0 1-3,6-10,12-17,19
+tasks/02-audio/AUD-04-ios-background-recording.md
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 3,12-13,16,20
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_d7ed4070396ff7 1-2,6-11,14-15,17-19,21
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+tasks/04-llm/LLM-04-llm-dart-ffi-engine.md
+  s_9f6fcf8c1840a0::t_e4a155a801e91a 1-3,6-20
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+tasks/09-licensing/LIC-04-enterprise-managed-configuration.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8263ef8ebb554a 1-3,6-11,13-14,16-18
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 12
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 15
+tasks/06-profiles/PRF-05-engineering-brainstorm-profile.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_5dbfa27f6d06fe 1-2,6-17
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 3
+.agents/skills/vv-flutter-architecture/SKILL.md
+  s_9f6fcf8c1840a0::t_7a0f0f5476ddf0 10
+  s_9f6fcf8c1840a0::t_160278be4fc9cf 17,20
+  s_9f6fcf8c1840a0::t_37316e6b789ebb 19
+  s_9f6fcf8c1840a0::t_393ef960d6d2f3 9,11,18
+  s_9f6fcf8c1840a0::t_732a299afc2b89 1-2,4-8,12-16,21,29-43,54-88,99-102
+  s_9f6fcf8c1840a0::t_0342bfaaa59048 22-28,44-53,89-98
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+.agents/skills/vv-pipeline-orchestrator/SKILL.md
+  s_9f6fcf8c1840a0::t_22c6c71bfb660d 1-2,4-9,11,13,15,19-41,44-45,52-71
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_07789d9c2a5747 10,12
+  s_9f6fcf8c1840a0::t_aff193149f9918 14,16-18,42-43,46-51
+.agents/skills/vv-model-delivery/SKILL.md
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_160278be4fc9cf 40,58-59
+  s_9f6fcf8c1840a0::t_7f2520a5a18951 1-2,4-39,41-57,60-78
+.agents/skills/vv-task-workflow/SKILL.md
+  s_9f6fcf8c1840a0::t_e3320e48ccf470 1-2,4-13,16-17,20-23,26-30,32,35-64,80-81,84-88,93-94,103-111
+  s_9f6fcf8c1840a0::t_3a1ccceeaccf9f 92
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_07789d9c2a5747 24-25
+  s_9f6fcf8c1840a0::t_f757e1d9fd487d 14-15,18-19,31,33-34,65-79,82-83,89-91,95-102
+.agents/skills/vv-task-workflow/scripts/tasks.py
+  s_9f6fcf8c1840a0::t_9c480f3589d86d 6,173-174,484
+  s_9f6fcf8c1840a0::t_73af2afa6cc4e1 1-5,7,11-12,14-18,20-25,35-59,79-81,86-92,96-99,101-102,104-124,132-140,142-146,148-161,163,165,170-172,175-177,184-201,203-207,216-219,222-224,425-429,431-432,435-483,485,487-491,497-498,501-510,514-520
+  s_9f6fcf8c1840a0::t_63b3983987d676 380-383
+  s_9f6fcf8c1840a0::t_06c512e90660e3 13,60-78,82-85,93-95,100,103,125-131,141,147,162,164,166-169,178-179,220-221,430,433-434,486,499-500
+  s_9f6fcf8c1840a0::t_88a365b975ad98 8-10,19,26-34,180-183,202,208-215,225-235,240-287,289,291-296,299-353,355-379,384-424,492-496,511-513
+  s_9f6fcf8c1840a0::t_d16b30e0bdddcf 236-239,288,290,297-298,354
+tasks/11-quality/QA-03-performance-battery-thermal.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+  s_9f6fcf8c1840a0::t_578d869a029261 1-3,6-18
+tasks/01-foundation/FND-02-app-architecture-riverpod.md
+  s_9f6fcf8c1840a0::t_3a1ccceeaccf9f 22
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 16
+  s_9f6fcf8c1840a0::t_f41c6013f1542d 1-3,6-15,17-21
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+tasks/02-audio/AUD-07-recording-crash-recovery.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+  s_9f6fcf8c1840a0::t_96c26b468ce1e2 1-3,6-16
+.agents/skills/vv-llm-inference/SKILL.md
+  s_9f6fcf8c1840a0::t_b111c25937ccb5 1-2,4-13,15,20-26,31,34-37,40-46,51-60,64-71,74-95,101-104,108,114-118,120-128
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_0536ff9ebf3c62 27-30,32-33,38-39,61-63,105-107
+  s_9f6fcf8c1840a0::t_a06a10967f968d 47-50
+  s_9f6fcf8c1840a0::t_aff193149f9918 16-19,96-100,109-113
+  s_9f6fcf8c1840a0::t_93a191cf2fb327 72-73
+  s_9f6fcf8c1840a0::t_3a1ccceeaccf9f 14,119
+CLAUDE.md
+  s_9f6fcf8c1840a0::t_b47a169e7d8d17 1
+tasks/07-export/EXP-02-filename-templates.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+  s_9f6fcf8c1840a0::t_deabf129d985f9 1-3,6-17
+.agents/skills/vv-task-verify/SKILL.md
+  s_9f6fcf8c1840a0::t_be7611364fbba7 1-63
+tasks/13-milestones/GATE-01-phase1-foundation-recording.md
+  s_9f6fcf8c1840a0::t_f68c6e001c04fd 1-20
+tasks/03-stt/STT-06-transcript-viewer-editor.md
+  s_9f6fcf8c1840a0::t_c662be6f508a24 1-3,6-17,19-20
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 18
+tasks/07-export/EXP-03-android-saf-folder-access.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 12
+  s_9f6fcf8c1840a0::t_34e87e2b4e9511 1-3,6-11,13-19
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+tasks/02-audio/AUD-05-android-background-recording.md
+  s_9f6fcf8c1840a0::t_df5f3f1a9d6165 1-2,6-12,15-20,22
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 3,13-14,21
+tasks/01-foundation/FND-06-native-build-infrastructure.md
+  s_9f6fcf8c1840a0::t_ebe76eef16e978 17
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_3d653c7bac60dc 1-3,6-16,18-22
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+tasks/09-licensing/LIC-01-entitlements-feature-gating.md
+  s_9f6fcf8c1840a0::t_0d829ea5cec098 1-3,6-17,19-22
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 18
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+tasks/11-quality/QA-05-device-matrix-lab.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 17
+  s_9f6fcf8c1840a0::t_927e9a22a9fbcd 1-3,6-16,18
+tasks/12-release/REL-01-release-build-pipeline.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_ac2f3e6b1ce894 1-3,6-18
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+tasks/13-milestones/GATE-03-phase3-notes-in-vault.md
+  s_9f6fcf8c1840a0::t_f68c6e001c04fd 1-20
+tasks/08-app-ux/APP-04-processing-status-notifications.md
+  s_9f6fcf8c1840a0::t_f2d09a6fb96b41 1-3,6-17
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+tasks/12-release/REL-02-private-crash-reporting.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_b6768693f813e6 1-3,6-11,13-17
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 12
+tasks/11-quality/QA-04-stress-edge-case-testing.md
+  s_9f6fcf8c1840a0::t_089d8ab55c23a3 1-2,6-12,15-20
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 3,13-14
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+prompts/05-models.md
+  s_9f6fcf8c1840a0::t_48ad8498c32dd8 1-60
+.agents/skills/vv-local-database/SKILL.md
+  s_9f6fcf8c1840a0::t_4842290a287056 1-2,4-7,9-12,18-21,23-24,26,28-34,36-41,47,50-55,60-77,80-89
+  s_9f6fcf8c1840a0::t_160278be4fc9cf 13-17,48-49,56,58-59,78-79
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_05a3cd821c1298 22,25,27,35,42-46,57
+  s_9f6fcf8c1840a0::t_3a1ccceeaccf9f 8
+tasks/README.md
+  s_9f6fcf8c1840a0::t_50f7745673b5e4 1-5,11-13,28-86,89-137,139-157,166-176,178-181,183-192,200-201
+  s_9f6fcf8c1840a0::t_3282c33910cdc8 6-10
+  s_9f6fcf8c1840a0::t_78d5eb22d30817 87-88
+  s_9f6fcf8c1840a0::t_a06a10967f968d 193-199
+  s_9f6fcf8c1840a0::t_4bc5ca255dff4b 14-27,158-165,202
+  s_9f6fcf8c1840a0::t_15a630063e4ddf 177
+  s_9f6fcf8c1840a0::t_ed80703b19829d 182
+  s_9f6fcf8c1840a0::t_79466dd64f2d1a 138
+tasks/01-foundation/FND-01-flutter-repo-init.md
+  s_9f6fcf8c1840a0::t_57e23f0a60e0fc 1-3,6-20,22
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 21
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+tasks/06-profiles/PRF-07-custom-profile-editor.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 15
+  s_9f6fcf8c1840a0::t_6ae9c42a6e09c0 1-3,6-14,16-20
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+.agents/skills/vv-testing/SKILL.md
+  s_9f6fcf8c1840a0::t_79466dd64f2d1a 69-71
+  s_9f6fcf8c1840a0::t_39237b6bb756a6 1-2,4-12,14-18,34-36,38-46,52-58,62-68,72-78
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_0342bfaaa59048 13,37,59-61
+  s_9f6fcf8c1840a0::t_a06a10967f968d 47-51
+  s_9f6fcf8c1840a0::t_ebe76eef16e978 19-33
+.agents/skills/vv-markdown-vault-export/SKILL.md
+  s_9f6fcf8c1840a0::t_160278be4fc9cf 24-25,35-37,89,109-110
+  s_9f6fcf8c1840a0::t_a06a10967f968d 63
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_05a3cd821c1298 27-31,38-42,69-70,93-100
+  s_9f6fcf8c1840a0::t_fb3b4699df47ef 23,32-34
+  s_9f6fcf8c1840a0::t_7b7db4f13591b8 1-2,4-22,26,43-62,64-68,71-88,90-92,101-108,111-112
+.agents/skills/vv-whisper-stt/SKILL.md
+  s_9f6fcf8c1840a0::t_79466dd64f2d1a 85-86
+  s_9f6fcf8c1840a0::t_557ef771e39cdb 1-2,4-28,30-31,33-37,46-47,50-61,63-64,66-74,80-84,87-89,92-100
+  s_9f6fcf8c1840a0::t_0536ff9ebf3c62 29,32,38-40
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_aff193149f9918 41-45,48-49,62,65,75-79,90-91
+tasks/06-profiles/PRF-08-profile-import-export.md
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_70e598404b8494 1-2,6-10,13-19
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 3,11-12
+tasks/09-licensing/LIC-03-enterprise-offline-license.md
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_00483153674723 1-3,6-18
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+.agents/skills/vv-licensing-iap/SKILL.md
+  s_9f6fcf8c1840a0::t_79466dd64f2d1a 78-79
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_9745ec8fb47758 1-2,4-18,22-38,44-48,54-71,74-77,80
+  s_9f6fcf8c1840a0::t_160278be4fc9cf 39-43,72-73
+  s_9f6fcf8c1840a0::t_aff193149f9918 19-21,49-53
+tasks/01-foundation/FND-08-background-processing-guardrails.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_8c548477da6214 1-3,6-13,15-21
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 14
+tasks/10-security-privacy/SEC-06-store-privacy-compliance.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 16
+  s_9f6fcf8c1840a0::t_69084597ebe9f9 1-3,6-15,17-20
+prompts/08-app-ux.md
+  s_9f6fcf8c1840a0::t_48ad8498c32dd8 1-62
+.agents/skills/vv-markdown-vault-export/references/ios-bookmarks.md
+  s_9f6fcf8c1840a0::t_02c2bed92c7c4e 44
+  s_9f6fcf8c1840a0::t_11601f46e7f56d 1-13,15-24,26-33,39,41-43,45,49-62
+  s_9f6fcf8c1840a0::t_c0811f9f404b6b 14,25,40
+  s_9f6fcf8c1840a0::t_160278be4fc9cf 34-38,46-48
+tasks/10-security-privacy/SEC-02-network-egress-guarantee.md
+  s_9f6fcf8c1840a0::t_478d061f0697eb 1-3,6-11,13-20
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 12
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+.agents/skills/vv-decision-records/SKILL.md
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_3a1ccceeaccf9f 25-29,37
+  s_9f6fcf8c1840a0::t_2ba51a7c21f82d 1-2,4-24,30-36,38
+tasks/01-foundation/FND-03-ci-pipeline.md
+  s_9f6fcf8c1840a0::t_ebe76eef16e978 3,7-9,16,19-20
+  s_9f6fcf8c1840a0::t_c64dd13ca5e843 15,18,26
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_fbc60c0aa1d76d 1-2,6,10-14,17,21-25,27
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+tasks/02-audio/AUD-02-auto-gain-level-metering.md
+  s_9f6fcf8c1840a0::t_8e6f3b4dc19760 1-2,6-17,20
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_ea139b8e9b8b42 3,18-19
+.agents/skills/vv-privacy-security/SKILL.md
+  s_9f6fcf8c1840a0::t_a06a10967f968d 92-93
+  s_9f6fcf8c1840a0::t_ac3e19ac6ab354 1-2,4-13,17-45,47-55,59-62,65-91,94-96,114-118,121-129
+  s_9f6fcf8c1840a0::t_79466dd64f2d1a 97-113,119-120,130
+  s_9f6fcf8c1840a0::t_160278be4fc9cf 46,56-58,63-64
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_aff193149f9918 14-16
+tasks/03-stt/STT-02-whisper-android-build.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_07e3d52a1849d0 1-3,6-19
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+tasks/05-models/MDL-03-model-management-ui.md
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_f454a682837a59 1-3,6-17
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+tasks/12-release/REL-03-app-size-optimization.md
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_fc2cd59ead69c3 1-3,6-17
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+prompts/12-release.md
+  s_9f6fcf8c1840a0::t_48ad8498c32dd8 1-61
+tasks/02-audio/AUD-01-recording-service.md
+  s_9f6fcf8c1840a0::t_e89e37f8316ca1 1-2,6-12,14-15,18-22,24-25
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 16-17,26-28
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 3,23
+  s_9f6fcf8c1840a0::t_abcf447ce51b6b 13
+tasks/04-llm/LLM-02-llama-ios-build-metal.md
+  s_9f6fcf8c1840a0::t_76b1f7ac60c3c8 1-3,6-18
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+tasks/05-models/MDL-01-model-catalog-hosting.md
+  s_9f6fcf8c1840a0::t_45e45f54fdaf24 3,20-24
+  s_9f6fcf8c1840a0::t_32a3d70c760852 1-2,6-19
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+tasks/04-llm/LLM-03-llama-android-build.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_51560fd925173a 1-3,6-18
+tasks/04-llm/LLM-06-long-transcript-map-reduce.md
+  s_9f6fcf8c1840a0::t_0d562d8b05cb09 1-3,6-19
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+tasks/10-security-privacy/SEC-04-data-retention-secure-deletion.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_fcda98756fc0ec 1-3,6-17
+.agents/skills/vv-ffi-bridge/SKILL.md
+  s_9f6fcf8c1840a0::t_0536ff9ebf3c62 34-35
+  s_9f6fcf8c1840a0::t_ea278b1ff5db47 1-2,4-16,18-33,36-80,99-105
+  s_9f6fcf8c1840a0::t_e2bf486c72f1de 3
+  s_9f6fcf8c1840a0::t_aff193149f9918 81-98
+  s_9f6fcf8c1840a0::t_57b3f6c697deb1 17
+.agents/skills/vv-task-verify/assets/device-checklist.md
+  s_9f6fcf8c1840a0::t_7c362068b233c3 1-13
+tasks/13-milestones/GATE-02-phase2-on-device-ai.md
+  s_9f6fcf8c1840a0::t_f68c6e001c04fd 1-20
+tasks/10-security-privacy/SEC-08-threat-model-security-review.md
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 11
+  s_9f6fcf8c1840a0::t_0c9092a7a2b1c8 1-3,6-10,12-17
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+prompts/02-audio.md
+  s_9f6fcf8c1840a0::t_48ad8498c32dd8 1-17,19-65
+  s_9f6fcf8c1840a0::t_ad5fa75062718f 18
+prompts/13-milestones.md
+  s_9f6fcf8c1840a0::t_48ad8498c32dd8 1-60
+.agents/skills/vv-extraction-profiles/references/profile-spec.md
+  s_9f6fcf8c1840a0::t_05ea3e06b119e8 26
+  s_9f6fcf8c1840a0::t_05a3cd821c1298 29,31-36,42-50
+  s_9f6fcf8c1840a0::t_a4d9734963f74f 1-25,27-28,30,37-41
+tasks/12-release/REL-04-beta-program.md
+  s_9f6fcf8c1840a0::t_1190e2f3f8f4c5 1-3,6-17
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+prompts/03-stt.md
+  s_9f6fcf8c1840a0::t_48ad8498c32dd8 1-64
+tasks/11-quality/QA-02-stt-benchmark-corpus.md
+  s_9f6fcf8c1840a0::t_ba5695e90e893c 1-3,6-14,16-17
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 18
+  s_9f6fcf8c1840a0::t_680fda0428c510 4-5
+  s_9f6fcf8c1840a0::t_ea139b8e9b8b42 15
+tasks/08-app-ux/APP-01-onboarding-permissions.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 14
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 15
+  s_9f6fcf8c1840a0::t_480dd251d79366 1-3,6-13,16-21
+.agents/skills/vv-task-verify/assets/verification-report.md
+  s_9f6fcf8c1840a0::t_17aaab40d3cb1e 1-10
+prompts/README.md
+  s_9f6fcf8c1840a0::t_3f8986c5df1633 1-48
+.agents/skills/vv-extraction-profiles/references/meeting-profile.example.yaml
+  s_9f6fcf8c1840a0::t_79466dd64f2d1a 5
+  s_9f6fcf8c1840a0::t_93a191cf2fb327 78
+  s_9f6fcf8c1840a0::t_05ea3e06b119e8 20,48,68-70,77,81
+  s_9f6fcf8c1840a0::t_e23d9d5976f59e 1-4,6-19,21-47,49-67,71-76,79-80,82-84
+  s_9f6fcf8c1840a0::t_05a3cd821c1298 85
+tasks/06-profiles/PRF-06-auto-profile-context-routing.md
+  s_9f6fcf8c1840a0::t_b8245044f3ad31 1-2,6-18
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 3
+AGENTS.md
+  s_9f6fcf8c1840a0::t_ed80703b19829d 35
+  s_9f6fcf8c1840a0::t_07789d9c2a5747 51-60,105-107,113,115-122
+  s_9f6fcf8c1840a0::t_0342bfaaa59048 74-77,79,81-84,91,101-102
+  s_9f6fcf8c1840a0::t_3a1ccceeaccf9f 80,100
+  s_9f6fcf8c1840a0::t_4bc5ca255dff4b 12,22-25,30-31
+  s_9f6fcf8c1840a0::t_a852caa6048c1b 27-29,32-34,36-50,61
+  s_9f6fcf8c1840a0::t_2fd45d477cbdf1 1-11,13-21,26,62-67,70-72,78,85-90,92,99,103-104,108-112,114,123-128
+  s_9f6fcf8c1840a0::t_303e125a25f86a 68-69,73
+  s_9f6fcf8c1840a0::t_79466dd64f2d1a 93-98
+prompts/00-verifier.md
+  s_9f6fcf8c1840a0::t_ac1f32df7ee735 1-36
+tasks/01-foundation/FND-04-local-database.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_3a1ccceeaccf9f 11,20
+  s_9f6fcf8c1840a0::t_f3df211eda69fb 1-3,6-10,12-19
+tasks/02-audio/AUD-08-recording-ui.md
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+  s_9f6fcf8c1840a0::t_4f75d41b5b3976 21
+  s_9f6fcf8c1840a0::t_5a602aaee4527c 3,15-17,20
+  s_9f6fcf8c1840a0::t_77ea2008b951f9 1-2,6-14,18-19,22
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+prompts/06-profiles.md
+  s_9f6fcf8c1840a0::t_48ad8498c32dd8 1-16,19-66
+  s_9f6fcf8c1840a0::t_ad5fa75062718f 17-18
+tasks/08-app-ux/APP-05-result-review-before-export.md
+  s_9f6fcf8c1840a0::t_8a52858df31992 5
+  s_9f6fcf8c1840a0::t_f73f5b16088483 1-3,6-17
+  s_9f6fcf8c1840a0::t_680fda0428c510 4
+.claude/skills
+  s_9f6fcf8c1840a0::t_23b5593bd706b8 1
+complete_master_plan_local_first_ai_voice_intelligence_app.md
+  s_9f6fcf8c1840a0::t_2bfb75d42f3f5b 1-146
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8b6bf6edf7b13550cbeb88dea38480e38d1a756a",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajesred@cisco.com>"
+    }
+  }
+}
