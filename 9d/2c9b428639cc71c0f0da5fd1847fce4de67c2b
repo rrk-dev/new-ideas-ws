@@ -1,0 +1,19 @@
+AGENTS.md
+  s_9f6fcf8c1840a0::t_a7b9b32fd4076a 27-30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9d2c9b428639cc71c0f0da5fd1847fce4de67c2b",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajesred@cisco.com>"
+    }
+  }
+}
