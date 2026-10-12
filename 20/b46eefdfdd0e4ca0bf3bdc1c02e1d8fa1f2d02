@@ -1,0 +1,120 @@
+app/lib/core/platform/stt_engine.dart
+  s_d1e6b7fad9bc97::t_19cd407bb02f97 1-33
+app/lib/app.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 2,4-6,8-10,13-14,16-19
+app/lib/features/library/presentation/library_screen.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-11
+app/lib/features/recording/presentation/recording_screen.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-11
+app/test/fakes/fake_clock.dart
+  s_d1e6b7fad9bc97::t_5763f206472018 2-13
+  s_d1e6b7fad9bc97::t_73175af1414d5f 1
+docs/adr/ADR-FND-02-app-architecture.md
+  s_d1e6b7fad9bc97::t_1d1d4563fb96fe 1-51
+app/lib/core/platform/cancel_token.dart
+  s_d1e6b7fad9bc97::t_19cd407bb02f97 1-14
+app/lib/core/errors/error_boundary.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-22
+app/lib/core/flavor_provider.g.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-54
+app/lib/core/platform/providers.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-43
+app/lib/core/routing/app_router.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-9
+lefthook.yml
+  s_d1e6b7fad9bc97::t_1d1d4563fb96fe 10
+app/lib/core/errors/failure.dart
+  s_d1e6b7fad9bc97::t_19cd407bb02f97 1-11,13-71
+  s_d1e6b7fad9bc97::t_541157ed583c3e 12
+tasks/01-foundation/FND-02-app-architecture-riverpod.md
+  s_d1e6b7fad9bc97::t_1d1d4563fb96fe 4,11-17,23-37
+app/lib/core/platform/providers.g.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-301
+app/test/widget/app_shell_test.dart
+  s_d1e6b7fad9bc97::t_5c19f0b7d69fc2 7-10,34,41-47,55
+  s_d1e6b7fad9bc97::t_5763f206472018 1-6,11-33,35-40,48-54,56-58
+app/lib/core/theme/app_theme.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-25
+app/pubspec.yaml
+  s_d1e6b7fad9bc97::t_9264107c4a4c64 13-16,19,24-27
+app/lib/core/platform/clock.dart
+  s_d1e6b7fad9bc97::t_19cd407bb02f97 1-12
+app/lib/bootstrap.dart
+  s_d1e6b7fad9bc97::t_64540dc52503de 3
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 2,5,7,9-13,15-21
+app/lib/core/platform/vault_writer.dart
+  s_d1e6b7fad9bc97::t_19cd407bb02f97 1-22
+app/test/fakes/fake_vault_writer.dart
+  s_d1e6b7fad9bc97::t_64540dc52503de 2-3
+  s_d1e6b7fad9bc97::t_5763f206472018 4-21
+  s_d1e6b7fad9bc97::t_6b9586671db6a8 1
+app/test/helpers/test_container.dart
+  s_d1e6b7fad9bc97::t_5763f206472018 1,3-33
+  s_d1e6b7fad9bc97::t_64540dc52503de 2
+app/test/unit/core_test.dart
+  s_d1e6b7fad9bc97::t_5763f206472018 1-95
+app/lib/core/theme/app_tokens.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-23
+app/test/unit/engines_test.dart
+  s_d1e6b7fad9bc97::t_5763f206472018 1-147
+app/lib/core/platform/llm_engine.dart
+  s_d1e6b7fad9bc97::t_19cd407bb02f97 1-22
+CONTRIBUTING.md
+  s_d1e6b7fad9bc97::t_1d1d4563fb96fe 20
+app/lib/core/routing/app_routes.g.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-136
+app/lib/features/settings/presentation/settings_screen.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-11
+app/lib/core/platform/audio_recorder.dart
+  s_d1e6b7fad9bc97::t_19cd407bb02f97 1-24
+app/lib/features/profiles/presentation/profiles_screen.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-11
+app/test/fakes/fake_audio_recorder.dart
+  s_d1e6b7fad9bc97::t_64540dc52503de 2-3
+  s_d1e6b7fad9bc97::t_6b9586671db6a8 1
+  s_d1e6b7fad9bc97::t_5763f206472018 4-41
+app/lib/core/network/network_gateway.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 37-43
+  s_d1e6b7fad9bc97::t_19cd407bb02f97 1-36,44-50
+app/analysis_options.yaml
+  s_d1e6b7fad9bc97::t_64540dc52503de 28-29
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 3-5
+app/test/fakes/fake_llm_engine.dart
+  s_d1e6b7fad9bc97::t_64540dc52503de 2-3
+  s_d1e6b7fad9bc97::t_6b9586671db6a8 1
+  s_d1e6b7fad9bc97::t_5763f206472018 4-40
+app/test/fakes/fake_stt_engine.dart
+  s_d1e6b7fad9bc97::t_5763f206472018 4-46
+  s_d1e6b7fad9bc97::t_6b9586671db6a8 1
+  s_d1e6b7fad9bc97::t_64540dc52503de 2-3
+app/lib/core/routing/app_routes.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-84
+app/lib/core/flavor_provider.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-8
+app/lib/core/routing/app_router.g.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-51
+app/lib/core/routing/app_shell.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-32
+app/lib/core/widgets/placeholder_screen.dart
+  s_d1e6b7fad9bc97::t_cbbc49a520cbbd 1-34
+app/lib/core/errors/result.dart
+  s_d1e6b7fad9bc97::t_19cd407bb02f97 1-52
+app/pubspec.lock
+  s_d1e6b7fad9bc97::t_49e71e8ff61dd4 4-43,84-131,164-171,180-195,212-227,244-259,273-277,286-293,304-343,352-375,384-399,432-447,464-471,480-511,528-535,544-615,621-636,653-660,669-676,717-724,749-780,797-804,807
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "20b46eefdfdd0e4ca0bf3bdc1c02e1d8fa1f2d02",
+  "prompts": {},
+  "sessions": {
+    "s_d1e6b7fad9bc97": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "69332eed-471c-442d-aed1-2ab2ee673582",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajesred@cisco.com>"
+    }
+  }
+}
