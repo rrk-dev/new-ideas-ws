@@ -15,3 +15,6 @@ Validate on real users' devices and vaults before public launch.
 
 ## Acceptance Criteria
 - ≥ 50 beta users across platforms; exit criteria met before production release.
+
+## Follow-ups
+- QA-05: sign the beta-review block in `docs/parity.md` before the external TestFlight / Play track opens. Confirm Ogg/Opus (unsupported on iOS) and the call guard on one in-lab phone per platform.

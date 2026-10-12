@@ -25,3 +25,6 @@ Every change is formatted, analyzed, tested and built for both platforms, includ
 - Failing lint/test blocks merge.
 - A PR that sets a task to `done` without a passing `tasks.py verify` (e.g. missing tagged test or verification report) fails CI (demonstrated on a test branch).
 - Build artifacts downloadable from CI for QA.
+
+## Follow-ups
+- QA-05: do not add a Firebase Test Lab, Developer Device Platform, or BrowserStack job. Cloud farms are out of the lab plan (`docs/adr/ADR-QA-05-device-lab.md`, Proposed). On-device runs stay on the physical matrix.

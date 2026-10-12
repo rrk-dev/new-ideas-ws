@@ -20,3 +20,6 @@ Reproducible builds of `whisper.cpp` and `llama.cpp` (shared `ggml`) for both pl
 - Clean checkout → single command builds both platform libraries.
 - A Dart test calls a trivial bridge function (`vv_version()`) on device for both platforms.
 - Binary size of native libs recorded (input to REL-03).
+
+## Follow-ups
+- QA-05: `docs/device-matrix.md` has a Dotprod column. iPhone 11 (A13) is ARMv8.4-A, so FEAT_DotProd is expected; the 4 GB Android row is unverified until `asimddp` is read from the unit. Keep the Android baseline at `armv8-a` until every In-lab row records dotprod = yes.
