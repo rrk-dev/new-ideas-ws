@@ -1,0 +1,60 @@
+prompts/03-stt.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 33-41,43,48,50-51,53,55,57,59,61-63,70-71
+prompts/04-llm.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 34-42,44,49,51-52,54,56,58,60,62-64,71-72
+prompts/09-licensing.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 29-37,39,44,46-47,49,51,53,55,57-59,66-67
+prompts/06-profiles.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 35-43,45,50,52-53,55,57,59,61,63-65,72-73
+AGENTS.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 16-31
+  s_9f6fcf8c1840a0::t_dc1f3382e9109a 92
+tools/setup/doctor.sh
+  s_9f6fcf8c1840a0::t_1caa25d2fa0e83 11-14
+  s_9f6fcf8c1840a0::t_1aa5954ef490a3 1-10,15-74
+.agents/skills/vv-task-workflow/scripts/tasks.py
+  s_9f6fcf8c1840a0::t_2c36e0ae4c6846 161-177,195-198
+  s_9f6fcf8c1840a0::t_8ed1da463353c3 199
+prompts/11-quality.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 31-39,41,46,48-49,51,53,55,57,59-61,68-69
+prompts/07-export.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 33-41,43,48,50-51,53,55,57,59,61-63,70-71
+prompts/02-audio.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 34-42,44,49,51-52,54,56,58,60,62-64,71-72
+prompts/README.md
+  s_9f6fcf8c1840a0::t_dc1f3382e9109a 23-28
+prompts/10-security-privacy.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 35-43,45,50,52-53,55,57,59,61,63-65,72-73
+tasks/01-foundation/FND-01-flutter-repo-init.md
+  s_9f6fcf8c1840a0::t_1caa25d2fa0e83 11,22
+.agents/skills/vv-task-workflow/SKILL.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 35-38
+prompts/01-foundation.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 34-42,44,49,51-52,54,56,58,60,62-64,71-72
+prompts/00-verifier.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 17-18
+prompts/12-release.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 30-38,40,45,47-48,50,52,54,56,58-60,67-68
+prompts/13-milestones.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 29-37,39,44,46-47,49,51,53,55,57-59,66-67
+prompts/05-models.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 29-37,39,44,46-47,49,51,53,55,57-59,66-67
+prompts/08-app-ux.md
+  s_9f6fcf8c1840a0::t_2bc4909a2efea1 31-39,41,46,48-49,51,53,55,57,59-61,68-69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a1d7c11f7dbd2caedcfda2280cac26505abc2120",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajesred@cisco.com>"
+    }
+  }
+}
