@@ -8,15 +8,15 @@ GitHub Actions (`.github/workflows/ci.yml`) is a thin wrapper: every job calls a
 | `static` | `setup.sh`, `format.sh`, `analyze.sh`, `check_codegen.sh`, `check_egress.sh`, `run_slot.sh check_recording_policy.sh SEC-09`, `tasks.py validate` | `analyze.sh` runs `flutter analyze` **and** `dart analyze` (riverpod_lint only reports in the latter, ADR-FND-02) |
 | `test` | `test.sh` | unit + widget tests, lcov uploaded; gate ≥ 80% lines over `lib/core/**` and `lib/**/domain/**` (`check_coverage.py`) |
 | `task-gate` | `pytest tools/ci/tests`, `tasks.py verify --all-done --run` | independent-verification gate: every `done` task keeps tagged tests, report, PASS rows |
-| `android` | `build_android.sh` | debug dev-flavor APK, uploaded as `android-dev-debug-apk`. FND-06 adds `libvv_native.so` and the 16 KB-page check |
-| `ios` | `build_ios.sh` | unsigned dev-flavor build, uploaded as `ios-dev-unsigned-app`. FND-06 adds `vv_native.xcframework` |
-| `native-host` | `run_slot.sh native_host.sh FND-06` | **slot**: warns "did NOT run" until FND-06 delivers `tools/ci/native_host.sh` |
+| `android` | `build_android.sh` | debug dev-flavor APK (Gradle builds `libvv_native.so` with the pinned NDK; `check_apk_native.sh` asserts it is in the APK), uploaded as `android-dev-debug-apk` |
+| `ios` | `build_ios.sh` | `native/build.sh ios` first (xcframework), then the unsigned dev-flavor build, uploaded as `ios-dev-unsigned-app` |
+| `native-host` | `native_host.sh` | `native/build.sh host` (ctest: smoke + exports) and the Dart FFI test against the built library, ccache keyed on the submodule pins |
 
-Slots (`run_slot.sh`) run `tools/ci/<script>` if present, otherwise emit a visible warning and pass.
+Slot (`run_slot.sh`, currently only `check_recording_policy.sh`) run `tools/ci/<script>` if present, otherwise emit a visible warning and pass.
 Delivering the script is what activates the check — no workflow change needed.
 
 Pinned: Flutter via `.fvmrc` (FVM 4.3.1 in `setup.sh`), Temurin JDK 17, action versions by tag.
-Still to pin when FND-06 lands: NDK, CMake. Xcode is the macOS runner default.
+NDK `28.2.13676358` and CMake `3.22.1` are pinned in the Gradle files (`native/VERSIONS.md`). Xcode is the macOS runner default.
 
 Caches: `~/fvm`, `~/.pub-cache`, Gradle, CocoaPods/Pods, ccache (keys use `.fvmrc`, `pubspec.lock`,
 Gradle files, `.gitmodules`).

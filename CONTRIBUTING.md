@@ -56,6 +56,18 @@ fvm dart run flutter_launcher_icons -f flutter_launcher_icons-prod.yaml
   `android/app/build.gradle.kts` (`minSdk = 26`, `abiFilters += arm64-v8a`).
 - An arm64 Android *emulator* image is required (x86_64 images will not install the app).
 
+## Native code (whisper.cpp / llama.cpp)
+Submodules live in `native/` (pins and upgrade procedure: `native/VERSIONS.md`).
+```bash
+git submodule update --init --recursive
+native/build.sh host      # macOS/Linux + ctest   (needs: brew install cmake ninja)
+native/build.sh android   # libvv_native.so       (needs Android NDK r28+, ANDROID_NDK_HOME)
+native/build.sh ios       # vv_native.xcframework (needs full Xcode)
+```
+Dart reaches native code only through `native/bridge/vv_bridge.h` and `packages/vv_native`
+(regenerate bindings: `cd packages/vv_native && fvm dart run ffigen --config ffigen.yaml`).
+Decisions: `docs/adr/ADR-FND-06-native-build.md`.
+
 ## Code standards
 - Lints: `very_good_analysis` plus `avoid_print` and `avoid_dynamic_calls` as errors, strict
   casts/inference/raw types. No `print` (use the logger from FND-07), no `dynamic` in public APIs.

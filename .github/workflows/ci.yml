@@ -100,6 +100,9 @@ jobs:
       - uses: actions/checkout@v7.0.1
         with:
           submodules: recursive
+      - id: pins
+        run: echo "pins=$(git ls-tree HEAD native/whisper.cpp native/llama.cpp | awk '{print $3}' | tr '\n' '-')" >> "$GITHUB_OUTPUT"
+      - run: sudo apt-get update && sudo apt-get install -y cmake ninja-build ccache
       - uses: actions/setup-java@v6.0.1
         with:
           distribution: temurin
@@ -112,8 +115,8 @@ jobs:
             ~/.pub-cache
             ~/.gradle/caches
             ~/.gradle/wrapper
-            ~/.ccache
-          key: android-${{ runner.os }}-${{ hashFiles('.fvmrc', 'app/pubspec.lock', 'app/android/**/*.gradle*', 'app/android/gradle/wrapper/gradle-wrapper.properties', '.gitmodules') }}
+            ~/.cache/ccache
+          key: android-${{ runner.os }}-${{ steps.pins.outputs.pins }}-${{ hashFiles('.fvmrc', 'app/pubspec.lock', 'app/android/**/*.gradle*', 'packages/vv_native/android/build.gradle', 'native/CMakeLists.txt', 'native/bridge/**') }}
           restore-keys: android-${{ runner.os }}-
       - run: bash tools/ci/setup.sh
       - run: bash tools/ci/build_android.sh
@@ -131,6 +134,9 @@ jobs:
       - uses: actions/checkout@v7.0.1
         with:
           submodules: recursive
+      - id: pins
+        run: echo "pins=$(git ls-tree HEAD native/whisper.cpp native/llama.cpp | awk '{print $3}' | tr '\n' '-')" >> "$GITHUB_OUTPUT"
+      - run: brew install cmake ccache
       - uses: dart-lang/setup-dart@v1.8.1
       - uses: actions/cache@v6.1.0
         with:
@@ -139,8 +145,8 @@ jobs:
             ~/.pub-cache
             ~/Library/Caches/CocoaPods
             app/ios/Pods
-            ~/.ccache
-          key: ios-${{ runner.os }}-${{ hashFiles('.fvmrc', 'app/pubspec.lock', 'app/ios/Podfile.lock', '.gitmodules') }}
+            ~/Library/Caches/ccache
+          key: ios-${{ runner.os }}-${{ steps.pins.outputs.pins }}-${{ hashFiles('.fvmrc', 'app/pubspec.lock', 'app/ios/Podfile.lock', 'native/CMakeLists.txt', 'native/bridge/**') }}
           restore-keys: ios-${{ runner.os }}-
       - run: bash tools/ci/setup.sh
       - run: bash tools/ci/build_ios.sh
@@ -158,10 +164,22 @@ jobs:
       - uses: actions/checkout@v7.0.1
         with:
           submodules: recursive
+      - id: pins
+        run: echo "pins=$(git ls-tree HEAD native/whisper.cpp native/llama.cpp | awk '{print $3}' | tr '\n' '-')" >> "$GITHUB_OUTPUT"
+      - run: sudo apt-get update && sudo apt-get install -y cmake ninja-build ccache
       - uses: actions/cache@v6.1.0
         with:
-          path: ~/.ccache
-          key: ccache-${{ runner.os }}-${{ hashFiles('.gitmodules', 'native/CMakeLists.txt') }}
-          restore-keys: ccache-${{ runner.os }}-
+          path: ~/.cache/ccache
+          key: ccache-host-${{ runner.os }}-${{ steps.pins.outputs.pins }}-${{ hashFiles('native/CMakeLists.txt', 'native/bridge/**') }}
+          restore-keys: ccache-host-${{ runner.os }}-${{ steps.pins.outputs.pins }}-
       - uses: dart-lang/setup-dart@v1.8.1
-      - run: bash tools/ci/run_slot.sh native_host.sh FND-06
+      - uses: actions/cache@v6.1.0
+        with:
+          path: |
+            ~/fvm
+            ~/.pub-cache
+          key: flutter-${{ runner.os }}-${{ hashFiles('.fvmrc', 'app/pubspec.lock') }}
+          restore-keys: flutter-${{ runner.os }}-
+      - run: bash tools/ci/setup.sh
+      # native/build.sh host (ctest: smoke + exports) + Dart FFI test on the host library.
+      - run: bash tools/ci/native_host.sh

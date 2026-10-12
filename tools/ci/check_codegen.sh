@@ -9,3 +9,4 @@ if [ -n "$(git status --porcelain -- app)" ]; then
   git status --porcelain -- app >&2
   exit 1
 fi
+python3 "$ROOT/tools/ci/check_bindings.py"

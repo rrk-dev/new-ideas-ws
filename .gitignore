@@ -9,3 +9,5 @@ build/
 *.gguf
 ggml-*.bin
 tools/bench/corpus/private/
+# native build products
+packages/vv_native/ios/Frameworks/

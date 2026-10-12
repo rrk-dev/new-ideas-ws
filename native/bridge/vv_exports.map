@@ -1,0 +1,11 @@
+{
+  global:
+    vv_abi_version;
+    vv_version;
+    vv_whisper_version;
+    vv_ggml_version;
+    vv_whisper_system_info;
+    vv_llama_system_info;
+  local:
+    *;
+};

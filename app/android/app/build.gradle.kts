@@ -7,7 +7,8 @@ plugins {
 android {
     namespace = "com.vaultvoice.vaultvoice"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    // Pinned NDK r28+ (16 KB pages); keep in sync with packages/vv_native/android.
+    ndkVersion = "28.2.13676358"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
