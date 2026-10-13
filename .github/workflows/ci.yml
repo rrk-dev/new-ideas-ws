@@ -90,6 +90,9 @@ jobs:
       - run: bash tools/ci/setup.sh
       # Tests of the CI gates themselves.
       - run: python3 -m pytest tools/ci/tests -q
+      # Model catalog CLI (MDL-01); also needed by `verify --run` for its tags.
+      - run: python3 -m pip install cryptography==46.0.3
+      - run: python3 -m pytest tools/model-catalog/tests -q
       # Blocking: every `done` task keeps its tagged tests, report and PASS rows.
       - run: python3 .agents/skills/vv-task-workflow/scripts/tasks.py verify --all-done --run
 

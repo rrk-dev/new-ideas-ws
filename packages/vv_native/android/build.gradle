@@ -50,7 +50,8 @@ android {
     defaultConfig {
         minSdk = 26
         ndk {
-            abiFilters += listOf("arm64-v8a")
+            // Groovy DSL (not Kotlin): `listOf(...)` does not exist here.
+            abiFilters "arm64-v8a"
         }
         externalNativeBuild {
             cmake {
@@ -59,7 +60,7 @@ android {
                     "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON",
                     "-DGGML_NATIVE=OFF",
                     "-DGGML_OPENMP=OFF",
-                    "-DGGML_LLAMAFILE=OFF",
+                    "-DGGML_LLAMAFILE=OFF"
                 )
                 cFlags("-O3", "-ffunction-sections", "-fdata-sections")
                 cppFlags("-O3", "-ffunction-sections", "-fdata-sections")

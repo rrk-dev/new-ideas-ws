@@ -413,8 +413,9 @@ def run_tagged_tests(root: Path, to_run: list[tuple[str, Path]]) -> list[str]:
             if r.returncode != 0:
                 errs.append(f"{tag}: tests failed in {rel}")
         elif f.suffix == ".py":
-            cmd = [sys.executable, "-m", "pytest", str(rel), "-q", "-k", tag.strip("[]").replace("/", "_")]
-            print(f"  RUN  {' '.join(cmd)}  (pytest test names must contain {tag.strip('[]').replace('/', '_')})")
+            key = re.sub(r"[^A-Za-z0-9]", "_", tag.strip("[]"))  # [SEC-09/AC1] -> SEC_09_AC1
+            cmd = [sys.executable, "-m", "pytest", str(rel), "-q", "-k", key]
+            print(f"  RUN  {' '.join(cmd)}  (pytest test names must contain {key})")
             if subprocess.run(cmd, cwd=root).returncode != 0:
                 errs.append(f"{tag}: pytest failed in {rel}")
         else:
