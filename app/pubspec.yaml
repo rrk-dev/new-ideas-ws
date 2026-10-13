@@ -7,6 +7,7 @@ environment:
   sdk: ^3.13.5
 
 dependencies:
+  archive: ^4.5.1
   crypto: 3.0.7
   cryptography: 2.9.0
   cupertino_icons: ^1.0.8
@@ -19,6 +20,7 @@ dependencies:
   path: 1.9.1
   path_provider: 2.1.6
   riverpod_annotation: ^4.0.7
+  share_plus: ^13.3.1
   sqlite3: 3.7.0
   vv_native:
     path: ../packages/vv_native
