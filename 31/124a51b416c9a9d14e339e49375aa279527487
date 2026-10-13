@@ -1,0 +1,46 @@
+tools/model-catalog/tests/test_catalog.py
+  s_9f6fcf8c1840a0::t_6f79bd1e68aad5 180,185-187
+  s_9f6fcf8c1840a0::t_7b0c2426445b61 1-179,181-184
+tools/model-catalog/catalog.schema.json
+  s_9f6fcf8c1840a0::t_4a6e045e484b0d 1-61
+docs/adr/ADR-MDL-01-model-hosting.md
+  s_9f6fcf8c1840a0::t_354aad7ef8b18d 1-31,33-34,36-58,62-93
+  s_9f6fcf8c1840a0::t_be60090ae185f7 59-61
+  s_9f6fcf8c1840a0::t_4f7b9dc71dbab3 32
+  s_9f6fcf8c1840a0::t_0ee8671e4cdbb8 35
+docs/privacy-audit.md
+  s_9f6fcf8c1840a0::t_7fd8e46e0971a5 1-68
+docs/test-plans/device/MDL-01.md
+  s_9f6fcf8c1840a0::t_599a9ce0a294fe 1-13
+tools/model-catalog/catalog.py
+  s_9f6fcf8c1840a0::t_1756c8a7e4d4fa 1-141,144-231,237-357
+  s_9f6fcf8c1840a0::t_65663af6b0cfa3 142-143
+  s_9f6fcf8c1840a0::t_387b2e4aad6a79 232-236
+.github/workflows/ci.yml
+  s_9f6fcf8c1840a0::t_5788cab352d6c5 92-94
+tasks/05-models/MDL-01-model-catalog-hosting.md
+  s_9f6fcf8c1840a0::t_f3696494024398 4,42
+  s_9f6fcf8c1840a0::t_ec73ec89470064 11-15,25-41,43-59
+tools/model-catalog/models.json
+  s_9f6fcf8c1840a0::t_47a58aa2a55f79 1-49
+tools/model-catalog/README.md
+  s_9f6fcf8c1840a0::t_b9d07f668911b0 1-39
+tasks/README.md
+  s_9f6fcf8c1840a0::t_becd3bc974e426 188
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "31124a51b416c9a9d14e339e49375aa279527487",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
