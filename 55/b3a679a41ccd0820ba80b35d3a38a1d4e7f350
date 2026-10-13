@@ -1,0 +1,22 @@
+app/test/unit/pipeline/pipeline_orchestrator_test.dart
+  s_9f6fcf8c1840a0::t_eb9027cab019e3 211-212
+tasks/01-foundation/FND-05-processing-pipeline-orchestrator.md
+  s_9f6fcf8c1840a0::t_097be1d2f02712 11-17,23-44,47-48,51,54-64
+  s_9f6fcf8c1840a0::t_43bd1638fb050a 45-46,49-50,52-53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "55b3a679a41ccd0820ba80b35d3a38a1d4e7f350",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
