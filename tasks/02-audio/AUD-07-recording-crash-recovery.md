@@ -1,7 +1,7 @@
 # AUD-07 — In-Progress Recording Crash Recovery
 
 **Workstream:** Audio | **Phase:** 1 | **Size:** S | **Depends on:** AUD-01, FND-04 | **Source:** Gap
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-audio-capture, vv-local-database, vv-testing
 
 ## Goal
