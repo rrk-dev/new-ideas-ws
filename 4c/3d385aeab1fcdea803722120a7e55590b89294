@@ -1,0 +1,20 @@
+tasks/06-profiles/PRF-01-profile-data-model.md
+  s_9f6fcf8c1840a0::t_a94f299deb789f 4,42
+  s_9f6fcf8c1840a0::t_4e16bb8b5840eb 11-14,19-41,43-68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4c3d385aeab1fcdea803722120a7e55590b89294",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
