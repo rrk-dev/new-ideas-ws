@@ -34,8 +34,10 @@ Clock clock(Ref ref) => const SystemClock();
 
 /// Allowlist config: model catalog/CDN hosts only (MDL-01).
 @Riverpod(keepAlive: true)
-NetworkConfig networkConfig(Ref ref) =>
-    const NetworkConfig(allowedHosts: kModelHosts);
+NetworkConfig networkConfig(Ref ref) => const NetworkConfig(
+  allowedHosts: kModelHosts,
+  redirectHosts: kModelRedirectHosts,
+);
 
 @Riverpod(keepAlive: true)
 NetworkGateway networkGateway(Ref ref) {

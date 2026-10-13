@@ -171,3 +171,48 @@ final class ModelIntegrityFailure extends Failure {
   /// True when the byte count differs, false when only the hash differs.
   final bool sizeMismatch;
 }
+
+/// Why a model download could not start or finish (MDL-02).
+enum ModelDownloadBlock {
+  /// Free space below `remaining × 1.1 + 200 MB`.
+  insufficientSpace,
+
+  /// Only a metered (cellular) network is available and the user has not
+  /// allowed cellular downloads.
+  unmeteredNetworkRequired,
+
+  /// Low-power mode is on; the UI must ask before downloading.
+  lowPowerMode,
+
+  /// No network connection, or the gateway is in offline mode.
+  offline,
+
+  /// Every URL was refused permanently (4xx, egress denied — e.g. a
+  /// redirect to a host that is not allowlisted); retrying cannot help.
+  allUrlsRejected,
+
+  /// Every URL failed and the retry budget (8 retries) is used up.
+  retriesExhausted,
+}
+
+/// A model download was refused by a precondition or gave up (MDL-02).
+/// Partial bytes are kept for a later resume unless the file was corrupt.
+final class ModelDownloadFailure extends Failure {
+  ModelDownloadFailure(
+    this.modelId,
+    this.block, {
+    this.requiredBytes,
+    this.freeBytes,
+    this.cause,
+  }) : super('model download ${block.name}: $modelId');
+
+  final String modelId;
+  final ModelDownloadBlock block;
+
+  /// For [ModelDownloadBlock.insufficientSpace].
+  final int? requiredBytes;
+  final int? freeBytes;
+
+  /// Last underlying failure (HTTP status, egress denial, …), if any.
+  final Failure? cause;
+}
