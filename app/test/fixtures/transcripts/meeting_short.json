@@ -1,0 +1,10 @@
+{
+  "_note": "Synthetic transcript written for tests; no real recording or person.",
+  "language": "en",
+  "segments": [
+    {"start_ms": 0, "end_ms": 4200, "text": "Okay, let's start the weekly sync for the garden app."},
+    {"start_ms": 4200, "end_ms": 9100, "text": "Alex will finish the watering schedule screen by Friday."},
+    {"start_ms": 9100, "end_ms": 14800, "text": "We decided to ship the beta on March third."},
+    {"start_ms": 14800, "end_ms": 18000, "text": "Next sync is Thursday at ten."}
+  ]
+}
