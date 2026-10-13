@@ -123,6 +123,13 @@ VV_API int32_t vv_llm_bench(const char* model_path, const vv_llm_backend_params*
  * (Apple phys_footprint; Linux/Android VmRSS / VmHWM). FND-07 metrics. */
 VV_API int32_t vv_proc_memory(uint64_t* current_bytes, uint64_t* peak_bytes);
 
+/* LLM-07: device RAM. `total` = physical RAM the OS reports (iOS/macOS
+ * hw.memsize, Linux/Android MemTotal). `available` = what this process can
+ * still allocate before the OS kills it: iOS os_proc_available_memory()
+ * (jetsam headroom incl. the increased-memory-limit entitlement), macOS
+ * free + inactive + purgeable pages, Linux/Android MemAvailable. */
+VV_API int32_t vv_device_memory(uint64_t* total_bytes, uint64_t* available_bytes);
+
 /* ---------------------------------------------------------------------
  * Streaming engine (LLM-04). One model + context per handle; one active
  * generation per handle (a second call returns VV_E_BUSY).

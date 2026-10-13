@@ -79,6 +79,14 @@ class VvNative {
     }
   });
 
+  /// `(total, available)` device RAM in bytes (`vv_device_memory`, LLM-07).
+  (int, int) get deviceMemory => using((arena) {
+    final total = arena<Uint64>();
+    final avail = arena<Uint64>();
+    _b.vv_device_memory(total, avail);
+    return (total.value, avail.value);
+  });
+
   /// Current and peak process memory in bytes (`vv_proc_memory`).
   (int, int) get processMemory => using((arena) {
     final cur = arena<Uint64>();

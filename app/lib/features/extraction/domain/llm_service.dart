@@ -28,15 +28,28 @@ final class LlmService implements LlmEngine {
     this.pollInterval = const Duration(milliseconds: 50),
     this.onStats,
     this.onRestart,
-  });
+    this.loadGate,
+    this.onBeforeLoad,
+  }) : _contextSize = contextSize;
 
   final LlmRuntime runtime;
 
   /// Requested backend for the next load (platform policy + allowlist).
   final LlmBackendChoice Function() backend;
   final String modelPath;
+
+  /// Requested context; [onMemoryPressure] lowers [effectiveContextSize].
   final int contextSize;
+  int _contextSize;
   final Duration pollInterval;
+
+  /// Pre-load memory check (LLM-07 `planLlmLoad`): returns the context to
+  /// load with, or `Err(OutOfMemoryFailure)` to refuse the load.
+  final Result<int> Function(int requestedContext)? loadGate;
+
+  /// Called right before a model load (LLM-07 `ModelResidency.acquire`:
+  /// unloads STT first — never STT and LLM together).
+  final void Function()? onBeforeLoad;
 
   /// Per-run stats (FND-07 metrics: prefill/decode tok/s, token counts).
   final void Function(LlmRunStats stats)? onStats;
@@ -49,6 +62,10 @@ final class LlmService implements LlmEngine {
   LlmRun? _active;
   bool _forceCpu = false;
   bool _internalCancel = false;
+  bool _pressureCancel = false;
+
+  /// Context the next load uses (reduced after memory pressure).
+  int get effectiveContextSize => _contextSize;
 
   bool get isLoaded => _session != null;
 
@@ -81,6 +98,23 @@ final class LlmService implements LlmEngine {
   /// Back in the foreground: the next load may use the GPU again.
   void onForegrounded() => _forceCpu = false;
 
+  /// OS memory warning (Flutter `didHaveMemoryPressure`, i.e. iOS
+  /// `didReceiveMemoryWarning` / Android `onTrimMemory`/`onLowMemory`):
+  /// stop at the next token, unload, and use half the context (≥ 2048) on
+  /// the next load. The running request returns `OutOfMemoryFailure` so the
+  /// pipeline retries from its checkpoint (smaller ctx / map-reduce, LLM-06).
+  void onMemoryPressure() {
+    if (_contextSize > 2048) {
+      _contextSize = (_contextSize ~/ 2).clamp(2048, _contextSize);
+    }
+    if (_active != null) {
+      _pressureCancel = true;
+      _active!.cancel();
+    } else {
+      unload();
+    }
+  }
+
   Future<LlmSession> _ensureSession() async {
     if (_loading != null) return await _loading!;
     final want = _forceCpu
@@ -90,7 +124,17 @@ final class LlmService implements LlmEngine {
     if (current != null && !(current.usedGpu && !want.useGpu)) return current;
     current?.dispose();
     _session = null;
-    final loading = runtime.load(modelPath, want, contextSize: contextSize);
+    var ctx = _contextSize;
+    if (loadGate case final gate?) {
+      switch (gate(ctx)) {
+        case Ok(:final value):
+          ctx = value;
+        case Err(:final failure):
+          throw _GateRefused(failure);
+      }
+    }
+    onBeforeLoad?.call();
+    final loading = runtime.load(modelPath, want, contextSize: ctx);
     _loading = loading;
     try {
       return _session = await loading;
@@ -110,6 +154,8 @@ final class LlmService implements LlmEngine {
       final LlmSession session;
       try {
         session = await _ensureSession();
+      } on _GateRefused catch (e) {
+        return Err(e.failure);
       } on Object catch (e) {
         return Err(_loadFailure(e));
       }
@@ -141,6 +187,7 @@ final class LlmService implements LlmEngine {
       }
       _active = run;
       _internalCancel = false;
+      _pressureCancel = false;
       final poll = Timer.periodic(pollInterval, (_) {
         if (cancel?.isCancelled ?? false) run.cancel();
       });
@@ -165,6 +212,11 @@ final class LlmService implements LlmEngine {
       }
       onStats?.call(stats);
       final userCancelled = cancel?.isCancelled ?? false;
+      if (_pressureCancel && stats.status == LlmRunStatus.cancelled) {
+        _pressureCancel = false;
+        unload();
+        return const Err(OutOfMemoryFailure());
+      }
       switch (stats.status) {
         case LlmRunStatus.ok:
           return Ok(out.toString());
@@ -194,6 +246,12 @@ final class LlmService implements LlmEngine {
     LlmLoadException(:final code) => NativeFailure(code, 'llm: model load'),
     _ => UnexpectedFailure(e.runtimeType.toString()),
   };
+}
+
+final class _GateRefused implements Exception {
+  const _GateRefused(this.failure);
+
+  final Failure failure;
 }
 
 /// Thrown by [LlmRuntime.load] with the native `VV_E_*` code.

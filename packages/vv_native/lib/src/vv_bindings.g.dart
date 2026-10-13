@@ -264,6 +264,29 @@ class VvBindings {
         int Function(ffi.Pointer<ffi.Uint64>, ffi.Pointer<ffi.Uint64>)
       >();
 
+  /// LLM-07: device RAM. `total` = physical RAM the OS reports (iOS/macOS
+  /// hw.memsize, Linux/Android MemTotal). `available` = what this process can
+  /// still allocate before the OS kills it: iOS os_proc_available_memory()
+  /// (jetsam headroom incl. the increased-memory-limit entitlement), macOS
+  /// free + inactive + purgeable pages, Linux/Android MemAvailable.
+  int vv_device_memory(
+    ffi.Pointer<ffi.Uint64> total_bytes,
+    ffi.Pointer<ffi.Uint64> available_bytes,
+  ) {
+    return _vv_device_memory(total_bytes, available_bytes);
+  }
+
+  late final _vv_device_memoryPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Pointer<ffi.Uint64>, ffi.Pointer<ffi.Uint64>)
+        >
+      >('vv_device_memory');
+  late final _vv_device_memory = _vv_device_memoryPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.Uint64>, ffi.Pointer<ffi.Uint64>)
+      >();
+
   /// Loads the model with the LLM-02/03 fallback chain. Blocking (seconds):
   /// call from a background isolate. `*out` must be destroyed with
   /// vv_llm_destroy.

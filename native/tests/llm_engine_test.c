@@ -105,6 +105,13 @@ int main(void) {
   uint64_t cur = 0, peak = 0;
   CHECK(vv_proc_memory(&cur, &peak) == VV_OK && cur > 0 && peak >= cur);
   CHECK(vv_proc_memory(NULL, NULL) == VV_E_INVALID_ARG);
+  /* [LLM-07] device RAM probe */
+  uint64_t total = 0, avail = 0;
+  CHECK(vv_device_memory(&total, &avail) == VV_OK);
+  CHECK(total > 1024ull * 1024 * 1024 && avail > 0 && avail <= total);
+  CHECK(vv_device_memory(NULL, NULL) == VV_E_INVALID_ARG);
+  printf("device memory: total %llu MiB, available %llu MiB\n", (unsigned long long)(total >> 20),
+         (unsigned long long)(avail >> 20));
 
   const char* dir = getenv("VV_TEST_MODELS_DIR");
   char path[1024];
