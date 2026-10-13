@@ -1,0 +1,5 @@
+# Darwin arm64 Apple M3 Pro whisper.cpp v1.9.5 model sha256 a4d4a0768075e13c
+{"label":"metal","model":"ggml-base.en-q8_0.bin","audio_s":60,"runs":5,"gpu":1,"threads":4,"beam":1,"coreml":"n/a","full_ms_median":1032,"full_ms_min":849,"full_ms_max":1469,"load_ms_median":220,"load_ms_first":285,"rtf":0.0172}
+{"label":"cpu","model":"ggml-base.en-q8_0.bin","audio_s":60,"runs":5,"gpu":0,"threads":4,"beam":1,"coreml":"n/a","full_ms_median":4976,"full_ms_min":4653,"full_ms_max":5691,"load_ms_median":213,"load_ms_first":213,"rtf":0.0829}
+{"label":"coreml+metal","model":"ggml-base.en-q8_0.bin","audio_s":60,"runs":5,"gpu":1,"threads":4,"beam":1,"coreml":"loaded","full_ms_median":1096,"full_ms_min":861,"full_ms_max":1166,"load_ms_median":109,"load_ms_first":437,"rtf":0.0183}
+{"label":"coreml+cpu","model":"ggml-base.en-q8_0.bin","audio_s":60,"runs":5,"gpu":0,"threads":4,"beam":1,"coreml":"loaded","full_ms_median":1972,"full_ms_min":1781,"full_ms_max":2520,"load_ms_median":255,"load_ms_first":255,"rtf":0.0329}
