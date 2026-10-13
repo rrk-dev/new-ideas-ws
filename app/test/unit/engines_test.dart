@@ -3,10 +3,10 @@ import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/platform/cancel_token.dart';
 import 'package:vaultvoice/core/platform/llm_engine.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
-import 'package:vaultvoice/features/recording/data/recording_providers.dart';
-import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
 import 'package:vaultvoice/core/platform/stt_engine.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
+import 'package:vaultvoice/features/recording/data/recording_providers.dart';
+import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
 
 import '../fakes/fake_capture_backend.dart';
 import '../fakes/fake_llm_engine.dart';

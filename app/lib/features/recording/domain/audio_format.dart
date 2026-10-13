@@ -12,7 +12,7 @@ abstract final class AudioFormat {
   static const bytesPerSample = 2;
 
   /// Bytes per second of the target format (32 000).
-  static const bytesPerSecond = sampleRate * channels * bytesPerSample;
+  static const int bytesPerSecond = sampleRate * channels * bytesPerSample;
 
   /// Default length of one chunk file.
   static const defaultChunkDuration = Duration(minutes: 5);
@@ -55,11 +55,4 @@ final class AudioInputDevice {
   final String label;
 
   final AudioInputKind kind;
-
-  @override
-  bool operator ==(Object other) =>
-      other is AudioInputDevice && other.id == id && other.kind == kind;
-
-  @override
-  int get hashCode => Object.hash(id, kind);
 }

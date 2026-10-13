@@ -10,7 +10,7 @@ enum ChunkCodecId {
   /// App-level AES-256-GCM framed format (only if SEC-01 chooses it).
   vvenc('vvenc');
 
-  const ChunkCodecId(this.extension);
+  ChunkCodecId(this.extension);
 
   /// File extension of chunks written with this codec.
   final String extension;
@@ -36,6 +36,9 @@ abstract interface class AudioChunkCodec {
 abstract interface class AudioChunkWriter {
   /// PCM bytes in the chunk so far (excluding container overhead).
   int get dataBytes;
+
+  /// Size of the chunk file once flushed (container overhead included).
+  int get fileBytes;
 
   /// Appends PCM bytes (whole samples).
   Future<void> append(Uint8List pcm);

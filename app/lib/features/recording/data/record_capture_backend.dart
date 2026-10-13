@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:drift/drift.dart' show Value;
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/db/repositories/recordings_repository.dart';
@@ -37,32 +38,24 @@ import 'package:vaultvoice/features/recording/domain/storage_policy.dart';
 ///   and raise [CaptureNotice.lowStorageStop] below the stop threshold.
 class RecordCaptureBackend implements CaptureBackend {
   RecordCaptureBackend({
-    required PcmMicSource mic,
+    required this._mic,
     required RecordingsRepository recordings,
-    required Future<StoragePaths> Function() paths,
-    required DiskSpaceProbe disk,
-    required Clock clock,
-    required IdGenerator ids,
-    AudioChunkCodec codec = const WavChunkCodec(),
-    StoragePolicy storage = const StoragePolicy(),
+    required this._paths,
+    required this._disk,
+    required this._clock,
+    required this._ids,
+    this._codec = const WavChunkCodec(),
+    this._storage = const StoragePolicy(),
     this.chunkDuration = AudioFormat.defaultChunkDuration,
     this.flushInterval = const Duration(seconds: 1),
     this.discardMargin = defaultDiscardMargin,
-    MicRequest request = const MicRequest(),
+    this._request = const MicRequest(),
     Logger? logger,
   }) : assert(
          flushInterval <= const Duration(seconds: 1),
          'AUD-07 needs a flush at least every second',
        ),
-       _mic = mic,
        _repo = recordings,
-       _paths = paths,
-       _disk = disk,
-       _clock = clock,
-       _ids = ids,
-       _codec = codec,
-       _storage = storage,
-       _request = request,
        _log = logger;
 
   /// Extra audio dropped before a call event to cover delivery latency.
@@ -89,6 +82,8 @@ class RecordCaptureBackend implements CaptureBackend {
 
   _Session? _session;
   bool _accepting = false;
+  // Cancelled in _closeMic().
+  // ignore: cancel_subscriptions
   StreamSubscription<MicEvent>? _micSub;
   PcmConverter _converter = _contractConverter();
   DateTime? _lastReceivedAt;
@@ -209,7 +204,7 @@ class RecordCaptureBackend implements CaptureBackend {
         final r = await writer.append(tail);
         if (r case Err()) return r;
       }
-      return writer.endSegment(discardSamples: discard, gap: gap);
+      return await writer.endSegment(discardSamples: discard, gap: gap);
     });
     await _updateRow(session, RecordingStatus.inProgress);
     _log?.info(
@@ -258,7 +253,7 @@ class RecordCaptureBackend implements CaptureBackend {
         final r = await writer.append(tail);
         if (r case Err()) return r;
       }
-      return writer.endSegment();
+      return await writer.endSegment();
     });
     _session = null;
     await _updateRow(
@@ -284,6 +279,10 @@ class RecordCaptureBackend implements CaptureBackend {
       ),
     );
   }
+
+  /// Completes when every queued chunk write has finished.
+  @visibleForTesting
+  Future<void> get idle => _queue;
 
   /// Releases the notice stream (provider disposal).
   Future<void> dispose() async {

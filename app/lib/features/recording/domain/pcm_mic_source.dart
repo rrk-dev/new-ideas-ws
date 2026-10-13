@@ -47,15 +47,6 @@ final class MicFormat {
 
   final int sampleRate;
   final int channels;
-
-  @override
-  bool operator ==(Object other) =>
-      other is MicFormat &&
-      other.sampleRate == sampleRate &&
-      other.channels == channels;
-
-  @override
-  int get hashCode => Object.hash(sampleRate, channels);
 }
 
 /// Events from an open microphone stream.

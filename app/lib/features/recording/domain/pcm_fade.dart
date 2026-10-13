@@ -9,7 +9,7 @@ import 'package:vaultvoice/features/recording/domain/audio_format.dart';
 /// gain is changed — no sample is added, dropped or duplicated.
 abstract final class PcmFade {
   /// Default ramp length (10 ms = 160 samples at 16 kHz).
-  static const defaultSamples = AudioFormat.sampleRate ~/ 100;
+  static const int defaultSamples = AudioFormat.sampleRate ~/ 100;
 
   /// Ramps the first [samples] mono PCM16 samples of [pcm] up from 0.
   static Uint8List fadeIn(Uint8List pcm, {int samples = defaultSamples}) =>

@@ -49,6 +49,9 @@ class WavChunkWriter implements AudioChunkWriter {
   int get dataBytes => _dataBytes;
 
   @override
+  int get fileBytes => WavHeader.length + _dataBytes;
+
+  @override
   Future<void> append(Uint8List pcm) async {
     _checkOpen();
     if (pcm.isEmpty) return;
@@ -69,7 +72,7 @@ class WavChunkWriter implements AudioChunkWriter {
     _checkOpen();
     final from = fromDataByte.clamp(0, _dataBytes);
     await _raf.setPosition(WavHeader.length + from);
-    return _raf.read(_dataBytes - from);
+    return await _raf.read(_dataBytes - from);
   }
 
   @override

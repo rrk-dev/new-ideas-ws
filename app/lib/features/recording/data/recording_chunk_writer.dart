@@ -31,14 +31,12 @@ import 'package:vaultvoice/features/recording/domain/pcm_fade.dart';
 class RecordingChunkWriter {
   RecordingChunkWriter({
     required this.recordingId,
-    required StoragePaths paths,
-    required AudioChunkCodec codec,
+    required this._paths,
+    required this._codec,
     required RecordingsRepository recordings,
     Duration chunkDuration = AudioFormat.defaultChunkDuration,
     this.fadeSamples = PcmFade.defaultSamples,
-  }) : _paths = paths,
-       _codec = codec,
-       _repo = recordings,
+  }) : _repo = recordings,
        chunkSamples = AudioFormat.samplesFor(chunkDuration);
 
   final String recordingId;
@@ -114,7 +112,7 @@ class RecordingChunkWriter {
     final chunk = _chunk;
     if (chunk == null) return;
     await chunk.flush();
-    await _upsertRow(chunk, bytes: await _length(chunk));
+    await _upsertRow(chunk, bytes: chunk.fileBytes);
   });
 
   /// Ends the current segment: drops the last [discardSamples] samples
@@ -178,7 +176,7 @@ class RecordingChunkWriter {
     _chunkStartSample = _totalSamples;
     final chunk = await _codec.create(_paths.resolve(chunkPath(_seq)));
     _chunk = chunk;
-    await _upsertRow(chunk, bytes: await _length(chunk));
+    await _upsertRow(chunk, bytes: chunk.fileBytes);
     return chunk;
   }
 
@@ -206,9 +204,6 @@ class RecordingChunkWriter {
     }
     await _upsertRow(chunk, bytes: length);
   }
-
-  Future<int> _length(AudioChunkWriter chunk) async =>
-      File(_paths.resolve(chunkPath(_seq))).length();
 
   Future<void> _upsertRow(AudioChunkWriter chunk, {required int bytes}) async {
     final r = await _repo.upsertChunk(

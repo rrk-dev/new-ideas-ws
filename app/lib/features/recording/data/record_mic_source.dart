@@ -18,16 +18,19 @@ import 'package:vaultvoice/features/recording/domain/pcm_mic_source.dart';
 class RecordMicSource implements PcmMicSource {
   RecordMicSource({
     rec.AudioRecorder Function()? createRecorder,
-    Clock clock = const SystemClock(),
-  }) : _create = createRecorder ?? rec.AudioRecorder.new,
-       _clock = clock;
+    this._clock = const SystemClock(),
+  }) : _create = createRecorder ?? rec.AudioRecorder.new;
 
   final rec.AudioRecorder Function() _create;
   final Clock _clock;
 
   rec.AudioRecorder? _plugin;
   StreamController<MicEvent>? _events;
+  // Cancelled in close().
+  // ignore: cancel_subscriptions
   StreamSubscription<Uint8List>? _dataSub;
+  // Cancelled in close().
+  // ignore: cancel_subscriptions
   StreamSubscription<rec.RecordState>? _stateSub;
 
   /// A short-lived recorder for permission and device queries (these never
@@ -36,7 +39,7 @@ class RecordMicSource implements PcmMicSource {
     Future<T> Function(rec.AudioRecorder r) body,
   ) async {
     final open = _plugin;
-    if (open != null) return body(open);
+    if (open != null) return await body(open);
     final r = _create();
     try {
       return await body(r);
@@ -175,6 +178,9 @@ rec.RecordConfig buildRecordConfig(MicRequest request) {
         rec.IosAudioCategoryOption.allowBluetooth,
       ],
     ),
+    // Explicit (= the plugin default) so the no-auto-resume policy is
+    // visible and pinned here.
+    // ignore: avoid_redundant_argument_values
     audioInterruption: rec.AudioInterruptionMode.pause,
   );
 }

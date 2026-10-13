@@ -9,7 +9,6 @@ import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/call_guard.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
-import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
 import 'package:vaultvoice/features/recording/domain/recording_limits.dart';
 import 'package:vaultvoice/features/recording/domain/start_source.dart';
@@ -391,6 +390,68 @@ void main() {
         async.flushMicrotasks();
         expect(h.controller.state.stopCause, StopCause.silence);
         expect(h.capture.calls.last, isA<CloseCall>());
+      });
+    });
+  });
+
+  group('capture notices (AUD-01)', () {
+    test('low storage stops and finalizes with the lowStorage cause', () {
+      fakeAsync((async) {
+        final h = _Harness(async);
+        final seen = <CaptureNotice>[];
+        h.controller.notices.listen(seen.add);
+        expect(h.start().isOk, isTrue);
+        h.capture.notify(CaptureNotice.lowStorageWarning);
+        async.flushMicrotasks();
+        expect(h.phase, RecordingPhase.recording);
+        h.capture.notify(CaptureNotice.lowStorageStop);
+        async.flushMicrotasks();
+        expect(h.phase, RecordingPhase.stopped);
+        expect(h.controller.state.stopCause, StopCause.lowStorage);
+        expect((h.capture.calls.last as CloseCall).cause, StopCause.lowStorage);
+        expect(seen, [
+          CaptureNotice.lowStorageWarning,
+          CaptureNotice.lowStorageStop,
+        ]);
+      });
+    });
+
+    test('an OS interruption or stream failure pauses; nothing resumes '
+        'without a tap', () {
+      fakeAsync((async) {
+        final h = _Harness(async);
+        expect(h.start().isOk, isTrue);
+        h.capture.notify(CaptureNotice.interrupted);
+        async.flushMicrotasks();
+        expect(h.phase, RecordingPhase.paused);
+        expect(h.controller.state.pauseCause, PauseCause.audioInterruption);
+        expect(h.capture.suspends.single.gap, GapKind.audioInterruption);
+        h.guard.emit(CallGuardSignal.interruptionEnded, h.clock.now());
+        async.elapse(const Duration(minutes: 1));
+        expect(h.phase, RecordingPhase.paused);
+        expect(h.capture.micOpen, isFalse);
+
+        expect(
+          h.run(() => h.controller.resume(ResumeSource.inAppButton)).isOk,
+          isTrue,
+        );
+        h.capture.notify(CaptureNotice.captureFailed);
+        async.flushMicrotasks();
+        expect(h.controller.state.pauseCause, PauseCause.captureError);
+        expect(h.capture.suspends.last.gap, GapKind.captureError);
+        // A notice while already paused changes nothing.
+        h.capture.notify(CaptureNotice.interrupted);
+        async.flushMicrotasks();
+        expect(h.capture.suspends, hasLength(2));
+      });
+    });
+
+    test('stop passes the cause to the capture', () {
+      fakeAsync((async) {
+        final h = _Harness(async);
+        expect(h.start().isOk, isTrue);
+        h.run(() => h.controller.stop(cause: StopCause.silence));
+        expect((h.capture.calls.last as CloseCall).cause, StopCause.silence);
       });
     });
   });

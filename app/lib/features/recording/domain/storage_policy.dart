@@ -11,7 +11,7 @@ final class StoragePolicy {
     this.checkInterval = const Duration(seconds: 30),
   });
 
-  static const mb = 1024 * 1024;
+  static const int mb = 1024 * 1024;
 
   final int minFreeToStart;
   final int warnBelow;

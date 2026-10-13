@@ -14,6 +14,8 @@ class MainActivity : FlutterActivity() {
         super.configureFlutterEngine(flutterEngine)
         // SEC-09: call detection without phone-state permissions.
         flutterEngine.plugins.add(CallGuardPlugin())
+        // AUD-01: free-space checks for the recording storage policy.
+        flutterEngine.plugins.add(StorageInfoPlugin())
         val api = SafHostApiImpl(this)
         safApi = api
         SafHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, api)

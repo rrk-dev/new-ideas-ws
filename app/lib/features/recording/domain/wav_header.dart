@@ -47,8 +47,8 @@ abstract final class WavHeader {
     return b.buffer.asUint8List();
   }
 
-  /// The two little-endian size fields for [dataBytes]: write
-  /// [riffSize] at [riffSizeOffset] and [dataSize] at [dataSizeOffset].
+  /// The two little-endian size fields for [dataBytes]: write `riffSize`
+  /// at [riffSizeOffset] and `dataSize` at [dataSizeOffset].
   static ({Uint8List riffSize, Uint8List dataSize}) sizeFields(int dataBytes) {
     Uint8List u32(int v) =>
         (ByteData(4)..setUint32(0, v, Endian.little)).buffer.asUint8List();
