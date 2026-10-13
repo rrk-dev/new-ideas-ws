@@ -10,6 +10,7 @@ the task that introduces the network use or dependency.
 | 1 | Model catalog `catalog.json` + `catalog.json.sig` | `CatalogRepository.refresh` via `NetworkGateway` | `kModelCdnHost` (placeholder `models.vaultvoice.example`, PRODUCT-DECISION) | MDL-01 |
 | 2 | Model files (`urls` in the signed catalog) | downloader via `NetworkGateway` (MDL-02) | `kModelHosts` = our CDN + `huggingface.co` mirror | MDL-01 / MDL-02 |
 | — | Store billing | StoreKit / Play Billing inside the OS, not our HTTP client | Apple / Google | LIC-02 |
+| — | Crash reports (not a network use) | written locally; leave the device only via the OS share sheet after the user previews them — no upload endpoint (`docs/crash-triage.md`) | none | REL-02 |
 
 Nothing else may open a connection (`tools/ci/check_egress.sh`, allowlist in
 `app/lib/core/network/model_hosts.dart`).

@@ -157,7 +157,7 @@ final class CrashReportsProvider
   }
 }
 
-String _$crashReportsHash() => r'f565aef90a93f0159b0bcf041d321a0b5e8892c3';
+String _$crashReportsHash() => r'77c9581578c71845e71333424702e36551e28cfb';
 
 /// Stored crash reports (newest first) and the user's actions on them:
 /// review → share via the OS sheet, or discard. No upload endpoint exists.
