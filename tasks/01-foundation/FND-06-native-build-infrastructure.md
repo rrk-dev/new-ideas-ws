@@ -1,7 +1,7 @@
 # FND-06 — Native C/C++ Build Infrastructure
 
 **Workstream:** Foundation | **Phase:** 1 | **Size:** M | **Depends on:** FND-01 | **Source:** §4.2, §5 Phase 2
-**Status:** review
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-native-build, vv-ffi-bridge, vv-decision-records, vv-testing
 
 ## Goal
