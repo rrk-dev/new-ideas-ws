@@ -1,0 +1,40 @@
+app/ios/Runner/Info.plist
+  s_9f6fcf8c1840a0::t_45006ddf35b413 29-32
+app/lib/features/export/data/bookmark_vault_writer.dart
+  s_9f6fcf8c1840a0::t_4caf00b7fc4d4c 1-11,16-51,59-158
+  s_9f6fcf8c1840a0::t_7a12a63a2466db 12-15,52-58
+app/lib/features/export/data/pigeon/bookmark_api.g.dart
+  s_9f6fcf8c1840a0::t_8d1d434a9c4e39 1-486
+app/ios/Runner/AppDelegate.swift
+  s_9f6fcf8c1840a0::t_27e92c5a3afe18 6-8,18-19
+app/ios/Runner/BookmarkHostApiImpl.swift
+  s_9f6fcf8c1840a0::t_3ea1bd38c168ff 130-132,171-173,205-210,298,346-351,361-366
+  s_9f6fcf8c1840a0::t_d517df880ef031 1-129,133-170,174-204,211-297,299-345,352-360,367-389
+app/pigeons/bookmark_api.dart
+  s_9f6fcf8c1840a0::t_d61f88086a5070 1-106
+app/lib/features/export/data/export_providers.g.dart
+  s_9f6fcf8c1840a0::t_2bbd382868b54f 12-14,20-22,33-35,70,123-125,130-132,137-139,174
+app/ios/Runner/BookmarkApi.g.swift
+  s_9f6fcf8c1840a0::t_8d1d434a9c4e39 1-561
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_9f6fcf8c1840a0::t_8044b370b9e292 15-16,55-56,130-131,293-294
+app/lib/features/export/data/export_providers.dart
+  s_9f6fcf8c1840a0::t_53e95dc3390a40 7-8,17-19,32-34,40-42
+  s_9f6fcf8c1840a0::t_2bbd382868b54f 23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e8fd912805136ba1f66e4a814937730b32e1468c",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
