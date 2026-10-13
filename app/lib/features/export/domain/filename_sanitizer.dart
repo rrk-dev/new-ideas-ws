@@ -27,6 +27,9 @@ final RegExp _invisible = RegExp(
   r'\u200E\u200F\u202A-\u202E\u2066-\u2069]',
 );
 
+/// Whitespace controls and line breaks become spaces (then collapse).
+final RegExp _lineSpace = RegExp(r'[\t\n\v\f\r\u0085\u2028\u2029]');
+
 final RegExp _spaces = RegExp(r'\s+');
 
 /// Windows device names (with or without an extension), case-insensitive.
@@ -107,6 +110,7 @@ String sanitizeSegment(String raw, {int maxBytes = kMaxSegmentBytes}) =>
 
 String _sanitizeStem(String raw, int maxBytes) {
   var s = unorm.nfc(_fixSurrogates(raw));
+  s = s.replaceAll(_lineSpace, ' ');
   s = s.replaceAll(_invisible, '').replaceAll(_reserved, '');
   s = s.replaceAll(_spaces, ' ');
   s = s.replaceFirst(RegExp('^[. ]+'), '');
