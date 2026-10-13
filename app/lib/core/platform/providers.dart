@@ -1,4 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vaultvoice/core/network/model_hosts.dart';
 import 'package:vaultvoice/core/network/network_gateway.dart';
 import 'package:vaultvoice/core/platform/audio_recorder.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
@@ -31,9 +32,10 @@ VaultWriter vaultWriter(Ref ref) =>
 @Riverpod(keepAlive: true)
 Clock clock(Ref ref) => const SystemClock();
 
-/// Allowlist config; MDL-01 fills in the model catalog/CDN hosts.
+/// Allowlist config: model catalog/CDN hosts only (MDL-01).
 @Riverpod(keepAlive: true)
-NetworkConfig networkConfig(Ref ref) => const NetworkConfig();
+NetworkConfig networkConfig(Ref ref) =>
+    const NetworkConfig(allowedHosts: kModelHosts);
 
 @Riverpod(keepAlive: true)
 NetworkGateway networkGateway(Ref ref) {

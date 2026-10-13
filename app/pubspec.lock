@@ -137,6 +137,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.1"
+  charcode:
+    dependency: transitive
+    description:
+      name: charcode
+      sha256: fb0f1107cac15a5ea6ef0a6ef71a807b9e4267c713bb93e00e92d737cc8dbd8a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
   checked_yaml:
     dependency: transitive
     description:
@@ -165,10 +173,10 @@ packages:
     dependency: transitive
     description:
       name: code_assets
-      sha256: bf394f466ba9205f1812a0433b392d6af280f155f56651eda7c18cc32ed493b8
+      sha256: "828110d598123b5ea96c00c9f3c72105bf79f8ee36c20a39b26209ade421ec57"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.1"
+    version: "2.1.0"
   code_builder:
     dependency: transitive
     description:
@@ -202,13 +210,21 @@ packages:
     source: hosted
     version: "0.3.5+5"
   crypto:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: crypto
       sha256: c8ea0233063ba03258fbcf2ca4d6dadfefe14f02fab57702265467a19f27fadf
       url: "https://pub.dev"
     source: hosted
     version: "3.0.7"
+  cryptography:
+    dependency: "direct main"
+    description:
+      name: cryptography
+      sha256: "3eda3029d34ec9095a27a198ac9785630fe525c0eb6a49f3d575272f8e792ef0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.9.0"
   csslib:
     dependency: transitive
     description:
@@ -241,8 +257,24 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.13"
+  drift:
+    dependency: "direct main"
+    description:
+      name: drift
+      sha256: ef9598e1785c18db37209e8554fc79aff94632209d384ec98984b9e3184af0f7
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.35.2"
+  drift_dev:
+    dependency: "direct dev"
+    description:
+      name: drift_dev
+      sha256: e0d16aaa21f3408cbe2dd4bfc56c36cea43e53a537e6613b91380c0924b3bd30
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.35.1"
   fake_async:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: fake_async
       sha256: "5368f224a74523e8d2e7399ea1638b37aecfca824a3cc4dfdf77bf1fa905ac44"
@@ -379,10 +411,10 @@ packages:
     dependency: transitive
     description:
       name: hooks
-      sha256: "9a62a50b50b769a737bc0a8ff381f333529df3ab746b2f6b02e83760231455ba"
+      sha256: eaac480a35ec0814146c2c48d96aaa829e0e44a7662c88ae84c9edf4bc35651f
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.2"
+    version: "2.2.0"
   html:
     dependency: transitive
     description:
@@ -544,10 +576,10 @@ packages:
     dependency: transitive
     description:
       name: meta
-      sha256: c82594181e3312f3d0695fc95aaaf7758d75b8d4ae2bbecf223b9fd5109a059d
+      sha256: "307249ce4ff29d58a18e97f6345f539382eb9c9c29ecda628900f31de0443dd9"
       url: "https://pub.dev"
     source: hosted
-    version: "1.18.3"
+    version: "1.19.0"
   mime:
     dependency: transitive
     description:
@@ -572,14 +604,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  native_toolchain_c:
+    dependency: transitive
+    description:
+      name: native_toolchain_c
+      sha256: "90eaad8059ebc2004a63810a4696ea9acdb02473e47ed3b6b3bafb100ac77e31"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.19.5"
   objective_c:
     dependency: transitive
     description:
       name: objective_c
-      sha256: b7fb95a6d9a4f009edd63dc5ac69f07420b23a16161c6dd8660290b59c602e8e
+      sha256: "5c80c2ad6e2c0397de5db38c6d653e69616a3397e13aa7633bf39eb668f2041b"
       url: "https://pub.dev"
     source: hosted
-    version: "9.5.0"
+    version: "9.6.2"
   package_config:
     dependency: transitive
     description:
@@ -589,7 +629,7 @@ packages:
     source: hosted
     version: "3.0.0"
   path:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path
       sha256: "75cca69d1490965be98c73ceaea117e8a04dd21217b37b292c9ddbec0d955bc5"
@@ -652,6 +692,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.2"
+  pigeon:
+    dependency: "direct dev"
+    description:
+      name: pigeon
+      sha256: f0f7b1f2f96d41b945c478dfcebd8cd486a1670949e5b7a43f96d3f02aaf489e
+      url: "https://pub.dev"
+    source: hosted
+    version: "29.0.8"
   platform:
     dependency: transitive
     description:
@@ -708,14 +756,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.6.0"
+  recase:
+    dependency: transitive
+    description:
+      name: recase
+      sha256: e4eb4ec2dcdee52dcf99cb4ceabaffc631d7424ee55e56f280bc039737f89213
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   record_use:
     dependency: transitive
     description:
       name: record_use
-      sha256: "2551bd8eecfe95d14ae75f6021ad0248be5c27f138c2ec12fcb52b500b3ba1ed"
+      sha256: "1cb8564af8d43b464294411db9217f5ec04891c6f22ee2c32d73ae05e88a6bd2"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.0"
+    version: "1.1.1"
   riverpod:
     dependency: transitive
     description:
@@ -817,6 +873,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.2"
+  sqlite3:
+    dependency: "direct main"
+    description:
+      name: sqlite3
+      sha256: cc62d72dbf16bb1f6ae8954b238016de1473e53df060ed0c332eed0a41dd1848
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.7.0"
+  sqlparser:
+    dependency: transitive
+    description:
+      name: sqlparser
+      sha256: "772bb2f6f5bce0631a60f26b57d6e8882e1105c22345b05c163ee6ee5d7ba32d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.45.0"
   stack_trace:
     dependency: transitive
     description:

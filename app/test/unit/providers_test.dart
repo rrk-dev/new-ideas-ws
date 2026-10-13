@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
+import 'package:vaultvoice/core/network/model_hosts.dart';
 import 'package:vaultvoice/core/network/network_gateway.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
@@ -10,12 +11,12 @@ import '../fakes/fake_clock.dart';
 import '../helpers/test_container.dart';
 
 void main() {
-  test('defaults: prod flavor, system clock, empty allowlist', () {
+  test('defaults: prod flavor, system clock, model-hosts allowlist', () {
     final c = createContainer();
     expect(c.read(flavorProvider), Flavor.prod);
     expect(c.read(flavorProvider).isDev, isFalse);
     expect(c.read(clockProvider), isA<SystemClock>());
-    expect(c.read(networkConfigProvider).allowedHosts, isEmpty);
+    expect(c.read(networkConfigProvider).allowedHosts, kModelHosts);
   });
 
   test('every engine provider throws until overridden', () {

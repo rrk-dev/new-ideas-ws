@@ -1,0 +1,4 @@
+# Test tags (docs/testing.md). `fvm flutter test --tags golden` runs only
+# goldens; `--exclude-tags golden` skips them.
+tags:
+  golden:
