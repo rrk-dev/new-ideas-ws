@@ -1,0 +1,29 @@
+docs/play-console/fgs-declaration.md
+  s_9f6fcf8c1840a0::t_337be0a5e254ae 1-35
+docs/test-plans/device/AUD-05.md
+  s_9f6fcf8c1840a0::t_e86b8e62524763 1-27
+app/test/unit/recording/recording_indicator_test.dart
+  s_9f6fcf8c1840a0::t_a8784f689776b7 88-89,91-100,105-110
+  s_9f6fcf8c1840a0::t_2e0f548f4fb706 20-21,30,90,101-104
+docs/adr/ADR-AUD-05-android-background-recording.md
+  s_9f6fcf8c1840a0::t_10086042486bb5 1-71
+tasks/02-audio/AUD-05-android-background-recording.md
+  s_9f6fcf8c1840a0::t_42ef61a4ad9436 11-16,23-48
+  s_9f6fcf8c1840a0::t_28cc507deabfaa 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "746d5136a947892d30849e89f839fdb4fdc04abb",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
