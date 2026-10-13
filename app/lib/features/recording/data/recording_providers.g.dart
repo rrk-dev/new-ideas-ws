@@ -246,6 +246,111 @@ final class RecordCaptureBackendProvider
 String _$recordCaptureBackendHash() =>
     r'dc216464e9aa935c6157ecac70ce441de1d9dec9';
 
+/// Selectable inputs (built-in, wired, Bluetooth HFP, USB). Querying never
+/// opens the microphone.
+
+@ProviderFor(recordingInputDevices)
+final recordingInputDevicesProvider = RecordingInputDevicesProvider._();
+
+/// Selectable inputs (built-in, wired, Bluetooth HFP, USB). Querying never
+/// opens the microphone.
+
+final class RecordingInputDevicesProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<AudioInputDevice>>,
+          List<AudioInputDevice>,
+          FutureOr<List<AudioInputDevice>>
+        >
+    with
+        $FutureModifier<List<AudioInputDevice>>,
+        $FutureProvider<List<AudioInputDevice>> {
+  /// Selectable inputs (built-in, wired, Bluetooth HFP, USB). Querying never
+  /// opens the microphone.
+  RecordingInputDevicesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'recordingInputDevicesProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$recordingInputDevicesHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<List<AudioInputDevice>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<AudioInputDevice>> create(Ref ref) {
+    return recordingInputDevices(ref);
+  }
+}
+
+String _$recordingInputDevicesHash() =>
+    r'be1c03b245d93c5d82c1395e93853c70b76585da';
+
+/// Selects the input used by the next start/resume (null = default).
+
+@ProviderFor(recordingInputSelector)
+final recordingInputSelectorProvider = RecordingInputSelectorProvider._();
+
+/// Selects the input used by the next start/resume (null = default).
+
+final class RecordingInputSelectorProvider
+    extends
+        $FunctionalProvider<
+          void Function(AudioInputDevice?),
+          void Function(AudioInputDevice?),
+          void Function(AudioInputDevice?)
+        >
+    with $Provider<void Function(AudioInputDevice?)> {
+  /// Selects the input used by the next start/resume (null = default).
+  RecordingInputSelectorProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'recordingInputSelectorProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$recordingInputSelectorHash();
+
+  @$internal
+  @override
+  $ProviderElement<void Function(AudioInputDevice?)> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  void Function(AudioInputDevice?) create(Ref ref) {
+    return recordingInputSelector(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(void Function(AudioInputDevice?) value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<void Function(AudioInputDevice?)>(
+        value,
+      ),
+    );
+  }
+}
+
+String _$recordingInputSelectorHash() =>
+    r'fdc661708e30413a84094fdc2a368fc167c0f930';
+
 /// Microphone capture driven by [recordingController]; tests override it
 /// with `FakeCaptureBackend`.
 

@@ -59,6 +59,7 @@ use. A bundled signed catalog keeps first launch and offline mode working.
 |---|---|---|---|---|---|---|---|
 | `cryptography` (Dart) | 2.9.0 (exact) | Ed25519 verify of the model catalog (`DartEd25519`, pure Dart) | no (grep: no `http`/`HttpClient`/`Socket` in `lib/`) | no | Apache-2.0 | 2025-11-21 | Accepted — ADR-MDL-01 |
 | `crypto` (Dart, dart-lang) | 3.0.7 (exact) | streaming SHA-256 of model files; key ids | no | no | BSD-3-Clause | already a transitive dependency | Accepted — ADR-MDL-01 |
+| `record` (+ `record_android` 2.2.0, `record_ios` 2.1.1, `record_platform_interface` 2.1.0) | 7.1.2 (exact) | microphone PCM stream via the standard OS APIs (AVAudioEngine / `AudioRecord`) — AUD-01 | no (grep: no `http`/`HttpClient`/`Socket`/`URLSession`/`HttpURLConnection` in Dart, Kotlin or Swift sources) | no | BSD-3-Clause | 2026 (7.1.2) | Accepted — ADR-AUD-01; adds only `RECORD_AUDIO` to the merged manifest; its native code maps every Android audio source, our Dart call site is restricted to `mic`/`voiceRecognition` (SEC-09 CI guard) |
 | `cryptography` (Python, pyca) | 46.0.3 | `tools/model-catalog` signing CLI only (not shipped in the app) | no | no | Apache-2.0 OR BSD-3-Clause | 2025 | Accepted — ADR-MDL-01 |
 
 ## Models (license must allow our use and, for our CDN, redistribution — SEC-05)

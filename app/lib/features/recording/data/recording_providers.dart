@@ -11,6 +11,7 @@ import 'package:vaultvoice/features/recording/data/record_capture_backend.dart';
 import 'package:vaultvoice/features/recording/data/record_mic_source.dart';
 import 'package:vaultvoice/features/recording/data/wav_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_chunk_codec.dart';
+import 'package:vaultvoice/features/recording/domain/audio_format.dart';
 import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
 import 'package:vaultvoice/features/recording/domain/pcm_mic_source.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
@@ -51,6 +52,19 @@ RecordCaptureBackend recordCaptureBackend(Ref ref) {
   ref.onDispose(backend.dispose);
   return backend;
 }
+
+/// Selectable inputs (built-in, wired, Bluetooth HFP, USB). Querying never
+/// opens the microphone.
+@riverpod
+Future<List<AudioInputDevice>> recordingInputDevices(Ref ref) async {
+  final r = await ref.watch(recordCaptureBackendProvider).inputDevices();
+  return r.valueOrNull ?? const [];
+}
+
+/// Selects the input used by the next start/resume (null = default).
+@riverpod
+void Function(AudioInputDevice?) recordingInputSelector(Ref ref) =>
+    ref.watch(recordCaptureBackendProvider).selectInput;
 
 /// Microphone capture driven by [recordingController]; tests override it
 /// with `FakeCaptureBackend`.
