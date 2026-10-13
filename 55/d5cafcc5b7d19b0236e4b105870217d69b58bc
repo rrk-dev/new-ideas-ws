@@ -1,0 +1,56 @@
+tasks/04-llm/LLM-07-memory-management-device-tiering.md
+  s_9f6fcf8c1840a0::t_ed6822c39bab65 20-22
+tasks/04-llm/LLM-08-default-model-evaluation.md
+  s_9f6fcf8c1840a0::t_ed6822c39bab65 18-20
+tasks/README.md
+  s_9f6fcf8c1840a0::t_189180925651d6 183
+tools/bench/results/2026-10-13-llm01-host.json
+  s_9f6fcf8c1840a0::t_06ccc929a6a7fd 1-1811
+docs/adr/ADR-LLM-01-runtime.md
+  s_9f6fcf8c1840a0::t_022929a4f5a2f8 58-70,72-78,80-96,123
+  s_9f6fcf8c1840a0::t_e2e75cc985e5e5 1-57,71,79,97,106-122,124-176
+  s_9f6fcf8c1840a0::t_fe2795603c399f 98-105
+tools/spikes/LLM-01-runtime/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_15f604ca67c11e 1-25
+tasks/04-llm/LLM-05-structured-output-grammar.md
+  s_9f6fcf8c1840a0::t_fe2795603c399f 21
+  s_9f6fcf8c1840a0::t_ed6822c39bab65 19-20
+tools/bench/results/2026-10-13-llm01-host.md
+  s_9f6fcf8c1840a0::t_06ccc929a6a7fd 1-31
+tasks/04-llm/LLM-03-llama-android-build.md
+  s_9f6fcf8c1840a0::t_ed6822c39bab65 19-21
+docs/test-plans/device/LLM-01.md
+  s_9f6fcf8c1840a0::t_20c3f3f51bfc53 1-25
+tasks/04-llm/LLM-02-llama-ios-build-metal.md
+  s_9f6fcf8c1840a0::t_ed6822c39bab65 19-21
+tools/spikes/LLM-01-runtime/llm_spike.cpp
+  s_9f6fcf8c1840a0::t_9c8fdbe6b4c63a 1-313
+tasks/04-llm/LLM-06-long-transcript-map-reduce.md
+  s_9f6fcf8c1840a0::t_ed6822c39bab65 20-22
+tasks/04-llm/LLM-04-llm-dart-ffi-engine.md
+  s_9f6fcf8c1840a0::t_ed6822c39bab65 21-23
+tools/spikes/LLM-01-runtime/meeting.gbnf
+  s_9f6fcf8c1840a0::t_c21705605849b6 1-10
+tools/spikes/LLM-01-runtime/build.sh
+  s_9f6fcf8c1840a0::t_73d5a65a948000 1-13
+tasks/04-llm/LLM-01-runtime-selection-spike.md
+  s_9f6fcf8c1840a0::t_d3becde38c7169 11-15,19-30
+tools/spikes/LLM-01-runtime/run.py
+  s_9f6fcf8c1840a0::t_764a98ac694310 1-126
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "55d5cafcc5b7d19b0236e4b105870217d69b58bc",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
