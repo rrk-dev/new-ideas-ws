@@ -1,7 +1,7 @@
 # STT-02 — whisper.cpp Android Build (NDK / Vulkan)
 
 **Workstream:** STT | **Phase:** 2 | **Size:** M | **Depends on:** FND-06 | **Source:** §4.2, §5 Phase 2
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-native-build, vv-whisper-stt, vv-benchmark-eval, vv-testing
 
 ## Goal
