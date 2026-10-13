@@ -1,0 +1,28 @@
+docs/test-plans/device/MDL-02.md
+  s_9f6fcf8c1840a0::t_e8093c8cc8504d 1-29
+tasks/05-models/MDL-02-model-downloader.md
+  s_9f6fcf8c1840a0::t_b22ac1ab24e918 11-16,22-69
+  s_9f6fcf8c1840a0::t_c9355236925918 4
+docs/privacy-audit.md
+  s_9f6fcf8c1840a0::t_0402b8cc726f8a 11,57-93
+  s_9f6fcf8c1840a0::t_5178f531dac587 94
+docs/adr/ADR-MDL-02-model-downloader.md
+  s_9f6fcf8c1840a0::t_79f4d95771d909 1-24,26-87
+  s_9f6fcf8c1840a0::t_0402b8cc726f8a 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0a86a325d0d7296e1ef5abc03475027a2049e1a2",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
