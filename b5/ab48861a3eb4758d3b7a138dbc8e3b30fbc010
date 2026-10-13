@@ -1,0 +1,26 @@
+docs/adr/ADR-AUD-04-ios-background-recording.md
+  s_9f6fcf8c1840a0::t_5f0b50b690ba68 1-59
+tasks/02-audio/AUD-04-ios-background-recording.md
+  s_9f6fcf8c1840a0::t_5e213edafb9cb0 11-16,22-55
+  s_9f6fcf8c1840a0::t_ce63a0957de3a1 4
+docs/test-plans/device/AUD-04.md
+  s_9f6fcf8c1840a0::t_8435f3611912db 1-23
+tasks/10-security-privacy/SEC-09-recording-safeguards-no-call-capture.md
+  s_9f6fcf8c1840a0::t_5e213edafb9cb0 69-75
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b5ab48861a3eb4758d3b7a138dbc8e3b30fbc010",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
