@@ -1,0 +1,85 @@
+app/lib/features/profiles/domain/profile_codec.dart
+  s_9f6fcf8c1840a0::t_a6a242b19ab1c0 54,60
+  s_9f6fcf8c1840a0::t_194b5e22d309c4 1-53,55-59,61-83
+app/lib/features/profiles/domain/profile_validator.dart
+  s_9f6fcf8c1840a0::t_b26f2176776023 1-109,111-236,239-469,472-594
+  s_9f6fcf8c1840a0::t_f9af5bb1f01338 110,237-238,470-471
+app/assets/profiles/engineering.yaml
+  s_9f6fcf8c1840a0::t_7f209052799bae 1-121
+app/lib/features/profiles/data/profile_providers.dart
+  s_9f6fcf8c1840a0::t_f1cb9eb0e54a74 1-38
+  s_9f6fcf8c1840a0::t_be8185669c1f99 39-40
+app/lib/features/profiles/data/profile_registry.dart
+  s_9f6fcf8c1840a0::t_64784d7d061da4 1-23,25-26,28,32,34-35,37,39-42,44-45,47-52,54-85,88-121,123-127,129-146,148-161,163-177,179-195,197-203,205-206,208-213,215-217,222-237
+  s_9f6fcf8c1840a0::t_8356516dcce7f1 24,27,30,33,36,43,53,122,128,162,204,207
+  s_9f6fcf8c1840a0::t_95ee74aa492746 29,31,38,87,178,196,218-221
+  s_9f6fcf8c1840a0::t_f9af5bb1f01338 46,86,147,214
+app/lib/features/profiles/domain/profile.dart
+  s_9f6fcf8c1840a0::t_f9af5bb1f01338 28,75,190
+  s_9f6fcf8c1840a0::t_95ee74aa492746 41
+  s_9f6fcf8c1840a0::t_b580ff91ddc0cd 1-27,29-40,42-74,76-189,191-241
+app/test/unit/profiles/profile_validator_test.dart
+  s_9f6fcf8c1840a0::t_4ff7a4a44c24ab 182-184,188
+  s_9f6fcf8c1840a0::t_01d80dc60ce535 1-39,43-149,151-181,185-187,189-324,337,341-344,349,354-367,369-394
+  s_9f6fcf8c1840a0::t_f9af5bb1f01338 40-42
+  s_9f6fcf8c1840a0::t_95ee74aa492746 325-336,338-340,345-348,350-353,368
+  s_9f6fcf8c1840a0::t_7c27b1b8aaa3c1 150
+app/lib/features/profiles/domain/template_variables.dart
+  s_9f6fcf8c1840a0::t_19b4fcd9e1a8fb 198-201
+  s_9f6fcf8c1840a0::t_f9af5bb1f01338 206,209-210
+  s_9f6fcf8c1840a0::t_06a0c1ff15d1d2 1-197,202-205,207-208,211-370
+app/lib/core/errors/failure.dart
+  s_9f6fcf8c1840a0::t_8440efea93eeac 174-191
+app/pubspec.yaml
+  s_9f6fcf8c1840a0::t_c146e28bdb7ad2 27,52-53
+app/assets/profiles/warranty.yaml
+  s_9f6fcf8c1840a0::t_f1ae85132f997d 1-38,40-82
+  s_9f6fcf8c1840a0::t_b1106b443579ab 39
+app/test/unit/profiles/profile_fixtures.dart
+  s_9f6fcf8c1840a0::t_7004900e36f6c6 1-29
+app/assets/profiles/meeting.yaml
+  s_9f6fcf8c1840a0::t_579f4527c83388 1-4
+  s_9f6fcf8c1840a0::t_49e0634d91ebf5 5-89
+app/lib/features/profiles/domain/profile_issue.dart
+  s_9f6fcf8c1840a0::t_e2c9ab73116759 1-43
+app/lib/features/profiles/domain/render_context.dart
+  s_9f6fcf8c1840a0::t_e079ccf292117f 19-23
+  s_9f6fcf8c1840a0::t_f9af5bb1f01338 77,136,162-166,178-179,185,192-193,213-214
+  s_9f6fcf8c1840a0::t_02d2eeded199cf 1-18,24-76,78-135,137-161,167-177,180-184,186-191,194-212,215-221
+app/lib/features/profiles/domain/profile_schema.dart
+  s_9f6fcf8c1840a0::t_6a9ca38c881ca7 1-586
+app/lib/features/profiles/domain/profile_grammar.dart
+  s_9f6fcf8c1840a0::t_4ce8eb8a9f5340 1-43
+app/lib/features/profiles/domain/post_processors.dart
+  s_9f6fcf8c1840a0::t_f9af5bb1f01338 28
+  s_9f6fcf8c1840a0::t_f0965edd69d025 1-27,29-153
+app/lib/features/profiles/domain/builtin_profiles.dart
+  s_9f6fcf8c1840a0::t_bdb84f80758d51 1-77
+app/test/fakes/fake_schema_grammar_converter.dart
+  s_9f6fcf8c1840a0::t_7d0b4cfe1f452e 1-23
+app/test/unit/profiles/template_variables_test.dart
+  s_9f6fcf8c1840a0::t_8356516dcce7f1 55
+  s_9f6fcf8c1840a0::t_62dff09bf8a865 37
+  s_9f6fcf8c1840a0::t_90e249d1760032 1-36,38-53,58-87,92-131,133-159
+  s_9f6fcf8c1840a0::t_95ee74aa492746 54,56-57,88-91,132
+app/lib/features/profiles/data/profile_providers.g.dart
+  s_9f6fcf8c1840a0::t_ae5c653b9fbf5d 1-206
+app/pubspec.lock
+  s_9f6fcf8c1840a0::t_f0bcb153a6def3 1108
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "25c84909f94f6c2495ac7870cdacf785cd470471",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
