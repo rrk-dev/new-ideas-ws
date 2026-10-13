@@ -185,7 +185,7 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 | Core ML encoder for Whisper on iOS | STT-01 | Decide from benchmark (extra download vs ANE speed) |
 | Diarization approach | STT-05 | Spike sherpa-onnx first |
 | Mustache vs Handlebars | EXP-01 | Mustache (`mustache_template`) + custom lambdas |
-| Model hosting | MDL-01 | Own CDN with signed manifest; HF as mirror only |
+| Model hosting | MDL-01 | Proposed: ADR-MDL-01 — own CDN primary + Ed25519-signed catalog, HF pinned-revision mirror; CDN provider/domain + production key are owner decisions |
 | Play purchase verification without a server | LIC-02 | On-device where possible; document any stateless server |
 | Enterprise seat enforcement model | LIC-03 | Needs design review |
 | Free vs Pro for Warranty / Engineering profiles | LIC-01 | Product decision (§7 is ambiguous) |
