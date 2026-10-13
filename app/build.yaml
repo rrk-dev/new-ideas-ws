@@ -1,0 +1,17 @@
+targets:
+  $default:
+    builders:
+      drift_dev:
+        options:
+          # Schema snapshots + generated migration tests (FND-04,
+          # `fvm dart run drift_dev make-migrations`).
+          databases:
+            vaultvoice: lib/core/db/database.dart
+          schema_dir: drift_schemas/
+          test_dir: test/db/migrations/
+          sql:
+            dialect: sqlite
+            options:
+              version: "3.45"
+              modules:
+                - fts5
