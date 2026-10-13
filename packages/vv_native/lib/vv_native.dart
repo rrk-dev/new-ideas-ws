@@ -62,6 +62,23 @@ class VvNative {
   Future<VvLlm> loadLlm(String modelPath, LlmBackendParams params) =>
       VvLlm.load(modelPath, params, hostPath: _hostPath);
 
+  /// JSON Schema → GBNF (LLM-05, llama.cpp converter in `vv_jsg`). Pure
+  /// CPU, no model. Throws [VvLlmException] (`VV_E_INVALID_ARG`) when the
+  /// text is not JSON or the schema cannot be converted.
+  String jsonSchemaToGbnf(String schemaJson) => using((arena) {
+    final out = arena<Pointer<Char>>();
+    final rc = _b.vv_json_schema_to_gbnf(
+      schemaJson.toNativeUtf8(allocator: arena).cast(),
+      out,
+    );
+    if (rc != VV_OK) throw VvLlmException(rc);
+    try {
+      return out.value.cast<Utf8>().toDartString();
+    } finally {
+      _b.vv_free_string(out.value);
+    }
+  });
+
   /// Current and peak process memory in bytes (`vv_proc_memory`).
   (int, int) get processMemory => using((arena) {
     final cur = arena<Uint64>();

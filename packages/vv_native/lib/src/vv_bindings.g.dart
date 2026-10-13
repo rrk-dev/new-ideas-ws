@@ -451,6 +451,32 @@ class VvBindings {
       );
   late final _vv_llm_destroy = _vv_llm_destroyPtr
       .asFunction<void Function(ffi.Pointer<vv_llm>)>();
+
+  /// LLM-05: converts a JSON Schema (UTF-8 JSON text) to a GBNF grammar with
+  /// root rule "root" (llama.cpp json-schema-to-grammar). `*out_gbnf` is
+  /// malloc'd: free with vv_free_string. VV_E_INVALID_ARG when the input is not
+  /// JSON or the schema cannot be converted. Pure CPU, no model needed; call
+  /// when a profile is saved (cache the result), not per run.
+  int vv_json_schema_to_gbnf(
+    ffi.Pointer<ffi.Char> schema_json,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> out_gbnf,
+  ) {
+    return _vv_json_schema_to_gbnf(schema_json, out_gbnf);
+  }
+
+  late final _vv_json_schema_to_gbnfPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          )
+        >
+      >('vv_json_schema_to_gbnf');
+  late final _vv_json_schema_to_gbnf = _vv_json_schema_to_gbnfPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>)
+      >();
 }
 
 /// How to run llama.cpp. Get defaults from vv_llm_default_backend_params().
@@ -625,6 +651,12 @@ final class vv_gen_params extends ffi.Struct {
   /// Token callback batching: emit after this many tokens or 50 ms.
   @ffi.Int32()
   external int token_batch;
+
+  /// VV_LLM_GRAMMAR_LAZY (default, LLM-05): check the grammar only against the
+  /// sampled token and mask the full vocabulary only when it is rejected.
+  /// VV_LLM_GRAMMAR_FULL: mask every candidate every step (reference).
+  @ffi.Int32()
+  external int grammar_mode;
 }
 
 typedef vv_llm_text_cbFunction = ffi.Void Function(
@@ -716,3 +748,7 @@ const int VV_CPU_FEATURE_DOTPROD = 2;
 const int VV_CPU_FEATURE_I8MM = 4;
 
 const int VV_CPU_FEATURE_SVE = 8;
+
+const int VV_LLM_GRAMMAR_LAZY = 0;
+
+const int VV_LLM_GRAMMAR_FULL = 1;

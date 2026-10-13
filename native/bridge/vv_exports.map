@@ -23,6 +23,7 @@
     vv_llm_generate_async;
     vv_llm_cancel;
     vv_llm_destroy;
+    vv_json_schema_to_gbnf;
   local:
     *;
 };

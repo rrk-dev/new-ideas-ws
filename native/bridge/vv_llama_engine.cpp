@@ -72,8 +72,14 @@ std::vector<llama_token> tokenize(const llama_vocab* vocab, const char* text, si
   return t;
 }
 
-llama_sampler* build_chain(const llama_vocab* vocab, const vv_gen_params& g, bool* grammar_ok) {
+// Builds the sampling chain. With a grammar and grammar_mode LAZY the grammar
+// sampler is returned separately in *grammar_out (checked against the chosen
+// token only, see sample_lazy); with FULL it is the first chain element and
+// masks all candidates every step.
+llama_sampler* build_chain(const llama_vocab* vocab, const vv_gen_params& g, bool* grammar_ok,
+                           llama_sampler** grammar_out) {
   *grammar_ok = true;
+  *grammar_out = nullptr;
   llama_sampler* chain = llama_sampler_chain_init(llama_sampler_chain_default_params());
   if (g.grammar && g.grammar[0]) {
     llama_sampler* gr = llama_sampler_init_grammar(vocab, g.grammar, "root");
@@ -82,7 +88,11 @@ llama_sampler* build_chain(const llama_vocab* vocab, const vv_gen_params& g, boo
       llama_sampler_free(chain);
       return nullptr;
     }
-    llama_sampler_chain_add(chain, gr);  // grammar first (LLM-05 tunes this)
+    if (g.grammar_mode == VV_LLM_GRAMMAR_FULL) {
+      llama_sampler_chain_add(chain, gr);
+    } else {
+      *grammar_out = gr;
+    }
   }
   if (g.temperature <= 0.0f) {
     if (g.repeat_penalty != 1.0f && g.repeat_last_n != 0)
@@ -107,9 +117,43 @@ struct Job {
   std::string prompt;
   vv_gen_params g;
   llama_sampler* chain;
+  llama_sampler* grammar;  // LAZY mode only, else nullptr
   vv_llm_callbacks cb;
   int32_t chunks = 0;
+  std::vector<llama_token_data> cur;
 };
+
+void fill_candidates(std::vector<llama_token_data>& cur, const float* logits, int n_vocab) {
+  cur.resize(n_vocab);
+  for (llama_token t = 0; t < n_vocab; t++) cur[t] = {t, logits[t], 0.0f};
+}
+
+// Grammar-checked sampling, the strategy of llama.cpp common/sampling.cpp
+// (grammar_first = false): sample with the plain chain, then ask the grammar
+// about that ONE token; only if it is rejected, mask the full vocabulary with
+// the grammar and resample. Most steps cost one grammar check instead of a
+// pass over 128k candidates. Each sampler is accepted exactly once.
+llama_token sample_lazy(Job& j, llama_context* ctx, int n_vocab) {
+  const float* logits = llama_get_logits_ith(ctx, -1);
+  fill_candidates(j.cur, logits, n_vocab);
+  llama_token_data_array arr = {j.cur.data(), j.cur.size(), -1, false};
+  llama_sampler_apply(j.chain, &arr);
+  llama_token id = arr.data[arr.selected].id;
+
+  llama_token_data single = {id, 1.0f, 0.0f};
+  llama_token_data_array one = {&single, 1, -1, false};
+  llama_sampler_apply(j.grammar, &one);
+  if (!std::isfinite(one.data[0].logit)) {  // rejected: full mask + resample
+    fill_candidates(j.cur, logits, n_vocab);
+    arr = {j.cur.data(), j.cur.size(), -1, false};
+    llama_sampler_apply(j.grammar, &arr);
+    llama_sampler_apply(j.chain, &arr);
+    id = arr.data[arr.selected].id;
+  }
+  llama_sampler_accept(j.grammar, id);
+  llama_sampler_accept(j.chain, id);
+  return id;
+}
 
 void emit(Job& j, std::string& pending, bool flush) {
   size_t n = flush ? pending.size() : utf8_complete_prefix(pending);
@@ -155,7 +199,8 @@ int32_t run(Job& j, int32_t* n_prompt, int32_t* n_gen, double* prefill_ms, doubl
       status = VV_E_CANCELLED;
       break;
     }
-    llama_token tok = llama_sampler_sample(j.chain, ctx, -1);  // samples + accepts
+    llama_token tok = j.grammar ? sample_lazy(j, ctx, llama_vocab_n_tokens(vocab))
+                                : llama_sampler_sample(j.chain, ctx, -1);  // samples + accepts
     if (llama_vocab_is_eog(vocab, tok)) break;
     char buf[256];
     int n = llama_token_to_piece(vocab, tok, buf, sizeof buf, 0, false);
@@ -200,6 +245,7 @@ void worker_main(Job j) {
     status = VV_E_INTERNAL;
   }
   llama_sampler_free(j.chain);
+  if (j.grammar) llama_sampler_free(j.grammar);
   vv_llm_done_cb done = j.cb.on_done;
   void* user = j.cb.user;
   j.h->busy.store(false);  // before on_done: the receiver may start the next job
@@ -325,13 +371,15 @@ int32_t vv_llm_generate_async(vv_llm* h, const char* prompt, const vv_gen_params
     std::lock_guard<std::mutex> lock(h->mu);
     if (h->worker.joinable()) h->worker.join();  // previous job already reported done
     bool grammar_ok = true;
-    llama_sampler* chain = build_chain(llama_model_get_vocab(h->L.model), *params, &grammar_ok);
+    llama_sampler* grammar = nullptr;
+    llama_sampler* chain =
+        build_chain(llama_model_get_vocab(h->L.model), *params, &grammar_ok, &grammar);
     if (!chain) {
       h->busy.store(false);
       return grammar_ok ? VV_E_INTERNAL : VV_E_INVALID_ARG;
     }
     h->cancel.store(false);
-    Job j{h, std::string(prompt), *params, chain, callbacks};
+    Job j{h, std::string(prompt), *params, chain, grammar, callbacks, 0, {}};
     j.g.grammar = nullptr;  // only used while building the chain
     h->worker = std::thread(worker_main, std::move(j));
     return VV_OK;

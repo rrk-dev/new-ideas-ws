@@ -23,6 +23,7 @@ final class LlmGenParams {
     this.repeatLastN = 64,
     this.grammar,
     this.tokenBatch = 4,
+    this.fullGrammarMask = false,
   });
 
   /// Structured extraction (default): grammar + temp 0.2, min_p 0.05,
@@ -60,6 +61,10 @@ final class LlmGenParams {
   /// GBNF (root rule `root`) or null = unconstrained.
   final String? grammar;
   final int tokenBatch;
+
+  /// `VV_LLM_GRAMMAR_FULL` (mask every candidate each step) instead of the
+  /// default lazy check of the sampled token (LLM-05). Benchmarks only.
+  final bool fullGrammarMask;
 }
 
 /// Outcome of one generation (`on_done`).
@@ -279,6 +284,9 @@ final class VvLlm {
         ..repeat_penalty = params.repeatPenalty
         ..repeat_last_n = params.repeatLastN
         ..token_batch = params.tokenBatch
+        ..grammar_mode = params.fullGrammarMask
+            ? VV_LLM_GRAMMAR_FULL
+            : VV_LLM_GRAMMAR_LAZY
         ..grammar = params.grammar == null
             ? nullptr
             : params.grammar!.toNativeUtf8(allocator: arena).cast();
