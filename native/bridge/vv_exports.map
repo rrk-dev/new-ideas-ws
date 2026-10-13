@@ -10,6 +10,15 @@
     vv_backends_describe;
     vv_backends_dynamic;
     vv_cpu_perf_cores;
+    vv_stt_default_init_params;
+    vv_stt_default_params;
+    vv_stt_create;
+    vv_stt_transcribe_async;
+    vv_stt_transcribe_ranges;
+    vv_stt_cancel;
+    vv_stt_destroy;
+    vv_stt_free_segment;
+    vv_stt_last_error;
   local:
     *;
 };

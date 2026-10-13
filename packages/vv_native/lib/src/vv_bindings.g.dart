@@ -161,6 +161,384 @@ class VvBindings {
       _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('vv_cpu_perf_cores');
   late final _vv_cpu_perf_cores = _vv_cpu_perf_coresPtr
       .asFunction<int Function()>();
+
+  vv_stt_init_params vv_stt_default_init_params() {
+    return _vv_stt_default_init_params();
+  }
+
+  late final _vv_stt_default_init_paramsPtr =
+      _lookup<ffi.NativeFunction<vv_stt_init_params Function()>>(
+        'vv_stt_default_init_params',
+      );
+  late final _vv_stt_default_init_params = _vv_stt_default_init_paramsPtr
+      .asFunction<vv_stt_init_params Function()>();
+
+  vv_stt_params vv_stt_default_params() {
+    return _vv_stt_default_params();
+  }
+
+  late final _vv_stt_default_paramsPtr =
+      _lookup<ffi.NativeFunction<vv_stt_params Function()>>(
+        'vv_stt_default_params',
+      );
+  late final _vv_stt_default_params = _vv_stt_default_paramsPtr
+      .asFunction<vv_stt_params Function()>();
+
+  /// Loads a ggml whisper model (blocking; call off the UI isolate).
+  /// VV_E_INVALID_ARG (NULL args/struct_size), VV_E_MODEL_LOAD, VV_E_OOM.
+  int vv_stt_create(
+    ffi.Pointer<ffi.Char> model_path,
+    ffi.Pointer<vv_stt_init_params> params,
+    ffi.Pointer<ffi.Pointer<vv_stt>> out,
+  ) {
+    return _vv_stt_create(model_path, params, out);
+  }
+
+  late final _vv_stt_createPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<vv_stt_init_params>,
+            ffi.Pointer<ffi.Pointer<vv_stt>>,
+          )
+        >
+      >('vv_stt_create');
+  late final _vv_stt_create = _vv_stt_createPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<vv_stt_init_params>,
+          ffi.Pointer<ffi.Pointer<vv_stt>>,
+        )
+      >();
+
+  /// Transcribes one whole WAV file asynchronously.
+  int vv_stt_transcribe_async(
+    ffi.Pointer<vv_stt> h,
+    ffi.Pointer<ffi.Char> wav_path,
+    ffi.Pointer<vv_stt_params> params,
+    vv_stt_callbacks cbs,
+    ffi.Pointer<ffi.Void> user,
+  ) {
+    return _vv_stt_transcribe_async(h, wav_path, params, cbs, user);
+  }
+
+  late final _vv_stt_transcribe_asyncPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<vv_stt>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<vv_stt_params>,
+            vv_stt_callbacks,
+            ffi.Pointer<ffi.Void>,
+          )
+        >
+      >('vv_stt_transcribe_async');
+  late final _vv_stt_transcribe_async = _vv_stt_transcribe_asyncPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<vv_stt>,
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<vv_stt_params>,
+          vv_stt_callbacks,
+          ffi.Pointer<ffi.Void>,
+        )
+      >();
+
+  /// Transcribes the concatenation of n ranges (one window, STT-04) asynchronously.
+  /// Paths are copied; the array may be freed when this returns.
+  int vv_stt_transcribe_ranges(
+    ffi.Pointer<vv_stt> h,
+    ffi.Pointer<vv_audio_range> ranges,
+    int n,
+    ffi.Pointer<vv_stt_params> params,
+    vv_stt_callbacks cbs,
+    ffi.Pointer<ffi.Void> user,
+  ) {
+    return _vv_stt_transcribe_ranges(h, ranges, n, params, cbs, user);
+  }
+
+  late final _vv_stt_transcribe_rangesPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<vv_stt>,
+            ffi.Pointer<vv_audio_range>,
+            ffi.Size,
+            ffi.Pointer<vv_stt_params>,
+            vv_stt_callbacks,
+            ffi.Pointer<ffi.Void>,
+          )
+        >
+      >('vv_stt_transcribe_ranges');
+  late final _vv_stt_transcribe_ranges = _vv_stt_transcribe_rangesPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<vv_stt>,
+          ffi.Pointer<vv_audio_range>,
+          int,
+          ffi.Pointer<vv_stt_params>,
+          vv_stt_callbacks,
+          ffi.Pointer<ffi.Void>,
+        )
+      >();
+
+  /// Requests cancellation of the running job; returns immediately. The job's
+  /// on_done reports VV_E_CANCELLED. No-op when idle.
+  void vv_stt_cancel(ffi.Pointer<vv_stt> h) {
+    return _vv_stt_cancel(h);
+  }
+
+  late final _vv_stt_cancelPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<vv_stt>)>>(
+        'vv_stt_cancel',
+      );
+  late final _vv_stt_cancel = _vv_stt_cancelPtr
+      .asFunction<void Function(ffi.Pointer<vv_stt>)>();
+
+  /// Cancels, waits for the worker thread and frees the model. Safe on NULL and
+  /// after cancel. Do not call from a callback.
+  void vv_stt_destroy(ffi.Pointer<vv_stt> h) {
+    return _vv_stt_destroy(h);
+  }
+
+  late final _vv_stt_destroyPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<vv_stt>)>>(
+        'vv_stt_destroy',
+      );
+  late final _vv_stt_destroy = _vv_stt_destroyPtr
+      .asFunction<void Function(ffi.Pointer<vv_stt>)>();
+
+  void vv_stt_free_segment(ffi.Pointer<vv_stt_segment> seg) {
+    return _vv_stt_free_segment(seg);
+  }
+
+  late final _vv_stt_free_segmentPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Void Function(ffi.Pointer<vv_stt_segment>)>
+      >('vv_stt_free_segment');
+  late final _vv_stt_free_segment = _vv_stt_free_segmentPtr
+      .asFunction<void Function(ffi.Pointer<vv_stt_segment>)>();
+
+  /// Content-free message for the last failure on h (or of the last
+  /// vv_stt_create when h is NULL). Valid until the next call on h.
+  ffi.Pointer<ffi.Char> vv_stt_last_error(ffi.Pointer<vv_stt> h) {
+    return _vv_stt_last_error(h);
+  }
+
+  late final _vv_stt_last_errorPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<vv_stt>)>
+      >('vv_stt_last_error');
+  late final _vv_stt_last_error = _vv_stt_last_errorPtr
+      .asFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<vv_stt>)>();
+}
+
+final class vv_stt extends ffi.Opaque {}
+
+/// [start_ms, end_ms) of a 16 kHz PCM16 WAV file; end_ms < 0 = to the end.
+final class vv_audio_range extends ffi.Struct {
+  external ffi.Pointer<ffi.Char> path;
+
+  @ffi.Int64()
+  external int start_ms;
+
+  @ffi.Int64()
+  external int end_ms;
+}
+
+final class vv_stt_init_params extends ffi.Struct {
+  /// = sizeof(vv_stt_init_params)
+  @ffi.Uint32()
+  external int struct_size;
+
+  /// 0 = CPU only (background / denylisted GPU)
+  @ffi.Int32()
+  external int use_gpu;
+
+  @ffi.Int32()
+  external int flash_attn;
+
+  @ffi.Int32()
+  external int gpu_device;
+}
+
+final class vv_stt_params extends ffi.Struct {
+  /// = sizeof(vv_stt_params)
+  @ffi.Uint32()
+  external int struct_size;
+
+  /// "en", "de", "auto"; NULL = "en"
+  external ffi.Pointer<ffi.Char> language;
+
+  /// 0 (we never translate)
+  @ffi.Int32()
+  external int translate;
+
+  /// <= 0: vv_cpu_perf_cores() capped at 4
+  @ffi.Int32()
+  external int n_threads;
+
+  /// <= 1: greedy
+  @ffi.Int32()
+  external int beam_size;
+
+  /// 0.0
+  @ffi.Float()
+  external double temperature;
+
+  /// 0.2; 0 disables temperature fallback
+  @ffi.Float()
+  external double temperature_inc;
+
+  /// vocabulary hints; NULL = none
+  external ffi.Pointer<ffi.Char> initial_prompt;
+
+  /// 1: prompt in every 30 s window
+  @ffi.Int32()
+  external int carry_initial_prompt;
+
+  /// 1
+  @ffi.Int32()
+  external int no_context;
+
+  /// 1: fill vv_stt_segment.tokens
+  @ffi.Int32()
+  external int token_timestamps;
+
+  /// 1
+  @ffi.Int32()
+  external int suppress_nst;
+
+  /// 2.4
+  @ffi.Float()
+  external double entropy_thold;
+
+  /// -1.0
+  @ffi.Float()
+  external double logprob_thold;
+
+  /// 0.6
+  @ffi.Float()
+  external double no_speech_thold;
+}
+
+final class vv_stt_token extends ffi.Struct {
+  /// UTF-8 piece
+  external ffi.Pointer<ffi.Char> text;
+
+  /// probability
+  @ffi.Float()
+  external double p;
+
+  /// timeline ms (token_timestamps only, else -1)
+  @ffi.Int64()
+  external int t0_ms;
+
+  @ffi.Int64()
+  external int t1_ms;
+}
+
+final class vv_stt_segment extends ffi.Struct {
+  /// 0.. within the job
+  @ffi.Int32()
+  external int index;
+
+  /// position in the concatenated input
+  @ffi.Int64()
+  external int t0_ms;
+
+  @ffi.Int64()
+  external int t1_ms;
+
+  /// range index containing t0
+  @ffi.Int32()
+  external int t0_range;
+
+  /// t0 in that range's file (range.start_ms + offset)
+  @ffi.Int64()
+  external int t0_src_ms;
+
+  @ffi.Int32()
+  external int t1_range;
+
+  @ffi.Int64()
+  external int t1_src_ms;
+
+  /// mean token log-probability (confidence)
+  @ffi.Float()
+  external double avg_logprob;
+
+  @ffi.Float()
+  external double no_speech_prob;
+
+  /// UTF-8
+  external ffi.Pointer<ffi.Char> text;
+
+  @ffi.Int32()
+  external int n_tokens;
+
+  /// n_tokens entries, NULL when 0
+  external ffi.Pointer<vv_stt_token> tokens;
+}
+
+typedef vv_stt_progress_cbFunction = ffi.Void Function(
+  ffi.Pointer<ffi.Void> user,
+  ffi.Int32 percent,
+);
+typedef Dartvv_stt_progress_cbFunction = void Function(
+  ffi.Pointer<ffi.Void> user,
+  int percent,
+);
+
+/// percent 0..100
+typedef vv_stt_progress_cb =
+    ffi.Pointer<ffi.NativeFunction<vv_stt_progress_cbFunction>>;
+typedef vv_stt_segment_cbFunction = ffi.Void Function(
+  ffi.Pointer<ffi.Void> user,
+  ffi.Pointer<vv_stt_segment> seg,
+);
+typedef Dartvv_stt_segment_cbFunction = void Function(
+  ffi.Pointer<ffi.Void> user,
+  ffi.Pointer<vv_stt_segment> seg,
+);
+
+/// seg: owned by the callee -> vv_stt_free_segment(seg)
+typedef vv_stt_segment_cb =
+    ffi.Pointer<ffi.NativeFunction<vv_stt_segment_cbFunction>>;
+typedef vv_stt_done_cbFunction = ffi.Void Function(
+  ffi.Pointer<ffi.Void> user,
+  ffi.Int32 status,
+  ffi.Int64 audio_ms,
+  ffi.Int64 process_ms,
+  ffi.Int32 n_segments,
+);
+typedef Dartvv_stt_done_cbFunction = void Function(
+  ffi.Pointer<ffi.Void> user,
+  int status,
+  int audio_ms,
+  int process_ms,
+  int n_segments,
+);
+
+/// status: VV_OK, VV_E_CANCELLED, VV_E_IO, VV_E_INVALID_ARG (bad audio),
+/// VV_E_OOM, VV_E_BACKEND, VV_E_INTERNAL. audio_ms = input length,
+/// process_ms = wall time of the job, n_segments = on_segment calls made
+/// (lets a listener that receives events on several ports wait for all).
+typedef vv_stt_done_cb =
+    ffi.Pointer<ffi.NativeFunction<vv_stt_done_cbFunction>>;
+
+final class vv_stt_callbacks extends ffi.Struct {
+  /// optional
+  external vv_stt_progress_cb on_progress;
+
+  /// optional
+  external vv_stt_segment_cb on_segment;
+
+  /// required
+  external vv_stt_done_cb on_done;
 }
 
 const int VV_ABI_VERSION = 1;

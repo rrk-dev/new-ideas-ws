@@ -12,6 +12,22 @@ import 'package:ffi/ffi.dart';
 import 'package:vv_native/src/loader.dart';
 import 'package:vv_native/src/vv_bindings.g.dart';
 
+export 'package:vv_native/src/vv_bindings.g.dart'
+    show
+        VV_E_BACKEND,
+        VV_E_BUSY,
+        VV_E_CANCELLED,
+        VV_E_INTERNAL,
+        VV_E_INVALID_ARG,
+        VV_E_IO,
+        VV_E_MODEL_LOAD,
+        VV_E_OOM,
+        VV_GPU_METAL,
+        VV_GPU_OPENCL,
+        VV_GPU_VULKAN,
+        VV_OK;
+export 'package:vv_native/src/whisper.dart';
+
 /// ABI revision this Dart code was generated against (`VV_ABI_VERSION`).
 const int expectedAbiVersion = 1;
 

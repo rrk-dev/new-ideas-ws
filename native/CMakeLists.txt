@@ -119,7 +119,7 @@ set(BUILD_SHARED_LIBS OFF)             # whisper + llama stay static inside vv_n
 add_subdirectory(llama.cpp llama)
 add_subdirectory(whisper.cpp whisper)
 
-add_library(vv_native SHARED bridge/vv_bridge.cpp bridge/vv_backend.cpp)
+add_library(vv_native SHARED bridge/vv_bridge.cpp bridge/vv_backend.cpp bridge/vv_whisper.cpp)
 target_include_directories(vv_native PUBLIC bridge)
 target_link_libraries(vv_native PRIVATE whisper llama ggml)
 target_compile_definitions(vv_native PRIVATE VV_BUILDING_LIBRARY=1)
@@ -186,6 +186,14 @@ if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
   foreach(mode cpu gpu coreml-fallback)
     add_test(NAME stt_backend_${mode} COMMAND stt_backends check ${mode})
     set_tests_properties(stt_backend_${mode} PROPERTIES SKIP_RETURN_CODE 77)
+  endforeach()
+
+  # STT-03: vv_stt_* C ABI (async worker, callbacks, cancel, ranges).
+  add_executable(stt_bridge_test tests/stt_bridge_test.cpp)
+  target_link_libraries(stt_bridge_test PRIVATE vv_native)
+  foreach(mode args jfk ranges busy cancel destroy audio churn)
+    add_test(NAME vv_stt_${mode} COMMAND stt_bridge_test ${mode})
+    set_tests_properties(vv_stt_${mode} PROPERTIES SKIP_RETURN_CODE 77)
   endforeach()
 
   # STT-02: vv_backends_* loader + perf-core detection.

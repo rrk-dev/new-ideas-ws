@@ -75,6 +75,9 @@ VV_API int32_t vv_backends_dynamic(void);
  * perflevel0). Default STT/LLM n_threads. Always >= 1. */
 VV_API int32_t vv_cpu_perf_cores(void);
 
+/* ---- Speech-to-text (STT-03): vv_stt_* — see vv_whisper.h ---- */
+#include "vv_whisper.h"
+
 #ifdef __cplusplus
 }
 #endif
