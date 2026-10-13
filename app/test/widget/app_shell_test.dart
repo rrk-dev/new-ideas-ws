@@ -8,7 +8,10 @@ import 'package:vaultvoice/features/library/presentation/library_screen.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/profiles/presentation/profiles_screen.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_screen.dart';
+import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_screen.dart';
+
+import '../fakes/fake_settings_store.dart';
 
 void main() {
   Future<void> pumpApp(WidgetTester tester) => tester.pumpWidget(
@@ -17,6 +20,9 @@ void main() {
         flavorProvider.overrideWithValue(Flavor.dev),
         // Hermetic: no database behind the processing-queue indicator.
         processingViewsProvider.overrideWith((ref) async => const []),
+        settingsStoreProvider.overrideWithValue(FakeSettingsStore()),
+        vaultTargetsProvider.overrideWith((ref) => Stream.value(const [])),
+        routingRulesProvider.overrideWith((ref) => Stream.value(const [])),
       ],
       child: const App(),
     ),
