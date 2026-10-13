@@ -1,0 +1,45 @@
+native/tests/crash_test.c
+  s_9f6fcf8c1840a0::t_474ad3c460af60 1-160
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_7e173a310ac3f3 64-68,115-121
+  s_9f6fcf8c1840a0::t_3da73d254a858b 122
+packages/vv_native/lib/src/vv_crash_bindings.g.dart
+  s_9f6fcf8c1840a0::t_3f037f674b1612 1-121
+packages/vv_native/ffigen_crash.yaml
+  s_9f6fcf8c1840a0::t_4e6f999d9e275d 1-16
+packages/vv_native/test/vv_crash_host_test.dart
+  s_9f6fcf8c1840a0::t_ae8771529374e2 1-51
+tools/crash/symbolize.py
+  s_9f6fcf8c1840a0::t_311565dc1c3134 1-88,91,95,97,100,105,108-149,151-232
+  s_9f6fcf8c1840a0::t_e2449fc63f1085 150
+  s_9f6fcf8c1840a0::t_179b2bfac504cb 89-90,92-94,96,98-99,101-104,106-107
+packages/vv_native/lib/vv_crash.dart
+  s_9f6fcf8c1840a0::t_45257553e18f5f 1-23,25-79
+  s_9f6fcf8c1840a0::t_11607bb0babed8 24
+native/bridge/vv_crash.c
+  s_9f6fcf8c1840a0::t_ae56b2a09b9934 1-570
+tools/crash/tests/test_crash_symbolize.py
+  s_9f6fcf8c1840a0::t_64511b748c1939 1-182
+native/bridge/vv_exports.txt
+  s_9f6fcf8c1840a0::t_7e173a310ac3f3 7
+native/bridge/vv_crash.h
+  s_9f6fcf8c1840a0::t_e918a373a9a2ce 1-92
+native/bridge/vv_exports.map
+  s_9f6fcf8c1840a0::t_f56910ddb50e7d 9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2e97eab76fe744fc1cad9d671120e4683d2de080",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
