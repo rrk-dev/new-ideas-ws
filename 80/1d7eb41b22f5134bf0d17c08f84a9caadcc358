@@ -1,0 +1,98 @@
+app/lib/features/settings/domain/setting_definitions.dart
+  s_9f6fcf8c1840a0::t_0e9816f1eb3e41 1-249
+app/test/golden/settings_screen_golden_test.dart
+  s_9f6fcf8c1840a0::t_dd9c0f0501037f 1-31
+app/lib/features/settings/domain/setting_keys.dart
+  s_9f6fcf8c1840a0::t_f6bf16db427aec 16-38
+app/lib/core/app_info.dart
+  s_9f6fcf8c1840a0::t_f6bf16db427aec 3-6
+app/lib/features/settings/presentation/settings_providers.dart
+  s_9f6fcf8c1840a0::t_929f71fffee27b 7,17,69
+  s_9f6fcf8c1840a0::t_0e570fe7fe2f5f 78
+  s_9f6fcf8c1840a0::t_538c67529d6fb4 61
+  s_9f6fcf8c1840a0::t_53affc55295ff6 91-119,122-135,139-147
+  s_9f6fcf8c1840a0::t_d6128ccfaafb85 90,120-121,136-138
+  s_9f6fcf8c1840a0::t_876233b2759df8 1-2,4-5,8-16,18-42,48-51,53-60,62-68,70-77,81-86,88-89
+  s_9f6fcf8c1840a0::t_20d008e589c47f 79-80
+  s_9f6fcf8c1840a0::t_ee23ea078654a7 3,6,43-47,52,87
+app/test/helpers/settings_values.dart
+  s_9f6fcf8c1840a0::t_15521c8f553568 1-10
+app/lib/bootstrap.dart
+  s_9f6fcf8c1840a0::t_f6bf16db427aec 12,32
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9f6fcf8c1840a0::t_666430bbe8cbad 234
+  s_9f6fcf8c1840a0::t_538c67529d6fb4 244
+  s_9f6fcf8c1840a0::t_2bf5fb8443a1d2 2-8,10-12,14-16,20-233,235-243,245-329
+app/lib/features/settings/presentation/setting_tiles.dart
+  s_9f6fcf8c1840a0::t_d0b6dab4407776 1-70,73-88,90-94,96-112,114-214
+  s_9f6fcf8c1840a0::t_666430bbe8cbad 71-72,89,95,113
+app/lib/features/settings/data/drift_settings_store.dart
+  s_9f6fcf8c1840a0::t_fe6cdb18ec0594 1-17
+app/lib/core/licenses/bundled_licenses.dart
+  s_9f6fcf8c1840a0::t_63ac4df7791a12 1-83
+app/lib/features/settings/presentation/settings_providers.g.dart
+  s_9f6fcf8c1840a0::t_929f71fffee27b 81,101,466,493
+  s_9f6fcf8c1840a0::t_53affc55295ff6 1-80,82-100,102-240,287-340,342-465,467-492,494-585
+  s_9f6fcf8c1840a0::t_15521c8f553568 241-286,341
+app/test/widget/settings_screen_test.dart
+  s_9f6fcf8c1840a0::t_15521c8f553568 17
+  s_9f6fcf8c1840a0::t_d4bff3a4fe0917 88-89
+  s_9f6fcf8c1840a0::t_939ff57f32eb3a 14,284-350
+  s_9f6fcf8c1840a0::t_b6627e6bd1e9a8 245
+  s_9f6fcf8c1840a0::t_64c31c6b1775ba 1-13,15,18-36,38-54,56,58-62,75-80,82,87,90-91,93-102,107-127,129-134,136-186,188-189,191-197,206-244,246-272,278-283,351-352
+  s_9f6fcf8c1840a0::t_e2155e6f05a8fc 37
+  s_9f6fcf8c1840a0::t_cee79b420d79de 277
+  s_9f6fcf8c1840a0::t_538c67529d6fb4 103-106
+  s_9f6fcf8c1840a0::t_0bee04c7ecee94 273-276
+  s_9f6fcf8c1840a0::t_78928188d5d5b2 81,83-86
+  s_9f6fcf8c1840a0::t_edd862c9244401 16,55,57,63-74,92,128,135,187,190,198-205
+app/test/fakes/fake_settings_store.dart
+  s_9f6fcf8c1840a0::t_88766a17e2afc3 1-30
+app/lib/core/widgets/status_message.dart
+  s_9f6fcf8c1840a0::t_f6bf16db427aec 1-44
+app/lib/features/settings/domain/settings_ports.dart
+  s_9f6fcf8c1840a0::t_ee23ea078654a7 100-106
+  s_9f6fcf8c1840a0::t_538c67529d6fb4 17
+  s_9f6fcf8c1840a0::t_f6bf16db427aec 1
+  s_9f6fcf8c1840a0::t_fd150c2afae9ed 2-16,18-99
+app/lib/features/pipeline/presentation/processing_queue_screen.dart
+  s_9f6fcf8c1840a0::t_f6bf16db427aec 5
+app/lib/core/routing/app_routes.g.dart
+  s_9f6fcf8c1840a0::t_538c67529d6fb4 59-75,212-260,262-263,265-266,268-270,272-274
+  s_9f6fcf8c1840a0::t_e1307a11770da5 261,264,267,271
+app/lib/features/pipeline/presentation/recording_status_screen.dart
+  s_9f6fcf8c1840a0::t_f6bf16db427aec 4
+app/lib/core/routing/app_routes.dart
+  s_9f6fcf8c1840a0::t_12d34a30b8e6a8 5,12,36-45,144-169
+  s_9f6fcf8c1840a0::t_56add46c2d0b0a 1
+app/lib/features/settings/presentation/setting_texts.dart
+  s_9f6fcf8c1840a0::t_44207665f49925 1-81
+app/lib/features/settings/presentation/vault_settings_screens.dart
+  s_9f6fcf8c1840a0::t_53affc55295ff6 67,137,139,161-162
+  s_9f6fcf8c1840a0::t_bf477f025f1677 1-7,9,11-12,155
+  s_9f6fcf8c1840a0::t_538c67529d6fb4 160
+  s_9f6fcf8c1840a0::t_ee4834001204a5 8,10,13-66,68-136,138,140-154,156-159,163-199
+app/lib/core/errors/failure.dart
+  s_9f6fcf8c1840a0::t_f6bf16db427aec 87-95
+app/test/unit/settings/settings_store_test.dart
+  s_9f6fcf8c1840a0::t_929f71fffee27b 4,16,25-31,42,52,78,81
+  s_9f6fcf8c1840a0::t_477f01a6ebd4c7 5,7,9-14,17-24,32-41,43-51,53-62,65-77,79-80,82-110,132-133
+  s_9f6fcf8c1840a0::t_939ff57f32eb3a 1-3,6,8,111-131
+  s_9f6fcf8c1840a0::t_15521c8f553568 15,63-64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "801d7eb41b22f5134bf0d17c08f84a9caadcc358",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
