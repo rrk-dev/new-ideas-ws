@@ -36,7 +36,7 @@ abstract interface class DownloadDeviceInfo {
 /// Keeps the process alive while an in-process download runs in the
 /// background: Android foreground service (type `dataSync`), iOS
 /// `beginBackgroundTask` (short grace only — long iOS downloads use the
-/// background `URLSession` transport instead).
+/// background download-session transport instead).
 abstract interface class DownloadKeepAlive {
   /// [title] is public catalog data (model display name), never user content.
   Future<void> start(String title);

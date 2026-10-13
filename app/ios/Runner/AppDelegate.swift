@@ -19,6 +19,10 @@ import UIKit
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "CallGuardPlugin") {
       CallGuardPlugin.register(with: registrar)
     }
+    // MDL-02: model downloads (background session, free space, backup exclusion).
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "ModelDownloadPlugin") {
+      ModelDownloadPlugin.register(with: registrar)
+    }
     BookmarkHostApiSetup.setUp(
       binaryMessenger: engineBridge.applicationRegistrar.messenger(), api: bookmarkApi)
   }

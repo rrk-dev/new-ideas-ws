@@ -30,7 +30,7 @@ const _cdnUrl = 'https://$_cdn/stt/ggml-tiny.en.bin';
 const _hfPath = '/ggerganov/whisper.cpp/resolve/abc/ggml-tiny.en.bin';
 const _hfUrl = 'https://$_hf$_hfPath';
 
-const _mib = 1024 * 1024;
+const int _mib = 1024 * 1024;
 
 NetworkConfig _config({bool offline = false}) => NetworkConfig(
   allowedHosts: const {_cdn, _hf},
@@ -164,19 +164,21 @@ void main() {
       final isolateErrors = <Object?>[];
       errors.listen(isolateErrors.add);
       addTearDown(errors.close);
-      final isolate = await Isolate.spawn(
-        _downloadInIsolate,
-        (server.port, paths.root, model(), ready.sendPort),
-        onError: errors.sendPort,
-      );
+      final isolate = await Isolate.spawn(_downloadInIsolate, (
+        server.port,
+        paths.root,
+        model(),
+        ready.sendPort,
+      ), onError: errors.sendPort);
       await ready.first;
       // Wait until the first process has written everything it received.
       final deadline = DateTime.now().add(const Duration(seconds: 20));
-      while (!partialFile().existsSync() ||
-          partialFile().lengthSync() < _mib) {
+      while (!partialFile().existsSync() || partialFile().lengthSync() < _mib) {
         if (DateTime.now().isAfter(deadline)) {
-          fail('no partial: $isolateErrors ${server.bodyBytesSent} '
-              '${partialFile().existsSync() ? partialFile().lengthSync() : -1}');
+          fail(
+            'no partial: $isolateErrors ${server.bodyBytesSent} '
+            '${partialFile().existsSync() ? partialFile().lengthSync() : -1}',
+          );
         }
         await Future<void>.delayed(const Duration(milliseconds: 20));
       }
@@ -580,10 +582,7 @@ void main() {
     });
 
     test('requests carry only the anonymous headers (+ Range)', () async {
-      server.routes['$_cdn/stt/ggml-tiny.en.bin'] = FileRoute(
-        bytes,
-        corruptTimes: 0,
-      );
+      server.routes['$_cdn/stt/ggml-tiny.en.bin'] = FileRoute(bytes);
       await downloader().download(model());
       final h = server.requests.single.headers;
       expect(h['user-agent'], 'VaultVoice/1');

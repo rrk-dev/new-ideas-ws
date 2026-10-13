@@ -9,6 +9,10 @@ ROOT="${1:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 ALLOW=(
   "app/lib/core/network/"
   "app/lib/features/models/data/"   # model downloader (MDL-02)
+  # MDL-02 iOS background download session for model files only: hosts were
+  # validated by the Dart NetworkGateway first and are re-checked natively
+  # (docs/adr/ADR-MDL-02-model-downloader.md, docs/privacy-audit.md).
+  "app/ios/Runner/ModelDownload/"
 )
 # Only first-party sources: tests, generated code and vendored native code
 # are out of scope.

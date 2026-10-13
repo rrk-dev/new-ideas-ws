@@ -257,7 +257,7 @@ final class NetworkConfigProvider
   }
 }
 
-String _$networkConfigHash() => r'fce87aa09d6681895dd2baeecf2df93ec916a293';
+String _$networkConfigHash() => r'1467334b9f04701cb710320ab4a80f1a53b51933';
 
 @ProviderFor(networkGateway)
 final networkGatewayProvider = NetworkGatewayProvider._();
