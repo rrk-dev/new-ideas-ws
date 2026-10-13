@@ -171,3 +171,21 @@ final class ModelIntegrityFailure extends Failure {
   /// True when the byte count differs, false when only the hash differs.
   final bool sizeMismatch;
 }
+
+/// A profile definition (or its template) failed validation (PRF-01).
+///
+/// [issues] hold `path: message` strings that name keys and limits only,
+/// never field values (`schema.action_items[].owner: missing maxLength …`).
+final class ProfileValidationFailure extends Failure {
+  ProfileValidationFailure(List<String> issues)
+    : issues = List.unmodifiable(issues),
+      super('profile invalid: ${issues.length} issue(s)');
+
+  final List<String> issues;
+}
+
+/// A profile operation is not allowed (PRF-01): editing a built-in or
+/// managed profile, or reusing an id owned by another profile.
+final class ProfileReadOnlyFailure extends Failure {
+  const ProfileReadOnlyFailure(super.message);
+}
