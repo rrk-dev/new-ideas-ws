@@ -1,7 +1,7 @@
 # APP-03 — Settings Screen
 
 **Workstream:** App UX | **Phase:** 3–4 | **Size:** S | **Depends on:** FND-04 | **Source:** Gap
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-licensing-iap, vv-privacy-security, vv-local-database, vv-testing
 
 ## Goal
