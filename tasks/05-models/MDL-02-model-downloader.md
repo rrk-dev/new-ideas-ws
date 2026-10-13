@@ -1,7 +1,7 @@
 # MDL-02 — Resumable Model Downloader
 
 **Workstream:** Model Delivery | **Phase:** 2 | **Size:** M | **Depends on:** MDL-01, FND-04 | **Source:** §5 Phase 2
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-model-delivery, vv-background-execution, vv-local-database, vv-privacy-security, vv-testing
 
 ## Goal
