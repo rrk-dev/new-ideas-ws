@@ -87,7 +87,7 @@ Host DL layout sizes: `libvv_native` 140 KB, `libggml-base` 736 KB, `libggml` 59
    the device benchmarks justify an entry; preference order when several are allowed:
    OpenCL (Adreno) → Vulkan. A crash sentinel (`GpuTrialGuard`) disables a backend whose first
    use never completed. Background → CPU always.
-3. **Threads:** `vv_cpu_perf_cores()` (cores outside the slowest cluster from
+3. **Threads:** bridge-internal `vv::perf_cores()` (`native/bridge/vv_threads.h`; cores outside the slowest cluster from
    `cpuinfo_max_freq`; Apple `hw.perflevel0.physicalcpu`) → `defaultThreads()` = min(perf, 4).
 4. **NNAPI / QNN / LiteRT: out of scope for v1** (see Options).
 
@@ -111,5 +111,12 @@ Mali device: RTF per backend, no crash with the shipped allowlist and with GPU f
     loader skips it (CPU fallback).
   - GPU identity on Android (renderer/driver string for the allowlist) needs a platform probe
     (follow-up STT-08 proposal); until then `GpuInfo` is null → CPU.
+- Coordination: the parallel LLM-03 branch (`task/LLM-03-llama-android`, ADR-LLM-03) adds
+  *static* `VV_ANDROID_VULKAN` / `VV_ANDROID_OPENCL` options, its own Dart backend policy and an
+  exported `vv_cpu_perf_cores()`. This ADR keeps perf-core detection bridge-internal (no symbol
+  clash) and argues GPU backends must be DL modules (a statically linked OpenCL backend makes
+  `libvv_native.so` fail to load on devices without `libOpenCL.so`, and static Vulkan enumerates
+  devices on first registry access, before any allowlist). Whichever lands second must reconcile
+  the option names and keep one Dart policy for STT and LLM.
 - Follow-up tasks: device benchmarks (this task's rows); flip the Android DL default; GPU
   identity probe; KleidiAI vendoring spike; LLM-03 reuses `vv_backends_load`.

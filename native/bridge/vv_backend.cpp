@@ -1,4 +1,4 @@
-// [STT-02] Backend loading/description and CPU topology for the C ABI.
+// [STT-02] Backend loading/description for the C ABI.
 // ggml APIs verified at llama.cpp v0.6.0 ggml (ggml-backend.h: ggml_backend_load,
 // ggml_backend_dev_*; ggml-backend-reg.cpp: modules export ggml_backend_score).
 #include <cstring>
@@ -9,7 +9,6 @@
 
 #include "ggml-backend.h"
 #include "vv_bridge.h"
-#include "vv_cpu.h"
 
 #if defined(VV_GGML_BACKENDS) && !defined(_WIN32)
 #include <dlfcn.h>
@@ -193,11 +192,6 @@ int32_t vv_backends_describe(char* buf, size_t cap, size_t* needed) {
   } catch (...) {
     return VV_E_INTERNAL;
   }
-}
-
-int32_t vv_cpu_perf_cores(void) {
-  const int n = vv::perf_cores();
-  return n > 0 ? n : 1;
 }
 
 }  // extern "C"

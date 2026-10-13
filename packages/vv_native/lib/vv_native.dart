@@ -89,7 +89,4 @@ class VvNative {
 
   /// Whether backends are runtime-loaded modules (`VV_GGML_BACKEND_DL`).
   bool get dynamicBackends => _b.vv_backends_dynamic() == 1;
-
-  /// Performance cores (default thread count input).
-  int get perfCores => _b.vv_cpu_perf_cores();
 }

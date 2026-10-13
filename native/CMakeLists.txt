@@ -119,10 +119,12 @@ set(BUILD_SHARED_LIBS OFF)             # whisper + llama stay static inside vv_n
 add_subdirectory(llama.cpp llama)
 add_subdirectory(whisper.cpp whisper)
 
-add_library(vv_native SHARED bridge/vv_bridge.cpp bridge/vv_backend.cpp)
+add_library(vv_native SHARED bridge/vv_bridge.cpp)
 target_include_directories(vv_native PUBLIC bridge)
 target_link_libraries(vv_native PRIVATE whisper llama ggml)
 target_compile_definitions(vv_native PRIVATE VV_BUILDING_LIBRARY=1)
+# STT-02 backend loader (kept on its own line: other tasks add sources too).
+target_sources(vv_native PRIVATE bridge/vv_backend.cpp)
 if(VV_GGML_BACKEND_DL)
   # Module names the loader probes, e.g. "ggml-cpu-android_armv8.2_1,ggml-vulkan"
   # (GGML_AVAILABLE_BACKENDS is filled by ggml_add_backend_library()).

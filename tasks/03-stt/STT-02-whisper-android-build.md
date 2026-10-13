@@ -12,7 +12,7 @@ whisper.cpp runs on Android with the fastest available backend per device.
 - [x] Evaluate Vulkan backend on Adreno/Mali — known driver issues; gate behind an allowlist if unstable. (`VV_GGML_VULKAN` module + `BackendPolicy` allowlist/denylist + crash sentinel; device numbers ⏳)
 - [x] Evaluate OpenCL (Adreno) backend. (`VV_GGML_OPENCL` module with Adreno kernels, preferred over Vulkan when allowed; device numbers ⏳)
 - [x] NNAPI note: NNAPI is deprecated in Android 15; document that NPU delegates (QNN/LiteRT) are out of scope for v1 unless spike proves value. (ADR-STT-02)
-- [x] Thread count tuning (big cores only). (`vv_cpu_perf_cores` + `defaultThreads`; host sweep; per-device sweep ⏳)
+- [x] Thread count tuning (big cores only). (bridge `vv::perf_cores()` in `vv_threads.h` as the `n_threads <= 0` default + Dart `defaultThreads`; host sweep; per-device sweep ⏳)
 
 ## Acceptance Criteria
 - Benchmarks on Snapdragon 8 Gen 2/3 and a Snapdragon 7-series device recorded (RTF per backend).
@@ -25,8 +25,8 @@ whisper.cpp runs on Android with the fastest available backend per device.
   `c++_shared` in `native/build.sh android`), `VV_GGML_VULKAN` / `VV_GGML_OPENCL` (only as DL
   modules). Bridge `native/bridge/vv_backend.cpp`: `vv_backends_load(lib_dir, gpu_mask)` (probes
   CPU variants by `ggml_backend_score`, loads GPU modules only when allowed; works with
-  APK-embedded libs), `vv_backends_describe`, `vv_backends_dynamic`, `vv_cpu_perf_cores`
-  (+ `vv_error.h`, `vv_cpu.h`). Dart: `VvNative.loadBackends/describeBackends/perfCores` (ffigen
+  APK-embedded libs), `vv_backends_describe`, `vv_backends_dynamic`
+  (+ `vv_error.h`, internal `vv_threads.h`). Dart: `VvNative.loadBackends/describeBackends` (ffigen
   regenerated), `app/lib/core/platform/backend_policy.dart` (allow/deny rules, background → CPU,
   crash sentinel `GpuTrialGuard`, `defaultThreads`). Tests: ctests `vv_backends_*`, Dart
   `[STT-02/AC2]`, pytest `test_stt_native_build.py`. No NDK/devices: Android builds and numbers are

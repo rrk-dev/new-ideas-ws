@@ -1,8 +1,8 @@
 // Internal (not part of the C ABI): performance-core detection for thread
 // tuning (STT-02, vv-native-build "Threads: pin to performance cores").
 // Header-only so the host tests can feed a fake sysfs tree.
-#ifndef VV_CPU_H
-#define VV_CPU_H
+#ifndef VV_THREADS_H
+#define VV_THREADS_H
 
 #include <algorithm>
 #include <cstdio>
@@ -61,4 +61,4 @@ inline int perf_cores(const std::string& sysfs_root = "/sys") {
 
 }  // namespace vv
 
-#endif  // VV_CPU_H
+#endif  // VV_THREADS_H
