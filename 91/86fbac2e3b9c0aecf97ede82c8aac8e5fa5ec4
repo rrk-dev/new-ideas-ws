@@ -1,0 +1,38 @@
+tasks/05-models/MDL-04-offline-model-sideload.md
+  s_9f6fcf8c1840a0::t_410d9f2d63b6be 4
+  s_9f6fcf8c1840a0::t_1e2f36c91fad46 11-13,17-53
+app/test/widget/model_import_tile_test.dart
+  s_9f6fcf8c1840a0::t_83018a1873ba51 1-32,36-73,77-78,83-85
+  s_9f6fcf8c1840a0::t_99a2e183117ad1 33-35,74-76,79-82
+docs/privacy-audit.md
+  s_9f6fcf8c1840a0::t_1e2f36c91fad46 15-17,102
+tools/model-catalog/tests/test_catalog.py
+  s_9f6fcf8c1840a0::t_b43f3e9ae53a4d 140-156
+tools/model-catalog/catalog.py
+  s_9f6fcf8c1840a0::t_c4c70227cea39b 227-232,236-237,244-248,328-329,353
+app/test/unit/models/model_importer_test.dart
+  s_9f6fcf8c1840a0::t_4e5b44e5fbe041 1-114,118-160,166-171,180-189,195-207,213-222,228-232,237-243,249-261,267-282,288-323,337-387
+  s_9f6fcf8c1840a0::t_9e61cba2c8806b 115-117,161-165,172-179,190-194,208-212,223-227,233-236,244-248,262-266,283-287,324-336
+docs/adr/ADR-MDL-04-offline-model-import.md
+  s_9f6fcf8c1840a0::t_1b331bc0d5c3d4 1-50
+docs/test-plans/device/MDL-04.md
+  s_9f6fcf8c1840a0::t_62e2575ef2db08 1-26
+tools/model-catalog/README.md
+  s_9f6fcf8c1840a0::t_1e2f36c91fad46 40-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9186fbac2e3b9c0aecf97ede82c8aac8e5fa5ec4",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
