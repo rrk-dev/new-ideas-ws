@@ -196,6 +196,7 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 | Crash capture library | REL-02 | Minimal own signal handler; vetted library only via ADR |
 | Can users disable per-recording consent confirmation? | SEC-07 | Product/legal decision |
 | Recording policy (call capture forbidden, user-tap start) | SEC-09 | Fixed requirement — ADR documents enforcement |
+| Cloud device farm (Firebase Test Lab / BrowserStack) | QA-05 | Proposed: physical lab only, no cloud farm (ADR-QA-05). Human accepts or rejects |
 | `small.en` Whisper in Free tier? | LIC-01 | Product decision (§7 says Free gets small/tiny) |
 
 ## Schedule Risk
