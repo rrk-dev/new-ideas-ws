@@ -1,0 +1,33 @@
+docs/profile-spec.md
+  s_9f6fcf8c1840a0::t_2447554378fa2a 1-277
+app/test/unit/profiles/builtin_profiles_test.dart
+  s_9f6fcf8c1840a0::t_0c495af3c1bee4 1-16,23-60,65-141
+  s_9f6fcf8c1840a0::t_359d32520d4ac3 17-22,61-64
+app/test/unit/profiles/render_context_test.dart
+  s_9f6fcf8c1840a0::t_359d32520d4ac3 82-85,110-117
+  s_9f6fcf8c1840a0::t_15ccf9e50dfd95 1-81,86-109,118-133
+app/test/db/repositories/profile_registry_test.dart
+  s_9f6fcf8c1840a0::t_359d32520d4ac3 4,50-69,104-169,178-181,196-217,239-241
+  s_9f6fcf8c1840a0::t_a27bd46929cfc3 7,10,17,252-268
+  s_9f6fcf8c1840a0::t_cb45a2016f5af1 1-3,5-6,8-9,11-16,18-49,70-103,170-177,182-195,218-238,242-251,269-270
+app/test/unit/profiles/profile_spec_doc_test.dart
+  s_9f6fcf8c1840a0::t_04b181b9dd36d9 1-62
+docs/privacy-audit.md
+  s_9f6fcf8c1840a0::t_8272f65b3bdcba 62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a04b5e158001bd7d6c81823dac504d2a911fa00c",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
