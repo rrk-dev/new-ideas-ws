@@ -1,0 +1,19 @@
+tasks/04-llm/LLM-05-structured-output-grammar.md
+  s_d4f490e3a86475::t_c7d81a8247ff11 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b444c86c7fa24f5e0f556c2aa775c1075dd71b85",
+  "prompts": {},
+  "sessions": {
+    "s_d4f490e3a86475": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a912f2209e56e5230",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
