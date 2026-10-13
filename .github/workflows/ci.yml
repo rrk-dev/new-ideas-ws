@@ -40,7 +40,8 @@ jobs:
       - run: bash tools/ci/analyze.sh
       - run: bash tools/ci/check_codegen.sh
       - run: bash tools/ci/check_egress.sh
-      # Slot: script delivered by SEC-09 (warns until then).
+      # Recording policy (SEC-09) on source manifests, plists, entitlements and
+      # sources; the android job re-runs it on the merged manifest.
       - run: bash tools/ci/run_slot.sh check_recording_policy.sh SEC-09
       - run: python3 .agents/skills/vv-task-workflow/scripts/tasks.py validate
 
@@ -120,6 +121,8 @@ jobs:
           restore-keys: android-${{ runner.os }}-
       - run: bash tools/ci/setup.sh
       - run: bash tools/ci/build_android.sh
+      # SEC-09: recording policy on the merged manifest (covers plugins).
+      - run: bash tools/ci/check_recording_policy.sh --require-merged-manifest
       - uses: actions/upload-artifact@v7.0.2
         with:
           name: android-dev-debug-apk
