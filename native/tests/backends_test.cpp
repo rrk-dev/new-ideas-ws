@@ -1,4 +1,5 @@
-// [STT-02] Host tests for vv_backends_* / vv_cpu_perf_cores (bridge/vv_backend.cpp).
+// [STT-02] Host tests for vv_backends_* (bridge/vv_backend.cpp) and the
+// bridge-internal perf-core detection (bridge/vv_threads.h).
 // One mode per ctest so each starts with a fresh ggml registry:
 //   backends_test cores        perf-core detection (fake sysfs trees)
 //   backends_test cpu-only     gpu_mask = 0 -> CPU device only (DL builds)
@@ -16,7 +17,7 @@
 #include <vector>
 
 #include "vv_bridge.h"
-#include "vv_cpu.h"
+#include "vv_threads.h"
 
 namespace {
 
@@ -75,8 +76,8 @@ int cores() {
 #if !defined(__APPLE__)
   if (vv::perf_cores(root) != 4) return fail("perf_cores from fake sysfs");
 #endif
-  if (vv_cpu_perf_cores() < 1) return fail("vv_cpu_perf_cores >= 1");
-  std::printf("cores OK (this host: %d perf cores)\n", vv_cpu_perf_cores());
+  if (vv::perf_cores() < 1) return fail("perf_cores() >= 1");
+  std::printf("cores OK (this host: %d perf cores)\n", vv::perf_cores());
   return 0;
 }
 

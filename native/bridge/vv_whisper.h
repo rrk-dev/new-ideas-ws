@@ -50,7 +50,7 @@ typedef struct vv_stt_params {
   uint32_t struct_size;           /* = sizeof(vv_stt_params) */
   const char* language;           /* "en", "de", "auto"; NULL = "en" */
   int32_t translate;              /* 0 (we never translate) */
-  int32_t n_threads;              /* <= 0: vv_cpu_perf_cores() capped at 4 */
+  int32_t n_threads;              /* <= 0: performance cores capped at 4 */
   int32_t beam_size;              /* <= 1: greedy */
   float temperature;              /* 0.0 */
   float temperature_inc;          /* 0.2; 0 disables temperature fallback */

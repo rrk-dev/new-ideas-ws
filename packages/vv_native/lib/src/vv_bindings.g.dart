@@ -151,17 +151,6 @@ class VvBindings {
   late final _vv_backends_dynamic = _vv_backends_dynamicPtr
       .asFunction<int Function()>();
 
-  /// Number of performance cores (outside the slowest cluster; Apple
-  /// perflevel0). Default STT/LLM n_threads. Always >= 1.
-  int vv_cpu_perf_cores() {
-    return _vv_cpu_perf_cores();
-  }
-
-  late final _vv_cpu_perf_coresPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('vv_cpu_perf_cores');
-  late final _vv_cpu_perf_cores = _vv_cpu_perf_coresPtr
-      .asFunction<int Function()>();
-
   vv_stt_init_params vv_stt_default_init_params() {
     return _vv_stt_default_init_params();
   }
@@ -377,7 +366,7 @@ final class vv_stt_params extends ffi.Struct {
   @ffi.Int32()
   external int translate;
 
-  /// <= 0: vv_cpu_perf_cores() capped at 4
+  /// <= 0: performance cores capped at 4
   @ffi.Int32()
   external int n_threads;
 

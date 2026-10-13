@@ -1,7 +1,7 @@
 /*
- * Error codes returned by every fallible vv_* function (vv-ffi-bridge).
- * 0 = success, negative = failure. Never renumber: Dart maps these to
- * Failure types in one place (packages/vv_native/lib/src/errors.dart).
+ * VaultVoice bridge error codes (vv-ffi-bridge). Every fallible vv_* function
+ * returns int32_t: VV_OK or one of the negative codes below. Dart maps them to
+ * Failure in one place. Never renumber; only append.
  */
 #ifndef VV_ERROR_H
 #define VV_ERROR_H

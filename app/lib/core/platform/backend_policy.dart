@@ -212,7 +212,7 @@ class GpuTrialGuard implements GpuTrialStore {
   Future<void> succeeded(GpuBackend backend) => write(_key(backend), 'ok');
 }
 
-/// Default thread count: performance cores (`vv_cpu_perf_cores`), capped at
+/// Default thread count: performance cores (bridge `vv_threads.h`), capped at
 /// [cap] — more threads than big cores is slower on big.LITTLE (STT-02 host
 /// sweep: 12 threads on a 6P+6E CPU was 5–7x slower than 4).
 int defaultThreads(int perfCores, {int cap = 4}) =>

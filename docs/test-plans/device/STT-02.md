@@ -10,7 +10,7 @@ the macOS host — see `docs/adr/ADR-STT-02-android-backends.md`.
 `VV_GGML_OPENCL=ON` to (D) (needs glslc / OpenCL headers + ICD loader).
 **Bench method:** STT-03 engine (or `stt_backends bench` pushed via `adb` with the modules next to
 it), `ggml-base.en-q8_0.bin` and `ggml-small.en-q5_1.bin`, 60 s 16 kHz clip (`jfk.wav` tiled or a
-LibriSpeech clip), greedy, n_threads = `vv_cpu_perf_cores()` capped at 4, plus a 2/4/6/8 sweep on
+LibriSpeech clip), greedy, n_threads = 0 (bridge default: performance cores capped at 4), plus a 2/4/6/8 sweep on
 one device; ≥ 3 runs after a warm-up, median + min/max; start at nominal thermal status
 (`dumpsys thermalservice`), screen on, airplane mode. Raw data →
 `docs/test-plans/device/evidence/STT-02/`.

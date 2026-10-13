@@ -39,7 +39,6 @@ void main() {
       // gpuMask 0 must not load any GPU module (safe fallback).
       expect(devices.map((d) => d['type']), isNot(contains('gpu')));
     }
-    expect(native.perfCores, greaterThanOrEqualTo(1));
   }, skip: skip);
 
   test('loading a missing library fails loudly', () {

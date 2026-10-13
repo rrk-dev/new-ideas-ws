@@ -279,7 +279,11 @@ int cancel() {
   if (!s.wait(5000)) return fail("no on_done after cancel");
   const int64_t latency = s.done_at - t_cancel;
   if (s.status != VV_E_CANCELLED) return fail("status must be VV_E_CANCELLED");
-  if (latency >= 1000) {
+  // 1 s is the acceptance budget. Sanitizer builds (~10x slower graphs) set
+  // VV_CANCEL_BUDGET_MS higher: they check memory safety, not timing.
+  const char* budget_env = std::getenv("VV_CANCEL_BUDGET_MS");
+  const int64_t budget = budget_env ? std::atoll(budget_env) : 1000;
+  if (latency >= budget) {
     std::fprintf(stderr, "cancel latency %lld ms\n", static_cast<long long>(latency));
     return fail("[STT-03/AC1] cancel must stop within 1 s");
   }

@@ -94,10 +94,10 @@ def test_STT_02_gpu_backends_only_as_runtime_modules():
 
 
 def test_STT_02_bridge_exports_backend_api():
-    """vv_backends_* and vv_cpu_perf_cores are exported on both linkers."""
+    """vv_backends_* are exported on both linkers (perf-core detection stays internal)."""
     bridge = ROOT / "native" / "bridge"
     mp, txt = (bridge / "vv_exports.map").read_text(), (bridge / "vv_exports.txt").read_text()
-    for sym in ("vv_backends_load", "vv_backends_describe", "vv_backends_dynamic", "vv_cpu_perf_cores"):
+    for sym in ("vv_backends_load", "vv_backends_describe", "vv_backends_dynamic"):
         assert f"{sym};" in mp and f"_{sym}\n" in txt, sym
 
 

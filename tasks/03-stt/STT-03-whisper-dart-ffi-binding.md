@@ -33,7 +33,8 @@ A Dart `SttEngine` implementation that transcribes audio with progress, cancella
   `SttOptions`, segment confidence/tokens — fakes updated), `WhisperSttEngine`
   (`app/lib/features/transcription/data/`), `failureFromVvCode` (`app/lib/core/errors/native_failures.dart`),
   `TranscribeStep` persists confidence/tokens and passes the language. Tests: ctests `vv_stt_*`
-  (also clean under ASan+UBSan: `native/tests/sanitize.sh`), `packages/vv_native/test/whisper_host_test.dart`,
+  (also clean under ASan+UBSan: `native/tests/sanitize.sh`, which relaxes only the cancel timing
+  budget via `VV_CANCEL_BUDGET_MS`), `packages/vv_native/test/whisper_host_test.dart`,
   `app/test/native/whisper_stt_engine_test.dart`, `app/test/unit/transcription/`,
   device test `app/integration_test/stt_engine_test.dart`.
 - **Host numbers (M3 Pro, macOS 27.0.1):** jfk 11 s with tiny.en in 85 ms (Metal); cancel →

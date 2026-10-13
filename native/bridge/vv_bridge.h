@@ -71,10 +71,6 @@ VV_API int32_t vv_backends_describe(char* buf, size_t cap, size_t* needed);
 /* 1 when this library was built with runtime-loaded backends. */
 VV_API int32_t vv_backends_dynamic(void);
 
-/* Number of performance cores (outside the slowest cluster; Apple
- * perflevel0). Default STT/LLM n_threads. Always >= 1. */
-VV_API int32_t vv_cpu_perf_cores(void);
-
 /* ---- Speech-to-text (STT-03): vv_stt_* — see vv_whisper.h ---- */
 #include "vv_whisper.h"
 

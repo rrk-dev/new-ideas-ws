@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "vv_bridge.h"
+#include "vv_threads.h"
 #include "vv_wav.h"
 #include "whisper.h"
 
@@ -190,7 +191,7 @@ void run_job(Job* job_ptr) {
       whisper_full_params wp = whisper_full_default_params(
           job.p.beam_size > 1 ? WHISPER_SAMPLING_BEAM_SEARCH : WHISPER_SAMPLING_GREEDY);
       int threads = job.p.n_threads;
-      if (threads <= 0) threads = std::min(vv_cpu_perf_cores(), 4);
+      if (threads <= 0) threads = std::min(vv::perf_cores(), 4);
       wp.n_threads = std::max(threads, 1);
       // English-only models: never run language auto-detection (an extra
       // encoder pass whose result they cannot use).
