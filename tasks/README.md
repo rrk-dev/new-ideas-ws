@@ -179,13 +179,13 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 ## Open Decisions (owner: tech lead)
 | Decision | Task | Recommendation |
 |---|---|---|
-| Isar vs SQLite | FND-04 | SQLite via `drift` (FTS5 search, encryption via sqlite3mc or SQLCipher build hooks, active maintenance) |
+| Isar vs SQLite | FND-04 | Decided: ADR-FND-04 (Proposed) — SQLite via `drift` (FTS5 search, encryption via sqlite3mc or SQLCipher build hooks, active maintenance) |
 | llama.cpp vs ExecuTorch vs MLC-LLM | LLM-01 | llama.cpp (shared ggml with whisper.cpp, GGUF, grammars) unless benchmarks show ≥ 1.5× gap |
 | Default LLM per tier | LLM-08 | Decide from PRF-09 eval; expect 1B-class for Low tier, 3B for High |
 | Core ML encoder for Whisper on iOS | STT-01 | Decide from benchmark (extra download vs ANE speed) |
 | Diarization approach | STT-05 | Spike sherpa-onnx first |
 | Mustache vs Handlebars | EXP-01 | Mustache (`mustache_template`) + custom lambdas |
-| Model hosting | MDL-01 | Own CDN with signed manifest; HF as mirror only |
+| Model hosting | MDL-01 | Proposed: ADR-MDL-01 — own CDN primary + Ed25519-signed catalog, HF pinned-revision mirror; CDN provider/domain + production key are owner decisions |
 | Play purchase verification without a server | LIC-02 | On-device where possible; document any stateless server |
 | Enterprise seat enforcement model | LIC-03 | Needs design review |
 | Free vs Pro for Warranty / Engineering profiles | LIC-01 | Product decision (§7 is ambiguous) |
@@ -196,6 +196,7 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 | Crash capture library | REL-02 | Minimal own signal handler; vetted library only via ADR |
 | Can users disable per-recording consent confirmation? | SEC-07 | Product/legal decision |
 | Recording policy (call capture forbidden, user-tap start) | SEC-09 | Fixed requirement — ADR documents enforcement |
+| Cloud device farm (Firebase Test Lab / BrowserStack) | QA-05 | Proposed: physical lab only, no cloud farm (ADR-QA-05). Human accepts or rejects |
 | `small.en` Whisper in Free tier? | LIC-01 | Product decision (§7 says Free gets small/tiny) |
 
 ## Schedule Risk

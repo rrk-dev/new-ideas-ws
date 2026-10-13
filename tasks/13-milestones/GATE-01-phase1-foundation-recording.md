@@ -18,3 +18,6 @@ Prove, end to end on real devices, that the Phase 1 foundation works together �
 - On the same devices: an incoming call during recording stops capture with no call audio in the file, and the recording stays paused until Resume is tapped; tapping Record during a call is refused.
 - Force-kill during recording → relaunch → the recording is recovered and playable.
 - A vault folder picked on each platform is still writable after reboot.
+
+## Follow-ups
+- QA-05: oldest and newest devices are the matrix Low and High roles — iPhone 11 and the 8 GB iPhone (iPhone 16, or an 8 GB substitute), plus the 4 GB Android and the Snapdragon flagship. See `docs/device-matrix.md`. Units are not in the lab yet.

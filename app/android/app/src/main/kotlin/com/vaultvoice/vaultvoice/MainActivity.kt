@@ -1,5 +1,33 @@
 package com.vaultvoice.vaultvoice
 
+import android.content.Intent
+import com.vaultvoice.vaultvoice.saf.SafHostApi
+import com.vaultvoice.vaultvoice.saf.SafHostApiImpl
 import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.engine.FlutterEngine
 
-class MainActivity : FlutterActivity()
+class MainActivity : FlutterActivity() {
+    // Storage Access Framework vault folders (EXP-03).
+    private var safApi: SafHostApiImpl? = null
+
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+        super.configureFlutterEngine(flutterEngine)
+        // SEC-09: call detection without phone-state permissions.
+        flutterEngine.plugins.add(CallGuardPlugin())
+        val api = SafHostApiImpl(this)
+        safApi = api
+        SafHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, api)
+    }
+
+    override fun cleanUpFlutterEngine(flutterEngine: FlutterEngine) {
+        SafHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, null)
+        safApi?.dispose()
+        safApi = null
+        super.cleanUpFlutterEngine(flutterEngine)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (safApi?.onActivityResult(requestCode, resultCode, data) == true) return
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+}
