@@ -1,0 +1,54 @@
+app/android/fastlane/Appfile
+  s_9f6fcf8c1840a0::t_c39686833a4a71 1-3
+.github/workflows/release.yml
+  s_9f6fcf8c1840a0::t_8a304986714ebc 1-178
+tools/release/version.py
+  s_9f6fcf8c1840a0::t_13101f9a1657fe 1-119
+tools/release/changelog.py
+  s_9f6fcf8c1840a0::t_ac25b920fa8f69 1-126
+app/ios/fastlane/Appfile
+  s_9f6fcf8c1840a0::t_8a744b9369447b 1-4
+app/android/app/build.gradle.kts
+  s_9f6fcf8c1840a0::t_b5f8ad75688676 58-60
+app/android/Gemfile
+  s_9f6fcf8c1840a0::t_67886383eaff3b 1-5
+app/android/fastlane/Fastfile
+  s_9f6fcf8c1840a0::t_f8465b41968595 1-52
+docs/release-checklist.md
+  s_9f6fcf8c1840a0::t_0fea571984ba2a 1-52
+app/android/signing.gradle
+  s_9f6fcf8c1840a0::t_12a9003d368097 1-43
+docs/test-plans/device/REL-01.md
+  s_9f6fcf8c1840a0::t_cb81defab6effc 1-17
+tools/release/tests/test_release_pipeline.py
+  s_9f6fcf8c1840a0::t_d9b4bacc69b8d1 1-127,129-168
+  s_9f6fcf8c1840a0::t_af2280e8a37fa3 128
+tools/release/tests/test_versioning.py
+  s_9f6fcf8c1840a0::t_bd717066eca0af 1-112
+tools/release/build_release.sh
+  s_9f6fcf8c1840a0::t_f0b9f9283bdf13 1-61
+app/ios/Gemfile
+  s_9f6fcf8c1840a0::t_eb4a94dacd6fdb 1-5
+app/ios/fastlane/Fastfile
+  s_9f6fcf8c1840a0::t_b3524024c4071c 1-84
+docs/release-secrets.md
+  s_9f6fcf8c1840a0::t_4b2ac4dbe7bad7 1-50
+app/ios/fastlane/Matchfile
+  s_9f6fcf8c1840a0::t_eeecfeedb00cdb 1-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "05a4852039f7488714cfc084f81b5fa06e3f1e51",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
