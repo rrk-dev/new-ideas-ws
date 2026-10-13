@@ -1,7 +1,7 @@
 # SEC-09 — Recording Safeguards: User-Started Only, Never Record Calls
 
 **Workstream:** Security & Privacy | **Phase:** 1 | **Size:** M | **Depends on:** FND-02 | **Source:** Product/legal requirement (user directive): use only the standard OS microphone APIs, never record phone/VoIP calls, never record without the user's explicit action
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-audio-capture, vv-privacy-security, vv-ci-release, vv-testing
 
 ## Goal
