@@ -1,0 +1,68 @@
+app/lib/features/models/domain/model_manifest.dart
+  s_9f6fcf8c1840a0::t_9d59705165c60b 1-33
+app/lib/features/models/domain/gguf_header.dart
+  s_9f6fcf8c1840a0::t_6fe76015118d50 1-6,8-9,11-14,17-19,21-47,52-74
+  s_9f6fcf8c1840a0::t_a25d22447cd1ae 7,10,15-16,20
+  s_9f6fcf8c1840a0::t_9afb21d67b2f5d 48-51
+app/lib/features/models/data/model_import_providers.dart
+  s_9f6fcf8c1840a0::t_0db21b4ef12480 1-70
+app/lib/features/models/domain/custom_model_entitlement.dart
+  s_9f6fcf8c1840a0::t_3b6bd49c22f607 1-18
+app/lib/features/models/data/model_downloader.dart
+  s_9f6fcf8c1840a0::t_f2416f079cd285 14,57,62,72-74,84-90,119-122,371-372,374,378,462
+app/lib/features/models/data/model_import_providers.g.dart
+  s_9f6fcf8c1840a0::t_9afb21d67b2f5d 1-188
+app/lib/features/models/data/model_importer.dart
+  s_9f6fcf8c1840a0::t_a25d22447cd1ae 92,102,129,173,224
+  s_9f6fcf8c1840a0::t_4487eafe1214a8 1-25,28-91,93-101,103-128,130-172,174-189,195-223,225-234,238-276,280-290
+  s_9f6fcf8c1840a0::t_9afb21d67b2f5d 26-27,190-194,235-237,277-279
+app/lib/core/network/model_hosts.dart
+  s_9f6fcf8c1840a0::t_ce45561dbb5046 31-36
+app/lib/features/models/data/model_installer.dart
+  s_9f6fcf8c1840a0::t_aea9bf8b7e90b2 68
+  s_9f6fcf8c1840a0::t_e6678d18660313 1-67,69-87
+app/lib/core/errors/failure.dart
+  s_9f6fcf8c1840a0::t_c80226bc08f3a0 219-243
+app/lib/features/models/presentation/model_import_tile.dart
+  s_9f6fcf8c1840a0::t_9afb21d67b2f5d 21-24,56-59,68-72
+  s_9f6fcf8c1840a0::t_0a56225f0cdc27 1-20,25-55,60-67,73-128
+app/lib/core/platform/providers.dart
+  s_9f6fcf8c1840a0::t_ce45561dbb5046 2,45-55
+app/lib/features/models/data/download_providers.g.dart
+  s_9f6fcf8c1840a0::t_9afb21d67b2f5d 158
+app/lib/core/platform/providers.g.dart
+  s_9f6fcf8c1840a0::t_9afb21d67b2f5d 301
+app/test/unit/network/network_gateway_stream_test.dart
+  s_9f6fcf8c1840a0::t_f5ef4a6ff1ba15 88-91,123-159
+  s_9f6fcf8c1840a0::t_57b311954d4f06 92
+  s_9f6fcf8c1840a0::t_e3d449a0fe5ed8 120
+  s_9f6fcf8c1840a0::t_8d676a4c600702 160
+app/pubspec.yaml
+  s_9f6fcf8c1840a0::t_52ba50248c1ed0 15
+app/lib/core/network/network_gateway.dart
+  s_9f6fcf8c1840a0::t_43a021489b1dd0 59
+  s_9f6fcf8c1840a0::t_e3d449a0fe5ed8 60-63,69-79,88,104,106-108,125
+  s_9f6fcf8c1840a0::t_a25d22447cd1ae 64-65
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9f6fcf8c1840a0::t_9afb21d67b2f5d 2,12-14
+app/lib/features/models/data/download_providers.dart
+  s_9f6fcf8c1840a0::t_3b58a0fa7637b8 5,47-50
+app/pubspec.lock
+  s_9f6fcf8c1840a0::t_cc073d58f0279c 308-371
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9342cd85a4724e2ae26f82eb5c3f8c1f94cdfbdb",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
