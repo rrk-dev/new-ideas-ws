@@ -1,0 +1,19 @@
+tasks/02-audio/AUD-04-ios-background-recording.md
+  s_9f6fcf8c1840a0::t_c7ac3ec6654af4 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "553e9fde73784c15c789f0d8ec33b6770b34233a",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
