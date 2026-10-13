@@ -1,7 +1,7 @@
 # FND-06 — Native C/C++ Build Infrastructure
 
 **Workstream:** Foundation | **Phase:** 1 | **Size:** M | **Depends on:** FND-01 | **Source:** §4.2, §5 Phase 2
-**Status:** review
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-native-build, vv-ffi-bridge, vv-decision-records, vv-testing
 
 ## Goal
@@ -40,3 +40,16 @@ Reproducible builds of `whisper.cpp` and `llama.cpp` (shared `ggml`) for both pl
   - AC3: ⏳ artifact: native/VERSIONS.md; device: docs/test-plans/device/FND-06.md
 - **Decisions:** ADR-FND-06-native-build (Proposed: iOS min 16.0 vs 16.4, Android CPU baseline, packaging)
 - **Follow-ups:** user decision on iOS minimum (16.0 vs 16.4); CPU-variant dispatch + GPU backends (STT-02/LLM-03); `vv_jsg` (LLM-05); apply `native-host`/`android`/`ios` as required checks
+
+## Verification Report
+- **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-13 · **Commit:** 87963175263cf3aba56fc55cca584d490ce26a6d
+- **Verdict:** FAIL
+- **Gates:** format ✅ · analyze ✅ (no issues) · flutter tests ✅ (21 passed, coverage 94.4%) · native host smoke ✅ (`native/build.sh host`, ctest `vv_smoke` and `vv_exports` passed, `libvv_native.dylib` 6507968 bytes) after `git submodule update --init` · egress ✅ · recording policy n/a · CI run: local fresh worktree. Android and iOS builds not run (no NDK, no Xcode).
+- **Acceptance criteria:**
+  - AC1: ❌ `[FND-06/AC1]` fails on a checkout without submodules. `native/build.sh bogus` exits 2 because `check_submodules` runs before the usage case, so the test expects exit 64 and does not get it. The same three pytest tests pass once submodules are present. `task-gate` checks out without `submodules: recursive` and runs `pytest tools/ci/tests`, so this fails that job.
+  - AC2: ⏳ host Dart/C smoke passed. On-device `vv_version()` rows in `docs/test-plans/device/FND-06.md` have no PASS. Not re-run (no phone, no SDK).
+  - AC3: ⏳ host size was printed. Android stripped `.so` and iOS slice sizes are not filled in. Not measured here.
+- **Adversarial checks:** fresh worktree, no submodules, `pytest tools/ci/tests/test_native_build.py` → the usage test failed (exit 2 vs 64). After submodule init, host build and the same tests passed. Did not upload audio or open a network client.
+- **Skill/rule compliance:** one shared library, `vv_*` ABI, pins recorded in `native/VERSIONS.md`. ADR-FND-06 is still Proposed (iOS 16.0 vs 16.4, CPU baseline). That matches the notes; it is not this FAIL.
+- **Issues found:**
+  1. Parse the target before `check_submodules` (or otherwise make `native/build.sh bogus` exit 64 without a populated submodule), and make `task-gate` able to run `tools/ci/tests` on its current checkout. Today that job fails.
