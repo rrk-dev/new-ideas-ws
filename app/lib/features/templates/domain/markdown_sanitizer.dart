@@ -59,8 +59,11 @@ Object? wrapContextValues(Object? value) => switch (value) {
 };
 
 final RegExp _lineBreaks = RegExp(r'\s*[\r\n  \u0085]+\s*');
+/// C0 controls (except tab/newline), DEL and the bidi *override*
+/// characters LRO/RLO, which can visually reorder the rest of a line
+/// ("Trojan Source"); embeddings/isolates used by RTL text are kept.
 final RegExp _controls = RegExp(
-  r'[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]',
+  r'[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F\u202D\u202E]',
 );
 
 /// Block-level Markdown markers that would change the structure of the

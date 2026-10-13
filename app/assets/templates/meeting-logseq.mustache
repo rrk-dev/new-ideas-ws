@@ -10,22 +10,22 @@ source:: vaultvoice
 recording-id:: {{meta.recording_id}}
 
 {{#has_summary}}
-- ## Summary
+- **Summary**
   - {{data.summary}}
 {{/has_summary}}
 {{#has_attendees}}
-- ## Attendees
+- **Attendees**
 {{#data.attendees}}
   - {{.}}
 {{/data.attendees}}
 {{/has_attendees}}
 {{#has_decisions}}
-- ## Decisions
+- **Decisions**
 {{#data.decisions}}
   - {{.}}
 {{/data.decisions}}
 {{/has_decisions}}
-- ## Action Items
+- **Action Items**
 {{#data.action_items}}
   - TODO {{task}}{{#has_owner}} (@{{owner}}){{/has_owner}}{{#has_due_iso}} — due: [[{{due_iso}}]]{{/has_due_iso}}{{^has_due_iso}}{{#has_due}} — due: {{due}}{{/has_due}}{{/has_due_iso}}{{#has_t}} [{{t}}]{{/has_t}}
 {{/data.action_items}}
@@ -33,13 +33,13 @@ recording-id:: {{meta.recording_id}}
   - No action items.
 {{/has_action_items}}
 {{#has_open_questions}}
-- ## Open Questions
+- **Open Questions**
 {{#data.open_questions}}
   - {{.}}
 {{/data.open_questions}}
 {{/has_open_questions}}
 {{#has_topics}}
-- ## Topics
+- **Topics**
 {{#data.topics}}
   - {{.}}
 {{/data.topics}}

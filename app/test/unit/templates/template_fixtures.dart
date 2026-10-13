@@ -1,0 +1,219 @@
+import 'dart:io';
+
+import 'package:flutter_test/flutter_test.dart';
+import 'package:vaultvoice/features/profiles/domain/builtin_profiles.dart';
+import 'package:vaultvoice/features/profiles/domain/profile.dart';
+import 'package:vaultvoice/features/profiles/domain/render_context.dart';
+import 'package:vaultvoice/features/templates/domain/builtin_templates.dart';
+import 'package:vaultvoice/features/templates/domain/note_context.dart';
+import 'package:vaultvoice/features/templates/domain/template_engine.dart';
+import 'package:vaultvoice/features/templates/domain/template_lambdas.dart';
+
+const engine = MarkdownTemplateEngine();
+
+/// Built-in profiles parsed from `app/assets/profiles/` (cwd = `app/`).
+final BuiltinProfiles builtinProfiles = BuiltinProfiles.parse({
+  for (final p in kBuiltinProfileAssets) p: File(p).readAsStringSync(),
+});
+
+/// Built-in templates parsed from `app/assets/templates/`.
+final BuiltinTemplates builtinTemplates = BuiltinTemplates.parse({
+  for (final t in kBuiltinTemplates)
+    t.assetPath: File(t.assetPath).readAsStringSync(),
+});
+
+String templateSource(String id) =>
+    File('assets/templates/$id.mustache').readAsStringSync();
+
+Profile profile(String id) => builtinProfiles[id]!;
+
+/// 10 000 characters of mixed adversarial text.
+final String tenK = () {
+  const chunk = 'Lorem "ipsum" {{x}} --- # [[y]] 🎉 שלום ';
+  final b = StringBuffer();
+  while (b.length < 10000) {
+    b.write(chunk);
+  }
+  return b.toString().substring(0, 10000);
+}();
+
+/// Strings that try to break front-matter, Markdown structure or the
+/// template: quotes, `---`, `#`, `{{`, wikilinks, HTML comments, fences,
+/// emoji (incl. ZWJ sequences and flags), RTL text and bidi controls.
+const List<String> adversarialStrings = [
+  'He said "hi" and \'bye\' \\ backslash',
+  '---\ninjected: true\n---',
+  '# Not a heading',
+  '{{data.title}} {{#meta}}x{{/meta}} {{{raw}}}',
+  '[[Secret Note]] ![[embed.png]]',
+  '<!-- hide everything after -->',
+  '```\ncode fence\n```',
+  '> quote\n- list\n* star',
+  'Emoji 🎉👩‍👩‍👧‍👦🇩🇪 done',
+  'مرحبا بالعالم שלום עולם ‮evil‬',
+  'key: value # comment',
+  'yes',
+  '14:05',
+  '| pipe | table |',
+  'tab\there\r\nwindows line',
+];
+
+/// Meeting data with every optional field non-null.
+Map<String, Object?> meetingFull() => {
+  'title': 'Q4 Planning Sync',
+  'summary':
+      'The team agreed on the Q4 roadmap. Sam owns the SDK update and '
+      'Priya the migration guide.',
+  'attendees': ['Priya', 'Sam', 'Lena'],
+  'decisions': ['Ship API v2 in November', 'Freeze v1 on Dec 1'],
+  'action_items': [
+    {
+      'task': 'Update the client SDK',
+      'owner': 'Sam',
+      'due': 'Friday',
+      'due_iso': '2026-10-16',
+      't': '00:00:12',
+    },
+    {
+      'task': 'Draft the migration guide',
+      'owner': 'Priya',
+      'due': 'end of month',
+      'due_iso': '2026-10-31',
+      't': '00:01:05',
+    },
+  ],
+  'open_questions': ['Who signs off on the deprecation notice?'],
+  'topics': ['API versioning', 'Roadmap'],
+};
+
+/// Warranty data with every optional field non-null.
+Map<String, Object?> warrantyFull() => {
+  'product': 'Espresso machine',
+  'brand': 'Bialetti',
+  'model': 'Brikka 4',
+  'serial_number': 'SN12345XYZ',
+  'purchase_date': 'last Monday',
+  'purchase_date_iso': '2026-10-05',
+  'retailer': 'Corner Shop',
+  'price': '129 EUR',
+  'warranty_period': {'value': 2, 'unit': 'years'},
+  'warranty_expiry': '2028-10-05',
+  'support_contacts': ['+49 30 1234567', 'support@example.com'],
+  'notes': 'Receipt is in the kitchen drawer.',
+};
+
+/// Engineering data with every optional field non-null.
+Map<String, Object?> engineeringFull() => {
+  'title': 'Sync engine design',
+  'context': 'Offline edits conflict when two devices change one note.',
+  'concepts': ['CRDT', 'Vector clocks'],
+  'api_designs': [
+    {
+      'name': 'SyncService',
+      'description': 'Merges local and remote change sets.',
+      'endpoints_or_signatures': [
+        'Future<void> push(ChangeSet set)',
+        'Stream<ChangeSet> pull()',
+      ],
+    },
+  ],
+  'tradeoffs': [
+    {
+      'option': 'CRDT',
+      'pros': ['No conflicts', 'Offline first'],
+      'cons': ['Metadata overhead'],
+    },
+    {
+      'option': 'Last write wins',
+      'pros': ['Simple'],
+      'cons': ['Loses edits', 'Clock skew'],
+    },
+  ],
+  'decisions': ['Prototype with a CRDT library'],
+  'todos': [
+    {'task': 'Benchmark CRDT size', 'owner': 'Lena', 't': '00:03:10'},
+  ],
+  'open_questions': ['How large do tombstones get?'],
+};
+
+/// Fills every string of [data] (recursively) with adversarial text.
+Object? adversarial(Object? value, [int seed = 0]) {
+  var i = seed;
+  Object? walk(Object? v) {
+    if (v is String) {
+      i++;
+      if (i % 7 == 0) return tenK;
+      return adversarialStrings[i % adversarialStrings.length];
+    }
+    if (v is Map<String, Object?>) {
+      return {for (final e in v.entries) e.key: walk(e.value)};
+    }
+    if (v is List<Object?>) return [for (final e in v) walk(e)];
+    return v;
+  }
+
+  return walk(value);
+}
+
+/// Metadata with every optional field set.
+Map<String, Object?> metaFull({String profileId = 'meeting'}) => buildNoteMeta(
+  recordingId: '0f8d2c1e-7a5b-4c3d-9e1f-2a3b4c5d6e7f',
+  title: 'Recording title',
+  createdAt: DateTime(2026, 10, 13, 14, 5),
+  durationMs: 3723000,
+  profileId: profileId,
+  profileName: profile(profileId).name,
+  appVersion: '1.0.0',
+  speakers: const [(label: 'S1', name: 'Priya'), (label: 'S2', name: 'Sam')],
+  tags: const ['work', '#planning'],
+  markers: const [(atMs: 12000, label: 'Important', kind: 'user')],
+  sttModel: 'ggml-base',
+  llmModel: 'qwen2.5-3b-q4',
+  device: 'Pixel 8',
+  consentAt: DateTime.utc(2026, 10, 13, 12, 4, 30),
+);
+
+/// Metadata with every optional field null / empty.
+Map<String, Object?> metaEmpty({String profileId = 'meeting'}) =>
+    buildNoteMeta(
+      recordingId: 'rec-empty',
+      createdAt: DateTime(2026, 1, 2, 3, 4),
+      durationMs: 45000,
+      profileId: profileId,
+      profileName: profile(profileId).name,
+      appVersion: '1.0.0',
+    );
+
+Map<String, Object?> transcriptFull() => buildNoteTranscript(const [
+  (startMs: 5000, speaker: 'Priya', text: "Let's lock the API version."),
+  (startMs: 12000, speaker: 'Sam', text: "I'll update the SDK by Friday."),
+  (startMs: 65000, speaker: null, text: 'Background noise.'),
+]);
+
+Map<String, Object?> contextFor(
+  String profileId,
+  Map<String, Object?> data, {
+  Map<String, Object?>? meta,
+  Map<String, Object?>? transcript,
+}) => buildRenderContext(
+  profile: profile(profileId),
+  data: data,
+  meta: meta ?? metaFull(profileId: profileId),
+  transcript: transcript ?? transcriptFull(),
+);
+
+/// Renders built-in template [id]; fails the test on warnings.
+String renderBuiltin(
+  String id,
+  Map<String, Object?> context, {
+  LambdaOptions options = const LambdaOptions(),
+}) {
+  final note = engine.render(builtinTemplates[id]!, context, options: options);
+  expect(note.warnings, isEmpty, reason: 'template $id rendered with warnings');
+  return note.markdown;
+}
+
+/// Shape a built-in template is written for.
+MapShape shapeForTemplate(BuiltinTemplateInfo info) => info.profileId == null
+    ? kSummaryOnlyRootShape
+    : rootShapeFor(profile(info.profileId!));
