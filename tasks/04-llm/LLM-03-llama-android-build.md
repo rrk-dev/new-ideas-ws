@@ -1,7 +1,7 @@
 # LLM-03 — llama.cpp Android Build (CPU / Vulkan / OpenCL)
 
 **Workstream:** LLM | **Phase:** 2 | **Size:** M | **Depends on:** LLM-01, FND-06 | **Source:** §4.2
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-native-build, vv-llm-inference, vv-benchmark-eval, vv-testing
 
 ## Goal
