@@ -1,7 +1,7 @@
 # FND-04 — Local Database (Decision + Schema + Migrations)
 
 **Workstream:** Foundation | **Phase:** 1 | **Size:** M | **Depends on:** FND-02 | **Source:** §4.1 (Isar or SQLite — open decision)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-local-database, vv-decision-records, vv-testing, vv-flutter-architecture
 
 ## Goal
