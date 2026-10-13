@@ -1,0 +1,68 @@
+app/test/fixtures/markdown/golden/summary-only.adversarial.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-38
+app/assets/templates/meeting-logseq.mustache
+  s_9f6fcf8c1840a0::t_e13f0dde5499f2 13,17,23,28,36,42
+app/test/unit/templates/builtin_templates_golden_test.dart
+  s_9f6fcf8c1840a0::t_193daf7b149a91 345-346
+  s_9f6fcf8c1840a0::t_d58420ccc62b3d 49-55,61-69,71-75,79-103,106-108,110-115,117-119,249-252,254,281-283
+  s_9f6fcf8c1840a0::t_de44dc6401bd04 1-48,56-60,70,76-78,104-105,109,116,120-248,253,255-280,284-344,347-349
+app/test/fixtures/markdown/golden/engineering-default.full.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-56
+app/test/unit/templates/template_fixtures.dart
+  s_9f6fcf8c1840a0::t_1a875d734e3fde 1-219
+app/lib/features/templates/domain/markdown_sanitizer.dart
+  s_9f6fcf8c1840a0::t_50ce1937e98e96 62-64,66
+app/test/fixtures/markdown/golden/engineering-default.adversarial.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-56
+app/test/fixtures/markdown/golden/engineering-default.empty.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-20
+app/test/fixtures/markdown/golden/meeting-logseq.empty.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-11
+tools/ci/markdownlint.sh
+  s_9f6fcf8c1840a0::t_67e853232289ba 1-21
+app/test/fixtures/markdown/golden/meeting-default.adversarial.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-49
+app/test/fixtures/markdown/golden/meeting-logseq.full.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-27
+app/test/fixtures/markdown/golden/meeting-default.full.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-49
+app/test/fixtures/markdown/golden/meeting-plain.empty.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-8
+app/test/fixtures/markdown/golden/meeting-plain.full.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-28
+app/test/fixtures/markdown/golden/summary-only.empty.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-15
+app/test/fixtures/markdown/golden/summary-only.full.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-25
+app/test/fixtures/markdown/golden/warranty-default.adversarial.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-47
+app/test/fixtures/markdown/golden/meeting-default.empty.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-21
+docs/markdownlint.json
+  s_9f6fcf8c1840a0::t_056978e76e8884 1-13,15
+  s_9f6fcf8c1840a0::t_30b411b9d4f215 14
+app/test/fixtures/markdown/golden/warranty-default.empty.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-18
+app/test/fixtures/markdown/golden/warranty-default.full.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-47
+app/test/fixtures/markdown/golden/meeting-logseq.adversarial.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-27
+app/test/fixtures/markdown/golden/meeting-plain.adversarial.md
+  s_9f6fcf8c1840a0::t_193daf7b149a91 1-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e3aeeb7147fc0a74c96395cfa0c947f53850cb38",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
