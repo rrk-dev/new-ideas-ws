@@ -1,0 +1,66 @@
+app/lib/features/recording/presentation/recording_screen.dart
+  s_9f6fcf8c1840a0::t_068c9c389b5231 5,8,20-23,25-37,40-47,50-51
+app/test/widget/battery_guidance_test.dart
+  s_9f6fcf8c1840a0::t_1d211e9282105e 1-20,25-46
+  s_9f6fcf8c1840a0::t_6ab2dd82352fdf 21-24
+app/test/fakes/fake_recording_indicator.dart
+  s_9f6fcf8c1840a0::t_38e9023a8439f5 1-36
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/RecordingService.kt
+  s_9f6fcf8c1840a0::t_2c5c6ffad23b02 71,149
+  s_9f6fcf8c1840a0::t_9da110f85fe826 1-70,72-148,150-256
+app/lib/features/recording/domain/recording_indicator.dart
+  s_9f6fcf8c1840a0::t_b09b5227112708 1-94
+app/android/app/src/main/AndroidManifest.xml
+  s_9f6fcf8c1840a0::t_428d51b9bc546b 4-8,38-43
+app/lib/features/recording/data/recording_providers.g.dart
+  s_9f6fcf8c1840a0::t_068c9c389b5231 511-669,721
+app/lib/features/recording/presentation/battery_guidance.dart
+  s_9f6fcf8c1840a0::t_068c9c389b5231 37-39
+  s_9f6fcf8c1840a0::t_868d5c2da505bb 1-36,40-86
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/RecordingIndicatorPlugin.kt
+  s_9f6fcf8c1840a0::t_60537e09ab2022 1-164
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/MainActivity.kt
+  s_9f6fcf8c1840a0::t_428d51b9bc546b 3,14-28,35-38
+app/lib/features/recording/data/method_channel_recording_indicator.dart
+  s_9f6fcf8c1840a0::t_3ed4a1b7b76cab 1-39,43-72,76-102
+  s_9f6fcf8c1840a0::t_4d727a3c5f0027 40-42,73-75
+app/lib/features/recording/presentation/recording_indicator_binding.dart
+  s_9f6fcf8c1840a0::t_688a8e2376368f 30
+  s_9f6fcf8c1840a0::t_4d727a3c5f0027 26-29
+  s_9f6fcf8c1840a0::t_f13875da9eca52 37-38,46-47,53,70
+  s_9f6fcf8c1840a0::t_4d9895947ac77b 1-25,31-36,39-45,48-52,54-69,71-84
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/RetainedEngine.kt
+  s_9f6fcf8c1840a0::t_428d51b9bc546b 1-13
+app/lib/features/recording/presentation/recording_indicator_binding.g.dart
+  s_9f6fcf8c1840a0::t_068c9c389b5231 1-62
+app/android/app/src/main/res/drawable/ic_stat_pause.xml
+  s_9f6fcf8c1840a0::t_428d51b9bc546b 1-12
+app/android/app/src/main/res/drawable/ic_stat_resume.xml
+  s_9f6fcf8c1840a0::t_428d51b9bc546b 1-12
+app/android/app/src/main/res/drawable/ic_stat_recording.xml
+  s_9f6fcf8c1840a0::t_428d51b9bc546b 1-12
+app/android/app/src/main/res/drawable/ic_stat_stop.xml
+  s_9f6fcf8c1840a0::t_428d51b9bc546b 1-12
+app/test/unit/recording/recording_indicator_test.dart
+  s_9f6fcf8c1840a0::t_971d5eace647f3 1-108,116-118,154-173,178-245,248-284
+  s_9f6fcf8c1840a0::t_acfb47dba1157e 109-115
+  s_9f6fcf8c1840a0::t_4e65a38ca63e1e 119-153,174-177,246-247
+app/lib/features/recording/data/recording_providers.dart
+  s_9f6fcf8c1840a0::t_00cdef3d597f52 11,21,105-121,130-131
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3e25aa9b87aeef4f0ca12a889bff9fd6439ac7ae",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
