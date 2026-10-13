@@ -1,7 +1,7 @@
 # FND-05 — Processing Pipeline Orchestrator (Job Queue / State Machine)
 
 **Workstream:** Foundation | **Phase:** 1–2 | **Size:** L | **Depends on:** FND-04 | **Source:** Gap (§4.2 diagram implies a pipeline but none is specified)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-pipeline-orchestrator, vv-local-database, vv-testing
 
 ## Goal
