@@ -1,7 +1,7 @@
 # AUD-04 — iOS Background Recording & Interruption Handling
 
 **Workstream:** Audio | **Phase:** 1 | **Size:** M | **Depends on:** AUD-01, SEC-09 | **Source:** §3.1.1 (Background Audio Capture)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-audio-capture, vv-background-execution, vv-testing
 
 ## Goal
