@@ -298,4 +298,4 @@ final class NetworkGatewayProvider
   }
 }
 
-String _$networkGatewayHash() => r'1d54c4c04d316462c4e58c730a2b9280798d4ad8';
+String _$networkGatewayHash() => r'500c71f7df68376d2b76590ec3cfaadad23cbdc9';

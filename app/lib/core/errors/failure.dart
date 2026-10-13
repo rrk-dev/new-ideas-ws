@@ -216,3 +216,28 @@ final class ModelDownloadFailure extends Failure {
   /// Last underlying failure (HTTP status, egress denial, …), if any.
   final Failure? cause;
 }
+
+/// Why an offline model import was refused (MDL-04).
+enum ModelImportRejection {
+  /// No signed manifest and "Advanced: custom model" is not enabled.
+  unknownModel,
+
+  /// Custom models need the Pro entitlement.
+  entitlementRequired,
+
+  /// The custom file is not a plausible GGUF (magic, version, counts).
+  invalidGguf,
+
+  /// The signed manifest must describe exactly one model.
+  notSingleModel,
+
+  /// The picked files are not a model + `<id>.json` + `<id>.json.sig` set.
+  missingFiles,
+}
+
+/// An offline model import was refused (MDL-04).
+final class ModelImportFailure extends Failure {
+  ModelImportFailure(this.reason) : super('model import: ${reason.name}');
+
+  final ModelImportRejection reason;
+}

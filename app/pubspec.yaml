@@ -12,6 +12,7 @@ dependencies:
   cryptography: 2.9.0
   cupertino_icons: ^1.0.8
   drift: 2.35.2
+  file_selector: 1.1.0
   flutter:
     sdk: flutter
   flutter_riverpod: ^3.4.3

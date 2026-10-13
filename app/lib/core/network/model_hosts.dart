@@ -28,3 +28,9 @@ const Set<String> kModelHosts = {kModelCdnHost, ...kModelMirrorHosts};
 /// listed — add one only after observing it the same way and documenting it
 /// in docs/privacy-audit.md → "Redirect targets".
 const kModelRedirectHosts = {'us.aws.cdn.hf.co'};
+
+/// Settings key (`settings` table): when true the gateway refuses every
+/// request — user "offline mode" or enterprise managed config
+/// `network_disabled` (LIC-04 writes/overrides it). Models are then
+/// provisioned by offline import only (MDL-04).
+const kNetworkDisabledKey = 'network_disabled';

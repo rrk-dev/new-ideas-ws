@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
+import 'package:vaultvoice/core/network/model_hosts.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/features/models/data/catalog_providers.dart';
 import 'package:vaultvoice/features/models/data/gateway_download_transport.dart';
@@ -43,6 +44,10 @@ Future<ModelDownloader> modelDownloader(Ref ref) async {
     clock: ref.watch(clockProvider),
     cellularAllowedSetting: () async =>
         (await settings.get(kAllowCellularDownloadsKey)).valueOrNull == true,
+    networkDisabled: () async {
+      final v = await settings.get(kNetworkDisabledKey);
+      return !v.isOk || v.valueOrNull == true;
+    },
   );
 }
 
