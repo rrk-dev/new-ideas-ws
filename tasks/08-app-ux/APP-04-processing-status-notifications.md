@@ -1,7 +1,7 @@
 # APP-04 — Processing Status & Local Notifications
 
 **Workstream:** App UX | **Phase:** 2–3 | **Size:** S | **Depends on:** FND-05 | **Source:** Gap
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-pipeline-orchestrator, vv-flutter-architecture, vv-background-execution, vv-testing
 
 ## Goal
@@ -37,7 +37,7 @@ Users always know where a recording is in the pipeline and when the note is read
   Typed routes in `core/routing/app_routes.dart`. Android core-library desugaring; iOS
   `UNUserNotificationCenter` delegate. Dependency review rows in `docs/privacy-audit.md`.
 - **Acceptance evidence:**
-  - AC1: ⏳ device: docs/test-plans/device/APP-04.md; ✅ test: [APP-04/AC1]
+  - AC1: ⏳ device: docs/test-plans/device/APP-04.md; test: [APP-04/AC1]
 - **Decisions:** no ADR (library named by `vv-flutter-architecture`; dependency review recorded).
   Extraction ETA uses LLM seconds per audio second (proxy for tok/s: transcript length scales with
   speech) because token counts are not in `jobs`; revisit when LLM-04 persists token metrics.
