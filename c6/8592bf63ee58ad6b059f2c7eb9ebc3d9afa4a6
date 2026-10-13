@@ -1,0 +1,30 @@
+docs/privacy-audit.md
+  s_9f6fcf8c1840a0::t_93688abb1d6536 63-64
+docs/templates.md
+  s_9f6fcf8c1840a0::t_053c1aa8104cb2 1-121
+app/test/unit/templates/template_engine_test.dart
+  s_9f6fcf8c1840a0::t_c8f305d84f6fdb 138,140-143
+  s_9f6fcf8c1840a0::t_fd3138bc9a0a83 1-2
+docs/adr/ADR-EXP-01-template-engine.md
+  s_9f6fcf8c1840a0::t_5c3e540b55c887 1-100
+app/test/unit/templates/builtin_templates_golden_test.dart
+  s_9f6fcf8c1840a0::t_15038e2cc607fb 219-244
+tasks/README.md
+  s_9f6fcf8c1840a0::t_a36fa366decd28 187
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c68592bf63ee58ad6b059f2c7eb9ebc3d9afa4a6",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
