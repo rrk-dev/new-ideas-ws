@@ -1,7 +1,7 @@
 # EXP-01 — Markdown Template Engine (Mustache/Handlebars)
 
 **Workstream:** Export | **Phase:** 3 | **Size:** M | **Depends on:** PRF-01 | **Source:** §3.1.4, §5 Phase 3, §7 (Custom template engine — Pro)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-markdown-vault-export, vv-decision-records, vv-testing, vv-extraction-profiles
 
 ## Goal
