@@ -1,0 +1,55 @@
+tasks/03-stt/STT-02-whisper-android-build.md
+  s_9f6fcf8c1840a0::t_2c822ef2d0c13c 15,28-29
+native/bridge/vv_whisper.cpp
+  s_9f6fcf8c1840a0::t_a57f2db4e24390 16
+  s_9f6fcf8c1840a0::t_80443fe6201030 194
+app/lib/core/platform/backend_policy.dart
+  s_9f6fcf8c1840a0::t_2c822ef2d0c13c 215
+docs/test-plans/device/STT-02.md
+  s_9f6fcf8c1840a0::t_2c822ef2d0c13c 13
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_59739a94f16ac5 126-128
+  s_9f6fcf8c1840a0::t_2c822ef2d0c13c 122
+native/bridge/vv_whisper.h
+  s_9f6fcf8c1840a0::t_80443fe6201030 53
+native/bridge/vv_error.h
+  s_9f6fcf8c1840a0::t_2c822ef2d0c13c 2-4
+native/bridge/vv_backend.cpp
+  s_9f6fcf8c1840a0::t_2c822ef2d0c13c 1
+packages/vv_native/lib/src/vv_bindings.g.dart
+  s_9f6fcf8c1840a0::t_872bc117d3643a 369
+native/tests/sanitize.sh
+  s_9f6fcf8c1840a0::t_aa4cd32f3fbca6 16-17
+tools/ci/tests/test_stt_native_build.py
+  s_9f6fcf8c1840a0::t_2c822ef2d0c13c 97,100
+native/bridge/vv_threads.h
+  s_9f6fcf8c1840a0::t_2c822ef2d0c13c 1-64
+native/tests/backends_test.cpp
+  s_9f6fcf8c1840a0::t_2c822ef2d0c13c 1-2,20,79-80
+native/bridge/vv_exports.txt
+  s_9f6fcf8c1840a0::t_2d3396d95966ff 13-18
+docs/adr/ADR-STT-02-android-backends.md
+  s_9f6fcf8c1840a0::t_2c822ef2d0c13c 90,114-120
+native/tests/stt_bridge_test.cpp
+  s_9f6fcf8c1840a0::t_f56d1cfd768182 282-286
+native/bridge/vv_exports.map
+  s_9f6fcf8c1840a0::t_0ad46f003f2eb9 15-20
+tasks/03-stt/STT-03-whisper-dart-ffi-binding.md
+  s_9f6fcf8c1840a0::t_93a79ee870dcca 36-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "97d0baba1fd55500153dc4165501ab10d97a4082",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
