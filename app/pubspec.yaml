@@ -7,13 +7,16 @@ environment:
   sdk: ^3.13.5
 
 dependencies:
+  archive: ^4.5.1
   cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
   flutter_riverpod: ^3.4.3
   go_router: ^18.0.2
   http: ^1.6.0
+  path_provider: ^2.1.6
   riverpod_annotation: ^4.0.7
+  share_plus: ^13.3.1
   vv_native:
     path: ../packages/vv_native
 
