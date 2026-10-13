@@ -55,6 +55,9 @@ android {
     }
 }
 
+// REL-01: upload-key signing for release builds (key.properties, CI only).
+apply(from = "../signing.gradle")
+
 kotlin {
     compilerOptions {
         jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17

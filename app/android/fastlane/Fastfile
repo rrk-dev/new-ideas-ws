@@ -1,0 +1,52 @@
+# VaultVoice Android release lanes (REL-01).
+#
+# NOT executed by the authoring agent (no fastlane / Android SDK available);
+# the first real run is the first tagged release on GitHub Actions
+# (docs/test-plans/device/REL-01.md).
+#
+# Inputs (environment only — never commit them; see docs/release-secrets.md):
+#   VV_BUILD_NAME, VV_BUILD_NUMBER         tools/release/version.py
+#   PLAY_SERVICE_ACCOUNT_JSON_PATH         Play Console service account (release manager)
+#   app/android/key.properties             written by CI from the upload-key secrets
+#   VV_RELEASE_NOTES_PATH (optional)       tools/release/changelog.py --store output
+require "fileutils"
+
+default_platform(:android)
+
+ROOT = File.expand_path("../../..", __dir__)
+
+platform :android do
+  desc "Build the upload-key signed prod AAB (obfuscated, private symbols)"
+  lane :build do
+    unless File.exist?(File.join(ROOT, "app/android/key.properties"))
+      UI.user_error!("app/android/key.properties missing (Play upload key)")
+    end
+    sh("bash", File.join(ROOT, "tools/release/build_release.sh"), "android")
+  end
+
+  desc "Build and upload to the Play internal testing track"
+  lane :internal do
+    build
+    aab = File.join(ROOT, "app/build/release/android/app-prod-release.aab")
+    metadata = File.join(ROOT, "app/build/release/android/metadata")
+    notes = ENV["VV_RELEASE_NOTES_PATH"]
+    has_notes = !notes.nil? && File.exist?(notes)
+    if has_notes
+      # Play reads changelogs/<versionCode>.txt from the metadata directory.
+      dir = File.join(metadata, "en-US/changelogs")
+      FileUtils.mkdir_p(dir)
+      FileUtils.cp(notes, File.join(dir, "#{ENV.fetch('VV_BUILD_NUMBER')}.txt"))
+    end
+    upload_to_play_store(
+      track: "internal",
+      aab: aab,
+      release_status: "completed",
+      metadata_path: metadata,
+      skip_upload_apk: true,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_changelogs: !has_notes
+    )
+  end
+end

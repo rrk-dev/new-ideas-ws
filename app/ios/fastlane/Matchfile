@@ -1,0 +1,9 @@
+# fastlane match (REL-01): distribution certificate + App Store profile live
+# encrypted in a PRIVATE git repo (MATCH_GIT_URL). CI only ever reads them
+# (`readonly: true` in the Fastfile); certificates are created/renewed by a
+# release manager on a trusted Mac with `bundle exec fastlane match appstore`.
+git_url(ENV["MATCH_GIT_URL"])
+storage_mode("git")
+type("appstore")
+app_identifier(["com.vaultvoice.vaultvoice"])
+team_id(ENV["APPLE_TEAM_ID"])

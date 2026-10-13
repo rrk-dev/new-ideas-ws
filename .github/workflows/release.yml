@@ -1,0 +1,178 @@
+# Release pipeline (REL-01): tag vX.Y.Z -> signed prod builds -> TestFlight +
+# Play internal track. All logic lives in tools/release/ and the fastlane lanes
+# (app/ios/fastlane, app/android/fastlane); this file is a thin wrapper.
+#
+# Secrets: GitHub environment "release" only — names and how to create them
+# are in docs/release-secrets.md. Nothing secret is committed. Symbols are
+# uploaded as PRIVATE workflow artifacts only (never to a crash service or a
+# public GitHub Release); archive them per docs/release-checklist.md.
+name: release
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: read
+
+# Never run two releases at once and never cancel one half-way through an upload.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+env:
+  FVM_VERSION: "4.3.1"
+  JAVA_VERSION: "17"
+
+jobs:
+  prepare:
+    name: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      build_name: ${{ steps.version.outputs.build_name }}
+      build_number: ${{ steps.version.outputs.build_number }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0 # changelog needs the previous tag
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.11"
+      - id: version
+        env:
+          VV_BUILD_NUMBER_OFFSET: ${{ vars.VV_BUILD_NUMBER_OFFSET }}
+        run: python3 tools/release/version.py github-output "$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
+      - run: |
+          mkdir -p release-notes
+          python3 tools/release/changelog.py "$GITHUB_REF_NAME" > release-notes/CHANGELOG.md
+          python3 tools/release/changelog.py "$GITHUB_REF_NAME" --store > release-notes/store.txt
+          cat release-notes/CHANGELOG.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: release-notes
+          path: release-notes/
+          retention-days: 90
+
+  android:
+    name: android
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment: release
+    env:
+      VV_BUILD_NAME: ${{ needs.prepare.outputs.build_name }}
+      VV_BUILD_NUMBER: ${{ needs.prepare.outputs.build_number }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          submodules: recursive
+      - run: sudo apt-get update && sudo apt-get install -y cmake ninja-build
+      - uses: actions/setup-java@v6.0.1
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+      - uses: dart-lang/setup-dart@v1.8.1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: app/android
+      - uses: actions/download-artifact@v7.0.0
+        with:
+          name: release-notes
+          path: ${{ runner.temp }}/release-notes
+      - run: bash tools/ci/setup.sh
+      - name: Write upload key (secrets never echoed)
+        env:
+          ANDROID_UPLOAD_KEYSTORE_BASE64: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_BASE64 }}
+          ANDROID_UPLOAD_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEYSTORE_PASSWORD }}
+          ANDROID_UPLOAD_KEY_ALIAS: ${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}
+          ANDROID_UPLOAD_KEY_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD }}
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          set +x
+          umask 077
+          ks="$RUNNER_TEMP/upload.jks"
+          printf '%s' "$ANDROID_UPLOAD_KEYSTORE_BASE64" | base64 --decode > "$ks"
+          {
+            echo "storeFile=$ks"
+            echo "storePassword=$ANDROID_UPLOAD_KEYSTORE_PASSWORD"
+            echo "keyAlias=$ANDROID_UPLOAD_KEY_ALIAS"
+            echo "keyPassword=$ANDROID_UPLOAD_KEY_PASSWORD"
+          } > app/android/key.properties
+          printf '%s' "$PLAY_SERVICE_ACCOUNT_JSON" > "$RUNNER_TEMP/play.json"
+          echo "PLAY_SERVICE_ACCOUNT_JSON_PATH=$RUNNER_TEMP/play.json" >> "$GITHUB_ENV"
+      - name: Build + upload to Play internal track
+        working-directory: app/android
+        env:
+          VV_RELEASE_NOTES_PATH: ${{ runner.temp }}/release-notes/store.txt
+        run: bundle exec fastlane android internal
+      # SEC-09: the shipped manifest must pass the recording policy.
+      - run: bash tools/ci/check_recording_policy.sh --require-merged-manifest
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: symbols-android-${{ needs.prepare.outputs.build_name }}-${{ needs.prepare.outputs.build_number }}
+          path: app/build/release-symbols/android/
+          retention-days: 90
+          if-no-files-found: error
+      - if: always()
+        run: rm -f app/android/key.properties "$RUNNER_TEMP/upload.jks" "$RUNNER_TEMP/play.json"
+
+  ios:
+    name: ios
+    needs: prepare
+    runs-on: macos-latest
+    timeout-minutes: 60
+    environment: release
+    env:
+      VV_BUILD_NAME: ${{ needs.prepare.outputs.build_name }}
+      VV_BUILD_NUMBER: ${{ needs.prepare.outputs.build_number }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          submodules: recursive
+      - run: brew install cmake
+      - uses: dart-lang/setup-dart@v1.8.1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: app/ios
+      - uses: actions/download-artifact@v7.0.0
+        with:
+          name: release-notes
+          path: ${{ runner.temp }}/release-notes
+      - run: bash tools/ci/setup.sh
+      # Builds vv_native.xcframework that the vv_native pod vends.
+      - run: native/build.sh ios
+      - name: Write App Store Connect API key (secret never echoed)
+        env:
+          APP_STORE_CONNECT_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
+        run: |
+          set +x
+          umask 077
+          printf '%s' "$APP_STORE_CONNECT_API_KEY_P8" | base64 --decode > "$RUNNER_TEMP/asc.p8"
+          echo "APP_STORE_CONNECT_API_KEY_P8_PATH=$RUNNER_TEMP/asc.p8" >> "$GITHUB_ENV"
+      - name: Build + upload to TestFlight
+        working-directory: app/ios
+        env:
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
+          VV_RELEASE_NOTES_PATH: ${{ runner.temp }}/release-notes/store.txt
+        run: |
+          (cd .. && fvm flutter precache --ios && fvm flutter pub get)
+          bundle exec fastlane ios beta
+      - run: bash tools/ci/check_recording_policy.sh
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: symbols-ios-${{ needs.prepare.outputs.build_name }}-${{ needs.prepare.outputs.build_number }}
+          path: app/build/release-symbols/ios/
+          retention-days: 90
+          if-no-files-found: error
+      - if: always()
+        run: rm -f "$RUNNER_TEMP/asc.p8"
