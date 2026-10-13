@@ -9,19 +9,25 @@ import 'dart:ffi';
 
 import 'package:ffi/ffi.dart';
 import 'package:vv_native/src/llm_backend.dart';
+import 'package:vv_native/src/llm_engine.dart';
 import 'package:vv_native/src/loader.dart';
 import 'package:vv_native/src/vv_bindings.g.dart';
 
 export 'src/llm_backend.dart'
     show LlmBackendParams, LlmBenchResult, VvLlmException;
+export 'src/llm_engine.dart'
+    show LlmGenParams, LlmGenResult, LlmGeneration, LlmInfo, VvLlm;
 export 'src/vv_bindings.g.dart'
     show
         VV_E_BACKEND,
+        VV_E_BUSY,
+        VV_E_CANCELLED,
         VV_E_INVALID_ARG,
         VV_E_MODEL_LOAD,
         VV_E_OOM,
         VV_LLM_FALLBACK_GPU_TO_CPU,
-        VV_LLM_FALLBACK_KV_TO_F16;
+        VV_LLM_FALLBACK_KV_TO_F16,
+        VV_OK;
 
 /// ABI revision this Dart code was generated against (`VV_ABI_VERSION`).
 const int expectedAbiVersion = 1;
@@ -39,17 +45,30 @@ class VvAbiMismatch implements Exception {
 
 /// Loaded native bridge.
 class VvNative {
-  VvNative._(this._b);
+  VvNative._(this._b, this._hostPath);
 
   /// Loads the bridge and checks its ABI version.
   factory VvNative.open({String? hostPath}) {
     final bindings = VvBindings(openVvNative(hostPath: hostPath));
     final abi = bindings.vv_abi_version();
     if (abi != expectedAbiVersion) throw VvAbiMismatch(abi);
-    return VvNative._(bindings);
+    return VvNative._(bindings, hostPath);
   }
 
   final VvBindings _b;
+  final String? _hostPath;
+
+  /// Loads an LLM (LLM-04) on a background isolate. See [VvLlm].
+  Future<VvLlm> loadLlm(String modelPath, LlmBackendParams params) =>
+      VvLlm.load(modelPath, params, hostPath: _hostPath);
+
+  /// Current and peak process memory in bytes (`vv_proc_memory`).
+  (int, int) get processMemory => using((arena) {
+    final cur = arena<Uint64>();
+    final peak = arena<Uint64>();
+    _b.vv_proc_memory(cur, peak);
+    return (cur.value, peak.value);
+  });
 
   int get abiVersion => _b.vv_abi_version();
 

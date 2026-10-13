@@ -72,7 +72,7 @@ add_subdirectory(whisper.cpp whisper)
 
 add_library(vv_native SHARED bridge/vv_bridge.cpp)
 # LLM bridge (LLM-02/LLM-03): backend selection, GPU discovery, benchmark.
-target_sources(vv_native PRIVATE bridge/vv_llama.cpp bridge/vv_cpu.c)
+target_sources(vv_native PRIVATE bridge/vv_llama.cpp bridge/vv_llama_engine.cpp bridge/vv_cpu.c)
 target_include_directories(vv_native PUBLIC bridge)
 target_link_libraries(vv_native PRIVATE whisper llama ggml)
 target_compile_definitions(vv_native PRIVATE VV_BUILDING_LIBRARY=1)
@@ -125,6 +125,11 @@ if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
   target_link_libraries(vv_llm_backend_test PRIVATE vv_native)
   add_test(NAME vv_llm_backend COMMAND vv_llm_backend_test)
   set_tests_properties(vv_llm_backend PROPERTIES SKIP_RETURN_CODE 77)
+  # [LLM-04] streaming engine (create/generate/cancel/destroy, memory).
+  add_executable(vv_llm_engine_test tests/llm_engine_test.c)
+  target_link_libraries(vv_llm_engine_test PRIVATE vv_native)
+  add_test(NAME vv_llm_engine COMMAND vv_llm_engine_test)
+  set_tests_properties(vv_llm_engine PROPERTIES SKIP_RETURN_CODE 77)
   # [LLM-03] big.LITTLE perf-core detection (fake sysfs) + CPU feature guard.
   add_executable(vv_cpu_test tests/cpu_test.c bridge/vv_cpu.c)
   target_include_directories(vv_cpu_test PRIVATE bridge)

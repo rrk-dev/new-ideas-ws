@@ -24,10 +24,9 @@
 #include "ggml-cpu.h"
 #include "llama.h"
 #include "vv_cpu.h"
+#include "vv_llama_internal.h"
 
-namespace {
-
-using clk = std::chrono::steady_clock;
+namespace vv_internal {
 
 double ms_since(clk::time_point t0) {
   return std::chrono::duration<double, std::milli>(clk::now() - t0).count();
@@ -50,6 +49,27 @@ uint64_t peak_mem_bytes() {
   unsigned long long kb = 0;
   while (fgets(line, sizeof line, f)) {
     if (sscanf(line, "VmHWM: %llu kB", &kb) == 1) break;
+  }
+  fclose(f);
+  return (uint64_t)kb * 1024;
+#endif
+}
+
+uint64_t current_mem_bytes() {
+#if defined(__APPLE__)
+  task_vm_info_data_t info;
+  mach_msg_type_number_t count = TASK_VM_INFO_COUNT;
+  if (task_info(mach_task_self(), TASK_VM_INFO, (task_info_t)&info, &count) == KERN_SUCCESS) {
+    return info.phys_footprint;
+  }
+  return 0;
+#else
+  FILE* f = fopen("/proc/self/status", "r");
+  if (!f) return 0;
+  char line[256];
+  unsigned long long kb = 0;
+  while (fgets(line, sizeof line, f)) {
+    if (sscanf(line, "VmRSS: %llu kB", &kb) == 1) break;
   }
   fclose(f);
   return (uint64_t)kb * 1024;
@@ -86,23 +106,6 @@ void copy_str(char* dst, size_t cap, const char* src) {
   snprintf(dst, cap, "%s", src ? src : "");
 }
 
-// The loaded model + context, after the fallback chain.
-struct Loaded {
-  llama_model* model = nullptr;
-  llama_context* ctx = nullptr;
-  int32_t used_gpu = 0;
-  int32_t used_kv_quant = 0;
-  int32_t fallbacks = 0;
-  int32_t n_threads = 0;
-  double load_ms = 0;
-  double ctx_ms = 0;
-  ggml_threadpool* pool = nullptr;
-  ~Loaded() {
-    if (ctx) llama_free(ctx);
-    if (pool) ggml_threadpool_free(pool);
-    if (model) llama_model_free(model);
-  }
-};
 
 #if !defined(__APPLE__)
 // big.LITTLE: keep llama.cpp's workers on the performance cores (LLM-03).
@@ -217,8 +220,7 @@ std::vector<llama_token> synthetic_prompt(const llama_vocab* vocab, int32_t n) {
   return out;
 }
 
-int32_t bench_impl(const char* path, const vv_llm_backend_params& p, int32_t n_prompt,
-                   int32_t n_gen, vv_llm_bench_result& r) {
+int32_t open_model(const char* path, const vv_llm_backend_params& p, Loaded& out) {
   ggml_backend_dev_t dev = nullptr;
   if (p.use_gpu && p.gpu_device >= 0) {
     auto gpus = gpu_devices();
@@ -231,8 +233,13 @@ int32_t bench_impl(const char* path, const vv_llm_backend_params& p, int32_t n_p
   } else {
     return VV_E_MODEL_LOAD;  // unreadable file: no point trying GPU then CPU
   }
+  return open_with_fallbacks(path, p, dev, out);
+}
+
+int32_t bench_impl(const char* path, const vv_llm_backend_params& p, int32_t n_prompt,
+                   int32_t n_gen, vv_llm_bench_result& r) {
   Loaded L;
-  int32_t rc = open_with_fallbacks(path, p, dev, L);
+  int32_t rc = open_model(path, p, L);
   if (rc != VV_OK) return rc;
   const llama_vocab* vocab = llama_model_get_vocab(L.model);
 
@@ -285,7 +292,9 @@ int32_t bench_impl(const char* path, const vv_llm_backend_params& p, int32_t n_p
   return VV_OK;
 }
 
-}  // namespace
+}  // namespace vv_internal
+
+using namespace vv_internal;
 
 extern "C" {
 
@@ -316,6 +325,13 @@ int32_t vv_cpu_perf_cores(void) {
 #endif
   unsigned hc = std::thread::hardware_concurrency();
   return hc >= 2 ? (int32_t)(hc / 2) : 1;
+}
+
+int32_t vv_proc_memory(uint64_t* current_bytes, uint64_t* peak_bytes) {
+  if (!current_bytes && !peak_bytes) return VV_E_INVALID_ARG;
+  if (current_bytes) *current_bytes = current_mem_bytes();
+  if (peak_bytes) *peak_bytes = peak_mem_bytes();
+  return VV_OK;
 }
 
 int32_t vv_cpu_features(int32_t* runtime, int32_t* build) {

@@ -13,6 +13,16 @@
     vv_llm_bench;
     vv_cpu_features;
     vv_cpu_supported;
+    vv_proc_memory;
+    vv_llm_create;
+    vv_llm_get_info;
+    vv_llm_count_tokens;
+    vv_llm_apply_chat_template;
+    vv_free_string;
+    vv_llm_default_gen_params;
+    vv_llm_generate_async;
+    vv_llm_cancel;
+    vv_llm_destroy;
   local:
     *;
 };
