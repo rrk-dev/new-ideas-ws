@@ -1,0 +1,185 @@
+# CI wrapper. All logic lives in tools/ci/*.sh so any runner can reuse it.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FVM_VERSION: "4.3.1"
+  JAVA_VERSION: "17"
+
+jobs:
+  static:
+    name: static
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - uses: dart-lang/setup-dart@v1.8.1
+      - uses: actions/cache@v6.1.0
+        with:
+          path: |
+            ~/fvm
+            ~/.pub-cache
+          key: flutter-${{ runner.os }}-${{ hashFiles('.fvmrc', 'app/pubspec.lock') }}
+          restore-keys: flutter-${{ runner.os }}-
+      - run: bash tools/ci/setup.sh
+      - run: bash tools/ci/format.sh
+      - run: bash tools/ci/analyze.sh
+      - run: bash tools/ci/check_codegen.sh
+      - run: bash tools/ci/check_egress.sh
+      # Slot: script delivered by SEC-09 (warns until then).
+      - run: bash tools/ci/run_slot.sh check_recording_policy.sh SEC-09
+      - run: python3 .agents/skills/vv-task-workflow/scripts/tasks.py validate
+
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: dart-lang/setup-dart@v1.8.1
+      - uses: actions/cache@v6.1.0
+        with:
+          path: |
+            ~/fvm
+            ~/.pub-cache
+          key: flutter-${{ runner.os }}-${{ hashFiles('.fvmrc', 'app/pubspec.lock') }}
+          restore-keys: flutter-${{ runner.os }}-
+      - run: bash tools/ci/setup.sh
+      - run: bash tools/ci/test.sh
+      - uses: actions/upload-artifact@v7.0.2
+        if: always()
+        with:
+          name: coverage-lcov
+          path: app/coverage/lcov.info
+          retention-days: 14
+          if-no-files-found: ignore
+
+  task-gate:
+    name: task-gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.11"
+      - run: python3 -m pip install pytest==9.1.1
+      - uses: dart-lang/setup-dart@v1.8.1
+      - uses: actions/cache@v6.1.0
+        with:
+          path: |
+            ~/fvm
+            ~/.pub-cache
+          key: flutter-${{ runner.os }}-${{ hashFiles('.fvmrc', 'app/pubspec.lock') }}
+          restore-keys: flutter-${{ runner.os }}-
+      - run: bash tools/ci/setup.sh
+      # Tests of the CI gates themselves.
+      - run: python3 -m pytest tools/ci/tests -q
+      # Blocking: every `done` task keeps its tagged tests, report and PASS rows.
+      - run: python3 .agents/skills/vv-task-workflow/scripts/tasks.py verify --all-done --run
+
+  android:
+    name: android
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          submodules: recursive
+      - id: pins
+        run: echo "pins=$(git ls-tree HEAD native/whisper.cpp native/llama.cpp | awk '{print $3}' | tr '\n' '-')" >> "$GITHUB_OUTPUT"
+      - run: sudo apt-get update && sudo apt-get install -y cmake ninja-build ccache
+      - uses: actions/setup-java@v6.0.1
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+      - uses: dart-lang/setup-dart@v1.8.1
+      - uses: actions/cache@v6.1.0
+        with:
+          path: |
+            ~/fvm
+            ~/.pub-cache
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            ~/.cache/ccache
+          key: android-${{ runner.os }}-${{ steps.pins.outputs.pins }}-${{ hashFiles('.fvmrc', 'app/pubspec.lock', 'app/android/**/*.gradle*', 'packages/vv_native/android/build.gradle', 'native/CMakeLists.txt', 'native/bridge/**') }}
+          restore-keys: android-${{ runner.os }}-
+      - run: bash tools/ci/setup.sh
+      - run: bash tools/ci/build_android.sh
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: android-dev-debug-apk
+          path: app/build/app/outputs/flutter-apk/*.apk
+          retention-days: 14
+
+  ios:
+    name: ios
+    runs-on: macos-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          submodules: recursive
+      - id: pins
+        run: echo "pins=$(git ls-tree HEAD native/whisper.cpp native/llama.cpp | awk '{print $3}' | tr '\n' '-')" >> "$GITHUB_OUTPUT"
+      - run: brew install cmake ccache
+      - uses: dart-lang/setup-dart@v1.8.1
+      - uses: actions/cache@v6.1.0
+        with:
+          path: |
+            ~/fvm
+            ~/.pub-cache
+            ~/Library/Caches/CocoaPods
+            app/ios/Pods
+            ~/Library/Caches/ccache
+          key: ios-${{ runner.os }}-${{ steps.pins.outputs.pins }}-${{ hashFiles('.fvmrc', 'app/pubspec.lock', 'app/ios/Podfile.lock', 'native/CMakeLists.txt', 'native/bridge/**') }}
+          restore-keys: ios-${{ runner.os }}-
+      - run: bash tools/ci/setup.sh
+      - run: bash tools/ci/build_ios.sh
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: ios-dev-unsigned-app
+          path: app/build/ios/Runner-dev.app.zip
+          retention-days: 14
+
+  native-host:
+    name: native-host
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          submodules: recursive
+      - id: pins
+        run: echo "pins=$(git ls-tree HEAD native/whisper.cpp native/llama.cpp | awk '{print $3}' | tr '\n' '-')" >> "$GITHUB_OUTPUT"
+      - run: sudo apt-get update && sudo apt-get install -y cmake ninja-build ccache
+      - uses: actions/cache@v6.1.0
+        with:
+          path: ~/.cache/ccache
+          key: ccache-host-${{ runner.os }}-${{ steps.pins.outputs.pins }}-${{ hashFiles('native/CMakeLists.txt', 'native/bridge/**') }}
+          restore-keys: ccache-host-${{ runner.os }}-${{ steps.pins.outputs.pins }}-
+      - uses: dart-lang/setup-dart@v1.8.1
+      - uses: actions/cache@v6.1.0
+        with:
+          path: |
+            ~/fvm
+            ~/.pub-cache
+          key: flutter-${{ runner.os }}-${{ hashFiles('.fvmrc', 'app/pubspec.lock') }}
+          restore-keys: flutter-${{ runner.os }}-
+      - run: bash tools/ci/setup.sh
+      # native/build.sh host (ctest: smoke + exports) + Dart FFI test on the host library.
+      - run: bash tools/ci/native_host.sh

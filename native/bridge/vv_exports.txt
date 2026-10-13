@@ -1,0 +1,6 @@
+_vv_abi_version
+_vv_version
+_vv_whisper_version
+_vv_ggml_version
+_vv_whisper_system_info
+_vv_llama_system_info
