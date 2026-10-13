@@ -1,0 +1,111 @@
+app/lib/features/settings/presentation/diagnostics_export.dart
+  s_9f6fcf8c1840a0::t_639f3dde635a8f 48,66-67,96,103-106,139,143
+  s_9f6fcf8c1840a0::t_54008f8aaf04f5 28
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 5
+  s_9f6fcf8c1840a0::t_78a14b92d18431 57
+app/lib/features/pipeline/presentation/processing_queue_indicator.dart
+  s_9f6fcf8c1840a0::t_ae8730aa1f5039 40-43,59,66,89
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 3
+app/lib/features/recording/presentation/recording_screen.dart
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 4
+  s_9f6fcf8c1840a0::t_639f3dde635a8f 17,22
+app/lib/features/pipeline/presentation/processing_queue_screen.dart
+  s_9f6fcf8c1840a0::t_40349d1f2a5956 27,29-32,36-37,43,45
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 3
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_d0a33ae357c651 1-197
+app/lib/features/settings/presentation/setting_texts.dart
+  s_9f6fcf8c1840a0::t_098426b1984c77 1,5,7-13,16-31,35-42,44,48-64,68-73
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_4be3cfbc210111 1-576
+app/lib/core/l10n/l10n.dart
+  s_9f6fcf8c1840a0::t_d7da4ba52a2426 1-25
+app/lib/core/routing/app_routes.dart
+  s_9f6fcf8c1840a0::t_639f3dde635a8f 153
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 4
+app/lib/core/widgets/placeholder_screen.dart
+  s_9f6fcf8c1840a0::t_639f3dde635a8f 2,27
+app/lib/features/library/presentation/library_screen.dart
+  s_9f6fcf8c1840a0::t_78a14b92d18431 10-13
+  s_9f6fcf8c1840a0::t_639f3dde635a8f 2
+app/lib/features/pipeline/presentation/job_commands.dart
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 4
+  s_9f6fcf8c1840a0::t_40349d1f2a5956 18
+  s_9f6fcf8c1840a0::t_78a14b92d18431 27
+app/test/widget/processing_status_test.dart
+  s_9f6fcf8c1840a0::t_c29b35eed85d01 8,65,233-237,239,242-243
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 64
+app/test/widget/settings_screen_test.dart
+  s_9f6fcf8c1840a0::t_c29b35eed85d01 56,164,244
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 8,55
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_4be3cfbc210111 1-1064
+app/test/helpers/golden.dart
+  s_9f6fcf8c1840a0::t_78a14b92d18431 67
+  s_9f6fcf8c1840a0::t_7d65647275ef00 8,68
+app/lib/features/pipeline/presentation/recording_status_screen.dart
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 3
+  s_9f6fcf8c1840a0::t_40349d1f2a5956 34,36-39,43-44,50,52
+app/lib/features/settings/presentation/vault_settings_screens.dart
+  s_9f6fcf8c1840a0::t_c0faf989b6811e 36,38,75-76,80,84,106,110,113-116,120-121,125,127,139,165,167-170,174-175,179,181,187-188
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 7
+  s_9f6fcf8c1840a0::t_78a14b92d18431 54-55
+app/lib/bootstrap.dart
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 12
+  s_9f6fcf8c1840a0::t_40349d1f2a5956 55-56,59-60
+  s_9f6fcf8c1840a0::t_78a14b92d18431 57-58
+app/lib/features/settings/presentation/setting_tiles.dart
+  s_9f6fcf8c1840a0::t_c0faf989b6811e 50,208,212,214
+  s_9f6fcf8c1840a0::t_78a14b92d18431 53
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 3
+  s_9f6fcf8c1840a0::t_ea24f9c1cf27af 60,63,66,70-73,92,136,149,188,196
+app/lib/app.dart
+  s_9f6fcf8c1840a0::t_7d65647275ef00 20-21
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 5
+app/lib/core/routing/app_shell.dart
+  s_9f6fcf8c1840a0::t_639f3dde635a8f 3,27,29-30,33-42
+app/lib/features/pipeline/presentation/processing_texts.dart
+  s_9f6fcf8c1840a0::t_5694d5ab03c357 1,5-9,12,15,19,22,25,29,32-35,38,42-68,71-73,75,78
+  s_9f6fcf8c1840a0::t_78a14b92d18431 36-37
+app/lib/features/pipeline/presentation/processing_status_card.dart
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 2
+  s_9f6fcf8c1840a0::t_40349d1f2a5956 42,45,47,51-53,90-91,133-136,138,141-144
+app/analysis_options.yaml
+  s_9f6fcf8c1840a0::t_e306d6dc532acc 13-14
+app/l10n.yaml
+  s_9f6fcf8c1840a0::t_4be3cfbc210111 7
+  s_9f6fcf8c1840a0::t_e306d6dc532acc 1-6
+app/test/unit/pipeline/processing_monitor_test.dart
+  s_9f6fcf8c1840a0::t_c29b35eed85d01 17
+app/lib/features/pipeline/presentation/processing_providers.dart
+  s_9f6fcf8c1840a0::t_40349d1f2a5956 2,30-32
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 7
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9f6fcf8c1840a0::t_160e3106dfbdd4 6
+  s_9f6fcf8c1840a0::t_ea24f9c1cf27af 24
+  s_9f6fcf8c1840a0::t_78a14b92d18431 97-99,116-118,143,201,228,301
+  s_9f6fcf8c1840a0::t_988cd456a24e39 22,26,42-43,64-68,73,96,115,132-133,137,142,147,162,166-167,171,179,189,210,212-214,220-221,236,242-243,248,252,259,268,296,306,310
+app/lib/features/profiles/presentation/profiles_screen.dart
+  s_9f6fcf8c1840a0::t_639f3dde635a8f 2,11
+app/pubspec.yaml
+  s_9f6fcf8c1840a0::t_abde44f810d05b 18-19
+  s_9f6fcf8c1840a0::t_e306d6dc532acc 23-24,52-53
+app/pubspec.lock
+  s_9f6fcf8c1840a0::t_65e3cd93858ce7 383,512
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "16ddbf795303eb864a75bd8fd664bbe6ba636eed",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
