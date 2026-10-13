@@ -1,12 +1,19 @@
 # Device verification — FND-01 Initialize Flutter Repository & Code Standards
 
+AC2 is a **simulator / emulator** run. Physical-device runs belong to GATE-01, not this task.
+The app ships arm64 only (`abiFilters arm64-v8a`; the iOS native framework has an arm64
+simulator slice), so use an Apple Silicon Mac with an **arm64** iOS simulator and an
+**arm64-v8a** Android system image.
+
 | AC | Steps | Expected | Device | OS | Result | Date | Tester |
 |---|---|---|---|---|---|---|---|
-| [FND-01/AC2] | 1. Connect a physical iPhone (iOS 16+), select a signing team in Xcode (Runner → Signing). 2. `cd app && fvm flutter run --flavor dev -t lib/main_dev.dart -d <iphone-id>`. | App installs as "VaultVoice Dev" (orange icon, bundle `com.vaultvoice.vaultvoice.dev`), launches and shows "dev flavor". | _pending_ | _pending_ | | | |
-| [FND-01/AC2] | 1. Connect a physical arm64 Android phone (API 26+), USB debugging on. 2. `cd app && fvm flutter run --flavor dev -t lib/main_dev.dart -d <android-id>`. | App installs as "VaultVoice Dev" (orange icon, id `com.vaultvoice.vaultvoice.dev`), launches and shows "dev flavor". | _pending_ | _pending_ | | | |
+| [FND-01/AC2] | 1. Boot an iOS simulator (iOS 16+, e.g. `xcrun simctl boot "iPhone 16"`). 2. `fvm flutter devices` lists it; note its id. 3. `cd app && fvm flutter run --flavor dev -t lib/main_dev.dart -d <simulator-id>`. | Build succeeds with the `dev` scheme; app installs as "VaultVoice Dev" (bundle `com.vaultvoice.vaultvoice.dev`, dev icon), launches without a crash to the Record screen, shows the DEBUG banner (dev flavor) and the dev-only "CallGuard debug" app-bar action. | iOS simulator | | | | |
+| [FND-01/AC2] | 1. Create/boot an Android emulator from an arm64-v8a system image, API 26+ (e.g. `emulator -avd <avd>`). 2. `fvm flutter devices` lists it; note its id. 3. `cd app && fvm flutter run --flavor dev -t lib/main_dev.dart -d <emulator-id>`. | Build succeeds for the `dev` flavor; app installs as "VaultVoice Dev" (id `com.vaultvoice.vaultvoice.dev`, dev icon), launches without a crash to the Record screen, shows the DEBUG banner (dev flavor) and the dev-only "CallGuard debug" app-bar action. | Android emulator | | | | |
 
 ## Notes / evidence
-Host-side checks done without a device (Xcode/Android SDK were not installed on the authoring
-machine): `fvm flutter analyze` → no issues; `fvm dart format --set-exit-if-changed .` clean;
-`fvm flutter test` passes; iOS `project.pbxproj` passes `plutil -lint`. Native builds of the
-flavors have **not** been compiled yet.
+Fill Device (simulator/AVD model), OS, Result (`PASS`/`FAIL`), Date (`YYYY-MM-DD`) and Tester
+only after actually running the row. Screenshots go under
+`docs/test-plans/device/evidence/FND-01/`.
+
+Host-side checks (no simulator/emulator on the authoring machine): the format and analyze
+gates are covered by the automated `[FND-01/AC1]` tests in `tools/ci/tests/test_repo_standards.py`.
