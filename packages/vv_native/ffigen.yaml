@@ -1,0 +1,14 @@
+# Regenerate with: cd packages/vv_native && fvm dart run ffigen --config ffigen.yaml
+name: VvBindings
+description: Bindings for native/bridge/vv_bridge.h (the only C ABI Dart uses).
+output: lib/src/vv_bindings.g.dart
+headers:
+  entry-points:
+    - ../../native/bridge/vv_bridge.h
+  include-directives:
+    - ../../native/bridge/vv_bridge.h
+preamble: |
+  // ignore_for_file: type=lint, unused_field, unused_element
+comments:
+  style: any
+  length: full

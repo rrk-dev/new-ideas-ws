@@ -1,0 +1,69 @@
+// Builds native/CMakeLists.txt (whisper.cpp + llama.cpp + one ggml -> libvv_native.so)
+// with the Android NDK. UNVERIFIED locally (no NDK on the authoring machine); the CI
+// Android job is the first real build (FND-06 evidence).
+
+group = "com.vaultvoice.vv_native"
+version = "1.0"
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("com.android.tools.build:gradle:9.1.0")
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: "com.android.library"
+
+android {
+    namespace = "com.vaultvoice.vv_native"
+    compileSdk = 36
+
+    // Pinned: NDK r28+ aligns native libs to 16 KB pages by default (Google Play
+    // requirement). Keep in sync with app/android/app/build.gradle.kts and
+    // native/VERSIONS.md.
+    ndkVersion = "28.2.13676358"
+
+    externalNativeBuild {
+        cmake {
+            path = "../../../native/CMakeLists.txt"
+            // Newer than AGP's default 3.10.2: the superproject needs >= 3.22.
+            version = "3.22.1"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    defaultConfig {
+        minSdk = 26
+        ndk {
+            abiFilters += listOf("arm64-v8a")
+        }
+        externalNativeBuild {
+            cmake {
+                arguments(
+                    "-DANDROID_STL=c++_static",
+                    "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON",
+                    "-DGGML_NATIVE=OFF",
+                    "-DGGML_OPENMP=OFF",
+                    "-DGGML_LLAMAFILE=OFF",
+                )
+                cFlags("-O3", "-ffunction-sections", "-fdata-sections")
+                cppFlags("-O3", "-ffunction-sections", "-fdata-sections")
+            }
+        }
+    }
+}
