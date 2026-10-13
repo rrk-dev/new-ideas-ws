@@ -1,0 +1,55 @@
+native/bridge/vv_jsg.cpp
+  s_9f6fcf8c1840a0::t_3eb639126d071a 1-35
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_6cb4de09f33ef7 76-94
+  s_9f6fcf8c1840a0::t_c28f258fc884de 152-156
+tools/bench/llm_grammar/run.sh
+  s_9f6fcf8c1840a0::t_4c6c6e73a5d20d 1-12
+native/bridge/vv_llama.h
+  s_9f6fcf8c1840a0::t_2a0457aa422fb6 183-186,189-190
+  s_9f6fcf8c1840a0::t_bb7284baf701de 231-237
+  s_9f6fcf8c1840a0::t_bb5a9818f483cb 191
+packages/vv_native/lib/vv_native.dart
+  s_9f6fcf8c1840a0::t_906129fb5520fc 65-81
+native/tests/grammar_test.c
+  s_9f6fcf8c1840a0::t_2df381aa672505 85
+  s_9f6fcf8c1840a0::t_1476ca17628b35 84
+  s_9f6fcf8c1840a0::t_cccedee8c15d67 1-83,86-120
+native/bridge/vv_jsg_shim.cpp
+  s_9f6fcf8c1840a0::t_9fcb147c8b3d38 1-57
+packages/vv_native/lib/src/llm_engine.dart
+  s_9f6fcf8c1840a0::t_fd69cf9cc549db 26,64-67,287-289
+tools/bench/llm_grammar/grammar_bench.c
+  s_9f6fcf8c1840a0::t_0f67d721517cb3 1-129
+tools/bench/results/2026-10-13-llm05-grammar.md
+  s_9f6fcf8c1840a0::t_eacb9a7c5777e2 1-27
+native/bridge/vv_llama_engine.cpp
+  s_9f6fcf8c1840a0::t_656c37129c5a9d 75-80,82,91-95
+  s_9f6fcf8c1840a0::t_ac036954eae1b5 248
+  s_9f6fcf8c1840a0::t_c178a6adacd0d4 120,123,126-156
+  s_9f6fcf8c1840a0::t_b2f67d5145003a 374-376,382
+  s_9f6fcf8c1840a0::t_c11e375bf7d512 202-203
+  s_9f6fcf8c1840a0::t_f96515b65f8069 157
+packages/vv_native/lib/src/vv_bindings.g.dart
+  s_9f6fcf8c1840a0::t_1616165df620e4 454-479,654-659,751-754
+native/bridge/vv_exports.map
+  s_9f6fcf8c1840a0::t_bea408738263b0 26
+native/bridge/vv_exports.txt
+  s_9f6fcf8c1840a0::t_ada66a84b9e5c6 24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8deed2ce68911f7a7d23b65538efa1ee861f3565",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
