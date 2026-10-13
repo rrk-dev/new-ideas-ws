@@ -121,13 +121,15 @@ class PipelineIsolateClient implements PipelineClient {
   @override
   Stream<JobEvent> get events => _events.stream;
 
-  Future<Object?> _call(String op, List<Object?> args) async {
-    if (_disposed) return const Err<void>(UnexpectedFailure('disposed'));
+  Future<T> _call<T>(String op, List<Object?> args) async {
+    if (_disposed) {
+      return const Err<Never>(UnexpectedFailure('disposed')) as T;
+    }
     final reply = ReceivePort();
     _toWorker.send(_Request(op, args, reply.sendPort));
     final result = await reply.first;
     reply.close();
-    return result;
+    return result as T;
   }
 
   @override
@@ -135,46 +137,44 @@ class PipelineIsolateClient implements PipelineClient {
     String recordingId, {
     bool userInitiated = false,
     String? profileId,
-  }) async =>
-      await _call('enqueue', [recordingId, userInitiated, profileId])
-          as Result<String>;
+  }) =>
+      _call<Result<String>>('enqueue', [recordingId, userInitiated, profileId]);
 
   @override
-  Future<Result<void>> processNow(String jobId) async =>
-      await _call('processNow', [jobId]) as Result<void>;
+  Future<Result<void>> processNow(String jobId) =>
+      _call<Result<void>>('processNow', [jobId]);
 
   @override
-  Future<Result<void>> cancel(String jobId) async =>
-      await _call('cancel', [jobId]) as Result<void>;
+  Future<Result<void>> cancel(String jobId) =>
+      _call<Result<void>>('cancel', [jobId]);
 
   @override
-  Future<Result<void>> retry(String jobId) async =>
-      await _call('retry', [jobId]) as Result<void>;
+  Future<Result<void>> retry(String jobId) =>
+      _call<Result<void>>('retry', [jobId]);
 
   @override
   Future<Result<void>> rerun(
     String jobId,
     PipelineStepId from, {
     String? profileId,
-  }) async =>
-      await _call('rerun', [jobId, from.index, profileId]) as Result<void>;
+  }) => _call<Result<void>>('rerun', [jobId, from.index, profileId]);
 
   @override
-  Future<Result<void>> pause(String jobId) async =>
-      await _call('pause', [jobId]) as Result<void>;
+  Future<Result<void>> pause(String jobId) =>
+      _call<Result<void>>('pause', [jobId]);
 
   @override
-  Future<Result<void>> resume(String jobId) async =>
-      await _call('resume', [jobId]) as Result<void>;
+  Future<Result<void>> resume(String jobId) =>
+      _call<Result<void>>('resume', [jobId]);
 
   @override
-  Future<Result<void>> resolveWaiting(String jobId) async =>
-      await _call('resolveWaiting', [jobId]) as Result<void>;
+  Future<Result<void>> resolveWaiting(String jobId) =>
+      _call<Result<void>>('resolveWaiting', [jobId]);
 
   @override
   Future<void> dispose() async {
     if (_disposed) return;
-    await _call('dispose', const []);
+    await _call<Object?>('dispose', const []);
     _disposed = true;
     _fromWorker.close();
     _isolate.kill();

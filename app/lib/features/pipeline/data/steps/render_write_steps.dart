@@ -106,9 +106,11 @@ class RenderStep implements PipelineStep {
         ),
     ];
     return StepSucceeded(
-      commit: () async => unwrap(
-        await db.extractionsRepository.replaceActionItems(ext.id, items),
-      ),
+      commit: () async {
+        unwrap(
+          await db.extractionsRepository.replaceActionItems(ext.id, items),
+        );
+      },
     );
   }
 
@@ -187,22 +189,24 @@ class WriteStep implements PipelineStep {
     }
     ctx.reportProgress(1);
     return StepSucceeded(
-      commit: () async => unwrap(
-        await db.vaultRepository.upsertExport(
-          ExportsCompanion.insert(
-            id: '${job.recordingId}.${target.id}',
-            recordingId: job.recordingId,
-            targetId: target.id,
-            relPath: relPath,
-            contentHash: hash,
-            status: ExportStatus.written,
-            attempts: Value(
-              (existing?.attempts ?? 0) + (alreadyWritten ? 0 : 1),
+      commit: () async {
+        unwrap(
+          await db.vaultRepository.upsertExport(
+            ExportsCompanion.insert(
+              id: '${job.recordingId}.${target.id}',
+              recordingId: job.recordingId,
+              targetId: target.id,
+              relPath: relPath,
+              contentHash: hash,
+              status: ExportStatus.written,
+              attempts: Value(
+                (existing?.attempts ?? 0) + (alreadyWritten ? 0 : 1),
+              ),
+              updatedAt: clock.now(),
             ),
-            updatedAt: clock.now(),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

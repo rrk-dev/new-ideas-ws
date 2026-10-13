@@ -1,4 +1,3 @@
-import 'package:drift/drift.dart';
 import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
@@ -117,8 +116,9 @@ class TranscribeStep implements PipelineStep {
           await ctx.saveCheckpoint(
             checkpoint(next + 1),
             progress: (next + 1) / total,
-            writes: () async =>
-                unwrap(await db.transcriptsRepository.upsertSegments(rows)),
+            writes: () async {
+              unwrap(await db.transcriptsRepository.upsertSegments(rows));
+            },
           );
       }
     }

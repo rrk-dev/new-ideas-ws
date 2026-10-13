@@ -67,12 +67,11 @@ class PipelineOrchestrator implements PipelineClient {
     required this.db,
     required List<PipelineStep> steps,
     this.paths,
-    Clock clock = const SystemClock(),
+    this.clock = const SystemClock(),
     HeavyModelGate? gate,
     this.machine = const JobStateMachine(),
     String Function()? newId,
   }) : _steps = {for (final s in steps) s.id: s},
-       _clock = clock,
        gate = gate ?? HeavyModelGate(),
        _newId = newId ?? newUuidV4;
 
@@ -97,7 +96,7 @@ class PipelineOrchestrator implements PipelineClient {
   final HeavyModelGate gate;
   final JobStateMachine machine;
   final Map<PipelineStepId, PipelineStep> _steps;
-  final Clock _clock;
+  final Clock clock;
   final String Function() _newId;
   final _events = StreamController<JobEvent>.broadcast();
 
@@ -123,7 +122,7 @@ class PipelineOrchestrator implements PipelineClient {
     });
     for (final row in active.valueOrNull ?? const <JobRow>[]) {
       final job = jobFromRow(row);
-      await _saveIf(job, machine.recover(job, _clock.now()));
+      await _saveIf(job, machine.recover(job, clock.now()));
     }
     _loop = _workLoop();
   }
@@ -184,7 +183,7 @@ class PipelineOrchestrator implements PipelineClient {
     }
     final first = _firstStep;
     if (first == null) return const Err(UnexpectedFailure('no steps'));
-    final now = _clock.now();
+    final now = clock.now();
     final job = JobSnapshot(
       id: _newId(),
       recordingId: recordingId,
@@ -255,7 +254,11 @@ class PipelineOrchestrator implements PipelineClient {
       if (set case Err(:final failure)) return Err(failure);
     }
     await _clearOutputs(job, from);
-    return _command(jobId, 'rerun', (j, now) => machine.rerun(j, from, now));
+    return await _command(
+      jobId,
+      'rerun',
+      (j, now) => machine.rerun(j, from, now),
+    );
   }
 
   // ------------------------------------------------------------------ worker
@@ -287,7 +290,7 @@ class PipelineOrchestrator implements PipelineClient {
     final rows = await db.jobsRepository.findByStatus({
       for (final s in JobState.runnable) s.name,
     });
-    final now = _clock.now();
+    final now = clock.now();
     DateTime? earliest;
     for (final row in rows.valueOrNull ?? const <JobRow>[]) {
       final job = jobFromRow(row);
@@ -306,7 +309,7 @@ class PipelineOrchestrator implements PipelineClient {
     }
     _idleWaiters.clear();
     if (wakeAt != null) {
-      _timer = Timer(wakeAt.difference(_clock.now()), poke);
+      _timer = Timer(wakeAt.difference(clock.now()), poke);
     }
     await wake.future;
   }
@@ -314,11 +317,11 @@ class PipelineOrchestrator implements PipelineClient {
   Future<void> _process(JobSnapshot job) async {
     final step = _steps[job.step];
     if (step == null || !step.canRun(job)) {
-      await _saveIf(job, machine.skip(job, _nextStep(job.step), _clock.now()));
+      await _saveIf(job, machine.skip(job, _nextStep(job.step), clock.now()));
       return;
     }
     // Persist before act.
-    final active = machine.start(job, _clock.now());
+    final active = machine.start(job, clock.now());
     if (!await _saveIf(job, active)) return;
     await gate.use(step.model);
 
@@ -336,7 +339,7 @@ class PipelineOrchestrator implements PipelineClient {
     // Killed / disposed: leave the persisted active state for recovery.
     if (_stopped) return;
     final current = ctx.job;
-    final now = _clock.now();
+    final now = clock.now();
     switch (result) {
       case StepSucceeded(:final commit):
         try {
@@ -422,7 +425,7 @@ class PipelineOrchestrator implements PipelineClient {
     final job = jobFromRow(loaded.valueOrNull!);
     final JobSnapshot next;
     try {
-      next = transition(job, _clock.now());
+      next = transition(job, clock.now());
     } on InvalidTransitionException {
       return Err(_invalid(job.state, name));
     }
@@ -480,7 +483,7 @@ class _Context implements StepContext {
   @override
   void reportProgress(double fraction) {
     if (_o._stopped || _run.token.isCancelled) return;
-    _o._emit(_o.machine.progress(_job, fraction, _o._clock.now()));
+    _o._emit(_o.machine.progress(_job, fraction, _o.clock.now()));
   }
 
   @override
@@ -495,7 +498,7 @@ class _Context implements StepContext {
     final next = _o.machine.progress(
       _job,
       progress ?? _job.progress,
-      _o._clock.now(),
+      _o.clock.now(),
       checkpoint: checkpoint,
     );
     try {

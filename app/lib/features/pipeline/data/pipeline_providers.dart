@@ -1,3 +1,4 @@
+import 'package:drift/isolate.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/features/pipeline/data/job_mapper.dart';

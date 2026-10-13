@@ -6,9 +6,10 @@ typedef ModelRelease = Future<void> Function(HeavyModel model);
 /// Ensures STT and LLM are never resident together: acquiring one releases
 /// the other first. LLM-07 supplies the real release (engine unload).
 class HeavyModelGate {
-  HeavyModelGate({ModelRelease? release}) : _release = release;
+  HeavyModelGate({this.release});
 
-  final ModelRelease? _release;
+  /// Called with the model being unloaded.
+  final ModelRelease? release;
   HeavyModel? _loaded;
 
   /// The model currently considered loaded.
@@ -26,6 +27,6 @@ class HeavyModelGate {
     final current = _loaded;
     if (current == null) return;
     _loaded = null;
-    await _release?.call(current);
+    await release?.call(current);
   }
 }

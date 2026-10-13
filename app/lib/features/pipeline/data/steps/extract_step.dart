@@ -91,20 +91,22 @@ class ExtractStep implements PipelineStep {
       case Ok(value: final output):
         final parsed = _parseObject(output);
         return StepSucceeded(
-          commit: () async => unwrap(
-            await db.extractionsRepository.upsert(
-              ExtractionsCompanion.insert(
-                id: extractionIdFor(job.id),
-                recordingId: job.recordingId,
-                profileId: profileId,
-                profileVersion: profileVersion,
-                modelId: config.llmModelId,
-                json: parsed ?? {'raw': output},
-                valid: parsed != null,
-                createdAt: clock.now(),
+          commit: () async {
+            unwrap(
+              await db.extractionsRepository.upsert(
+                ExtractionsCompanion.insert(
+                  id: extractionIdFor(job.id),
+                  recordingId: job.recordingId,
+                  profileId: profileId,
+                  profileVersion: profileVersion,
+                  modelId: config.llmModelId,
+                  json: parsed ?? {'raw': output},
+                  valid: parsed != null,
+                  createdAt: clock.now(),
+                ),
               ),
-            ),
-          ),
+            );
+          },
         );
     }
   }

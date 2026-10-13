@@ -44,7 +44,7 @@ enum PipelineStepId {
 
 /// Every state a job can be in.
 ///
-/// ```
+/// ```text
 /// queued → transcribing → transcribed → diarizing? → classifying?
 ///        → extracting → extracted → rendering → rendered → writing → done
 /// any → failed · any → cancelled · active → paused · any → waiting(reason)
