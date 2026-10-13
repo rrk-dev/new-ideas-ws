@@ -1,0 +1,33 @@
+docs/crash-triage.md
+  s_9f6fcf8c1840a0::t_cf4848d0e1bc54 1-86
+docs/test-plans/device/REL-02.md
+  s_9f6fcf8c1840a0::t_282630198e0340 1-16
+tasks/README.md
+  s_9f6fcf8c1840a0::t_e09ea8822754fa 196
+docs/privacy-audit.md
+  s_9f6fcf8c1840a0::t_6bda48c10b8e28 13
+tasks/12-release/REL-02-private-crash-reporting.md
+  s_9f6fcf8c1840a0::t_1744b7aeaf2064 4
+  s_9f6fcf8c1840a0::t_e09ea8822754fa 11-14,18-33
+app/lib/core/crash/crash_providers.g.dart
+  s_9f6fcf8c1840a0::t_eca99632f79941 160
+docs/adr/ADR-REL-02-crash-capture.md
+  s_9f6fcf8c1840a0::t_bec924313dbb61 89
+  s_9f6fcf8c1840a0::t_380e1a3f356191 1-88,90-105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "736624a07588ced7ac9028b02a804816fae4ba8b",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
