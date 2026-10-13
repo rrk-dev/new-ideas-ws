@@ -120,10 +120,11 @@ validates cannot hit a missing key at export time:
 - Name resolution follows the Mustache spec: the first segment of a dotted name is looked up from
   the innermost section outwards, the rest strictly from there; lambdas resolve last.
 - Lambdas (`vv-markdown-vault-export`; EXP-01 implements them): content lambdas
-  (`yaml`, `wikilink`, `slug`, `upper`, `lower`, `trim`, `checkbox`, `md_table`, `bullets`,
-  `code_block` — inner tags are checked), text-argument lambdas (`date`, `duration`), the
-  path-argument lambda `yaml_list` (its text must name a list), and variable lambdas
-  (`transcript_block`, `audio_link`).
+  (`yaml`, `wikilink`, `slug`, `upper`, `lower`, `trim`, `checkbox`, `code_block` — inner tags
+  are checked), text-argument lambdas (`date`, `duration`; an optional `path|FORMAT` path must
+  be a scalar), path-argument lambdas (`yaml_list`, `bullets`, `md_table` — the text before an
+  optional `|args` must name a list; `md_table` columns must be item fields), and variable
+  lambdas (`transcript_block`, `audio_link`). Reference: `docs/templates.md`.
 
 ## Rendering context passed to templates
 

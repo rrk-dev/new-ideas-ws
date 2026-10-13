@@ -1,0 +1,33 @@
+---
+title: {{#yaml}}{{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}{{/yaml}}
+date: {{meta.date}}
+time: {{#yaml}}{{meta.time}}{{/yaml}}
+duration: {{#yaml}}{{meta.duration_human}}{{/yaml}}
+type: {{#yaml}}{{meta.profile_id}}{{/yaml}}
+tags: {{#yaml_list}}meta.tags{{/yaml_list}}
+source: vaultvoice
+recording_id: {{#yaml}}{{meta.recording_id}}{{/yaml}}
+{{#meta.has_consent_at}}
+consent_at: {{#yaml}}{{meta.consent_at}}{{/yaml}}
+{{/meta.has_consent_at}}
+extraction: failed
+---
+
+# {{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}
+
+{{#has_summary}}
+## Summary
+
+{{data.summary}}
+
+{{/has_summary}}
+{{^has_summary}}
+_Structured extraction failed; the transcript is below._
+
+{{/has_summary}}
+{{transcript_block}}
+
+{{audio_link}}
+{{! Built-in fallback (EXP-01), used when the extraction JSON is invalid
+    (LLM-05) or the profile/template is unavailable. Context: data.title,
+    data.summary (both nullable), meta, transcript. }}

@@ -3,7 +3,9 @@ import 'package:vaultvoice/features/profiles/domain/render_context.dart';
 
 /// Lambdas whose section content is rendered as a template (tags inside are
 /// checked like any other). The set is the `vv-markdown-vault-export`
-/// lambda list; EXP-01 owns the implementations and may extend it.
+/// lambda list; the implementations live in
+/// `features/templates/domain/template_lambdas.dart` (EXP-01, documented in
+/// `docs/templates.md`) — keep both in sync.
 const Set<String> kContentLambdas = {
   'yaml',
   'wikilink',
@@ -12,18 +14,19 @@ const Set<String> kContentLambdas = {
   'lower',
   'trim',
   'checkbox',
-  'md_table',
-  'bullets',
   'code_block',
 };
 
 /// Lambdas whose section text is a literal argument (a date/duration
-/// format), not a template.
+/// format), not a template. The optional form `path|FORMAT` names the
+/// scalar to format (`{{#date}}data.due_iso|DD.MM.YYYY{{/date}}`); the path
+/// is checked.
 const Set<String> kTextArgLambdas = {'date', 'duration'};
 
 /// Lambdas whose section text is a variable path that must name a list
-/// (`{{#yaml_list}}data.attendees{{/yaml_list}}`).
-const Set<String> kPathArgLambdas = {'yaml_list'};
+/// (`{{#yaml_list}}data.attendees{{/yaml_list}}`), optionally followed by
+/// `|arguments` (`{{#md_table}}data.tradeoffs|option,pros{{/md_table}}`).
+const Set<String> kPathArgLambdas = {'yaml_list', 'bullets', 'md_table'};
 
 /// Lambdas used as plain variables (`{{transcript_block}}`).
 const Set<String> kVariableLambdas = {'transcript_block', 'audio_link'};
@@ -108,8 +111,11 @@ class _TemplateChecker {
                 _error(tag, 'section "${tag.name}" is never closed');
                 return sink.issues;
               }
+              final arg = source.substring(tag.end, close.start);
               if (kPathArgLambdas.contains(tag.name)) {
-                _checkPathArg(tag, source.substring(tag.end, close.start));
+                _checkPathArg(tag, arg);
+              } else if (arg.contains('|')) {
+                _checkScalarArg(tag, arg.substring(0, arg.indexOf('|')));
               }
               pos = close.end;
               continue;
@@ -254,8 +260,23 @@ class _TemplateChecker {
     }
   }
 
-  void _checkPathArg(_Tag tag, String rawPath) {
+  void _checkScalarArg(_Tag tag, String rawPath) {
     final path = rawPath.trim();
+    final shape = _resolve(path);
+    if (shape == null) {
+      _error(
+        tag,
+        '${tag.name} argument "$path" is not a variable path'
+        '${_suggestion(path)}',
+      );
+    } else if (shape is! ScalarShape) {
+      _error(tag, '${tag.name} argument "$path" must be a scalar');
+    }
+  }
+
+  void _checkPathArg(_Tag tag, String rawArg) {
+    final bar = rawArg.indexOf('|');
+    final path = (bar < 0 ? rawArg : rawArg.substring(0, bar)).trim();
     final shape = _resolve(path);
     if (shape == null) {
       _error(
@@ -265,6 +286,15 @@ class _TemplateChecker {
       );
     } else if (shape is! ListShape) {
       _error(tag, '${tag.name} argument "$path" must be a list');
+    } else if (tag.name == 'md_table' && bar >= 0) {
+      final item = shape.item;
+      for (final column in rawArg.substring(bar + 1).split(',')) {
+        final c = column.trim();
+        if (c.isEmpty) continue;
+        if (item is! MapShape || item.lookup(c) == null) {
+          _error(tag, 'md_table column "$c" is not a field of "$path"');
+        }
+      }
     }
   }
 
