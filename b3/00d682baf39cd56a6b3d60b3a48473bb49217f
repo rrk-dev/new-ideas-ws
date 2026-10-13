@@ -1,0 +1,65 @@
+app/lib/features/export/data/pigeon/saf_api.g.dart
+  s_9f6fcf8c1840a0::t_478815b5a9e2ee 1-475
+app/lib/core/errors/failure.dart
+  s_9f6fcf8c1840a0::t_49bab9f6f41291 69-77
+  s_9f6fcf8c1840a0::t_c38e023f06f8e0 1-2,66-68,78-85
+  s_9f6fcf8c1840a0::t_2482587fabda69 86
+app/lib/features/export/data/app_local_vault_writer.dart
+  s_9f6fcf8c1840a0::t_7691fe0db9ae60 39-56,71-72,90-105
+  s_9f6fcf8c1840a0::t_e35c7ffe98694e 1-15,17-38,57-70,73-89,106-127
+  s_9f6fcf8c1840a0::t_da091a3691d350 16
+app/pubspec.yaml
+  s_9f6fcf8c1840a0::t_478815b5a9e2ee 30
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/saf/SafApi.g.kt
+  s_9f6fcf8c1840a0::t_478815b5a9e2ee 1-576
+app/pigeons/saf_api.dart
+  s_9f6fcf8c1840a0::t_7cb0cb0d21c432 1-19,23-107
+  s_9f6fcf8c1840a0::t_aa881af3568b37 20-22
+app/lib/features/export/domain/vault_folder.dart
+  s_9f6fcf8c1840a0::t_11c3a82c6f7c3a 1-62
+app/lib/core/platform/vault_writer.dart
+  s_9f6fcf8c1840a0::t_da3e8971dee29b 3-12,17,29-46,48-66
+app/lib/features/export/data/vault_platform_errors.dart
+  s_9f6fcf8c1840a0::t_5f7aadf924bb25 1-3,5-37,56-57
+  s_9f6fcf8c1840a0::t_aa881af3568b37 55
+  s_9f6fcf8c1840a0::t_6aa5e33c14fa34 38-40
+  s_9f6fcf8c1840a0::t_fd54ccd440ae85 4,41-54
+app/lib/features/export/data/export_providers.dart
+  s_9f6fcf8c1840a0::t_7691fe0db9ae60 16-20
+  s_9f6fcf8c1840a0::t_011d8235c0de42 1-15,21-35
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/MainActivity.kt
+  s_9f6fcf8c1840a0::t_8bf0535ba35ad7 3-5,7,9-31
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/saf/SafHostApiImpl.kt
+  s_9f6fcf8c1840a0::t_805a1de7ed95d0 1-71,73-93,96-98,100-131,134-155,157-392,397-462
+  s_9f6fcf8c1840a0::t_dbdbf71b3b3b1f 72,94-95,99,132-133,156,393-396
+app/lib/features/export/data/export_providers.g.dart
+  s_9f6fcf8c1840a0::t_7691fe0db9ae60 1-159
+app/lib/core/platform/vault_path.dart
+  s_9f6fcf8c1840a0::t_31a0049890d02d 1-7,9-52
+  s_9f6fcf8c1840a0::t_aa881af3568b37 8
+app/lib/features/export/domain/vault_access_guard.dart
+  s_9f6fcf8c1840a0::t_bd4cd11c84b98b 1-59
+app/lib/features/export/data/saf_vault_writer.dart
+  s_9f6fcf8c1840a0::t_fd54ccd440ae85 37-38,41-42,45-46,49-56
+  s_9f6fcf8c1840a0::t_7691fe0db9ae60 28-34
+  s_9f6fcf8c1840a0::t_a5fe33b4bc47c7 1-27,35-36,39-40,43-44,47-48,57-109,115-135
+  s_9f6fcf8c1840a0::t_a5e2e0e0c0b90b 110-114
+app/pubspec.lock
+  s_9f6fcf8c1840a0::t_048db9836cf4d9 543-550
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b300d682baf39cd56a6b3d60b3a48473bb49217f",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
