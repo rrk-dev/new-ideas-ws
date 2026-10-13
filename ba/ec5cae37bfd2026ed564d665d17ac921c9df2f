@@ -1,0 +1,90 @@
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_d6f7c1486e7fea 75
+  s_9f6fcf8c1840a0::t_24b8f3d4244588 52-65
+  s_9f6fcf8c1840a0::t_f74699d129022c 128-132
+docs/test-plans/device/LLM-03.md
+  s_9f6fcf8c1840a0::t_1755fbaf36e45c 1-13,16-32
+  s_9f6fcf8c1840a0::t_ac8f6e685f9222 14-15
+packages/vv_native/test/vv_native_host_test.dart
+  s_9f6fcf8c1840a0::t_8640c674a35176 58-64
+app/lib/features/extraction/domain/gpu_backend_guard.dart
+  s_9f6fcf8c1840a0::t_21828fbdc563f5 3-23,46,56,71,122,142
+  s_9f6fcf8c1840a0::t_eb4e9b46ee932c 1-2
+  s_9f6fcf8c1840a0::t_4a2fd2ff98f17e 24-26,43-45
+  s_9f6fcf8c1840a0::t_1677d4bd3a9ac4 47-49,53-55
+  s_9f6fcf8c1840a0::t_0a1a858917df15 57-59,68-70
+  s_9f6fcf8c1840a0::t_40593b6722d432 72-74,119-121
+  s_9f6fcf8c1840a0::t_a183cbd083faca 123-125,139-141
+  s_d4f490e3a86475::t_55e66271bad643 27-42,50-52,60-67,75-118,126-138
+native/bridge/vv_llama.cpp
+  s_9f6fcf8c1840a0::t_2a8df86945b3b9 24,26
+  s_9f6fcf8c1840a0::t_24d6422d335787 312-315
+  s_9f6fcf8c1840a0::t_da9b78de03e7a0 186-189
+  s_9f6fcf8c1840a0::t_fcefe8381b653f 341
+  s_9f6fcf8c1840a0::t_758b37251b9483 99,102,107-119
+  s_9f6fcf8c1840a0::t_c8d4ef4941ac33 321-340,342-343
+  s_9f6fcf8c1840a0::t_06c5dadf24db04 120
+native/bridge/vv_cpu.h
+  s_9f6fcf8c1840a0::t_5e017832bf0af4 1-29,33-44
+  s_9f6fcf8c1840a0::t_1f4806578b7f46 30-32
+native/tests/cpu_test.c
+  s_9f6fcf8c1840a0::t_59871afd5edffc 1-99,109-119
+  s_9f6fcf8c1840a0::t_330e93c2495516 100-108
+packages/vv_native/lib/src/vv_bindings.g.dart
+  s_9f6fcf8c1840a0::t_bb5845e3e192e8 105-109,119-152,370-377
+tasks/04-llm/LLM-03-llama-android-build.md
+  s_9f6fcf8c1840a0::t_6c88f4cb81ef45 11-14,22-36
+app/integration_test/llm_android_test.dart
+  s_9f6fcf8c1840a0::t_0be15d253b7daa 1-101
+app/test/fakes/fake_device_capabilities.dart
+  s_9f6fcf8c1840a0::t_294cc896d18cab 1-23
+docs/adr/ADR-LLM-03-android-cpu-gpu.md
+  s_9f6fcf8c1840a0::t_774407a2297e6f 1-89
+app/test/unit/extraction/gpu_backend_guard_test.dart
+  s_9f6fcf8c1840a0::t_6d2f4d077f762e 38,40-41,57-58,63-64,68-69,82,84-86,90-91,94,97,99,103,107,111-112,127-128,137-138,159-203
+  s_9f6fcf8c1840a0::t_7d81fe0b3efdf0 9-10
+  s_9f6fcf8c1840a0::t_2893f0488de247 1-8,11-37,39,42-56,59-62,65-67,70-81,83,87-89,92-93,95-96,98,100-102,104-106,108-110,113-126,129-136,139-158,204
+native/bridge/vv_llama.h
+  s_9f6fcf8c1840a0::t_c8da9ace9d6678 62-66,69-84
+  s_9f6fcf8c1840a0::t_af10e1e9102cd5 85
+app/lib/features/extraction/data/native_device_capabilities.dart
+  s_9f6fcf8c1840a0::t_a1189b162289be 1-22
+packages/vv_native/lib/vv_native.dart
+  s_9f6fcf8c1840a0::t_316a156b32ed66 8-9
+  s_9f6fcf8c1840a0::t_00e16e91c82e37 75-86
+native/bridge/vv_exports.txt
+  s_9f6fcf8c1840a0::t_34e7829ff770f4 12-13
+native/bridge/vv_cpu.c
+  s_9f6fcf8c1840a0::t_8564d0b76f34f4 29-32
+  s_9f6fcf8c1840a0::t_5e017832bf0af4 1-28,33-87
+app/lib/core/platform/device_capabilities.dart
+  s_9f6fcf8c1840a0::t_0e31e771986e9e 1-59
+app/lib/features/extraction/data/file_backend_health_store.dart
+  s_9f6fcf8c1840a0::t_f06084230693a7 1-52
+native/bridge/vv_exports.map
+  s_9f6fcf8c1840a0::t_75e3491031966e 14-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "baec5cae37bfd2026ed564d665d17ac921c9df2f",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_d4f490e3a86475": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a912f2209e56e5230",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
