@@ -1,0 +1,91 @@
+app/test/widget/call_guard_debug_screen_test.dart
+  s_9f6fcf8c1840a0::t_807c2e189169a0 1-32,34-63
+  s_9f6fcf8c1840a0::t_e64116f2aeaf1d 33
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/MainActivity.kt
+  s_9f6fcf8c1840a0::t_c42e07362df3b2 4,6-12
+app/lib/features/recording/data/method_channel_call_guard.dart
+  s_9f6fcf8c1840a0::t_4bc4e6b60eadd4 1-13,17-60
+  s_9f6fcf8c1840a0::t_623eb44fe12d61 14-16
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_9f6fcf8c1840a0::t_2e5f2a86abe2ca 290
+  s_9f6fcf8c1840a0::t_6f7d5ae68900a7 15
+  s_9f6fcf8c1840a0::t_c897a333b558ad 128
+  s_9f6fcf8c1840a0::t_cf19c8d3a6b2db 54
+app/lib/core/widgets/placeholder_screen.dart
+  s_9f6fcf8c1840a0::t_156390921419f3 6-11,16-18,23
+app/lib/core/platform/call_guard.dart
+  s_9f6fcf8c1840a0::t_2f659cc28c234f 1-65
+app/lib/features/recording/domain/capture_backend.dart
+  s_9f6fcf8c1840a0::t_1fce79aa044de1 1-18,20-24,26-46
+  s_9f6fcf8c1840a0::t_0d949172c1b06c 25
+  s_9f6fcf8c1840a0::t_b90c81e3fff133 19
+app/lib/features/recording/presentation/recording_screen.dart
+  s_9f6fcf8c1840a0::t_9166fc62b4c8b6 2-3,5,7-9,13-31
+app/pubspec.yaml
+  s_9f6fcf8c1840a0::t_8abbda383d8d63 22
+app/ios/Runner/CallGuardPlugin.swift
+  s_9f6fcf8c1840a0::t_d5eb44d0aa336f 1-107
+app/test/fakes/fake_call_guard.dart
+  s_9f6fcf8c1840a0::t_ec1cdf6c3a0b99 1-42
+app/lib/features/recording/domain/recording_controller.dart
+  s_9f6fcf8c1840a0::t_7f452681abe157 218
+  s_9f6fcf8c1840a0::t_e506854c90e0fb 1-57,59,61-62,66,68-129,131-136,138-153,155-194,196,198-209,211-217,219-300,305-314
+  s_9f6fcf8c1840a0::t_98f00289432f01 210
+  s_9f6fcf8c1840a0::t_56b277e477765b 304
+  s_9f6fcf8c1840a0::t_fc7591c4512ff9 58,60,63-65,67
+  s_9f6fcf8c1840a0::t_831357c3e75101 130,137,195
+  s_9f6fcf8c1840a0::t_458d983505ad3b 197
+  s_9f6fcf8c1840a0::t_3f5b1c84384912 154
+  s_9f6fcf8c1840a0::t_d2ab48e13162d4 301-303
+app/lib/core/errors/failure.dart
+  s_9f6fcf8c1840a0::t_a652edfd691a81 72-98
+app/lib/features/recording/presentation/call_guard_debug_screen.dart
+  s_9f6fcf8c1840a0::t_67a1522bbfc6f2 1-148
+  s_9f6fcf8c1840a0::t_c7c0c20f77a2f7 149-154
+app/lib/features/recording/domain/recording_limits.dart
+  s_9f6fcf8c1840a0::t_acdb625ddf3f78 1-45
+app/test/unit/recording/recording_policy_source_test.dart
+  s_9f6fcf8c1840a0::t_18d050c5548f2d 1-70
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/CallGuardPlugin.kt
+  s_9f6fcf8c1840a0::t_2154eaa44b1630 127
+  s_9f6fcf8c1840a0::t_0cd0f460750e77 42-43
+  s_9f6fcf8c1840a0::t_d145ed539f1cfd 130-131
+  s_9f6fcf8c1840a0::t_f926b8a3adcafe 1-41,44-126,128-129,132-177
+app/test/fakes/fake_capture_backend.dart
+  s_9f6fcf8c1840a0::t_fe46b36cb1bd1d 1-82
+app/lib/features/recording/data/recording_providers.dart
+  s_9f6fcf8c1840a0::t_be865dd959ed00 1-32
+  s_9f6fcf8c1840a0::t_69120f464fe687 33-37
+app/ios/Runner/AppDelegate.swift
+  s_9f6fcf8c1840a0::t_6b288e5fb1bd86 15-18
+app/test/unit/recording/recording_controller_test.dart
+  s_9f6fcf8c1840a0::t_a486c5b44f8502 64-69
+  s_9f6fcf8c1840a0::t_30f0f62573fdf8 4-5
+  s_9f6fcf8c1840a0::t_602e3b6eaf5492 1-3
+  s_9f6fcf8c1840a0::t_6ea42e8357c5f5 129
+  s_9f6fcf8c1840a0::t_c20ad688d4a46b 6-63,70-128,130-397
+app/lib/features/recording/domain/start_source.dart
+  s_9f6fcf8c1840a0::t_fe0f3f53bdd9db 1-46
+app/test/unit/recording/method_channel_call_guard_test.dart
+  s_9f6fcf8c1840a0::t_f793803add5395 1-88
+app/lib/features/recording/data/recording_providers.g.dart
+  s_9f6fcf8c1840a0::t_41b9384430a68f 1-154
+app/pubspec.lock
+  s_9f6fcf8c1840a0::t_28fdd84c5940c2 229
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "15cacf1cd2846a023b41769e52c19aaf02445be8",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
