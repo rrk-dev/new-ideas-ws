@@ -1,7 +1,7 @@
 # STT-01 — whisper.cpp iOS Build (Metal / Core ML)
 
 **Workstream:** STT | **Phase:** 2 (Weeks 4–7) | **Size:** M | **Depends on:** FND-06 | **Source:** §4.2, §5 Phase 2
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-native-build, vv-whisper-stt, vv-benchmark-eval, vv-decision-records, vv-testing
 
 ## Goal
