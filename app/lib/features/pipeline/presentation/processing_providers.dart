@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/logging/redaction.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
@@ -25,7 +27,9 @@ LocalNotifier localNotifications(Ref ref) => const NoopLocalNotifier();
 
 @Riverpod(keepAlive: true)
 ProcessingNotificationTexts processingNotificationTexts(Ref ref) =>
-    const EnglishProcessingNotificationTexts();
+    L10nProcessingNotificationTexts(
+      l10nFor(PlatformDispatcher.instance.locale),
+    );
 
 /// The UI-isolate job observer (throughput, notifications, deep links).
 /// Created on first use; `ProcessingServicesHost` starts it at app start.

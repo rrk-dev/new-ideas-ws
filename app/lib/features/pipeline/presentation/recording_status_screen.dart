@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/core/widgets/status_message.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_progress.dart';
@@ -30,23 +31,25 @@ class RecordingStatusScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final views = ref.watch(processingViewsProvider);
     return Scaffold(
-      appBar: AppBar(title: const Text('Processing')),
+      appBar: AppBar(title: Text(context.l10n.processingTitle)),
       body: views.when(
-        loading: () => const Center(
-          child: CircularProgressIndicator(semanticsLabel: 'Loading'),
+        loading: () => Center(
+          child: CircularProgressIndicator(
+            semanticsLabel: context.l10n.commonLoading,
+          ),
         ),
         error: (_, _) => StatusMessage(
           icon: Icons.error_outline,
-          message: 'Could not load the processing status.',
-          actionLabel: 'Try again',
+          message: context.l10n.processingStatusLoadFailed,
+          actionLabel: context.l10n.commonTryAgain,
           onAction: () => ref.invalidate(processingViewsProvider),
         ),
         data: (all) {
           final view = currentViewFor(all, recordingId);
           if (view == null) {
-            return const StatusMessage(
+            return StatusMessage(
               icon: Icons.hourglass_empty,
-              message: 'This recording has not been processed yet.',
+              message: context.l10n.processingNotProcessed,
             );
           }
           return ListView(

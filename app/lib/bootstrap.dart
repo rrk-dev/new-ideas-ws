@@ -9,6 +9,7 @@ import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
 import 'package:vaultvoice/core/errors/error_boundary.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/licenses/bundled_licenses.dart';
 import 'package:vaultvoice/core/logging/logger.dart';
 import 'package:vaultvoice/core/logging/redaction.dart';
@@ -51,7 +52,12 @@ Future<void> bootstrap(
         nativeVersionsProvider.overrideWithValue(_nativeVersions()),
         shareServiceProvider.overrideWithValue(const SharePlusShareService()),
         if (Platform.isAndroid || Platform.isIOS)
-          localNotificationsProvider.overrideWithValue(FlutterLocalNotifier()),
+          localNotificationsProvider.overrideWithValue(
+            FlutterLocalNotifier(
+              channelName: l10nFor(PlatformDispatcher.instance.locale)
+                  .notificationChannelProcessing,
+            ),
+          ),
         ...overrides,
       ],
       child: const ProcessingServicesHost(child: App()),

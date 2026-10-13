@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/app_info.dart';
 import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/setting_texts.dart';
@@ -50,6 +51,8 @@ class _License implements LicenseSettingsPort {
     return const Ok(null);
   }
 }
+
+final AppLocalizations en = lookupAppLocalizations(kFallbackLocale);
 
 void main() {
   late FakeSettingsStore store;
@@ -158,7 +161,7 @@ void main() {
       expect(
         find.descendant(
           of: tile,
-          matching: find.textContaining(SettingTexts.managed),
+          matching: find.textContaining(en.settingManaged),
         ),
         findsOneWidget,
       );
@@ -238,7 +241,7 @@ void main() {
     );
     await t.pumpAndSettle();
     for (final s in SettingSection.values) {
-      await show(t, find.text(SettingTexts.section(s)));
+      await show(t, find.text(SettingTexts.section(en, s)));
     }
     await show(t, find.byKey(const ValueKey('link-vault-folders')));
     expect(find.text('1 folder'), findsOneWidget);

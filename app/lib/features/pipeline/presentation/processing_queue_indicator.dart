@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_progress.dart';
@@ -36,15 +37,10 @@ class QueueSummary {
 
   bool get isEmpty => inPipeline == 0 && failed == 0;
 
-  String get label {
-    final parts = [
-      if (inPipeline == 1) 'Processing 1 recording',
-      if (inPipeline > 1) 'Processing $inPipeline recordings',
-      if (failed == 1) '1 needs attention',
-      if (failed > 1) '$failed need attention',
-    ];
-    return parts.join(' · ');
-  }
+  String label(AppLocalizations l) => [
+    if (inPipeline > 0) l.queueProcessing(inPipeline),
+    if (failed > 0) l.queueNeedsAttention(failed),
+  ].join(' · ');
 }
 
 /// Global queue indicator above the tab bar; hidden when nothing is being
@@ -60,13 +56,14 @@ class ProcessingQueueIndicator extends ConsumerWidget {
     if (summary.isEmpty) return const SizedBox.shrink();
     final theme = Theme.of(context);
     final running = summary.running;
+    final label = summary.label(context.l10n);
     return Material(
       color: theme.colorScheme.secondaryContainer,
       child: InkWell(
         onTap: () => const ProcessingQueueRoute().push<void>(context),
         child: Semantics(
           button: true,
-          label: '${summary.label}. Open processing queue',
+          label: context.l10n.queueIndicatorSemantics(label),
           excludeSemantics: true,
           child: ConstrainedBox(
             constraints: const BoxConstraints(minHeight: kMinTapTarget),
@@ -89,7 +86,7 @@ class ProcessingQueueIndicator extends ConsumerWidget {
                       const SizedBox(width: AppSpacing.sm),
                       Expanded(
                         child: Text(
-                          summary.label,
+                          label,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.onSecondaryContainer,
                           ),

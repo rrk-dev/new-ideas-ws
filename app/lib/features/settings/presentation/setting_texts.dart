@@ -1,81 +1,75 @@
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
 import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 
-/// User-facing labels of settings, sections and options (English; APP-06
-/// moves them to ARB).
+/// User-facing labels of settings, sections and options (from the ARB).
 abstract final class SettingTexts {
-  static String section(SettingSection s) => switch (s) {
-    SettingSection.audio => 'Audio',
-    SettingSection.processing => 'Processing',
-    SettingSection.export => 'Export',
-    SettingSection.privacy => 'Privacy & security',
-    SettingSection.license => 'License',
-    SettingSection.about => 'About',
+  static String section(AppLocalizations l, SettingSection s) => switch (s) {
+    SettingSection.audio => l.sectionAudio,
+    SettingSection.processing => l.sectionProcessing,
+    SettingSection.export => l.sectionExport,
+    SettingSection.privacy => l.sectionPrivacy,
+    SettingSection.license => l.sectionLicense,
+    SettingSection.about => l.sectionAbout,
   };
 
-  static String title(String key) => switch (key) {
-    SettingKeys.audioInputDevice => 'Input device',
-    SettingKeys.audioAgc => 'Automatic gain control',
-    SettingKeys.audioNoiseSuppression => 'Noise suppression',
-    SettingKeys.audioAutoPause => 'Auto-pause on silence',
-    SettingKeys.audioRetention => 'Keep audio',
-    SettingKeys.processingAutoProcess => 'Process after recording',
-    SettingKeys.processingChargeOnly => 'Process only while charging',
-    SettingKeys.processingDiarization => 'Label speakers by default',
-    SettingKeys.exportFilenamePattern => 'File name pattern',
-    SettingKeys.exportCollisionMode => 'If the file already exists',
-    SettingKeys.securityAppLock => 'App lock',
-    SettingKeys.securityLockTimeout => 'Lock after',
-    SettingKeys.privacyTranscriptRetention => 'Keep transcripts and notes',
-    SettingKeys.notificationsEnabled => 'Notifications',
-    SettingKeys.notificationsShowDetails => 'Show details in notifications',
+  static String title(AppLocalizations l, String key) => switch (key) {
+    SettingKeys.audioInputDevice => l.settingInputDevice,
+    SettingKeys.audioAgc => l.settingAgc,
+    SettingKeys.audioNoiseSuppression => l.settingNoiseSuppression,
+    SettingKeys.audioAutoPause => l.settingAutoPause,
+    SettingKeys.audioRetention => l.settingAudioRetention,
+    SettingKeys.processingAutoProcess => l.settingAutoProcess,
+    SettingKeys.processingChargeOnly => l.settingChargeOnly,
+    SettingKeys.processingDiarization => l.settingDiarization,
+    SettingKeys.exportFilenamePattern => l.settingFilenamePattern,
+    SettingKeys.exportCollisionMode => l.settingCollisionMode,
+    SettingKeys.securityAppLock => l.settingAppLock,
+    SettingKeys.securityLockTimeout => l.settingLockTimeout,
+    SettingKeys.privacyTranscriptRetention => l.settingTranscriptRetention,
+    SettingKeys.notificationsEnabled => l.settingNotifications,
+    SettingKeys.notificationsShowDetails => l.settingNotificationDetails,
     _ => key,
   };
 
-  static String? description(String key) => switch (key) {
-    SettingKeys.audioAgc => 'Evens out quiet and loud voices.',
-    SettingKeys.audioAutoPause => 'Pauses capture during long silences.',
-    SettingKeys.processingAutoProcess =>
-      'Transcribe and extract as soon as a recording ends.',
-    SettingKeys.processingChargeOnly =>
-      'Wait for a charger before heavy processing.',
-    SettingKeys.processingDiarization =>
-      'Profiles can still turn speaker labels on or off.',
-    SettingKeys.securityAppLock => 'Face ID, fingerprint or device passcode.',
-    SettingKeys.notificationsEnabled =>
-      'When a note is ready or processing needs attention.',
+  static String? description(AppLocalizations l, String key) => switch (key) {
+    SettingKeys.audioAgc => l.settingAgcDescription,
+    SettingKeys.audioAutoPause => l.settingAutoPauseDescription,
+    SettingKeys.processingAutoProcess => l.settingAutoProcessDescription,
+    SettingKeys.processingChargeOnly => l.settingChargeOnlyDescription,
+    SettingKeys.processingDiarization => l.settingDiarizationDescription,
+    SettingKeys.securityAppLock => l.settingAppLockDescription,
+    SettingKeys.notificationsEnabled => l.settingNotificationsDescription,
     SettingKeys.notificationsShowDetails =>
-      'Include the recording title. Off: generic text on the lock screen.',
+      l.settingNotificationDetailsDescription,
     _ => null,
   };
 
-  static String option(String key, String option) => switch (option) {
-    'system' => 'System default',
-    'built_in' => 'Built-in microphone',
-    'wired' => 'Wired headset',
-    'bluetooth' => 'Bluetooth headset',
-    RetentionOption.forever => 'Until I delete it',
-    RetentionOption.afterExport => 'Delete after export',
-    RetentionOption.days7 => '7 days',
-    RetentionOption.days30 => '30 days',
-    RetentionOption.days90 => '90 days',
-    'suffix' => 'Add a number (-2, -3 …)',
-    'overwrite' => 'Replace my earlier export',
-    'skip' => 'Skip',
-    'immediately' => 'Immediately',
-    'minutes_1' => '1 minute',
-    'minutes_5' => '5 minutes',
-    'minutes_15' => '15 minutes',
+  static String option(AppLocalizations l, String option) => switch (option) {
+    'system' => l.optionSystemDefault,
+    'built_in' => l.optionBuiltInMic,
+    'wired' => l.optionWiredHeadset,
+    'bluetooth' => l.optionBluetoothHeadset,
+    RetentionOption.forever => l.optionKeepForever,
+    RetentionOption.afterExport => l.optionDeleteAfterExport,
+    RetentionOption.days7 => l.optionDays(7),
+    RetentionOption.days30 => l.optionDays(30),
+    RetentionOption.days90 => l.optionDays(90),
+    'suffix' => l.optionCollisionSuffix,
+    'overwrite' => l.optionCollisionOverwrite,
+    'skip' => l.optionCollisionSkip,
+    'immediately' => l.optionImmediately,
+    'minutes_1' => l.optionMinutes(1),
+    'minutes_5' => l.optionMinutes(5),
+    'minutes_15' => l.optionMinutes(15),
     _ => option,
   };
 
-  static String patternError(String code) => switch (code) {
-    PatternError.empty => 'Enter a pattern.',
-    PatternError.tooLong => 'Use at most 200 characters.',
-    PatternError.unsafe => 'Folders must stay inside the vault.',
-    PatternError.unbalanced => 'Every {{ needs a matching }}.',
-    _ => 'Invalid pattern.',
+  static String patternError(AppLocalizations l, String code) => switch (code) {
+    PatternError.empty => l.patternErrorEmpty,
+    PatternError.tooLong => l.patternErrorTooLong,
+    PatternError.unsafe => l.patternErrorUnsafe,
+    PatternError.unbalanced => l.patternErrorUnbalanced,
+    _ => l.patternErrorInvalid,
   };
-
-  static const managed = 'Managed by your organization';
 }

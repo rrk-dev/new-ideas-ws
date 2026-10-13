@@ -4,6 +4,7 @@ import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/core/utils/ids.dart';
@@ -32,8 +33,9 @@ class VaultFoldersScreen extends ConsumerWidget {
 
   Future<void> _add(BuildContext context, WidgetRef ref) async {
     final messenger = ScaffoldMessenger.of(context);
+    final l10n = context.l10n;
     void fail() => messenger.showSnackBar(
-      const SnackBar(content: Text('Could not add the folder.')),
+      SnackBar(content: Text(l10n.vaultFoldersAddFailed)),
     );
     try {
       final picked = await ref.read(vaultFolderAccessProvider).pick();
@@ -49,7 +51,8 @@ class VaultFoldersScreen extends ConsumerWidget {
                 VaultTargetsCompanion.insert(
                   id: newUuidV4(),
                   platform: _platformOf(folder.kind),
-                  displayName: folder.displayName ?? 'Vault folder',
+                  displayName:
+                      folder.displayName ?? l10n.vaultFolderDefaultName,
                   handle: folder.handle,
                   createdAt: ref.read(clockProvider).now(),
                 ),
@@ -69,19 +72,16 @@ class VaultFoldersScreen extends ConsumerWidget {
     final ok = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Remove this folder?'),
-        content: const Text(
-          'Notes already written stay in the folder. Routing rules that '
-          'use it are removed too.',
-        ),
+        title: Text(context.l10n.vaultFoldersRemoveTitle),
+        content: Text(context.l10n.vaultFoldersRemoveBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancel'),
+            child: Text(context.l10n.commonCancel),
           ),
           FilledButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Remove'),
+            child: Text(context.l10n.vaultFoldersRemove),
           ),
         ],
       ),
@@ -103,28 +103,28 @@ class VaultFoldersScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final targets = ref.watch(vaultTargetsProvider);
     return Scaffold(
-      appBar: AppBar(title: const Text('Vault folders')),
+      appBar: AppBar(title: Text(context.l10n.settingsVaultFolders)),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _add(context, ref),
         icon: const Icon(Icons.create_new_folder_outlined),
-        label: const Text('Add folder'),
+        label: Text(context.l10n.vaultFoldersAdd),
       ),
       body: targets.when(
-        loading: () => const Center(
-          child: CircularProgressIndicator(semanticsLabel: 'Loading'),
+        loading: () => Center(
+          child: CircularProgressIndicator(
+            semanticsLabel: context.l10n.commonLoading,
+          ),
         ),
         error: (_, _) => StatusMessage(
           icon: Icons.error_outline,
-          message: 'Could not load your vault folders.',
-          actionLabel: 'Try again',
+          message: context.l10n.vaultFoldersLoadFailed,
+          actionLabel: context.l10n.commonTryAgain,
           onAction: () => ref.invalidate(vaultTargetsProvider),
         ),
         data: (rows) => rows.isEmpty
-            ? const StatusMessage(
+            ? StatusMessage(
                 icon: Icons.folder_open,
-                message:
-                    'No vault folders yet. Notes are saved in the app’s own '
-                    'folder until you add one.',
+                message: context.l10n.vaultFoldersEmpty,
               )
             : ListView.builder(
                 padding: const EdgeInsets.only(bottom: AppSpacing.xl * 3),
@@ -136,7 +136,7 @@ class VaultFoldersScreen extends ConsumerWidget {
                     leading: const Icon(Icons.folder_outlined),
                     title: Text(t.name),
                     trailing: IconButton(
-                      tooltip: 'Remove ${t.name}',
+                      tooltip: context.l10n.vaultFoldersRemoveTooltip(t.name),
                       icon: const Icon(Icons.delete_outline),
                       onPressed: () => _remove(context, ref, t),
                     ),
@@ -162,29 +162,30 @@ class RoutingRulesScreen extends ConsumerWidget {
         t.id: t.name,
     };
     return Scaffold(
-      appBar: AppBar(title: const Text('Routing rules')),
+      appBar: AppBar(title: Text(context.l10n.settingsRoutingRules)),
       body: rules.when(
-        loading: () => const Center(
-          child: CircularProgressIndicator(semanticsLabel: 'Loading'),
+        loading: () => Center(
+          child: CircularProgressIndicator(
+            semanticsLabel: context.l10n.commonLoading,
+          ),
         ),
         error: (_, _) => StatusMessage(
           icon: Icons.error_outline,
-          message: 'Could not load routing rules.',
-          actionLabel: 'Try again',
+          message: context.l10n.routingRulesLoadFailed,
+          actionLabel: context.l10n.commonTryAgain,
           onAction: () => ref.invalidate(routingRulesProvider),
         ),
         data: (rows) => rows.isEmpty
-            ? const StatusMessage(
+            ? StatusMessage(
                 icon: Icons.alt_route,
-                message:
-                    'No routing rules. Every note goes to your first vault '
-                    'folder.',
+                message: context.l10n.routingRulesEmpty,
               )
             : ListView.builder(
                 itemCount: rows.length,
                 itemBuilder: (context, i) {
                   final r = rows[i];
-                  final target = names[r.targetId] ?? 'Vault folder';
+                  final target =
+                      names[r.targetId] ?? context.l10n.vaultFolderDefaultName;
                   return ListTile(
                     key: ValueKey('rule-${r.id}'),
                     leading: CircleAvatar(child: Text('${i + 1}')),

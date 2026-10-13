@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/app.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_progress.dart';
@@ -59,6 +60,8 @@ Future<void> expectAccessible(WidgetTester t) async {
   await expectLater(t, meetsGuideline(iOSTapTargetGuideline));
   await expectLater(t, meetsGuideline(labeledTapTargetGuideline));
 }
+
+final AppLocalizations en = lookupAppLocalizations(kFallbackLocale);
 
 void main() {
   testWidgets('[APP-04/AC1] notification payload deep-links through the typed '
@@ -227,13 +230,16 @@ void main() {
   });
 
   test('etaLabel formatting', () {
-    expect(etaLabel(null), 'Estimating time…');
-    expect(etaLabel(const Duration(seconds: 20)), 'Less than a minute left');
+    expect(etaLabel(en, null), 'Estimating time…');
     expect(
-      etaLabel(const Duration(minutes: 3, seconds: 10)),
+      etaLabel(en, const Duration(seconds: 20)),
+      'Less than a minute left',
+    );
+    expect(
+      etaLabel(en, const Duration(minutes: 3, seconds: 10)),
       'About 3 min left',
     );
-    expect(etaLabel(const Duration(minutes: 120)), 'About 2 h left');
-    expect(etaLabel(const Duration(minutes: 65)), 'About 1 h 5 min left');
+    expect(etaLabel(en, const Duration(minutes: 120)), 'About 2 h left');
+    expect(etaLabel(en, const Duration(minutes: 65)), 'About 1 h 5 min left');
   });
 }

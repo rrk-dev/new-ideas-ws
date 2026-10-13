@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_providers.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_progress.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
@@ -14,6 +15,7 @@ Future<void> runJobCommand(
   Future<Result<void>> Function(PipelineClient client) command,
 ) async {
   final messenger = ScaffoldMessenger.maybeOf(context);
+  final message = context.l10n.jobCommandFailed;
   var ok = false;
   try {
     final client = await ref.read(pipelineClientProvider.future);
@@ -22,9 +24,7 @@ Future<void> runJobCommand(
     ok = false;
   }
   if (ok) return;
-  messenger?.showSnackBar(
-    const SnackBar(content: Text('That did not work. Please try again.')),
-  );
+  messenger?.showSnackBar(SnackBar(content: Text(message)));
 }
 
 /// [ProcessingStatusCard] wired to the pipeline commands.

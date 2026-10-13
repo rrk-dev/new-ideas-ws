@@ -1,70 +1,79 @@
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/processing_notification.dart';
 
-/// English notification strings (APP-06 moves these to ARB).
-class EnglishProcessingNotificationTexts
-    implements ProcessingNotificationTexts {
-  const EnglishProcessingNotificationTexts();
+/// Notification strings from the app's ARB (`app_en.arb`).
+class L10nProcessingNotificationTexts implements ProcessingNotificationTexts {
+  const L10nProcessingNotificationTexts(this.l10n);
+
+  final AppLocalizations l10n;
 
   @override
-  String get readyTitle => 'Your note is ready';
+  String get readyTitle => l10n.notificationReadyTitle;
 
   @override
-  String get readyBody => 'Tap to open it.';
+  String get readyBody => l10n.notificationReadyBody;
 
   @override
   String readyTitleWithRecording(String recordingTitle) =>
-      'Note ready — $recordingTitle';
+      l10n.notificationReadyTitleWithRecording(recordingTitle);
 
   @override
-  String get failedTitle => 'Processing needs attention';
+  String get failedTitle => l10n.notificationFailedTitle;
 
   @override
-  String get failedBody => 'Tap to see what happened.';
+  String get failedBody => l10n.notificationFailedBody;
 
   @override
   String failedTitleWithRecording(String recordingTitle) =>
-      'Processing failed — $recordingTitle';
+      l10n.notificationFailedTitleWithRecording(recordingTitle);
 
   @override
-  String get retryAction => 'Retry';
+  String get retryAction => l10n.commonRetry;
+}
+
+/// English notification strings (tests and non-UI callers).
+class EnglishProcessingNotificationTexts
+    extends L10nProcessingNotificationTexts {
+  EnglishProcessingNotificationTexts() : super(l10nFor(kFallbackLocale));
 }
 
 /// Status line for a job: the running step, or the resting state.
-String jobStatusLabel(JobSnapshot job) => switch (job.state) {
-  JobState.queued => 'Queued',
-  JobState.transcribing => 'Transcribing',
-  JobState.diarizing => 'Identifying speakers',
-  JobState.classifying => 'Choosing a profile',
-  JobState.extracting => 'Extracting details',
-  JobState.rendering => 'Formatting the note',
-  JobState.writing => 'Saving to your vault',
-  JobState.transcribed ||
-  JobState.extracted ||
-  JobState.rendered => 'Waiting for the next step',
-  JobState.done => 'Note ready',
-  JobState.failed =>
-    job.failureKind == FailureKind.permanent
-        ? 'Processing failed'
-        : 'Processing failed — you can retry',
-  JobState.cancelled => 'Cancelled',
-  JobState.paused => 'Paused',
-  JobState.waiting => switch (job.waitingReason) {
-    WaitingReason.modelMissing => 'Waiting for a model download',
-    WaitingReason.profileChoice => 'Choose a profile to continue',
-    WaitingReason.review => 'Ready for your review',
-    WaitingReason.destination => 'Needs access to your vault folder',
-    null => 'Waiting',
-  },
-};
+String jobStatusLabel(AppLocalizations l, JobSnapshot job) =>
+    switch (job.state) {
+      JobState.queued => l.jobQueued,
+      JobState.transcribing => l.jobTranscribing,
+      JobState.diarizing => l.jobDiarizing,
+      JobState.classifying => l.jobClassifying,
+      JobState.extracting => l.jobExtracting,
+      JobState.rendering => l.jobRendering,
+      JobState.writing => l.jobWriting,
+      JobState.transcribed ||
+      JobState.extracted ||
+      JobState.rendered => l.jobBetweenSteps,
+      JobState.done => l.jobDone,
+      JobState.failed =>
+        job.failureKind == FailureKind.permanent
+            ? l.jobFailedPermanent
+            : l.jobFailedRetryable,
+      JobState.cancelled => l.jobCancelled,
+      JobState.paused => l.jobPaused,
+      JobState.waiting => switch (job.waitingReason) {
+        WaitingReason.modelMissing => l.jobWaitingModel,
+        WaitingReason.profileChoice => l.jobWaitingProfile,
+        WaitingReason.review => l.jobWaitingReview,
+        WaitingReason.destination => l.jobWaitingDestination,
+        null => l.jobWaiting,
+      },
+    };
 
 /// "About 3 min left" style remaining time; `null` → estimating.
-String etaLabel(Duration? eta) {
-  if (eta == null) return 'Estimating time…';
-  if (eta < const Duration(minutes: 1)) return 'Less than a minute left';
+String etaLabel(AppLocalizations l, Duration? eta) {
+  if (eta == null) return l.etaEstimating;
+  if (eta < const Duration(minutes: 1)) return l.etaUnderMinute;
   final minutes = (eta.inSeconds / 60).round();
-  if (minutes < 60) return 'About $minutes min left';
+  if (minutes < 60) return l.etaMinutes(minutes);
   final h = minutes ~/ 60;
   final m = minutes % 60;
-  return m == 0 ? 'About $h h left' : 'About $h h $m min left';
+  return m == 0 ? l.etaHours(h) : l.etaHoursMinutes(h, m);
 }

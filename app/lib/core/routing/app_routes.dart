@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' show Icons;
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_shell.dart';
 import 'package:vaultvoice/core/widgets/placeholder_screen.dart';
 import 'package:vaultvoice/features/library/presentation/library_screen.dart';
@@ -149,7 +150,7 @@ class ModelsSettingsRoute extends GoRouteData with $ModelsSettingsRoute {
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      const PlaceholderScreen(title: 'Models', icon: Icons.memory);
+      PlaceholderScreen(title: context.l10n.settingsModels, icon: Icons.memory);
 }
 
 class VaultFoldersRoute extends GoRouteData with $VaultFoldersRoute {

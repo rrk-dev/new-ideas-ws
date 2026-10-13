@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/app_info.dart';
 import 'package:vaultvoice/core/db/connection.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
@@ -18,10 +19,11 @@ class SettingsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
     Widget header(SettingSection s) =>
-        SettingsSectionHeader(SettingTexts.section(s));
+        SettingsSectionHeader(SettingTexts.section(context.l10n, s));
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(title: Text(l10n.settingsTitle)),
       body: ListView(
         children: [
           header(SettingSection.audio),
@@ -37,8 +39,8 @@ class SettingsScreen extends ConsumerWidget {
           ListTile(
             key: const ValueKey('link-models'),
             leading: const Icon(Icons.memory),
-            title: const Text('Models'),
-            subtitle: const Text('Speech and language models on this device'),
+            title: Text(l10n.settingsModels),
+            subtitle: Text(l10n.settingsModelsSubtitle),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => const ModelsSettingsRoute().push<void>(context),
           ),
@@ -59,16 +61,16 @@ class SettingsScreen extends ConsumerWidget {
           header(SettingSection.license),
           const _LicenseTiles(),
           header(SettingSection.about),
-          const ListTile(
-            key: ValueKey('about-version'),
-            leading: Icon(Icons.info_outline),
-            title: Text('Version'),
-            subtitle: Text('$kAppName $kAppVersion'),
+          ListTile(
+            key: const ValueKey('about-version'),
+            leading: const Icon(Icons.info_outline),
+            title: Text(l10n.aboutVersion),
+            subtitle: const Text('$kAppName $kAppVersion'),
           ),
           ListTile(
             key: const ValueKey('about-licenses'),
             leading: const Icon(Icons.description_outlined),
-            title: const Text('Open-source & model licenses'),
+            title: Text(l10n.aboutLicenses),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => showLicensePage(
               context: context,
@@ -91,13 +93,10 @@ class _VaultFoldersTile extends ConsumerWidget {
     return ListTile(
       key: const ValueKey('link-vault-folders'),
       leading: const Icon(Icons.folder_outlined),
-      title: const Text('Vault folders'),
-      subtitle: Text(switch (n) {
-        null => ' ',
-        0 => 'The app’s own folder',
-        1 => '1 folder',
-        _ => '$n folders',
-      }),
+      title: Text(context.l10n.settingsVaultFolders),
+      subtitle: Text(
+        n == null ? ' ' : context.l10n.settingsVaultFoldersCount(n),
+      ),
       trailing: const Icon(Icons.chevron_right),
       onTap: () => const VaultFoldersRoute().push<void>(context),
     );
@@ -113,13 +112,10 @@ class _RoutingRulesTile extends ConsumerWidget {
     return ListTile(
       key: const ValueKey('link-routing-rules'),
       leading: const Icon(Icons.alt_route),
-      title: const Text('Routing rules'),
-      subtitle: Text(switch (n) {
-        null => ' ',
-        0 => 'None',
-        1 => '1 rule',
-        _ => '$n rules',
-      }),
+      title: Text(context.l10n.settingsRoutingRules),
+      subtitle: Text(
+        n == null ? ' ' : context.l10n.settingsRoutingRulesCount(n),
+      ),
       trailing: const Icon(Icons.chevron_right),
       onTap: () => const RoutingRulesRoute().push<void>(context),
     );
@@ -133,29 +129,22 @@ class _EncryptionInfoTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final encrypted = ref.watch(databaseCipherProvider) is! PlaintextCipher;
-    final status = encrypted
-        ? 'On — the database is encrypted with a key kept in the device '
-              'keychain.'
-        : 'Not enabled in this build yet.';
+    final l10n = context.l10n;
+    final status = encrypted ? l10n.encryptionOn : l10n.encryptionOff;
     return ListTile(
       key: const ValueKey('privacy-encryption'),
       leading: Icon(encrypted ? Icons.lock_outline : Icons.lock_open),
-      title: const Text('Encryption'),
+      title: Text(l10n.encryptionTitle),
       subtitle: Text(status),
       onTap: () => showDialog<void>(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Encryption'),
-          content: Text(
-            '$status\n\nRecordings, transcripts and notes never leave this '
-            'device unless you export or share them. Notes exported to a '
-            'vault folder are plain Markdown files, readable by any app '
-            'with access to that folder.',
-          ),
+          title: Text(l10n.encryptionTitle),
+          content: Text(l10n.encryptionDetails(status)),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
+              child: Text(l10n.commonOk),
             ),
           ],
         ),
@@ -170,19 +159,16 @@ class _DeleteAllDataTile extends ConsumerWidget {
   Future<void> _confirm(BuildContext context, WidgetRef ref) async {
     final messenger = ScaffoldMessenger.of(context);
     final theme = Theme.of(context);
+    final l10n = context.l10n;
     final ok = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete all data?'),
-        content: const Text(
-          'Deletes every recording, transcript, note, profile and setting '
-          'on this device. Notes already exported to your vault folders are '
-          'kept. This cannot be undone.',
-        ),
+        title: Text(l10n.deleteAllConfirmTitle),
+        content: Text(l10n.deleteAllConfirmBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancel'),
+            child: Text(l10n.commonCancel),
           ),
           FilledButton(
             style: FilledButton.styleFrom(
@@ -190,7 +176,7 @@ class _DeleteAllDataTile extends ConsumerWidget {
               foregroundColor: theme.colorScheme.onError,
             ),
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Delete everything'),
+            child: Text(l10n.deleteAllConfirm),
           ),
         ],
       ),
@@ -200,9 +186,7 @@ class _DeleteAllDataTile extends ConsumerWidget {
     messenger.showSnackBar(
       SnackBar(
         content: Text(
-          result.isOk
-              ? 'All data deleted.'
-              : 'Deleting all data is not available in this build yet.',
+          result.isOk ? l10n.deleteAllDone : l10n.deleteAllUnavailable,
         ),
       ),
     );
@@ -214,7 +198,7 @@ class _DeleteAllDataTile extends ConsumerWidget {
     return ListTile(
       key: const ValueKey('privacy-delete-all'),
       leading: Icon(Icons.delete_forever_outlined, color: color),
-      title: Text('Delete all data', style: TextStyle(color: color)),
+      title: Text(context.l10n.deleteAllTitle, style: TextStyle(color: color)),
       onTap: () => _confirm(context, ref),
     );
   }
@@ -223,25 +207,25 @@ class _DeleteAllDataTile extends ConsumerWidget {
 class _LicenseTiles extends ConsumerWidget {
   const _LicenseTiles();
 
-  static String describe(LicenseSummary s) {
+  static String describe(AppLocalizations l, LicenseSummary s) {
     final plan = switch (s.tier) {
-      LicenseTier.free => 'Free',
-      LicenseTier.pro => 'Pro',
-      LicenseTier.enterprise => 'Enterprise',
+      LicenseTier.free => l.licensePlanFree,
+      LicenseTier.pro => l.licensePlanPro,
+      LicenseTier.enterprise => l.licensePlanEnterprise,
     };
     final parts = [
       plan,
       ?s.organization,
       if (s.expiresAt case final e?)
-        'until ${e.toLocal().toIso8601String().substring(0, 10)}',
-      if (s.inGracePeriod) 'offline grace period',
+        l.licenseUntil(e.toLocal().toIso8601String().substring(0, 10)),
+      if (s.inGracePeriod) l.licenseGrace,
     ];
     return parts.join(' · ');
   }
 
   Future<void> _report(BuildContext context, bool ok, String done) async {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(ok ? done : 'Not available in this build yet.')),
+      SnackBar(content: Text(ok ? done : context.l10n.commonNotAvailableYet)),
     );
   }
 
@@ -249,29 +233,30 @@ class _LicenseTiles extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final summary = ref.watch(licenseSummaryProvider).value;
     final port = ref.watch(licenseSettingsPortProvider);
+    final l10n = context.l10n;
     return Column(
       children: [
         ListTile(
           key: const ValueKey('license-status'),
           leading: const Icon(Icons.workspace_premium_outlined),
-          title: const Text('Status'),
-          subtitle: Text(summary == null ? ' ' : describe(summary)),
+          title: Text(l10n.licenseStatus),
+          subtitle: Text(summary == null ? ' ' : describe(l10n, summary)),
         ),
         ListTile(
           key: const ValueKey('license-restore'),
           leading: const Icon(Icons.restore),
-          title: const Text('Restore purchases'),
+          title: Text(l10n.licenseRestore),
           onTap: () async {
             final r = await port.restorePurchases();
             if (context.mounted) {
-              await _report(context, r.isOk, 'Purchases restored.');
+              await _report(context, r.isOk, l10n.licenseRestored);
             }
           },
         ),
         ListTile(
           key: const ValueKey('license-enterprise'),
           leading: const Icon(Icons.business_outlined),
-          title: const Text('Enter enterprise license'),
+          title: Text(l10n.licenseEnterpriseEnter),
           onTap: () async {
             final text = await showDialog<String>(
               context: context,
@@ -280,7 +265,7 @@ class _LicenseTiles extends ConsumerWidget {
             if (text == null || text.isEmpty) return;
             final r = await port.installEnterpriseLicense(text);
             if (context.mounted) {
-              await _report(context, r.isOk, 'Enterprise license installed.');
+              await _report(context, r.isOk, l10n.licenseEnterpriseInstalled);
             }
           },
         ),
@@ -308,23 +293,21 @@ class _EnterpriseLicenseDialogState extends State<_EnterpriseLicenseDialog> {
 
   @override
   Widget build(BuildContext context) => AlertDialog(
-    title: const Text('Enterprise license'),
+    title: Text(context.l10n.licenseEnterpriseTitle),
     content: TextField(
       key: const ValueKey('license-text-field'),
       controller: _controller,
       maxLines: 4,
-      decoration: const InputDecoration(
-        hintText: 'Paste the license from your administrator',
-      ),
+      decoration: InputDecoration(hintText: context.l10n.licenseEnterpriseHint),
     ),
     actions: [
       TextButton(
         onPressed: () => Navigator.of(context).pop(),
-        child: const Text('Cancel'),
+        child: Text(context.l10n.commonCancel),
       ),
       FilledButton(
         onPressed: () => Navigator.of(context).pop(_controller.text.trim()),
-        child: const Text('Install'),
+        child: Text(context.l10n.licenseEnterpriseInstall),
       ),
     ],
   );

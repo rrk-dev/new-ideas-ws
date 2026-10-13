@@ -14,7 +14,7 @@ import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 import '../../db/db_test_utils.dart';
 import '../../fakes/fake_local_notifier.dart';
 
-const texts = EnglishProcessingNotificationTexts();
+final texts = EnglishProcessingNotificationTexts();
 
 void main() {
   group('composeProcessingNotification', () {

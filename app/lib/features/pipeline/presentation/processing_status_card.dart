@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_progress.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
@@ -38,17 +39,18 @@ class ProcessingStatusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = context.l10n;
     final job = view.job;
     final title = view.recordingTitle.isEmpty
-        ? 'Untitled recording'
+        ? l10n.untitledRecording
         : view.recordingTitle;
-    final status = jobStatusLabel(job);
+    final status = jobStatusLabel(l10n, job);
     final percent = (view.overallProgress() * 100).round();
     final showProgress = !job.state.isTerminal;
     final detail = <String>[
-      if (showProgress) '$percent%',
-      if (job.state.isActive || job.state.isResting) etaLabel(view.eta),
-      if (view.queuePosition case final p?) 'Position $p in queue',
+      if (showProgress) l10n.jobPercent(percent),
+      if (job.state.isActive || job.state.isResting) etaLabel(l10n, view.eta),
+      if (view.queuePosition case final p?) l10n.jobQueuePosition(p),
     ].join(' · ');
     final failed = job.state == JobState.failed;
     return Card(
@@ -85,8 +87,8 @@ class ProcessingStatusCard extends StatelessWidget {
                 const SizedBox(height: AppSpacing.sm),
                 Semantics(
                   container: true,
-                  label: '$status, $percent percent',
-                  value: '$percent%',
+                  label: l10n.jobProgressSemantics(status, percent),
+                  value: l10n.jobPercent(percent),
                   child: LinearProgressIndicator(
                     value: view.overallProgress(),
                     minHeight: AppSpacing.xs,
@@ -128,12 +130,18 @@ class _Actions extends StatelessWidget {
   Widget build(BuildContext context) {
     final buttons = <Widget>[
       if (state == JobState.queued && onProcessNow != null)
-        TextButton(onPressed: onProcessNow, child: const Text('Process now')),
+        TextButton(
+          onPressed: onProcessNow,
+          child: Text(context.l10n.jobProcessNow),
+        ),
       if (!state.isTerminal && onCancel != null)
-        TextButton(onPressed: onCancel, child: const Text('Cancel')),
+        TextButton(onPressed: onCancel, child: Text(context.l10n.commonCancel)),
       if ((state == JobState.failed || state == JobState.cancelled) &&
           onRetry != null)
-        FilledButton.tonal(onPressed: onRetry, child: const Text('Retry')),
+        FilledButton.tonal(
+          onPressed: onRetry,
+          child: Text(context.l10n.commonRetry),
+        ),
     ];
     if (buttons.isEmpty) return const SizedBox.shrink();
     return Padding(

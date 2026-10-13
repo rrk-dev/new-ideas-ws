@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
 import 'package:vaultvoice/features/settings/presentation/setting_texts.dart';
@@ -46,28 +47,30 @@ class SettingTile extends ConsumerWidget {
 
   Future<void> _write(BuildContext context, WidgetRef ref, Object v) async {
     final messenger = ScaffoldMessenger.maybeOf(context);
+    final failed = context.l10n.settingSaveFailed;
     final result = await ref.read(settingsWriterProvider).set(def, v);
     if (!result.isOk) {
-      messenger?.showSnackBar(
-        const SnackBar(content: Text('Could not save the setting.')),
-      );
+      messenger?.showSnackBar(SnackBar(content: Text(failed)));
     }
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(settingStateProvider(def.key));
-    final title = SettingTexts.title(def.key);
+    final title = SettingTexts.title(context.l10n, def.key);
     final value = state.value?.value ?? def.defaultValue;
     final managed = state.value?.managed ?? false;
-    final description = SettingTexts.description(def.key);
+    final description = SettingTexts.description(context.l10n, def.key);
     final key = settingTileKey(def.key);
     Widget? subtitleFor(String? text) {
-      final lines = [?text, if (managed) SettingTexts.managed];
+      final lines = [?text, if (managed) context.l10n.settingManaged];
       return lines.isEmpty ? null : Text(lines.join('\n'));
     }
 
-    const lock = Icon(Icons.lock_outline, semanticLabel: SettingTexts.managed);
+    final lock = Icon(
+      Icons.lock_outline,
+      semanticLabel: context.l10n.settingManaged,
+    );
     final setting = def;
     switch (setting) {
       case ToggleSetting():
@@ -86,7 +89,7 @@ class SettingTile extends ConsumerWidget {
         return ListTile(
           key: key,
           title: Text(title),
-          subtitle: subtitleFor(SettingTexts.option(setting.key, current)),
+          subtitle: subtitleFor(SettingTexts.option(context.l10n, current)),
           trailing: managed ? lock : const Icon(Icons.chevron_right),
           enabled: !managed && state.hasValue,
           onTap: () async {
@@ -130,7 +133,7 @@ class ChoiceDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SimpleDialog(
-    title: Text(SettingTexts.title(def.key)),
+    title: Text(SettingTexts.title(context.l10n, def.key)),
     children: [
       for (final o in def.options)
         Semantics(
@@ -143,7 +146,7 @@ class ChoiceDialog extends StatelessWidget {
                   ? Icons.radio_button_checked
                   : Icons.radio_button_unchecked,
             ),
-            title: Text(SettingTexts.option(def.key, o)),
+            title: Text(SettingTexts.option(context.l10n, o)),
             onTap: () => Navigator.of(context).pop(o),
           ),
         ),
@@ -182,7 +185,7 @@ class _TextSettingDialogState extends State<TextSettingDialog> {
     final v = _controller.text.trim();
     final code = widget.def.validate(v);
     if (code != null) {
-      setState(() => _error = SettingTexts.patternError(code));
+      setState(() => _error = SettingTexts.patternError(context.l10n, code));
       return;
     }
     Navigator.of(context).pop(v);
@@ -190,7 +193,7 @@ class _TextSettingDialogState extends State<TextSettingDialog> {
 
   @override
   Widget build(BuildContext context) => AlertDialog(
-    title: Text(SettingTexts.title(widget.def.key)),
+    title: Text(SettingTexts.title(context.l10n, widget.def.key)),
     content: TextField(
       key: const ValueKey('setting-text-field'),
       controller: _controller,
@@ -202,13 +205,13 @@ class _TextSettingDialogState extends State<TextSettingDialog> {
     actions: [
       TextButton(
         onPressed: () => _controller.text = widget.def.defaultValue,
-        child: const Text('Reset'),
+        child: Text(context.l10n.commonReset),
       ),
       TextButton(
         onPressed: () => Navigator.of(context).pop(),
-        child: const Text('Cancel'),
+        child: Text(context.l10n.commonCancel),
       ),
-      FilledButton(onPressed: _save, child: const Text('Save')),
+      FilledButton(onPressed: _save, child: Text(context.l10n.commonSave)),
     ],
   );
 }
