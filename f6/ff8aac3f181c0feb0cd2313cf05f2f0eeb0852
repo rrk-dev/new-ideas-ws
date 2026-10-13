@@ -1,0 +1,19 @@
+tasks/08-app-ux/APP-06-accessibility-localization.md
+  s_9f6fcf8c1840a0::t_e4444868d66ebd 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f6ff8aac3f181c0feb0cd2313cf05f2f0eeb0852",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
