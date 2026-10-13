@@ -1,0 +1,19 @@
+tasks/12-release/REL-02-private-crash-reporting.md
+  s_9f6fcf8c1840a0::t_5c5dfec1e13c5c 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e9f7c1c16be4ee82e78d1ce4ce32e421d5f6651e",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
