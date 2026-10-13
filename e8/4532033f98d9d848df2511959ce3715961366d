@@ -1,0 +1,25 @@
+packages/vv_native/android/build.gradle
+  s_9f6fcf8c1840a0::t_809d29a6c6518e 53-54,63
+tasks/01-foundation/FND-06-native-build-infrastructure.md
+  s_9f6fcf8c1840a0::t_b46d89ca8020a4 43-53
+tools/ci/build_android.sh
+  s_9f6fcf8c1840a0::t_809d29a6c6518e 6-7
+native/build.sh
+  s_9f6fcf8c1840a0::t_d65702129f196d 42,67,69-70,91-92,120-121,123-126
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e84532033f98d9d848df2511959ce3715961366d",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
