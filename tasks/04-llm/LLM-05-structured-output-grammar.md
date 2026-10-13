@@ -1,7 +1,7 @@
 # LLM-05 — Structured Output via Constrained Decoding
 
 **Workstream:** LLM | **Phase:** 2–3 | **Size:** M | **Depends on:** LLM-04, PRF-09 | **Source:** Gap (small models produce unreliable free-form Markdown; templates need structured data)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-llm-inference, vv-extraction-profiles, vv-ffi-bridge, vv-native-build, vv-benchmark-eval, vv-testing
 
 ## Goal
