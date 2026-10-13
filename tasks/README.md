@@ -179,7 +179,7 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 ## Open Decisions (owner: tech lead)
 | Decision | Task | Recommendation |
 |---|---|---|
-| Isar vs SQLite | FND-04 | SQLite via `drift` (FTS5 search, encryption via sqlite3mc or SQLCipher build hooks, active maintenance) |
+| Isar vs SQLite | FND-04 | Decided: ADR-FND-04 (Proposed) — SQLite via `drift` (FTS5 search, encryption via sqlite3mc or SQLCipher build hooks, active maintenance) |
 | llama.cpp vs ExecuTorch vs MLC-LLM | LLM-01 | llama.cpp (shared ggml with whisper.cpp, GGUF, grammars) unless benchmarks show ≥ 1.5× gap |
 | Default LLM per tier | LLM-08 | Decide from PRF-09 eval; expect 1B-class for Low tier, 3B for High |
 | Core ML encoder for Whisper on iOS | STT-01 | Decide from benchmark (extra download vs ANE speed) |
