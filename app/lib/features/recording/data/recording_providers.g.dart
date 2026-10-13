@@ -351,6 +351,114 @@ final class RecordingInputSelectorProvider
 String _$recordingInputSelectorHash() =>
     r'fdc661708e30413a84094fdc2a368fc167c0f930';
 
+/// Recordings repaired at launch after a crash / OS kill (AUD-07). Runs once
+/// per process; never touches the recording open in this process.
+
+@ProviderFor(recoveredRecordings)
+final recoveredRecordingsProvider = RecoveredRecordingsProvider._();
+
+/// Recordings repaired at launch after a crash / OS kill (AUD-07). Runs once
+/// per process; never touches the recording open in this process.
+
+final class RecoveredRecordingsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<RecoveredRecording>>,
+          List<RecoveredRecording>,
+          FutureOr<List<RecoveredRecording>>
+        >
+    with
+        $FutureModifier<List<RecoveredRecording>>,
+        $FutureProvider<List<RecoveredRecording>> {
+  /// Recordings repaired at launch after a crash / OS kill (AUD-07). Runs once
+  /// per process; never touches the recording open in this process.
+  RecoveredRecordingsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'recoveredRecordingsProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$recoveredRecordingsHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<List<RecoveredRecording>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<RecoveredRecording>> create(Ref ref) {
+    return recoveredRecordings(ref);
+  }
+}
+
+String _$recoveredRecordingsHash() =>
+    r'5dc2cb5ca21938bdb8a50d6c44b3dd5c0a58a32f';
+
+/// "Process now" for a recovered recording: queues it at the front of the
+/// pipeline (FND-05).
+
+@ProviderFor(recoveredRecordingProcessor)
+final recoveredRecordingProcessorProvider =
+    RecoveredRecordingProcessorProvider._();
+
+/// "Process now" for a recovered recording: queues it at the front of the
+/// pipeline (FND-05).
+
+final class RecoveredRecordingProcessorProvider
+    extends
+        $FunctionalProvider<
+          Future<void> Function(String recordingId),
+          Future<void> Function(String recordingId),
+          Future<void> Function(String recordingId)
+        >
+    with $Provider<Future<void> Function(String recordingId)> {
+  /// "Process now" for a recovered recording: queues it at the front of the
+  /// pipeline (FND-05).
+  RecoveredRecordingProcessorProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'recoveredRecordingProcessorProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$recoveredRecordingProcessorHash();
+
+  @$internal
+  @override
+  $ProviderElement<Future<void> Function(String recordingId)> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  Future<void> Function(String recordingId) create(Ref ref) {
+    return recoveredRecordingProcessor(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Future<void> Function(String recordingId) value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride:
+          $SyncValueProvider<Future<void> Function(String recordingId)>(value),
+    );
+  }
+}
+
+String _$recoveredRecordingProcessorHash() =>
+    r'90b7d8253650dbe8e92c2b440c3795e8d124980f';
+
 /// Microphone capture driven by [recordingController]; tests override it
 /// with `FakeCaptureBackend`.
 

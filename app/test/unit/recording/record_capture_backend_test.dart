@@ -34,6 +34,9 @@ class _CountingCodec implements AudioChunkCodec {
 
   @override
   Future<AudioChunkWriter> reopen(String path) async => writers[path]!;
+
+  @override
+  Future<int> recover(String path) async => writers[path]?.dataBytes ?? 0;
 }
 
 class _CountingWriter implements AudioChunkWriter {

@@ -32,6 +32,34 @@ class WavChunkCodec implements AudioChunkCodec {
       .._dataBytes = WavHeader.recoverableDataBytes(length);
     return writer;
   }
+
+  @override
+  Future<int> recover(String path) async {
+    final raf = await File(path).open(mode: FileMode.append);
+    try {
+      final length = await raf.length();
+      final data = WavHeader.recoverableDataBytes(length);
+      if (length < WavHeader.length) {
+        // Killed before the header was complete: rebuild it.
+        await raf.truncate(0);
+        await raf.setPosition(0);
+        await raf.writeFrom(WavHeader.build(dataBytes: 0));
+        await raf.flush();
+        return 0;
+      }
+      // A half-written trailing sample is dropped.
+      if (length != WavHeader.length + data) {
+        await raf.truncate(WavHeader.length + data);
+      }
+      // Rewrite the whole header (the placeholder may be all there is).
+      await raf.setPosition(0);
+      await raf.writeFrom(WavHeader.build(dataBytes: data));
+      await raf.flush();
+      return data;
+    } finally {
+      await raf.close();
+    }
+  }
 }
 
 /// Writes PCM after a placeholder header; every [flush] patches the RIFF and
