@@ -16,3 +16,6 @@ llama.cpp runs on Android with the best stable backend per SoC.
 ## Acceptance Criteria
 - Llama-3.2-3B Q4: ≥ 10 tok/s decode on Snapdragon 8 Gen 3; Snapdragon 7-series numbers recorded.
 - No crash across the device matrix (QA-05) — failing backends auto-disabled.
+
+## Notes
+- Runtime: **llama.cpp** per [ADR-LLM-01](../../docs/adr/ADR-LLM-01-runtime.md) (Proposed until device numbers exist).

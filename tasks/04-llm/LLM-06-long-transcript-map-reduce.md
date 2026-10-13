@@ -17,3 +17,6 @@ Extraction works for transcripts much longer than the usable context window.
 ## Acceptance Criteria
 - 2-hour transcript extracts successfully on a 6 GB device without OOM.
 - On long-meeting eval set, action-item recall within 10% of single-pass on short meetings.
+
+## Notes
+- Runtime: **llama.cpp** per [ADR-LLM-01](../../docs/adr/ADR-LLM-01-runtime.md) (Proposed until device numbers exist).
