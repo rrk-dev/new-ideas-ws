@@ -1,0 +1,25 @@
+tools/ci/tests/test_repo_standards.py
+  s_9f6fcf8c1840a0::t_be85b91ca1349a 1-85
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_9f6fcf8c1840a0::t_14fbe82d41a99c 442,464,806,829,852,874
+docs/test-plans/device/FND-01.md
+  s_9f6fcf8c1840a0::t_79d20e3bc31ed9 3-7,10-11,14-19
+tasks/01-foundation/FND-01-flutter-repo-init.md
+  s_9f6fcf8c1840a0::t_f4fd658e65f0cd 4,58-78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5bdba51bd636ac3d97e334edd605ae7cae8968d2",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
