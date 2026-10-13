@@ -1,0 +1,92 @@
+app/lib/features/pipeline/data/flutter_local_notifier.dart
+  s_9f6fcf8c1840a0::t_a68c01a37d609f 19-22,24-26,108
+  s_9f6fcf8c1840a0::t_be7525be0098c8 1-18,23,27-107,109-139
+app/lib/features/pipeline/presentation/job_commands.dart
+  s_9f6fcf8c1840a0::t_9fe2292cab718c 1-5,7-16,18,21,23,25-27,59
+  s_9f6fcf8c1840a0::t_f10faeb2991004 6,17,19-20,22,24,28-58
+app/lib/features/pipeline/domain/local_notifier.dart
+  s_9f6fcf8c1840a0::t_33caa857ef8a00 1-56
+app/test/fakes/fake_local_notifier.dart
+  s_9f6fcf8c1840a0::t_8bf977aff67ff5 1-46
+app/lib/features/pipeline/domain/processing_notification.dart
+  s_9f6fcf8c1840a0::t_a68c01a37d609f 69
+  s_9f6fcf8c1840a0::t_95c78c5d55036b 1-68,70-110
+app/lib/bootstrap.dart
+  s_9f6fcf8c1840a0::t_a68c01a37d609f 52
+  s_9f6fcf8c1840a0::t_2476ad36cd55f7 16-18,51,55
+app/pubspec.yaml
+  s_9f6fcf8c1840a0::t_cbd9eeef45d482 17
+app/lib/features/settings/domain/setting_keys.dart
+  s_9f6fcf8c1840a0::t_5d78219cfafdeb 1-16
+app/lib/features/pipeline/presentation/processing_queue_screen.dart
+  s_9f6fcf8c1840a0::t_d04ad3b33fdaa0 1-2,4-50,54-60
+  s_9f6fcf8c1840a0::t_10ad7ce02ad64a 3,51,53
+  s_9f6fcf8c1840a0::t_a45eb257ad5ab2 52
+app/ios/Runner/AppDelegate.swift
+  s_9f6fcf8c1840a0::t_ce230a9e8dd0d7 3,14-16
+app/android/app/build.gradle.kts
+  s_9f6fcf8c1840a0::t_ce230a9e8dd0d7 14-15,69-72
+  s_9f6fcf8c1840a0::t_fd16949ac9c9b1 73
+app/lib/features/pipeline/presentation/processing_status_card.dart
+  s_9f6fcf8c1840a0::t_a3188bf4c7b4f4 140-147
+  s_9f6fcf8c1840a0::t_dac587db6b06ea 1-139,148-151
+app/lib/features/pipeline/data/processing_monitor.dart
+  s_9f6fcf8c1840a0::t_9025dda149622b 1-31,34-40,42,48-75,78-119,121-173,175-181
+  s_9f6fcf8c1840a0::t_8ddfef6a51fea4 32,41,43-44,76
+  s_9f6fcf8c1840a0::t_dde256e274e74f 77
+  s_9f6fcf8c1840a0::t_a68c01a37d609f 33,45-47,120
+  s_9f6fcf8c1840a0::t_ff51687b64cd66 174
+app/lib/features/pipeline/domain/throughput.dart
+  s_9f6fcf8c1840a0::t_bb35c17c4a5de6 1-34,46-80
+  s_9f6fcf8c1840a0::t_a68c01a37d609f 35-45
+app/lib/features/pipeline/presentation/recording_status_screen.dart
+  s_9f6fcf8c1840a0::t_ea7836790f346e 1-101
+app/lib/core/routing/app_routes.dart
+  s_9f6fcf8c1840a0::t_92434751cdf646 5-6,19-27,80-115
+  s_9f6fcf8c1840a0::t_cb656af3ee2fa8 116
+app/lib/features/pipeline/presentation/processing_services_host.dart
+  s_9f6fcf8c1840a0::t_812a32bedad134 1-31
+app/lib/features/pipeline/presentation/processing_providers.dart
+  s_9f6fcf8c1840a0::t_79a8f4dad4dbac 61
+  s_9f6fcf8c1840a0::t_a68c01a37d609f 24,51
+  s_9f6fcf8c1840a0::t_1bfa1b8d542266 1-9,11-23,25-39,41-50,52-60,62-121
+  s_9f6fcf8c1840a0::t_11a6f47da1e70e 10,40
+app/lib/features/pipeline/domain/eta.dart
+  s_9f6fcf8c1840a0::t_9fdcd6d88d9560 1-89,91-122,130-136,145-148,150-166
+  s_9f6fcf8c1840a0::t_cd2480d456bf66 123-129,137-144
+  s_9f6fcf8c1840a0::t_22dfbe5ac66fac 149
+  s_9f6fcf8c1840a0::t_2dbc2fd126eabf 90
+app/lib/features/pipeline/domain/job_progress.dart
+  s_9f6fcf8c1840a0::t_59488a5d1d4875 1-83
+app/lib/features/pipeline/presentation/processing_texts.dart
+  s_9f6fcf8c1840a0::t_ada1311f828bba 1-70
+app/lib/features/pipeline/presentation/processing_queue_indicator.dart
+  s_9f6fcf8c1840a0::t_17162d28e847c4 1-117
+app/lib/core/routing/app_shell.dart
+  s_9f6fcf8c1840a0::t_2476ad36cd55f7 3,5-6,16-37
+app/lib/features/pipeline/presentation/processing_providers.g.dart
+  s_9f6fcf8c1840a0::t_a68c01a37d609f 14-163
+  s_9f6fcf8c1840a0::t_e96405a6e3a172 1-13,164-338
+app/test/widget/app_shell_test.dart
+  s_9f6fcf8c1840a0::t_3f0878ead03f2a 8,16-20
+app/lib/core/routing/app_routes.g.dart
+  s_9f6fcf8c1840a0::t_e778bc2d1a9f33 29-40,110-155
+app/pubspec.lock
+  s_9f6fcf8c1840a0::t_99f1bb8812ae9f 260-267,342-381,1004-1011
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "aaf4b23d05bac41ad1db89fd7cac8f2efdef2eec",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
