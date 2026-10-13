@@ -1,0 +1,16 @@
+# Regenerate with: cd packages/vv_native && fvm dart run ffigen --config ffigen_crash.yaml
+# Separate from ffigen.yaml so the crash-capture API (REL-02) and the engine
+# bridge can change independently.
+name: VvCrashBindings
+description: Bindings for native/bridge/vv_crash.h (native crash capture, REL-02).
+output: lib/src/vv_crash_bindings.g.dart
+headers:
+  entry-points:
+    - ../../native/bridge/vv_crash.h
+  include-directives:
+    - ../../native/bridge/vv_crash.h
+preamble: |
+  // ignore_for_file: type=lint, unused_field, unused_element
+comments:
+  style: any
+  length: full

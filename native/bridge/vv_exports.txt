@@ -4,3 +4,4 @@ _vv_whisper_version
 _vv_ggml_version
 _vv_whisper_system_info
 _vv_llama_system_info
+_vv_crash_*

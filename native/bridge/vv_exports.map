@@ -6,6 +6,7 @@
     vv_ggml_version;
     vv_whisper_system_info;
     vv_llama_system_info;
+    vv_crash_*;
   local:
     *;
 };
