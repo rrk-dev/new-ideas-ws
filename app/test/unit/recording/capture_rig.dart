@@ -8,6 +8,7 @@ import 'package:vaultvoice/features/recording/data/record_capture_backend.dart';
 import 'package:vaultvoice/features/recording/data/wav_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_format.dart';
+import 'package:vaultvoice/features/recording/domain/audio_session_monitor.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
 import 'package:vaultvoice/features/recording/domain/storage_policy.dart';
 import 'package:vaultvoice/features/recording/domain/wav_header.dart';
@@ -26,6 +27,7 @@ class CaptureRig {
     StoragePolicy storage = const StoragePolicy(),
     AudioChunkCodec codec = const WavChunkCodec(),
     Duration flushInterval = const Duration(seconds: 1),
+    AudioSessionMonitor audioSession = const NoAudioSessionMonitor(),
     this.foreground = true,
   }) : db = memoryDb(),
        dir = Directory.systemTemp.createTempSync('vv_capture_') {
@@ -41,6 +43,7 @@ class CaptureRig {
       storage: storage,
       chunkDuration: chunkDuration,
       flushInterval: flushInterval,
+      audioSession: audioSession,
     );
     controller = RecordingController(
       capture: backend,

@@ -23,6 +23,13 @@ import UIKit
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "StorageInfoPlugin") {
       StorageInfoPlugin.register(with: registrar)
     }
+    // AUD-04: audio route / engine / media-services events; recording reminder.
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "AudioSessionPlugin") {
+      AudioSessionPlugin.register(with: registrar)
+    }
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "RecordingIndicatorPlugin") {
+      RecordingIndicatorPlugin.register(with: registrar)
+    }
     BookmarkHostApiSetup.setUp(
       binaryMessenger: engineBridge.applicationRegistrar.messenger(), api: bookmarkApi)
   }
