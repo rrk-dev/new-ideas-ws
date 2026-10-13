@@ -11,3 +11,5 @@ ggml-*.bin
 tools/bench/corpus/private/
 # native build products
 packages/vv_native/ios/Frameworks/
+# agent worktrees (Claude Code isolation)
+.claude/worktrees/
