@@ -137,6 +137,23 @@ def test_MDL_01_AC1_build_rejects_invalid_entries(patch):
         cat.build(src, "2026-10-12T00:00:00Z")
 
 
+def test_single_model_manifest_for_offline_import(key, tmp_path):
+    """[MDL-04] `build --only <id>` → signed one-model manifest the app verifies."""
+    path, _, pub = key
+    out = tmp_path / "whisper-tiny.en.json"
+    r = run("build", "--models", str(HERE.parent / "models.json"), "--out", str(out),
+            "--issued-at", "2026-10-12T00:00:00Z", "--only", "whisper-tiny.en")
+    assert r.returncode == 0, r.stderr
+    doc = json.loads(out.read_text())
+    assert [m["id"] for m in doc["models"]] == ["whisper-tiny.en"]
+    assert doc["schema"] == 1
+    assert run("sign", "--catalog", str(out), "--key-file", str(path)).returncode == 0
+    assert verify(out, Path(str(out) + ".sig"), pub).returncode == 0
+    bad = run("build", "--models", str(HERE.parent / "models.json"), "--out",
+              str(tmp_path / "x.json"), "--only", "nope")
+    assert bad.returncode != 0
+
+
 def test_key_from_env_var(tmp_path, key, signed):
     path, k, pub = key
     c, _, _ = signed

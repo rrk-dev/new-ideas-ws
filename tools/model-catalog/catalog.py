@@ -224,17 +224,28 @@ def canonical_bytes(doc: dict) -> bytes:
     return (json.dumps(doc, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
 
 
-def build(source: dict, issued_at: str | None = None) -> bytes:
-    """Turn the models source file into catalog.json bytes (validated)."""
+def build(source: dict, issued_at: str | None = None, only: str | None = None) -> bytes:
+    """Turn the models source file into catalog.json bytes (validated).
+
+    only: build a signed single-model manifest (`<id>.json`) for offline
+    import (MDL-04): the same schema-1 document with exactly that model.
+    """
     issued = issued_at or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     models = []
     for m in source.get("models", []):
+        if only is not None and m.get("id") != only:
+            continue
         # Only schema fields are copied: provenance notes stay in the source.
         entry = {k: m.get(k) for k in MODEL_KEYS}
         entry["companions"] = m.get("companions") or []
         if entry["min_app_version"] is None:
             del entry["min_app_version"]
         models.append(entry)
+    if only is not None:
+        if not models:
+            raise CatalogError(f"no model with id {only!r}")
+        # A single-model manifest cannot reference companions it does not carry.
+        models[0]["companions"] = []
     doc = {
         "schema": source.get("schema", 1),
         "issued_at": issued,
@@ -314,6 +325,8 @@ def main(argv: list[str] | None = None) -> int:
     b.add_argument("--models", required=True)
     b.add_argument("--out", required=True)
     b.add_argument("--issued-at")
+    b.add_argument("--only", metavar="ID",
+                   help="single-model manifest for offline import (MDL-04)")
     s = sub.add_parser("sign", help="catalog.json -> catalog.json.sig")
     s.add_argument("--catalog", required=True)
     s.add_argument("--key-file")
@@ -337,7 +350,7 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"{d}  {n}  {f}")
         elif a.cmd == "build":
             src = json.loads(Path(a.models).read_text(encoding="utf-8"))
-            Path(a.out).write_bytes(build(src, a.issued_at))
+            Path(a.out).write_bytes(build(src, a.issued_at, a.only))
             print(f"wrote {a.out}")
         elif a.cmd == "sign":
             out = a.out or a.catalog + ".sig"
