@@ -1,7 +1,7 @@
 # APP-04 — Processing Status & Local Notifications
 
 **Workstream:** App UX | **Phase:** 2–3 | **Size:** S | **Depends on:** FND-05 | **Source:** Gap
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-pipeline-orchestrator, vv-flutter-architecture, vv-background-execution, vv-testing
 
 ## Goal
