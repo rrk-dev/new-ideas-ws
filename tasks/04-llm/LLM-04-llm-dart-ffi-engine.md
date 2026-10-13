@@ -1,7 +1,7 @@
 # LLM-04 — LLM Dart FFI Binding & Inference Service
 
 **Workstream:** LLM | **Phase:** 2 | **Size:** L | **Depends on:** LLM-02, LLM-03 | **Source:** §5 Phase 2 (integrate llama.cpp FFI)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-ffi-bridge, vv-llm-inference, vv-testing
 
 ## Goal
