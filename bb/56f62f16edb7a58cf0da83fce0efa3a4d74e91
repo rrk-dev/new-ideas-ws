@@ -1,0 +1,29 @@
+tasks/07-export/EXP-04-ios-security-scoped-bookmarks.md
+  s_9f6fcf8c1840a0::t_86cbb6315633bf 11-15,20-47
+docs/test-plans/device/EXP-04.md
+  s_9f6fcf8c1840a0::t_822d58ec37e5cf 1-26
+app/test/fakes/fake_bookmark_host_api.dart
+  s_9f6fcf8c1840a0::t_3a470c1bbe1f52 1-39,43-63,65-169
+  s_9f6fcf8c1840a0::t_e67ca485c5832b 40-42,64
+app/test/unit/export/bookmark_vault_writer_test.dart
+  s_9f6fcf8c1840a0::t_27fbb7ab984335 1-52,54-164,167,172-240,283-322
+  s_9f6fcf8c1840a0::t_e67ca485c5832b 53,165-166,168-171,241-282
+app/integration_test/vault_folder_bookmark_test.dart
+  s_9f6fcf8c1840a0::t_30f59935de2cfc 1-83
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bb56f62f16edb7a58cf0da83fce0efa3a4d74e91",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
