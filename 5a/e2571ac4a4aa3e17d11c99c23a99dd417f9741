@@ -1,0 +1,19 @@
+tasks/04-llm/LLM-07-memory-management-device-tiering.md
+  s_d4f490e3a86475::t_9d934059ba18ab 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5ae2571ac4a4aa3e17d11c99c23a99dd417f9741",
+  "prompts": {},
+  "sessions": {
+    "s_d4f490e3a86475": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a912f2209e56e5230",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
