@@ -1,7 +1,7 @@
 # MDL-01 — Model Catalog Manifest & Hosting
 
 **Workstream:** Model Delivery | **Phase:** 2 | **Size:** M | **Depends on:** FND-02 | **Source:** §5 Phase 2 (dynamic model downloader) + Gap (hosting / integrity / "zero bytes to cloud" contradiction)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-model-delivery, vv-privacy-security, vv-decision-records, vv-flutter-architecture, vv-testing
 
 ## Goal
