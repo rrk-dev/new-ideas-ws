@@ -24,7 +24,7 @@ choice in the SEC-01 ADR). Follow the current drift "Encryption" page for your p
 | `speech_segments` (VAD) | id, recording_id, start_ms, end_ms |
 | `markers` | id, recording_id, at_ms, kind (`user/gap/call_interruption/consent`), label? |
 | `transcripts` | id, recording_id, model_id, language, created_at, edited (bool) |
-| `transcript_segments` | id, transcript_id, seq, start_ms, end_ms, speaker?, text, original_text? (pre-edit), avg_logprob?, tokens_json? (`[{text,p,t0_ms,t1_ms}]` for low-confidence highlighting) |
+| `transcript_segments` | id, transcript_id, seq, start_ms, end_ms, speaker?, body (segment text; not `text` — ADR-FND-04), original_text? (pre-edit), avg_logprob?, tokens_json? (`[{text,p,t0_ms,t1_ms}]` for low-confidence highlighting) |
 | `speakers` | id, recording_id, label (`Speaker 1`), display_name? |
 | `jobs` | id, recording_id, kind, step, status, progress, attempts, error_code?, error_detail?, created_at, updated_at, checkpoint (json) |
 | `profiles` | id, version, source (`builtin/user/enterprise`), definition (json), updated_at |
@@ -32,7 +32,7 @@ choice in the SEC-01 ADR). Follow the current drift "Encryption" page for your p
 | `extractions` | id, recording_id, profile_id, profile_version, model_id, json, valid (bool), created_at |
 | `vault_targets` | id, platform, display_name, handle (SAF uri / bookmark base64), created_at |
 | `routing_rules` | id, priority, match (json), target_id, sub_path, filename_pattern |
-| `action_items` | id, recording_id, extraction_id, text, owner?, due_iso?, t_ms?, done (bool), done_at? — filled by RenderStep for APP-02's cross-recording task view |
+| `action_items` | id, recording_id, extraction_id, body, owner?, due_iso?, t_ms?, done (bool), done_at? — filled by RenderStep for APP-02's cross-recording task view |
 | `exports` | id, recording_id, target_id, rel_path, content_hash, status, attempts, updated_at |
 | `models_installed` | id, type, version, path, sha256, size, installed_at |
 | `settings` | key PK, value (json) |
