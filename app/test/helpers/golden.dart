@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/theme/app_theme.dart';
 
@@ -43,6 +45,7 @@ void goldenTest(
   required String fileName,
   required WidgetBuilder builder,
   Size surface = kGoldenSurface,
+  List<Override> overrides = const [],
 }) {
   group(description, () {
     for (final theme in GoldenTheme.values) {
@@ -53,16 +56,21 @@ void goldenTest(
             ..physicalSize = surface
             ..devicePixelRatio = 1.0;
           addTearDown(tester.view.reset);
+          // Screens are Riverpod consumers (RecordScreen reads the flavor),
+          // so every golden is pumped inside a ProviderScope.
           await tester.pumpWidget(
-            MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: theme.data,
-              builder: (context, child) => MediaQuery(
-                data: MediaQuery.of(context)
-                    .copyWith(textScaler: TextScaler.linear(scale)),
-                child: child!,
+            ProviderScope(
+              overrides: overrides,
+              child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: theme.data,
+                builder: (context, child) => MediaQuery(
+                  data: MediaQuery.of(context)
+                      .copyWith(textScaler: TextScaler.linear(scale)),
+                  child: child!,
+                ),
+                home: Builder(builder: builder),
               ),
-              home: Builder(builder: builder),
             ),
           );
           await tester.pumpAndSettle();

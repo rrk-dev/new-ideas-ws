@@ -12,6 +12,8 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        // SEC-09: call detection without phone-state permissions.
+        flutterEngine.plugins.add(CallGuardPlugin())
         val api = SafHostApiImpl(this)
         safApi = api
         SafHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, api)
