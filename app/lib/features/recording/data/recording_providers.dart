@@ -8,6 +8,7 @@ import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_providers.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_call_guard.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_disk_space_probe.dart';
+import 'package:vaultvoice/features/recording/data/method_channel_recording_indicator.dart';
 import 'package:vaultvoice/features/recording/data/record_capture_backend.dart';
 import 'package:vaultvoice/features/recording/data/record_mic_source.dart';
 import 'package:vaultvoice/features/recording/data/recording_recovery.dart';
@@ -17,6 +18,7 @@ import 'package:vaultvoice/features/recording/domain/audio_format.dart';
 import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
 import 'package:vaultvoice/features/recording/domain/pcm_mic_source.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
+import 'package:vaultvoice/features/recording/domain/recording_indicator.dart';
 import 'package:vaultvoice/features/recording/domain/storage_policy.dart';
 
 part 'recording_providers.g.dart';
@@ -100,6 +102,23 @@ Future<void> Function(String recordingId) recoveredRecordingProcessor(
 CaptureBackend captureBackend(Ref ref) =>
     ref.watch(recordCaptureBackendProvider);
 
+/// Platform channel behind the OS recording indicator (Android foreground
+/// service notification — AUD-05; iOS — AUD-04).
+@Riverpod(keepAlive: true)
+MethodChannelRecordingIndicator platformRecordingIndicator(Ref ref) =>
+    MethodChannelRecordingIndicator();
+
+/// The always-visible OS recording indicator; tests override it.
+@Riverpod(keepAlive: true)
+RecordingIndicator recordingIndicator(Ref ref) =>
+    ref.watch(platformRecordingIndicatorProvider);
+
+/// Battery-optimization state for the OEM guidance card (Android; null
+/// elsewhere).
+@riverpod
+Future<BatteryStatus?> batteryStatus(Ref ref) =>
+    ref.watch(platformRecordingIndicatorProvider).batteryStatus();
+
 /// The single recording entry point (SEC-09).
 @Riverpod(keepAlive: true)
 RecordingController recordingController(Ref ref) {
@@ -108,6 +127,8 @@ RecordingController recordingController(Ref ref) {
     callGuard: ref.watch(callGuardProvider),
     clock: ref.watch(clockProvider),
     isAppInForeground: isAppInForeground,
+    // "Still recording (1h 00m)" while backgrounded (SEC-09 §6, AUD-05).
+    reminders: ref.watch(recordingIndicatorProvider),
   );
   ref.onDispose(controller.dispose);
   return controller;
