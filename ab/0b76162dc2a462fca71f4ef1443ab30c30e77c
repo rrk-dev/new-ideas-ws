@@ -1,0 +1,165 @@
+app/drift_schemas/vaultvoice/drift_schema_v1.json
+  s_9f6fcf8c1840a0::t_cefab730cd9eff 1-762,764-1389,1391-1975,1977-2020,2022-2071
+  s_9f6fcf8c1840a0::t_1778a7d75bac10 763,1390,1976,2021
+app/lib/core/db/connection.dart
+  s_9f6fcf8c1840a0::t_3e006ab901f57d 44
+  s_9f6fcf8c1840a0::t_1a08f267eb5e52 1-43,45-52
+app/lib/core/db/tables/profile_tables.dart
+  s_9f6fcf8c1840a0::t_66f8f57306ba95 1-4
+  s_9f6fcf8c1840a0::t_54342ad59e8c3e 5-37
+app/lib/core/db/repositories/transcripts_repository.g.dart
+  s_9f6fcf8c1840a0::t_1578febb79d904 1-27
+docs/adr/ADR-FND-04-database.md
+  s_9f6fcf8c1840a0::t_a1c58a7d94ea49 1-108
+.agents/skills/vv-local-database/SKILL.md
+  s_9f6fcf8c1840a0::t_daf8c3bdc17f24 27,35
+app/test/db/fixtures/v2_fixture_database.dart
+  s_9f6fcf8c1840a0::t_e102fe67327fc3 1-29,31-60,64,67-70,73
+  s_9f6fcf8c1840a0::t_e68d24eed8f7bb 30,62-63
+  s_9f6fcf8c1840a0::t_78480f364a6f1f 61,65-66,71-72
+app/lib/core/db/repositories/profiles_repository.dart
+  s_9f6fcf8c1840a0::t_82d2d2c4d60bef 1-48
+app/lib/core/db/repositories/settings_repository.dart
+  s_9f6fcf8c1840a0::t_c82e20f11570cd 30-33,36-37
+  s_9f6fcf8c1840a0::t_8b1e82bd23b540 1-29,34-35,38-44
+app/test/db/repositories/recordings_repository_test.dart
+  s_9f6fcf8c1840a0::t_a960e49ee32eba 75-76,78-80,83,85-86,93,95-96,103-106,108,121,123,125,147-150,152,160,163,169,171,174,184,186,189,194,200,210
+  s_9f6fcf8c1840a0::t_f07c9205311788 1-74,77,81-82,84,87-92,94,97-102,107,109-120,122,124,126-146,151,153-159,161-162,164-168,170,172-173,175-183,185,187-188,190-193,195-199,201-209,211-278
+  s_9f6fcf8c1840a0::t_0e7c932d06df5a 279-281
+app/lib/core/db/db_providers.dart
+  s_9f6fcf8c1840a0::t_9b8486fe4e5e47 1-74
+app/test/db/fixtures/v2_fixture_database.g.dart
+  s_9f6fcf8c1840a0::t_5c66b11cf377f5 1-2776,2778-2884,2886-2887,2889-2952,2954-3012,3014-3234,3236-3289,3291-5510,5512-5614,5616-5617,5619-5669,5671-5734,5736-5937,5939-5983,5985-15917
+  s_9f6fcf8c1840a0::t_2be9116a61c17a 2777,2885,2888,2953,3013,3235,3290,5511,5615,5618,5670,5735,5938,5984
+app/lib/core/db/repositories/models_repository.g.dart
+  s_9f6fcf8c1840a0::t_1578febb79d904 1-19
+app/lib/core/db/tables/recording_tables.dart
+  s_9f6fcf8c1840a0::t_66f8f57306ba95 1-4
+  s_9f6fcf8c1840a0::t_def233bfec8873 5-87
+app/lib/core/db/repositories/extractions_repository.g.dart
+  s_9f6fcf8c1840a0::t_1578febb79d904 1-23
+app/lib/core/db/repositories/settings_repository.g.dart
+  s_9f6fcf8c1840a0::t_1578febb79d904 1-16
+app/android/app/src/main/AndroidManifest.xml
+  s_9f6fcf8c1840a0::t_b50ffdd65de5c4 5-8
+app/lib/core/db/migrations.dart
+  s_9f6fcf8c1840a0::t_81f95346822cdc 31
+  s_9f6fcf8c1840a0::t_dbbf7ad6e3ca98 1-30,32-62
+app/test/db/migrations/fixture_v2_migration_test.dart
+  s_9f6fcf8c1840a0::t_91f50ac5a596e9 1-163
+app/lib/core/db/repositories/jobs_repository.dart
+  s_9f6fcf8c1840a0::t_c82e20f11570cd 35-40
+  s_9f6fcf8c1840a0::t_7f2674d96d9438 48-49
+  s_9f6fcf8c1840a0::t_ccb15074612faf 1-34,41-47,50
+app/analysis_options.yaml
+  s_9f6fcf8c1840a0::t_10046c66cfc481 13-14
+app/test/db/repositories/transcripts_jobs_repository_test.dart
+  s_9f6fcf8c1840a0::t_7350d881addb59 1-212
+  s_9f6fcf8c1840a0::t_9febc1b992ed0b 213
+app/test/db/migrations/vaultvoice/generated/schema.dart
+  s_9f6fcf8c1840a0::t_91f50ac5a596e9 1-22
+app/test/db/repositories/content_repository_test.dart
+  s_9f6fcf8c1840a0::t_f351243c4084e9 1-360
+  s_9f6fcf8c1840a0::t_ed847ba3cb2040 361-373
+app/lib/core/db/repositories/extractions_repository.dart
+  s_9f6fcf8c1840a0::t_81f95346822cdc 35-36,46
+  s_9f6fcf8c1840a0::t_c82e20f11570cd 58
+  s_9f6fcf8c1840a0::t_9b488a4d407948 1-34,37-45,47-57,59-76
+app/lib/core/db/storage_paths.dart
+  s_9f6fcf8c1840a0::t_908f6d8730757b 1-64
+app/lib/core/db/tables/transcript_tables.dart
+  s_9f6fcf8c1840a0::t_54b0125eeea75b 5-34,36-46
+  s_9f6fcf8c1840a0::t_66f8f57306ba95 1-4,35
+app/android/app/src/main/res/xml/data_extraction_rules.xml
+  s_9f6fcf8c1840a0::t_17dceeca1c0091 1-20
+app/lib/core/db/tables/settings_tables.dart
+  s_9f6fcf8c1840a0::t_66f8f57306ba95 1-4
+  s_9f6fcf8c1840a0::t_0a014bd6e595d7 5-35
+app/lib/core/db/tables/extraction_tables.dart
+  s_9f6fcf8c1840a0::t_9b2ce6f1a8650f 5-35,37-42
+  s_9f6fcf8c1840a0::t_66f8f57306ba95 1-4,36
+app/lib/core/db/repositories/recordings_repository.g.dart
+  s_9f6fcf8c1840a0::t_1578febb79d904 1-31
+app/lib/core/db/repositories/profiles_repository.g.dart
+  s_9f6fcf8c1840a0::t_1578febb79d904 1-19
+tasks/01-foundation/FND-04-local-database.md
+  s_9f6fcf8c1840a0::t_1993a2f80185e1 11-15,21-45
+app/lib/core/db/tables/export_tables.dart
+  s_9f6fcf8c1840a0::t_4508baeebee6ec 5-59
+  s_9f6fcf8c1840a0::t_66f8f57306ba95 1-4
+app/test/db/migrations/vaultvoice/generated/schema_v1.dart
+  s_9f6fcf8c1840a0::t_91f50ac5a596e9 1-1773
+app/lib/core/db/repositories/transcripts_repository.dart
+  s_9f6fcf8c1840a0::t_c82e20f11570cd 24-25
+  s_9f6fcf8c1840a0::t_24195ca5a2d56e 1-23,26-39,42-93
+  s_9f6fcf8c1840a0::t_81f95346822cdc 40-41
+app/lib/core/db/repositories/jobs_repository.g.dart
+  s_9f6fcf8c1840a0::t_1578febb79d904 1-19
+app/lib/core/db/repositories/recordings_repository.dart
+  s_9f6fcf8c1840a0::t_9f1f8b0dc52c22 1-21,25-45,47-52,55-79,81-96,99-123
+  s_9f6fcf8c1840a0::t_6d8c161bfed93f 22-24,46,97
+  s_9f6fcf8c1840a0::t_81f95346822cdc 53-54,80,98
+app/pubspec.yaml
+  s_9f6fcf8c1840a0::t_1578febb79d904 11,17-18,20,26
+app/lib/core/db/converters.dart
+  s_9f6fcf8c1840a0::t_6144a682f3bac1 1-48
+app/build.yaml
+  s_9f6fcf8c1840a0::t_426e10acc3a4bd 1-17
+app/lib/core/db/tables/job_tables.dart
+  s_9f6fcf8c1840a0::t_c82e20f11570cd 37-38
+  s_9f6fcf8c1840a0::t_97393b1b363169 5-36,39-42
+  s_9f6fcf8c1840a0::t_66f8f57306ba95 1-4
+app/lib/core/db/repositories/models_repository.dart
+  s_9f6fcf8c1840a0::t_5f65875cfa0c2a 1-33,36-37
+  s_9f6fcf8c1840a0::t_81f95346822cdc 34-35
+app/lib/core/db/database.g.dart
+  s_9f6fcf8c1840a0::t_2be9116a61c17a 2777,2885,2888,2953,3013,3235,3290,5511,5615,5618,5670,5735,5938,5984
+  s_9f6fcf8c1840a0::t_1578febb79d904 1-2776,2778-2884,2886-2887,2889-2952,2954-3012,3014-3234,3236-3289,3291-5510,5512-5614,5616-5617,5619-5669,5671-5734,5736-5937,5939-5983,5985-15289
+app/lib/core/db/db_providers.g.dart
+  s_9f6fcf8c1840a0::t_1578febb79d904 1-530
+app/test/db/db_test_utils.dart
+  s_9f6fcf8c1840a0::t_992245942ad44d 1-47,66-72
+  s_9f6fcf8c1840a0::t_86889bcc5b5873 48-65
+app/lib/core/db/db_guard.dart
+  s_9f6fcf8c1840a0::t_fffd2c14216585 33-36,45-55
+  s_9f6fcf8c1840a0::t_1a5a8469b84ccf 1,4-32
+  s_9f6fcf8c1840a0::t_9019778686a110 37-44
+  s_9f6fcf8c1840a0::t_81f95346822cdc 2-3
+app/test/db/db_infra_test.dart
+  s_9f6fcf8c1840a0::t_80a6b8935a6f69 1-4,6-95,98-136,163,187-188
+  s_9f6fcf8c1840a0::t_e68d24eed8f7bb 97,144-147,150-151,164-186
+  s_9f6fcf8c1840a0::t_605db819cdc6e4 137-143,148-149,152-162
+  s_9f6fcf8c1840a0::t_baea93952a6126 5,96
+app/lib/core/db/repositories/vault_repository.dart
+  s_9f6fcf8c1840a0::t_774dfb54a630dc 1-93
+app/android/app/src/main/res/xml/backup_rules.xml
+  s_9f6fcf8c1840a0::t_598d6126150d6d 1-9
+tasks/README.md
+  s_9f6fcf8c1840a0::t_4fd27010dd8815 182
+app/lib/core/db/database.dart
+  s_9f6fcf8c1840a0::t_d2fc2028d1de96 23-28,46
+  s_9f6fcf8c1840a0::t_c82e20f11570cd 29-45
+  s_9f6fcf8c1840a0::t_fbffb596d13d12 1-22,47-74
+app/lib/core/db/enums.dart
+  s_9f6fcf8c1840a0::t_1c34deeaf0ffa6 1-26
+app/lib/core/db/repositories/vault_repository.g.dart
+  s_9f6fcf8c1840a0::t_1578febb79d904 1-25
+app/pubspec.lock
+  s_9f6fcf8c1840a0::t_dcc4b0e3da2f65 140-147,172-179,244-259,386-393,455-478,555,558,583-598,608,615-662,679-686,727-742,828-843,1003-1010
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ab0b76162dc2a462fca71f4ef1443ab30c30e77c",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
