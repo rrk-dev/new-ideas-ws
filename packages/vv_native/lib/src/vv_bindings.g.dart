@@ -88,6 +88,245 @@ class VvBindings {
       );
   late final _vv_llama_system_info = _vv_llama_system_infoPtr
       .asFunction<ffi.Pointer<ffi.Char> Function()>();
+
+  /// Defaults: GPU on, default device, q8_0 KV, flash attention auto, n_ctx
+  /// 4096, n_batch 512, perf-core threads, mmap on.
+  vv_llm_backend_params vv_llm_default_backend_params() {
+    return _vv_llm_default_backend_params();
+  }
+
+  late final _vv_llm_default_backend_paramsPtr =
+      _lookup<ffi.NativeFunction<vv_llm_backend_params Function()>>(
+        'vv_llm_default_backend_params',
+      );
+  late final _vv_llm_default_backend_params = _vv_llm_default_backend_paramsPtr
+      .asFunction<vv_llm_backend_params Function()>();
+
+  /// Number of performance CPU cores (Apple: hw.perflevel0.physicalcpu; others:
+  /// half the online cores until LLM-03 reads the cpufreq clusters). >= 1.
+  int vv_cpu_perf_cores() {
+    return _vv_cpu_perf_cores();
+  }
+
+  late final _vv_cpu_perf_coresPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('vv_cpu_perf_cores');
+  late final _vv_cpu_perf_cores = _vv_cpu_perf_coresPtr
+      .asFunction<int Function()>();
+
+  /// GPU / integrated-GPU devices registered in ggml (Metal, Vulkan, OpenCL).
+  int vv_llm_gpu_device_count() {
+    return _vv_llm_gpu_device_count();
+  }
+
+  late final _vv_llm_gpu_device_countPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>(
+        'vv_llm_gpu_device_count',
+      );
+  late final _vv_llm_gpu_device_count = _vv_llm_gpu_device_countPtr
+      .asFunction<int Function()>();
+
+  /// Name (e.g. "MTL0", "Vulkan0", "GPUOpenCL") and description (driver/GPU
+  /// model, e.g. "Apple M3 Pro", "Adreno (TM) 750") of GPU device `index`,
+  /// NUL-terminated and truncated to the caller's buffers. Diagnostics and
+  /// allowlisting only — never content.
+  int vv_llm_gpu_device_info(
+    int index,
+    ffi.Pointer<ffi.Char> name,
+    int name_cap,
+    ffi.Pointer<ffi.Char> description,
+    int description_cap,
+  ) {
+    return _vv_llm_gpu_device_info(
+      index,
+      name,
+      name_cap,
+      description,
+      description_cap,
+    );
+  }
+
+  late final _vv_llm_gpu_device_infoPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Int32,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+          )
+        >
+      >('vv_llm_gpu_device_info');
+  late final _vv_llm_gpu_device_info = _vv_llm_gpu_device_infoPtr
+      .asFunction<
+        int Function(
+          int,
+          ffi.Pointer<ffi.Char>,
+          int,
+          ffi.Pointer<ffi.Char>,
+          int,
+        )
+      >();
+
+  /// Loads `model_path` with `params` (falling back GPU -> CPU and q8_0 -> f16
+  /// KV when initialisation fails), prefills `n_prompt` synthetic tokens, then
+  /// greedily decodes `n_gen` tokens (end-of-generation banned) and frees
+  /// everything. Blocking and heavy: call from a background isolate / thread.
+  /// Returns VV_OK, VV_E_INVALID_ARG (null args, n_prompt + n_gen > n_ctx, bad
+  /// gpu_device), VV_E_MODEL_LOAD, VV_E_BACKEND (decode failed), VV_E_OOM.
+  int vv_llm_bench(
+    ffi.Pointer<ffi.Char> model_path,
+    ffi.Pointer<vv_llm_backend_params> params,
+    int n_prompt,
+    int n_gen,
+    ffi.Pointer<vv_llm_bench_result> out,
+  ) {
+    return _vv_llm_bench(model_path, params, n_prompt, n_gen, out);
+  }
+
+  late final _vv_llm_benchPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<vv_llm_backend_params>,
+            ffi.Int32,
+            ffi.Int32,
+            ffi.Pointer<vv_llm_bench_result>,
+          )
+        >
+      >('vv_llm_bench');
+  late final _vv_llm_bench = _vv_llm_benchPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<vv_llm_backend_params>,
+          int,
+          int,
+          ffi.Pointer<vv_llm_bench_result>,
+        )
+      >();
+}
+
+/// How to run llama.cpp. Get defaults from vv_llm_default_backend_params().
+final class vv_llm_backend_params extends ffi.Struct {
+  /// = sizeof(vv_llm_backend_params)
+  @ffi.Int32()
+  external int struct_size;
+
+  /// 1: offload every layer + KV to the GPU (Metal / Vulkan / OpenCL).
+  /// 0: CPU only — no GPU device is even attached (iOS forbids GPU work in the
+  /// background; Android GPU backends that are not allowlisted).
+  @ffi.Int32()
+  external int use_gpu;
+
+  /// GPU device index from vv_llm_gpu_device_info (allowlist choice), or -1 =
+  /// llama.cpp's default device selection. Ignored when use_gpu = 0.
+  @ffi.Int32()
+  external int gpu_device;
+
+  /// 1: q8_0 K/V cache (needs flash attention), 0: f16
+  @ffi.Int32()
+  external int kv_quant;
+
+  /// VV_LLM_FLASH_ATTN_*
+  @ffi.Int32()
+  external int flash_attn;
+
+  /// context tokens; must hold prompt + generation
+  @ffi.Int32()
+  external int n_ctx;
+
+  /// logical = physical batch (prefill slice)
+  @ffi.Int32()
+  external int n_batch;
+
+  /// 0 = vv_cpu_perf_cores()
+  @ffi.Int32()
+  external int n_threads;
+
+  /// 1: memory-map the GGUF (pages are clean, evictable)
+  @ffi.Int32()
+  external int use_mmap;
+}
+
+final class vv_llm_bench_result extends ffi.Struct {
+  /// = sizeof(vv_llm_bench_result), set by the caller
+  @ffi.Int32()
+  external int struct_size;
+
+  /// effective after fallbacks
+  @ffi.Int32()
+  external int used_gpu;
+
+  @ffi.Int32()
+  external int used_kv_quant;
+
+  /// VV_LLM_FALLBACK_* bits
+  @ffi.Int32()
+  external int fallbacks;
+
+  @ffi.Int32()
+  external int n_threads;
+
+  @ffi.Int32()
+  external int n_prompt;
+
+  @ffi.Int32()
+  external int n_gen;
+
+  /// model load (cold for the first call in a process)
+  @ffi.Double()
+  external double load_ms;
+
+  @ffi.Double()
+  external double ctx_init_ms;
+
+  @ffi.Double()
+  external double prefill_tps;
+
+  @ffi.Double()
+  external double decode_tps;
+
+  /// tensor bytes reported by llama.cpp
+  @ffi.Uint64()
+  external int model_bytes;
+
+  /// process peak: iOS/macOS phys_footprint, Linux/Android VmHWM
+  @ffi.Uint64()
+  external int peak_mem_bytes;
+
+  /// FNV-1a of the greedy tokens: determinism check
+  @ffi.Uint64()
+  external int output_hash;
 }
 
 const int VV_ABI_VERSION = 1;
+
+const int VV_OK = 0;
+
+const int VV_E_INVALID_ARG = -1;
+
+const int VV_E_MODEL_LOAD = -2;
+
+const int VV_E_OOM = -3;
+
+const int VV_E_CANCELLED = -4;
+
+const int VV_E_IO = -5;
+
+const int VV_E_BACKEND = -6;
+
+const int VV_E_BUSY = -7;
+
+const int VV_E_INTERNAL = -8;
+
+const int VV_LLM_FLASH_ATTN_AUTO = -1;
+
+const int VV_LLM_FLASH_ATTN_OFF = 0;
+
+const int VV_LLM_FLASH_ATTN_ON = 1;
+
+const int VV_LLM_FALLBACK_GPU_TO_CPU = 1;
+
+const int VV_LLM_FALLBACK_KV_TO_F16 = 2;

@@ -7,6 +7,8 @@ headers:
     - ../../native/bridge/vv_bridge.h
   include-directives:
     - ../../native/bridge/vv_bridge.h
+    - ../../native/bridge/vv_error.h
+    - ../../native/bridge/vv_llama.h
 preamble: |
   // ignore_for_file: type=lint, unused_field, unused_element
 comments:

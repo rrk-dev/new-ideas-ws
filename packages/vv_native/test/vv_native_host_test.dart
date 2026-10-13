@@ -36,4 +36,63 @@ void main() {
       throwsA(isA<ArgumentError>()),
     );
   });
+
+  group('LLM-02 llama.cpp backend over FFI (host)', () {
+    final modelsDir = Platform.environment['VV_TEST_MODELS_DIR'];
+    final model = modelsDir == null
+        ? null
+        : File('$modelsDir/SmolLM2-135M-Instruct-Q8_0.gguf');
+    final modelSkip =
+        skip ??
+        (model != null && model.existsSync()
+            ? null
+            : 'set VV_TEST_MODELS_DIR (tools/ci/fetch_test_models.sh)');
+
+    test('lists GPU devices and perf cores', () {
+      final native = VvNative.open(hostPath: lib);
+      expect(native.perfCores, greaterThanOrEqualTo(1));
+      final gpus = native.gpuDevices();
+      if (Platform.isMacOS) expect(gpus.first.$2, startsWith('MTL'));
+    }, skip: skip);
+
+    test('missing model -> VV_E_MODEL_LOAD', () {
+      final native = VvNative.open(hostPath: lib);
+      expect(
+        () => native.llmBench(
+          '/nonexistent/m.gguf',
+          const LlmBackendParams(nCtx: 64),
+          nPrompt: 8,
+          nGen: 8,
+        ),
+        throwsA(
+          isA<VvLlmException>().having((e) => e.code, 'code', VV_E_MODEL_LOAD),
+        ),
+      );
+    }, skip: skip);
+
+    test('GPU and CPU-only runs; CPU greedy output is deterministic', () {
+      final native = VvNative.open(hostPath: lib);
+      final gpu = native.llmBench(
+        model!.path,
+        const LlmBackendParams(nCtx: 256, nBatch: 64),
+        nPrompt: 64,
+        nGen: 16,
+      );
+      expect(gpu.nGen, 16);
+      expect(gpu.decodeTps, greaterThan(0));
+      expect(gpu.usedGpu, Platform.isMacOS);
+      const cpuParams = LlmBackendParams(
+        useGpu: false,
+        nCtx: 256,
+        nBatch: 64,
+        nThreads: 2,
+      );
+      final a = native.llmBench(model.path, cpuParams, nPrompt: 64, nGen: 16);
+      final b = native.llmBench(model.path, cpuParams, nPrompt: 64, nGen: 16);
+      expect(a.usedGpu, isFalse);
+      expect(a.fellBackToCpu, isFalse);
+      expect(a.outputHash, b.outputHash);
+      expect(a.toJson().keys, contains('peak_mem_bytes'));
+    }, skip: modelSkip);
+  });
 }
