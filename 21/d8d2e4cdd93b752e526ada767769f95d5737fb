@@ -1,0 +1,75 @@
+app/lib/features/models/domain/model_file_verifier.dart
+  s_9f6fcf8c1840a0::t_7ee8d5d2900b66 1-43
+app/lib/features/models/domain/catalog_state_store.dart
+  s_9f6fcf8c1840a0::t_80e32d14cc1e5d 1-23
+app/lib/features/models/data/catalog_config.dart
+  s_9f6fcf8c1840a0::t_a77dbde8f03a9a 13-15
+  s_9f6fcf8c1840a0::t_7f41f7174b39f6 1-12,16-27
+app/lib/core/platform/providers.dart
+  s_9f6fcf8c1840a0::t_cc76d2734fa020 2
+  s_9f6fcf8c1840a0::t_88ac87099a363e 35,37-38
+app/lib/features/models/domain/catalog_keys.dart
+  s_9f6fcf8c1840a0::t_64db7736aecaa8 1-24
+app/lib/features/models/data/catalog_repository.dart
+  s_9f6fcf8c1840a0::t_0673f60b8075ce 20-22,25-27,118
+  s_9f6fcf8c1840a0::t_d121003e40de7a 69-71,82,104,111
+  s_9f6fcf8c1840a0::t_f4b6e47dda2269 1-19,23-24,28-49,53-68,72-81,83-103,105-110,112-117,119-120,124-127
+  s_9f6fcf8c1840a0::t_b3e5567b9d0795 50-52
+  s_9f6fcf8c1840a0::t_a77dbde8f03a9a 121-123
+app/test/unit/models/catalog_repository_test.dart
+  s_9f6fcf8c1840a0::t_55ba247a83a7e9 88-90,97-115,117-137,150-153,168-176,178-200
+  s_9f6fcf8c1840a0::t_0fddf4218ee3db 1-24,26-87,91-96,116,138-149,154-167,177,201
+  s_9f6fcf8c1840a0::t_508621c69d090d 25
+app/pubspec.yaml
+  s_9f6fcf8c1840a0::t_d2fc4e80ace8ab 10-11
+  s_9f6fcf8c1840a0::t_b5d1b3109755d5 38-41
+app/lib/features/models/domain/model_catalog.dart
+  s_9f6fcf8c1840a0::t_4e02c4be605d8f 1-18,20-28,30-38,40-154,157-166,168-171,173-203,205-230,234-310
+  s_9f6fcf8c1840a0::t_a77dbde8f03a9a 19,29,39
+  s_9f6fcf8c1840a0::t_0673f60b8075ce 167,172,204
+  s_9f6fcf8c1840a0::t_b3e5567b9d0795 155-156,231-233
+app/lib/core/platform/providers.g.dart
+  s_9f6fcf8c1840a0::t_2d4bc8699c5c9a 216,221,226,260
+app/lib/features/models/data/catalog_providers.dart
+  s_9f6fcf8c1840a0::t_b6543e989c1b3e 1-25
+.gitattributes
+  s_9f6fcf8c1840a0::t_3e2c5dc301960a 10-11
+app/lib/features/models/data/catalog_providers.g.dart
+  s_9f6fcf8c1840a0::t_2d4bc8699c5c9a 1-151
+app/lib/core/errors/failure.dart
+  s_9f6fcf8c1840a0::t_f8071f3ab7e9e1 105
+  s_9f6fcf8c1840a0::t_8b7ec8d71b6f8d 72-104,106-123
+app/lib/features/models/domain/catalog_verifier.dart
+  s_9f6fcf8c1840a0::t_0673f60b8075ce 6,12
+  s_9f6fcf8c1840a0::t_a0b66b358123f4 1-5,7-11,13-121
+app/lib/core/network/model_hosts.dart
+  s_9f6fcf8c1840a0::t_b3004a46120f04 2-15
+  s_9f6fcf8c1840a0::t_7f9834c042511d 1
+  s_9f6fcf8c1840a0::t_0673f60b8075ce 16
+app/test/helpers/catalog_signing.dart
+  s_9f6fcf8c1840a0::t_71e77b05fe75fe 1-73
+app/test/unit/providers_test.dart
+  s_9f6fcf8c1840a0::t_2d4bc8699c5c9a 5,14,19
+app/test/unit/models/catalog_verifier_test.dart
+  s_9f6fcf8c1840a0::t_508621c69d090d 41,226
+  s_9f6fcf8c1840a0::t_66a2570bbf699c 1-40,42-58,78,80-81,90-116,151,154,169-176,192-224,228-280,289-291,294-295,329-387,392-397,402-407
+  s_9f6fcf8c1840a0::t_55ba247a83a7e9 59-77,79,82-89,117-150,152-153,155-168,177-191,225,227,281-288,292-293,296-328,388-391,398-401
+app/pubspec.lock
+  s_9f6fcf8c1840a0::t_40d184d973e3bd 189,196-203
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "21d8d2e4cdd93b752e526ada767769f95d5737fb",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
