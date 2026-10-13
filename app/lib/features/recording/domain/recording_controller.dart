@@ -9,14 +9,22 @@ import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
 import 'package:vaultvoice/features/recording/domain/recording_limits.dart';
 import 'package:vaultvoice/features/recording/domain/start_source.dart';
 
+export 'package:vaultvoice/features/recording/domain/capture_backend.dart'
+    show CaptureNotice, GapKind, StopCause;
+
 /// Lifecycle of one recording session.
 enum RecordingPhase { idle, recording, paused, stopped }
 
 /// Why a recording is paused.
-enum PauseCause { user, call, audioInterruption, captureSilenced }
+enum PauseCause {
+  user,
+  call,
+  audioInterruption,
+  captureSilenced,
 
-/// Why a recording stopped.
-enum StopCause { user, maxDuration, silence }
+  /// The microphone stream failed (AUD-01); Resume reopens it.
+  captureError,
+}
 
 /// Immutable snapshot of the controller.
 final class RecordingState {
@@ -77,6 +85,8 @@ class RecordingController {
   final RecordingLimits limits;
 
   final _states = StreamController<RecordingState>.broadcast();
+  final _notices = StreamController<CaptureNotice>.broadcast();
+  StreamSubscription<CaptureNotice>? _noticeSub;
   RecordingPhase _phase = RecordingPhase.idle;
   PauseCause? _pauseCause;
   StopCause? _stopCause;
@@ -102,6 +112,10 @@ class RecordingController {
 
   /// Snapshots on every phase change.
   Stream<RecordingState> get states => _states.stream;
+
+  /// Capture notices (low storage, OS interruption, failures) of the open
+  /// recording, for the recording UI (AUD-08).
+  Stream<CaptureNotice> get notices => _notices.stream;
 
   /// Recorded time, paused spans excluded.
   Duration get elapsed => switch (_activeSince) {
@@ -140,6 +154,8 @@ class RecordingController {
     _accumulated = Duration.zero;
     _nextReminderAt = limits.reminderInterval;
     _stopCause = null;
+    unawaited(_noticeSub?.cancel());
+    _noticeSub = _capture.notices.listen(_onNotice);
     _enterRecording();
     _applyPendingBlock();
     return const Ok<void>(null);
@@ -193,8 +209,9 @@ class RecordingController {
     _pauseCause = null;
     _stopCause = cause;
     _endGuardWatch();
+    _endNoticeWatch();
     _emit();
-    return await _capture.close();
+    return await _capture.close(cause: cause);
   }
 
   /// Fed by VAD (AUD-03): length of the current continuous silence.
@@ -208,7 +225,9 @@ class RecordingController {
   Future<void> dispose() async {
     _ticker?.cancel();
     _endGuardWatch();
+    _endNoticeWatch();
     await _states.close();
+    await _notices.close();
   }
 
   // --- internals ------------------------------------------------------------
@@ -233,6 +252,37 @@ class RecordingController {
     }
     if (_phase != RecordingPhase.recording) return;
     _forceSuspend(event);
+  }
+
+  /// Capture-side events (AUD-01). An OS pause or a stream failure becomes a
+  /// pause that only a user tap ends; low storage stops and finalizes.
+  void _onNotice(CaptureNotice notice) {
+    if (!_notices.isClosed) _notices.add(notice);
+    switch (notice) {
+      case CaptureNotice.lowStorageWarning:
+        break;
+      case CaptureNotice.lowStorageStop:
+        final active =
+            _phase == RecordingPhase.recording ||
+            _phase == RecordingPhase.paused;
+        if (active && !_opening) unawaited(stop(cause: StopCause.lowStorage));
+      case CaptureNotice.interrupted || CaptureNotice.captureFailed:
+        if (_phase != RecordingPhase.recording || _opening) return;
+        final interrupted = notice == CaptureNotice.interrupted;
+        _enterPaused(
+          interrupted ? PauseCause.audioInterruption : PauseCause.captureError,
+        );
+        unawaited(
+          _capture.suspend(
+            gap: interrupted ? GapKind.audioInterruption : GapKind.captureError,
+          ),
+        );
+    }
+  }
+
+  void _endNoticeWatch() {
+    unawaited(_noticeSub?.cancel());
+    _noticeSub = null;
   }
 
   void _applyPendingBlock() {

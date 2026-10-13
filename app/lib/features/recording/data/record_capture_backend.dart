@@ -1,0 +1,470 @@
+import 'dart:async';
+import 'dart:typed_data';
+
+import 'package:drift/drift.dart' show Value;
+import 'package:vaultvoice/core/db/database.dart';
+import 'package:vaultvoice/core/db/enums.dart';
+import 'package:vaultvoice/core/db/repositories/recordings_repository.dart';
+import 'package:vaultvoice/core/db/storage_paths.dart';
+import 'package:vaultvoice/core/errors/failure.dart';
+import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/core/logging/logger.dart';
+import 'package:vaultvoice/core/platform/audio_recorder.dart';
+import 'package:vaultvoice/core/platform/clock.dart';
+import 'package:vaultvoice/core/platform/id_generator.dart';
+import 'package:vaultvoice/features/recording/data/recording_chunk_writer.dart';
+import 'package:vaultvoice/features/recording/data/wav_chunk_codec.dart';
+import 'package:vaultvoice/features/recording/domain/audio_chunk_codec.dart';
+import 'package:vaultvoice/features/recording/domain/audio_format.dart';
+import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
+import 'package:vaultvoice/features/recording/domain/pcm_converter.dart';
+import 'package:vaultvoice/features/recording/domain/pcm_mic_source.dart';
+import 'package:vaultvoice/features/recording/domain/storage_policy.dart';
+
+/// The real [CaptureBackend] (AUD-01): microphone PCM from a [PcmMicSource]
+/// (the `record` package) → [PcmConverter] (only when the platform did not
+/// deliver 16 kHz mono) → [RecordingChunkWriter] (rolling chunk files through
+/// the [AudioChunkCodec] seam + `recordings`/`audio_chunks`/`markers` rows).
+///
+/// * Called only by `RecordingController`, after its SEC-09 checks.
+/// * [suspend] stops accepting audio **synchronously** (before any await), so
+///   nothing captured after a call event is written; audio received after
+///   `discardFrom − discardMargin` is removed from the chunk.
+/// * Everything is flushed to disk at least every [flushInterval] (≤ 1 s,
+///   AUD-07) and the recording row stays `recording`/`inProgress` until
+///   [close] marks it `recorded`.
+/// * Free space: refuse to start below the [StoragePolicy] minimum, warn,
+///   and raise [CaptureNotice.lowStorageStop] below the stop threshold.
+class RecordCaptureBackend implements CaptureBackend {
+  RecordCaptureBackend({
+    required PcmMicSource mic,
+    required RecordingsRepository recordings,
+    required Future<StoragePaths> Function() paths,
+    required DiskSpaceProbe disk,
+    required Clock clock,
+    required IdGenerator ids,
+    AudioChunkCodec codec = const WavChunkCodec(),
+    StoragePolicy storage = const StoragePolicy(),
+    this.chunkDuration = AudioFormat.defaultChunkDuration,
+    this.flushInterval = const Duration(seconds: 1),
+    this.discardMargin = defaultDiscardMargin,
+    MicRequest request = const MicRequest(),
+    Logger? logger,
+  }) : assert(
+         flushInterval <= const Duration(seconds: 1),
+         'AUD-07 needs a flush at least every second',
+       ),
+       _mic = mic,
+       _repo = recordings,
+       _paths = paths,
+       _disk = disk,
+       _clock = clock,
+       _ids = ids,
+       _codec = codec,
+       _storage = storage,
+       _request = request,
+       _log = logger;
+
+  /// Extra audio dropped before a call event to cover delivery latency.
+  // PRODUCT-DECISION: 250 ms (conservative: losing a quarter second of the
+  // user's own speech is preferred over keeping any call audio).
+  static const defaultDiscardMargin = Duration(milliseconds: 250);
+
+  final PcmMicSource _mic;
+  final RecordingsRepository _repo;
+  final Future<StoragePaths> Function() _paths;
+  final DiskSpaceProbe _disk;
+  final Clock _clock;
+  final IdGenerator _ids;
+  final AudioChunkCodec _codec;
+  final StoragePolicy _storage;
+  final Logger? _log;
+
+  final Duration chunkDuration;
+  final Duration flushInterval;
+  final Duration discardMargin;
+
+  MicRequest _request;
+  final _notices = StreamController<CaptureNotice>.broadcast();
+
+  _Session? _session;
+  bool _accepting = false;
+  StreamSubscription<MicEvent>? _micSub;
+  PcmConverter _converter = _contractConverter();
+  DateTime? _lastReceivedAt;
+  Timer? _flushTimer;
+  Timer? _storageTimer;
+  Future<void> _queue = Future<void>.value();
+
+  static const _tag = 'recording';
+
+  /// Id of the open recording, if any.
+  String? get recordingId => _session?.id;
+
+  /// Recorded duration of the open recording (gaps excluded).
+  Duration get recorded => _session?.writer.recorded ?? Duration.zero;
+
+  /// The microphone request used for the next open/resume.
+  MicRequest get request => _request;
+
+  /// Inputs the user can pick (built-in, wired, Bluetooth HFP, USB).
+  Future<Result<List<AudioInputDevice>>> inputDevices() => _mic.inputDevices();
+
+  /// Selects the input for the next open/resume (null = platform default).
+  /// Never opens the microphone.
+  void selectInput(AudioInputDevice? device) {
+    _request = MicRequest(
+      device: device,
+      androidSource: _request.androidSource,
+      autoGain: _request.autoGain,
+      echoCancel: _request.echoCancel,
+      noiseSuppress: _request.noiseSuppress,
+    );
+  }
+
+  @override
+  Stream<CaptureNotice> get notices => _notices.stream;
+
+  @override
+  Future<Result<void>> openMicrophone() async {
+    if (_session != null) {
+      return const Err(UnexpectedFailure('capture already open'));
+    }
+    final paths = await _paths();
+    final free = await _disk.freeBytes(paths.root);
+    var warn = false;
+    switch (free) {
+      case Ok(:final value):
+        switch (_storage.beforeStart(value)) {
+          case StorageVerdict.refuse || StorageVerdict.stop:
+            _log?.warning(_tag, 'start refused: low storage');
+            return const Err(StorageFailure('low storage'));
+          case StorageVerdict.warn:
+            warn = true;
+          case StorageVerdict.ok:
+            break;
+        }
+      case Err():
+        // PRODUCT-DECISION: an unknown free-space value does not block
+        // recording (IO errors still stop it); the next check retries.
+        _log?.warning(_tag, 'free space unknown');
+    }
+    if (!await _mic.hasPermission()) {
+      return const Err(PermissionFailure('microphone'));
+    }
+    final id = _ids.next();
+    final created = await _repo.create(
+      RecordingsCompanion.insert(
+        id: id,
+        createdAt: _clock.now(),
+        status: RecordingStatus.recording,
+        source: RecordingSource.mic,
+      ),
+    );
+    if (created case Err(:final failure)) return Err(failure);
+    final session = _Session(
+      id,
+      RecordingChunkWriter(
+        recordingId: id,
+        paths: paths,
+        codec: _codec,
+        recordings: _repo,
+        chunkDuration: chunkDuration,
+      ),
+      paths,
+    );
+    _session = session;
+    final opened = await _openMic(session);
+    if (opened case Err(:final failure)) {
+      _session = null;
+      await _repo.deleteById(id);
+      return Err(failure);
+    }
+    _log?.info(_tag, 'capture opened', fields: {'codec': _codec.id});
+    if (warn) _notices.add(CaptureNotice.lowStorageWarning);
+    return const Ok<void>(null);
+  }
+
+  @override
+  Future<Result<void>> suspend({
+    required GapKind gap,
+    DateTime? discardFrom,
+  }) async {
+    final session = _session;
+    if (session == null || !session.micOpen) return const Ok<void>(null);
+    // Synchronous, before any await: nothing delivered from now on is kept.
+    _accepting = false;
+    session.micOpen = false;
+    final discard = discardFrom == null
+        ? 0
+        : _samplesSince(discardFrom.subtract(discardMargin));
+    _stopTimers();
+    await _closeMic();
+    // The resampler tail belongs to the discarded span after a call event.
+    final tail = _converter.flush();
+    final keepTail = discardFrom == null;
+    final writer = session.writer;
+    final ended = await _serial(() async {
+      if (keepTail && tail.isNotEmpty) {
+        final r = await writer.append(tail);
+        if (r case Err()) return r;
+      }
+      return writer.endSegment(discardSamples: discard, gap: gap);
+    });
+    await _updateRow(session, RecordingStatus.inProgress);
+    _log?.info(
+      _tag,
+      'capture suspended',
+      fields: {'gap': gap, 'discarded_ms': AudioFormat.msOf(discard)},
+    );
+    return ended;
+  }
+
+  @override
+  Future<Result<void>> resumeCapture() async {
+    final session = _session;
+    if (session == null) {
+      return const Err(UnexpectedFailure('no capture open'));
+    }
+    if (session.micOpen) return const Ok<void>(null);
+    final free = await _disk.freeBytes(session.paths.root);
+    if (free case Ok(:final value)
+        when _storage.beforeStart(value) == StorageVerdict.refuse) {
+      return const Err(StorageFailure('low storage'));
+    }
+    final opened = await _openMic(session);
+    if (opened case Err()) return opened;
+    await _updateRow(session, RecordingStatus.recording);
+    return const Ok<void>(null);
+  }
+
+  @override
+  Future<Result<RecordedAudio>> close({
+    StopCause cause = StopCause.user,
+  }) async {
+    final session = _session;
+    if (session == null) {
+      return const Err(UnexpectedFailure('no capture open'));
+    }
+    _accepting = false;
+    final wasOpen = session.micOpen;
+    session.micOpen = false;
+    _stopTimers();
+    await _closeMic();
+    final tail = wasOpen ? _converter.flush() : Uint8List(0);
+    final writer = session.writer;
+    final ended = await _serial(() async {
+      if (tail.isNotEmpty) {
+        final r = await writer.append(tail);
+        if (r case Err()) return r;
+      }
+      return writer.endSegment();
+    });
+    _session = null;
+    await _updateRow(
+      session,
+      RecordingStatus.recorded,
+      stopReason: stopReasonOf(cause),
+    );
+    _log?.info(
+      _tag,
+      'capture closed',
+      fields: {
+        'duration_ms': writer.recorded.inMilliseconds,
+        'chunks': writer.chunkCount,
+        'cause': cause,
+      },
+    );
+    if (ended case Err(:final failure)) return Err(failure);
+    return Ok(
+      RecordedAudio(
+        path: writer.relativeDir,
+        duration: writer.recorded,
+        recordingId: session.id,
+      ),
+    );
+  }
+
+  /// Releases the notice stream (provider disposal).
+  Future<void> dispose() async {
+    _stopTimers();
+    await _closeMic();
+    await _notices.close();
+  }
+
+  // --- internals ------------------------------------------------------------
+
+  Future<Result<void>> _openMic(_Session session) async {
+    final opened = await _mic.open(_request);
+    switch (opened) {
+      case Err(:final failure):
+        return Err(failure);
+      case Ok(value: final events):
+        _converter = _contractConverter();
+        _lastReceivedAt = null;
+        session.writer.beginSegment();
+        session.micOpen = true;
+        _accepting = true;
+        _micSub = events.listen(_onMic);
+        _startTimers(session);
+        return const Ok<void>(null);
+    }
+  }
+
+  void _onMic(MicEvent event) {
+    if (!_accepting) return; // suspended: drop everything still in flight
+    final session = _session;
+    if (session == null) return;
+    switch (event) {
+      case MicData(:final bytes, :final receivedAt):
+        _lastReceivedAt = receivedAt;
+        _append(session, _converter.convert(bytes));
+      case MicFormatChanged(:final format):
+        final tail = _converter.flush();
+        _append(session, tail);
+        _converter = PcmConverter(
+          inRate: format.sampleRate,
+          inChannels: format.channels,
+        );
+        _log?.info(
+          _tag,
+          'mic format adjusted',
+          fields: {'rate': format.sampleRate, 'channels': format.channels},
+        );
+      case MicInterrupted():
+        _notices.add(CaptureNotice.interrupted);
+      case MicFailed():
+        _notices.add(CaptureNotice.captureFailed);
+    }
+  }
+
+  void _append(_Session session, Uint8List pcm) {
+    if (pcm.isEmpty) return;
+    unawaited(
+      _serial(() => session.writer.append(pcm)).then((r) {
+        if (r case Err() when _accepting) {
+          _notices.add(CaptureNotice.captureFailed);
+        }
+      }),
+    );
+  }
+
+  int _samplesSince(DateTime from) {
+    final last = _lastReceivedAt;
+    if (last == null) return 0;
+    final d = last.difference(from);
+    return d.isNegative ? 0 : AudioFormat.samplesFor(d);
+  }
+
+  void _startTimers(_Session session) {
+    _stopTimers();
+    _flushTimer = Timer.periodic(flushInterval, (_) {
+      unawaited(_flush(session));
+    });
+    _storageTimer = Timer.periodic(_storage.checkInterval, (_) {
+      unawaited(_checkStorage(session));
+    });
+  }
+
+  void _stopTimers() {
+    _flushTimer?.cancel();
+    _storageTimer?.cancel();
+    _flushTimer = null;
+    _storageTimer = null;
+  }
+
+  Future<void> _flush(_Session session) async {
+    final r = await _serial(session.writer.flush);
+    if (r case Err() when _accepting) {
+      _notices.add(CaptureNotice.captureFailed);
+      return;
+    }
+    await _repo.updateFields(
+      session.id,
+      RecordingsCompanion(
+        durationMs: Value(session.writer.recorded.inMilliseconds),
+      ),
+    );
+  }
+
+  Future<void> _checkStorage(_Session session) async {
+    final free = await _disk.freeBytes(session.paths.root);
+    if (free case Ok(:final value) when _accepting) {
+      switch (_storage.whileRecording(value)) {
+        case StorageVerdict.stop || StorageVerdict.refuse:
+          _log?.warning(_tag, 'low storage: stopping');
+          _notices.add(CaptureNotice.lowStorageStop);
+        case StorageVerdict.warn:
+          if (!session.warned) {
+            session.warned = true;
+            _notices.add(CaptureNotice.lowStorageWarning);
+          }
+        case StorageVerdict.ok:
+          break;
+      }
+    }
+  }
+
+  Future<void> _closeMic() async {
+    final sub = _micSub;
+    _micSub = null;
+    await sub?.cancel();
+    await _mic.close();
+  }
+
+  Future<void> _updateRow(
+    _Session session,
+    RecordingStatus status, {
+    StopReason? stopReason,
+  }) async {
+    final r = await _repo.updateFields(
+      session.id,
+      RecordingsCompanion(
+        status: Value(status),
+        durationMs: Value(session.writer.recorded.inMilliseconds),
+        stopReason: stopReason == null
+            ? const Value.absent()
+            : Value(stopReason),
+      ),
+    );
+    if (r case Err(:final failure)) {
+      _log?.error(_tag, 'recording row update failed', fields: {'f': failure});
+    }
+  }
+
+  /// Runs [op] after every previously queued op (chunk IO is sequential).
+  Future<Result<void>> _serial(Future<Result<void>> Function() op) {
+    final done = Completer<Result<void>>();
+    _queue = _queue.then((_) async {
+      try {
+        done.complete(await op());
+      } on Object catch (e) {
+        done.complete(Err(UnexpectedFailure(e.runtimeType.toString())));
+      }
+    });
+    return done.future;
+  }
+
+  static PcmConverter _contractConverter() => PcmConverter(
+    inRate: AudioFormat.sampleRate,
+    inChannels: AudioFormat.channels,
+  );
+}
+
+/// Persisted stop reason for a controller [StopCause].
+StopReason stopReasonOf(StopCause cause) => switch (cause) {
+  StopCause.user => StopReason.user,
+  StopCause.maxDuration => StopReason.maxDuration,
+  StopCause.silence => StopReason.silence,
+  StopCause.lowStorage => StopReason.lowStorage,
+};
+
+final class _Session {
+  _Session(this.id, this.writer, this.paths);
+
+  final String id;
+  final RecordingChunkWriter writer;
+  final StoragePaths paths;
+  bool micOpen = false;
+  bool warned = false;
+}

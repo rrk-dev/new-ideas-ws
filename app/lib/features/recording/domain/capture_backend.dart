@@ -14,12 +14,42 @@ enum GapKind {
   captureSilenced('capture_silenced'),
 
   /// The user tapped Pause.
-  userPause('user_pause');
+  userPause('user_pause'),
+
+  /// The microphone stream failed or the OS paused it by itself (AUD-01).
+  captureError('capture_error');
 
   GapKind(this.wireName);
 
   /// Stored name of the gap marker.
   final String wireName;
+}
+
+/// Why a recording stopped.
+enum StopCause {
+  user,
+  maxDuration,
+  silence,
+
+  /// Free space fell below the stop threshold (AUD-01 storage policy).
+  lowStorage,
+}
+
+/// Something the capture reports on its own while a recording is open
+/// (AUD-01). `RecordingController` reacts; nothing here ever resumes capture.
+enum CaptureNotice {
+  /// Free space is below the warning threshold.
+  lowStorageWarning,
+
+  /// Free space is below the stop threshold: stop and finalize now.
+  lowStorageStop,
+
+  /// The OS paused the microphone by itself (audio focus loss, interruption)
+  /// — the recording must show as paused until the user taps Resume.
+  interrupted,
+
+  /// The microphone stream failed; capture is suspended.
+  captureFailed,
 }
 
 /// The microphone capture that `RecordingController` drives.
@@ -42,5 +72,9 @@ abstract interface class CaptureBackend {
   Future<Result<void>> resumeCapture();
 
   /// Stops capture, finalizes the last chunk and returns the recording.
-  Future<Result<RecordedAudio>> close();
+  /// [cause] is persisted as the recording's stop reason.
+  Future<Result<RecordedAudio>> close({StopCause cause = StopCause.user});
+
+  /// Notices raised by the capture while a recording is open.
+  Stream<CaptureNotice> get notices;
 }

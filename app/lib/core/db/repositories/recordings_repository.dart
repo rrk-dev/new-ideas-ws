@@ -65,6 +65,25 @@ class RecordingsRepository extends DatabaseAccessor<VaultVoiceDatabase>
     ),
   );
 
+  /// Removes the chunk row `(recordingId, seq)` (e.g. a chunk left empty
+  /// after a call-interruption discard — AUD-01).
+  Future<Result<void>> deleteChunk(String recordingId, int seq) => guardDb(
+    () =>
+        (delete(audioChunks)..where(
+              (c) => c.recordingId.equals(recordingId) & c.seq.equals(seq),
+            ))
+            .go(),
+  );
+
+  /// Chunks of a recording in sequence order (AUD-07 recovery).
+  Future<Result<List<AudioChunkRow>>> chunksOf(String recordingId) => guardDb(
+    () =>
+        (select(audioChunks)
+              ..where((c) => c.recordingId.equals(recordingId))
+              ..orderBy([(c) => OrderingTerm.asc(c.seq)]))
+            .get(),
+  );
+
   Stream<List<AudioChunkRow>> watchChunks(String recordingId) =>
       (select(audioChunks)
             ..where((c) => c.recordingId.equals(recordingId))

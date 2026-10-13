@@ -3,10 +3,12 @@ import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/platform/cancel_token.dart';
 import 'package:vaultvoice/core/platform/llm_engine.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
+import 'package:vaultvoice/features/recording/data/recording_providers.dart';
+import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
 import 'package:vaultvoice/core/platform/stt_engine.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
 
-import '../fakes/fake_audio_recorder.dart';
+import '../fakes/fake_capture_backend.dart';
 import '../fakes/fake_llm_engine.dart';
 import '../fakes/fake_stt_engine.dart';
 import '../fakes/fake_vault_writer.dart';
@@ -93,30 +95,33 @@ void main() {
     });
   });
 
-  group('AudioRecorder fake', () {
-    test('[FND-02/AC2] start/stop lifecycle and failures', () async {
-      final rec = FakeAudioRecorder();
-      final c = createContainer(overrides: fakeEngineOverrides(recorder: rec));
-      final recorder = c.read(audioRecorderProvider);
+  group('CaptureBackend fake', () {
+    test('[FND-02/AC2] records the capture sequence and failures', () async {
+      final capture = FakeCaptureBackend();
+      final c = createContainer(
+        overrides: fakeEngineOverrides(capture: capture),
+      );
+      final backend = c.read(captureBackendProvider);
 
-      expect((await recorder.stop()).isOk, isFalse);
-      expect((await recorder.start()).isOk, isTrue);
-      expect(recorder.isRecording, isTrue);
-      expect((await recorder.start()).isOk, isFalse);
-
-      final levels = <double>[];
-      final sub = recorder.levels.listen(levels.add);
-      rec.emitLevel(0.4);
-      await Future<void>.delayed(Duration.zero);
+      expect((await backend.openMicrophone()).isOk, isTrue);
+      expect(capture.micOpen, isTrue);
+      final notices = <CaptureNotice>[];
+      final sub = backend.notices.listen(notices.add);
+      capture.notify(CaptureNotice.lowStorageWarning);
       await sub.cancel();
-      expect(levels, [0.4]);
+      expect(notices, [CaptureNotice.lowStorageWarning]);
+      await backend.suspend(gap: GapKind.userPause);
+      expect(capture.micOpen, isFalse);
+      final closed = await backend.close(cause: StopCause.maxDuration);
+      expect(closed.isOk, isTrue);
+      expect(capture.calls.last, isA<CloseCall>());
+      expect((capture.calls.last as CloseCall).cause, StopCause.maxDuration);
 
-      final stopped = await recorder.stop();
-      expect(stopped.valueOrNull?.duration, const Duration(seconds: 3));
-      expect(recorder.isRecording, isFalse);
-
-      rec.failWith(const PermissionFailure('microphone'));
-      expect((await recorder.start()).failureOrNull, isA<PermissionFailure>());
+      capture.failWith(const PermissionFailure('microphone'));
+      expect(
+        (await backend.openMicrophone()).failureOrNull,
+        isA<PermissionFailure>(),
+      );
     });
   });
 
