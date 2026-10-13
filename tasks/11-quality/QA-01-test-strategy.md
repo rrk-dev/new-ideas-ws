@@ -1,7 +1,7 @@
 # QA-01 — Test Strategy & Automated Test Framework
 
 **Workstream:** Quality | **Phase:** 1 | **Size:** M | **Depends on:** FND-02, FND-03 | **Source:** Gap
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-testing, vv-ci-release
 
 ## Goal
