@@ -1,0 +1,64 @@
+app/lib/features/extraction/data/ffi_llm_runtime.dart
+  s_9f6fcf8c1840a0::t_a5de8db5f32b70 116,129,132,146
+  s_9f6fcf8c1840a0::t_e62ee16b8afabf 100,118-120
+  s_9f6fcf8c1840a0::t_7be2bef5c29a99 1-64,66-99,101-115,117,121-128,130-131,133-145,147-152
+  s_9f6fcf8c1840a0::t_42b2ef16910cb7 65
+app/test/widget/llm_debug_screen_test.dart
+  s_9f6fcf8c1840a0::t_72073793bf76dd 1-68
+docs/test-plans/device/LLM-04.md
+  s_9f6fcf8c1840a0::t_ba6ec71ea15bef 1-23
+tasks/04-llm/LLM-04-llm-dart-ffi-engine.md
+  s_9f6fcf8c1840a0::t_fb7d8f57892696 11-15,21-36
+app/lib/core/platform/llm_engine.dart
+  s_9f6fcf8c1840a0::t_a10d9400f2e242 4-32,35-42,44,50-56
+app/lib/features/extraction/domain/llm_runtime.dart
+  s_9f6fcf8c1840a0::t_2da88ac39365d8 1-33,47-53,55-59,61-62,64-82
+  s_9f6fcf8c1840a0::t_e62ee16b8afabf 34-46,60,63
+  s_9f6fcf8c1840a0::t_a5de8db5f32b70 54
+app/lib/features/extraction/data/dev_llm_engine.dart
+  s_9f6fcf8c1840a0::t_d9f77a54831ef0 1-57
+app/lib/features/extraction/presentation/llm_debug_screen.dart
+  s_9f6fcf8c1840a0::t_1a23acd0bfa161 1-31,34-59,62-131,135-137
+  s_9f6fcf8c1840a0::t_4942f09584c355 60-61,132-134
+  s_9f6fcf8c1840a0::t_2ab1da926436da 32-33
+app/test/fakes/fake_llm_runtime.dart
+  s_9f6fcf8c1840a0::t_e62ee16b8afabf 49,74-76,84,95-99
+  s_9f6fcf8c1840a0::t_a5de8db5f32b70 100-101,106,148
+  s_9f6fcf8c1840a0::t_2ab1da926436da 38-42
+  s_9f6fcf8c1840a0::t_39c9d91de012c6 1-37,43-48,50-73,77-83,85-94,102-105,107-147,149-152
+app/test/unit/extraction/ffi_llm_runtime_host_test.dart
+  s_9f6fcf8c1840a0::t_6f2357290bb785 1-101
+app/lib/features/extraction/domain/llm_service.dart
+  s_9f6fcf8c1840a0::t_e62ee16b8afabf 24,26,31-36,59-61,85,88,93,124,134-139
+  s_9f6fcf8c1840a0::t_8e9d6e8eb383a8 148-156,160
+  s_9f6fcf8c1840a0::t_97cfaed03d04c4 1-23,25,27-30,37-58,62-84,86-87,89-92,94-123,125-133,140-147,157-159,161-207
+app/lib/main_dev.dart
+  s_9f6fcf8c1840a0::t_dcd95f10e1b029 1,4,6-9
+app/integration_test/llm_engine_test.dart
+  s_9f6fcf8c1840a0::t_4aee3bbaf6b6c1 1-15,17-30,32-66,68-82,84-86,88-100
+  s_9f6fcf8c1840a0::t_e206f94864623a 31,67,83,87
+  s_9f6fcf8c1840a0::t_278d365d17afed 16
+app/test/unit/extraction/llm_service_test.dart
+  s_9f6fcf8c1840a0::t_ba38376485b111 1-53,69,95-109,116,126-150
+  s_9f6fcf8c1840a0::t_4942f09584c355 54-68,70-87,91-94,110-115,117-125
+  s_9f6fcf8c1840a0::t_2ab1da926436da 88-90
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9f6fcf8c1840a0::t_cf2f1212b0fccd 2
+  s_9f6fcf8c1840a0::t_35f49e060553bf 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d5b44bfcd4855c33d94115d9f0a8964bd82b777b",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
