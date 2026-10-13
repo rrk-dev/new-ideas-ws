@@ -1,7 +1,7 @@
 # AUD-05 — Android Background Recording (Foreground Service)
 
 **Workstream:** Audio | **Phase:** 1 | **Size:** M | **Depends on:** AUD-01, SEC-09 | **Source:** §3.1.1
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-audio-capture, vv-background-execution, vv-privacy-security, vv-testing
 
 ## Goal
