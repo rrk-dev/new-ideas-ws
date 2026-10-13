@@ -216,6 +216,32 @@ void main() {
       expect(files, {for (final t in kBuiltinTemplates) '${t.id}.mustache'});
     });
 
+    test('a missing or broken built-in asset is a build error', () {
+      final sources = {
+        for (final t in kBuiltinTemplates) t.assetPath: templateSource(t.id),
+      };
+      expect(
+        () => BuiltinTemplates.parse(
+          {...sources}..remove(kBuiltinTemplates.first.assetPath),
+        ),
+        throwsA(isA<BuiltinTemplateException>()),
+      );
+      expect(
+        () => BuiltinTemplates.parse({
+          ...sources,
+          kBuiltinTemplates.first.assetPath: '{{#x}}',
+        }),
+        throwsA(
+          isA<BuiltinTemplateException>().having(
+            (e) => e.toString(),
+            'message',
+            contains('meeting-default:1:1'),
+          ),
+        ),
+      );
+      expect(builtinTemplates.ids, hasLength(kBuiltinTemplates.length));
+    });
+
     test('every built-in profile has its default template', () {
       for (final p in builtinProfiles.all) {
         expect(builtinTemplates[p.templateId], isNotNull, reason: p.id);

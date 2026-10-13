@@ -60,6 +60,8 @@ use. A bundled signed catalog keeps first launch and offline mode working.
 | `cryptography` (Dart) | 2.9.0 (exact) | Ed25519 verify of the model catalog (`DartEd25519`, pure Dart) | no (grep: no `http`/`HttpClient`/`Socket` in `lib/`) | no | Apache-2.0 | 2025-11-21 | Accepted — ADR-MDL-01 |
 | `crypto` (Dart, dart-lang) | 3.0.7 (exact) | streaming SHA-256 of model files; key ids | no | no | BSD-3-Clause | already a transitive dependency | Accepted — ADR-MDL-01 |
 | `yaml` (Dart, dart-lang) | 3.1.4 (exact) | parse built-in / imported extraction profiles (PRF-01) | no (grep: no `http`/`HttpClient`/`Socket` in `lib/`) | no | MIT | already a transitive dependency (same version) | Accepted — PRF-01 |
+| `mustache_template` (flutter/core-packages) | 2.0.5 (exact) | Markdown templates (EXP-01), strict mode | no (only `src/` imports; no `dart:io`/`http`) | no | BSD-2-Clause | 2026-06-09 (2.0.6 on 2026-09-15 is docs-only) | Accepted — ADR-EXP-01 |
+| `characters` (Dart, dart-lang) | ^1.4.1 (Flutter SDK pin) | grapheme-safe slug/filename truncation (EXP-01/02) | no | no | BSD-3-Clause | already a transitive Flutter dependency | Accepted — ADR-EXP-01 |
 | `cryptography` (Python, pyca) | 46.0.3 | `tools/model-catalog` signing CLI only (not shipped in the app) | no | no | Apache-2.0 OR BSD-3-Clause | 2025 | Accepted — ADR-MDL-01 |
 
 ## Models (license must allow our use and, for our CDN, redistribution — SEC-05)

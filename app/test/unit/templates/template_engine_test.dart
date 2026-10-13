@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/features/profiles/domain/render_context.dart';
@@ -133,8 +135,12 @@ void main() {
   });
 
   group('lambdas', () {
-    test('the lambda set equals the template check list', () {
+    test('the lambda set equals the template check list and the docs', () {
       expect(buildLambdas().keys.toSet(), kTemplateLambdas);
+      final doc = File('../docs/templates.md').readAsStringSync();
+      for (final name in kTemplateLambdas) {
+        expect(doc, contains('`$name`'), reason: 'docs/templates.md: $name');
+      }
     });
 
     test('yaml quotes the raw value; yaml_list emits [] for non-lists', () {
