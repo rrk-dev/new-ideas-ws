@@ -69,3 +69,30 @@ final class UnexpectedFailure extends Failure {
   /// content).
   final String errorType;
 }
+
+/// Why the recording policy (SEC-09) refused a start/resume request.
+enum RecordingBlockReason {
+  /// A phone or VoIP call is ringing or active ("Recording is unavailable
+  /// during calls").
+  inCall,
+
+  /// The call state could not be determined; the guard fails closed.
+  callGuardUnavailable,
+
+  /// The request did not come from an allowed user-tap source.
+  sourceNotAllowed,
+
+  /// The app is not in the foreground (no background/headless starts).
+  notForeground,
+
+  /// The request does not fit the current recording phase.
+  invalidState,
+}
+
+/// The recording policy refused to open or reopen the microphone.
+final class RecordingBlockedFailure extends Failure {
+  RecordingBlockedFailure(this.reason)
+    : super('recording blocked: ${reason.name}');
+
+  final RecordingBlockReason reason;
+}

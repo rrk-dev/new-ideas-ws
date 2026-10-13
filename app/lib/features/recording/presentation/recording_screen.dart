@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/widgets/placeholder_screen.dart';
+import 'package:vaultvoice/features/recording/presentation/call_guard_debug_screen.dart';
 
-/// Placeholder for the Record tab.
-class RecordScreen extends StatelessWidget {
+/// Placeholder for the Record tab (AUD-08 builds the real UI). The dev
+/// flavor exposes the SEC-09 CallGuard debug screen from the app bar.
+class RecordScreen extends ConsumerWidget {
   const RecordScreen({super.key});
 
   @override
-  Widget build(BuildContext context) =>
-      const PlaceholderScreen(title: 'Record', icon: Icons.mic);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDev = ref.watch(flavorProvider).isDev;
+    return PlaceholderScreen(
+      title: 'Record',
+      icon: Icons.mic,
+      actions: [
+        if (isDev)
+          IconButton(
+            tooltip: 'CallGuard debug',
+            icon: const Icon(Icons.phone_disabled),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => const CallGuardDebugScreen(),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
 }

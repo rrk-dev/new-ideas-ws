@@ -3,16 +3,24 @@ import 'package:vaultvoice/core/theme/app_tokens.dart';
 
 /// Base screen used by features until their real UI lands.
 class PlaceholderScreen extends StatelessWidget {
-  const PlaceholderScreen({required this.title, required this.icon, super.key});
+  const PlaceholderScreen({
+    required this.title,
+    required this.icon,
+    this.actions,
+    super.key,
+  });
 
   final String title;
   final IconData icon;
+
+  /// Optional app-bar actions (e.g. dev-flavor debug entries).
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: AppBar(title: Text(title), actions: actions),
       body: Center(
         child: Semantics(
           label: '$title screen placeholder',
