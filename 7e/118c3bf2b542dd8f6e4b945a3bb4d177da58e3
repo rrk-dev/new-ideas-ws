@@ -1,0 +1,34 @@
+tasks/08-app-ux/APP-06-accessibility-localization.md
+  s_9f6fcf8c1840a0::t_9a5fce25344513 11-14,19-22,24-47
+  s_9f6fcf8c1840a0::t_09215d5b806942 23
+app/test/unit/l10n/hardcoded_strings_test.dart
+  s_9f6fcf8c1840a0::t_efe1a6353a6d21 8,51-53,106-108,111-113
+  s_9f6fcf8c1840a0::t_32ef7f45a0eda7 1-7,9-23,25-50,54-92,94-105,109-110,114-125
+  s_9f6fcf8c1840a0::t_88a1568c825d2b 24,93
+docs/test-plans/device/APP-06.md
+  s_9f6fcf8c1840a0::t_36cae26f5c93c2 1-17
+app/test/widget/accessibility_test.dart
+  s_9f6fcf8c1840a0::t_714f2accc40334 23-24,71-76,78,135-140
+  s_9f6fcf8c1840a0::t_634b5cef978896 81-91
+  s_9f6fcf8c1840a0::t_d2684af34acc35 1-22,25-70,77,79-80,92-134,141-176
+CONTRIBUTING.md
+  s_9f6fcf8c1840a0::t_5556c29b09a521 78-89
+app/lib/features/pipeline/presentation/processing_providers.g.dart
+  s_9f6fcf8c1840a0::t_d1da3c4b2215e5 108
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7e118c3bf2b542dd8f6e4b945a3bb4d177da58e3",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
