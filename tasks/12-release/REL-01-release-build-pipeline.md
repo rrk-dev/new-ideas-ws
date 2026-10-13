@@ -1,7 +1,7 @@
 # REL-01 — Release Build & Signing Pipeline
 
 **Workstream:** Release | **Phase:** 4 | **Size:** M | **Depends on:** FND-03 | **Source:** §5 Phase 4 (release build pipelines)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-ci-release, vv-testing
 
 ## Goal
