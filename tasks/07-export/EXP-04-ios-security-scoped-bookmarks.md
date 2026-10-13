@@ -1,7 +1,7 @@
 # EXP-04 — iOS Folder Access (Security-Scoped Bookmarks)
 
 **Workstream:** Export | **Phase:** 1 | **Size:** M | **Depends on:** FND-02 | **Source:** §5 Phase 1 (Document Picker / Security Scoped Bookmarks)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-markdown-vault-export, vv-flutter-architecture, vv-testing
 
 ## Goal
