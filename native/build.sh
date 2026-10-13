@@ -39,6 +39,7 @@ size_of() { stat -f%z "$1" 2>/dev/null || stat -c%s "$1"; }
 
 build_host() {
   need cmake "brew install cmake"; need ninja "brew install ninja"
+  check_submodules
   cmake -S "$NATIVE" -B "$OUT/host" -G Ninja "${COMMON[@]}"
   cmake --build "$OUT/host" -j "$JOBS"
   ctest --test-dir "$OUT/host" --output-on-failure
@@ -63,8 +64,10 @@ find_ndk() {
 }
 
 build_android() {
-  need cmake "brew install cmake"; need ninja "brew install ninja"
+  # Toolchain first (clear NDK error even without submodules), then sources.
   local ndk; ndk="$(find_ndk)"
+  need cmake "brew install cmake"; need ninja "brew install ninja"
+  check_submodules
   local dir="$OUT/android/arm64-v8a"
   cmake -S "$NATIVE" -B "$dir" -G Ninja "${COMMON[@]}" \
     -DCMAKE_TOOLCHAIN_FILE="$ndk/build/cmake/android.toolchain.cmake" \
@@ -84,8 +87,9 @@ build_android() {
 }
 
 build_ios() {
-  need cmake "brew install cmake"
   have_xcode || { echo "error: full Xcode required (xcode-select -s /Applications/Xcode.app)" >&2; exit 2; }
+  need cmake "brew install cmake"
+  check_submodules
   local args=(-G Xcode "${COMMON[@]}"
     -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_DEPLOYMENT_TARGET="$IOS_MIN_OS"
     -DGGML_METAL=ON -DGGML_METAL_EMBED_LIBRARY=ON -DGGML_METAL_TARGET_OS=ios
@@ -113,8 +117,13 @@ build_ios() {
        "simulator slice $(size_of "$sim/Release-iphonesimulator/vv_native.framework/vv_native") bytes"
 }
 
-check_submodules
+# Order: arguments (exit 64) -> toolchain (exit 2) -> submodules (exit 2), so a
+# checkout without submodules (CI task-gate) still gets the precise error.
 case "${1:-}" in
+  host|android|ios|all) ;;
+  *) echo "usage: $0 {host|android|ios|all}" >&2; exit 64 ;;
+esac
+case "$1" in
   host) build_host ;;
   android) build_android ;;
   ios) build_ios ;;
@@ -122,5 +131,4 @@ case "${1:-}" in
     build_host
     (find_ndk) >/dev/null 2>&1 && build_android || echo "skip android: no NDK"
     have_xcode && build_ios || echo "skip ios: no Xcode" ;;
-  *) echo "usage: $0 {host|android|ios|all}" >&2; exit 64 ;;
 esac

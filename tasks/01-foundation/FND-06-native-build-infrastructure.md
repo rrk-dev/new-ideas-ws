@@ -40,3 +40,14 @@ Reproducible builds of `whisper.cpp` and `llama.cpp` (shared `ggml`) for both pl
   - AC3: ⏳ artifact: native/VERSIONS.md; device: docs/test-plans/device/FND-06.md
 - **Decisions:** ADR-FND-06-native-build (Proposed: iOS min 16.0 vs 16.4, Android CPU baseline, packaging)
 - **Follow-ups:** user decision on iOS minimum (16.0 vs 16.4); CPU-variant dispatch + GPU backends (STT-02/LLM-03); `vv_jsg` (LLM-05); apply `native-host`/`android`/`ios` as required checks
+
+## Follow-ups
+- **CI fix (2026-10-12, Claude Code, branch `task/FND-06-fix-ci`):** red `task-gate` on main — the job checks out without
+  submodules and `native/build.sh` checked submodules before parsing its argument, so `[FND-06/AC1]` got exit 2 instead of 64
+  for `build.sh bogus`. `build.sh` now validates the target first (exit 64), then the toolchain (NDK / Xcode, exit 2), then
+  cmake/ninja, then submodules (exit 2). Test unchanged. Red `android` job: `packages/vv_native/android/build.gradle` is Groovy
+  but used the Kotlin-only `abiFilters += listOf("arm64-v8a")` (Groovy has no `listOf` → configuration failure) → now
+  `abiFilters "arm64-v8a"`; dropped a trailing comma in `arguments(...)`; `tools/ci/build_android.sh` passes
+  `--target-platform android-arm64` so the debug APK cannot contain x86_64/armv7 libs that `check_apk_native.sh` rejects.
+  Unproven (CI must confirm): NDK 28.2.13676358 / SDK CMake 3.22.1 auto-download on the runner, 25-min timeout for a
+  debug ggml+llama+whisper build.
