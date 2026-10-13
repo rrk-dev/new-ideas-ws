@@ -1,7 +1,7 @@
 # REL-02 — Privacy-Preserving Crash Reporting
 
 **Workstream:** Release | **Phase:** 4 | **Size:** S | **Depends on:** FND-07 | **Source:** Gap (no Crashlytics/Sentry cloud by default given privacy promise)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-ci-release, vv-privacy-security, vv-ffi-bridge, vv-decision-records, vv-testing
 
 ## Goal
