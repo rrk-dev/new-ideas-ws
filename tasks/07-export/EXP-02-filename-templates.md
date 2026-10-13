@@ -1,7 +1,7 @@
 # EXP-02 — Filename Templates, Sanitization & Collisions
 
 **Workstream:** Export | **Phase:** 3 | **Size:** S | **Depends on:** EXP-01 | **Source:** §3.1.4 (`YYYY-MM-DD-Meeting-Topic.md`)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-markdown-vault-export, vv-testing
 
 ## Goal
