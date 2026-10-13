@@ -1,7 +1,7 @@
 # LLM-07 — Memory Management & Device Capability Tiering
 
 **Workstream:** LLM | **Phase:** 2 | **Size:** M | **Depends on:** LLM-04, STT-03 | **Source:** Gap (3B Q4 ≈ 2–2.5 GB RAM; iPhone 11 has 4 GB, many Android budget devices 4–6 GB)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-llm-inference, vv-background-execution, vv-ffi-bridge, vv-flutter-architecture, vv-whisper-stt, vv-testing
 
 ## Goal
