@@ -1,0 +1,19 @@
+tasks/02-audio/AUD-07-recording-crash-recovery.md
+  s_9f6fcf8c1840a0::t_55dd4418b2814e 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9974d3bed52ed7461ae8aaf65ffbc82ed6f3f29f",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
