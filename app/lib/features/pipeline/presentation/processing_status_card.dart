@@ -84,6 +84,7 @@ class ProcessingStatusCard extends StatelessWidget {
               if (showProgress) ...[
                 const SizedBox(height: AppSpacing.sm),
                 Semantics(
+                  container: true,
                   label: '$status, $percent percent',
                   value: '$percent%',
                   child: LinearProgressIndicator(
