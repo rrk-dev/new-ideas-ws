@@ -5,6 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:vaultvoice/app.dart';
+import 'package:vaultvoice/core/crash/crash_providers.dart';
+import 'package:vaultvoice/core/crash/crash_reporting.dart';
+import 'package:vaultvoice/core/crash/native_crash_capture.dart';
 import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
 import 'package:vaultvoice/core/errors/error_boundary.dart';
 import 'package:vaultvoice/core/flavor.dart';
@@ -31,9 +34,18 @@ Future<void> bootstrap(
     flavor,
     sinks: [sink, if (kDebugMode) const DeveloperLogSink()],
   );
+  // REL-02: harvest last run's native report, then arm the signal handler.
+  const nativeCrash = VvNativeCrashCapture();
+  final crash = CrashReporting.start(
+    directory: paths.crashReports,
+    native: nativeCrash,
+    appBuild: CrashBuildInfo.describe(flavor),
+    logger: logger,
+  );
   installErrorBoundary(
     onError: (type) =>
         logger.error('app', 'uncaught error', fields: {'type': LogId(type)}),
+    onCrash: crash.recordDart,
   );
   logger.info('app', 'app start', fields: {'flavor': flavor});
   runApp(
@@ -45,6 +57,8 @@ Future<void> bootstrap(
         loggerProvider.overrideWithValue(logger),
         nativeVersionsProvider.overrideWithValue(_nativeVersions()),
         shareServiceProvider.overrideWithValue(const SharePlusShareService()),
+        crashReportStoreProvider.overrideWithValue(crash.store),
+        nativeCrashCaptureProvider.overrideWithValue(nativeCrash),
         ...overrides,
       ],
       child: const App(),

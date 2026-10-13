@@ -4,6 +4,7 @@ import 'package:vaultvoice/core/app_info.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/theme/app_theme.dart';
+import 'package:vaultvoice/features/settings/presentation/crash_reports.dart';
 
 /// Root widget: theme + router. Providers come from the enclosing scope.
 class App extends ConsumerWidget {
@@ -11,12 +12,18 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(appRouterProvider);
     return MaterialApp.router(
       title: kAppName,
       debugShowCheckedModeBanner: ref.watch(flavorProvider).isDev,
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
-      routerConfig: ref.watch(appRouterProvider),
+      routerConfig: router,
+      // REL-02: offer last run's crash report once, after the first frame.
+      builder: (context, child) => CrashReportGate(
+        navigatorKey: router.routerDelegate.navigatorKey,
+        child: child ?? const SizedBox.shrink(),
+      ),
     );
   }
 }
