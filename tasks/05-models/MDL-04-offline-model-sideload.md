@@ -1,7 +1,7 @@
 # MDL-04 — Offline / Air-Gapped Model Import
 
 **Workstream:** Model Delivery | **Phase:** 3–4 | **Size:** S | **Depends on:** MDL-01, MDL-02 | **Source:** Gap (regulated / defense users may not allow any downloads)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-model-delivery, vv-privacy-security, vv-testing
 
 ## Goal
