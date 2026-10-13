@@ -1,0 +1,44 @@
+app/lib/features/models/domain/download_state.dart
+  s_9f6fcf8c1840a0::t_e523af8f58017a 1-91
+app/lib/core/errors/failure.dart
+  s_9f6fcf8c1840a0::t_f81bf371112e58 174-189,194-218
+  s_9f6fcf8c1840a0::t_a9d739a94e7eac 190-193
+app/lib/core/network/model_hosts.dart
+  s_9f6fcf8c1840a0::t_1455cbdb220c95 20-22,24-30
+  s_9f6fcf8c1840a0::t_0b31a8051cdea7 17-19,23
+app/lib/features/models/data/model_downloader.dart
+  s_9f6fcf8c1840a0::t_8abc2f7e007760 77
+  s_9f6fcf8c1840a0::t_083c65108d0f94 23-26,385
+  s_9f6fcf8c1840a0::t_7f78a8e0949957 54-55,57,59-61,80-81,140-145,227,277,292
+  s_9f6fcf8c1840a0::t_01d231779c116b 1-22,27-53,56,58,62-76,78-79,82-139,146-226,228-276,278-291,293-384,386-551
+app/lib/features/models/domain/download_transport.dart
+  s_9f6fcf8c1840a0::t_a8d1c0a31b4cf6 1-114
+app/lib/features/models/data/gateway_download_transport.dart
+  s_9f6fcf8c1840a0::t_769b61713480a2 1-57,60-140
+  s_9f6fcf8c1840a0::t_7f78a8e0949957 58-59
+app/lib/core/platform/providers.dart
+  s_9f6fcf8c1840a0::t_083c65108d0f94 37-40
+app/lib/features/models/domain/download_platform.dart
+  s_9f6fcf8c1840a0::t_809587ba46f879 1-61
+app/lib/core/network/network_gateway.dart
+  s_9f6fcf8c1840a0::t_233987dbce3191 1-2,9-13,18-22,27-54,70-71,85-161
+  s_9f6fcf8c1840a0::t_70a6dfeccc53d9 162
+app/lib/features/models/domain/download_policy.dart
+  s_9f6fcf8c1840a0::t_c315d6c1b05efa 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "492e7d9bca83d29649d5874f31850d2e13a1a256",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
