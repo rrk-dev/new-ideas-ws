@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- LLM-02 / LLM-07: raise the jetsam limit so a 3B Q4 model + KV fits on
+	     6-8 GB iPhones. The App ID needs the "Increased Memory Limit"
+	     capability in the developer portal for signed builds. -->
+	<key>com.apple.developer.kernel.increased-memory-limit</key>
+	<true/>
+</dict>
+</plist>
