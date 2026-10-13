@@ -208,6 +208,8 @@ void main() {
       ['chunk_0', 'chunk_1', 'chunk_2'],
     );
     expect(run2.statesOf(id).first, JobState.queued); // recovered
+    expect(await db2.select(db2.exports).get(), hasLength(1));
+    expect(run2.vault.notes.keys, ['r1.md']);
   });
 
   test('[FND-05/AC1] a resume with changed STT parameters restarts '
