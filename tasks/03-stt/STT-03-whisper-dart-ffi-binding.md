@@ -1,7 +1,7 @@
 # STT-03 — Whisper Dart FFI Binding & Engine Service
 
 **Workstream:** STT | **Phase:** 2 | **Size:** M | **Depends on:** STT-01, STT-02 | **Source:** §4.2 (FFI / C++ bridge)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-ffi-bridge, vv-whisper-stt, vv-testing, vv-local-database, vv-pipeline-orchestrator
 
 ## Goal
