@@ -1,0 +1,23 @@
+docs/test-plans/device/SEC-09.md
+  s_9f6fcf8c1840a0::t_b468a16c29377d 1-28
+tasks/10-security-privacy/SEC-09-recording-safeguards-no-call-capture.md
+  s_9f6fcf8c1840a0::t_3ed619786ec1a7 12-16,22-28,41-68
+docs/adr/ADR-SEC-09-recording-policy.md
+  s_9f6fcf8c1840a0::t_d5f26d5d1b3975 1-166
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6acc1d24ac01a4e9be77a8a63b28b674e65aed31",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
