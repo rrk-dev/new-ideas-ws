@@ -1,7 +1,7 @@
 # LLM-01 — LLM Runtime Selection Spike (llama.cpp vs ExecuTorch vs MLC-LLM)
 
 **Workstream:** LLM | **Phase:** 2 (Week 4) | **Size:** M | **Depends on:** FND-06 | **Source:** §3.1.3, §4.2 (open decision)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-llm-inference, vv-decision-records, vv-benchmark-eval
 
 ## Goal
