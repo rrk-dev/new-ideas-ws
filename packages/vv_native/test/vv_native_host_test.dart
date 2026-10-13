@@ -55,6 +55,13 @@ void main() {
       if (Platform.isMacOS) expect(gpus.first.$2, startsWith('MTL'));
     }, skip: skip);
 
+    test('LLM-03 CPU feature guard: host build runs on host CPU', () {
+      final native = VvNative.open(hostPath: lib);
+      final (runtime, build) = native.cpuFeatures;
+      expect(build & ~runtime, 0);
+      expect(native.cpuSupported, isTrue);
+    }, skip: skip);
+
     test('missing model -> VV_E_MODEL_LOAD', () {
       final native = VvNative.open(hostPath: lib);
       expect(

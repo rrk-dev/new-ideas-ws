@@ -102,8 +102,11 @@ class VvBindings {
   late final _vv_llm_default_backend_params = _vv_llm_default_backend_paramsPtr
       .asFunction<vv_llm_backend_params Function()>();
 
-  /// Number of performance CPU cores (Apple: hw.perflevel0.physicalcpu; others:
-  /// half the online cores until LLM-03 reads the cpufreq clusters). >= 1.
+  /// Number of performance CPU cores (Apple: hw.perflevel0.physicalcpu;
+  /// Linux/Android: cores faster than the slowest cpufreq cluster, i.e. big.LITTLE
+  /// "LITTLE" cores excluded; fallback half the online cores). >= 1. On
+  /// Linux/Android llama.cpp's worker threads are also restricted to these cores
+  /// (ggml threadpool cpumask).
   int vv_cpu_perf_cores() {
     return _vv_cpu_perf_cores();
   }
@@ -111,6 +114,40 @@ class VvBindings {
   late final _vv_cpu_perf_coresPtr =
       _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('vv_cpu_perf_cores');
   late final _vv_cpu_perf_cores = _vv_cpu_perf_coresPtr
+      .asFunction<int Function()>();
+
+  /// `runtime`: features this CPU reports (Android/Linux getauxval HWCAP,
+  /// Apple sysctl hw.optional.arm.*). `build`: features the ggml CPU kernels in
+  /// this library were compiled to *require* (GGML_CPU_ARM_ARCH; at the pin
+  /// ggml_cpu_has_dotprod/matmul_int8 are compile-time). Either pointer may be
+  /// NULL. Calling this never executes the optional instructions.
+  int vv_cpu_features(
+    ffi.Pointer<ffi.Int32> runtime,
+    ffi.Pointer<ffi.Int32> build,
+  ) {
+    return _vv_cpu_features(runtime, build);
+  }
+
+  late final _vv_cpu_featuresPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Pointer<ffi.Int32>, ffi.Pointer<ffi.Int32>)
+        >
+      >('vv_cpu_features');
+  late final _vv_cpu_features = _vv_cpu_featuresPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.Int32>, ffi.Pointer<ffi.Int32>)
+      >();
+
+  /// 1 when every `build` feature is present at runtime, else 0: Dart must not
+  /// start whisper/llama on an unsupported CPU (SIGILL), ADR-LLM-03.
+  int vv_cpu_supported() {
+    return _vv_cpu_supported();
+  }
+
+  late final _vv_cpu_supportedPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('vv_cpu_supported');
+  late final _vv_cpu_supported = _vv_cpu_supportedPtr
       .asFunction<int Function()>();
 
   /// GPU / integrated-GPU devices registered in ggml (Metal, Vulkan, OpenCL).
@@ -330,3 +367,11 @@ const int VV_LLM_FLASH_ATTN_ON = 1;
 const int VV_LLM_FALLBACK_GPU_TO_CPU = 1;
 
 const int VV_LLM_FALLBACK_KV_TO_F16 = 2;
+
+const int VV_CPU_FEATURE_NEON = 1;
+
+const int VV_CPU_FEATURE_DOTPROD = 2;
+
+const int VV_CPU_FEATURE_I8MM = 4;
+
+const int VV_CPU_FEATURE_SVE = 8;

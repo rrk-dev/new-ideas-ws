@@ -21,7 +21,9 @@
 #endif
 
 #include "ggml-backend.h"
+#include "ggml-cpu.h"
 #include "llama.h"
+#include "vv_cpu.h"
 
 namespace {
 
@@ -94,11 +96,27 @@ struct Loaded {
   int32_t n_threads = 0;
   double load_ms = 0;
   double ctx_ms = 0;
+  ggml_threadpool* pool = nullptr;
   ~Loaded() {
     if (ctx) llama_free(ctx);
+    if (pool) ggml_threadpool_free(pool);
     if (model) llama_model_free(model);
   }
 };
+
+#if !defined(__APPLE__)
+// big.LITTLE: keep llama.cpp's workers on the performance cores (LLM-03).
+// Non-strict placement: every worker may run on any perf core. Returns NULL
+// when the topology is unknown (default scheduler affinity).
+ggml_threadpool* perf_core_pool(int32_t n_threads) {
+  uint8_t mask[VV_CPU_MAX];
+  if (vv_internal_perf_cores_sysfs("/sys/devices/system/cpu", mask) <= 0) return nullptr;
+  ggml_threadpool_params tp = ggml_threadpool_params_default(n_threads);
+  for (int i = 0; i < VV_CPU_MAX && i < GGML_MAX_N_THREADS; i++) tp.cpumask[i] = mask[i] != 0;
+  tp.strict_cpu = false;
+  return ggml_threadpool_new(&tp);
+}
+#endif
 
 llama_model* load_model(const char* path, const vv_llm_backend_params& p, bool gpu,
                         ggml_backend_dev_t dev) {
@@ -165,6 +183,10 @@ int32_t open_with_fallbacks(const char* path, const vv_llm_backend_params& p,
     }
     out.ctx_ms = ms_since(t0);
     if (out.ctx) {
+#if !defined(__APPLE__)
+      out.pool = perf_core_pool(out.n_threads);
+      if (out.pool) llama_attach_threadpool(out.ctx, out.pool, out.pool);
+#endif
       out.used_gpu = gpu ? 1 : 0;
       out.used_kv_quant = kvq ? 1 : 0;
       return VV_OK;
@@ -287,9 +309,36 @@ int32_t vv_cpu_perf_cores(void) {
   int32_t n = 0;
   size_t len = sizeof n;
   if (sysctlbyname("hw.perflevel0.physicalcpu", &n, &len, nullptr, 0) == 0 && n > 0) return n;
+#else
+  uint8_t mask[VV_CPU_MAX];
+  int32_t n = vv_internal_perf_cores_sysfs("/sys/devices/system/cpu", mask);
+  if (n > 0) return n;
 #endif
   unsigned hc = std::thread::hardware_concurrency();
   return hc >= 2 ? (int32_t)(hc / 2) : 1;
+}
+
+int32_t vv_cpu_features(int32_t* runtime, int32_t* build) {
+  if (runtime) *runtime = vv_internal_runtime_features();
+  if (build) {
+    // Compile-time answers from the ggml-cpu translation units (they carry
+    // the GGML_CPU_ARM_ARCH flags); returning constants executes nothing.
+    int32_t b = 0;
+#if defined(__aarch64__) || defined(__arm__)
+    if (ggml_cpu_has_neon()) b |= VV_CPU_FEATURE_NEON;
+    if (ggml_cpu_has_dotprod()) b |= VV_CPU_FEATURE_DOTPROD;
+    if (ggml_cpu_has_matmul_int8()) b |= VV_CPU_FEATURE_I8MM;
+    if (ggml_cpu_has_sve()) b |= VV_CPU_FEATURE_SVE;
+#endif
+    *build = b;
+  }
+  return VV_OK;
+}
+
+int32_t vv_cpu_supported(void) {
+  int32_t rt = 0, b = 0;
+  vv_cpu_features(&rt, &b);
+  return vv_internal_cpu_supported(rt, b);
 }
 
 int32_t vv_llm_gpu_device_count(void) {

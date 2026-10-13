@@ -59,9 +59,29 @@ typedef struct vv_llm_backend_params {
  * 4096, n_batch 512, perf-core threads, mmap on. */
 VV_API vv_llm_backend_params vv_llm_default_backend_params(void);
 
-/* Number of performance CPU cores (Apple: hw.perflevel0.physicalcpu; others:
- * half the online cores until LLM-03 reads the cpufreq clusters). >= 1. */
+/* Number of performance CPU cores (Apple: hw.perflevel0.physicalcpu;
+ * Linux/Android: cores faster than the slowest cpufreq cluster, i.e. big.LITTLE
+ * "LITTLE" cores excluded; fallback half the online cores). >= 1. On
+ * Linux/Android llama.cpp's worker threads are also restricted to these cores
+ * (ggml threadpool cpumask). */
 VV_API int32_t vv_cpu_perf_cores(void);
+
+/* CPU feature bits. */
+#define VV_CPU_FEATURE_NEON 1
+#define VV_CPU_FEATURE_DOTPROD 2
+#define VV_CPU_FEATURE_I8MM 4
+#define VV_CPU_FEATURE_SVE 8
+
+/* `runtime`: features this CPU reports (Android/Linux getauxval HWCAP,
+ * Apple sysctl hw.optional.arm.*). `build`: features the ggml CPU kernels in
+ * this library were compiled to *require* (GGML_CPU_ARM_ARCH; at the pin
+ * ggml_cpu_has_dotprod/matmul_int8 are compile-time). Either pointer may be
+ * NULL. Calling this never executes the optional instructions. */
+VV_API int32_t vv_cpu_features(int32_t* runtime, int32_t* build);
+
+/* 1 when every `build` feature is present at runtime, else 0: Dart must not
+ * start whisper/llama on an unsupported CPU (SIGILL), ADR-LLM-03. */
+VV_API int32_t vv_cpu_supported(void);
 
 /* GPU / integrated-GPU devices registered in ggml (Metal, Vulkan, OpenCL). */
 VV_API int32_t vv_llm_gpu_device_count(void);
