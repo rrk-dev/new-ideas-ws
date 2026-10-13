@@ -1,7 +1,7 @@
 # PRF-01 — Extraction Profile Data Model & Versioning
 
 **Workstream:** Profiles | **Phase:** 2 (pulled forward: needed by LLM-05 / PRF-09 / GATE-02) | **Size:** M | **Depends on:** FND-04 | **Source:** §3.1.5 (Domain Extraction Profiles / Skills)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-extraction-profiles, vv-local-database, vv-llm-inference, vv-markdown-vault-export, vv-testing
 
 ## Goal
