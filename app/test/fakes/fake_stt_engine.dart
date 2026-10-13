@@ -25,6 +25,9 @@ class FakeSttEngine implements SttEngine {
   Failure? _failure;
   final List<String> calls = [];
 
+  /// Options of the most recent [transcribe] call.
+  SttOptions? lastOptions;
+
   void failWith(Failure failure) => _failure = failure;
 
   @override
@@ -32,12 +35,16 @@ class FakeSttEngine implements SttEngine {
     String audioPath, {
     CancelToken? cancel,
     ProgressCallback? onProgress,
+    SegmentCallback? onSegment,
+    SttOptions options = const SttOptions(),
   }) async {
     calls.add(audioPath);
+    lastOptions = options;
     if (_failure case final failure?) return Err(failure);
     for (var i = 0; i < segments.length; i++) {
       if (cancel?.isCancelled ?? false) return const Err(CancelledFailure());
       await Future<void>.delayed(perChunk);
+      onSegment?.call(segments[i]);
       onProgress?.call((i + 1) / segments.length);
     }
     if (cancel?.isCancelled ?? false) return const Err(CancelledFailure());

@@ -192,7 +192,9 @@ void run_job(Job* job_ptr) {
       int threads = job.p.n_threads;
       if (threads <= 0) threads = std::min(vv_cpu_perf_cores(), 4);
       wp.n_threads = std::max(threads, 1);
-      wp.language = job.language.c_str();
+      // English-only models: never run language auto-detection (an extra
+      // encoder pass whose result they cannot use).
+      wp.language = whisper_is_multilingual(h->ctx) ? job.language.c_str() : "en";
       wp.detect_language = false;
       wp.translate = job.p.translate != 0;
       wp.no_context = job.p.no_context != 0;

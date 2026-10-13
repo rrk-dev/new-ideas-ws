@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:drift/drift.dart' show Value;
 import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
@@ -98,6 +101,7 @@ class TranscribeStep implements PipelineStep {
         paths.resolve(chunk.path),
         cancel: ctx.cancel,
         onProgress: (f) => ctx.reportProgress((done + f) / total),
+        options: SttOptions(language: config.sttLanguage),
       );
       switch (result) {
         case Err(:final failure):
@@ -111,6 +115,9 @@ class TranscribeStep implements PipelineStep {
                 startMs: chunk.startMs + s.start.inMilliseconds,
                 endMs: chunk.startMs + s.end.inMilliseconds,
                 body: s.text,
+                // STT-03: confidence + tokens for STT-06 highlighting.
+                avgLogprob: Value(s.avgLogprob),
+                tokensJson: Value(segmentTokensJson(s)),
               ),
           ];
           await ctx.saveCheckpoint(
@@ -125,3 +132,17 @@ class TranscribeStep implements PipelineStep {
     return const StepSucceeded();
   }
 }
+
+/// `transcript_segments.tokens_json`: `[{text,p,t0_ms,t1_ms}]` (STT-06
+/// low-confidence highlighting), or null when the engine gave no tokens.
+String? segmentTokensJson(TranscriptSegment s) => s.tokens.isEmpty
+    ? null
+    : jsonEncode([
+        for (final t in s.tokens)
+          {
+            'text': t.text,
+            'p': t.p,
+            't0_ms': t.start?.inMilliseconds,
+            't1_ms': t.end?.inMilliseconds,
+          },
+      ]);

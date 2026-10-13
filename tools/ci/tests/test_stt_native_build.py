@@ -99,3 +99,18 @@ def test_STT_02_bridge_exports_backend_api():
     mp, txt = (bridge / "vv_exports.map").read_text(), (bridge / "vv_exports.txt").read_text()
     for sym in ("vv_backends_load", "vv_backends_describe", "vv_backends_dynamic", "vv_cpu_perf_cores"):
         assert f"{sym};" in mp and f"_{sym}\n" in txt, sym
+
+
+def test_STT_03_stt_abi_is_exported_and_bound():
+    """Every VV_API in vv_whisper.h is exported on both linkers and has an ffigen binding."""
+    bridge = ROOT / "native" / "bridge"
+    header = (bridge / "vv_whisper.h").read_text()
+    declared = set(re.findall(r"VV_API\s+[\w\s\*]+?\b(vv_\w+)\s*\(", header))
+    assert {"vv_stt_create", "vv_stt_transcribe_async", "vv_stt_transcribe_ranges",
+            "vv_stt_cancel", "vv_stt_destroy", "vv_stt_free_segment"} <= declared
+    mp, txt = (bridge / "vv_exports.map").read_text(), (bridge / "vv_exports.txt").read_text()
+    bindings = (ROOT / "packages/vv_native/lib/src/vv_bindings.g.dart").read_text()
+    for sym in declared:
+        assert f"{sym};" in mp and f"_{sym}\n" in txt, f"{sym} not exported"
+        assert re.search(rf"\b{sym}\s*\(", bindings), f"{sym} missing in bindings (rerun ffigen)"
+    assert '#include "vv_whisper.h"' in (bridge / "vv_bridge.h").read_text()
