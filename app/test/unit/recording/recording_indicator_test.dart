@@ -17,7 +17,8 @@ import 'capture_rig.dart';
 /// Real capture backend + controller + binding with a fake indicator; the
 /// app is backgrounded after the start (screen off / app switched).
 class _Background {
-  _Background() {
+  _Background({Duration chunk = const Duration(seconds: 5)})
+    : rig = CaptureRig(chunkDuration: chunk) {
     binding = RecordingIndicatorBinding(
       controller: rig.controller,
       indicator: indicator,
@@ -26,7 +27,7 @@ class _Background {
     addTearDown(binding.dispose);
   }
 
-  final rig = CaptureRig();
+  final CaptureRig rig;
   final indicator = FakeRecordingIndicator();
   late final RecordingIndicatorBinding binding;
 
@@ -84,6 +85,29 @@ void main() {
   });
 
   group('background recording', () {
+    test('[AUD-05/AC1] a 60-minute recording with the app in the background '
+        'keeps capturing without gaps and the indicator stays up', () async {
+      final b = _Background(chunk: const Duration(minutes: 5));
+      await b.startAndBackground();
+      await b.rig.speakPaced(const Duration(minutes: 60), silent: true);
+      expect(b.rig.controller.state.phase, RecordingPhase.recording);
+      expect(b.indicator.visible, isTrue);
+      expect(b.indicator.hides, 0);
+      final done = expectOk(await b.rig.controller.stop());
+      expect(done.duration, const Duration(minutes: 60));
+      final chunks = await b.rig.chunks(done.recordingId!);
+      expect(chunks, hasLength(12));
+      for (var i = 0; i < chunks.length; i++) {
+        expect(
+          (chunks[i].startMs, chunks[i].endMs),
+          (i * 300000, (i + 1) * 300000),
+        );
+      }
+      expect(await b.rig.markers(done.recordingId!), isEmpty, reason: 'no gap');
+      await pumpEventQueue();
+      expect(b.indicator.visible, isFalse);
+    });
+
     test('[AUD-05/AC2] notification Pause / Resume / Stop drive the '
         'recording while the app is in the background', () async {
       final b = _Background();
