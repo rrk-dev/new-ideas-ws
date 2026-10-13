@@ -1,12 +1,15 @@
+import 'package:flutter/material.dart' show Icons;
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vaultvoice/core/routing/app_shell.dart';
+import 'package:vaultvoice/core/widgets/placeholder_screen.dart';
 import 'package:vaultvoice/features/library/presentation/library_screen.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_queue_screen.dart';
 import 'package:vaultvoice/features/pipeline/presentation/recording_status_screen.dart';
 import 'package:vaultvoice/features/profiles/presentation/profiles_screen.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_screen.dart';
+import 'package:vaultvoice/features/settings/presentation/vault_settings_screens.dart';
 
 part 'app_routes.g.dart';
 
@@ -30,7 +33,16 @@ part 'app_routes.g.dart';
       routes: [TypedGoRoute<ProfilesRoute>(path: '/profiles')],
     ),
     TypedStatefulShellBranch<SettingsBranchData>(
-      routes: [TypedGoRoute<SettingsRoute>(path: '/settings')],
+      routes: [
+        TypedGoRoute<SettingsRoute>(
+          path: '/settings',
+          routes: [
+            TypedGoRoute<ModelsSettingsRoute>(path: 'models'),
+            TypedGoRoute<VaultFoldersRoute>(path: 'vault-folders'),
+            TypedGoRoute<RoutingRulesRoute>(path: 'routing-rules'),
+          ],
+        ),
+      ],
     ),
   ],
 )
@@ -128,4 +140,30 @@ class SettingsRoute extends GoRouteData with $SettingsRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const SettingsScreen();
+}
+
+/// Settings → Processing → Models. Placeholder until model management
+/// (MDL-03) provides the screen.
+class ModelsSettingsRoute extends GoRouteData with $ModelsSettingsRoute {
+  const ModelsSettingsRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const PlaceholderScreen(title: 'Models', icon: Icons.memory);
+}
+
+class VaultFoldersRoute extends GoRouteData with $VaultFoldersRoute {
+  const VaultFoldersRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const VaultFoldersScreen();
+}
+
+class RoutingRulesRoute extends GoRouteData with $RoutingRulesRoute {
+  const RoutingRulesRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const RoutingRulesScreen();
 }

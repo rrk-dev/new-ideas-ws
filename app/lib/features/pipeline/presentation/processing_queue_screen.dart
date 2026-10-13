@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
+import 'package:vaultvoice/core/widgets/status_message.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_progress.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/presentation/job_commands.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
-import 'package:vaultvoice/features/pipeline/presentation/recording_status_screen.dart';
 
 /// Jobs shown in the queue: everything still in the pipeline plus failures
 /// the user has not dealt with yet.

@@ -56,6 +56,23 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
           path: '/settings',
           hasOverriddenOnExit: false,
           factory: $SettingsRoute._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'models',
+              hasOverriddenOnExit: false,
+              factory: $ModelsSettingsRoute._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'vault-folders',
+              hasOverriddenOnExit: false,
+              factory: $VaultFoldersRoute._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'routing-rules',
+              hasOverriddenOnExit: false,
+              factory: $RoutingRulesRoute._fromState,
+            ),
+          ],
         ),
       ],
     ),
@@ -178,6 +195,69 @@ mixin $SettingsRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/settings');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $ModelsSettingsRoute on GoRouteData {
+  static ModelsSettingsRoute _fromState(GoRouterState state) =>
+      const ModelsSettingsRoute();
+
+  @override
+  String get location => GoRouteData.$location('/settings/models');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $VaultFoldersRoute on GoRouteData {
+  static VaultFoldersRoute _fromState(GoRouterState state) =>
+      const VaultFoldersRoute();
+
+  @override
+  String get location => GoRouteData.$location('/settings/vault-folders');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $RoutingRulesRoute on GoRouteData {
+  static RoutingRulesRoute _fromState(GoRouterState state) =>
+      const RoutingRulesRoute();
+
+  @override
+  String get location => GoRouteData.$location('/settings/routing-rules');
 
   @override
   void go(BuildContext context) => context.go(location);

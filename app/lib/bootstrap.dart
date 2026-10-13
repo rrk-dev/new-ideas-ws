@@ -9,6 +9,7 @@ import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
 import 'package:vaultvoice/core/errors/error_boundary.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
+import 'package:vaultvoice/core/licenses/bundled_licenses.dart';
 import 'package:vaultvoice/core/logging/logger.dart';
 import 'package:vaultvoice/core/logging/redaction.dart';
 import 'package:vaultvoice/core/logging/rotating_file_sink.dart';
@@ -28,6 +29,7 @@ Future<void> bootstrap(
   List<Override> overrides = const [],
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
+  registerBundledLicenses();
   final paths = await _resolvePaths();
   final sink = RotatingFileSink(paths.logs);
   final logger = Logger.forFlavor(
