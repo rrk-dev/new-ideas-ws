@@ -1,7 +1,7 @@
 # LIC-01 — Entitlements & Feature Gating Framework
 
 **Workstream:** Licensing | **Phase:** 2–3 | **Size:** S | **Depends on:** FND-02 | **Source:** §7
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-licensing-iap, vv-flutter-architecture, vv-testing
 
 ## Goal
