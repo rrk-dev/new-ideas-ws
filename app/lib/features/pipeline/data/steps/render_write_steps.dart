@@ -182,8 +182,15 @@ class WriteStep implements PipelineStep {
         existing.contentHash == hash;
 
     if (!alreadyWritten) {
+      // Overwrite only the note this pipeline wrote earlier for this recording
+      // and target (re-extract / re-render); never clobber a foreign file.
+      final ownsExistingFile =
+          existing != null &&
+          existing.relPath == relPath &&
+          existing.status == ExportStatus.written;
       final written = await vault.write(
         NoteDraft(relativePath: relPath, markdown: markdown),
+        overwrite: ownsExistingFile,
       );
       if (written case Err(:final failure)) return StepFailed(failure);
     }
