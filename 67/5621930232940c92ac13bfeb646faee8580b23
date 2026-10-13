@@ -1,0 +1,42 @@
+app/lib/core/platform/backend_policy.dart
+  s_9f6fcf8c1840a0::t_c976601520f167 215
+docs/test-plans/device/STT-02.md
+  s_9f6fcf8c1840a0::t_d9135b770db5a7 13
+docs/adr/ADR-STT-02-android-backends.md
+  s_9f6fcf8c1840a0::t_fda66e68f6fba4 114-120
+  s_9f6fcf8c1840a0::t_d9135b770db5a7 90
+native/bridge/vv_error.h
+  s_9f6fcf8c1840a0::t_4fd5ae7aef488d 2-4
+tools/ci/tests/test_stt_native_build.py
+  s_9f6fcf8c1840a0::t_c976601520f167 97,100
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_d2c0eb621c10e4 122,126-127
+native/bridge/vv_exports.txt
+  s_9f6fcf8c1840a0::t_8579eabb0d8216 1-3
+tasks/03-stt/STT-02-whisper-android-build.md
+  s_9f6fcf8c1840a0::t_d9135b770db5a7 15,28-29
+native/bridge/vv_threads.h
+  s_9f6fcf8c1840a0::t_31b8788c748ed8 1-64
+native/bridge/vv_backend.cpp
+  s_9f6fcf8c1840a0::t_a952c797914e76 1
+native/bridge/vv_exports.map
+  s_9f6fcf8c1840a0::t_a0e521acf83026 3-5
+native/tests/backends_test.cpp
+  s_9f6fcf8c1840a0::t_6a6666c67f10d9 1-2,20,79-80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "675621930232940c92ac13bfeb646faee8580b23",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
