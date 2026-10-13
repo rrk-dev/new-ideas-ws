@@ -1,0 +1,410 @@
+docs/adr/ADR-FND-04-database.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-108
+docs/ci.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 11,18-21
+  s_9f6fcf8c1840a0::t_ec50f967e9968e 22
+docs/test-plans/device/MDL-01.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-13
+app/lib/features/pipeline/domain/heavy_model_gate.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-32
+app/test/db/db_infra_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-188
+packages/vv_native/android/build.gradle
+  s_9f6fcf8c1840a0::t_fd00d826537472 53-54,63
+tools/ci/build_android.sh
+  s_9f6fcf8c1840a0::t_fd00d826537472 6-7
+tools/ci/tests/test_recording_policy.py
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-211
+app/lib/core/db/repositories/recordings_repository.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-123
+app/ios/Runner/BookmarkHostApiImpl.swift
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-389
+app/lib/core/platform/call_guard.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-65
+app/lib/core/db/database.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-74
+app/lib/features/models/domain/catalog_verifier.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-121
+.gitignore
+  s_9f6fcf8c1840a0::t_fd00d826537472 14-15
+app/lib/features/pipeline/data/pipeline_providers.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-288
+app/lib/features/recording/domain/capture_backend.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-46
+app/lib/features/recording/domain/recording_controller.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-314
+app/test/db/db_test_utils.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-72
+docs/test-plans/device/SEC-09.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-28
+app/lib/core/db/repositories/settings_repository.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-44
+app/drift_schemas/vaultvoice/drift_schema_v1.json
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-2071
+tools/ci/update_goldens.sh
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-46
+app/lib/features/export/data/export_providers.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-174
+app/lib/core/db/database.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-15289
+app/lib/features/models/data/catalog_config.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-27
+app/lib/core/db/repositories/extractions_repository.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-23
+app/lib/core/utils/ids.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-26
+app/pigeons/bookmark_api.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-106
+app/analysis_options.yaml
+  s_9f6fcf8c1840a0::t_fd00d826537472 13-14
+app/build.yaml
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-17
+app/test/fakes/fake_call_guard.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-42
+app/test/db/fixtures/v2_fixture_database.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-15917
+app/ios/Runner/Info.plist
+  s_9f6fcf8c1840a0::t_fd00d826537472 29-32
+app/lib/core/errors/failure.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-2,66-86,95-173
+app/lib/core/db/tables/extraction_tables.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-42
+.agents/skills/vv-local-database/SKILL.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 27,35
+app/test/unit/export/app_local_vault_writer_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-150
+app/ios/Runner/BookmarkApi.g.swift
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-561
+app/test/unit/export/bookmark_vault_writer_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-322
+app/lib/core/platform/id_generator.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-51
+app/test/unit/recording/recording_controller_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-397
+app/lib/features/recording/data/method_channel_call_guard.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-60
+app/test/unit/test_helpers_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-153
+app/test/db/repositories/recordings_repository_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-281
+app/lib/core/db/repositories/vault_repository.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-93
+app/lib/core/db/repositories/settings_repository.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-16
+app/test/fixtures/markdown/meeting_short.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-16
+tools/ci/check_recording_policy.sh
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-10
+app/test/unit/pipeline/job_state_machine_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-384
+app/lib/core/db/db_providers.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-74
+app/lib/core/db/migrations.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-62
+app/lib/core/db/repositories/extractions_repository.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-76
+app/pubspec.yaml
+  s_9f6fcf8c1840a0::t_fd00d826537472 11-12,14,20-21,24,30-31,40,47-50
+docs/privacy-audit.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-68
+app/lib/features/recording/domain/start_source.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-46
+app/android/app/src/main/res/xml/backup_rules.xml
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-9
+app/lib/core/platform/providers.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 216,221,226,260
+app/lib/core/db/repositories/models_repository.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-37
+app/lib/features/pipeline/domain/pipeline_client.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-83
+app/test/db/migrations/vaultvoice/generated/schema.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-22
+app/test/fakes/fake_capture_backend.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-82
+app/lib/features/export/data/pigeon/bookmark_api.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-486
+app/lib/core/db/tables/profile_tables.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-37
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_9f6fcf8c1840a0::t_fd00d826537472 15-17,56-58,132-134,296-298
+app/lib/core/db/repositories/vault_repository.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-25
+app/lib/features/pipeline/data/steps/render_write_steps.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-219
+app/test/db/repositories/content_repository_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-373
+.github/workflows/ci.yml
+  s_9f6fcf8c1840a0::t_fd00d826537472 43-44,93-95,127-128
+app/test/flutter_test_config.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-15
+app/test/unit/models/catalog_repository_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-201
+app/test/unit/pipeline/pipeline_orchestrator_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-547
+app/lib/features/export/domain/vault_folder.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-62
+app/lib/features/pipeline/data/steps/extract_step.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-122
+app/lib/features/pipeline/data/steps/transcribe_step.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-127
+app/lib/core/platform/vault_writer.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 3-12,17,29-46,48-66
+app/lib/features/export/data/export_providers.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-44
+tasks/01-foundation/FND-05-processing-pipeline-orchestrator.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 4,11-17,23-64
+app/lib/core/db/repositories/recordings_repository.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-31
+app/lib/features/export/data/app_local_vault_writer.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-127
+app/test/helpers/catalog_signing.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-73
+tasks/07-export/EXP-03-android-saf-folder-access.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 4,11-15,20-47
+app/ios/Runner/AppDelegate.swift
+  s_9f6fcf8c1840a0::t_fd00d826537472 6-8,18-23
+app/lib/core/platform/vault_path.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-52
+app/lib/features/pipeline/data/pipeline_orchestrator.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-515
+app/lib/features/recording/data/recording_providers.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-154
+app/test/helpers/deterministic.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-21
+app/lib/core/widgets/placeholder_screen.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 6-11,16-18,23
+app/lib/core/db/connection.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-52
+app/test/db/fixtures/v2_fixture_database.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-73
+tools/ci/check_recording_policy.py
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-248
+docs/test-plans/device/EXP-03.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-24
+app/lib/features/pipeline/domain/pipeline_step.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-118
+tasks/10-security-privacy/SEC-09-recording-safeguards-no-call-capture.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 4,12-16,22-28,41-68
+docs/test-plans/device/QA-01.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-17
+app/android/app/src/main/AndroidManifest.xml
+  s_9f6fcf8c1840a0::t_fd00d826537472 5-8
+app/lib/features/models/data/catalog_providers.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-25
+tools/ci/tests/test_test_framework.py
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-177
+app/lib/features/models/data/catalog_providers.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-151
+app/.gitignore
+  s_9f6fcf8c1840a0::t_fd00d826537472 49-51
+app/test/db/repositories/transcripts_jobs_repository_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-213
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/MainActivity.kt
+  s_9f6fcf8c1840a0::t_fd00d826537472 3-5,7,9-33
+app/test/unit/recording/method_channel_call_guard_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-88
+app/lib/features/models/domain/catalog_state_store.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-23
+app/lib/features/pipeline/domain/job_state.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-177
+app/lib/core/db/repositories/profiles_repository.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-19
+app/test/fakes/fake_saf_host_api.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-168
+app/lib/features/models/domain/catalog_keys.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-24
+app/test/widget/call_guard_debug_screen_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-63
+app/test/unit/providers_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 5,14,19
+app/test/db/migrations/vaultvoice/generated/schema_v1.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-1773
+docs/test-plans/device/EXP-04.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-26
+tasks/07-export/EXP-04-ios-security-scoped-bookmarks.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 4,11-15,20-47
+app/lib/core/db/tables/settings_tables.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-35
+tools/model-catalog/catalog.py
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-357
+app/test/db/migrations/fixture_v2_migration_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-163
+tasks/05-models/MDL-01-model-catalog-hosting.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 4,11-15,25-59
+app/lib/core/db/enums.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-26
+app/lib/features/export/data/saf_vault_writer.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-135
+app/test/unit/recording/recording_policy_source_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-70
+app/lib/features/pipeline/data/steps/step_support.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-28
+app/test/helpers/test_container.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 4,9,22,29
+app/test/fakes/fake_bookmark_host_api.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-169
+app/lib/core/db/tables/export_tables.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-59
+tools/model-catalog/README.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-39
+app/lib/core/db/repositories/profiles_repository.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-48
+app/lib/features/pipeline/domain/job_state_machine.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-225
+app/integration_test/vault_folder_saf_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-73
+app/test/helpers/golden.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-178
+app/lib/features/models/data/catalog_repository.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-127
+.gitattributes
+  s_9f6fcf8c1840a0::t_fd00d826537472 10-11
+tools/model-catalog/models.json
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-49
+app/lib/features/pipeline/data/pipeline_isolate.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-221
+app/lib/core/db/db_guard.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-55
+app/test/golden/placeholder_screens_golden_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-17
+tools/model-catalog/catalog.schema.json
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-61
+app/dart_test.yaml
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-4
+app/test/fakes/fake_id_generator.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-19
+tools/ci/fetch_test_models.sh
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-86
+.agents/skills/vv-task-workflow/scripts/tasks.py
+  s_9f6fcf8c1840a0::t_fd00d826537472 416-418
+app/lib/features/pipeline/data/job_mapper.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-63
+app/lib/core/db/repositories/jobs_repository.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-19
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/saf/SafApi.g.kt
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-576
+app/lib/features/recording/data/recording_providers.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-37
+app/test/unit/id_generator_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-41
+app/integration_test/vault_folder_bookmark_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-83
+app/test/pipeline/fake_pipeline_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-157
+tools/model-catalog/tests/test_catalog.py
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-187
+app/test/fixtures/llm/meeting_short.json
+  s_9f6fcf8c1840a0::t_fd00d826537472 1
+app/test/unit/export/saf_vault_writer_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-328
+app/integration_test/e2e_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-46
+app/pigeons/saf_api.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-107
+app/lib/core/db/repositories/transcripts_repository.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-93
+app/lib/core/db/tables/recording_tables.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-87
+app/android/app/src/main/res/xml/data_extraction_rules.xml
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-20
+app/lib/core/network/model_hosts.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-16
+app/lib/core/db/converters.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-48
+app/test/helpers/fixtures.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-91
+app/test/fixtures/transcripts/meeting_short.json
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-10
+app/lib/features/pipeline/data/pipeline_providers.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-52
+app/lib/core/db/storage_paths.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-64
+docs/adr/ADR-SEC-09-recording-policy.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-166
+app/test/fakes/fake_vault_writer.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 6,12,15-17,20,22-99
+app/test/helpers/pipeline_harness.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-96
+app/lib/features/export/data/bookmark_vault_writer.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-158
+docs/adr/ADR-MDL-01-model-hosting.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-93
+app/lib/features/export/domain/vault_access_guard.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-59
+app/lib/features/recording/domain/recording_limits.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-45
+app/test/unit/pipeline/pipeline_isolate_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-127
+tasks/01-foundation/FND-04-local-database.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 4,11-15,21-45
+tasks/01-foundation/FND-06-native-build-infrastructure.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 43-53
+tasks/11-quality/QA-01-test-strategy.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 4,11-15,20-51
+tasks/README.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 182,188
+app/lib/features/models/domain/model_catalog.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-310
+app/lib/core/platform/id_generator.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-33
+docs/testing.md
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-222
+app/lib/core/db/tables/transcript_tables.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-46
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/CallGuardPlugin.kt
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-177
+app/lib/features/pipeline/data/pipeline_engines.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-50
+app/lib/features/recording/presentation/recording_screen.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 2-3,5,7-9,13-31
+native/build.sh
+  s_9f6fcf8c1840a0::t_fd00d826537472 42,67,69-70,91-92,120-121,123-126
+app/lib/core/db/repositories/jobs_repository.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-50
+app/lib/core/db/db_providers.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-530
+app/test/unit/pipeline/pipeline_test_utils.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-164
+app/lib/core/db/tables/job_tables.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-42
+app/lib/core/db/repositories/models_repository.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-19
+app/lib/core/db/repositories/transcripts_repository.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-27
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/saf/SafHostApiImpl.kt
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-462
+app/lib/core/platform/providers.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 2,35,37-38
+app/lib/features/models/domain/model_file_verifier.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-43
+app/ios/Runner/CallGuardPlugin.swift
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-107
+app/lib/features/export/data/pigeon/saf_api.g.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-475
+app/lib/features/export/data/vault_platform_errors.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-57
+app/lib/features/recording/presentation/call_guard_debug_screen.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-154
+app/test/unit/models/catalog_verifier_test.dart
+  s_9f6fcf8c1840a0::t_fd00d826537472 1-407
+app/pubspec.lock
+  s_9f6fcf8c1840a0::t_0ca8e18d4f76d7 140-147,176,179,213,220-227,260-275,277,414,417,579,582,607-614,619,622,632,695-702,759-766,771,774,876-891
+tools/ci/test-models.lock
+  s_9f6fcf8c1840a0::t_601126f8bcad0f 1-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "937dbb7a4c1920e3ab25158a3e014a7bc52bef0b",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
