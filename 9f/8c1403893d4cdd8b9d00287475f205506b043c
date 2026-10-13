@@ -1,0 +1,19 @@
+tasks/02-audio/AUD-05-android-background-recording.md
+  s_69ca8c5d66d4f3::t_7044faca8605fa 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9f8c1403893d4cdd8b9d00287475f205506b043c",
+  "prompts": {},
+  "sessions": {
+    "s_69ca8c5d66d4f3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-ad7ba73da375d6ccc",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
