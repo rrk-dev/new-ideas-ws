@@ -30,6 +30,18 @@ void main() {
     expect(native.llamaSystemInfo, isNotEmpty);
   }, skip: skip);
 
+  test('[STT-02/AC2] CPU-only backend load works and lists a CPU device', () {
+    final native = VvNative.open(hostPath: lib);
+    expect(native.loadBackends(), 0);
+    final devices = native.describeBackends();
+    expect(devices.map((d) => d['type']), contains('cpu'));
+    if (native.dynamicBackends) {
+      // gpuMask 0 must not load any GPU module (safe fallback).
+      expect(devices.map((d) => d['type']), isNot(contains('gpu')));
+    }
+    expect(native.perfCores, greaterThanOrEqualTo(1));
+  }, skip: skip);
+
   test('loading a missing library fails loudly', () {
     expect(
       () => VvNative.open(hostPath: '/nonexistent/libvv_native.so'),

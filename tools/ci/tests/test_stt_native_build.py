@@ -55,3 +55,47 @@ def test_STT_01_AC2_adr_records_coreml_vs_metal_benchmark():
     raw = ROOT / "tools/bench/results/2026-10-13-stt-host-backends.jsonl"
     labels = {m for m in re.findall(r'"label":"([^"]+)"', raw.read_text())}
     assert {"metal", "cpu", "coreml+metal", "coreml+cpu"} <= labels
+
+
+def _android_block() -> str:
+    m = re.search(r"build_android\(\) \{(.*?)\n\}", BUILD, re.S)
+    assert m, "build_android() not found in native/build.sh"
+    return m.group(1)
+
+
+def test_STT_02_runtime_cpu_variants_are_opt_in_and_exclusive_with_fixed_arch():
+    """DL build = every CPU variant + runtime pick; never combined with a fixed -march."""
+    m = re.search(r'option\(VV_GGML_BACKEND_DL\s+"[^"]*"\s+(\w+)\)', CMAKE)
+    assert m and m.group(1) == "OFF"
+    block = CMAKE[CMAKE.index("if(VV_GGML_BACKEND_DL)"):CMAKE.index("add_subdirectory(llama.cpp/ggml")]
+    for needle in ("set(GGML_BACKEND_DL ON)", "set(GGML_CPU_ALL_VARIANTS ON)",
+                   "set(BUILD_SHARED_LIBS ON)", "VV_ANDROID_CPU_ARCH and VV_GGML_BACKEND_DL",
+                   "max-page-size=16384"):
+        assert needle in block, needle
+    # whisper/llama must go back to static right after ggml.
+    after = CMAKE[CMAKE.index("add_subdirectory(llama.cpp/ggml"):CMAKE.index("add_subdirectory(llama.cpp llama)")]
+    assert "set(BUILD_SHARED_LIBS OFF)" in after
+
+
+def test_STT_02_gpu_backends_only_as_runtime_modules():
+    """[STT-02/AC2] Vulkan/OpenCL can only be built as dlopen()ed modules (safe CPU fallback)."""
+    assert 'GPU backends must be runtime-optional: set VV_GGML_BACKEND_DL=ON' in CMAKE
+    for opt in ("VV_GGML_VULKAN", "VV_GGML_OPENCL"):
+        m = re.search(rf'option\({opt}\s+"[^"]*"\s+(\w+)\)', CMAKE)
+        assert m and m.group(1) == "OFF", opt
+    android = _android_block()
+    for flag in ('-DVV_GGML_BACKEND_DL="${VV_GGML_BACKEND_DL:-OFF}"',
+                 '-DVV_GGML_VULKAN="${VV_GGML_VULKAN:-OFF}"',
+                 '-DVV_GGML_OPENCL="${VV_GGML_OPENCL:-OFF}"',
+                 "c++_shared", "-DGGML_OPENMP=OFF", "-DGGML_NATIVE=OFF"):
+        assert flag in android, flag
+    # NNAPI is deprecated (Android 15) and out of scope (ADR-STT-02).
+    assert "NNAPI" not in CMAKE.upper().replace("# NNAPI", "")
+
+
+def test_STT_02_bridge_exports_backend_api():
+    """vv_backends_* and vv_cpu_perf_cores are exported on both linkers."""
+    bridge = ROOT / "native" / "bridge"
+    mp, txt = (bridge / "vv_exports.map").read_text(), (bridge / "vv_exports.txt").read_text()
+    for sym in ("vv_backends_load", "vv_backends_describe", "vv_backends_dynamic", "vv_cpu_perf_cores"):
+        assert f"{sym};" in mp and f"_{sym}\n" in txt, sym

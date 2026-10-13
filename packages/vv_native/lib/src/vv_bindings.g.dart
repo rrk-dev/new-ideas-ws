@@ -88,6 +88,103 @@ class VvBindings {
       );
   late final _vv_llama_system_info = _vv_llama_system_infoPtr
       .asFunction<ffi.Pointer<ffi.Char> Function()>();
+
+  /// Loads the ggml backends once per process; call before vv_stt_create /
+  /// vv_llm_create. In a VV_GGML_BACKEND_DL build it dlopen()s the best CPU
+  /// variant for this CPU plus each GPU module whose bit is set in gpu_mask
+  /// (the Dart allowlist decides the mask; 0 = CPU only). Later calls may add
+  /// GPU families but never unload. In a static build (iOS, default Android)
+  /// every compiled backend is already registered and this is a no-op; choose
+  /// CPU-only per model with use_gpu = 0 instead.
+  /// lib_dir: directory of the backend modules; NULL = the directory of this
+  /// library (works for extracted and APK-embedded Android libs).
+  /// Returns VV_OK, or VV_E_BACKEND when no CPU backend could be loaded.
+  int vv_backends_load(ffi.Pointer<ffi.Char> lib_dir, int gpu_mask) {
+    return _vv_backends_load(lib_dir, gpu_mask);
+  }
+
+  late final _vv_backends_loadPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Pointer<ffi.Char>, ffi.Uint32)
+        >
+      >('vv_backends_load');
+  late final _vv_backends_load = _vv_backends_loadPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
+
+  /// JSON array describing the registered devices (diagnostics +
+  /// DeviceCapabilities; hardware names only, never content):
+  /// [{"name":"CPU","type":"cpu","description":"..."},{"name":"Vulkan0","type":"gpu",...}]
+  /// Writes up to cap bytes incl. NUL into buf; *needed (optional) receives the
+  /// full size incl. NUL. Returns VV_OK, or VV_E_INVALID_ARG when cap is too
+  /// small (buf then holds an empty string if cap > 0).
+  int vv_backends_describe(
+    ffi.Pointer<ffi.Char> buf,
+    int cap,
+    ffi.Pointer<ffi.Size> needed,
+  ) {
+    return _vv_backends_describe(buf, cap, needed);
+  }
+
+  late final _vv_backends_describePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.Pointer<ffi.Size>,
+          )
+        >
+      >('vv_backends_describe');
+  late final _vv_backends_describe = _vv_backends_describePtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.Char>, int, ffi.Pointer<ffi.Size>)
+      >();
+
+  /// 1 when this library was built with runtime-loaded backends.
+  int vv_backends_dynamic() {
+    return _vv_backends_dynamic();
+  }
+
+  late final _vv_backends_dynamicPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('vv_backends_dynamic');
+  late final _vv_backends_dynamic = _vv_backends_dynamicPtr
+      .asFunction<int Function()>();
+
+  /// Number of performance cores (outside the slowest cluster; Apple
+  /// perflevel0). Default STT/LLM n_threads. Always >= 1.
+  int vv_cpu_perf_cores() {
+    return _vv_cpu_perf_cores();
+  }
+
+  late final _vv_cpu_perf_coresPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('vv_cpu_perf_cores');
+  late final _vv_cpu_perf_cores = _vv_cpu_perf_coresPtr
+      .asFunction<int Function()>();
 }
 
 const int VV_ABI_VERSION = 1;
+
+const int VV_OK = 0;
+
+const int VV_E_INVALID_ARG = -1;
+
+const int VV_E_MODEL_LOAD = -2;
+
+const int VV_E_OOM = -3;
+
+const int VV_E_CANCELLED = -4;
+
+const int VV_E_IO = -5;
+
+const int VV_E_BACKEND = -6;
+
+const int VV_E_BUSY = -7;
+
+const int VV_E_INTERNAL = -8;
+
+const int VV_GPU_METAL = 1;
+
+const int VV_GPU_VULKAN = 2;
+
+const int VV_GPU_OPENCL = 4;

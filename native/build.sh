@@ -73,9 +73,11 @@ build_android() {
   cmake -S "$NATIVE" -B "$dir" -G Ninja "${COMMON[@]}" \
     -DCMAKE_TOOLCHAIN_FILE="$ndk/build/cmake/android.toolchain.cmake" \
     -DANDROID_ABI=arm64-v8a -DANDROID_PLATFORM="android-$ANDROID_API" \
-    -DANDROID_STL=c++_static \
+    -DANDROID_STL="$( [ "${VV_GGML_BACKEND_DL:-OFF}" = ON ] && echo c++_shared || echo c++_static )" \
     -DGGML_OPENMP=OFF -DGGML_LLAMAFILE=OFF -DGGML_NATIVE=OFF \
-    ${VV_ANDROID_CPU_ARCH:+-DVV_ANDROID_CPU_ARCH="$VV_ANDROID_CPU_ARCH"}
+    ${VV_ANDROID_CPU_ARCH:+-DVV_ANDROID_CPU_ARCH="$VV_ANDROID_CPU_ARCH"} \
+    -DVV_GGML_BACKEND_DL="${VV_GGML_BACKEND_DL:-OFF}" \
+    -DVV_GGML_VULKAN="${VV_GGML_VULKAN:-OFF}" -DVV_GGML_OPENCL="${VV_GGML_OPENCL:-OFF}"  # STT-02
   cmake --build "$dir" -j "$JOBS"
   local so="$dir/libvv_native.so"
   local tool="$ndk/toolchains/llvm/prebuilt/$(ls "$ndk/toolchains/llvm/prebuilt" | head -1)/bin"

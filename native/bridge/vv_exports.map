@@ -6,6 +6,10 @@
     vv_ggml_version;
     vv_whisper_system_info;
     vv_llama_system_info;
+    vv_backends_load;
+    vv_backends_describe;
+    vv_backends_dynamic;
+    vv_cpu_perf_cores;
   local:
     *;
 };

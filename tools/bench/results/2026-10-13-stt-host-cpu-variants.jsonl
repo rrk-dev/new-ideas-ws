@@ -1,0 +1,4 @@
+# Darwin arm64 Apple M3 Pro whisper.cpp v1.9.5, ggml-base.en-q8_0 (a4d4a076), jfk tiled 60 s, greedy, 4 threads, CPU only, no BLAS; machine load avg 23-77 (other builds running)
+# static-armv8.0: -DGGML_CPU_ARM_ARCH=armv8-a (emulates the FND-06 Android NEON baseline); dl-best-variant: -DVV_GGML_BACKEND_DL=ON, vv loader picked ggml-cpu-apple_m2_m3 (dotprod+i8mm) by ggml_backend_score
+{"label":"static-armv8.0-baseline-noblas","model":"ggml-base.en-q8_0.bin","audio_s":60,"runs":5,"gpu":0,"threads":4,"beam":1,"coreml":"n/a","full_ms_median":3152,"full_ms_min":2695,"full_ms_max":3405,"load_ms_median":89,"load_ms_first":57,"rtf":0.0525}
+{"label":"dl-best-variant-noblas","model":"ggml-base.en-q8_0.bin","audio_s":60,"runs":5,"gpu":0,"threads":4,"beam":1,"coreml":"n/a","full_ms_median":2515,"full_ms_min":2008,"full_ms_max":2670,"load_ms_median":89,"load_ms_first":122,"rtf":0.0419}

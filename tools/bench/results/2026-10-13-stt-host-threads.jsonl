@@ -1,0 +1,7 @@
+# Darwin arm64 Apple M3 Pro whisper.cpp v1.9.5 model sha256 a4d4a0768075e13c — machine load avg ~110 during this sweep (other agents building): indicative only
+{"label":"cpu-t1","model":"ggml-base.en-q8_0.bin","audio_s":60,"runs":3,"gpu":0,"threads":1,"beam":1,"coreml":"n/a","full_ms_median":6362,"full_ms_min":5256,"full_ms_max":7593,"load_ms_median":146,"load_ms_first":610,"rtf":0.1060}
+{"label":"cpu-t2","model":"ggml-base.en-q8_0.bin","audio_s":60,"runs":3,"gpu":0,"threads":2,"beam":1,"coreml":"n/a","full_ms_median":5085,"full_ms_min":4418,"full_ms_max":5978,"load_ms_median":144,"load_ms_first":176,"rtf":0.0847}
+{"label":"cpu-t4","model":"ggml-base.en-q8_0.bin","audio_s":60,"runs":3,"gpu":0,"threads":4,"beam":1,"coreml":"n/a","full_ms_median":2242,"full_ms_min":2028,"full_ms_max":2427,"load_ms_median":127,"load_ms_first":164,"rtf":0.0374}
+{"label":"cpu-t6","model":"ggml-base.en-q8_0.bin","audio_s":60,"runs":3,"gpu":0,"threads":6,"beam":1,"coreml":"n/a","full_ms_median":3331,"full_ms_min":2900,"full_ms_max":3336,"load_ms_median":194,"load_ms_first":265,"rtf":0.0555}
+{"label":"cpu-t8","model":"ggml-base.en-q8_0.bin","audio_s":60,"runs":3,"gpu":0,"threads":8,"beam":1,"coreml":"n/a","full_ms_median":2942,"full_ms_min":2931,"full_ms_max":3896,"load_ms_median":96,"load_ms_first":161,"rtf":0.0490}
+{"label":"cpu-t12","model":"ggml-base.en-q8_0.bin","audio_s":60,"runs":3,"gpu":0,"threads":12,"beam":1,"coreml":"n/a","full_ms_median":15943,"full_ms_min":11718,"full_ms_max":513883,"load_ms_median":121,"load_ms_first":158,"rtf":0.2657}
