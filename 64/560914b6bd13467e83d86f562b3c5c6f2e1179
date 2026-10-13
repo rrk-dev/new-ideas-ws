@@ -1,0 +1,45 @@
+tools/bench/stt_host_bench.sh
+  s_9f6fcf8c1840a0::t_bf40488e598d8e 1-59
+docs/test-plans/device/STT-01.md
+  s_9f6fcf8c1840a0::t_820831a0df24e0 1-26
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_d925d78e1e3b4e 133
+  s_9f6fcf8c1840a0::t_13035ca97bb5ef 124-132,134
+  s_9f6fcf8c1840a0::t_dc02adccb7ebd3 42-56
+tasks/03-stt/STT-01-whisper-ios-build-metal.md
+  s_9f6fcf8c1840a0::t_a0122f2957580f 11-15,20-42
+docs/adr/ADR-STT-01-ios-coreml-vs-metal.md
+  s_9f6fcf8c1840a0::t_94ebd74d0c3aef 1-31,36-106
+  s_9f6fcf8c1840a0::t_8dcb75e2540d80 32-35
+native/build.sh
+  s_9f6fcf8c1840a0::t_3869d6472284c2 8,98
+native/tests/stt_backends.cpp
+  s_9f6fcf8c1840a0::t_dd76fff6ba8512 15,105-106
+  s_9f6fcf8c1840a0::t_3d0fc51b16cd69 1-14,16-104,107-228
+native/bridge/vv_wav.h
+  s_9f6fcf8c1840a0::t_aea88a8115d3f7 1-161
+tools/ci/tests/test_stt_native_build.py
+  s_9f6fcf8c1840a0::t_d7e9f146f181e3 1-57
+tools/bench/results/2026-10-13-stt-host-backends.jsonl
+  s_9f6fcf8c1840a0::t_80bb5891a9cc5e 1-5
+native/VERSIONS.md
+  s_9f6fcf8c1840a0::t_924cc927d54eed 31
+tasks/README.md
+  s_9f6fcf8c1840a0::t_924cc927d54eed 185
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "64560914b6bd13467e83d86f562b3c5c6f2e1179",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
