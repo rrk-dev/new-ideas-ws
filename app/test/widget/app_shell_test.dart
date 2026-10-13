@@ -5,6 +5,7 @@ import 'package:vaultvoice/app.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/features/library/presentation/library_screen.dart';
+import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/profiles/presentation/profiles_screen.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_screen.dart';
@@ -12,7 +13,11 @@ import 'package:vaultvoice/features/settings/presentation/settings_screen.dart';
 void main() {
   Future<void> pumpApp(WidgetTester tester) => tester.pumpWidget(
     ProviderScope(
-      overrides: [flavorProvider.overrideWithValue(Flavor.dev)],
+      overrides: [
+        flavorProvider.overrideWithValue(Flavor.dev),
+        // Hermetic: no database behind the processing-queue indicator.
+        processingViewsProvider.overrideWith((ref) async => const []),
+      ],
       child: const App(),
     ),
   );

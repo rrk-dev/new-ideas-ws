@@ -26,6 +26,18 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
           path: '/library',
           hasOverriddenOnExit: false,
           factory: $LibraryRoute._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'processing',
+              hasOverriddenOnExit: false,
+              factory: $ProcessingQueueRoute._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'recordings/:recordingId',
+              hasOverriddenOnExit: false,
+              factory: $RecordingStatusRoute._fromState,
+            ),
+          ],
         ),
       ],
     ),
@@ -80,6 +92,52 @@ mixin $LibraryRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/library');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $ProcessingQueueRoute on GoRouteData {
+  static ProcessingQueueRoute _fromState(GoRouterState state) =>
+      const ProcessingQueueRoute();
+
+  @override
+  String get location => GoRouteData.$location('/library/processing');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $RecordingStatusRoute on GoRouteData {
+  static RecordingStatusRoute _fromState(GoRouterState state) =>
+      RecordingStatusRoute(recordingId: state.pathParameters['recordingId']!);
+
+  RecordingStatusRoute get _self => this as RecordingStatusRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/library/recordings/${Uri.encodeComponent(_self.recordingId)}',
+  );
 
   @override
   void go(BuildContext context) => context.go(location);
