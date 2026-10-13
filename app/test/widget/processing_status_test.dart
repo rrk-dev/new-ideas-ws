@@ -203,7 +203,7 @@ void main() {
 
     test('currentViewFor prefers the job still in the pipeline', () {
       final views = [
-        progressView(id: 'old', state: JobState.done, createdMinute: 0),
+        progressView(id: 'old', state: JobState.done),
         progressView(id: 'new', state: JobState.queued, createdMinute: 5),
       ];
       // Same recording for both.

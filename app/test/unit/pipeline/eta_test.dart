@@ -87,7 +87,7 @@ void main() {
       final s = const ThroughputStats()
           .record(PipelineStepId.extract, 0.3)
           .record(PipelineStepId.extract, double.nan)
-          .record(PipelineStepId.extract, 1e6);
+          .record(PipelineStepId.extract, 1000000);
       expect(s[PipelineStepId.extract]!.factor, 0.3);
       final back = ThroughputStats.fromJson(s.toJson());
       expect(back[PipelineStepId.extract]!.factor, 0.3);
@@ -230,7 +230,7 @@ void main() {
         now: t0.add(Duration(milliseconds: (0.6 * 600 * p * 1000).round())),
         stepStartedAt: t0,
       )!;
-      final real = 0.6 * 600 * (1 - p) + (0.25 + 0.002) * 600;
+      const real = 0.6 * 600 * (1 - p) + (0.25 + 0.002) * 600;
       expect((eta.inSeconds - real).abs() / real, lessThanOrEqualTo(0.30));
     });
 
@@ -283,7 +283,7 @@ void main() {
         now: at,
         stepStartedAt: t0,
       )!;
-      final expected = (0.25 * 1800 - 120) + (0.003 * 1800);
+      const expected = (0.25 * 1800 - 120) + (0.003 * 1800);
       expect(eta.inSeconds, closeTo(expected, 2));
     });
 

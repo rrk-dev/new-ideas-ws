@@ -128,8 +128,8 @@ void main() {
     Future<void> put(
       JobState state,
       PipelineStepId step, {
-      double progress = 0,
       required int atSec,
+      double progress = 0,
     }) async {
       final job = JobSnapshot(
         id: 'job-1',
