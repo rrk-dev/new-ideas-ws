@@ -1,7 +1,7 @@
 # AUD-01 — Core Audio Recording Service (16 kHz Mono WAV)
 
 **Workstream:** Audio | **Phase:** 1 | **Size:** M | **Depends on:** FND-02, SEC-09 | **Source:** §3.1.1, §4.1, §5 Phase 1
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-audio-capture, vv-flutter-architecture, vv-testing
 
 ## Goal
