@@ -1,0 +1,36 @@
+docs/test-plans/device/EXP-03.md
+  s_9f6fcf8c1840a0::t_a2de36349904cc 1-24
+tasks/07-export/EXP-03-android-saf-folder-access.md
+  s_9f6fcf8c1840a0::t_e697a62d8ec320 11-15,20-47
+app/test/unit/export/saf_vault_writer_test.dart
+  s_9f6fcf8c1840a0::t_bdee84ba332ccb 1-150,154-160,165-172,177-195,197-198,223-292,294-328
+  s_9f6fcf8c1840a0::t_f366418b9d9245 151-153,161-164,173-176,196,199-222,293
+app/test/unit/export/app_local_vault_writer_test.dart
+  s_9f6fcf8c1840a0::t_0d77cc6698850f 1-143
+  s_9f6fcf8c1840a0::t_7e5df44f96e0db 144-150
+app/test/fakes/fake_saf_host_api.dart
+  s_9f6fcf8c1840a0::t_1912c173ebbfdb 1-168
+app/integration_test/vault_folder_saf_test.dart
+  s_9f6fcf8c1840a0::t_781fdb0987c0de 39-40,45-48,61-69
+  s_9f6fcf8c1840a0::t_721c9a31ac8620 1-38,41-44,49-60,70-73
+app/test/fakes/fake_vault_writer.dart
+  s_9f6fcf8c1840a0::t_aa881af3568b37 63-71
+  s_9f6fcf8c1840a0::t_7691fe0db9ae60 20
+  s_9f6fcf8c1840a0::t_d2d304b9d31839 6,12,15-17,22-62,72-99
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "64209077e1aec3f1d68ec8de866f0efcc1b54437",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
