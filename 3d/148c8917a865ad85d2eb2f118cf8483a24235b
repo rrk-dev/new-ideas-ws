@@ -1,0 +1,55 @@
+native/bridge/vv_whisper.cpp
+  s_9f6fcf8c1840a0::t_8447d0346297ce 74,138,239,244
+  s_9f6fcf8c1840a0::t_0df4efa2a1bf09 1-23,26-37,39-73,75-137,139-238,240-243,245-263,265-280,282-389,391-406,408-411
+  s_9f6fcf8c1840a0::t_1e9a6dbaa0c65b 38,264,281,390,407
+  s_9f6fcf8c1840a0::t_6a6dd2c1e9170e 24-25
+native/tests/stt_bridge_test.cpp
+  s_9f6fcf8c1840a0::t_666afb71f50a60 1-22,24-56,58-93,95-100,102-205,207-363
+  s_9f6fcf8c1840a0::t_8447d0346297ce 57,94,101,206
+  s_9f6fcf8c1840a0::t_8328d811bd7aef 23
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_3d4d8c96a44bd0 122
+  s_9f6fcf8c1840a0::t_d760668e6ec4f1 191-198
+native/bridge/vv_exports.txt
+  s_9f6fcf8c1840a0::t_3d4d8c96a44bd0 11-19
+native/tests/sanitize.sh
+  s_9f6fcf8c1840a0::t_6df3e939e6f7d6 1-17
+packages/vv_native/lib/src/vv_bindings.g.dart
+  s_9f6fcf8c1840a0::t_f83a9d5bf12204 164-541
+packages/vv_native/ffigen.yaml
+  s_9f6fcf8c1840a0::t_9b83e6b214d383 11
+native/bridge/vv_whisper.h
+  s_9f6fcf8c1840a0::t_d5479dfc48a047 95-98
+  s_9f6fcf8c1840a0::t_2d9679e0821a4a 1-94,99-142
+native/bridge/vv_bridge.h
+  s_9f6fcf8c1840a0::t_3d4d8c96a44bd0 78-80
+packages/vv_native/lib/src/whisper.dart
+  s_9f6fcf8c1840a0::t_dc993fe0aacb11 329-351
+  s_9f6fcf8c1840a0::t_5abcc7eec8720b 159-163
+  s_9f6fcf8c1840a0::t_e976fd0b807b29 325-326
+  s_9f6fcf8c1840a0::t_849735ff36be93 1-158,164-196,214-324,327-328,352-363
+  s_9f6fcf8c1840a0::t_f404ae826ab84e 197-213
+packages/vv_native/lib/vv_native.dart
+  s_9f6fcf8c1840a0::t_d7d773b219e333 15-30
+packages/vv_native/test/whisper_host_test.dart
+  s_9f6fcf8c1840a0::t_b81753b67506e7 1-197
+  s_9f6fcf8c1840a0::t_77b372510ca7bc 198-201
+native/bridge/vv_exports.map
+  s_9f6fcf8c1840a0::t_42af79c200c0f0 13-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3d148c8917a865ad85d2eb2f118cf8483a24235b",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
