@@ -1,0 +1,19 @@
+tasks/04-llm/LLM-02-llama-ios-build-metal.md
+  s_9f6fcf8c1840a0::t_2941fbb44cdb49 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0a7cce498561b737b38f1bf0f99d1a6b95205360",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
