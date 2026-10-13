@@ -1,3 +1,5 @@
+import 'package:vaultvoice/core/platform/vault_writer.dart';
+
 /// Expected, recoverable errors that cross layer boundaries.
 ///
 /// Messages must be content-free: never put transcript text, LLM output,
@@ -59,6 +61,27 @@ final class EgressDeniedFailure extends Failure {
 /// A request that the gateway allowed failed on the wire.
 final class NetworkFailure extends Failure {
   const NetworkFailure(super.message);
+}
+
+/// The vault folder cannot be written: access was [VaultAccess.revoked]
+/// (re-pick the folder) or the storage is [VaultAccess.unavailable] (retry).
+final class VaultAccessFailure extends Failure {
+  /// The grant was withdrawn or the folder moved/deleted: re-pick it.
+  const VaultAccessFailure.revoked()
+    : access = VaultAccess.revoked,
+      super('vault access: revoked');
+
+  /// Storage temporarily unreachable (SD card, iCloud, provider): retry.
+  const VaultAccessFailure.unavailable()
+    : access = VaultAccess.unavailable,
+      super('vault access: unavailable');
+
+  final VaultAccess access;
+}
+
+/// A vault file already exists and the write did not allow overwriting.
+final class VaultFileExistsFailure extends Failure {
+  const VaultFileExistsFailure() : super('vault file exists');
 }
 
 /// A bug or an unclassified exception caught at a boundary.
