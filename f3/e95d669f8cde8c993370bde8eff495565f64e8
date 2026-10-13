@@ -1,0 +1,19 @@
+tasks/01-foundation/FND-06-native-build-infrastructure.md
+  s_99a8a99f2882f6::t_64fe942463eabc 4,43-55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f3e95d669f8cde8c993370bde8eff495565f64e8",
+  "prompts": {},
+  "sessions": {
+    "s_99a8a99f2882f6": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "dbe12172-a261-469f-8130-81366f2d1fbc",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
