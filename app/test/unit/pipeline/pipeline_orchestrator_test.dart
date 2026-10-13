@@ -111,13 +111,14 @@ void main() {
     final segments = expectOk(
       await db.transcriptsRepository.segments(transcriptIdFor(id)),
     );
-    expect([for (final s in segments) s.body], [
-      'chunk_0',
-      'chunk_1',
-      'chunk_2',
-    ]);
+    expect(
+      [for (final s in segments) s.body],
+      ['chunk_0', 'chunk_1', 'chunk_2'],
+    );
     expect([for (final s in segments) s.startMs], [0, 30000, 60000]);
-    final ext = expectOk(await db.extractionsRepository.get(extractionIdFor(id)));
+    final ext = expectOk(
+      await db.extractionsRepository.get(extractionIdFor(id)),
+    );
     expect(ext.valid, isTrue);
     expect(ext.profileId, 'meeting');
     final items = await db.select(db.actionItems).get();
@@ -202,11 +203,10 @@ void main() {
     final segments = expectOk(
       await db2.transcriptsRepository.segments(transcriptIdFor(id)),
     );
-    expect([for (final s in segments) s.body], [
-      'chunk_0',
-      'chunk_1',
-      'chunk_2',
-    ]);
+    expect(
+      [for (final s in segments) s.body],
+      ['chunk_0', 'chunk_1', 'chunk_2'],
+    );
     expect(run2.statesOf(id).first, JobState.queued); // recovered
   });
 
@@ -253,7 +253,9 @@ void main() {
     expect(h.llm.requests, hasLength(2));
     expect(h.llm.requests.last.prompt, contains('engineering'));
     expect(h.llm.requests.last.prompt, contains('chunk_2'));
-    final ext = expectOk(await db.extractionsRepository.get(extractionIdFor(id)));
+    final ext = expectOk(
+      await db.extractionsRepository.get(extractionIdFor(id)),
+    );
     expect(ext.profileId, 'engineering');
     expect(ext.json, {'summary': 'eng'});
     expect(
@@ -311,9 +313,7 @@ void main() {
 
   test('[FND-05/AC3] transient failures retry with backoff, then fail; '
       'manual retry recovers', () async {
-    h.llm.failures.addAll(
-      List.filled(4, const OutOfMemoryFailure()),
-    );
+    h.llm.failures.addAll(List.filled(4, const OutOfMemoryFailure()));
     final o = await h.start();
     final id = expectOk(await o.enqueue('r1'));
     await o.whenIdle();
@@ -417,10 +417,7 @@ void main() {
     await o.whenIdle();
     expect((await loadJob(db, id)).state, JobState.done);
     expect(h.stt.calls, hasLength(4)); // chunk 1 re-run once, chunk 0 not
-    expect(
-      (await o.resume(id)).failureOrNull,
-      isA<UnexpectedFailure>(),
-    );
+    expect((await o.resume(id)).failureOrNull, isA<UnexpectedFailure>());
   });
 
   test('[FND-05/AC3] waiting(destination) and waiting(modelMissing) resume '
@@ -451,23 +448,23 @@ void main() {
     expect((await loadJob(db, id2)).state, JobState.done);
   });
 
-  test('[FND-05/AC3] bad input fails permanently; unknown ids are errors', () async {
-    await seedRecording(db, 'empty'); // no audio chunks
-    final o = await h.start();
-    final id = expectOk(await o.enqueue('empty'));
-    await o.whenIdle();
-    final job = await loadJob(db, id);
-    expect(job.state, JobState.failed);
-    expect(job.failureKind, FailureKind.permanent);
+  test(
+    '[FND-05/AC3] bad input fails permanently; unknown ids are errors',
+    () async {
+      await seedRecording(db, 'empty'); // no audio chunks
+      final o = await h.start();
+      final id = expectOk(await o.enqueue('empty'));
+      await o.whenIdle();
+      final job = await loadJob(db, id);
+      expect(job.state, JobState.failed);
+      expect(job.failureKind, FailureKind.permanent);
 
-    expect((await o.enqueue('missing')).failureOrNull, isA<StorageFailure>());
-    expect(
-      (await o.enqueue('r1', profileId: 'p')).isOk,
-      isTrue,
-    );
-    expect((await o.cancel('missing')).failureOrNull, isA<StorageFailure>());
-    expect((await o.pause(id)).failureOrNull, isA<UnexpectedFailure>());
-  });
+      expect((await o.enqueue('missing')).failureOrNull, isA<StorageFailure>());
+      expect((await o.enqueue('r1', profileId: 'p')).isOk, isTrue);
+      expect((await o.cancel('missing')).failureOrNull, isA<StorageFailure>());
+      expect((await o.pause(id)).failureOrNull, isA<UnexpectedFailure>());
+    },
+  );
 
   group('custom steps', () {
     test('disabled steps are skipped; thrown errors and failing commits are '

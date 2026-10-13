@@ -34,7 +34,7 @@ Future<void> _blockUntil(CancelToken? cancel, Completer<void>? release) async {
   }
 }
 
-/// STT returning one segment per chunk ("chunk_<n>"). Call [blockOn] (0-based
+/// STT returning one segment per chunk (`chunk_<n>`). Call [blockOn] (0-based
 /// call index) hangs until cancelled or [release] completes; [failures] are
 /// returned for the first calls.
 class ScriptedStt implements SttEngine {

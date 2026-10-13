@@ -85,7 +85,13 @@ Future<void> _workerMain(_WorkerArgs args) async {
 /// UI sends commands through this client and observes `jobs` through drift
 /// streams (or [events]).
 class PipelineIsolateClient implements PipelineClient {
-  PipelineIsolateClient._(this._isolate, this._fromWorker, this._toWorker);
+  PipelineIsolateClient._(
+    this._isolate,
+    this._fromWorker,
+    this._errors,
+    this._toWorker,
+    this._events,
+  );
 
   /// Spawns the worker. [database] comes from
   /// `VaultVoiceDatabase.serializableConnection()` (the worker shares the
@@ -97,25 +103,56 @@ class PipelineIsolateClient implements PipelineClient {
     PipelineConfig config = const PipelineConfig(),
   }) async {
     final fromWorker = ReceivePort('vv-pipeline events');
-    final broadcast = fromWorker.asBroadcastStream();
-    final ready = broadcast.firstWhere((m) => m is SendPort);
+    final errors = ReceivePort('vv-pipeline errors');
+    final events = StreamController<JobEvent>.broadcast();
+    final ready = Completer<SendPort>();
+    fromWorker.listen((m) {
+      if (m is SendPort && !ready.isCompleted) {
+        ready.complete(m);
+      } else if (m is JobEvent) {
+        events.add(m);
+      }
+    });
+    // A crash before the worker is ready fails the spawn instead of hanging;
+    // later uncaught errors are dropped (content-free policy: no logging).
+    errors.listen((e) {
+      if (!ready.isCompleted) {
+        ready.completeError(
+          StateError('pipeline worker failed to start'),
+          StackTrace.fromString(e is List && e.length > 1 ? '${e[1]}' : ''),
+        );
+      }
+    });
     final isolate = await Isolate.spawn(
       _workerMain,
       _WorkerArgs(database, storageRoot, engines, config, fromWorker.sendPort),
       debugName: 'vv-pipeline',
+      onError: errors.sendPort,
     );
-    final toWorker = await ready as SendPort;
-    final client = PipelineIsolateClient._(isolate, fromWorker, toWorker);
-    broadcast.listen((m) {
-      if (m is JobEvent) client._events.add(m);
-    });
-    return client;
+    final SendPort toWorker;
+    try {
+      toWorker = await ready.future;
+    } on Object {
+      isolate.kill(priority: Isolate.immediate);
+      fromWorker.close();
+      errors.close();
+      await events.close();
+      rethrow;
+    }
+    return PipelineIsolateClient._(
+      isolate,
+      fromWorker,
+      errors,
+      toWorker,
+      events,
+    );
   }
 
   final Isolate _isolate;
   final ReceivePort _fromWorker;
+  final ReceivePort _errors;
   final SendPort _toWorker;
-  final _events = StreamController<JobEvent>.broadcast();
+  final StreamController<JobEvent> _events;
   bool _disposed = false;
 
   @override
@@ -177,6 +214,7 @@ class PipelineIsolateClient implements PipelineClient {
     await _call<Object?>('dispose', const []);
     _disposed = true;
     _fromWorker.close();
+    _errors.close();
     _isolate.kill();
     await _events.close();
   }

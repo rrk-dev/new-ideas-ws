@@ -6,8 +6,8 @@ import 'package:vaultvoice/features/pipeline/domain/job_state_machine.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_client.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
 
-final t0 = DateTime.utc(2026, 10, 12, 9);
-final t1 = t0.add(const Duration(seconds: 1));
+final DateTime t0 = DateTime.utc(2026, 10, 12, 9);
+final DateTime t1 = t0.add(const Duration(seconds: 1));
 
 JobSnapshot queued({PipelineStepId step = PipelineStepId.transcribe}) =>
     JobSnapshot(
@@ -190,7 +190,10 @@ void main() {
       final failed = m.fail(job, FailureKind.permanent, 'NativeFailure', t0);
       expect(failed.state, JobState.failed);
       expect(failed.notBefore, isNull);
-      expect(() => m.fail(failed, FailureKind.permanent, 'x', t0), throwsInvalid);
+      expect(
+        () => m.fail(failed, FailureKind.permanent, 'x', t0),
+        throwsInvalid,
+      );
       final retried = m.retryNow(failed, t1);
       expect(retried.state, JobState.transcribed);
       expect(retried.step, PipelineStepId.extract);
@@ -205,8 +208,14 @@ void main() {
         classifyFailure(const OutOfMemoryFailure()),
         isA<RetryDisposition>(),
       );
-      expect(classifyFailure(const StorageFailure('io')), isA<RetryDisposition>());
-      expect(classifyFailure(const NetworkFailure('x')), isA<RetryDisposition>());
+      expect(
+        classifyFailure(const StorageFailure('io')),
+        isA<RetryDisposition>(),
+      );
+      expect(
+        classifyFailure(const NetworkFailure('x')),
+        isA<RetryDisposition>(),
+      );
       expect(
         classifyFailure(const ModelMissingFailure('stt')),
         isA<WaitDisposition>().having(
@@ -254,7 +263,11 @@ void main() {
         expect(c.state, JobState.cancelled, reason: job.state.name);
         expect(c.notBefore, isNull);
       }
-      final done = m.complete(m.start(queued(step: PipelineStepId.write), t0), null, t0);
+      final done = m.complete(
+        m.start(queued(step: PipelineStepId.write), t0),
+        null,
+        t0,
+      );
       expect(() => m.cancel(done, t1), throwsInvalid);
       expect(() => m.cancel(m.cancel(queued(), t1), t1), throwsInvalid);
       // A cancelled job can be retried.
@@ -277,7 +290,10 @@ void main() {
       final waiting = m.wait(active, WaitingReason.destination, t1);
       expect(waiting.state, JobState.waiting);
       expect(waiting.waitingReason, WaitingReason.destination);
-      expect(m.wait(queued(), WaitingReason.modelMissing, t1).state, JobState.waiting);
+      expect(
+        m.wait(queued(), WaitingReason.modelMissing, t1).state,
+        JobState.waiting,
+      );
       final resolved = m.resolveWaiting(waiting, t1);
       expect(resolved.state, JobState.rendered);
       expect(resolved.waitingReason, isNull);
@@ -288,14 +304,26 @@ void main() {
     });
 
     test('rerun from a step resets progress but not while running', () {
-      final done = m.complete(m.start(queued(step: PipelineStepId.write), t0), null, t0);
+      final done = m.complete(
+        m.start(queued(step: PipelineStepId.write), t0),
+        null,
+        t0,
+      );
       final rerun = m.rerun(done, PipelineStepId.extract, t1);
       expect(rerun.state, JobState.transcribed);
       expect(rerun.step, PipelineStepId.extract);
       expect(rerun.progress, 0);
       expect(rerun.checkpoint, isEmpty);
-      final failed = m.fail(m.start(queued(), t0), FailureKind.permanent, 'x', t0);
-      expect(m.rerun(failed, PipelineStepId.transcribe, t1).failureKind, isNull);
+      final failed = m.fail(
+        m.start(queued(), t0),
+        FailureKind.permanent,
+        'x',
+        t0,
+      );
+      expect(
+        m.rerun(failed, PipelineStepId.transcribe, t1).failureKind,
+        isNull,
+      );
       expect(
         () => m.rerun(m.start(queued(), t0), PipelineStepId.extract, t1),
         throwsInvalid,
