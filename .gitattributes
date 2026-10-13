@@ -7,3 +7,5 @@
 *.gguf binary
 *.bat text eol=crlf
 *.ps1 text eol=crlf
+# signed bytes: never normalise (MDL-01)
+app/assets/catalog/catalog.json* binary

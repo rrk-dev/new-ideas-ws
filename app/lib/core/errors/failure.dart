@@ -69,3 +69,55 @@ final class UnexpectedFailure extends Failure {
   /// content).
   final String errorType;
 }
+
+/// Why a model catalog (manifest + signature) was rejected (MDL-01).
+enum CatalogRejection {
+  /// Signature file missing fields, wrong algorithm or wrong length.
+  malformedSignature,
+
+  /// Signed by a key that is not pinned in the app.
+  unknownKey,
+
+  /// Signature does not match the catalog bytes (tampered or forged).
+  badSignature,
+
+  /// Catalog `schema` is not one this app understands.
+  unknownSchema,
+
+  /// Catalog JSON is invalid or a field breaks the schema.
+  malformed,
+
+  /// `issued_at` is older than the bundled / last accepted catalog.
+  rollback,
+
+  /// The catalog requires a newer app version.
+  appTooOld,
+
+  /// Catalog or signature exceeds the size cap.
+  tooLarge,
+
+  /// HTTP status other than 200 when fetching the catalog.
+  httpStatus,
+}
+
+/// A model catalog failed verification; the previous catalog stays active.
+final class CatalogFailure extends Failure {
+  CatalogFailure(this.reason) : super('catalog rejected: ${reason.name}');
+
+  final CatalogRejection reason;
+}
+
+/// A model file does not match its catalog entry (MDL-01; used by MDL-02).
+final class ModelIntegrityFailure extends Failure {
+  const ModelIntegrityFailure(this.modelId, {required this.sizeMismatch})
+    : super(
+        sizeMismatch
+            ? 'model size mismatch: $modelId'
+            : 'model sha256 mismatch: $modelId',
+      );
+
+  final String modelId;
+
+  /// True when the byte count differs, false when only the hash differs.
+  final bool sizeMismatch;
+}
