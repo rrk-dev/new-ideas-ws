@@ -213,17 +213,17 @@ final class ClockProvider extends $FunctionalProvider<Clock, Clock, Clock>
 
 String _$clockHash() => r'55214d6539f7396a3ae1aa23b06eea79fdac0ebe';
 
-/// Allowlist config; MDL-01 fills in the model catalog/CDN hosts.
+/// Allowlist config: model catalog/CDN hosts only (MDL-01).
 
 @ProviderFor(networkConfig)
 final networkConfigProvider = NetworkConfigProvider._();
 
-/// Allowlist config; MDL-01 fills in the model catalog/CDN hosts.
+/// Allowlist config: model catalog/CDN hosts only (MDL-01).
 
 final class NetworkConfigProvider
     extends $FunctionalProvider<NetworkConfig, NetworkConfig, NetworkConfig>
     with $Provider<NetworkConfig> {
-  /// Allowlist config; MDL-01 fills in the model catalog/CDN hosts.
+  /// Allowlist config: model catalog/CDN hosts only (MDL-01).
   NetworkConfigProvider._()
     : super(
         from: null,
@@ -257,7 +257,7 @@ final class NetworkConfigProvider
   }
 }
 
-String _$networkConfigHash() => r'9643d6c2beb4a6f837e3a60f730eff055ca287b3';
+String _$networkConfigHash() => r'fce87aa09d6681895dd2baeecf2df93ec916a293';
 
 @ProviderFor(networkGateway)
 final networkGatewayProvider = NetworkGatewayProvider._();

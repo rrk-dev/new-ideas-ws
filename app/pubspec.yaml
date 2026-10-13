@@ -7,6 +7,8 @@ environment:
   sdk: ^3.13.5
 
 dependencies:
+  crypto: 3.0.7
+  cryptography: 2.9.0
   cupertino_icons: ^1.0.8
   drift: 2.35.2
   flutter:
@@ -38,3 +40,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    # Signed fallback model catalog (MDL-01) — never hand-edit, see
+    # tools/model-catalog/README.md.
+    - assets/catalog/
