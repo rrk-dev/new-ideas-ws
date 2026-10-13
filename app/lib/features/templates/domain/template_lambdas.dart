@@ -81,8 +81,7 @@ Iterable<Object?> _list(LambdaContext ctx) {
 }
 
 Iterable<String> _texts(Iterable<Object?> items) => [
-  for (final item in items)
-    ?rawText(item),
+  for (final item in items) ?rawText(item),
 ];
 
 String? _bulletText(Object? item) {

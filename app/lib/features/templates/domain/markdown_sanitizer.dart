@@ -58,7 +58,8 @@ Object? wrapContextValues(Object? value) => switch (value) {
   _ => value,
 };
 
-final RegExp _lineBreaks = RegExp(r'\s*[\r\n  \u0085]+\s*');
+final RegExp _lineBreaks = RegExp(r'\s*[\r\n\u2028\u2029\u0085]+\s*');
+
 /// C0 controls (except tab/newline), DEL and the bidi *override*
 /// characters LRO/RLO, which can visually reorder the rest of a line
 /// ("Trojan Source"); embeddings/isolates used by RTL text are kept.
@@ -204,6 +205,7 @@ String wikilinkTarget(String text) =>
         .replaceAll(RegExp(r'[\[\]|#^]'), '')
         .replaceAll('{{', '{')
         .replaceAll('}}', '}')
+        .replaceAll(RegExp(r'\s+'), ' ')
         .trim();
 
 final RegExp _slugSeparators = RegExp(r'[^\p{L}\p{N}\p{M}]+', unicode: true);

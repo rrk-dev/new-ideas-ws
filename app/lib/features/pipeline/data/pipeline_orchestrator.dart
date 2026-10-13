@@ -40,7 +40,7 @@ List<PipelineStep> defaultSteps({
     clock: engines.clock,
   ),
   ExtractStep(db: db, llm: engines.llm, config: config, clock: engines.clock),
-  RenderStep(db: db, paths: paths),
+  RenderStep(db: db, paths: paths, renderer: engines.renderer),
   WriteStep(db: db, paths: paths, vault: engines.vault, clock: engines.clock),
 ];
 

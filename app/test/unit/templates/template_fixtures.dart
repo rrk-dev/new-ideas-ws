@@ -49,8 +49,8 @@ const List<String> adversarialStrings = [
   '<!-- hide everything after -->',
   '```\ncode fence\n```',
   '> quote\n- list\n* star',
-  'Emoji 🎉👩‍👩‍👧‍👦🇩🇪 done',
-  'مرحبا بالعالم שלום עולם ‮evil‬',
+  'Emoji 🎉👩\u200D👩\u200D👧\u200D👦🇩🇪 done',
+  'مرحبا بالعالم שלום עולם \u202Eevil\u202C',
   'key: value # comment',
   'yes',
   '14:05',
@@ -136,7 +136,7 @@ Map<String, Object?> engineeringFull() => {
   'open_questions': ['How large do tombstones get?'],
 };
 
-/// Fills every string of [data] (recursively) with adversarial text.
+/// Fills every string of the value (recursively) with adversarial text.
 Object? adversarial(Object? value, [int seed = 0]) {
   var i = seed;
   Object? walk(Object? v) {
@@ -174,15 +174,14 @@ Map<String, Object?> metaFull({String profileId = 'meeting'}) => buildNoteMeta(
 );
 
 /// Metadata with every optional field null / empty.
-Map<String, Object?> metaEmpty({String profileId = 'meeting'}) =>
-    buildNoteMeta(
-      recordingId: 'rec-empty',
-      createdAt: DateTime(2026, 1, 2, 3, 4),
-      durationMs: 45000,
-      profileId: profileId,
-      profileName: profile(profileId).name,
-      appVersion: '1.0.0',
-    );
+Map<String, Object?> metaEmpty({String profileId = 'meeting'}) => buildNoteMeta(
+  recordingId: 'rec-empty',
+  createdAt: DateTime(2026, 1, 2, 3, 4),
+  durationMs: 45000,
+  profileId: profileId,
+  profileName: profile(profileId).name,
+  appVersion: '1.0.0',
+);
 
 Map<String, Object?> transcriptFull() => buildNoteTranscript(const [
   (startMs: 5000, speaker: 'Priya', text: "Let's lock the API version."),
@@ -217,3 +216,126 @@ String renderBuiltin(
 MapShape shapeForTemplate(BuiltinTemplateInfo info) => info.profileId == null
     ? kSummaryOnlyRootShape
     : rootShapeFor(profile(info.profileId!));
+
+/// A custom profile using every field kind the PRF-07 editor can produce.
+Profile customProfile() => Profile.fromJson({
+  'format': 1,
+  'id': 'site-visit',
+  'version': 1,
+  'name': 'Site visit',
+  'description': 'Notes from a construction site visit.',
+  'tier': 'pro',
+  'instructions': '- Extract only what is said.',
+  'template_id': 'site-visit-template',
+  'consent_confirmation': 'optional',
+  'post_process': ['resolve_relative_dates'],
+  'schema': {
+    'type': 'object',
+    'required': <String>[],
+    'properties': {
+      'site': {'type': 'string', 'maxLength': 80},
+      'report': {
+        'type': ['string', 'null'],
+        'maxLength': 2000,
+      },
+      'visit_date': {
+        'type': ['string', 'null'],
+        'maxLength': 40,
+      },
+      'workers': {
+        'type': ['integer', 'null'],
+      },
+      'safe': {'type': 'boolean'},
+      'passed': {
+        'type': ['boolean', 'null'],
+      },
+      'status': {
+        'type': 'string',
+        'enum': ['open', 'closed'],
+      },
+      'issues': {
+        'type': 'array',
+        'maxItems': 10,
+        'items': {'type': 'string', 'maxLength': 200},
+      },
+      'checks': {
+        'type': 'array',
+        'maxItems': 10,
+        'items': {
+          'type': 'object',
+          'required': ['text', 'done'],
+          'properties': {
+            'text': {'type': 'string', 'maxLength': 100},
+            'done': {'type': 'boolean'},
+            'owner': {
+              'type': ['string', 'null'],
+              'maxLength': 40,
+            },
+            'due': {
+              'type': ['string', 'null'],
+              'maxLength': 40,
+            },
+          },
+        },
+      },
+      'measurements': {
+        'type': 'array',
+        'maxItems': 10,
+        'items': {
+          'type': 'object',
+          'required': ['name', 'value'],
+          'properties': {
+            'name': {'type': 'string', 'maxLength': 40},
+            'value': {'type': 'number'},
+          },
+        },
+      },
+      'contact': {
+        'type': ['object', 'null'],
+        'required': ['name'],
+        'properties': {
+          'name': {'type': 'string', 'maxLength': 60},
+          'phone': {
+            'type': ['string', 'null'],
+            'maxLength': 30,
+          },
+          'emails': {
+            'type': 'array',
+            'maxItems': 3,
+            'items': {'type': 'string', 'maxLength': 80},
+          },
+        },
+      },
+    },
+  },
+});
+
+Map<String, Object?> customFull() => {
+  'site': 'North tower | level 3',
+  'report': 'Concrete poured.\n\n# not a heading',
+  'visit_date': 'today',
+  'visit_date_iso': '2026-10-13',
+  'workers': 12,
+  'safe': true,
+  'passed': false,
+  'status': 'open',
+  'issues': ['Loose rail', '{{x}}'],
+  'checks': [
+    {'text': 'Helmets', 'done': true, 'owner': 'Lena', 'due': null},
+    {
+      'text': 'Scaffold tags',
+      'done': false,
+      'owner': null,
+      'due': 'Friday',
+      'due_iso': '2026-10-16',
+    },
+  ],
+  'measurements': [
+    {'name': 'Slab', 'value': 21.5},
+  ],
+  'contact': {
+    'name': 'Ana',
+    'phone': '+1 555',
+    'emails': ['ana@example.com'],
+  },
+};

@@ -107,12 +107,7 @@ Map<String, Object?> contextOf(BuiltinTemplateInfo t, Inputs i) =>
         meta: i.meta,
         transcript: i.transcript,
       )
-    : contextFor(
-        profileOf(t),
-        i.data,
-        meta: i.meta,
-        transcript: i.transcript,
-      );
+    : contextFor(profileOf(t), i.data, meta: i.meta, transcript: i.transcript);
 
 Map<String, Object?> contextForCase(BuiltinTemplateInfo t, Case c) =>
     contextOf(t, inputsFor(t, c));
@@ -141,7 +136,7 @@ List<String> skeleton(String md) {
   return [
     if (fm != null)
       for (final line in fm.split('\n'))
-        'fm:${RegExp(r'^([a-z_]+):').firstMatch(line)?.group(1) ?? '!!'}',
+        'fm:${RegExp('^([a-z_]+):').firstMatch(line)?.group(1) ?? '!!'}',
     for (final line in body.split('\n')) _lineKind(line),
   ];
 }
@@ -149,7 +144,7 @@ List<String> skeleton(String md) {
 String _lineKind(String line) {
   final rules = <String, RegExp>{
     'blank': RegExp(r'^$'),
-    'h': RegExp(r'^(#{1,6}) '),
+    'h': RegExp('^(#{1,6}) '),
     'hr': RegExp(r'^(---|\*\*\*|___)$'),
     'fence': RegExp('^(```|~~~)'),
     'task': RegExp(r'^(\s*)- \[[ x]\] '),
@@ -158,7 +153,7 @@ String _lineKind(String line) {
     'callout': RegExp(r'^> \[!'),
     'quote': RegExp('^> '),
     'row': RegExp(r'^\| '),
-    'prop': RegExp(r'^([a-z][a-z-]*):: '),
+    'prop': RegExp('^([a-z][a-z-]*):: '),
   };
   for (final e in rules.entries) {
     final m = e.value.firstMatch(line);
@@ -269,9 +264,10 @@ void main() {
           expect(yaml['source'], 'vaultvoice');
           expect(yaml['recording_id'], meta['recording_id']);
           // `date` is unquoted for Obsidian; compare as a date.
-          expect(DateTime.parse('${yaml['date']}'), DateTime.parse(
-            meta['date']! as String,
-          ));
+          expect(
+            DateTime.parse('${yaml['date']}'),
+            DateTime.parse(meta['date']! as String),
+          );
           expect(yaml['type'], meta['profile_id']);
           expect(List<Object?>.from(yaml['tags'] as YamlList), meta['tags']);
           if (yaml.containsKey('time')) expect(yaml['time'], meta['time']);
