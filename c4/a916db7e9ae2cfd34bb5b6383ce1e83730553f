@@ -1,0 +1,29 @@
+app/test/helpers/model_download_server.dart
+  s_9f6fcf8c1840a0::t_6c43fa100bc2f3 227-232
+  s_9f6fcf8c1840a0::t_506458489f3aad 1-215,221,234-299
+  s_9f6fcf8c1840a0::t_315c4e99ea337c 216-220,222-226,233
+app/test/unit/models/model_downloader_test.dart
+  s_9f6fcf8c1840a0::t_3ea110ac4e123e 178-179
+  s_9f6fcf8c1840a0::t_02ae9dc2c37efa 207-209
+  s_9f6fcf8c1840a0::t_b9fc7e963f3610 6,351,353
+  s_9f6fcf8c1840a0::t_9a8b1b9d707871 129-130,146-149,155-162,172-175,181-185,189-206,210-211,239,287,305-306,310-323,325-328,453-469,522-537,539-550,566-569,591-601,605,615
+  s_9f6fcf8c1840a0::t_039afaec0c11c5 1-5,7-128,131-145,150-154,212-238,240-286,288-304,307-309,324,329-350,352,354-452,470-521,538,551-565,570-590,602-604,606-614,616-620
+  s_9f6fcf8c1840a0::t_1d9e33bacbbc9e 163-171,177,180
+  s_9f6fcf8c1840a0::t_6351a0c56a7c85 176,186-188
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c4a916db7e9ae2cfd34bb5b6383ce1e83730553f",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
