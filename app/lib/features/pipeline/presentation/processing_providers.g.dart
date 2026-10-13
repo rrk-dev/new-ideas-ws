@@ -105,7 +105,7 @@ final class ProcessingNotificationTextsProvider
 }
 
 String _$processingNotificationTextsHash() =>
-    r'70f33aa34dfae17d21de716e7e8e805e31090181';
+    r'1810b87450f919cd696ffce33778332047181348';
 
 /// The UI-isolate job observer (throughput, notifications, deep links).
 /// Created on first use; `ProcessingServicesHost` starts it at app start.
