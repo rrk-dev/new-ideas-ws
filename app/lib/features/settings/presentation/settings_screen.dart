@@ -11,6 +11,7 @@ import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/crash_reports.dart';
 import 'package:vaultvoice/features/settings/presentation/diagnostics_export.dart';
+import 'package:vaultvoice/features/settings/presentation/network_activity_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/setting_texts.dart';
 import 'package:vaultvoice/features/settings/presentation/setting_tiles.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
@@ -57,6 +58,9 @@ class SettingsScreen extends ConsumerWidget {
           const SettingTile(AppSettings.lockTimeout),
           const _EncryptionInfoTile(),
           const SettingTile(AppSettings.transcriptRetention),
+          // SEC-02: offline mode + every request the app made.
+          const SettingTile(AppSettings.offlineMode),
+          const NetworkActivityTile(),
           const SettingTile(AppSettings.notificationsEnabled),
           const SettingTile(AppSettings.notificationDetails),
           const DiagnosticsExportTile(),

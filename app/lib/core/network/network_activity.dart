@@ -85,7 +85,7 @@ class NetworkActivityEntry {
 }
 
 /// Bounded log of every request (newest last), optionally persisted as JSON
-/// lines so it survives restarts. Lives under `vv/logs/` (wiped by "Delete
+/// lines so it survives restarts. Lives under `vv/network/` (wiped by "Delete
 /// all data", never backed up).
 class NetworkActivityLog {
   NetworkActivityLog({this.file, this.capacity = 500}) {

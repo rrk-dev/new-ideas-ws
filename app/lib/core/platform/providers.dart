@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/network/model_hosts.dart';
+import 'package:vaultvoice/core/network/network_activity.dart';
 import 'package:vaultvoice/core/network/network_gateway.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/llm_engine.dart';
@@ -37,10 +38,21 @@ NetworkConfig networkConfig(Ref ref) => const NetworkConfig(
   redirectHosts: kModelRedirectHosts,
 );
 
+/// In-app "Network activity" log (SEC-02). In memory by default;
+/// `bootstrap` overrides it with the file-backed log `vv/network/`.
+@Riverpod(keepAlive: true)
+NetworkActivityLog networkActivityLog(Ref ref) {
+  final log = NetworkActivityLog();
+  ref.onDispose(log.dispose);
+  return log;
+}
+
 @Riverpod(keepAlive: true)
 NetworkGateway networkGateway(Ref ref) {
   final gateway = NetworkGateway(
     config: ref.watch(networkConfigProvider),
+    activity: ref.watch(networkActivityLogProvider),
+    now: ref.watch(clockProvider).now,
     // Checked before every request; unreadable → refused (fail closed).
     networkDisabled: () async {
       final value = await ref

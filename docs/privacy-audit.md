@@ -1,7 +1,7 @@
 # Privacy audit
 
 Living record of every network use and every dependency review (`vv-privacy-security`).
-SEC-02 owns the full egress audit (proxy capture of an e2e run); sections below are added by
+SEC-02 owns the full egress audit (see "Egress guarantee"); sections below are added by
 the task that introduces the network use or dependency.
 
 ## Network uses
@@ -16,6 +16,156 @@ Nothing else may open a connection (`tools/ci/check_egress.sh`, allowlist in
 `app/lib/core/network/model_hosts.dart`). With `network_disabled` (settings key, user offline
 mode or MDM managed config) the gateway refuses every request before it is sent and models are
 provisioned by offline import only (MDL-04, ADR-MDL-04).
+
+## Egress guarantee (SEC-02)
+How the promise "user content never leaves the device" is enforced and verified:
+
+| Layer | Control | Evidence |
+|---|---|---|
+| Code | One HTTP client: `NetworkGateway` (`app/lib/core/network/`). `tools/ci/check_egress.sh` fails on any network API outside the gateway / model-download dirs: Dart (`package:http`/`dio`/`web_socket*`/`grpc`/webview/url_launcher, `HttpClient`, sockets, `Uri.https`/`Uri.parse('https…`), Kotlin/Java (`HttpURLConnection`, OkHttp, Retrofit, Volley, `java.net.URL`/`Socket`, WebView, Cronet), Swift/ObjC (`URLSession`, `NWConnection`, `import Network`, `WKWebView`, `SFSafariViewController`) | `tools/ci/tests/test_egress_guard.py` `[SEC-02/AC1]` |
+| Allowlist | `kModelHosts` (our CDN + `huggingface.co`) + redirect-only `kModelRedirectHosts`; https only, no userinfo; every redirect hop checked before it is requested | `app/test/unit/network/network_gateway_stream_test.dart` (MDL-02), `egress_capture_test.dart` |
+| Offline mode | Settings → Privacy → **Offline mode** (`network_disabled`, also the MDM key): the gateway refuses every request before sending; model downloads stop | `egress_capture_test.dart` "offline mode: … zero requests" |
+| Transport | Android `network_security_config.xml`: `cleartextTrafficPermitted="false"`, system CAs only (user CAs only in `debug-overrides` for proxy capture), `usesCleartextTraffic="false"`. iOS ATS default with `NSAllowsArbitraryLoads=false` and no exception keys. Both checked by `check_egress.sh` | `test_egress_guard.py` |
+| Dependencies | `tools/ci/check_packages.sh` scans every runtime package (113 today) for network / telemetry code; packages with hits must be reviewed in `tools/ci/package_audit.json` | `tools/ci/tests/test_package_audit.py`, table below |
+| Transparency | Settings → Privacy → **Network activity**: every request (time, host, path, status, bytes; never headers, bodies or query strings), persisted in `vv/network/activity.jsonl` (500 entries, wiped by "Delete all data") | `app/test/unit/network/network_activity_test.dart`, `app/test/widget/network_activity_screen_test.dart` |
+| Store billing | StoreKit 2 / Play Billing run inside the OS frameworks, outside our client — the only network use not under the gateway (LIC-02) | — |
+
+### Egress capture report (host, 2026-10-14)
+`app/test/unit/network/egress_capture_test.dart` puts a recording proxy (local server that sees
+every request) behind the production allowlist and runs a whole session: bundled-catalog load +
+catalog refresh, a model download from the mirror with its CDN redirect, then a full recording →
+transcribe → extract → render → vault-write pipeline run on content containing a marker phrase.
+
+| Host | Paths seen | Why |
+|---|---|---|
+| `models.vaultvoice.example` | `/catalog/v1/catalog.json` (404 — CDN not provisioned yet) | catalog refresh (MDL-01) |
+| `huggingface.co` | `/ggerganov/whisper.cpp/resolve/<rev>/ggml-tiny.en.bin` | model download (MDL-02) |
+| `us.aws.cdn.hf.co` | `/xet-bridge-us/…` | redirect target of the mirror |
+
+Result: 100 % of requests to allowlisted hosts, no cookies/authorization, no marker phrase or
+recording id in any URL or header, the pipeline itself made **zero** requests, and the in-app log
+matched the proxy log 1:1. Offline mode: zero requests. Device capture (mitmproxy on a debug
+build): `docs/test-plans/device/SEC-02.md` (⏳).
+
+### Package audit (SEC-02, `tools/ci/check_packages.sh --markdown`, 2026-10-14)
+Runtime closure of the app's non-dev dependencies; Flutter SDK packages are trusted. Hits are
+non-comment source lines matching network or telemetry APIs.
+
+| Package | Version | Source | Network hits | Telemetry hits | Review |
+|---|---|---|---|---|---|
+| `archive` | 4.5.1 | hosted | 0 | 0 | no network / telemetry code |
+| `args` | 2.7.0 | hosted | 0 | 0 | no network / telemetry code |
+| `async` | 2.13.1 | hosted | 0 | 0 | no network / telemetry code |
+| `boolean_selector` | 2.1.2 | hosted | 0 | 0 | no network / telemetry code |
+| `characters` | 1.4.1 | hosted | 0 | 0 | no network / telemetry code |
+| `clock` | 1.1.3 | hosted | 0 | 0 | no network / telemetry code |
+| `code_assets` | 2.1.0 | hosted | 0 | 0 | no network / telemetry code |
+| `collection` | 1.19.1 | hosted | 0 | 0 | no network / telemetry code |
+| `convert` | 3.1.2 | hosted | 0 | 0 | no network / telemetry code |
+| `cross_file` | 0.3.5+5 | hosted | 0 | 0 | no network / telemetry code |
+| `crypto` | 3.0.7 | hosted | 0 | 0 | no network / telemetry code |
+| `cryptography` | 2.9.0 | hosted | 0 | 0 | no network / telemetry code |
+| `cupertino_icons` | 1.0.9 | hosted | 0 | 0 | no network / telemetry code |
+| `cupertino_ui` | 1.1.2 | hosted | 0 | 0 | no network / telemetry code |
+| `dbus` | 0.8.0 | hosted | 3 | 0 | Linux-only D-Bus client (flutter_local_notifications_linux); local Unix socket, not registered or compiled on iOS/Android. Accepted — APP-04 |
+| `drift` | 2.35.2 | hosted | 0 | 0 | no network / telemetry code |
+| `fake_async` | 1.3.3 | hosted | 0 | 0 | no network / telemetry code |
+| `ffi` | 2.2.0 | hosted | 0 | 0 | no network / telemetry code |
+| `ffi_leak_tracker` | 0.1.2 | hosted | 0 | 0 | no network / telemetry code |
+| `file` | 7.0.1 | hosted | 0 | 0 | no network / telemetry code |
+| `file_selector` | 1.1.0 | hosted | 0 | 0 | no network / telemetry code |
+| `file_selector_android` | 0.5.2+11 | hosted | 0 | 0 | no network / telemetry code |
+| `file_selector_ios` | 0.5.3+6 | hosted | 0 | 0 | no network / telemetry code |
+| `file_selector_linux` | 0.9.4+1 | hosted | 0 | 0 | no network / telemetry code |
+| `file_selector_macos` | 0.9.5+1 | hosted | 0 | 0 | no network / telemetry code |
+| `file_selector_platform_interface` | 2.7.0 | hosted | 0 | 0 | no network / telemetry code |
+| `file_selector_web` | 0.9.5 | hosted | 0 | 0 | no network / telemetry code |
+| `file_selector_windows` | 0.9.3+6 | hosted | 0 | 0 | no network / telemetry code |
+| `fixnum` | 1.1.1 | hosted | 0 | 0 | no network / telemetry code |
+| `flutter` | 0.0.0 | sdk | 0 | 0 | no network / telemetry code |
+| `flutter_local_notifications` | 22.3.1 | hosted | 0 | 0 | no network / telemetry code |
+| `flutter_local_notifications_linux` | 8.0.2 | hosted | 0 | 0 | no network / telemetry code |
+| `flutter_local_notifications_platform_interface` | 12.2.0 | hosted | 0 | 0 | no network / telemetry code |
+| `flutter_local_notifications_web` | 1.0.0 | hosted | 0 | 0 | no network / telemetry code |
+| `flutter_local_notifications_windows` | 3.1.1 | hosted | 0 | 0 | no network / telemetry code |
+| `flutter_localizations` | 0.0.0 | sdk | 0 | 0 | no network / telemetry code |
+| `flutter_riverpod` | 3.4.3 | hosted | 0 | 0 | no network / telemetry code |
+| `flutter_test` | 0.0.0 | sdk | 0 | 0 | no network / telemetry code |
+| `flutter_web_plugins` | 0.0.0 | sdk | 0 | 0 | no network / telemetry code |
+| `glob` | 2.2.0 | hosted | 0 | 0 | no network / telemetry code |
+| `go_router` | 18.0.2 | hosted | 0 | 0 | no network / telemetry code |
+| `hooks` | 2.2.0 | hosted | 0 | 0 | no network / telemetry code |
+| `http` | 1.6.0 | hosted | 2 | 0 | Our HTTP client — imported only by lib/core/network/network_gateway.dart (allowlisted hosts, check_egress.sh). Accepted — FND-02/SEC-02 |
+| `http_parser` | 4.1.2 | hosted | 0 | 0 | no network / telemetry code |
+| `intl` | 0.20.3 | hosted | 0 | 0 | no network / telemetry code |
+| `jni` | 1.1.0 | hosted | 0 | 0 | no network / telemetry code |
+| `jni_flutter` | 1.0.4+1 | hosted | 0 | 0 | no network / telemetry code |
+| `jni_util` | 1.0.0 | hosted | 0 | 0 | no network / telemetry code |
+| `leak_tracker` | 11.0.2 | hosted | 0 | 0 | no network / telemetry code |
+| `leak_tracker_flutter_testing` | 3.0.10 | hosted | 0 | 0 | no network / telemetry code |
+| `leak_tracker_testing` | 3.0.2 | hosted | 0 | 0 | no network / telemetry code |
+| `listen` | 1.0.1 | hosted | 0 | 0 | no network / telemetry code |
+| `logging` | 1.3.0 | hosted | 0 | 0 | no network / telemetry code |
+| `matcher` | 0.12.20 | hosted | 0 | 0 | no network / telemetry code |
+| `material_color_utilities` | 0.13.0 | hosted | 0 | 0 | no network / telemetry code |
+| `material_ui` | 1.6.0 | hosted | 0 | 0 | no network / telemetry code |
+| `meta` | 1.19.0 | hosted | 0 | 0 | no network / telemetry code |
+| `mime` | 2.1.0 | hosted | 0 | 0 | no network / telemetry code |
+| `mustache_template` | 2.0.5 | hosted | 0 | 0 | no network / telemetry code |
+| `native_toolchain_c` | 0.19.5 | hosted | 0 | 1 | Build-hook toolchain (host only, not compiled into the app); the hit is the string 'Firebase Studio' in an NDK search path comment. Accepted — SEC-02 |
+| `objective_c` | 9.6.2 | hosted | 0 | 0 | no network / telemetry code |
+| `package_config` | 3.0.0 | hosted | 1 | 0 | Build/tooling helper; util_io.dart can read a package config over HTTP when given an http URI — never imported by the app, not compiled for mobile. Accepted — SEC-02 |
+| `path` | 1.9.1 | hosted | 0 | 0 | no network / telemetry code |
+| `path_provider` | 2.1.6 | hosted | 0 | 0 | no network / telemetry code |
+| `path_provider_android` | 2.3.1 | hosted | 0 | 0 | no network / telemetry code |
+| `path_provider_foundation` | 2.6.0 | hosted | 0 | 0 | no network / telemetry code |
+| `path_provider_linux` | 2.2.2 | hosted | 0 | 0 | no network / telemetry code |
+| `path_provider_platform_interface` | 2.1.3 | hosted | 0 | 0 | no network / telemetry code |
+| `path_provider_windows` | 2.3.0 | hosted | 0 | 0 | no network / telemetry code |
+| `petitparser` | 7.0.2 | hosted | 0 | 0 | no network / telemetry code |
+| `platform` | 3.2.0 | hosted | 0 | 0 | no network / telemetry code |
+| `plugin_platform_interface` | 2.1.8 | hosted | 0 | 0 | no network / telemetry code |
+| `posix` | 6.5.2 | hosted | 0 | 0 | no network / telemetry code |
+| `process` | 5.0.6 | hosted | 0 | 0 | no network / telemetry code |
+| `pub_semver` | 2.2.1 | hosted | 0 | 0 | no network / telemetry code |
+| `record` | 7.1.2 | hosted | 0 | 0 | no network / telemetry code |
+| `record_android` | 2.2.0 | hosted | 0 | 0 | no network / telemetry code |
+| `record_ios` | 2.1.1 | hosted | 0 | 0 | no network / telemetry code |
+| `record_linux` | 2.1.3 | hosted | 0 | 0 | no network / telemetry code |
+| `record_macos` | 2.1.1 | hosted | 0 | 0 | no network / telemetry code |
+| `record_platform_interface` | 2.1.0 | hosted | 0 | 0 | no network / telemetry code |
+| `record_use` | 1.1.1 | hosted | 0 | 0 | no network / telemetry code |
+| `record_web` | 2.1.3 | hosted | 0 | 0 | no network / telemetry code |
+| `record_windows` | 2.3.0 | hosted | 0 | 0 | no network / telemetry code |
+| `riverpod` | 3.4.3 | hosted | 0 | 0 | no network / telemetry code |
+| `riverpod_annotation` | 4.0.7 | hosted | 0 | 0 | no network / telemetry code |
+| `share_plus` | 13.3.1 | hosted | 0 | 0 | no network / telemetry code |
+| `share_plus_platform_interface` | 7.2.0 | hosted | 0 | 0 | no network / telemetry code |
+| `sky_engine` | 0.0.0 | sdk | 0 | 0 | no network / telemetry code |
+| `source_span` | 1.10.2 | hosted | 0 | 0 | no network / telemetry code |
+| `sqlite3` | 3.7.0 | hosted | 2 | 0 | Network only in the build hook (lib/src/hook/): downloads the prebuilt SQLite3MC library at build time and verifies its sha256; no network code in the runtime library. Accepted — ADR-SEC-01 |
+| `stack_trace` | 1.12.2 | hosted | 0 | 0 | no network / telemetry code |
+| `state_notifier` | 1.0.0 | hosted | 0 | 0 | no network / telemetry code |
+| `stream_channel` | 2.1.4 | hosted | 0 | 0 | no network / telemetry code |
+| `string_scanner` | 1.4.1 | hosted | 0 | 0 | no network / telemetry code |
+| `term_glyph` | 1.2.2 | hosted | 0 | 0 | no network / telemetry code |
+| `test_api` | 0.7.12 | hosted | 0 | 0 | no network / telemetry code |
+| `timezone` | 0.11.2 | hosted | 2 | 0 | Transitive (flutter_local_notifications). browser.dart / standalone.dart can fetch tz data over HTTP; neither is imported by the plugin or us (they use timezone.dart), tree-shaken. Accepted — APP-04 |
+| `typed_data` | 1.4.0 | hosted | 0 | 0 | no network / telemetry code |
+| `unorm_dart` | 0.3.2 | hosted | 0 | 0 | no network / telemetry code |
+| `url_launcher_linux` | 3.2.3 | hosted | 0 | 0 | no network / telemetry code |
+| `url_launcher_platform_interface` | 2.3.2 | hosted | 0 | 0 | no network / telemetry code |
+| `url_launcher_web` | 2.4.3 | hosted | 0 | 0 | no network / telemetry code |
+| `url_launcher_windows` | 3.1.6 | hosted | 0 | 0 | no network / telemetry code |
+| `uuid` | 4.6.0 | hosted | 0 | 0 | no network / telemetry code |
+| `vector_math` | 2.4.0 | hosted | 0 | 0 | no network / telemetry code |
+| `vm_service` | 15.3.0 | hosted | 1 | 0 | Dart VM service client used by tooling/integration_test; vm_service_io.dart (WebSocket to a local VM) is never imported by app code and tree-shaken from release builds. Accepted — SEC-02 |
+| `vv_native` | 0.1.0 | path | 0 | 0 | no network / telemetry code |
+| `web` | 1.1.1 | hosted | 3 | 0 | Browser DOM bindings (WebSocket/XHR typedefs) used only on the web platform; tree-shaken on iOS/Android (we ship no web build). Accepted — SEC-02 |
+| `win32` | 6.4.0 | hosted | 0 | 0 | no network / telemetry code |
+| `xdg_directories` | 1.1.0 | hosted | 0 | 0 | no network / telemetry code |
+| `xml` | 7.0.1 | hosted | 0 | 0 | no network / telemetry code |
+| `yaml` | 3.1.4 | hosted | 0 | 0 | no network / telemetry code |
 
 ## What the model CDN / mirror can see (MDL-01)
 Requests are only made when the app refreshes the catalog or the user starts a model download.

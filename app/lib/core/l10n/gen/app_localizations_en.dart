@@ -504,6 +504,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingTranscriptRetention => 'Keep transcripts and notes';
 
   @override
+  String get settingOfflineMode => 'Offline mode';
+
+  @override
+  String get settingOfflineModeDescription =>
+      'Turns off all network use. Models must already be installed.';
+
+  @override
+  String get networkActivityTitle => 'Network activity';
+
+  @override
+  String get networkActivitySubtitle =>
+      'Every connection this app made. Only model downloads are allowed.';
+
+  @override
+  String get networkActivityEmpty => 'No network requests yet.';
+
+  @override
+  String get networkActivityClear => 'Clear log';
+
+  @override
+  String networkActivityCompleted(String status) {
+    return 'HTTP $status';
+  }
+
+  @override
+  String get networkActivityDenied => 'Blocked before sending';
+
+  @override
+  String get networkActivityFailed => 'Failed';
+
+  @override
+  String get networkActivitySystem => 'Handed to system download';
+
+  @override
+  String networkActivityBytes(String size) {
+    return '$size bytes';
+  }
+
+  @override
   String get settingNotifications => 'Notifications';
 
   @override

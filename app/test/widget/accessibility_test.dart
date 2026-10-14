@@ -11,6 +11,8 @@ import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
+import 'package:vaultvoice/core/network/network_activity.dart';
+import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/theme/app_theme.dart';
 import 'package:vaultvoice/features/app_lock/domain/app_lock.dart';
@@ -18,6 +20,7 @@ import 'package:vaultvoice/features/app_lock/presentation/app_lock_gate.dart';
 import 'package:vaultvoice/features/app_lock/presentation/app_lock_providers.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
+import 'package:vaultvoice/features/settings/presentation/network_activity_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 
 import '../fakes/fake_settings_store.dart';
@@ -187,6 +190,57 @@ void main() {
     expect(find.byType(LockScreen), findsOneWidget);
     expect(t.takeException(), isNull);
   });
+
+  for (final mode in [ThemeMode.light, ThemeMode.dark]) {
+    for (final scale in [1.0, 2.0]) {
+      testWidgets('[APP-06/AC1] Network activity (${mode.name}, '
+          '${(scale * 100).round()} %): labelled controls, tap targets, '
+          'contrast, no overflow', (t) async {
+        final handle = t.ensureSemantics();
+        t.view
+          ..physicalSize = const Size(390, 844)
+          ..devicePixelRatio = 1;
+        addTearDown(t.view.reset);
+        final log = NetworkActivityLog()
+          ..record(
+            NetworkActivityEntry.request(
+              DateTime.utc(2026, 10, 14, 9),
+              Uri.parse('https://huggingface.co/ggerganov/model.bin'),
+              NetworkOutcome.completed,
+              statusCode: 200,
+              bytes: 77000000,
+            ),
+          );
+        await t.pumpWidget(
+          ProviderScope(
+            overrides: [networkActivityLogProvider.overrideWithValue(log)],
+            child: MaterialApp(
+              theme: AppTheme.light,
+              darkTheme: AppTheme.dark,
+              themeMode: mode,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              builder: (context, child) => MediaQuery(
+                data: MediaQuery.of(context)
+                    .copyWith(textScaler: TextScaler.linear(scale)),
+                child: child!,
+              ),
+              home: const NetworkActivityScreen(),
+            ),
+          ),
+        );
+        await t.pumpAndSettle();
+        expect(t.takeException(), isNull);
+        if (scale == 1) {
+          await expectLater(t, meetsGuideline(labeledTapTargetGuideline));
+          await expectLater(t, meetsGuideline(androidTapTargetGuideline));
+          await expectLater(t, meetsGuideline(iOSTapTargetGuideline));
+          await expectLater(t, meetsGuideline(textContrastGuideline));
+        }
+        handle.dispose();
+      });
+    }
+  }
 
   testWidgets('[APP-06/AC1] tab bar and queue indicator announce their '
       'purpose to screen readers', (t) async {

@@ -76,7 +76,9 @@ class LazySecureDataWiper implements DataWiper {
       rotateKey: rotation == null ? null : () => rotation.rotate(db),
       extraDirectories: [?appPaths?.temp.path],
     );
-    return await wiper.deleteAllData();
+    final result = await wiper.deleteAllData();
+    if (result.isOk) ref.read(networkActivityLogProvider).clear();
+    return result;
   }
 
   static T? _tryRead<T>(T Function() read) {

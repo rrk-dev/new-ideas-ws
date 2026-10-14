@@ -211,6 +211,14 @@ abstract final class AppSettings {
       RetentionOption.days30,
     ],
   );
+
+  /// SEC-02 offline mode: no network at all (models must be installed or
+  /// imported offline, MDL-04).
+  static const offlineMode = ToggleSetting(
+    key: SettingKeys.networkOffline,
+    section: SettingSection.privacy,
+    defaultValue: false,
+  );
   static const notificationsEnabled = ToggleSetting(
     key: SettingKeys.notificationsEnabled,
     section: SettingSection.privacy,
@@ -236,6 +244,7 @@ abstract final class AppSettings {
     appLock,
     lockTimeout,
     transcriptRetention,
+    offlineMode,
     notificationsEnabled,
     notificationDetails,
   ];

@@ -916,6 +916,72 @@ abstract class AppLocalizations {
   /// **'Keep transcripts and notes'**
   String get settingTranscriptRetention;
 
+  /// No description provided for @settingOfflineMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline mode'**
+  String get settingOfflineMode;
+
+  /// No description provided for @settingOfflineModeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Turns off all network use. Models must already be installed.'**
+  String get settingOfflineModeDescription;
+
+  /// No description provided for @networkActivityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Network activity'**
+  String get networkActivityTitle;
+
+  /// No description provided for @networkActivitySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Every connection this app made. Only model downloads are allowed.'**
+  String get networkActivitySubtitle;
+
+  /// No description provided for @networkActivityEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No network requests yet.'**
+  String get networkActivityEmpty;
+
+  /// No description provided for @networkActivityClear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear log'**
+  String get networkActivityClear;
+
+  /// No description provided for @networkActivityCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'HTTP {status}'**
+  String networkActivityCompleted(String status);
+
+  /// No description provided for @networkActivityDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked before sending'**
+  String get networkActivityDenied;
+
+  /// No description provided for @networkActivityFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get networkActivityFailed;
+
+  /// No description provided for @networkActivitySystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Handed to system download'**
+  String get networkActivitySystem;
+
+  /// No description provided for @networkActivityBytes.
+  ///
+  /// In en, this message translates to:
+  /// **'{size} bytes'**
+  String networkActivityBytes(String size);
+
   /// No description provided for @settingNotifications.
   ///
   /// In en, this message translates to:

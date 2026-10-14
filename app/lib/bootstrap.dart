@@ -18,7 +18,9 @@ import 'package:vaultvoice/core/licenses/bundled_licenses.dart';
 import 'package:vaultvoice/core/logging/logger.dart';
 import 'package:vaultvoice/core/logging/redaction.dart';
 import 'package:vaultvoice/core/logging/rotating_file_sink.dart';
+import 'package:vaultvoice/core/network/network_activity.dart';
 import 'package:vaultvoice/core/platform/app_paths.dart';
+import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/core/security/key_vault.dart';
 import 'package:vaultvoice/core/security/security_providers.dart';
 import 'package:vaultvoice/core/security/storage_protection.dart';
@@ -74,6 +76,15 @@ Future<void> bootstrap(
         flavorProvider.overrideWithValue(flavor),
         appPathsProvider.overrideWithValue(paths),
         logFileSinkProvider.overrideWithValue(sink),
+        // SEC-02: every request (host, path, bytes) survives restarts.
+        networkActivityLogProvider.overrideWithValue(
+          NetworkActivityLog(
+            file: File(
+              '${paths.root.path}${Platform.pathSeparator}network'
+              '${Platform.pathSeparator}activity.jsonl',
+            ),
+          ),
+        ),
         loggerProvider.overrideWithValue(logger),
         nativeVersionsProvider.overrideWithValue(_nativeVersions()),
         shareServiceProvider.overrideWithValue(const SharePlusShareService()),
