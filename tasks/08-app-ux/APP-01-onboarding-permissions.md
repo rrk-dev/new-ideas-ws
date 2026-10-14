@@ -1,7 +1,7 @@
 # APP-01 — Onboarding & Permission Flow
 
 **Workstream:** App UX | **Phase:** 2–4 | **Size:** M | **Depends on:** MDL-02, EXP-03, EXP-04, LLM-07 | **Source:** Gap (first-launch experience implied by model downloader)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-model-delivery, vv-markdown-vault-export, vv-privacy-security, vv-pipeline-orchestrator, vv-audio-capture, vv-testing
 
 ## Goal
