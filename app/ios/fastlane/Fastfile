@@ -1,0 +1,84 @@
+# VaultVoice iOS release lanes (REL-01).
+#
+# NOT executed by the authoring agent (no Xcode / fastlane available); the
+# first real run is the first tagged release on GitHub Actions
+# (docs/test-plans/device/REL-01.md).
+#
+# Inputs (environment only — never commit them; see docs/release-secrets.md):
+#   VV_BUILD_NAME, VV_BUILD_NUMBER                     tools/release/version.py
+#   APP_STORE_CONNECT_API_KEY_ID / _ISSUER_ID          App Store Connect API key ("App Manager")
+#   APP_STORE_CONNECT_API_KEY_P8_PATH                  path of the decoded .p8 (CI temp dir)
+#   APPLE_TEAM_ID
+#   MATCH_GIT_URL, MATCH_PASSWORD, MATCH_GIT_BASIC_AUTHORIZATION   read-only match access
+#   VV_RELEASE_NOTES_PATH (optional)                   tools/release/changelog.py --store output
+require "fileutils"
+require "tmpdir"
+
+default_platform(:ios)
+
+ROOT = File.expand_path("../../..", __dir__)
+BUNDLE_ID = "com.vaultvoice.vaultvoice"
+# The prod flavor = scheme "prod", build configuration "Release-prod".
+RELEASE_CONFIGURATION = "Release-prod"
+
+platform :ios do
+  def api_key
+    app_store_connect_api_key(
+      key_id: ENV.fetch("APP_STORE_CONNECT_API_KEY_ID"),
+      issuer_id: ENV.fetch("APP_STORE_CONNECT_API_KEY_ISSUER_ID"),
+      key_filepath: ENV.fetch("APP_STORE_CONNECT_API_KEY_P8_PATH"),
+      in_house: false
+    )
+  end
+
+  desc "Fetch signing assets read-only and build the obfuscated prod IPA"
+  lane :build do
+    setup_ci if ENV["CI"] # temporary keychain on CI runners
+    key = api_key
+    match(type: "appstore", readonly: true, api_key: key)
+    profile = ENV.fetch("sigh_#{BUNDLE_ID}_appstore_profile-name")
+    team = ENV.fetch("APPLE_TEAM_ID")
+    # Manual signing only for the CI build; the committed project keeps
+    # automatic signing for local development.
+    update_code_signing_settings(
+      path: File.join(ROOT, "app/ios/Runner.xcodeproj"),
+      use_automatic_signing: false,
+      targets: ["Runner"],
+      build_configurations: [RELEASE_CONFIGURATION],
+      code_sign_identity: "Apple Distribution",
+      profile_name: profile,
+      team_id: team
+    )
+    plist = File.join(Dir.mktmpdir("vv-export"), "ExportOptions.plist")
+    File.write(plist, <<~PLIST)
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0"><dict>
+        <key>method</key><string>app-store-connect</string>
+        <key>signingStyle</key><string>manual</string>
+        <key>teamID</key><string>#{team}</string>
+        <key>uploadSymbols</key><false/>
+        <key>manageAppVersionAndBuildNumber</key><false/>
+        <key>provisioningProfiles</key><dict>
+          <key>#{BUNDLE_ID}</key><string>#{profile}</string>
+        </dict>
+      </dict></plist>
+    PLIST
+    sh("bash", File.join(ROOT, "tools/release/build_release.sh"), "ios", plist)
+  end
+
+  desc "Build and upload to TestFlight (internal testers)"
+  lane :beta do
+    build
+    ipa = Dir[File.join(ROOT, "app/build/release/ios/*.ipa")].first
+    UI.user_error!("no IPA produced") if ipa.nil?
+    notes = ENV["VV_RELEASE_NOTES_PATH"]
+    upload_to_testflight(
+      api_key: lane_context[SharedValues::APP_STORE_CONNECT_API_KEY],
+      ipa: ipa,
+      changelog: notes && File.exist?(notes) ? File.read(notes) : nil,
+      skip_waiting_for_build_processing: true,
+      distribute_external: false
+    )
+  end
+end
