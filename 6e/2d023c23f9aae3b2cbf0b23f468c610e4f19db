@@ -1,0 +1,39 @@
+app/test/fakes/fake_permission_hosts.dart
+  s_9f6fcf8c1840a0::t_83389d81e5eaf9 1-49
+docs/test-plans/device/APP-01.md
+  s_9f6fcf8c1840a0::t_bda42a53948d57 1-26
+app/test/golden/onboarding_golden_test.dart
+  s_9f6fcf8c1840a0::t_44d42bff2c6825 1-16
+tasks/08-app-ux/APP-01-onboarding-permissions.md
+  s_9f6fcf8c1840a0::t_3ee9062a1df1f8 47
+  s_9f6fcf8c1840a0::t_41731198ee2a71 11-17,22-46,48-64
+app/test/widget/onboarding_test.dart
+  s_9f6fcf8c1840a0::t_72ffdfe52a0242 13
+  s_9f6fcf8c1840a0::t_bab57e9c11569f 1-12,14-27,29-41,43-55,58-61,63-75,79-113,118-139,141-146,148,152-173,175-192,194-222,224-233,235-269,271-278,280,284-313,345-418
+  s_9f6fcf8c1840a0::t_d21b1f0a91ce66 114-117,140,147,149-151,193,270,279,281-283
+  s_9f6fcf8c1840a0::t_8ada368134a1b4 28,76-78,174,223,234,419
+  s_9f6fcf8c1840a0::t_a6c2408a1d3182 42,56-57,62
+  s_9f6fcf8c1840a0::t_4e6063a4f5e472 314-344
+app/test/widget/app_shell_test.dart
+  s_9f6fcf8c1840a0::t_ab4ff9bf2922e9 8,24-27
+app/test/widget/accessibility_test.dart
+  s_9f6fcf8c1840a0::t_ab4ff9bf2922e9 16,43,52-55
+app/integration_test/e2e_test.dart
+  s_9f6fcf8c1840a0::t_ab14b29817e9fb 8,25-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6e2d023c23f9aae3b2cbf0b23f468c610e4f19db",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
