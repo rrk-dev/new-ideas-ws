@@ -1,0 +1,31 @@
+{
+  "_doc": "Scoring config for run.py (PRF-09). Targets from vv-extraction-profiles (PRF-03 ACs).",
+  "prose": [
+    "title",
+    "summary"
+  ],
+  "scalars": {},
+  "lists": {
+    "attendees": {
+      "match": "name"
+    },
+    "decisions": {},
+    "action_items": {
+      "key": "task",
+      "fields": {
+        "owner": "name",
+        "due": "text"
+      }
+    },
+    "open_questions": {},
+    "topics": {}
+  },
+  "ignore": [
+    "t"
+  ],
+  "targets": {
+    "lists.action_items.recall": 0.8,
+    "lists.action_items.precision": 0.8,
+    "schema_valid": 0.99
+  }
+}
