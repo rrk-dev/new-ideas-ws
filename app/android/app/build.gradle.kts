@@ -33,6 +33,13 @@ android {
         }
     }
 
+    // AGP 9 turns resValues off by default; the flavors below define app_name
+    // with resValue(...), which otherwise fails configuration ("Product Flavor
+    // dev contains custom resource values, but the feature is disabled").
+    buildFeatures {
+        resValues = true
+    }
+
     flavorDimensions += "env"
     productFlavors {
         create("dev") {
