@@ -53,7 +53,7 @@ final class ModelEntriesProvider
   }
 }
 
-String _$modelEntriesHash() => r'72864675838abfd58426cac8366432657d94502c';
+String _$modelEntriesHash() => r'e43793cdad2f7a43bf55b99f13c4bbdff8b7d68b';
 
 /// The model id the pipeline should load per type (null = none usable yet;
 /// the job waits for a model). The pipeline wiring reads this.
