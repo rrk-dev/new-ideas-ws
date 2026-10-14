@@ -1,0 +1,14 @@
+tasks/02-audio/AUD-03-silence-detection-vad.md
+  h_9c63801c22a53c 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2dc2b5071abdf31b5d105a99e0359efd5d8a0e80",
+  "prompts": {},
+  "humans": {
+    "h_9c63801c22a53c": {
+      "author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
