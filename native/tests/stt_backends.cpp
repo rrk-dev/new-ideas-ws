@@ -221,6 +221,10 @@ int bench(int argc, char** argv) {
 
 int main(int argc, char** argv) {
   whisper_log_set(log_cb, nullptr);
+#if defined(GGML_BACKEND_DL)
+  // VV_GGML_BACKEND_DL build: modules sit next to this binary (host layout).
+  ggml_backend_load_all_from_path(nullptr);
+#endif
   if (argc >= 3 && std::strcmp(argv[1], "check") == 0) return check(argv[2]);
   if (argc >= 2 && std::strcmp(argv[1], "bench") == 0) return bench(argc, argv);
   std::fprintf(stderr, "usage: %s check {cpu|gpu|coreml-fallback} | bench --model M --wav W ...\n", argv[0]);

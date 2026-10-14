@@ -3,6 +3,10 @@
 # Metal-only, CPU-only and (Apple) Core ML encoder builds of the same pins.
 #
 #   tools/bench/stt_host_bench.sh [--model FILE] [--wav FILE] [--seconds 60] [--runs 3]
+#                                 [--threads-sweep "2 4 6 8"] [--dl]
+#   --threads-sweep  CPU-only runs per thread count (STT-02 thread tuning) instead of
+#                    the backend comparison
+#   --dl             also bench the VV_GGML_BACKEND_DL build (runtime CPU variant)
 #
 # Defaults: ggml-base.en-q8_0.bin + its Core ML encoder from $VV_BENCH_MODELS_DIR
 # (default ~/.cache/vaultvoice/bench — outside the repo; never commit models) and
@@ -18,12 +22,16 @@ MODEL="$BENCH/ggml-base.en-q8_0.bin"
 WAV="$TEST/jfk.wav"
 SECONDS_AUDIO=60
 RUNS=3
+SWEEP=""
+DL=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --model) MODEL="$2"; shift 2 ;;
     --wav) WAV="$2"; shift 2 ;;
     --seconds) SECONDS_AUDIO="$2"; shift 2 ;;
     --runs) RUNS="$2"; shift 2 ;;
+    --threads-sweep) SWEEP="$2"; shift 2 ;;
+    --dl) DL=1; shift ;;
     -h|--help) sed -n '2,12p' "$0"; exit 0 ;;
     *) echo "unknown argument: $1" >&2; exit 64 ;;
   esac
@@ -40,15 +48,19 @@ build() {  # dir, extra cmake args...
   cmake --build "$ROOT/native/build/$dir" --target stt_backends -j >/dev/null
 }
 
-run() {  # dir, label, gpu
+run() {  # dir, label, gpu, [threads]
   "$ROOT/native/build/$1/stt_backends" bench --model "$MODEL" --wav "$WAV" \
-    --seconds "$SECONDS_AUDIO" --runs "$RUNS" --gpu "$3" --label "$2"
+    --seconds "$SECONDS_AUDIO" --runs "$RUNS" --gpu "$3" --label "$2" ${4:+--threads "$4"}
 }
 
 echo "# $(uname -sm) $(sysctl -n machdep.cpu.brand_string 2>/dev/null || true)" \
      "whisper.cpp $(git -C "$ROOT/native/whisper.cpp" describe --tags 2>/dev/null || echo '?')" \
      "model sha256 $(shasum -a 256 "$MODEL" | cut -c1-16)"
 build host
+if [ -n "$SWEEP" ]; then
+  for t in $SWEEP; do run host "cpu-t$t" 0 "$t"; done
+  exit 0
+fi
 run host metal 1
 run host cpu 0
 if [ "$(uname -s)" = Darwin ]; then
@@ -56,4 +68,9 @@ if [ "$(uname -s)" = Darwin ]; then
   # First Core ML run includes the one-time ANE compile when the cache is cold.
   run host-coreml coreml+metal 1
   run host-coreml coreml+cpu 0
+fi
+if [ "$DL" = 1 ]; then
+  build host-dl -DVV_GGML_BACKEND_DL=ON
+  run host-dl dl-metal 1
+  run host-dl dl-cpu 0
 fi

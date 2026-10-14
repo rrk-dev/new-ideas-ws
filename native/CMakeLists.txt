@@ -67,7 +67,55 @@ endif()
 # The single ggml. Both projects skip their own copy when a `ggml` target
 # exists (`if (NOT TARGET ggml ...)` in llama.cpp/CMakeLists.txt:220 and
 # whisper.cpp/CMakeLists.txt:160). Their ggml trees are identical at the pins.
+#
+# STT-02: runtime backend selection (docs/adr/ADR-STT-02-android-backends.md).
+# VV_GGML_BACKEND_DL=ON builds ggml as shared libggml/libggml-base plus one
+# dlopen()able module per backend: every CPU variant (GGML_CPU_ALL_VARIANTS —
+# NEON baseline, dotprod, fp16, i8mm, SVE/SME; the best one for the running
+# CPU is picked by its ggml_backend_score()) and the optional GPU backends
+# below. vv_backends_load() (bridge/vv_backend.cpp) loads them; a GPU module
+# is only dlopen()ed when the app's allowlist allows it, so a broken driver
+# can't take the process down at startup. Default OFF (= FND-06 single static
+# .so with the VV_ANDROID_CPU_ARCH baseline) until the device runs in
+# docs/test-plans/device/STT-02.md pass. iOS never uses DL (static Metal).
+option(VV_GGML_BACKEND_DL "ggml backends as runtime-loaded modules (Android/host)" OFF)
+option(VV_GGML_VULKAN "Android: build the ggml Vulkan backend module (needs DL)" OFF)
+option(VV_GGML_OPENCL "Android: build the ggml OpenCL (Adreno) backend module (needs DL)" OFF)
+if(VV_GGML_BACKEND_DL)
+  if(IOS)
+    message(FATAL_ERROR "VV_GGML_BACKEND_DL is not supported on iOS (static Metal build)")
+  endif()
+  if(VV_ANDROID_CPU_ARCH)
+    message(FATAL_ERROR "VV_ANDROID_CPU_ARCH and VV_GGML_BACKEND_DL are mutually exclusive")
+  endif()
+  set(BUILD_SHARED_LIBS ON)            # ggml only; reset to OFF below
+  set(GGML_BACKEND_DL ON)
+  set(GGML_CPU_ALL_VARIANTS ON)
+  if(ANDROID)
+    # Every shipped .so (libggml*, CPU variants, GPU modules), not just
+    # vv_native, must be 16 KB page aligned (default on NDK r28+; explicit here).
+    string(APPEND CMAKE_SHARED_LINKER_FLAGS " -Wl,-z,max-page-size=16384 -Wl,-z,common-page-size=16384")
+    string(APPEND CMAKE_MODULE_LINKER_FLAGS " -Wl,-z,max-page-size=16384 -Wl,-z,common-page-size=16384")
+  else()
+    # Host: keep every module next to libvv_native so the loader finds them.
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+  endif()
+endif()
+if((VV_GGML_VULKAN OR VV_GGML_OPENCL) AND NOT VV_GGML_BACKEND_DL)
+  message(FATAL_ERROR "GPU backends must be runtime-optional: set VV_GGML_BACKEND_DL=ON")
+endif()
+if(VV_GGML_VULKAN)
+  set(GGML_VULKAN ON)                  # needs glslc + Vulkan headers matching the pin
+endif()
+if(VV_GGML_OPENCL)
+  set(GGML_OPENCL ON)                  # needs Khronos headers + NDK-built libOpenCL.so ICD loader
+  set(GGML_OPENCL_EMBED_KERNELS ON)
+  set(GGML_OPENCL_USE_ADRENO_KERNELS ON)
+endif()
+
 add_subdirectory(llama.cpp/ggml ggml)
+set(BUILD_SHARED_LIBS OFF)             # whisper + llama stay static inside vv_native
 add_subdirectory(llama.cpp llama)
 add_subdirectory(whisper.cpp whisper)
 
@@ -75,6 +123,15 @@ add_library(vv_native SHARED bridge/vv_bridge.cpp)
 target_include_directories(vv_native PUBLIC bridge)
 target_link_libraries(vv_native PRIVATE whisper llama ggml)
 target_compile_definitions(vv_native PRIVATE VV_BUILDING_LIBRARY=1)
+# STT-02 backend loader (kept on its own line: other tasks add sources too).
+target_sources(vv_native PRIVATE bridge/vv_backend.cpp)
+if(VV_GGML_BACKEND_DL)
+  # Module names the loader probes, e.g. "ggml-cpu-android_armv8.2_1,ggml-vulkan"
+  # (GGML_AVAILABLE_BACKENDS is filled by ggml_add_backend_library()).
+  string(REPLACE ";" "," _vv_backends "${GGML_AVAILABLE_BACKENDS}")
+  target_compile_definitions(vv_native PRIVATE VV_GGML_BACKENDS="${_vv_backends}")
+  target_link_libraries(vv_native PRIVATE ${CMAKE_DL_LIBS})
+endif()
 
 # Export only vv_* from the final library (static deps must not leak ggml_*,
 # whisper_*, llama_* — that is what would cause duplicate-symbol clashes).
@@ -131,5 +188,13 @@ if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
   foreach(mode cpu gpu coreml-fallback)
     add_test(NAME stt_backend_${mode} COMMAND stt_backends check ${mode})
     set_tests_properties(stt_backend_${mode} PROPERTIES SKIP_RETURN_CODE 77)
+  endforeach()
+
+  # STT-02: vv_backends_* loader + perf-core detection.
+  add_executable(backends_test tests/backends_test.cpp)
+  target_link_libraries(backends_test PRIVATE vv_native)
+  foreach(mode cores cpu-only gpu missing-dir describe)
+    add_test(NAME vv_backends_${mode} COMMAND backends_test ${mode})
+    set_tests_properties(vv_backends_${mode} PROPERTIES SKIP_RETURN_CODE 77)
   endforeach()
 endif()
