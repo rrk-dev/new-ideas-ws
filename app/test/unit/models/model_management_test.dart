@@ -66,6 +66,13 @@ ModelEntry _entry(List<ModelEntry> all, CatalogModel m) =>
     all.firstWhere((e) => e.model.id == m.id);
 
 void main() {
+  test('[MDL-03] active-model keys match what the engine factory reads '
+      '(FND-11)', () {
+    expect(ActiveModelKeys.stt, 'models.active_stt');
+    expect(ActiveModelKeys.llm, 'models.active_llm');
+    expect(ActiveModelKeys.forType(ModelType.vad), isNull);
+  });
+
   group('active model resolution', () {
     test('the user choice wins while usable; otherwise recommended, then '
         'first usable; nothing installed → none', () {
