@@ -1,7 +1,7 @@
 # SEC-03 — App Lock (Biometric / Passcode)
 
 **Workstream:** Security & Privacy | **Phase:** 4 | **Size:** S | **Depends on:** SEC-01 | **Source:** Gap (regulated-user expectation)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-privacy-security, vv-flutter-architecture, vv-testing
 
 ## Goal
