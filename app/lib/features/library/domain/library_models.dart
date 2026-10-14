@@ -211,7 +211,11 @@ List<LibraryItem> applyLibraryFilter(
       final c = b.duration.compareTo(a.duration);
       return c != 0 ? c : byNewest(a, b);
     },
+    // Untitled recordings go last.
     LibrarySort.title => (a, b) {
+      final ea = a.title.trim().isEmpty;
+      final eb = b.title.trim().isEmpty;
+      if (ea != eb) return ea ? 1 : -1;
       final c = a.title.toLowerCase().compareTo(b.title.toLowerCase());
       return c != 0 ? c : byNewest(a, b);
     },

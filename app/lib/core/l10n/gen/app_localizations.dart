@@ -1285,7 +1285,7 @@ abstract class AppLocalizations {
   /// No description provided for @libraryExportedTo.
   ///
   /// In en, this message translates to:
-  /// **'{status} → {folders}'**
+  /// **'{status} · {folders}'**
   String libraryExportedTo(String status, String folders);
 
   /// No description provided for @libraryStatusRecording.

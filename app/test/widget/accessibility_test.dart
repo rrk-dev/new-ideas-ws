@@ -13,6 +13,7 @@ import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/theme/app_theme.dart';
+import 'package:vaultvoice/features/library/domain/recording_detail.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_access.dart';
 import 'package:vaultvoice/features/models/data/model_import_providers.dart';
 import 'package:vaultvoice/features/models/data/model_management_providers.dart';
@@ -25,6 +26,7 @@ import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 
 import '../fakes/fake_settings_store.dart';
+import '../helpers/library_fixtures.dart';
 import '../helpers/model_fixtures.dart';
 import '../helpers/processing_fixtures.dart';
 
@@ -41,7 +43,9 @@ const _screens = {
   'Record': '/record',
   'Library': '/library',
   'Processing queue': '/library/processing',
-  'Recording status': '/library/recordings/rec-a',
+  'Recording detail': '/library/recordings/rec-a',
+  'Recording transcript': '/library/recordings/rec-a/text',
+  'Action items': '/library/action-items',
   'Profiles': '/profiles',
   'Settings': '/settings',
   'Vault folders': '/settings/vault-folders',
@@ -70,6 +74,19 @@ List<Override> _overrides() => [
         handle: '/x',
       ),
     ]),
+  ),
+  // APP-02 library, recording detail and action items.
+  ...libraryOverrides(
+    actionItems: const [
+      ActionItemView(
+        id: 1,
+        recordingId: 'rec-a',
+        recordingTitle: 'Weekly planning',
+        body: 'Update the client SDK',
+        done: false,
+        owner: 'Sam',
+      ),
+    ],
   ),
   // MDL-03 model screen: hermetic catalog/install state.
   modelEntriesProvider.overrideWith(

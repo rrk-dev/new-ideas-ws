@@ -37,6 +37,7 @@ import '../fakes/fake_local_notifier.dart';
 import '../fakes/fake_model_downloader.dart';
 import '../fakes/fake_permission_hosts.dart';
 import '../fakes/fake_settings_store.dart';
+import '../helpers/library_fixtures.dart';
 import '../helpers/model_fixtures.dart';
 
 final AppLocalizations _l = lookupAppLocalizations(kFallbackLocale);
@@ -92,6 +93,8 @@ class _Rig {
     networkDisabledProvider.overrideWith(
       (ref) => Stream.value(_networkDisabled),
     ),
+    // APP-02 Library behind "Explore first".
+    ...libraryOverrides(),
   ];
 
   Future<void> pump(WidgetTester t) async {

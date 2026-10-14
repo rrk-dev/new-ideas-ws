@@ -13,6 +13,7 @@ import 'package:vaultvoice/features/settings/presentation/settings_providers.dar
 import 'package:vaultvoice/features/settings/presentation/settings_screen.dart';
 
 import '../fakes/fake_settings_store.dart';
+import '../helpers/library_fixtures.dart';
 
 void main() {
   Future<void> pumpApp(WidgetTester tester) => tester.pumpWidget(
@@ -27,6 +28,8 @@ void main() {
         ),
         vaultTargetsProvider.overrideWith((ref) => Stream.value(const [])),
         routingRulesProvider.overrideWith((ref) => Stream.value(const [])),
+        // APP-02: the Library tab lists recordings.
+        ...libraryOverrides(),
       ],
       child: const App(),
     ),

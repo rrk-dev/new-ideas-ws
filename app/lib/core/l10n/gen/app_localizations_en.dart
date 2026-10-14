@@ -720,7 +720,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String libraryExportedTo(String status, String folders) {
-    return '$status → $folders';
+    return '$status · $folders';
   }
 
   @override

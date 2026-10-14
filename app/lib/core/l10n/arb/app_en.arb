@@ -232,7 +232,7 @@
   "libraryFilterDate": "Date",
   "libraryFilterClear": "Clear filters",
   "libraryFilterAll": "All",
-  "libraryExportedTo": "{status} → {folders}",
+  "libraryExportedTo": "{status} · {folders}",
   "@libraryExportedTo": {"placeholders": {"status": {"type": "String"}, "folders": {"type": "String"}}},
   "libraryStatusRecording": "Recording",
   "libraryStatusRecorded": "Not processed",
