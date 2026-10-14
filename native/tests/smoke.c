@@ -10,6 +10,8 @@ static int fail(const char* what) {
 }
 
 int main(void) {
+  /* STT-02: register backends first (required in VV_GGML_BACKEND_DL builds). */
+  if (vv_backends_load(NULL, 0) != VV_OK) return fail("vv_backends_load");
   if (vv_abi_version() != VV_ABI_VERSION) return fail("abi version");
   if (strcmp(vv_version(), "0.1.0") != 0) return fail("vv_version");
   if (strlen(vv_whisper_version()) == 0) return fail("whisper version");

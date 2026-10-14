@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/widgets/placeholder_screen.dart';
 import 'package:vaultvoice/features/recording/presentation/battery_guidance.dart';
 import 'package:vaultvoice/features/recording/presentation/call_guard_debug_screen.dart';
@@ -17,25 +18,17 @@ class RecordScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDev = ref.watch(flavorProvider).isDev;
-    // Keeps the OS recording indicator (notification) in sync (AUD-05).
-    ref.watch(recordingIndicatorBindingProvider);
-    // The launch screen: offers recordings recovered after a crash (AUD-07)
-    // and OEM battery-saver guidance (AUD-05).
-    return RecoveredRecordingsPrompt(
-      child: BatteryGuidance(
-        child: PlaceholderScreen(
-          title: 'Record',
-          icon: Icons.mic,
-          actions: [
-            if (isDev)
-              IconButton(
-                tooltip: 'Recording debug',
-                icon: const Icon(Icons.graphic_eq),
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => const RecordingDebugScreen(),
-                  ),
-                ),
+    return PlaceholderScreen(
+      title: context.l10n.tabRecord,
+      icon: Icons.mic,
+      actions: [
+        if (isDev)
+          IconButton(
+            tooltip: context.l10n.callGuardDebugTooltip,
+            icon: const Icon(Icons.phone_disabled),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => const CallGuardDebugScreen(),
               ),
             if (isDev)
               IconButton(

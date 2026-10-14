@@ -10,8 +10,10 @@ import 'package:vaultvoice/core/logging/logger.dart';
 import 'package:vaultvoice/core/logging/redaction.dart';
 import 'package:vaultvoice/core/logging/rotating_file_sink.dart';
 import 'package:vaultvoice/core/platform/app_paths.dart';
+import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_screen.dart';
 
+import '../fakes/fake_settings_store.dart';
 import '../fakes/fake_share_service.dart';
 import '../helpers/sensitive_samples.dart';
 
@@ -55,10 +57,17 @@ void main() {
           appPathsProvider.overrideWithValue(paths),
           logFileSinkProvider.overrideWithValue(sink),
           shareServiceProvider.overrideWithValue(share),
+          // APP-03: the rest of the Settings screen without a database.
+          settingsStoreProvider.overrideWithValue(FakeSettingsStore()),
+          vaultTargetsProvider.overrideWith((ref) => Stream.value(const [])),
+          routingRulesProvider.overrideWith((ref) => Stream.value(const [])),
         ],
         child: const MaterialApp(home: SettingsScreen()),
       ),
     );
+    // APP-03 added sections above the diagnostics tile.
+    await t.scrollUntilVisible(find.text('Export diagnostics'), 300);
+    await t.pumpAndSettle();
   }
 
   testWidgets('[FND-07/AC2] Export diagnostics previews the contents and '

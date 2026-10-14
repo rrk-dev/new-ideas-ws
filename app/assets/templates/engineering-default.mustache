@@ -1,0 +1,77 @@
+---
+title: {{#yaml}}{{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}{{/yaml}}
+date: {{meta.date}}
+time: {{#yaml}}{{meta.time}}{{/yaml}}
+duration: {{#yaml}}{{meta.duration_human}}{{/yaml}}
+type: {{#yaml}}{{meta.profile_id}}{{/yaml}}
+tags: {{#yaml_list}}meta.tags{{/yaml_list}}
+source: vaultvoice
+recording_id: {{#yaml}}{{meta.recording_id}}{{/yaml}}
+{{#meta.has_consent_at}}
+consent_at: {{#yaml}}{{meta.consent_at}}{{/yaml}}
+{{/meta.has_consent_at}}
+---
+
+# {{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}
+
+{{#has_context}}
+## Context
+
+{{data.context}}
+
+{{/has_context}}
+{{#has_concepts}}
+## Concepts
+
+{{#bullets}}data.concepts{{/bullets}}
+
+{{/has_concepts}}
+{{#has_api_designs}}
+## API Designs
+
+{{#data.api_designs}}
+### {{name}}
+
+{{#has_description}}
+{{description}}
+
+{{/has_description}}
+{{#has_endpoints_or_signatures}}
+{{#bullets}}endpoints_or_signatures{{/bullets}}
+
+{{/has_endpoints_or_signatures}}
+{{/data.api_designs}}
+{{/has_api_designs}}
+{{#has_tradeoffs}}
+## Trade-offs
+
+{{#md_table}}data.tradeoffs|option,pros,cons{{/md_table}}
+
+{{/has_tradeoffs}}
+{{#has_decisions}}
+## Decisions
+
+{{#bullets}}data.decisions{{/bullets}}
+
+{{/has_decisions}}
+## TODOs
+
+{{#data.todos}}
+{{#checkbox}}{{task}}{{#has_owner}} (@{{owner}}){{/has_owner}}{{#has_t}} [{{t}}]{{/has_t}}{{/checkbox}}
+{{/data.todos}}
+{{^has_todos}}
+_No TODOs._
+{{/has_todos}}
+
+{{#has_open_questions}}
+## Open Questions
+
+{{#bullets}}data.open_questions{{/bullets}}
+
+{{/has_open_questions}}
+{{audio_link}}
+
+---
+
+_Generated on-device by VaultVoice · {{meta.duration_human}}._
+{{! Built-in Obsidian template for the engineering profile (EXP-01). }}

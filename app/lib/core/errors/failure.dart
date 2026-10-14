@@ -84,6 +84,15 @@ final class VaultFileExistsFailure extends Failure {
   const VaultFileExistsFailure() : super('vault file exists');
 }
 
+/// The feature is not available in this build yet (its implementation is
+/// supplied by a later task, e.g. "Delete all data" by SEC-04).
+final class UnsupportedFeatureFailure extends Failure {
+  const UnsupportedFeatureFailure(this.feature)
+    : super('unsupported: $feature');
+
+  final String feature;
+}
+
 /// A bug or an unclassified exception caught at a boundary.
 final class UnexpectedFailure extends Failure {
   const UnexpectedFailure(this.errorType) : super('unexpected: $errorType');
@@ -170,4 +179,46 @@ final class ModelIntegrityFailure extends Failure {
 
   /// True when the byte count differs, false when only the hash differs.
   final bool sizeMismatch;
+}
+
+/// A profile definition (or its template) failed validation (PRF-01).
+///
+/// [issues] hold `path: message` strings that name keys and limits only,
+/// never field values (`schema.action_items[].owner: missing maxLength …`).
+final class ProfileValidationFailure extends Failure {
+  ProfileValidationFailure(List<String> issues)
+    : issues = List.unmodifiable(issues),
+      super('profile invalid: ${issues.length} issue(s)');
+
+  final List<String> issues;
+}
+
+/// A profile operation is not allowed (PRF-01): editing a built-in or
+/// managed profile, or reusing an id owned by another profile.
+final class ProfileReadOnlyFailure extends Failure {
+  const ProfileReadOnlyFailure(super.message);
+}
+
+/// A Markdown template does not parse (EXP-01). [line]/[column] are 1-based
+/// positions in the template source; the message describes the syntax
+/// problem and never contains rendered values.
+final class TemplateSyntaxFailure extends Failure {
+  const TemplateSyntaxFailure(
+    this.templateName,
+    this.line,
+    this.column,
+    String detail,
+  ) : super('template $templateName:$line:$column: $detail');
+
+  final String templateName;
+  final int line;
+  final int column;
+}
+
+/// A filename pattern does not parse (EXP-02); [column] is 1-based.
+final class FilenamePatternFailure extends Failure {
+  const FilenamePatternFailure(this.column, String detail)
+    : super('filename pattern:$column: $detail');
+
+  final int column;
 }

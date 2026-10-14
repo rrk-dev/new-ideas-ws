@@ -4,9 +4,12 @@
 set -euo pipefail
 apk="${1:?usage: check_apk_native.sh <apk>}"
 listing="$(unzip -l "$apk")"
-echo "$listing" | grep -q 'lib/arm64-v8a/libvv_native.so' || {
+# grep reads a here-string, not a pipe: with `set -o pipefail`,
+# `echo "$listing" | grep -q` fails with SIGPIPE (141) when grep exits on the
+# first match before echo has written a large listing (a real debug APK).
+grep -q 'lib/arm64-v8a/libvv_native\.so' <<<"$listing" || {
   echo "FAIL: $apk does not contain lib/arm64-v8a/libvv_native.so" >&2; exit 1; }
-if echo "$listing" | grep -E 'lib/(armeabi-v7a|x86|x86_64)/' >/dev/null; then
+if grep -qE 'lib/(armeabi-v7a|x86|x86_64)/' <<<"$listing"; then
   echo "FAIL: $apk contains non-arm64 native libs" >&2; exit 1
 fi
-unzip -l "$apk" | grep 'libvv_native.so'
+grep 'libvv_native\.so' <<<"$listing"

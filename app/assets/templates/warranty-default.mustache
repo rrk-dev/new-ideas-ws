@@ -1,0 +1,81 @@
+---
+title: {{#yaml}}{{#has_product}}{{data.product}}{{/has_product}}{{^has_product}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_product}}{{/yaml}}
+date: {{meta.date}}
+type: {{#yaml}}{{meta.profile_id}}{{/yaml}}
+tags: {{#yaml_list}}meta.tags{{/yaml_list}}
+source: vaultvoice
+recording_id: {{#yaml}}{{meta.recording_id}}{{/yaml}}
+{{#has_brand}}
+brand: {{#yaml}}{{data.brand}}{{/yaml}}
+{{/has_brand}}
+{{#has_model}}
+model: {{#yaml}}{{data.model}}{{/yaml}}
+{{/has_model}}
+{{#has_serial_number}}
+serial_number: {{#yaml}}{{data.serial_number}}{{/yaml}}
+{{/has_serial_number}}
+{{#has_purchase_date_iso}}
+purchase_date: {{#yaml}}{{data.purchase_date_iso}}{{/yaml}}
+{{/has_purchase_date_iso}}
+{{#has_warranty_expiry}}
+warranty_expiry: {{#yaml}}{{data.warranty_expiry}}{{/yaml}}
+{{/has_warranty_expiry}}
+---
+
+# {{#has_product}}{{data.product}}{{/has_product}}{{^has_product}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_product}}
+
+## Details
+
+{{#has_product}}
+- **Product:** {{data.product}}
+{{/has_product}}
+{{#has_brand}}
+- **Brand:** {{data.brand}}
+{{/has_brand}}
+{{#has_model}}
+- **Model:** {{data.model}}
+{{/has_model}}
+{{#has_serial_number}}
+- **Serial number:** {{data.serial_number}}
+{{/has_serial_number}}
+{{#has_purchase_date}}
+- **Purchased:** {{#has_purchase_date_iso}}{{data.purchase_date_iso}}{{/has_purchase_date_iso}}{{^has_purchase_date_iso}}{{data.purchase_date}}{{/has_purchase_date_iso}}
+{{/has_purchase_date}}
+{{#has_retailer}}
+- **Retailer:** {{data.retailer}}
+{{/has_retailer}}
+{{#has_price}}
+- **Price:** {{data.price}}
+{{/has_price}}
+{{#data.warranty_period}}
+- **Warranty:** {{value}} {{unit}}
+{{/data.warranty_period}}
+{{#has_warranty_expiry}}
+- **Warranty expires:** {{data.warranty_expiry}}
+{{/has_warranty_expiry}}
+- **Recorded:** {{meta.date}} {{meta.time}}
+
+{{#has_warranty_expiry}}
+## Reminder
+
+- [ ] Warranty ends{{#has_product}} for {{data.product}}{{/has_product}} 📅 {{data.warranty_expiry}}
+
+{{/has_warranty_expiry}}
+{{#has_support_contacts}}
+## Support Contacts
+
+{{#bullets}}data.support_contacts{{/bullets}}
+
+{{/has_support_contacts}}
+{{#has_notes}}
+## Notes
+
+{{data.notes}}
+
+{{/has_notes}}
+{{audio_link}}
+
+---
+
+_Generated on-device by VaultVoice._
+{{! Built-in Obsidian template for the warranty profile (EXP-01). }}
