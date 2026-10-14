@@ -4,9 +4,11 @@ import 'package:vaultvoice/features/models/domain/installed_model.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
 
 /// `settings` keys holding the model the pipeline uses per type (MDL-03).
+/// FND-11's production engine factory reads exactly these names (value =
+/// a `models_installed` id) and falls back to the LLM-07 tier default.
 abstract final class ActiveModelKeys {
-  static const stt = 'models.active.stt';
-  static const llm = 'models.active.llm';
+  static const stt = 'models.active_stt';
+  static const llm = 'models.active_llm';
 
   /// Key for [type], or null for types without a user choice (VAD,
   /// diarization and accelerators follow their pipeline model).

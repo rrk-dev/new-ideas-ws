@@ -27,7 +27,7 @@ Users see installed/available models, disk usage and can swap or delete them.
   `readOnly` installed-but-not-selectable, `disabled` → "Requires Pro" via `ensureFeature`
   paywall). Actions: Download / Resume / Update (MDL-02 plan → size, mobile-data and low-power
   consent, Android 13+ notification prompt once before the first download), Pause / Cancel, "Use
-  this model" (`models.active.stt` / `models.active.llm`), Delete. Domain
+  this model" (`models.active_stt` / `models.active_llm`, the keys FND-11's production engine factory reads), Delete. Domain
   `domain/model_management.dart`: `buildModelEntries`, `resolveActiveModel` (choice → recommended
   → first usable; never a locked/incompatible model), `planDeletion` (free / needs replacement /
   blocked), `isNewerVersion`. `ModelManager.delete` switches the active model to the chosen
@@ -51,7 +51,8 @@ Users see installed/available models, disk usage and can swap or delete them.
   storage totals are sizes only.
 
 ## Follow-ups
-- **Wiring note:** `PipelineConfig.sttModelId` / `llmModelId` are still constants; build them
-  from `activeModelIdsProvider` (`features/models/data/model_management_providers.dart`) and
-  resolve the file path from `models_installed`, so "Use this model" takes effect.
+- **Wiring note (FND-11, not on main when this was written):** FND-11's engine factory reads
+  `models.active_stt` / `models.active_llm` (then the LLM-07 tier default); MDL-03 writes exactly
+  those keys (`ActiveModelKeys`) with a `models_installed` id. `activeModelIdsProvider` gives the
+  same resolution (choice → recommended → first usable) for UI/pipeline use.
 - **Note:** the Settings › Models tile does not yet show an "update available" badge.
