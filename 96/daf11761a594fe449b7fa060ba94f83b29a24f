@@ -1,0 +1,19 @@
+tasks/01-foundation/FND-09-macos-desktop-target.md
+  s_4f14fc12f712a1::t_503de525c53002 4,13,30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "96daf11761a594fe449b7fa060ba94f83b29a24f",
+  "prompts": {},
+  "sessions": {
+    "s_4f14fc12f712a1": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "13a781e1-0b76-42b3-9c27-00a60fdcc8ad",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
