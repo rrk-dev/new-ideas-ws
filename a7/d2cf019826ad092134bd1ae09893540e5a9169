@@ -1,0 +1,29 @@
+tasks/01-foundation/FND-01-flutter-repo-init.md
+  s_99a8a99f2882f6::t_3592894e6f877e 43
+tasks/01-foundation/FND-09-macos-desktop-target.md
+  s_99a8a99f2882f6::t_6f63e103b8a1e8 1-24
+tasks/01-foundation/FND-10-macos-native-bundle.md
+  s_99a8a99f2882f6::t_b2c7aafb8cfc36 1-23
+tasks/02-audio/AUD-09-macos-microphone.md
+  s_99a8a99f2882f6::t_1539bce7cdb88f 1-24
+tasks/07-export/EXP-09-macos-folder-bookmarks.md
+  s_99a8a99f2882f6::t_be23fc2c865057 1-23
+tasks/README.md
+  s_99a8a99f2882f6::t_ab2c4601053fdf 27,40-41,54,111,204,208
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a7d2cf019826ad092134bd1ae09893540e5a9169",
+  "prompts": {},
+  "sessions": {
+    "s_99a8a99f2882f6": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "dbe12172-a261-469f-8130-81366f2d1fbc",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
