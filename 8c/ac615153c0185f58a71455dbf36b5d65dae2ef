@@ -1,0 +1,81 @@
+app/lib/features/recording/presentation/recording_screen.dart
+  s_9f6fcf8c1840a0::t_32362c0c361243 152,164,279
+  s_9f6fcf8c1840a0::t_803af4838a4a47 1-2,5-6,9-15,18,20,24-33,37-151,153-163,165-179,184-191,193-200,202,205-208,211-232,235-240,242-278,280-413,416-467,469-488,492-505,507,519-527,529-557,559-587
+  s_9f6fcf8c1840a0::t_87ea7f264c8ddf 180-183,192,241
+  s_9f6fcf8c1840a0::t_9d54ce7635d043 204,414-415,468
+  s_9f6fcf8c1840a0::t_44eff794e7973a 490
+  s_9f6fcf8c1840a0::t_9025cc34f648ee 489,491
+  s_9f6fcf8c1840a0::t_972eb364d4406c 508-515
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_9d54ce7635d043 457-696
+app/lib/features/recording/data/recording_screen_providers.dart
+  s_9f6fcf8c1840a0::t_32362c0c361243 61-64
+  s_9f6fcf8c1840a0::t_87ea7f264c8ddf 3,5,8,28-32,39
+  s_9f6fcf8c1840a0::t_803af4838a4a47 1-2,4,6-7,9-27,33-38,40-60
+app/lib/features/recording/data/recording_screen_providers.g.dart
+  s_9f6fcf8c1840a0::t_32362c0c361243 179,183,201,203,206,212
+  s_9f6fcf8c1840a0::t_9d54ce7635d043 1-178,180-182,184-200,202,204-205,207-211
+app/lib/features/pipeline/data/steps/render_write_steps.dart
+  s_9f6fcf8c1840a0::t_87ea7f264c8ddf 161-169
+  s_9f6fcf8c1840a0::t_32362c0c361243 16
+app/test/helpers/record_screen_overrides.dart
+  s_9f6fcf8c1840a0::t_2fbe354af8837d 1-9
+app/test/unit/recording/recording_session_test.dart
+  s_9f6fcf8c1840a0::t_32362c0c361243 3
+  s_9f6fcf8c1840a0::t_803af4838a4a47 1-2,5-80,103
+  s_9f6fcf8c1840a0::t_78746131d85244 4
+  s_9f6fcf8c1840a0::t_13ac237ed5094b 81-102
+app/lib/features/recording/data/record_capture_backend.dart
+  s_9f6fcf8c1840a0::t_87ea7f264c8ddf 26,44-45,116,120
+app/test/widget/record_screen_test.dart
+  s_9f6fcf8c1840a0::t_9025cc34f648ee 63-78,344-368
+  s_9f6fcf8c1840a0::t_803af4838a4a47 1-12,14-62,79-113,117-120,122,124-139,143-187,190-247,252-280,284-286,292-298,303-343,369-370
+  s_9f6fcf8c1840a0::t_78746131d85244 13,121,123
+  s_9f6fcf8c1840a0::t_9d54ce7635d043 114-116,140-142,248-251,281-283,287-291,299-302
+  s_9f6fcf8c1840a0::t_44eff794e7973a 188-189
+app/test/unit/pipeline/pipeline_orchestrator_test.dart
+  s_9f6fcf8c1840a0::t_373e1ab2b8e75b 18,141-151
+  s_9f6fcf8c1840a0::t_69af3573b0bcef 152-153
+app/lib/features/recording/domain/recording_session.dart
+  s_9f6fcf8c1840a0::t_803af4838a4a47 1-45,47-55
+  s_9f6fcf8c1840a0::t_9d54ce7635d043 46
+app/test/golden/placeholder_screens_golden_test.dart
+  s_9f6fcf8c1840a0::t_629e1866d0cd74 2-3,6-8,16-25
+app/lib/features/recording/presentation/recording_details_sheet.dart
+  s_9f6fcf8c1840a0::t_803af4838a4a47 1-5,7-79,81-84,89-101,103-172,188-209
+  s_9f6fcf8c1840a0::t_9d54ce7635d043 6,175
+  s_9f6fcf8c1840a0::t_87ea7f264c8ddf 80,85-88,102,173-174,176-187
+docs/test-plans/device/AUD-08.md
+  s_9f6fcf8c1840a0::t_bf114d3cc55c65 1-16
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_9d54ce7635d043 224-352
+tasks/02-audio/AUD-08-recording-ui.md
+  s_9f6fcf8c1840a0::t_b07ccc14789d09 11-17,23-61
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_87ea7f264c8ddf 75-117
+app/test/widget/recording_debug_screen_test.dart
+  s_9f6fcf8c1840a0::t_422785cca43ac0 13,27
+app/test/widget/recovered_recordings_prompt_test.dart
+  s_9f6fcf8c1840a0::t_80b69f8ce6fb5d 9-10,17
+app/lib/features/recording/data/recording_session_service.dart
+  s_9f6fcf8c1840a0::t_32362c0c361243 15-17,73,110,113,115-116
+  s_9f6fcf8c1840a0::t_84d822e6e8be81 1-14,18-72,74-109,111-112,114,117-120
+app/test/widget/call_guard_debug_screen_test.dart
+  s_9f6fcf8c1840a0::t_422785cca43ac0 12,23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8cac615153c0185f58a71455dbf36b5d65dae2ef",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
