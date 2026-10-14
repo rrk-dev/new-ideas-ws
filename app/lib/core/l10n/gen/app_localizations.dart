@@ -454,6 +454,72 @@ abstract class AppLocalizations {
   /// **'Recording debug'**
   String get recordingDebugTooltip;
 
+  /// No description provided for @importAudioTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Import audio file'**
+  String get importAudioTooltip;
+
+  /// No description provided for @importAttestationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Import a recording'**
+  String get importAttestationTitle;
+
+  /// No description provided for @importAttestationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The audio is processed on this device only. Import only recordings you are allowed to use.'**
+  String get importAttestationBody;
+
+  /// No description provided for @importAttestationCheckbox.
+  ///
+  /// In en, this message translates to:
+  /// **'I have the right to process this recording and everyone in it consented to being recorded.'**
+  String get importAttestationCheckbox;
+
+  /// No description provided for @importAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Import'**
+  String get importAction;
+
+  /// No description provided for @importInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Importing audio…'**
+  String get importInProgress;
+
+  /// No description provided for @importDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Imported. Processing has been queued.'**
+  String get importDone;
+
+  /// No description provided for @importUnsupportedFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'{format} files can’t be imported on this device.'**
+  String importUnsupportedFormat(String format);
+
+  /// No description provided for @importUnsupportedUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'This file type can’t be imported on this device.'**
+  String get importUnsupportedUnknown;
+
+  /// No description provided for @importNoAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'This file contains no audio.'**
+  String get importNoAudio;
+
+  /// No description provided for @importFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The file could not be imported.'**
+  String get importFailed;
+
   /// No description provided for @diagnosticsTitle.
   ///
   /// In en, this message translates to:

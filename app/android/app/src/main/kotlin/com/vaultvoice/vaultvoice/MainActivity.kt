@@ -2,6 +2,9 @@ package com.vaultvoice.vaultvoice
 
 import android.content.Context
 import android.content.Intent
+import com.vaultvoice.vaultvoice.audioimport.AudioImportFlutterApi
+import com.vaultvoice.vaultvoice.audioimport.AudioImportHostApi
+import com.vaultvoice.vaultvoice.audioimport.AudioImportHostApiImpl
 import com.vaultvoice.vaultvoice.modeldownload.ModelDownloadPlugin
 import com.vaultvoice.vaultvoice.saf.SafHostApi
 import com.vaultvoice.vaultvoice.saf.SafHostApiImpl
@@ -11,6 +14,10 @@ import io.flutter.embedding.engine.FlutterEngine
 class MainActivity : FlutterActivity() {
     // Storage Access Framework vault folders (EXP-03).
     private var safApi: SafHostApiImpl? = null
+
+    // AUD-06: audio import (platform decoders + share-sheet intents).
+    private var importApi: AudioImportHostApiImpl? = null
+    private var launchIntentHandled = false
 
     // AUD-05: while the recording foreground service runs, the Flutter engine
     // (and with it the Dart capture code) must outlive this activity — e.g.
@@ -42,10 +49,27 @@ class MainActivity : FlutterActivity() {
         val api = SafHostApiImpl(this)
         safApi = api
         SafHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, api)
+        val imports = AudioImportHostApiImpl(applicationContext)
+        imports.flutterApi = AudioImportFlutterApi(flutterEngine.dartExecutor.binaryMessenger)
+        importApi = imports
+        AudioImportHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, imports)
+        if (!launchIntentHandled) {
+            launchIntentHandled = true
+            imports.handleIntent(intent)
+        }
+    }
+
+    // AUD-06: a file shared while the app is already open (singleTop).
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        importApi?.handleIntent(intent)
     }
 
     override fun cleanUpFlutterEngine(flutterEngine: FlutterEngine) {
         SafHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, null)
+        AudioImportHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, null)
+        importApi?.dispose()
+        importApi = null
         safApi?.dispose()
         safApi = null
         super.cleanUpFlutterEngine(flutterEngine)

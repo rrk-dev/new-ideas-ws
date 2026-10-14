@@ -72,6 +72,20 @@
   "modelImportErrorNoSpace": "Not enough free space.",
   "modelImportErrorGeneric": "Import failed.",
   "recordingDebugTooltip": "Recording debug",
+  "importAudioTooltip": "Import audio file",
+  "importAttestationTitle": "Import a recording",
+  "importAttestationBody": "The audio is processed on this device only. Import only recordings you are allowed to use.",
+  "importAttestationCheckbox": "I have the right to process this recording and everyone in it consented to being recorded.",
+  "importAction": "Import",
+  "importInProgress": "Importing audio…",
+  "importDone": "Imported. Processing has been queued.",
+  "importUnsupportedFormat": "{format} files can’t be imported on this device.",
+  "@importUnsupportedFormat": {
+    "placeholders": {"format": {"type": "String"}}
+  },
+  "importUnsupportedUnknown": "This file type can’t be imported on this device.",
+  "importNoAudio": "This file contains no audio.",
+  "importFailed": "The file could not be imported.",
 
   "diagnosticsTitle": "Export diagnostics",
   "diagnosticsSubtitle": "Logs, device info and performance metrics. No recordings, transcripts or notes.",
