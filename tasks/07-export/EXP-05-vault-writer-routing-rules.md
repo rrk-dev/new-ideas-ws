@@ -1,7 +1,7 @@
 # EXP-05 — Vault Writer & Folder Routing Rules Engine
 
 **Workstream:** Export | **Phase:** 3 | **Size:** M | **Depends on:** EXP-02, EXP-03, EXP-04, LIC-01 | **Source:** §3.1.4, §4.2 (Local File Router), §5 Phase 3, §7 (Multiple folder routing rules — Pro)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-markdown-vault-export, vv-licensing-iap, vv-local-database, vv-pipeline-orchestrator, vv-testing
 
 ## Goal
@@ -44,7 +44,7 @@ Route each rendered note to the right destination(s) based on rules.
   single-target write is unchanged.
 - **Acceptance evidence:**
   - AC1: ✅ test: [EXP-05/AC1]
-  - AC2: ✅ test: [EXP-05/AC2]; ⏳ device: docs/test-plans/device/EXP-05.md
+  - AC2: ⏳ test: [EXP-05/AC2]; device: docs/test-plans/device/EXP-05.md
 - **Decisions:** PRODUCT-DECISIONs in code: no configured folder ⇒ the job waits
   (`waiting(destination)`, rendered note stays in app storage) instead of silently writing to the
   app-local folder; profile `default_target: ask` treated as unset; a target is used once per note
