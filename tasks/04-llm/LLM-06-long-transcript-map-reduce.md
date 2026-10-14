@@ -1,7 +1,7 @@
 # LLM-06 — Long-Transcript Handling (Chunking + Map-Reduce Extraction)
 
 **Workstream:** LLM | **Phase:** 2–3 | **Size:** L | **Depends on:** LLM-04, LLM-05 | **Source:** Gap (a 60-min meeting ≈ 9–12k tokens; mobile context budgets are ~4–8k)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-llm-inference, vv-extraction-profiles, vv-pipeline-orchestrator, vv-benchmark-eval, vv-testing
 
 ## Goal
