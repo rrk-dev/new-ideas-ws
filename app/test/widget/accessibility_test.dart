@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,14 +9,18 @@ import 'package:vaultvoice/app.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
+import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/theme/app_theme.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
+import 'package:vaultvoice/features/profiles/data/profile_providers.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
+import 'package:vaultvoice/features/templates/data/template_editor_providers.dart';
+import 'package:vaultvoice/features/templates/data/template_store.dart';
 
 import '../fakes/fake_settings_store.dart';
 import '../helpers/processing_fixtures.dart';
@@ -39,9 +44,48 @@ const _screens = {
   'Vault folders': '/settings/vault-folders',
   'Routing rules': '/settings/routing-rules',
   'Models': '/settings/models',
+  'Templates': '/settings/templates',
+  'Template (built-in)': '/settings/templates/meeting-default',
+  'Template editor': '/settings/templates/mine',
 };
 
+class _Templates implements TemplateStore {
+  @override
+  Stream<List<CustomTemplate>> watch() => Stream.value(const [
+    CustomTemplate(
+      id: 'mine',
+      body: '# {{data.title}}\n\n{{#data.action_items}}\n',
+      filenamePattern: '{{slug}}.md',
+      profileId: 'meeting',
+      baseId: 'meeting-default',
+    ),
+  ]);
+
+  @override
+  Stream<Map<String, String>> watchBindings() => Stream.value(const {});
+
+  @override
+  Future<Result<void>> save(CustomTemplate template) async => const Ok(null);
+
+  @override
+  Future<Result<void>> delete(String id) async => const Ok(null);
+
+  @override
+  Future<Result<void>> bind(String profileId, String? templateId) async =>
+      const Ok(null);
+}
+
 List<Override> _overrides() => [
+  templateStoreProvider.overrideWithValue(_Templates()),
+  // rootBundle caches futures across tests (fake-async zones): read the
+  // asset files directly instead.
+  profileAssetLoaderProvider.overrideWithValue(
+    (key) async => File(key).readAsStringSync(),
+  ),
+  editorProfilesProvider.overrideWith(
+    (ref) async => (await ref.watch(builtinProfilesProvider.future)).all,
+  ),
+  previewRecordingsProvider.overrideWith((ref, id) async => const []),
   flavorProvider.overrideWithValue(Flavor.prod),
   processingViewsProvider.overrideWith((ref) async => sampleQueue()),
   // Hermetic: no platform storage dir (path_provider) behind the

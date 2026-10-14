@@ -32,6 +32,14 @@ abstract final class SettingKeys {
   static const exportFilenamePattern = 'export.filename_pattern';
   static const exportCollisionMode = 'export.collision_mode';
 
+  // Templates (EXP-07).
+  /// `{templateId: {profile, base}}` — schema profile and built-in origin of
+  /// each custom template (built-in profiles cannot be `templates.profile_id`).
+  static const templatesMeta = 'templates.meta';
+
+  /// `{profileId: templateId}` — custom template used for a profile's notes.
+  static const templatesBindings = 'templates.bindings';
+
   // Privacy & security (SEC-03 / SEC-04).
   static const securityAppLock = 'security.app_lock';
   static const securityLockTimeout = 'security.lock_timeout';

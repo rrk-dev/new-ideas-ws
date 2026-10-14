@@ -741,4 +741,145 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get routingRulesEmpty =>
       'No routing rules. Every note goes to your first vault folder.';
+
+  @override
+  String get settingsTemplates => 'Templates';
+
+  @override
+  String get settingsTemplatesSubtitle => 'How your notes are laid out';
+
+  @override
+  String get templatesBuiltin => 'Built-in templates';
+
+  @override
+  String get templatesCustom => 'Your templates';
+
+  @override
+  String get templatesCustomEmpty =>
+      'No custom templates yet. Open a built-in template and duplicate it to start.';
+
+  @override
+  String get templatesLocked =>
+      'Custom templates are a Pro feature. Existing templates are kept read-only.';
+
+  @override
+  String get templatesLoadFailed => 'Could not load templates.';
+
+  @override
+  String get templateFlavorObsidian => 'Obsidian';
+
+  @override
+  String get templateFlavorLogseq => 'Logseq';
+
+  @override
+  String get templateFlavorPlain => 'Plain text';
+
+  @override
+  String templateForProfile(String profile) {
+    return 'For $profile';
+  }
+
+  @override
+  String get templateForAnyProfile => 'For every profile';
+
+  @override
+  String get templateReadOnly =>
+      'Built-in templates are read-only. Duplicate it to make changes.';
+
+  @override
+  String get templateLockedReadOnly =>
+      'Editing custom templates needs Pro. This template is read-only.';
+
+  @override
+  String get templateSource => 'Template source';
+
+  @override
+  String get templateDuplicate => 'Duplicate';
+
+  @override
+  String get templateDuplicateTitle => 'Duplicate template';
+
+  @override
+  String get templateDuplicateName => 'Name';
+
+  @override
+  String get templateDuplicateCreate => 'Create';
+
+  @override
+  String get templateSave => 'Save';
+
+  @override
+  String get templateSaved => 'Template saved.';
+
+  @override
+  String get templateSaveFailed => 'Could not save the template.';
+
+  @override
+  String templateFixIssues(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count problems',
+      one: '1 problem',
+    );
+    return 'Fix $_temp0 before saving.';
+  }
+
+  @override
+  String get templateReset => 'Reset to default';
+
+  @override
+  String get templateResetDone => 'Built-in text restored. Save to keep it.';
+
+  @override
+  String get templateDelete => 'Delete template';
+
+  @override
+  String get templateDeleteTitle => 'Delete this template?';
+
+  @override
+  String get templateDeleteBody =>
+      'Notes already written are not changed. Profiles using it go back to their default template.';
+
+  @override
+  String templateUseFor(String profile) {
+    return 'Use for $profile notes';
+  }
+
+  @override
+  String get templateFilename => 'File name pattern';
+
+  @override
+  String get templatePreview => 'Preview';
+
+  @override
+  String get templatePreviewRaw => 'Markdown';
+
+  @override
+  String get templatePreviewRendered => 'Rendered';
+
+  @override
+  String get templatePreviewData => 'Preview data';
+
+  @override
+  String get templatePreviewSample => 'Sample data';
+
+  @override
+  String get templatePreviewUnavailable => 'Fix the template to see a preview.';
+
+  @override
+  String templateIssueAt(int line, int column, String message) {
+    return 'Line $line, column $column: $message';
+  }
+
+  @override
+  String get templateNotFound => 'This template no longer exists.';
+
+  @override
+  String get templateMore => 'More actions';
+
+  @override
+  String templateImageOmitted(String alt) {
+    return '[image: $alt]';
+  }
 }

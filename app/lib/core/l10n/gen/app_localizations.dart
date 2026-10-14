@@ -1305,6 +1305,246 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No routing rules. Every note goes to your first vault folder.'**
   String get routingRulesEmpty;
+
+  /// No description provided for @settingsTemplates.
+  ///
+  /// In en, this message translates to:
+  /// **'Templates'**
+  String get settingsTemplates;
+
+  /// No description provided for @settingsTemplatesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How your notes are laid out'**
+  String get settingsTemplatesSubtitle;
+
+  /// No description provided for @templatesBuiltin.
+  ///
+  /// In en, this message translates to:
+  /// **'Built-in templates'**
+  String get templatesBuiltin;
+
+  /// No description provided for @templatesCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Your templates'**
+  String get templatesCustom;
+
+  /// No description provided for @templatesCustomEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No custom templates yet. Open a built-in template and duplicate it to start.'**
+  String get templatesCustomEmpty;
+
+  /// No description provided for @templatesLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom templates are a Pro feature. Existing templates are kept read-only.'**
+  String get templatesLocked;
+
+  /// No description provided for @templatesLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load templates.'**
+  String get templatesLoadFailed;
+
+  /// No description provided for @templateFlavorObsidian.
+  ///
+  /// In en, this message translates to:
+  /// **'Obsidian'**
+  String get templateFlavorObsidian;
+
+  /// No description provided for @templateFlavorLogseq.
+  ///
+  /// In en, this message translates to:
+  /// **'Logseq'**
+  String get templateFlavorLogseq;
+
+  /// No description provided for @templateFlavorPlain.
+  ///
+  /// In en, this message translates to:
+  /// **'Plain text'**
+  String get templateFlavorPlain;
+
+  /// No description provided for @templateForProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'For {profile}'**
+  String templateForProfile(String profile);
+
+  /// No description provided for @templateForAnyProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'For every profile'**
+  String get templateForAnyProfile;
+
+  /// No description provided for @templateReadOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Built-in templates are read-only. Duplicate it to make changes.'**
+  String get templateReadOnly;
+
+  /// No description provided for @templateLockedReadOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Editing custom templates needs Pro. This template is read-only.'**
+  String get templateLockedReadOnly;
+
+  /// No description provided for @templateSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Template source'**
+  String get templateSource;
+
+  /// No description provided for @templateDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate'**
+  String get templateDuplicate;
+
+  /// No description provided for @templateDuplicateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate template'**
+  String get templateDuplicateTitle;
+
+  /// No description provided for @templateDuplicateName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get templateDuplicateName;
+
+  /// No description provided for @templateDuplicateCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get templateDuplicateCreate;
+
+  /// No description provided for @templateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get templateSave;
+
+  /// No description provided for @templateSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Template saved.'**
+  String get templateSaved;
+
+  /// No description provided for @templateSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the template.'**
+  String get templateSaveFailed;
+
+  /// No description provided for @templateFixIssues.
+  ///
+  /// In en, this message translates to:
+  /// **'Fix {count, plural, =1{1 problem} other{{count} problems}} before saving.'**
+  String templateFixIssues(int count);
+
+  /// No description provided for @templateReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset to default'**
+  String get templateReset;
+
+  /// No description provided for @templateResetDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Built-in text restored. Save to keep it.'**
+  String get templateResetDone;
+
+  /// No description provided for @templateDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete template'**
+  String get templateDelete;
+
+  /// No description provided for @templateDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this template?'**
+  String get templateDeleteTitle;
+
+  /// No description provided for @templateDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes already written are not changed. Profiles using it go back to their default template.'**
+  String get templateDeleteBody;
+
+  /// No description provided for @templateUseFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Use for {profile} notes'**
+  String templateUseFor(String profile);
+
+  /// No description provided for @templateFilename.
+  ///
+  /// In en, this message translates to:
+  /// **'File name pattern'**
+  String get templateFilename;
+
+  /// No description provided for @templatePreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get templatePreview;
+
+  /// No description provided for @templatePreviewRaw.
+  ///
+  /// In en, this message translates to:
+  /// **'Markdown'**
+  String get templatePreviewRaw;
+
+  /// No description provided for @templatePreviewRendered.
+  ///
+  /// In en, this message translates to:
+  /// **'Rendered'**
+  String get templatePreviewRendered;
+
+  /// No description provided for @templatePreviewData.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview data'**
+  String get templatePreviewData;
+
+  /// No description provided for @templatePreviewSample.
+  ///
+  /// In en, this message translates to:
+  /// **'Sample data'**
+  String get templatePreviewSample;
+
+  /// No description provided for @templatePreviewUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Fix the template to see a preview.'**
+  String get templatePreviewUnavailable;
+
+  /// No description provided for @templateIssueAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Line {line}, column {column}: {message}'**
+  String templateIssueAt(int line, int column, String message);
+
+  /// No description provided for @templateNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'This template no longer exists.'**
+  String get templateNotFound;
+
+  /// No description provided for @templateMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More actions'**
+  String get templateMore;
+
+  /// No description provided for @templateImageOmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'[image: {alt}]'**
+  String templateImageOmitted(String alt);
 }
 
 class _AppLocalizationsDelegate

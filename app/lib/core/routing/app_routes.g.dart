@@ -72,6 +72,18 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
               hasOverriddenOnExit: false,
               factory: $RoutingRulesRoute._fromState,
             ),
+            GoRouteData.$route(
+              path: 'templates',
+              hasOverriddenOnExit: false,
+              factory: $TemplatesRoute._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: ':templateId',
+                  hasOverriddenOnExit: false,
+                  factory: $TemplateEditorRoute._fromState,
+                ),
+              ],
+            ),
           ],
         ),
       ],
@@ -258,6 +270,52 @@ mixin $RoutingRulesRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/settings/routing-rules');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $TemplatesRoute on GoRouteData {
+  static TemplatesRoute _fromState(GoRouterState state) =>
+      const TemplatesRoute();
+
+  @override
+  String get location => GoRouteData.$location('/settings/templates');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $TemplateEditorRoute on GoRouteData {
+  static TemplateEditorRoute _fromState(GoRouterState state) =>
+      TemplateEditorRoute(templateId: state.pathParameters['templateId']!);
+
+  TemplateEditorRoute get _self => this as TemplateEditorRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/settings/templates/${Uri.encodeComponent(_self.templateId)}',
+  );
 
   @override
   void go(BuildContext context) => context.go(location);
