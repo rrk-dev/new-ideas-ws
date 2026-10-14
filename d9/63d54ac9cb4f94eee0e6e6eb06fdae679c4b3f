@@ -1,0 +1,100 @@
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 172-176,271-277
+  s_9f6fcf8c1840a0::t_45da4074a22c2f 278
+app/lib/core/crash/crash_providers.dart
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-96
+docs/adr/ADR-REL-02-crash-capture.md
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-105
+tasks/12-release/REL-02-private-crash-reporting.md
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 4,11-14,18-33
+app/lib/core/crash/dart_crash_recorder.dart
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-94
+app/lib/core/crash/crash_reporting.dart
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-93
+app/lib/app.dart
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 9,19,27-32
+app/lib/core/errors/error_boundary.dart
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 5-22,27-33,37-41,44-45,47
+app/test/unit/crash/crash_store_test.dart
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-301
+app/lib/core/platform/app_paths.dart
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 31-37
+app/test/unit/crash/native_crash_e2e_test.dart
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-139
+app/test/widget/crash_reports_test.dart
+  s_9f6fcf8c1840a0::t_1b9946417d5914 15,18,58-63,83-86,159,184
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-14,16-17,19-57,64-82,87-158,160-183,185-196
+docs/privacy-audit.md
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 13
+docs/test-plans/device/REL-02.md
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-16
+native/bridge/vv_crash.c
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-570
+native/bridge/vv_crash.h
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-3,8-93
+  s_9f6fcf8c1840a0::t_998dfc9ff0d425 4-7
+packages/vv_native/lib/src/vv_bindings.g.dart
+  s_9f6fcf8c1840a0::t_c22a58e079156c 738-817,1304-1321
+native/bridge/vv_exports.txt
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 38
+app/lib/core/crash/crash_providers.g.dart
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-181
+tools/crash/tests/test_crash_symbolize.py
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-180,182-183,185-188
+  s_9f6fcf8c1840a0::t_0080552107718c 181,184
+app/lib/core/crash/crash_store.dart
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-177
+docs/crash-triage.md
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-86
+app/lib/features/settings/presentation/crash_reports.dart
+  s_9f6fcf8c1840a0::t_5777a7c042fcac 9,89,94,98,118-119,121,125,129,150,157-160,184,188,192,213,216-217,240-241,246,250,254,264
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-8,10-88,90-93,95-97,99-117,120,122-124,126-128,130-149,151-156,161-183,185-187,189-191,193-212,214-215,218-239,242-245,247-249,251-253,255-263,265-270
+tools/ci/check_bindings.py
+  s_9f6fcf8c1840a0::t_a9d829f54f8bc7 2,5-9,17-40,44,47-51,54
+app/lib/bootstrap.dart
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 8-10,43-50,54,73-74
+packages/vv_native/lib/vv_crash.dart
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-4,8-11,13-52,54,56-80
+  s_9f6fcf8c1840a0::t_6ceb4f4d495045 5-7,12,53,55
+tools/crash/symbolize.py
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-232
+native/tests/crash_test.c
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-160
+tasks/README.md
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 196
+app/lib/core/crash/native_crash_capture.dart
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-42
+packages/vv_native/test/vv_crash_host_test.dart
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 1-51
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9f6fcf8c1840a0::t_c935bead97ccf2 11
+  s_9f6fcf8c1840a0::t_0f8a9407887920 62-63
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_f8964410010d7a 22-44
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_c23618a553bd51 181-294
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_511306f05b60cd 56-123
+native/bridge/vv_bridge.h
+  s_9f6fcf8c1840a0::t_2c7a1757d18aba 84-86
+native/bridge/vv_exports.map
+  s_9f6fcf8c1840a0::t_7d09a2436350bb 40
+packages/vv_native/ffigen.yaml
+  s_9f6fcf8c1840a0::t_869615ec4f04e7 13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d963d54ac9cb4f94eee0e6e6eb06fdae679c4b3f",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
