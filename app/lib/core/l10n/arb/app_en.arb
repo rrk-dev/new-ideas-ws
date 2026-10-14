@@ -246,5 +246,18 @@
   "vaultFoldersLoadFailed": "Could not load your vault folders.",
   "vaultFoldersEmpty": "No vault folders yet. Notes are saved in the app’s own folder until you add one.",
   "routingRulesLoadFailed": "Could not load routing rules.",
-  "routingRulesEmpty": "No routing rules. Every note goes to your first vault folder."
+  "routingRulesEmpty": "No routing rules. Every note goes to your first vault folder.",
+  "noteShare": "Share note",
+  "noteShareTitle": "Share or copy this note",
+  "noteShareFormat": "Format",
+  "noteFormatObsidian": "Obsidian",
+  "noteFormatLogseq": "Logseq",
+  "noteFormatPlain": "Plain",
+  "noteShareFile": "Share as .md file",
+  "noteShareText": "Share as text",
+  "noteCopy": "Copy to clipboard",
+  "noteCopied": "Note copied.",
+  "noteShareFailed": "Could not prepare the note.",
+  "noteShareUnavailable": "Sharing is not available on this device.",
+  "noteShareHint": "The note leaves the app only through the app you pick."
 }

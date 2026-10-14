@@ -1,0 +1,72 @@
+title:: {{#has_product}}{{data.product}}{{/has_product}}{{^has_product}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_product}}
+type:: {{meta.profile_id}}
+date:: [[{{meta.date}}]]
+{{#meta.has_tags}}
+tags:: {{#meta.tags}}[[{{.}}]] {{/meta.tags}}
+{{/meta.has_tags}}
+{{#has_brand}}
+brand:: {{data.brand}}
+{{/has_brand}}
+{{#has_model}}
+model:: {{data.model}}
+{{/has_model}}
+{{#has_serial_number}}
+serial-number:: {{data.serial_number}}
+{{/has_serial_number}}
+{{#has_purchase_date_iso}}
+purchase-date:: [[{{data.purchase_date_iso}}]]
+{{/has_purchase_date_iso}}
+{{#has_warranty_expiry}}
+warranty-expiry:: [[{{data.warranty_expiry}}]]
+{{/has_warranty_expiry}}
+source:: vaultvoice
+recording-id:: {{meta.recording_id}}
+
+- **Details**
+{{#has_product}}
+  - Product: {{data.product}}
+{{/has_product}}
+{{#has_brand}}
+  - Brand: {{data.brand}}
+{{/has_brand}}
+{{#has_model}}
+  - Model: {{data.model}}
+{{/has_model}}
+{{#has_serial_number}}
+  - Serial number: {{data.serial_number}}
+{{/has_serial_number}}
+{{#has_purchase_date}}
+  - Purchased: {{#has_purchase_date_iso}}[[{{data.purchase_date_iso}}]]{{/has_purchase_date_iso}}{{^has_purchase_date_iso}}{{data.purchase_date}}{{/has_purchase_date_iso}}
+{{/has_purchase_date}}
+{{#has_retailer}}
+  - Retailer: {{data.retailer}}
+{{/has_retailer}}
+{{#has_price}}
+  - Price: {{data.price}}
+{{/has_price}}
+{{#data.warranty_period}}
+  - Warranty: {{value}} {{unit}}
+{{/data.warranty_period}}
+{{#has_warranty_expiry}}
+  - Warranty expires: [[{{data.warranty_expiry}}]]
+{{/has_warranty_expiry}}
+  - Recorded: [[{{meta.date}}]] {{meta.time}}
+{{#has_warranty_expiry}}
+- **Reminder**
+  - TODO Warranty ends{{#has_product}} for {{data.product}}{{/has_product}} [[{{data.warranty_expiry}}]]
+{{/has_warranty_expiry}}
+{{#has_support_contacts}}
+- **Support Contacts**
+{{#data.support_contacts}}
+  - {{.}}
+{{/data.support_contacts}}
+{{/has_support_contacts}}
+{{#has_notes}}
+- **Notes**
+  - {{data.notes}}
+{{/has_notes}}
+- Generated on-device by VaultVoice
+{{! Built-in Logseq variant of the warranty template (EXP-08): page
+    properties in the first block, outline bullets with 2-space nesting,
+    the reminder as a TODO linked to its date page. Reference:
+    docs/templates.md }}

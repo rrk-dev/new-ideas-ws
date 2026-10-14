@@ -1305,6 +1305,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No routing rules. Every note goes to your first vault folder.'**
   String get routingRulesEmpty;
+
+  /// No description provided for @noteShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share note'**
+  String get noteShare;
+
+  /// No description provided for @noteShareTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Share or copy this note'**
+  String get noteShareTitle;
+
+  /// No description provided for @noteShareFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Format'**
+  String get noteShareFormat;
+
+  /// No description provided for @noteFormatObsidian.
+  ///
+  /// In en, this message translates to:
+  /// **'Obsidian'**
+  String get noteFormatObsidian;
+
+  /// No description provided for @noteFormatLogseq.
+  ///
+  /// In en, this message translates to:
+  /// **'Logseq'**
+  String get noteFormatLogseq;
+
+  /// No description provided for @noteFormatPlain.
+  ///
+  /// In en, this message translates to:
+  /// **'Plain'**
+  String get noteFormatPlain;
+
+  /// No description provided for @noteShareFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Share as .md file'**
+  String get noteShareFile;
+
+  /// No description provided for @noteShareText.
+  ///
+  /// In en, this message translates to:
+  /// **'Share as text'**
+  String get noteShareText;
+
+  /// No description provided for @noteCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy to clipboard'**
+  String get noteCopy;
+
+  /// No description provided for @noteCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Note copied.'**
+  String get noteCopied;
+
+  /// No description provided for @noteShareFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not prepare the note.'**
+  String get noteShareFailed;
+
+  /// No description provided for @noteShareUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Sharing is not available on this device.'**
+  String get noteShareUnavailable;
+
+  /// No description provided for @noteShareHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The note leaves the app only through the app you pick.'**
+  String get noteShareHint;
 }
 
 class _AppLocalizationsDelegate

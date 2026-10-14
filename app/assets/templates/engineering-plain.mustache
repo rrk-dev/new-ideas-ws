@@ -1,0 +1,76 @@
+# {{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}
+
+- Date: {{meta.date}} {{meta.time}}
+- Duration: {{meta.duration_human}}
+
+{{#has_context}}
+## Context
+
+{{data.context}}
+
+{{/has_context}}
+{{#has_concepts}}
+## Concepts
+
+{{#data.concepts}}
+- {{.}}
+{{/data.concepts}}
+
+{{/has_concepts}}
+{{#has_api_designs}}
+## API Designs
+
+{{#data.api_designs}}
+### {{name}}
+
+{{#has_description}}
+{{description}}
+
+{{/has_description}}
+{{#endpoints_or_signatures}}
+- {{.}}
+{{/endpoints_or_signatures}}
+
+{{/data.api_designs}}
+{{/has_api_designs}}
+{{#has_tradeoffs}}
+## Trade-offs
+
+{{#data.tradeoffs}}
+- {{option}}
+{{#pros}}
+  - Pro: {{.}}
+{{/pros}}
+{{#cons}}
+  - Con: {{.}}
+{{/cons}}
+{{/data.tradeoffs}}
+
+{{/has_tradeoffs}}
+{{#has_decisions}}
+## Decisions
+
+{{#data.decisions}}
+- {{.}}
+{{/data.decisions}}
+
+{{/has_decisions}}
+## TODOs
+
+{{#data.todos}}
+- [ ] {{task}}{{#has_owner}} ({{owner}}){{/has_owner}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.todos}}
+{{^has_todos}}
+No TODOs.
+{{/has_todos}}
+
+{{#has_open_questions}}
+## Open Questions
+
+{{#data.open_questions}}
+- {{.}}
+{{/data.open_questions}}
+
+{{/has_open_questions}}
+{{! Built-in plain Markdown variant of the engineering template (EXP-08): no
+    front-matter, wikilinks, callouts or plugin syntax. }}

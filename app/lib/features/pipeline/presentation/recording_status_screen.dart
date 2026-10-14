@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/core/widgets/status_message.dart';
+import 'package:vaultvoice/features/export/presentation/share_note_sheet.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_progress.dart';
 import 'package:vaultvoice/features/pipeline/presentation/job_commands.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
@@ -31,7 +32,11 @@ class RecordingStatusScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final views = ref.watch(processingViewsProvider);
     return Scaffold(
-      appBar: AppBar(title: Text(context.l10n.processingTitle)),
+      appBar: AppBar(
+        title: Text(context.l10n.processingTitle),
+        // EXP-08: share / copy the finished note (no vault needed).
+        actions: [ShareNoteButton(recordingId: recordingId)],
+      ),
       body: views.when(
         loading: () => Center(
           child: CircularProgressIndicator(
