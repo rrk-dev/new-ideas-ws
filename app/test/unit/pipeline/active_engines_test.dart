@@ -268,7 +268,7 @@ void main() {
       final stats = LlmStatsTap();
       final metrics = PipelineJobMetrics(
         db: db,
-        recorder: JobMetricsRecorder(store: store, clock: FakeClock(t0)),
+        sessions: JobMetricsRecorder(store: store, clock: FakeClock(t0)),
         llmStats: stats,
       );
       final job = JobSnapshot(

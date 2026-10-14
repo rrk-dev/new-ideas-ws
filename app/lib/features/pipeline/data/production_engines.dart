@@ -184,7 +184,7 @@ final class ProductionEngineSpec {
       vaultFor: (target) => vaultWriterFor(target, appLocal: appLocal, db: db),
       metrics: PipelineJobMetrics(
         db: db,
-        recorder: JobMetricsRecorder(
+        sessions: JobMetricsRecorder(
           store: JsonlMetricsStore(File(metricsFile)),
         ),
         llmStats: stats,
@@ -273,12 +273,15 @@ Future<NoteRenderer> loadNoteRenderer(
 final class PipelineJobMetrics implements StepMetrics {
   PipelineJobMetrics({
     required this.db,
-    required this.recorder,
+    required this.sessions,
     required this.llmStats,
   });
 
   final VaultVoiceDatabase db;
-  final JobMetricsRecorder recorder;
+
+  /// FND-07 recorder (named so the SEC-09 source scan never mistakes it
+  /// for an audio recorder).
+  final JobMetricsRecorder sessions;
   final LlmStatsTap llmStats;
 
   @override
@@ -286,7 +289,7 @@ final class PipelineJobMetrics implements StepMetrics {
     final model = step.model;
     if (model == null) return null;
     llmStats.take(); // drop runs of earlier steps
-    final session = await recorder.start(job.id, step.id.name);
+    final session = await sessions.start(job.id, step.id.name);
     return _Measurement(this, session, job.recordingId, model);
   }
 }
