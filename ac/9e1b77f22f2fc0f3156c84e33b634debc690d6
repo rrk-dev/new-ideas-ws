@@ -1,0 +1,47 @@
+.gitignore
+  s_9f6fcf8c1840a0::t_6c69398b03d671 14
+docs/test-plans/device/FND-10.md
+  s_9f6fcf8c1840a0::t_632f9332ed948c 1-12
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_2cc44af13f57da 121-133,218-232
+native/VERSIONS.md
+  s_9f6fcf8c1840a0::t_202cf8b8cbfb3e 36
+native/build.sh
+  s_9f6fcf8c1840a0::t_fd4e2a24138a3a 7-8,21,126-193,197-198,204,208-215
+packages/vv_native/macos/vv_native.podspec
+  s_9f6fcf8c1840a0::t_970f8a7340a4fa 1-21
+packages/vv_native/pubspec.yaml
+  s_9f6fcf8c1840a0::t_dbadc90152ef35 28-29
+packages/vv_native/analysis_options.yaml
+  s_4f14fc12f712a1::t_6623419ababae3 6
+packages/vv_native/lib/src/loader.dart
+  s_4f14fc12f712a1::t_c7f773d4abff86 7-12,16,20-21
+packages/vv_native/test/macos_bundle_host_test.dart
+  s_4f14fc12f712a1::t_e708c2170f1f7a 1-83
+tasks/01-foundation/FND-10-macos-native-bundle.md
+  s_4f14fc12f712a1::t_f73e25a77196b3 4,13-14,24-30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ac9e1b77f22f2fc0f3156c84e33b634debc690d6",
+  "prompts": {},
+  "sessions": {
+    "s_4f14fc12f712a1": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "13a781e1-0b76-42b3-9c27-00a60fdcc8ad",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
