@@ -62,7 +62,20 @@ typedef struct vv_stt_params {
   float entropy_thold;            /* 2.4 */
   float logprob_thold;            /* -1.0 */
   float no_speech_thold;          /* 0.6 */
+  /* ---- AUD-03: whisper.cpp built-in Silero VAD (whisper_full params.vad,
+   * verified against v1.9.5). Fields below are read only when struct_size
+   * covers them (callers built against the STT-03 layout keep working).
+   * With VAD, silence is skipped before decoding and every time reported
+   * (segments, tokens) is mapped back to the original audio timeline. */
+  const char* vad_model_path;     /* ggml Silero model; NULL/"" = no VAD */
+  float vad_threshold;            /* 0.5 speech probability */
+  int32_t vad_min_speech_ms;      /* 250 */
+  int32_t vad_min_silence_ms;     /* 500 */
+  int32_t vad_speech_pad_ms;      /* 200 */
 } vv_stt_params;
+
+/* struct_size of the STT-03 layout (before the VAD fields). */
+#define VV_STT_PARAMS_V1_SIZE offsetof(vv_stt_params, vad_model_path)
 
 typedef struct vv_stt_token {
   const char* text; /* UTF-8 piece */

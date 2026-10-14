@@ -74,6 +74,9 @@ VV_API int32_t vv_backends_dynamic(void);
 /* ---- Speech-to-text (STT-03): vv_stt_* — see vv_whisper.h ---- */
 #include "vv_whisper.h"
 
+/* ---- Voice activity detection (AUD-03): vv_vad_* — see vv_vad.h ---- */
+#include "vv_vad.h"
+
 #ifdef __cplusplus
 }
 #endif

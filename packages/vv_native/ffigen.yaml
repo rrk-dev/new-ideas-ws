@@ -9,6 +9,7 @@ headers:
     - ../../native/bridge/vv_bridge.h
     - ../../native/bridge/vv_error.h
     - ../../native/bridge/vv_whisper.h
+    - ../../native/bridge/vv_vad.h
     - ../../native/bridge/vv_llama.h
     - ../../native/bridge/vv_crash.h
 preamble: |
