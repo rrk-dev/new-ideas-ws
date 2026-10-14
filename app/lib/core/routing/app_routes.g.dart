@@ -60,9 +60,21 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
               factory: $ProcessingQueueRoute._fromState,
             ),
             GoRouteData.$route(
+              path: 'action-items',
+              hasOverriddenOnExit: false,
+              factory: $ActionItemsRoute._fromState,
+            ),
+            GoRouteData.$route(
               path: 'recordings/:recordingId',
               hasOverriddenOnExit: false,
               factory: $RecordingStatusRoute._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: 'text',
+                  hasOverriddenOnExit: false,
+                  factory: $RecordingLinesRoute._fromState,
+                ),
+              ],
             ),
           ],
         ),
@@ -172,6 +184,27 @@ mixin $ProcessingQueueRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
+mixin $ActionItemsRoute on GoRouteData {
+  static ActionItemsRoute _fromState(GoRouterState state) =>
+      const ActionItemsRoute();
+
+  @override
+  String get location => GoRouteData.$location('/library/action-items');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
 mixin $RecordingStatusRoute on GoRouteData {
   static RecordingStatusRoute _fromState(GoRouterState state) =>
       RecordingStatusRoute(recordingId: state.pathParameters['recordingId']!);
@@ -181,6 +214,35 @@ mixin $RecordingStatusRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
     '/library/recordings/${Uri.encodeComponent(_self.recordingId)}',
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $RecordingLinesRoute on GoRouteData {
+  static RecordingLinesRoute _fromState(GoRouterState state) =>
+      RecordingLinesRoute(
+        recordingId: state.pathParameters['recordingId']!,
+        t: _$convertMapValue('t', state.uri.queryParameters, int.tryParse),
+      );
+
+  RecordingLinesRoute get _self => this as RecordingLinesRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/library/recordings/${Uri.encodeComponent(_self.recordingId)}/text',
+    queryParams: {if (_self.t != null) 't': _self.t!.toString()},
   );
 
   @override
@@ -298,4 +360,13 @@ mixin $RoutingRulesRoute on GoRouteData {
 
   @override
   void replace(BuildContext context) => context.replace(location);
+}
+
+T? _$convertMapValue<T>(
+  String key,
+  Map<String, String> map,
+  T? Function(String) converter,
+) {
+  final value = map[key];
+  return value == null ? null : converter(value);
 }

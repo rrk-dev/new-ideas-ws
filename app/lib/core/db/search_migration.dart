@@ -31,7 +31,7 @@ Future<void> backfillSearchIndex(GeneratedDatabase db) async {
   await db.customStatement('DELETE FROM search_index');
   await db.customStatement(
     'INSERT INTO search_index (recording_id, kind, body) '
-    "SELECT r.id, 'title', r.title || ' ' || COALESCE("
+    "SELECT r.id, 'title', r.title || ' ' || COALESCE( "
     "(SELECT group_concat(value, ' ') FROM json_each(r.tags)), '') "
     'FROM recordings r',
   );

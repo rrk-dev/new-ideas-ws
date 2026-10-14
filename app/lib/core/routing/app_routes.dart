@@ -1,11 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vaultvoice/core/routing/app_shell.dart';
+import 'package:vaultvoice/features/library/presentation/action_items_screen.dart';
 import 'package:vaultvoice/features/library/presentation/library_screen.dart';
+import 'package:vaultvoice/features/library/presentation/recording_detail_screen.dart';
+import 'package:vaultvoice/features/library/presentation/transcript_lines_screen.dart';
 import 'package:vaultvoice/features/models/presentation/models_screen.dart';
 import 'package:vaultvoice/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_queue_screen.dart';
-import 'package:vaultvoice/features/pipeline/presentation/recording_status_screen.dart';
 import 'package:vaultvoice/features/profiles/presentation/profiles_screen.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_screen.dart';
@@ -35,7 +37,11 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
           path: '/library',
           routes: [
             TypedGoRoute<ProcessingQueueRoute>(path: 'processing'),
-            TypedGoRoute<RecordingStatusRoute>(path: 'recordings/:recordingId'),
+            TypedGoRoute<ActionItemsRoute>(path: 'action-items'),
+            TypedGoRoute<RecordingStatusRoute>(
+              path: 'recordings/:recordingId',
+              routes: [TypedGoRoute<RecordingLinesRoute>(path: 'text')],
+            ),
           ],
         ),
       ],
@@ -109,8 +115,8 @@ class ProcessingQueueRoute extends GoRouteData with $ProcessingQueueRoute {
       const ProcessingQueueScreen();
 }
 
-/// Processing status of one recording; notification deep-link target.
-/// APP-02/APP-05 grow it into the full recording detail.
+/// One recording (APP-02 detail: status, transcript, extraction, exports,
+/// actions); notification deep-link target.
 class RecordingStatusRoute extends GoRouteData with $RecordingStatusRoute {
   const RecordingStatusRoute({required this.recordingId});
 
@@ -134,7 +140,29 @@ class RecordingStatusRoute extends GoRouteData with $RecordingStatusRoute {
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      RecordingStatusScreen(recordingId: recordingId);
+      RecordingDetailScreen(recordingId: recordingId);
+}
+
+/// Read-only transcript of a recording, optionally opened at position [t]
+/// (ms) — APP-02 "show transcript", APP-05 source links.
+class RecordingLinesRoute extends GoRouteData with $RecordingLinesRoute {
+  const RecordingLinesRoute({required this.recordingId, this.t});
+
+  final String recordingId;
+  final int? t;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      TranscriptLinesScreen(recordingId: recordingId, atMs: t);
+}
+
+/// Open action items across recordings (APP-02).
+class ActionItemsRoute extends GoRouteData with $ActionItemsRoute {
+  const ActionItemsRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const ActionItemsScreen();
 }
 
 class ProfilesRoute extends GoRouteData with $ProfilesRoute {
