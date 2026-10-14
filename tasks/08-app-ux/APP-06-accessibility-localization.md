@@ -1,7 +1,7 @@
 # APP-06 — Accessibility & Localization Scaffolding
 
 **Workstream:** App UX | **Phase:** 4 | **Size:** S | **Depends on:** FND-02 | **Source:** Gap
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-testing
 
 ## Goal
