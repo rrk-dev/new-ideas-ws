@@ -1,0 +1,91 @@
+AGENTS.md
+  s_9f6fcf8c1840a0::t_f6d9a7a6284076 120
+CONTRIBUTING.md
+  s_9f6fcf8c1840a0::t_65b5718319283b 31-33,35,40-41,54-57,59-66,68
+app/.metadata
+  s_9f6fcf8c1840a0::t_47e775078fb9af 24-26,37
+app/analysis_options.yaml
+  s_9f6fcf8c1840a0::t_56020975c41aa5 17
+app/macos/.gitignore
+  s_d1e6b7fad9bc97::t_709788fc77c850 1-7
+app/macos/Flutter/Flutter-Debug.xcconfig
+  s_d1e6b7fad9bc97::t_eca0f504c4457b 1
+app/macos/Flutter/Flutter-Release.xcconfig
+  s_d1e6b7fad9bc97::t_317b8a034c2670 1
+app/macos/Flutter/GeneratedPluginRegistrant.swift
+  s_9f6fcf8c1840a0::t_32822f494e5674 1-18
+app/macos/Runner.xcodeproj/project.pbxproj
+  s_9f6fcf8c1840a0::t_8522b946067678 1-1061
+app/macos/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+  s_d1e6b7fad9bc97::t_f1086f7b7d5f28 1-8
+app/macos/Runner.xcodeproj/xcshareddata/xcschemes/dev.xcscheme
+  s_9f6fcf8c1840a0::t_4e5c45a4e578e4 1-117
+app/macos/Runner.xcodeproj/xcshareddata/xcschemes/prod.xcscheme
+  s_9f6fcf8c1840a0::t_bef200aa49b97f 1-117
+app/macos/Runner.xcworkspace/contents.xcworkspacedata
+  s_d1e6b7fad9bc97::t_94ce21ddcccc1b 1-7
+app/macos/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+  s_d1e6b7fad9bc97::t_7af1f9cfd96d9b 1-8
+app/macos/Runner/AppDelegate.swift
+  s_d1e6b7fad9bc97::t_61dc2abb018061 1-13
+app/macos/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json
+  s_d1e6b7fad9bc97::t_79abe77926964c 1-68
+app/macos/Runner/Base.lproj/MainMenu.xib
+  s_d1e6b7fad9bc97::t_f0a2b4a863a738 1-343
+app/macos/Runner/Configs/AppInfo.xcconfig
+  s_9f6fcf8c1840a0::t_f6fa18166d3552 1-16
+app/macos/Runner/Configs/Debug.xcconfig
+  s_d1e6b7fad9bc97::t_1c25a7fa432357 1-2
+app/macos/Runner/Configs/Release.xcconfig
+  s_d1e6b7fad9bc97::t_1eed0d387f3638 1-2
+app/macos/Runner/Configs/Warnings.xcconfig
+  s_d1e6b7fad9bc97::t_72be2d13ca9e2c 1-13
+app/macos/Runner/DebugProfile.entitlements
+  s_d1e6b7fad9bc97::t_ad25952c7bfed4 1-12
+app/macos/Runner/Info.plist
+  s_9f6fcf8c1840a0::t_2a6f8ddcd6e757 1-34
+app/macos/Runner/MainFlutterWindow.swift
+  s_9f6fcf8c1840a0::t_296162a909d9d8 1-27
+app/macos/Runner/Release.entitlements
+  s_d1e6b7fad9bc97::t_c5ed3aead8e086 1-8
+app/macos/RunnerTests/RunnerTests.swift
+  s_9f6fcf8c1840a0::t_5066159f8ce948 1-12
+app/test/unit/macos_desktop_target_test.dart
+  s_9f6fcf8c1840a0::t_d779c38b1d3c45 1-174
+docs/test-plans/device/FND-09.md
+  s_9f6fcf8c1840a0::t_c12e5118270808 1-18
+tasks/01-foundation/FND-09-macos-desktop-target.md
+  s_dbb3d4abe0ea6b::t_d2609897b35183 4,11-16,25-34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "592cd4d4d615e3a855e0b48464ea7562731d0f9f",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_d1e6b7fad9bc97": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "69332eed-471c-442d-aed1-2ab2ee673582",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_dbb3d4abe0ea6b": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "eed94e49-901d-4b98-a22e-be9f8e941c26",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
