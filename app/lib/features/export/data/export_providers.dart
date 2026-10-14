@@ -15,12 +15,15 @@ part 'export_providers.g.dart';
 
 /// Folder picking + persistent access for the current platform.
 ///
-/// iOS: refreshed (stale) bookmarks are handed to `onRefreshed`; persisting
-/// them in `vault_targets` is EXP-05's job once that table exists.
+/// iOS and macOS: refreshed (stale) bookmarks are handed to `onRefreshed`;
+/// persisting them in `vault_targets` is EXP-05's job once that table exists.
+/// macOS uses the same [BookmarkFolderAccess] as EXP-04. The panel is
+/// `NSOpenPanel` (`packages/vv_native/macos/MacBookmarkPanel.swift`).
 @Riverpod(keepAlive: true)
 VaultFolderAccess vaultFolderAccess(Ref ref) => switch (defaultTargetPlatform) {
   TargetPlatform.android => SafFolderAccess(),
   TargetPlatform.iOS => BookmarkFolderAccess(),
+  TargetPlatform.macOS => BookmarkFolderAccess(),
   _ => throw UnsupportedError('no vault folder access on this platform'),
 };
 
