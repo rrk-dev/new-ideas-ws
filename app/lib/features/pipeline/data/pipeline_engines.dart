@@ -2,6 +2,7 @@ import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/llm_engine.dart';
 import 'package:vaultvoice/core/platform/stt_engine.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
+import 'package:vaultvoice/features/export/data/vault_exporter.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/render_write_steps.dart';
 import 'package:vaultvoice/features/pipeline/domain/heavy_model_gate.dart';
 
@@ -38,6 +39,8 @@ class PipelineEngines {
     HeavyModelGate? gate,
     this.clock = const SystemClock(),
     this.renderer,
+    this.vaultResolver,
+    this.audioAttachments,
   }) : gate = gate ?? HeavyModelGate();
 
   final SttEngine stt;
@@ -50,6 +53,15 @@ class PipelineEngines {
   /// null keeps the FND-05 placeholder until the worker factory loads the
   /// built-in profiles and templates.
   final NoteRenderer? renderer;
+
+  /// EXP-05: opens a writer per `vault_targets` row (see
+  /// `platformVaultWriterResolver`). When set, `WriteStep` routes notes with
+  /// the routing rules to every chosen target; null keeps the single
+  /// [vault] write.
+  final VaultWriterResolver? vaultResolver;
+
+  /// EXP-05 audio sidecar source (null = no audio sidecars).
+  final AudioAttachmentSource? audioAttachments;
 }
 
 /// Creates the engines in the worker isolate. Must be sendable: a top-level
