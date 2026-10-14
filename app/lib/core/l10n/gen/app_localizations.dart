@@ -460,6 +460,12 @@ abstract class AppLocalizations {
   /// **'Not now'**
   String get commonNotNow;
 
+  /// No description provided for @bytesKilobytes.
+  ///
+  /// In en, this message translates to:
+  /// **'{value} KB'**
+  String bytesKilobytes(String value);
+
   /// No description provided for @bytesMegabytes.
   ///
   /// In en, this message translates to:

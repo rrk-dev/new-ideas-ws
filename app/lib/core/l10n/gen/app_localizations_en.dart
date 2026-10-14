@@ -225,6 +225,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commonNotNow => 'Not now';
 
   @override
+  String bytesKilobytes(String value) {
+    return '$value KB';
+  }
+
+  @override
   String bytesMegabytes(String value) {
     return '$value MB';
   }

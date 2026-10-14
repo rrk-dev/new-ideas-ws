@@ -73,6 +73,8 @@
   "modelImportErrorGeneric": "Import failed.",
   "commonContinue": "Continue",
   "commonNotNow": "Not now",
+  "bytesKilobytes": "{value} KB",
+  "@bytesKilobytes": {"placeholders": {"value": {"type": "String"}}},
   "bytesMegabytes": "{value} MB",
   "@bytesMegabytes": {"placeholders": {"value": {"type": "String"}}},
   "bytesGigabytes": "{value} GB",

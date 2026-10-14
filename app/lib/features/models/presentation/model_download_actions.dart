@@ -16,13 +16,18 @@ import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 
 /// Human-readable size in decimal units (what OS storage screens show):
-/// `78 MB`, `1.9 GB`.
+/// `42 KB`, `78 MB`, `1.9 GB`.
 String formatBytes(AppLocalizations l, int bytes) {
   const mb = 1000 * 1000;
   const gb = 1000 * mb;
   if (bytes >= gb) {
     final value = NumberFormat('0.0', l.localeName).format(bytes / gb);
     return l.bytesGigabytes(value);
+  }
+  if (bytes < mb) {
+    const kb = 1000;
+    final value = NumberFormat('0', l.localeName).format((bytes / kb).ceil());
+    return l.bytesKilobytes(value);
   }
   final value = NumberFormat('0', l.localeName).format((bytes / mb).ceil());
   return l.bytesMegabytes(value);
