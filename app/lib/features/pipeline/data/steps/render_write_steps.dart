@@ -10,6 +10,7 @@ import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
 import 'package:vaultvoice/core/utils/ids.dart';
+import 'package:vaultvoice/features/pipeline/data/steps/review_gate.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/step_support.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
@@ -54,12 +55,21 @@ String _placeholderRenderer(NoteInput input) {
 /// Renders the note to `rendered/<recording_id>.md` (atomic overwrite) and
 /// replaces the extraction's action items.
 class RenderStep implements PipelineStep {
-  RenderStep({required this.db, required this.paths, NoteRenderer? renderer})
-    : renderer = renderer ?? _placeholderRenderer;
+  RenderStep({
+    required this.db,
+    required this.paths,
+    NoteRenderer? renderer,
+    ReviewGate? review,
+  }) : renderer = renderer ?? _placeholderRenderer,
+       review = review ?? ReviewGate(db);
 
   final VaultVoiceDatabase db;
   final StoragePaths paths;
   final NoteRenderer renderer;
+
+  /// APP-05: results of review-first profiles wait for the user's approval
+  /// (`waiting(review)`) before anything is rendered or exported.
+  final ReviewGate review;
 
   @override
   PipelineStepId get id => PipelineStepId.render;
@@ -81,6 +91,9 @@ class RenderStep implements PipelineStep {
         StorageFailure('no extraction'),
         kind: FailureKind.permanent,
       );
+    }
+    if (await review.mustWait(extraction.valueOrNull!)) {
+      return const StepWaiting(WaitingReason.review);
     }
     final recording = unwrap(
       await db.recordingsRepository.get(job.recordingId),

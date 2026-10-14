@@ -6,6 +6,7 @@ import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
+import 'package:vaultvoice/features/review/domain/review_policy.dart';
 
 /// What a deletion did to the exported notes.
 class RecordingDeletion {
@@ -65,10 +66,13 @@ class LocalRecordingDeleter implements RecordingDeleter {
         jobs: await (_db.select(
           _db.jobs,
         )..where((j) => j.recordingId.equals(recordingId))).get(),
+        extractions: await (_db.select(
+          _db.extractions,
+        )..where((e) => e.recordingId.equals(recordingId))).get(),
       ),
     );
     if (found case Err(:final failure)) return Err(failure);
-    final (:exports, :jobs) = found.valueOrNull!;
+    final (:exports, :jobs, :extractions) = found.valueOrNull!;
 
     var deleted = 0;
     var kept = 0;
@@ -99,6 +103,10 @@ class LocalRecordingDeleter implements RecordingDeleter {
         await (_db.delete(
           _db.recordings,
         )..where((r) => r.id.equals(recordingId))).go();
+        // APP-05 review approvals of its extractions.
+        for (final e in extractions) {
+          await _db.settingsRepository.remove(ReviewKeys.approved(e.id));
+        }
       }),
     );
     if (rows case Err(:final failure)) return Err(failure);

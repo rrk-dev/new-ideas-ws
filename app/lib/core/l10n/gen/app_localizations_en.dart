@@ -894,6 +894,98 @@ class AppLocalizationsEn extends AppLocalizations {
   String get actionItemOpenRecording => 'Open recording';
 
   @override
+  String get reviewTitle => 'Review before export';
+
+  @override
+  String get reviewTabEdit => 'Edit';
+
+  @override
+  String get reviewTabPreview => 'Preview';
+
+  @override
+  String reviewIntro(String profile) {
+    return 'Check what $profile extracted. Fix names, tasks, owners and dates, then export the note.';
+  }
+
+  @override
+  String get reviewExport => 'Export note';
+
+  @override
+  String get reviewExported => 'Saved. The note is being exported.';
+
+  @override
+  String get reviewFailed => 'Couldn’t save your changes. Try again.';
+
+  @override
+  String reviewInvalid(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          '$count fields don’t match the profile (too long, missing or wrong type).',
+      one: '1 field doesn’t match the profile (too long, missing or wrong type).',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get reviewPreviewFailed => 'The preview couldn’t be rendered.';
+
+  @override
+  String get reviewProfileMissing =>
+      'The profile of this result no longer exists, so it can’t be edited.';
+
+  @override
+  String get reviewFieldNone => 'None';
+
+  @override
+  String get reviewFieldSource => 'Said at (hh:mm:ss)';
+
+  @override
+  String reviewPlayFrom(String time) {
+    return 'Show in transcript at $time';
+  }
+
+  @override
+  String reviewRemoveItem(String field) {
+    return 'Remove from $field';
+  }
+
+  @override
+  String reviewAddItem(String field) {
+    return 'Add to $field';
+  }
+
+  @override
+  String get reviewSettingsTitle => 'Review before export';
+
+  @override
+  String get reviewSettingsSubtitle =>
+      'Check extracted results before notes are written';
+
+  @override
+  String get reviewSettingsIntro =>
+      'Small on-device models make mistakes. For profiles set to review, results wait for you to check and edit them before the note is written to your vault.';
+
+  @override
+  String get reviewSettingsLoadFailed => 'Couldn’t load the profiles.';
+
+  @override
+  String get reviewModeReview => 'Review first';
+
+  @override
+  String get reviewModeAuto => 'Export automatically';
+
+  @override
+  String get reviewBanner => 'The result is waiting for your review.';
+
+  @override
+  String get reviewOpen => 'Review';
+
+  @override
+  String get reviewEditResult => 'Review & edit result';
+
+  @override
   String get recordingDebugTooltip => 'Recording debug';
 
   @override

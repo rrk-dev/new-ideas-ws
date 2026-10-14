@@ -116,6 +116,11 @@ class _Detail extends ConsumerWidget {
             tooltip: l10n.recordingActions,
             onSelected: (a) => _run(context, ref, a, view, exports),
             itemBuilder: (context) => [
+              if (extraction != null)
+                PopupMenuItem(
+                  value: _Action.review,
+                  child: Text(context.l10n.reviewEditResult),
+                ),
               PopupMenuItem(
                 value: _Action.reExtract,
                 child: Text(context.l10n.recordingReExtract),
@@ -154,6 +159,34 @@ class _Detail extends ConsumerWidget {
               child: Wrap(
                 spacing: AppSpacing.sm,
                 children: [for (final t in header.tags) Chip(label: Text(t))],
+              ),
+            ),
+          if (view?.job.waitingReason == WaitingReason.review)
+            Card(
+              key: const ValueKey('recording-review-banner'),
+              margin: const EdgeInsets.fromLTRB(
+                AppSpacing.md,
+                AppSpacing.md,
+                AppSpacing.md,
+                0,
+              ),
+              color: theme.colorScheme.secondaryContainer,
+              child: ListTile(
+                leading: Icon(
+                  Icons.rate_review_outlined,
+                  color: theme.colorScheme.onSecondaryContainer,
+                ),
+                title: Text(
+                  l10n.reviewBanner,
+                  style: TextStyle(
+                    color: theme.colorScheme.onSecondaryContainer,
+                  ),
+                ),
+                trailing: FilledButton(
+                  onPressed: () =>
+                      RecordingReviewRoute(recordingId: _id).go(context),
+                  child: Text(l10n.reviewOpen),
+                ),
               ),
             ),
           if (view != null)
@@ -256,6 +289,8 @@ class _Detail extends ConsumerWidget {
   ) async {
     final job = view?.job;
     switch (action) {
+      case _Action.review:
+        RecordingReviewRoute(recordingId: _id).go(context);
       case _Action.reExtract:
         await _rerun(context, ref, job, PipelineStepId.extract);
       case _Action.reExport:
@@ -345,7 +380,7 @@ class _Detail extends ConsumerWidget {
   }
 }
 
-enum _Action { reExtract, changeProfile, reExport, delete }
+enum _Action { review, reExtract, changeProfile, reExport, delete }
 
 class _DeleteChoice {
   const _DeleteChoice({required this.deleteNotes});

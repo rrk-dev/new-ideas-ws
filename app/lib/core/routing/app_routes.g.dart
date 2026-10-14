@@ -74,6 +74,11 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
                   hasOverriddenOnExit: false,
                   factory: $RecordingLinesRoute._fromState,
                 ),
+                GoRouteData.$route(
+                  path: 'review',
+                  hasOverriddenOnExit: false,
+                  factory: $RecordingReviewRoute._fromState,
+                ),
               ],
             ),
           ],
@@ -110,6 +115,11 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
               path: 'routing-rules',
               hasOverriddenOnExit: false,
               factory: $RoutingRulesRoute._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'review',
+              hasOverriddenOnExit: false,
+              factory: $ReviewSettingsRoute._fromState,
             ),
           ],
         ),
@@ -259,6 +269,31 @@ mixin $RecordingLinesRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
+mixin $RecordingReviewRoute on GoRouteData {
+  static RecordingReviewRoute _fromState(GoRouterState state) =>
+      RecordingReviewRoute(recordingId: state.pathParameters['recordingId']!);
+
+  RecordingReviewRoute get _self => this as RecordingReviewRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/library/recordings/${Uri.encodeComponent(_self.recordingId)}/review',
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
 mixin $ProfilesRoute on GoRouteData {
   static ProfilesRoute _fromState(GoRouterState state) => const ProfilesRoute();
 
@@ -347,6 +382,27 @@ mixin $RoutingRulesRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/settings/routing-rules');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $ReviewSettingsRoute on GoRouteData {
+  static ReviewSettingsRoute _fromState(GoRouterState state) =>
+      const ReviewSettingsRoute();
+
+  @override
+  String get location => GoRouteData.$location('/settings/review');
 
   @override
   void go(BuildContext context) => context.go(location);
