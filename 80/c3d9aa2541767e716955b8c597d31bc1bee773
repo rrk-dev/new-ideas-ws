@@ -1,0 +1,87 @@
+app/lib/core/platform/vad_engine.dart
+  s_9f6fcf8c1840a0::t_2191119fd17804 1-26
+app/lib/features/pipeline/data/pipeline_engines.dart
+  s_9f6fcf8c1840a0::t_3da3f5b7fdb980 4,42,55-58
+app/lib/features/settings/domain/setting_keys.dart
+  s_9f6fcf8c1840a0::t_3da3f5b7fdb980 23-26,35-37
+  s_9f6fcf8c1840a0::t_b90a155ea5c566 38
+app/lib/features/recording/domain/capture_backend.dart
+  s_9f6fcf8c1840a0::t_be58791c0ae264 19-22
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_917d0d46651cfa 461-478
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9f6fcf8c1840a0::t_3da3f5b7fdb980 36,42
+app/lib/features/models/domain/catalog_keys.dart
+  s_9f6fcf8c1840a0::t_c43fa8eef90b26 18-22
+app/lib/features/recording/data/recording_providers.g.dart
+  s_9f6fcf8c1840a0::t_917d0d46651cfa 726-816
+tools/model-catalog/models.json
+  s_9f6fcf8c1840a0::t_17e49d0bdc2f37 58
+  s_9f6fcf8c1840a0::t_bc821da86d8dd8 47-57,59-67
+app/lib/features/recording/domain/silence_monitor.dart
+  s_9f6fcf8c1840a0::t_e942a58d3d0f66 11
+  s_9f6fcf8c1840a0::t_68ea05530717ce 23-36
+  s_9f6fcf8c1840a0::t_ae0c3b2634f77a 1-10,12-22,37-90
+app/lib/features/transcription/data/whisper_stt_engine.dart
+  s_9f6fcf8c1840a0::t_b13150c8ca2d3e 163
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_3da3f5b7fdb980 164-169
+app/lib/core/platform/stt_engine.dart
+  s_9f6fcf8c1840a0::t_b13150c8ca2d3e 65,83-87
+app/lib/features/transcription/data/ffi_vad_engine.dart
+  s_9f6fcf8c1840a0::t_826e44fa46595d 1-51
+app/lib/features/recording/domain/recording_controller.dart
+  s_9f6fcf8c1840a0::t_be58791c0ae264 27-29,227-236
+  s_9f6fcf8c1840a0::t_4f3652ad8827da 237-238
+app/lib/features/recording/data/record_capture_backend.dart
+  s_9f6fcf8c1840a0::t_be58791c0ae264 87,129-131,133-134,308,372
+  s_9f6fcf8c1840a0::t_917d0d46651cfa 132
+  s_9f6fcf8c1840a0::t_7ee987709950c0 17,41
+app/lib/features/recording/data/ffi_live_vad.dart
+  s_9f6fcf8c1840a0::t_917d0d46651cfa 29-30
+  s_9f6fcf8c1840a0::t_7ee987709950c0 1-28,31-34
+app/lib/features/pipeline/data/steps/transcribe_step.dart
+  s_9f6fcf8c1840a0::t_e942a58d3d0f66 70,81-82
+  s_9f6fcf8c1840a0::t_3da3f5b7fdb980 2,6,12,18,24-30,38,47-49,59-65,69,71-80,83-86,101-102,105,111,134-136,146-147,149,152-155,179-181,188-211
+  s_9f6fcf8c1840a0::t_917d0d46651cfa 66-68
+app/lib/features/recording/data/silence_watcher.dart
+  s_9f6fcf8c1840a0::t_2a331a947755bd 1-192
+tools/model-catalog/tests/test_catalog.py
+  s_9f6fcf8c1840a0::t_0de0b1548b2cc5 59-60
+app/lib/features/recording/data/recording_providers.dart
+  s_9f6fcf8c1840a0::t_917d0d46651cfa 2,7,13,21,30,32-33,141-153,156-186,188-200
+  s_9f6fcf8c1840a0::t_e942a58d3d0f66 154-155,187
+  s_9f6fcf8c1840a0::t_56d370d305d4ac 201
+app/lib/features/recording/presentation/recording_screen.dart
+  s_9f6fcf8c1840a0::t_917d0d46651cfa 6
+  s_9f6fcf8c1840a0::t_68ea05530717ce 22-26
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_917d0d46651cfa 838,841-869
+  s_9f6fcf8c1840a0::t_ee97d7e845651b 870
+app/lib/features/recording/domain/recording_indicator.dart
+  s_9f6fcf8c1840a0::t_be58791c0ae264 69-72
+app/lib/features/settings/domain/setting_definitions.dart
+  s_9f6fcf8c1840a0::t_3da3f5b7fdb980 145-153,185-192,247,252
+app/lib/features/pipeline/data/pipeline_orchestrator.dart
+  s_9f6fcf8c1840a0::t_3da3f5b7fdb980 41
+app/lib/features/settings/presentation/setting_texts.dart
+  s_9f6fcf8c1840a0::t_3da3f5b7fdb980 21-22,40-41,69-71
+tools/model-catalog/README.md
+  s_9f6fcf8c1840a0::t_69d0a68a00f2b2 19-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "80c3d9aa2541767e716955b8c597d31bc1bee773",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
