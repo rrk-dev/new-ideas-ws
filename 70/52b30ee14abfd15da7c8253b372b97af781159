@@ -1,0 +1,21 @@
+app/android/app/build.gradle.kts
+  s_9f6fcf8c1840a0::t_cf8688680db554 36-42
+tools/ci/tests/test_android_ci.py
+  s_9f6fcf8c1840a0::t_ddea670e93df18 32-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7052b30ee14abfd15da7c8253b372b97af781159",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
