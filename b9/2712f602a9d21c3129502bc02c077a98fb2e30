@@ -1,0 +1,58 @@
+tasks/06-profiles/PRF-09-extraction-eval-harness.md
+  s_9f6fcf8c1840a0::t_3576fab479314a 11-15,20-60
+  s_9f6fcf8c1840a0::t_41f63bcfe9c149 4
+tools/bench/eval/baselines/warranty.Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_9f6fcf8c1840a0::t_7d61f4598358ba 1-9,11-40,43-59,62-78
+  s_9f6fcf8c1840a0::t_052630f6dd3eee 10,41-42,60-61
+tools/bench/results/2026-10-14-eval-engineering-Llama-3.2-1B-Instruct-Q4-K-M.md
+  s_9f6fcf8c1840a0::t_fd04ee275911f7 1-77
+tools/bench/eval/baselines/engineering.Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_9f6fcf8c1840a0::t_fd04ee275911f7 10,15-20
+  s_9f6fcf8c1840a0::t_7d61f4598358ba 1-9,11-14,21-85
+tools/bench/results/2026-10-14-eval-engineering-Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_9f6fcf8c1840a0::t_fd04ee275911f7 1-5589
+tools/bench/eval/baselines/engineering.SmolLM2-135M-Instruct-Q8-0.json
+  s_9f6fcf8c1840a0::t_001685a4871a70 1-85
+tools/bench/eval/baselines/meeting.Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_9f6fcf8c1840a0::t_3d66f5b518caca 1-78
+tools/bench/eval/baselines/meeting.SmolLM2-135M-Instruct-Q8-0.json
+  s_9f6fcf8c1840a0::t_4876b6d6268a34 1-78
+tools/bench/eval/baselines/warranty.SmolLM2-135M-Instruct-Q8-0.json
+  s_9f6fcf8c1840a0::t_6e66110fc49cfa 1-78
+tools/bench/results/2026-10-14-eval-engineering-SmolLM2-135M-Instruct-Q8-0.json
+  s_9f6fcf8c1840a0::t_7a96a244310654 1-3588
+tools/bench/results/2026-10-14-eval-engineering-SmolLM2-135M-Instruct-Q8-0.md
+  s_9f6fcf8c1840a0::t_e23b442d0a4c09 1-77
+tools/bench/results/2026-10-14-eval-meeting-Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_9f6fcf8c1840a0::t_540111654e476e 1-3048
+tools/bench/results/2026-10-14-eval-meeting-Llama-3.2-1B-Instruct-Q4-K-M.md
+  s_9f6fcf8c1840a0::t_09291acd799187 1-76
+tools/bench/results/2026-10-14-eval-meeting-SmolLM2-135M-Instruct-Q8-0.json
+  s_9f6fcf8c1840a0::t_dab282bd0d826a 1-2739
+tools/bench/results/2026-10-14-eval-meeting-SmolLM2-135M-Instruct-Q8-0.md
+  s_9f6fcf8c1840a0::t_9f55bd8c27c9dc 1-76
+tools/bench/results/2026-10-14-eval-warranty-Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_9f6fcf8c1840a0::t_b903dc50ad2b5e 1-2332
+tools/bench/results/2026-10-14-eval-warranty-Llama-3.2-1B-Instruct-Q4-K-M.md
+  s_9f6fcf8c1840a0::t_827a599a907f38 1-86
+tools/bench/results/2026-10-14-eval-warranty-SmolLM2-135M-Instruct-Q8-0.json
+  s_9f6fcf8c1840a0::t_25046cd9354a98 1-2330
+tools/bench/results/2026-10-14-eval-warranty-SmolLM2-135M-Instruct-Q8-0.md
+  s_9f6fcf8c1840a0::t_8a3897cca990aa 1-86
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b92712f602a9d21c3129502bc02c077a98fb2e30",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
