@@ -144,7 +144,7 @@ final class PreviewResult {
   final List<String> issues;
 }
 
-/// "Test on a recording" (PRF-07): runs [draft] on a chosen transcript and
+/// "Test on a recording" (PRF-07): runs a draft on a chosen transcript and
 /// renders the result with the draft's generated template.
 ///
 /// The preview sends the PRF-02 system and user messages through
@@ -185,18 +185,20 @@ class ProfilePreview {
     final grammar = await grammarFor(profile);
     if (grammar case Err(:final failure)) return Err(failure);
     final full = input(profile);
-    final builder = PromptBuilder(_NoTemplate.instance);
+    const builder = PromptBuilder(_NoTemplate.instance);
     var transcript = builder.transcriptLines(full.segments, full.metadata);
     if (transcript.length > maxTranscriptChars) {
       transcript = transcript.substring(0, maxTranscriptChars);
     }
+    final reminder =
+        'Return one JSON object with the keys '
+        '${profile.schema.properties.keys.join(', ')}. Return the JSON now.';
     final user = [
       builder.metadataBlock(full.metadata),
       '<transcript>',
       transcript,
       '</transcript>',
-      'Return one JSON object with the keys '
-          '${profile.schema.properties.keys.join(', ')}. Return the JSON now.',
+      reminder,
     ].join('\n');
     final out = await llm.generate(
       LlmRequest(
@@ -282,4 +284,29 @@ final class _NoTemplate implements PromptTokenizer {
 
   @override
   int countTokens(String text) => 0;
+}
+
+/// Metadata + segments of one recording (profile-independent part of a
+/// [PromptInput]).
+final class PromptInputParts {
+  const PromptInputParts({required this.metadata, required this.segments});
+
+  final PromptMetadata metadata;
+  final List<PromptSegment> segments;
+
+  PromptInput forProfile(Profile profile) =>
+      PromptInput(profile: profile, metadata: metadata, segments: segments);
+}
+
+/// A recording offered for "Test on a recording".
+final class PreviewRecording {
+  const PreviewRecording({
+    required this.id,
+    required this.title,
+    required this.createdAt,
+  });
+
+  final String id;
+  final String title;
+  final DateTime createdAt;
 }

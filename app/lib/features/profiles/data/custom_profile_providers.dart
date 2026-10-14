@@ -70,8 +70,15 @@ Future<ProfilePreview> profilePreview(Ref ref) async {
 
 /// Recordings that can be used for "Test on a recording".
 @riverpod
-Stream<List<RecordingRow>> previewRecordings(Ref ref) =>
-    ref.watch(recordingsRepositoryProvider).watchAll();
+Stream<List<PreviewRecording>> previewRecordings(Ref ref) => ref
+    .watch(recordingsRepositoryProvider)
+    .watchAll()
+    .map(
+      (rows) => [
+        for (final r in rows)
+          PreviewRecording(id: r.id, title: r.title, createdAt: r.createdAt),
+      ],
+    );
 
 /// The latest transcript of [recordingId] as prompt input (empty when none).
 @riverpod
@@ -81,15 +88,15 @@ Future<PromptInputParts> previewInput(Ref ref, String recordingId) async {
   final rec = (await recordings.get(recordingId)).valueOrNull;
   final transcript = (await transcripts.latestFor(recordingId)).valueOrNull;
   final rows = transcript == null
-      ? const <TranscriptSegmentRow>[]
-      : (await transcripts.segments(transcript.id)).valueOrNull ?? const [];
+      ? null
+      : (await transcripts.segments(transcript.id)).valueOrNull;
   return PromptInputParts(
     metadata: PromptMetadata(
       recordedAt: (rec?.createdAt ?? DateTime(2026)).toLocal(),
       duration: Duration(milliseconds: rec?.durationMs ?? 0),
     ),
     segments: [
-      for (final s in rows)
+      for (final s in rows ?? const <TranscriptSegmentRow>[])
         PromptSegment(
           start: Duration(milliseconds: s.startMs),
           speaker: s.speaker,
@@ -97,16 +104,4 @@ Future<PromptInputParts> previewInput(Ref ref, String recordingId) async {
         ),
     ],
   );
-}
-
-/// Metadata + segments of one recording (profile-independent part of a
-/// [PromptInput]).
-final class PromptInputParts {
-  const PromptInputParts({required this.metadata, required this.segments});
-
-  final PromptMetadata metadata;
-  final List<PromptSegment> segments;
-
-  PromptInput forProfile(Profile profile) =>
-      PromptInput(profile: profile, metadata: metadata, segments: segments);
 }

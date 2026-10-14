@@ -28,7 +28,8 @@ enum ColumnKind { text, number, date, boolean }
 /// Default limits of generated schemas (small-model friendly, grammar-bounded).
 abstract final class DraftLimits {
   static const int maxFields = 25;
-  static const int textMaxLength = 300;
+  static const int textMaxLength =
+      200; // ≤ kLongTextThreshold: a "Details" line
   static const int longTextMaxLength = 2000;
   static const int itemMaxLength = 200;
   static const int dateMaxLength = 40;
@@ -57,6 +58,56 @@ final class FieldSpec {
     this.columns = const [],
     this.rawSchema,
   });
+
+  /// Best-effort inverse of [toSchema]; anything else is [FieldKind.advanced].
+  factory FieldSpec.fromSchema(String name, SchemaNode node) {
+    final desc = node.description ?? '';
+    FieldSpec of(FieldKind k, {List<ColumnSpec> columns = const []}) =>
+        FieldSpec(name: name, kind: k, description: desc, columns: columns);
+    switch (node) {
+      case StringSchema(:final enumValues, :final format, :final maxLength)
+          when enumValues == null:
+        if (format == 'date') return of(FieldKind.date);
+        return of(
+          (maxLength ?? 0) > DraftLimits.textMaxLength
+              ? FieldKind.longText
+              : FieldKind.text,
+        );
+      case NumberSchema(:final enumValues) when enumValues == null:
+        return of(FieldKind.number);
+      case BooleanSchema():
+        return of(FieldKind.boolean);
+      case ArraySchema(:final items):
+        switch (items) {
+          case StringSchema(:final enumValues) when enumValues == null:
+            return of(FieldKind.textList);
+          case ObjectSchema(:final properties)
+              when properties.length == 2 &&
+                  properties['task'] is StringSchema &&
+                  properties['done'] is BooleanSchema:
+            return of(FieldKind.checkboxList);
+          case ObjectSchema(:final properties)
+              when properties.isNotEmpty &&
+                  properties.length <= DraftLimits.maxColumns &&
+                  properties.values.every(_isColumn):
+            return of(
+              FieldKind.table,
+              columns: [
+                for (final e in properties.entries)
+                  ColumnSpec(name: e.key, kind: _columnKind(e.value)),
+              ],
+            );
+          default:
+        }
+      default:
+    }
+    return FieldSpec(
+      name: name,
+      kind: FieldKind.advanced,
+      description: desc,
+      rawSchema: node.toJson(),
+    );
+  }
 
   /// JSON key (`^[a-z][a-z0-9_]{0,39}$`, unique).
   final String name;
@@ -162,56 +213,6 @@ final class FieldSpec {
     },
   };
 
-  /// Best-effort inverse of [toSchema]; anything else is [FieldKind.advanced].
-  static FieldSpec fromSchema(String name, SchemaNode node) {
-    final desc = node.description ?? '';
-    FieldSpec of(FieldKind k, {List<ColumnSpec> columns = const []}) =>
-        FieldSpec(name: name, kind: k, description: desc, columns: columns);
-    switch (node) {
-      case StringSchema(:final enumValues, :final format, :final maxLength)
-          when enumValues == null:
-        if (format == 'date') return of(FieldKind.date);
-        return of(
-          (maxLength ?? 0) > DraftLimits.textMaxLength
-              ? FieldKind.longText
-              : FieldKind.text,
-        );
-      case NumberSchema(:final enumValues) when enumValues == null:
-        return of(FieldKind.number);
-      case BooleanSchema():
-        return of(FieldKind.boolean);
-      case ArraySchema(:final items):
-        switch (items) {
-          case StringSchema(:final enumValues) when enumValues == null:
-            return of(FieldKind.textList);
-          case ObjectSchema(:final properties)
-              when properties.length == 2 &&
-                  properties['task'] is StringSchema &&
-                  properties['done'] is BooleanSchema:
-            return of(FieldKind.checkboxList);
-          case ObjectSchema(:final properties)
-              when properties.isNotEmpty &&
-                  properties.length <= DraftLimits.maxColumns &&
-                  properties.values.every(_isColumn):
-            return of(
-              FieldKind.table,
-              columns: [
-                for (final e in properties.entries)
-                  ColumnSpec(name: e.key, kind: _columnKind(e.value)),
-              ],
-            );
-          default:
-        }
-      default:
-    }
-    return FieldSpec(
-      name: name,
-      kind: FieldKind.advanced,
-      description: desc,
-      rawSchema: node.toJson(),
-    );
-  }
-
   static bool _isColumn(SchemaNode n) => switch (n) {
     StringSchema(:final enumValues) => enumValues == null,
     NumberSchema(:final enumValues) => enumValues == null,
@@ -232,6 +233,32 @@ final class FieldSpec {
 /// row per line, cells separated by `|`; checkbox lists: `[x] task`).
 final class ExampleDraft {
   const ExampleDraft({required this.transcript, this.values = const {}});
+
+  /// Inverse of [toOutput] for editing an existing example.
+  factory ExampleDraft.fromExample(ProfileExample e, List<FieldSpec> fields) {
+    String text(FieldSpec f, Object? v) {
+      if (v == null) return '';
+      return switch (f.kind) {
+        FieldKind.textList when v is List => v.join('\n'),
+        FieldKind.checkboxList when v is List => [
+          for (final i in v.whereType<Map<String, Object?>>())
+            '[${i['done'] == true ? 'x' : ' '}] ${i['task'] ?? ''}',
+        ].join('\n'),
+        FieldKind.table when v is List => [
+          for (final r in v.whereType<Map<String, Object?>>())
+            [for (final c in f.columns) '${r[c.name] ?? ''}'].join(' | '),
+        ].join('\n'),
+        FieldKind.boolean => v == true ? 'yes' : 'no',
+        FieldKind.advanced => jsonEncode(v),
+        _ => '$v',
+      };
+    }
+
+    return ExampleDraft(
+      transcript: e.transcript,
+      values: {for (final f in fields) f.name: text(f, e.output[f.name])},
+    );
+  }
 
   final String transcript;
   final Map<String, String> values;
@@ -257,8 +284,9 @@ final class ExampleDraft {
     }
 
     return switch (f.kind) {
-      FieldKind.text || FieldKind.longText || FieldKind.date =>
-        raw.isEmpty ? null : raw,
+      FieldKind.text ||
+      FieldKind.longText ||
+      FieldKind.date => raw.isEmpty ? null : raw,
       FieldKind.number => num.tryParse(raw),
       FieldKind.boolean => raw.isEmpty ? null : _bool(raw),
       FieldKind.textList => lines(),
@@ -294,32 +322,6 @@ final class ExampleDraft {
     } on FormatException {
       return raw;
     }
-  }
-
-  /// Inverse of [toOutput] for editing an existing example.
-  static ExampleDraft fromExample(ProfileExample e, List<FieldSpec> fields) {
-    String text(FieldSpec f, Object? v) {
-      if (v == null) return '';
-      return switch (f.kind) {
-        FieldKind.textList when v is List => v.join('\n'),
-        FieldKind.checkboxList when v is List => [
-          for (final i in v.whereType<Map<String, Object?>>())
-            '[${i['done'] == true ? 'x' : ' '}] ${i['task'] ?? ''}',
-        ].join('\n'),
-        FieldKind.table when v is List => [
-          for (final r in v.whereType<Map<String, Object?>>())
-            [for (final c in f.columns) '${r[c.name] ?? ''}'].join(' | '),
-        ].join('\n'),
-        FieldKind.boolean => v == true ? 'yes' : 'no',
-        FieldKind.advanced => jsonEncode(v),
-        _ => '$v',
-      };
-    }
-
-    return ExampleDraft(
-      transcript: e.transcript,
-      values: {for (final f in fields) f.name: text(f, e.output[f.name])},
-    );
   }
 }
 
@@ -456,8 +458,7 @@ final class ProfileDraft {
       'tier': ProfileTier.pro.name,
       'stt': {'vocabulary': <String>[], 'diarization': diarization},
       'instructions': [
-        '- Extract only what is explicitly said in the transcript. Never '
-            'invent people, numbers or dates.',
+        _kLeadInstruction,
         if (userInstructions.isNotEmpty) userInstructions,
         always,
       ].join('\n'),
@@ -480,7 +481,11 @@ final class ProfileDraft {
   }
 }
 
-/// Why a draft cannot be saved yet (the UI localizes [kind]).
+const String _kLeadInstruction =
+    '- Extract only what is explicitly said in the transcript. Never invent '
+    'people, numbers or dates.';
+
+/// Why a draft cannot be saved yet (the UI localizes `DraftIssue.kind`).
 enum DraftIssueKind {
   nameMissing,
   noFields,
@@ -506,13 +511,6 @@ final class DraftIssue {
   final int? field;
 
   @override
-  bool operator ==(Object other) =>
-      other is DraftIssue && other.kind == kind && other.field == field;
-
-  @override
-  int get hashCode => Object.hash(kind, field);
-
-  @override
   String toString() => 'DraftIssue(${kind.name}, $field)';
 }
 
@@ -525,7 +523,7 @@ String fieldNameFrom(String label) {
   var s = label
       .toLowerCase()
       .replaceAll(RegExp('[^a-z0-9]+'), '_')
-      .replaceAll(RegExp('^_+|_+\$'), '');
+      .replaceAll(RegExp(r'^_+|_+$'), '');
   if (s.isEmpty || !RegExp('^[a-z]').hasMatch(s)) s = 'field_$s';
   if (s.startsWith('has_')) s = 'f_$s';
   return s.length > 40 ? s.substring(0, 40).replaceAll(RegExp(r'_+$'), '') : s;
@@ -552,7 +550,5 @@ String defaultTemplateIdFor(String profileId) => '$profileId-default';
 ProfileValidation validateDraft(
   ProfileDraft draft, {
   Set<String> takenIds = const {},
-}) => const ProfileValidator().validate(
-  draft.toDefinition(),
-  takenIds: takenIds,
-);
+}) =>
+    const ProfileValidator().validate(draft.toDefinition(), takenIds: takenIds);
