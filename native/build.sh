@@ -4,7 +4,8 @@
 #   native/build.sh host      macOS/Linux dylib/so + ctest (smoke + exports)
 #   native/build.sh android   libvv_native.so for arm64-v8a (needs Android NDK r28+)
 #   native/build.sh ios       vv_native.xcframework: device + simulator (needs Xcode)
-#   native/build.sh all       android + ios + host (whatever the OS supports)
+#   native/build.sh macos     arm64 vv_native.framework for the desktop app (needs Xcode Metal)
+#   native/build.sh all       android + ios + macos + host (whatever the OS supports)
 #   VV_WHISPER_COREML=ON native/build.sh ios   adds the whisper Core ML encoder (STT-01)
 #
 # From a clean checkout:
@@ -17,6 +18,7 @@ NATIVE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 OUT="$NATIVE/build"
 JOBS="${JOBS:-$(getconf _NPROCESSORS_ONLN 2>/dev/null || echo 4)}"
 IOS_MIN_OS="${IOS_MIN_OS:-16.0}"          # app minimum; llama.cpp script uses 16.4 (ADR-FND-06)
+MACOS_MIN_OS="${MACOS_MIN_OS:-13.0}"      # desktop minimum (FND-09 / FND-10)
 ANDROID_API="${ANDROID_API:-26}"
 ANDROID_NDK_MIN_MAJOR=28
 
@@ -121,18 +123,94 @@ build_ios() {
        "simulator slice $(size_of "$sim/Release-iphonesimulator/vv_native.framework/vv_native") bytes"
 }
 
+# macOS desktop (FND-10). Same superproject as host/iOS: llama.cpp's ggml once,
+# whisper + llama static, Metal embedded. Output is a framework (not the host
+# dylib) so the Flutter plugin can vendor it into Contents/Frameworks.
+require_macos_sdk() {
+  local err
+  if ! err="$(xcrun --show-sdk-path --sdk macosx 2>&1)"; then
+    echo "error: macOS SDK is not usable; native/build.sh macos needs Xcode Metal." >&2
+    printf '%s\n' "$err" >&2
+    if printf '%s' "$err" | grep -qi 'license'; then
+      echo "error: the Xcode license is not accepted. Run 'sudo xcodebuild -license' in a Terminal. This script does not run sudo." >&2
+    fi
+    exit 2
+  fi
+}
+
+build_macos() {
+  need cmake "brew install cmake"
+  need ninja "brew install ninja"
+  check_submodules
+  require_macos_sdk
+  local arch
+  arch="$(uname -m)"
+  if [ "$arch" != "arm64" ]; then
+    echo "error: native/build.sh macos builds arm64 only (this host is $arch)" >&2
+    exit 2
+  fi
+  local dir="$OUT/macos"
+  # Flags match the FND-06 host/iOS Metal build (one ggml, no backend DL).
+  # Option names verified at whisper.cpp v1.9.5 / llama.cpp v0.6.0.
+  cmake -S "$NATIVE" -B "$dir" -G Ninja "${COMMON[@]}" \
+    -DCMAKE_OSX_ARCHITECTURES=arm64 \
+    -DCMAKE_OSX_DEPLOYMENT_TARGET="$MACOS_MIN_OS" \
+    -DGGML_METAL=ON -DGGML_METAL_EMBED_LIBRARY=ON -DGGML_METAL_TARGET_OS=macos \
+    -DGGML_OPENMP=OFF -DGGML_NATIVE=OFF \
+    -DGGML_BLAS=ON -DGGML_BLAS_VENDOR=Apple \
+    -DVV_GGML_BACKEND_DL=OFF \
+    -DVV_MACOS_FRAMEWORK=ON
+  cmake --build "$dir" -j "$JOBS"
+  ctest --test-dir "$dir" --output-on-failure
+  local bin="$dir/vv_native.framework/vv_native"
+  if [ ! -f "$bin" ]; then
+    bin="$dir/vv_native.framework/Versions/A/vv_native"
+  fi
+  if [ ! -f "$bin" ]; then
+    echo "error: framework binary not found under $dir" >&2
+    exit 1
+  fi
+  local info
+  info="$(file "$bin")"
+  case "$info" in
+    *arm64*) ;;
+    *) echo "error: $bin is not arm64 ($info)" >&2; exit 1 ;;
+  esac
+  if compgen -G "$dir/libggml*" >/dev/null; then
+    echo "error: $dir contains extra ggml libraries; refusing a second ggml" >&2
+    exit 1
+  fi
+  if ! otool -L "$bin" | grep -q 'Metal.framework'; then
+    echo "error: $bin is not linked to Metal.framework" >&2
+    exit 1
+  fi
+  local pod="$NATIVE/../packages/vv_native/macos/Frameworks"
+  rm -rf "$pod"
+  mkdir -p "$pod"
+  cp -R "$dir/vv_native.framework" "$pod/"
+  echo "macos: $bin $(size_of "$bin") bytes"
+}
+
 # Order: arguments (exit 64) -> toolchain (exit 2) -> submodules (exit 2), so a
 # checkout without submodules (CI task-gate) still gets the precise error.
 case "${1:-}" in
-  host|android|ios|all) ;;
-  *) echo "usage: $0 {host|android|ios|all}" >&2; exit 64 ;;
+  host|android|ios|macos|all) ;;
+  *) echo "usage: $0 {host|android|ios|macos|all}" >&2; exit 64 ;;
 esac
 case "$1" in
   host) build_host ;;
   android) build_android ;;
   ios) build_ios ;;
+  macos) build_macos ;;
   all)
     build_host
     (find_ndk) >/dev/null 2>&1 && build_android || echo "skip android: no NDK"
-    have_xcode && build_ios || echo "skip ios: no Xcode" ;;
+    have_xcode && build_ios || echo "skip ios: no Xcode"
+    if [ "$(uname -s)" = Darwin ]; then
+      if xcrun --show-sdk-path --sdk macosx >/dev/null 2>&1; then
+        build_macos
+      else
+        echo "skip macos: Xcode license not accepted or macOS SDK unavailable"
+      fi
+    fi ;;
 esac
