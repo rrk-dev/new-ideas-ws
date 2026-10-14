@@ -1,0 +1,122 @@
+-- APP-02 full-text search (vv-local-database → FTS5). One row per
+-- (recording, kind): kind = 'title' (title + tags), 'transcript' (all segment
+-- text of the recording) or 'extraction' (every string value of the newest
+-- extraction). Kept in sync by the triggers below — the single place that
+-- writes the index, whichever isolate or feature changes the source rows.
+import 'recording_tables.dart';
+import 'transcript_tables.dart';
+import 'extraction_tables.dart';
+
+CREATE VIRTUAL TABLE search_index USING fts5(
+  recording_id UNINDEXED,
+  kind UNINDEXED,
+  body,
+  tokenize = 'unicode61 remove_diacritics 2'
+);
+
+-- Title and tags.
+CREATE TRIGGER search_recording_insert AFTER INSERT ON recordings BEGIN
+  INSERT INTO search_index (recording_id, kind, body)
+    SELECT new.id, 'title',
+      new.title || ' ' || COALESCE(
+        (SELECT group_concat(value, ' ') FROM json_each(new.tags)), '');
+END;
+
+CREATE TRIGGER search_recording_update AFTER UPDATE OF title, tags
+    ON recordings BEGIN
+  DELETE FROM search_index WHERE recording_id = new.id AND kind = 'title';
+  INSERT INTO search_index (recording_id, kind, body)
+    SELECT new.id, 'title',
+      new.title || ' ' || COALESCE(
+        (SELECT group_concat(value, ' ') FROM json_each(new.tags)), '');
+END;
+
+CREATE TRIGGER search_recording_delete AFTER DELETE ON recordings BEGIN
+  DELETE FROM search_index WHERE recording_id = old.id;
+END;
+
+-- Transcript text: rebuilt for the recording whenever a segment changes.
+CREATE TRIGGER search_segment_insert AFTER INSERT ON transcript_segments BEGIN
+  DELETE FROM search_index WHERE kind = 'transcript' AND recording_id =
+    (SELECT recording_id FROM transcripts WHERE id = new.transcript_id);
+  INSERT INTO search_index (recording_id, kind, body)
+    SELECT t.recording_id, 'transcript', group_concat(s.body, ' ')
+    FROM transcripts t JOIN transcript_segments s ON s.transcript_id = t.id
+    WHERE t.recording_id =
+      (SELECT recording_id FROM transcripts WHERE id = new.transcript_id)
+    GROUP BY t.recording_id;
+END;
+
+CREATE TRIGGER search_segment_update AFTER UPDATE OF body
+    ON transcript_segments BEGIN
+  DELETE FROM search_index WHERE kind = 'transcript' AND recording_id =
+    (SELECT recording_id FROM transcripts WHERE id = new.transcript_id);
+  INSERT INTO search_index (recording_id, kind, body)
+    SELECT t.recording_id, 'transcript', group_concat(s.body, ' ')
+    FROM transcripts t JOIN transcript_segments s ON s.transcript_id = t.id
+    WHERE t.recording_id =
+      (SELECT recording_id FROM transcripts WHERE id = new.transcript_id)
+    GROUP BY t.recording_id;
+END;
+
+CREATE TRIGGER search_segment_delete AFTER DELETE ON transcript_segments BEGIN
+  DELETE FROM search_index WHERE kind = 'transcript' AND recording_id =
+    (SELECT recording_id FROM transcripts WHERE id = old.transcript_id);
+  INSERT INTO search_index (recording_id, kind, body)
+    SELECT t.recording_id, 'transcript', group_concat(s.body, ' ')
+    FROM transcripts t JOIN transcript_segments s ON s.transcript_id = t.id
+    WHERE t.recording_id =
+      (SELECT recording_id FROM transcripts WHERE id = old.transcript_id)
+    GROUP BY t.recording_id;
+END;
+
+CREATE TRIGGER search_transcript_delete AFTER DELETE ON transcripts BEGIN
+  DELETE FROM search_index
+    WHERE kind = 'transcript' AND recording_id = old.recording_id;
+  INSERT INTO search_index (recording_id, kind, body)
+    SELECT t.recording_id, 'transcript', group_concat(s.body, ' ')
+    FROM transcripts t JOIN transcript_segments s ON s.transcript_id = t.id
+    WHERE t.recording_id = old.recording_id
+    GROUP BY t.recording_id;
+END;
+
+-- Extracted fields: every string leaf of the recording's newest extraction.
+CREATE TRIGGER search_extraction_insert AFTER INSERT ON extractions BEGIN
+  DELETE FROM search_index
+    WHERE kind = 'extraction' AND recording_id = new.recording_id;
+  INSERT INTO search_index (recording_id, kind, body)
+    SELECT e.recording_id, 'extraction', group_concat(j.value, ' ')
+    FROM extractions e, json_tree(e.json) j
+    WHERE e.id = (SELECT e2.id FROM extractions e2
+        WHERE e2.recording_id = new.recording_id
+        ORDER BY e2.created_at DESC, e2.id DESC LIMIT 1)
+      AND j.type = 'text'
+    GROUP BY e.id;
+END;
+
+CREATE TRIGGER search_extraction_update AFTER UPDATE OF json
+    ON extractions BEGIN
+  DELETE FROM search_index
+    WHERE kind = 'extraction' AND recording_id = new.recording_id;
+  INSERT INTO search_index (recording_id, kind, body)
+    SELECT e.recording_id, 'extraction', group_concat(j.value, ' ')
+    FROM extractions e, json_tree(e.json) j
+    WHERE e.id = (SELECT e2.id FROM extractions e2
+        WHERE e2.recording_id = new.recording_id
+        ORDER BY e2.created_at DESC, e2.id DESC LIMIT 1)
+      AND j.type = 'text'
+    GROUP BY e.id;
+END;
+
+CREATE TRIGGER search_extraction_delete AFTER DELETE ON extractions BEGIN
+  DELETE FROM search_index
+    WHERE kind = 'extraction' AND recording_id = old.recording_id;
+  INSERT INTO search_index (recording_id, kind, body)
+    SELECT e.recording_id, 'extraction', group_concat(j.value, ' ')
+    FROM extractions e, json_tree(e.json) j
+    WHERE e.id = (SELECT e2.id FROM extractions e2
+        WHERE e2.recording_id = old.recording_id
+        ORDER BY e2.created_at DESC, e2.id DESC LIMIT 1)
+      AND j.type = 'text'
+    GROUP BY e.id;
+END;

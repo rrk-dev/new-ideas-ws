@@ -22,7 +22,8 @@ class RecordingLabels extends Table {
   TextColumn get label => text()();
 }
 
-/// The v1 → v2 step: create the new table and backfill it from v1 data.
+/// The step to this fixture's (next) version: create the new table and
+/// backfill it from existing data.
 Future<void> migrateV1ToV2(Migrator m, GeneratedDatabase db) async {
   final fixture = db as V2FixtureDatabase;
   await m.createTable(fixture.recordingLabels);
@@ -32,8 +33,8 @@ Future<void> migrateV1ToV2(Migrator m, GeneratedDatabase db) async {
   );
 }
 
-/// "Future v2" of the VaultVoice schema used by the migration tests: every v1
-/// table plus [RecordingLabels], migrated with the production
+/// "Next version" of the VaultVoice schema used by the migration tests: every
+/// current table plus [RecordingLabels], migrated with the production
 /// [buildMigrationStrategy] and the production steps + [migrateV1ToV2].
 @DriftDatabase(
   tables: [
@@ -56,11 +57,16 @@ Future<void> migrateV1ToV2(Migrator m, GeneratedDatabase db) async {
     Settings,
     RecordingLabels,
   ],
+  include: {'package:vaultvoice/core/db/tables/search.drift'},
 )
 class V2FixtureDatabase extends _$V2FixtureDatabase {
   V2FixtureDatabase(super.e, {Map<int, SchemaStep>? steps})
     : _steps =
-          steps ?? {...VaultVoiceDatabase.migrationSteps, 2: migrateV1ToV2};
+          steps ??
+          {
+            ...VaultVoiceDatabase.migrationSteps,
+            VaultVoiceDatabase.currentSchemaVersion + 1: migrateV1ToV2,
+          };
 
   final Map<int, SchemaStep> _steps;
 

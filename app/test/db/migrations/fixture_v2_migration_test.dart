@@ -21,11 +21,12 @@ void main() {
   setUp(() => tmp = Directory.systemTemp.createTempSync('vv_mig_'));
   tearDown(() => tmp.deleteSync(recursive: true));
 
-  test('[FND-04/AC1] current schema equals the frozen v1 snapshot '
-      '(drift_schemas/vaultvoice/drift_schema_v1.json)', () async {
-    final schema = await verifier.schemaAt(1);
+  test('[FND-04/AC1] current schema equals the frozen latest snapshot '
+      '(drift_schemas/vaultvoice/drift_schema_v<current>.json)', () async {
+    const current = VaultVoiceDatabase.currentSchemaVersion;
+    final schema = await verifier.schemaAt(current);
     final db = VaultVoiceDatabase(schema.newConnection());
-    await verifier.migrateAndValidate(db, 1);
+    await verifier.migrateAndValidate(db, current);
     await db.close();
   });
 
@@ -59,7 +60,10 @@ void main() {
     await db.validateDatabaseSchema();
 
     final version = await db.customSelect('PRAGMA user_version').getSingle();
-    expect(version.read<int>('user_version'), 2);
+    expect(
+      version.read<int>('user_version'),
+      VaultVoiceDatabase.currentSchemaVersion + 1,
+    );
 
     final recordings = await db.select(db.recordings).get();
     expect(
@@ -123,7 +127,10 @@ void main() {
         isA<MigrationException>().having(
           (e) => e.message,
           'message',
-          contains('no migration step to v2'),
+          contains(
+            'no migration step to '
+            'v${VaultVoiceDatabase.currentSchemaVersion + 1}',
+          ),
         ),
       ),
     );
