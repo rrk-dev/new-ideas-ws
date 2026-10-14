@@ -1,0 +1,31 @@
+app/test/unit/extraction/long_transcript_test.dart
+  s_9f6fcf8c1840a0::t_1b2e44b13f2c6c 7,698
+  s_9f6fcf8c1840a0::t_9f8f62003e984f 676,728
+docs/long-transcripts.md
+  s_9f6fcf8c1840a0::t_eea1403a7b9105 1-116
+app/test/fakes/oracle_llm_engine.dart
+  s_9f6fcf8c1840a0::t_9f8f62003e984f 114
+app/test/unit/extraction/long_transcript_host_test.dart
+  s_9f6fcf8c1840a0::t_923a0411634950 1-67,69-86,88-145
+  s_9f6fcf8c1840a0::t_74472d5f864122 68,87
+docs/test-plans/device/LLM-06.md
+  s_9f6fcf8c1840a0::t_bdf9ccbf590e65 1-24
+app/lib/features/extraction/domain/long_transcript/extraction_prompts.dart
+  s_9f6fcf8c1840a0::t_1b2e44b13f2c6c 92-95,103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d460322d829c9a0331041e4a93bce34a76625233",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
