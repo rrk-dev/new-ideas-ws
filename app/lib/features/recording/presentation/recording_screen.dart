@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/widgets/placeholder_screen.dart';
 import 'package:vaultvoice/features/recording/presentation/call_guard_debug_screen.dart';
 
@@ -13,12 +14,12 @@ class RecordScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isDev = ref.watch(flavorProvider).isDev;
     return PlaceholderScreen(
-      title: 'Record',
+      title: context.l10n.tabRecord,
       icon: Icons.mic,
       actions: [
         if (isDev)
           IconButton(
-            tooltip: 'CallGuard debug',
+            tooltip: context.l10n.callGuardDebugTooltip,
             icon: const Icon(Icons.phone_disabled),
             onPressed: () => Navigator.of(context).push(
               MaterialPageRoute<void>(

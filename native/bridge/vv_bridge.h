@@ -42,4 +42,7 @@ VV_API const char* vv_llama_system_info(void);
 }
 #endif
 
+/* LLM backend bridge (LLM-02/LLM-03). */
+#include "vv_llama.h"
+
 #endif /* VV_BRIDGE_H */
