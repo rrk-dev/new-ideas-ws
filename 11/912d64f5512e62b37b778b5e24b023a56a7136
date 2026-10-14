@@ -1,0 +1,43 @@
+app/test/golden_prompts/meeting.single_pass.txt
+  s_9f6fcf8c1840a0::t_2c4730c16a9a3a 1,5,36,54
+app/test/unit/profiles/extraction_prompts_test.dart
+  s_9f6fcf8c1840a0::t_7be8ef1e0fba31 47
+  s_9f6fcf8c1840a0::t_79c357b06cd4ca 1-46,48-49
+app/lib/features/profiles/data/profile_providers.g.dart
+  s_9f6fcf8c1840a0::t_2c4730c16a9a3a 207-267
+app/test/golden_prompts/meeting.chunk_1_of_2.txt
+  s_9f6fcf8c1840a0::t_2c4730c16a9a3a 1,5,44
+app/lib/features/profiles/data/profile_providers.dart
+  s_9f6fcf8c1840a0::t_6ce4ebd6a8cace 7,42-49
+app/test/unit/profiles/prompt_builder_test.dart
+  s_9f6fcf8c1840a0::t_6ce4ebd6a8cace 126
+app/test/golden_prompts/warranty.single_pass.txt
+  s_9f6fcf8c1840a0::t_2c4730c16a9a3a 1,5,37,54
+app/lib/features/profiles/domain/extraction_prompts.dart
+  s_9f6fcf8c1840a0::t_6ce4ebd6a8cace 39-40
+  s_9f6fcf8c1840a0::t_2c4730c16a9a3a 8-13,53-54
+  s_9f6fcf8c1840a0::t_3db49338766bc4 1-7,14-38,41-52,55-64,77-110
+  s_9f6fcf8c1840a0::t_a1fa8a36d74786 65-76
+app/test/golden_prompts/engineering.single_pass.txt
+  s_9f6fcf8c1840a0::t_2c4730c16a9a3a 1,5,45,63
+app/lib/features/profiles/domain/prompt_builder.dart
+  s_9f6fcf8c1840a0::t_cba81a0cc83d82 32-34,186,287,324,336-339,358
+tasks/06-profiles/PRF-02-system-prompt-builder.md
+  s_9f6fcf8c1840a0::t_27e6d3049fed20 51-71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "11912d64f5512e62b37b778b5e24b023a56a7136",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
