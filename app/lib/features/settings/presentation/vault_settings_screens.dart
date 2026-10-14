@@ -25,6 +25,64 @@ VaultPlatform _platformOf(VaultTargetKind k) => switch (k) {
   VaultTargetKind.appLocal => VaultPlatform.appLocal,
 };
 
+/// Outcome of [pickAndSaveVaultFolder].
+sealed class VaultFolderPick {
+  const VaultFolderPick();
+}
+
+/// The folder was granted and saved as a vault target.
+final class VaultFolderPicked extends VaultFolderPick {
+  const VaultFolderPicked(this.name);
+
+  /// Folder name for the UI (user content: shown, never logged).
+  final String name;
+}
+
+final class VaultFolderPickCancelled extends VaultFolderPick {
+  const VaultFolderPickCancelled();
+}
+
+/// Picker unavailable, access refused or the row could not be saved.
+final class VaultFolderPickFailed extends VaultFolderPick {
+  const VaultFolderPickFailed();
+}
+
+/// Opens the system folder picker (EXP-03 SAF / EXP-04 bookmarks) and saves
+/// the granted folder as a vault target. Shared by Settings → Vault folders
+/// and onboarding (APP-01).
+Future<VaultFolderPick> pickAndSaveVaultFolder(
+  WidgetRef ref,
+  AppLocalizations l10n,
+) async {
+  try {
+    final picked = await ref.read(vaultFolderAccessProvider).pick();
+    switch (picked) {
+      case Err():
+        return const VaultFolderPickFailed();
+      case Ok(value: null):
+        return const VaultFolderPickCancelled();
+      case Ok(value: final VaultFolder folder):
+        final name = folder.displayName ?? l10n.vaultFolderDefaultName;
+        final saved = await ref
+            .read(vaultRepositoryProvider)
+            .upsertTarget(
+              VaultTargetsCompanion.insert(
+                id: newUuidV4(),
+                platform: _platformOf(folder.kind),
+                displayName: name,
+                handle: folder.handle,
+                createdAt: ref.read(clockProvider).now(),
+              ),
+            );
+        return saved.isOk
+            ? VaultFolderPicked(name)
+            : const VaultFolderPickFailed();
+    }
+  } on Object {
+    return const VaultFolderPickFailed();
+  }
+}
+
 /// Vault folders notes are written to (Settings → Export). Adding opens the
 /// system folder picker (EXP-03 SAF / EXP-04 bookmarks); removing releases
 /// the OS grant. Folder names are user content: shown, never logged.
@@ -34,33 +92,10 @@ class VaultFoldersScreen extends ConsumerWidget {
   Future<void> _add(BuildContext context, WidgetRef ref) async {
     final messenger = ScaffoldMessenger.of(context);
     final l10n = context.l10n;
-    void fail() => messenger.showSnackBar(
-      SnackBar(content: Text(l10n.vaultFoldersAddFailed)),
-    );
-    try {
-      final picked = await ref.read(vaultFolderAccessProvider).pick();
-      switch (picked) {
-        case Err():
-          fail();
-        case Ok(value: null):
-          return; // cancelled
-        case Ok(value: final VaultFolder folder):
-          final saved = await ref
-              .read(vaultRepositoryProvider)
-              .upsertTarget(
-                VaultTargetsCompanion.insert(
-                  id: newUuidV4(),
-                  platform: _platformOf(folder.kind),
-                  displayName:
-                      folder.displayName ?? l10n.vaultFolderDefaultName,
-                  handle: folder.handle,
-                  createdAt: ref.read(clockProvider).now(),
-                ),
-              );
-          if (!saved.isOk) fail();
-      }
-    } on Object {
-      fail();
+    if (await pickAndSaveVaultFolder(ref, l10n) is VaultFolderPickFailed) {
+      messenger.showSnackBar(
+        SnackBar(content: Text(l10n.vaultFoldersAddFailed)),
+      );
     }
   }
 

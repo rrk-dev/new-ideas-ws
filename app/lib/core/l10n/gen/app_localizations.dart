@@ -448,6 +448,504 @@ abstract class AppLocalizations {
   /// **'Import failed.'**
   String get modelImportErrorGeneric;
 
+  /// No description provided for @commonContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get commonContinue;
+
+  /// No description provided for @commonNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get commonNotNow;
+
+  /// No description provided for @bytesMegabytes.
+  ///
+  /// In en, this message translates to:
+  /// **'{value} MB'**
+  String bytesMegabytes(String value);
+
+  /// No description provided for @bytesGigabytes.
+  ///
+  /// In en, this message translates to:
+  /// **'{value} GB'**
+  String bytesGigabytes(String value);
+
+  /// No description provided for @deviceTierLow.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard'**
+  String get deviceTierLow;
+
+  /// No description provided for @deviceTierMid.
+  ///
+  /// In en, this message translates to:
+  /// **'Capable'**
+  String get deviceTierMid;
+
+  /// No description provided for @deviceTierHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'High-end'**
+  String get deviceTierHigh;
+
+  /// No description provided for @modelTypeStt.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech to text'**
+  String get modelTypeStt;
+
+  /// No description provided for @modelTypeLlm.
+  ///
+  /// In en, this message translates to:
+  /// **'Note writer (AI)'**
+  String get modelTypeLlm;
+
+  /// No description provided for @modelTypeVad.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech detection'**
+  String get modelTypeVad;
+
+  /// No description provided for @modelTypeSpeakers.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaker separation'**
+  String get modelTypeSpeakers;
+
+  /// No description provided for @modelTypeAccelerator.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech accelerator'**
+  String get modelTypeAccelerator;
+
+  /// No description provided for @modelSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{type} · {size}'**
+  String modelSummary(String type, String size);
+
+  /// No description provided for @modelStatusInstalled.
+  ///
+  /// In en, this message translates to:
+  /// **'Installed'**
+  String get modelStatusInstalled;
+
+  /// No description provided for @modelStatusNotDownloaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Not downloaded'**
+  String get modelStatusNotDownloaded;
+
+  /// No description provided for @downloadPhaseChecking.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing download…'**
+  String get downloadPhaseChecking;
+
+  /// No description provided for @downloadPhaseDownloading.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading · {percent}%'**
+  String downloadPhaseDownloading(int percent);
+
+  /// No description provided for @downloadPhaseRetrying.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection lost, retrying…'**
+  String get downloadPhaseRetrying;
+
+  /// No description provided for @downloadPhasePaused.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get downloadPhasePaused;
+
+  /// No description provided for @downloadPhaseVerifying.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking the file…'**
+  String get downloadPhaseVerifying;
+
+  /// No description provided for @downloadPhaseInstalling.
+  ///
+  /// In en, this message translates to:
+  /// **'Installing…'**
+  String get downloadPhaseInstalling;
+
+  /// No description provided for @downloadPhaseFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed'**
+  String get downloadPhaseFailed;
+
+  /// No description provided for @downloadUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Model downloads are not available right now.'**
+  String get downloadUnavailable;
+
+  /// No description provided for @downloadOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'You’re offline. Connect to the internet to download models.'**
+  String get downloadOffline;
+
+  /// No description provided for @downloadNoSpace.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough free space: {needed} needed, {free} available.'**
+  String downloadNoSpace(String needed, String free);
+
+  /// No description provided for @downloadCellularTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Use mobile data?'**
+  String get downloadCellularTitle;
+
+  /// No description provided for @downloadCellularBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You’re not on Wi-Fi. Downloading {size} over mobile data may cost money.'**
+  String downloadCellularBody(String size);
+
+  /// No description provided for @downloadCellularAlways.
+  ///
+  /// In en, this message translates to:
+  /// **'Always allow mobile data for models'**
+  String get downloadCellularAlways;
+
+  /// No description provided for @downloadWaitForWifi.
+  ///
+  /// In en, this message translates to:
+  /// **'Wait for Wi-Fi'**
+  String get downloadWaitForWifi;
+
+  /// No description provided for @downloadNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Download now'**
+  String get downloadNow;
+
+  /// No description provided for @downloadWaitingForWifi.
+  ///
+  /// In en, this message translates to:
+  /// **'Not downloading. Start it again from Settings › Models when you’re on Wi-Fi.'**
+  String get downloadWaitingForWifi;
+
+  /// No description provided for @downloadLowPowerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Low Power Mode is on'**
+  String get downloadLowPowerTitle;
+
+  /// No description provided for @downloadLowPowerBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading large models uses battery. Download anyway?'**
+  String get downloadLowPowerBody;
+
+  /// No description provided for @downloadLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get downloadLater;
+
+  /// No description provided for @downloadAnyway.
+  ///
+  /// In en, this message translates to:
+  /// **'Download anyway'**
+  String get downloadAnyway;
+
+  /// No description provided for @downloadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading {name} failed. Try again from Settings › Models.'**
+  String downloadFailed(String name);
+
+  /// No description provided for @onboardingStepOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {step} of {total}'**
+  String onboardingStepOf(int step, int total);
+
+  /// No description provided for @onboardingBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get onboardingBack;
+
+  /// No description provided for @onboardingGetStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get started'**
+  String get onboardingGetStarted;
+
+  /// No description provided for @onboardingPrivacyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your recordings stay on your device'**
+  String get onboardingPrivacyTitle;
+
+  /// No description provided for @onboardingPrivacyOnDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording, transcription and note writing all happen on this phone. No account, no cloud, no analytics.'**
+  String get onboardingPrivacyOnDevice;
+
+  /// No description provided for @onboardingPrivacyNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'The only thing VaultVoice downloads is its AI models. Nothing you record is ever uploaded.'**
+  String get onboardingPrivacyNetwork;
+
+  /// No description provided for @onboardingPrivacyVault.
+  ///
+  /// In en, this message translates to:
+  /// **'Your notes are saved as Markdown files in a folder you choose, such as your Obsidian or Logseq vault.'**
+  String get onboardingPrivacyVault;
+
+  /// No description provided for @consentExplainerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Record responsibly'**
+  String get consentExplainerTitle;
+
+  /// No description provided for @consentExplainerAsk.
+  ///
+  /// In en, this message translates to:
+  /// **'Only record people who know they are being recorded and agree to it.'**
+  String get consentExplainerAsk;
+
+  /// No description provided for @consentExplainerLaws.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording laws differ between countries and states. In many places everyone in the conversation must agree.'**
+  String get consentExplainerLaws;
+
+  /// No description provided for @consentExplainerConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'For conversations with several people, VaultVoice asks you to confirm that everyone agreed before it starts.'**
+  String get consentExplainerConfirm;
+
+  /// No description provided for @consentNeverCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'VaultVoice never records phone or VoIP calls. When a call starts, recording stops and does not resume on its own.'**
+  String get consentNeverCalls;
+
+  /// No description provided for @consentExplainerAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I will only record people with their consent'**
+  String get consentExplainerAcknowledge;
+
+  /// No description provided for @onboardingPermissionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What VaultVoice will ask for'**
+  String get onboardingPermissionsTitle;
+
+  /// No description provided for @onboardingPermissionMic.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone: your phone asks the first time you tap Record — never before, and never in the background.'**
+  String get onboardingPermissionMic;
+
+  /// No description provided for @onboardingPermissionNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications: get a message when a note is ready or processing needs your attention. Optional.'**
+  String get onboardingPermissionNotifications;
+
+  /// No description provided for @onboardingAllowNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow notifications'**
+  String get onboardingAllowNotifications;
+
+  /// No description provided for @notificationsAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are on.'**
+  String get notificationsAllowed;
+
+  /// No description provided for @notificationsDeniedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are off. Processing still works — check the Library for finished notes. You can turn notifications on in the system settings.'**
+  String get notificationsDeniedBody;
+
+  /// No description provided for @onboardingPermissionFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Folder: you choose where notes are saved in the next steps. VaultVoice can only see that folder.'**
+  String get onboardingPermissionFolder;
+
+  /// No description provided for @permissionOpenSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open settings'**
+  String get permissionOpenSettings;
+
+  /// No description provided for @permissionOpenSettingsFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open the system settings. Open them from your home screen.'**
+  String get permissionOpenSettingsFailed;
+
+  /// No description provided for @micPrimerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow microphone access'**
+  String get micPrimerTitle;
+
+  /// No description provided for @micPrimerBody.
+  ///
+  /// In en, this message translates to:
+  /// **'VaultVoice needs the microphone to record what you choose to record. The audio stays on this device. Your phone will ask for permission next.'**
+  String get micPrimerBody;
+
+  /// No description provided for @micDeniedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone access is off, so VaultVoice can’t record. You can still import audio and browse your notes. Allow the microphone in the system settings to record.'**
+  String get micDeniedBody;
+
+  /// No description provided for @onboardingModelsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI models for this device'**
+  String get onboardingModelsTitle;
+
+  /// No description provided for @onboardingModelsChecking.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking this device'**
+  String get onboardingModelsChecking;
+
+  /// No description provided for @onboardingModelsDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Device class: {tier} ({ram} memory). Recommended:'**
+  String onboardingModelsDevice(String tier, String ram);
+
+  /// No description provided for @onboardingModelsDeviceUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t check this device, so the smallest models are recommended:'**
+  String get onboardingModelsDeviceUnknown;
+
+  /// No description provided for @onboardingModelsTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total download: {size}. Wi-Fi recommended.'**
+  String onboardingModelsTotal(String size);
+
+  /// No description provided for @onboardingModelsDownload.
+  ///
+  /// In en, this message translates to:
+  /// **'Download {size}'**
+  String onboardingModelsDownload(String size);
+
+  /// No description provided for @onboardingModelsExplore.
+  ///
+  /// In en, this message translates to:
+  /// **'You can continue and record while the models download. Recordings are processed as soon as the models are ready.'**
+  String get onboardingModelsExplore;
+
+  /// No description provided for @onboardingModelsReady.
+  ///
+  /// In en, this message translates to:
+  /// **'All recommended models are installed.'**
+  String get onboardingModelsReady;
+
+  /// No description provided for @onboardingModelsOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloads are turned off on this device (offline mode or your organization). Import the model files instead:'**
+  String get onboardingModelsOffline;
+
+  /// No description provided for @onboardingModelsUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No model recommendation is available right now. You can download models later in Settings › Models.'**
+  String get onboardingModelsUnavailable;
+
+  /// No description provided for @onboardingFolderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where should notes go?'**
+  String get onboardingFolderTitle;
+
+  /// No description provided for @onboardingFolderBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick your Obsidian or Logseq vault, or any folder. VaultVoice only gets access to the folder you pick.'**
+  String get onboardingFolderBody;
+
+  /// No description provided for @onboardingFolderChoose.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose folder'**
+  String get onboardingFolderChoose;
+
+  /// No description provided for @onboardingFolderChooseAnother.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose another folder'**
+  String get onboardingFolderChooseAnother;
+
+  /// No description provided for @onboardingFolderChosen.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes will be saved in {name}.'**
+  String onboardingFolderChosen(String name);
+
+  /// No description provided for @onboardingFolderFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'That folder couldn’t be used. Try another one, or keep notes in the app for now.'**
+  String get onboardingFolderFailed;
+
+  /// No description provided for @onboardingFolderLater.
+  ///
+  /// In en, this message translates to:
+  /// **'You can add or change folders anytime in Settings › Vault folders.'**
+  String get onboardingFolderLater;
+
+  /// No description provided for @onboardingFolderKeepInApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep notes in the app for now'**
+  String get onboardingFolderKeepInApp;
+
+  /// No description provided for @onboardingReadyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You’re all set'**
+  String get onboardingReadyTitle;
+
+  /// No description provided for @onboardingReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap Record to make your first note. If the models are still downloading, your recording waits and is processed automatically when they’re ready.'**
+  String get onboardingReadyBody;
+
+  /// No description provided for @onboardingFirstRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Make my first recording'**
+  String get onboardingFirstRecording;
+
+  /// No description provided for @onboardingExplore.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore first'**
+  String get onboardingExplore;
+
   /// No description provided for @recordingDebugTooltip.
   ///
   /// In en, this message translates to:
