@@ -7,6 +7,9 @@
 //   stt_backends check coreml-fallback  Core ML build without the encoder companion
 //   stt_backends bench --model M --wav W [--seconds 60] [--runs 3] [--gpu 0|1]
 //                      [--threads N] [--beam N] [--label L]
+//                      [--lang en|de|auto] [--hyp-out FILE]
+//   (STT-07) --seconds 0 = transcribe the clip as-is (WER runs); --hyp-out writes
+//   the last run's text; the JSON line carries the process peak RSS.
 //
 // `check` reads ggml-tiny.en.bin + jfk.wav from $VV_TEST_MODELS_DIR
 // (tools/ci/fetch_test_models.sh) and exits 77 (ctest SKIP) when they are absent.
@@ -19,6 +22,8 @@
 #include <cstring>
 #include <string>
 #include <vector>
+
+#include <sys/resource.h>
 
 #include "ggml-backend.h"
 #include "vv_wav.h"
@@ -60,8 +65,19 @@ struct Run {
   bool ok = false;
 };
 
+// Process peak resident set size in MiB (ru_maxrss: bytes on Darwin, KiB on Linux).
+double peak_rss_mb() {
+  rusage u{};
+  getrusage(RUSAGE_SELF, &u);
+#if defined(__APPLE__)
+  return static_cast<double>(u.ru_maxrss) / (1024.0 * 1024.0);
+#else
+  return static_cast<double>(u.ru_maxrss) / 1024.0;
+#endif
+}
+
 Run transcribe(const std::string& model, const std::vector<float>& pcm, bool gpu,
-               int threads, int beam) {
+               int threads, int beam, const char* lang = "en") {
   Run r;
   whisper_context_params cp = whisper_context_default_params();
   cp.use_gpu = gpu;
@@ -72,7 +88,7 @@ Run transcribe(const std::string& model, const std::vector<float>& pcm, bool gpu
   whisper_full_params p = whisper_full_default_params(
       beam > 1 ? WHISPER_SAMPLING_BEAM_SEARCH : WHISPER_SAMPLING_GREEDY);
   p.n_threads = threads;
-  p.language = "en";
+  p.language = lang;
   p.translate = false;
   p.no_context = true;
   p.print_progress = false;
@@ -171,7 +187,7 @@ int check(const std::string& mode) {
 }
 
 int bench(int argc, char** argv) {
-  std::string model, wav, label = "host";
+  std::string model, wav, label = "host", lang = "en", hyp_out;
   int seconds = 60, runs = 3, gpu = 1, threads = default_threads(), beam = 1;
   for (int i = 2; i + 1 < argc; i += 2) {
     const std::string k = argv[i], v = argv[i + 1];
@@ -183,6 +199,8 @@ int bench(int argc, char** argv) {
     else if (k == "--threads") threads = std::atoi(v.c_str());
     else if (k == "--beam") beam = std::atoi(v.c_str());
     else if (k == "--label") label = v;
+    else if (k == "--lang") lang = v;
+    else if (k == "--hyp-out") hyp_out = v;
   }
   std::vector<float> src;
   if (model.empty() || wav.empty() || vv::wav_read_range(wav.c_str(), 0, -1, &src) != vv::WavStatus::ok ||
@@ -190,14 +208,20 @@ int bench(int argc, char** argv) {
     return fail("bench needs --model and a 16 kHz PCM16 --wav");
   // Tile the clip to the requested duration (RTF needs a fixed audio length).
   std::vector<float> pcm;
-  const size_t want = static_cast<size_t>(seconds) * vv::kWavSampleRate;
+  const size_t want = seconds > 0 ? static_cast<size_t>(seconds) * vv::kWavSampleRate : src.size();
   while (pcm.size() < want) pcm.insert(pcm.end(), src.begin(), src.begin() + std::min(src.size(), want - pcm.size()));
   std::vector<double> full, load;
   std::string coreml = "n/a";
   for (int i = 0; i < runs; ++i) {
     g_log.clear();
-    const Run r = transcribe(model, pcm, gpu != 0, threads, beam);
+    const Run r = transcribe(model, pcm, gpu != 0, threads, beam, lang.c_str());
     if (!r.ok) return fail("bench transcription");
+    if (!hyp_out.empty() && i == runs - 1) {
+      FILE* h = std::fopen(hyp_out.c_str(), "wb");
+      if (!h) return fail("hyp-out");
+      std::fwrite(r.text.data(), 1, r.text.size(), h);
+      std::fclose(h);
+    }
     full.push_back(r.full_ms);
     load.push_back(r.load_ms);
     if (has(g_log, "Core ML model loaded")) coreml = "loaded";
@@ -208,12 +232,15 @@ int bench(int argc, char** argv) {
     return std::vector<double>{v[v.size() / 2], v.front(), v.back()};
   };
   const auto f = stats(full), l = stats(load);
+  const double audio_s = static_cast<double>(pcm.size()) / vv::kWavSampleRate;
   std::printf(
-      "{\"label\":\"%s\",\"model\":\"%s\",\"audio_s\":%d,\"runs\":%d,\"gpu\":%d,\"threads\":%d,"
+      "{\"label\":\"%s\",\"model\":\"%s\",\"audio_s\":%.1f,\"runs\":%d,\"gpu\":%d,\"threads\":%d,"
       "\"beam\":%d,\"coreml\":\"%s\",\"full_ms_median\":%.0f,\"full_ms_min\":%.0f,"
-      "\"full_ms_max\":%.0f,\"load_ms_median\":%.0f,\"load_ms_first\":%.0f,\"rtf\":%.4f}\n",
-      label.c_str(), model.substr(model.find_last_of('/') + 1).c_str(), seconds, runs, gpu, threads,
-      beam, coreml.c_str(), f[0], f[1], f[2], l[0], load.front(), f[0] / (seconds * 1000.0));
+      "\"full_ms_max\":%.0f,\"load_ms_median\":%.0f,\"load_ms_first\":%.0f,\"rtf\":%.4f,"
+      "\"lang\":\"%s\",\"peak_rss_mb\":%.0f}\n",
+      label.c_str(), model.substr(model.find_last_of('/') + 1).c_str(), audio_s, runs, gpu, threads,
+      beam, coreml.c_str(), f[0], f[1], f[2], l[0], load.front(), f[0] / (audio_s * 1000.0),
+      lang.c_str(), peak_rss_mb());
   return 0;
 }
 
