@@ -17,6 +17,7 @@ import 'package:vaultvoice/features/recording/data/recording_chunk_writer.dart';
 import 'package:vaultvoice/features/recording/data/wav_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_format.dart';
+import 'package:vaultvoice/features/recording/domain/audio_session_monitor.dart';
 import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
 import 'package:vaultvoice/features/recording/domain/pcm_converter.dart';
 import 'package:vaultvoice/features/recording/domain/pcm_mic_source.dart';
@@ -50,6 +51,7 @@ class RecordCaptureBackend implements CaptureBackend {
     this.flushInterval = const Duration(seconds: 1),
     this.discardMargin = defaultDiscardMargin,
     this._request = const MicRequest(),
+    this._audioSession = const NoAudioSessionMonitor(),
     Logger? logger,
   }) : assert(
          flushInterval <= const Duration(seconds: 1),
@@ -72,6 +74,8 @@ class RecordCaptureBackend implements CaptureBackend {
   final AudioChunkCodec _codec;
   final StoragePolicy _storage;
   final Logger? _log;
+  final AudioSessionMonitor _audioSession;
+  StreamSubscription<AudioSessionEvent>? _sessionSub;
 
   final Duration chunkDuration;
   final Duration flushInterval;
@@ -175,6 +179,7 @@ class RecordCaptureBackend implements CaptureBackend {
       await _repo.deleteById(id);
       return Err(failure);
     }
+    _sessionSub = _audioSession.events.listen(_onSessionEvent);
     _log?.info(_tag, 'capture opened', fields: {'codec': _codec.id});
     if (warn) _notices.add(CaptureNotice.lowStorageWarning);
     return const Ok<void>(null);
@@ -256,6 +261,8 @@ class RecordCaptureBackend implements CaptureBackend {
       return await writer.endSegment();
     });
     _session = null;
+    await _sessionSub?.cancel();
+    _sessionSub = null;
     await _updateRow(
       session,
       RecordingStatus.recorded,
@@ -286,6 +293,7 @@ class RecordCaptureBackend implements CaptureBackend {
 
   /// Releases the notice stream (provider disposal).
   Future<void> dispose() async {
+    await _sessionSub?.cancel();
     _stopTimers();
     await _closeMic();
     await _notices.close();
@@ -335,6 +343,19 @@ class RecordCaptureBackend implements CaptureBackend {
       case MicFailed():
         _notices.add(CaptureNotice.captureFailed);
     }
+  }
+
+  /// iOS audio-session changes (AUD-04): an engine configuration change or a
+  /// media-services reset stops the platform input — ask the controller to
+  /// reopen it. Plain route changes are only logged (device kinds only).
+  void _onSessionEvent(AudioSessionEvent event) {
+    _log?.info(
+      _tag,
+      'audio session event',
+      fields: {'kind': event.kind, 'inputs': event.inputs.length},
+    );
+    if (event.kind == AudioSessionEventKind.routeChanged) return;
+    if (_accepting) _notices.add(CaptureNotice.inputRestartRequired);
   }
 
   void _append(_Session session, Uint8List pcm) {

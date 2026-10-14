@@ -277,7 +277,45 @@ class RecordingController {
             gap: interrupted ? GapKind.audioInterruption : GapKind.captureError,
           ),
         );
+      case CaptureNotice.inputRestartRequired:
+        if (_phase != RecordingPhase.recording || _opening) return;
+        unawaited(_restartInput());
     }
+  }
+
+  /// Reopens the input after a route / engine-configuration change while the
+  /// user's recording is running (AUD-04: "Bluetooth headset connect
+  /// mid-recording does not stop recording"). This is **not** a resume: the
+  /// recording never left `recording`, and a paused recording is never
+  /// touched. It re-checks CallGuard first and fails closed: during a call
+  /// (or with an unknown call state) the recording is paused instead and
+  /// only a user tap resumes it.
+  Future<void> _restartInput() async {
+    _opening = true;
+    _pendingBlock = null;
+    _freezeElapsed(); // the reopen gap is not recorded time
+    await _capture.suspend(gap: GapKind.routeChange);
+    final refused = await _callCheck();
+    if (refused != null) {
+      _opening = false;
+      _pendingBlock = null;
+      _enterPaused(
+        refused == RecordingBlockReason.inCall
+            ? PauseCause.call
+            : PauseCause.audioInterruption,
+      );
+      return;
+    }
+    final reopened = await _capture.resumeCapture();
+    _opening = false;
+    if (reopened case Err()) {
+      _pendingBlock = null;
+      _enterPaused(PauseCause.captureError);
+      return;
+    }
+    if (_phase != RecordingPhase.recording) return; // stopped meanwhile
+    _enterRecording();
+    _applyPendingBlock();
   }
 
   void _endNoticeWatch() {

@@ -193,6 +193,62 @@ final class AudioChunkCodecProvider
 
 String _$audioChunkCodecHash() => r'da3872a8e77c3efae435710c9f3e6e74b8420fb3';
 
+/// iOS audio-session observer (route / engine configuration / media-services
+/// reset, AUD-04). Android `AudioRecord` follows routes itself.
+
+@ProviderFor(audioSessionMonitor)
+final audioSessionMonitorProvider = AudioSessionMonitorProvider._();
+
+/// iOS audio-session observer (route / engine configuration / media-services
+/// reset, AUD-04). Android `AudioRecord` follows routes itself.
+
+final class AudioSessionMonitorProvider
+    extends
+        $FunctionalProvider<
+          AudioSessionMonitor,
+          AudioSessionMonitor,
+          AudioSessionMonitor
+        >
+    with $Provider<AudioSessionMonitor> {
+  /// iOS audio-session observer (route / engine configuration / media-services
+  /// reset, AUD-04). Android `AudioRecord` follows routes itself.
+  AudioSessionMonitorProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'audioSessionMonitorProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$audioSessionMonitorHash();
+
+  @$internal
+  @override
+  $ProviderElement<AudioSessionMonitor> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  AudioSessionMonitor create(Ref ref) {
+    return audioSessionMonitor(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AudioSessionMonitor value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AudioSessionMonitor>(value),
+    );
+  }
+}
+
+String _$audioSessionMonitorHash() =>
+    r'4f507bc4d2d641013bdbe8582588cdb91ff7a66e';
+
 /// The real microphone capture (AUD-01).
 
 @ProviderFor(recordCaptureBackend)
@@ -244,7 +300,7 @@ final class RecordCaptureBackendProvider
 }
 
 String _$recordCaptureBackendHash() =>
-    r'dc216464e9aa935c6157ecac70ce441de1d9dec9';
+    r'a73c0be59d7e8f36c9e57a7a79d09e810c0e68aa';
 
 /// Selectable inputs (built-in, wired, Bluetooth HFP, USB). Querying never
 /// opens the microphone.

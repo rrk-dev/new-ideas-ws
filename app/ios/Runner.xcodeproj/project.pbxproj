@@ -15,6 +15,8 @@
 		5EC09A012F00000100C0FFEE /* CallGuardPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC09A002F00000100C0FFEE /* CallGuardPlugin.swift */; };
 		AD0200000000000000000002 /* ModelDownloadPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0200000000000000000001 /* ModelDownloadPlugin.swift */; };
 		A0D01A012F00000100C0FFEE /* StorageInfoPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D01A002F00000100C0FFEE /* StorageInfoPlugin.swift */; };
+		A0D04A012F00000100C0FFEE /* AudioSessionPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D04A002F00000100C0FFEE /* AudioSessionPlugin.swift */; };
+		A0D04A032F00000100C0FFEE /* RecordingIndicatorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D04A022F00000100C0FFEE /* RecordingIndicatorPlugin.swift */; };
 		E04B00000000000000000A02 /* BookmarkApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04B00000000000000000A01 /* BookmarkApi.g.swift */; };
 		E04B00000000000000000A04 /* BookmarkHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04B00000000000000000A03 /* BookmarkHostApiImpl.swift */; };
 		78A318202AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 78A3181F2AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage */; };
@@ -58,6 +60,8 @@
 		5EC09A002F00000100C0FFEE /* CallGuardPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallGuardPlugin.swift; sourceTree = "<group>"; };
 		AD0200000000000000000001 /* ModelDownloadPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDownload/ModelDownloadPlugin.swift; sourceTree = "<group>"; };
 		A0D01A002F00000100C0FFEE /* StorageInfoPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageInfoPlugin.swift; sourceTree = "<group>"; };
+		A0D04A002F00000100C0FFEE /* AudioSessionPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionPlugin.swift; sourceTree = "<group>"; };
+		A0D04A022F00000100C0FFEE /* RecordingIndicatorPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingIndicatorPlugin.swift; sourceTree = "<group>"; };
 		E04B00000000000000000A01 /* BookmarkApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkApi.g.swift; sourceTree = "<group>"; };
 		E04B00000000000000000A03 /* BookmarkHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkHostApiImpl.swift; sourceTree = "<group>"; };
 		78E0A7A72DC9AD7400C4905E /* FlutterGeneratedPluginSwiftPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FlutterGeneratedPluginSwiftPackage; path = Flutter/ephemeral/Packages/FlutterGeneratedPluginSwiftPackage; sourceTree = "<group>"; };
@@ -136,6 +140,8 @@
 				5EC09A002F00000100C0FFEE /* CallGuardPlugin.swift */,
 				AD0200000000000000000001 /* ModelDownloadPlugin.swift */,
 				A0D01A002F00000100C0FFEE /* StorageInfoPlugin.swift */,
+				A0D04A002F00000100C0FFEE /* AudioSessionPlugin.swift */,
+				A0D04A022F00000100C0FFEE /* RecordingIndicatorPlugin.swift */,
 				E04B00000000000000000A01 /* BookmarkApi.g.swift */,
 				E04B00000000000000000A03 /* BookmarkHostApiImpl.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
@@ -302,6 +308,8 @@
 				5EC09A012F00000100C0FFEE /* CallGuardPlugin.swift in Sources */,
 				AD0200000000000000000002 /* ModelDownloadPlugin.swift in Sources */,
 				A0D01A012F00000100C0FFEE /* StorageInfoPlugin.swift in Sources */,
+				A0D04A012F00000100C0FFEE /* AudioSessionPlugin.swift in Sources */,
+				A0D04A032F00000100C0FFEE /* RecordingIndicatorPlugin.swift in Sources */,
 				E04B00000000000000000A02 /* BookmarkApi.g.swift in Sources */,
 				E04B00000000000000000A04 /* BookmarkHostApiImpl.swift in Sources */,
 			);

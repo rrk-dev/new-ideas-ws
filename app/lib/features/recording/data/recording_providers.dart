@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
@@ -6,6 +8,7 @@ import 'package:vaultvoice/core/platform/call_guard.dart';
 import 'package:vaultvoice/core/platform/id_generator.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_providers.dart';
+import 'package:vaultvoice/features/recording/data/method_channel_audio_session_monitor.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_call_guard.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_disk_space_probe.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_recording_indicator.dart';
@@ -15,6 +18,7 @@ import 'package:vaultvoice/features/recording/data/recording_recovery.dart';
 import 'package:vaultvoice/features/recording/data/wav_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_format.dart';
+import 'package:vaultvoice/features/recording/domain/audio_session_monitor.dart';
 import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
 import 'package:vaultvoice/features/recording/domain/pcm_mic_source.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
@@ -40,6 +44,13 @@ DiskSpaceProbe diskSpaceProbe(Ref ref) => const MethodChannelDiskSpaceProbe();
 @Riverpod(keepAlive: true)
 AudioChunkCodec audioChunkCodec(Ref ref) => const WavChunkCodec();
 
+/// iOS audio-session observer (route / engine configuration / media-services
+/// reset, AUD-04). Android `AudioRecord` follows routes itself.
+@Riverpod(keepAlive: true)
+AudioSessionMonitor audioSessionMonitor(Ref ref) => Platform.isIOS
+    ? MethodChannelAudioSessionMonitor()
+    : const NoAudioSessionMonitor();
+
 /// The real microphone capture (AUD-01).
 @Riverpod(keepAlive: true)
 RecordCaptureBackend recordCaptureBackend(Ref ref) {
@@ -51,6 +62,7 @@ RecordCaptureBackend recordCaptureBackend(Ref ref) {
     clock: ref.watch(clockProvider),
     ids: ref.watch(idGeneratorProvider),
     codec: ref.watch(audioChunkCodecProvider),
+    audioSession: ref.watch(audioSessionMonitorProvider),
     logger: ref.watch(loggerProvider),
   );
   ref.onDispose(backend.dispose);

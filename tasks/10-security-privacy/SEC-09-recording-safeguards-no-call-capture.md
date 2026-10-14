@@ -66,3 +66,10 @@ standard, permission-gated OS microphone APIs — and it never captures telephon
   - AC6: ⏳ artifact: docs/adr/ADR-SEC-09-recording-policy.md#legal-review
 - **Decisions:** ADR-SEC-09-recording-policy (method/event channel instead of Pigeon; permissionless call detection; Python checker). PRODUCT-DECISIONs listed at the end of the ADR (fail closed, pauses excluded from max duration, reminder only while backgrounded, `mixWithOthers` banned everywhere, notification Resume allowed in background).
 - **Follow-ups:** AUD-01 implements `CaptureBackend` (reconcile with `core/platform/AudioRecorder`); AUD-04/AUD-05 keep CallGuard active in background and render the reminder notification; AUD-08 recording UI strings; REL-01 runs the guard in the release pipeline; legal/product sign-off on the wording in the ADR; `tasks.py` runs pytest with `-k <ID>_ACn`, which never matches `test_<ID_with_underscores>_ACn` names (SEC-09 tests carry the tag as a parametrize id as a workaround — FND-03 owner to fix).
+
+## Follow-ups
+- From AUD-04 (Claude Code, 2026-10-13): `app/ios/Runner/CallGuardPlugin.swift` did not
+  type-check — `let send = { [weak self] in self?.sink?(…) }` is inferred as `() -> Void?`, which
+  `DispatchQueue.main.async(execute:)` rejects. Fixed on `task/AUD-04-ios-background-recording`
+  with an explicit `let send: () -> Void` (no behaviour change); merge that branch or cherry-pick
+  the one-line fix.

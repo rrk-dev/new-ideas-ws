@@ -17,7 +17,12 @@ enum GapKind {
   userPause('user_pause'),
 
   /// The microphone stream failed or the OS paused it by itself (AUD-01).
-  captureError('capture_error');
+  captureError('capture_error'),
+
+  /// The input had to be reopened after an audio route / engine
+  /// configuration change or a media-services reset (AUD-04); the recording
+  /// itself never paused.
+  routeChange('route_change');
 
   GapKind(this.wireName);
 
@@ -50,6 +55,11 @@ enum CaptureNotice {
 
   /// The microphone stream failed; capture is suspended.
   captureFailed,
+
+  /// The platform input stopped because the audio route / engine
+  /// configuration changed or media services were reset (iOS AVAudioEngine,
+  /// AUD-04): the input must be reopened to keep the user's recording going.
+  inputRestartRequired,
 }
 
 /// The microphone capture that `RecordingController` drives.
