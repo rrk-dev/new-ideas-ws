@@ -1,0 +1,19 @@
+tasks/02-audio/AUD-09-macos-microphone.md
+  s_ef2d275f8c779c::t_106f1088e27409 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3f6703ad4efe709097dd4cd66848383b3c9c460f",
+  "prompts": {},
+  "sessions": {
+    "s_ef2d275f8c779c": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "f6d9211a-f9e4-4cd2-bebc-0af88e64b243",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
