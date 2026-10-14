@@ -1,0 +1,38 @@
+app/test/unit/transcription/hallucination_guards_test.dart
+  s_9f6fcf8c1840a0::t_8a8eda4b8aff47 106-107,111
+  s_9f6fcf8c1840a0::t_b55043d51b6c27 83-84,89-90,92,94
+  s_9f6fcf8c1840a0::t_0a87bf4721c5e4 78-79,86
+tasks/03-stt/STT-04-long-form-chunked-transcription.md
+  s_9f6fcf8c1840a0::t_9e5df533263b19 11-16,22-57,63-79
+  s_9f6fcf8c1840a0::t_b7173c04081496 58-62
+docs/test-plans/device/STT-04.md
+  s_9f6fcf8c1840a0::t_f29c424a540fcb 1-17
+app/test/unit/transcription/long_form_transcription_test.dart
+  s_9f6fcf8c1840a0::t_7c9e084dc4d350 18,435-453,457-511
+  s_9f6fcf8c1840a0::t_449da1347e2e3c 122-123
+  s_9f6fcf8c1840a0::t_b55043d51b6c27 120-121,124,454-456
+app/test/fakes/fake_windowed_stt_engine.dart
+  s_9f6fcf8c1840a0::t_0a87bf4721c5e4 71
+app/test/native/long_form_memory_test.dart
+  s_9f6fcf8c1840a0::t_7875f0f5d11c60 63-66,68-78,80-91,93-122,124-147
+app/lib/features/transcription/domain/hallucination_guards.dart
+  s_9f6fcf8c1840a0::t_0a87bf4721c5e4 32-34,101-105
+app/lib/features/transcription/data/live_transcription_service.dart
+  s_9f6fcf8c1840a0::t_8c6d5bc10f34e2 1-113
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f97cf185937db5733b1c5cefb23c7dd537169a74",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
