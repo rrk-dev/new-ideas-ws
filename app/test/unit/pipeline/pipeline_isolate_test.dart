@@ -19,7 +19,7 @@ import 'pipeline_test_utils.dart';
 /// Records the isolate the engines were built in.
 String? enginesIsolate;
 
-PipelineEngines fakeEngines() {
+PipelineEngines fakeEngines(PipelineWorkerContext _) {
   enginesIsolate = Isolate.current.debugName;
   return PipelineEngines(
     stt: ScriptedStt(),
@@ -89,7 +89,7 @@ void main() {
     final container = createContainer(
       overrides: [
         storagePathsProvider.overrideWith((ref) async => paths),
-        pipelineEnginesFactoryProvider.overrideWithValue(fakeEngines),
+        pipelineEnginesFactoryProvider.overrideWith((ref) async => fakeEngines),
       ],
     );
     final db = container.read(vaultVoiceDatabaseProvider);
@@ -115,13 +115,5 @@ void main() {
     addTearDown(jobsSub.close);
     final jobs = await container.read(pipelineJobsProvider.future);
     expect(jobs.single.priority, 10);
-  });
-
-  test('the engines factory has no default', () {
-    final container = createContainer();
-    expect(
-      () => container.read(pipelineEnginesFactoryProvider),
-      throwsA(anything),
-    );
   });
 }
