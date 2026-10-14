@@ -1,0 +1,22 @@
+tasks/04-llm/LLM-06-long-transcript-map-reduce.md
+  s_9f6fcf8c1840a0::t_bbfc6b6e9a07e6 4
+  s_9f6fcf8c1840a0::t_faa3fdeef2d4ed 11-15,23-45
+tools/bench/results/2026-10-14-llm06-map-reduce.md
+  s_9f6fcf8c1840a0::t_120d0959aea245 1-54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ccc2f72306ebe7fea5c2b1e419e7988b4ec75358",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
