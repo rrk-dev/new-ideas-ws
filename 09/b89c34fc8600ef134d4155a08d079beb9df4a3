@@ -1,0 +1,19 @@
+tasks/03-stt/STT-04-long-form-chunked-transcription.md
+  s_9f6fcf8c1840a0::t_f7c9a9cfade7f5 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "09b89c34fc8600ef134d4155a08d079beb9df4a3",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
