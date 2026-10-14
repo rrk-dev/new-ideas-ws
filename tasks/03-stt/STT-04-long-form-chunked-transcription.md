@@ -1,7 +1,7 @@
 # STT-04 — Long-Form Chunked Transcription (> 15 min)
 
 **Workstream:** STT | **Phase:** 2 | **Size:** L | **Depends on:** STT-03, AUD-03 | **Source:** §5 Phase 2 (optimize chunking for streams > 15 min)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-whisper-stt, vv-pipeline-orchestrator, vv-audio-capture, vv-local-database, vv-benchmark-eval, vv-testing
 
 ## Goal
