@@ -1,0 +1,21 @@
+app/test/unit/recording/recording_indicator_test.dart
+  s_9f6fcf8c1840a0::t_43b6d0b1c61f12 270-272,274
+app/test/unit/profiles/profile_spec_doc_test.dart
+  s_9f6fcf8c1840a0::t_43b6d0b1c61f12 13-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ee2ef81b1a2e5fa194551934f775255564e795cc",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
