@@ -1,0 +1,124 @@
+import 'package:flutter/foundation.dart';
+import 'package:vaultvoice/core/platform/device_capabilities.dart';
+import 'package:vaultvoice/features/models/domain/model_catalog.dart';
+
+/// Thermal state reported by the OS (iOS `ProcessInfo.thermalState`,
+/// Android `PowerManager.getCurrentThermalStatus`). [unknown] until the
+/// platform source is wired (LLM-07 follow-up).
+enum ThermalState { nominal, fair, serious, critical, unknown }
+
+/// What the capability probe found (hardware facts only, no content).
+@immutable
+final class DeviceProfile {
+  const DeviceProfile({
+    required this.platform,
+    required this.osVersion,
+    required this.totalRamBytes,
+    required this.availableRamBytes,
+    this.gpus = const [],
+    this.perfCores = 4,
+    this.cpuSupported = true,
+    this.thermal = ThermalState.unknown,
+  });
+
+  final String platform; // 'ios' | 'android' | 'host'
+  final String osVersion;
+  final int totalRamBytes;
+  final int availableRamBytes;
+  final List<GpuDevice> gpus;
+  final int perfCores;
+  final bool cpuSupported;
+  final ThermalState thermal;
+
+  bool get isAndroid => platform == 'android';
+  bool get isIos => platform == 'ios';
+}
+
+const int _gib = 1024 * 1024 * 1024;
+
+/// Tier from the RAM the OS reports (vv-llm-inference → Memory math &
+/// tiers): Low < 5 GiB (iPhone 11 / 4 GB phones report ≈ 3.7), Mid 5–7 GiB
+/// (6 GB devices report ≈ 5.6), High ≥ 7 GiB (8 GB devices report ≈ 7.3).
+DeviceTier tierForRam(int totalRamBytes) {
+  if (totalRamBytes < 5 * _gib) return DeviceTier.low;
+  if (totalRamBytes < 7 * _gib) return DeviceTier.mid;
+  return DeviceTier.high;
+}
+
+/// Context size per tier for the tier's default LLM.
+int defaultContextFor(DeviceTier tier) => switch (tier) {
+  DeviceTier.low => 4096,
+  DeviceTier.mid => 6144,
+  DeviceTier.high => 8192,
+};
+
+/// Plan gate for the LLM size class. Real source: LIC-01's
+/// `EntitlementService.has(Feature.largeLlm)` (`task/LIC-01-entitlements`,
+/// not merged here) — wire it as `LlmPlanGate(largeLlm: () => svc.has(...))`.
+@immutable
+final class LlmPlanGate {
+  const LlmPlanGate({required this.largeLlm});
+
+  /// Free plan (also the safe default before LIC-01 is wired).
+  factory LlmPlanGate.free() => LlmPlanGate(largeLlm: () => false);
+
+  /// Free plan → false: capped at the 1B-class model on every tier.
+  final bool Function() largeLlm;
+}
+
+/// Default models + context for one device and plan.
+@immutable
+final class TierDefaults {
+  const TierDefaults({
+    required this.tier,
+    required this.contextSize,
+    this.llm,
+    this.stt,
+  });
+
+  final DeviceTier tier;
+  final CatalogModel? llm;
+  final CatalogModel? stt;
+  final int contextSize;
+}
+
+/// "1B class" = LLM files up to 1.2 GB (Llama-3.2-1B Q4_K_M ≈ 0.8 GB,
+/// Qwen2.5-0.5B ≈ 0.5 GB); 3B Q4 ≈ 1.9–2.0 GB is "large".
+const int kSmallLlmMaxBytes = 1200 * 1000 * 1000;
+
+bool isLargeLlm(CatalogModel m) =>
+    m.type == ModelType.llm &&
+    (m.size > kSmallLlmMaxBytes || m.tier != ModelTier.free);
+
+/// Picks the tier × plan defaults from the signed catalog: the largest model
+/// of each type that is recommended for the tier, allowed by the plan
+/// (Free ⇒ no large LLM, no Pro/Enterprise models), and whose `min_ram_mb`
+/// fits the device. LLM-08 decides *which* models the catalog lists.
+TierDefaults defaultsFor(
+  DeviceProfile device,
+  ModelCatalog catalog,
+  LlmPlanGate plan,
+) {
+  final tier = tierForRam(device.totalRamBytes);
+  final ramMb = device.totalRamBytes ~/ (1024 * 1024);
+  final large = plan.largeLlm();
+  CatalogModel? pick(ModelType type) {
+    final ok = catalog.models.where(
+      (m) =>
+          m.type == type &&
+          m.recommendedDeviceTiers.contains(tier) &&
+          m.minRamMb <= ramMb &&
+          (large || (m.tier == ModelTier.free && !isLargeLlm(m))),
+    );
+    if (ok.isEmpty) return null;
+    return ok.reduce((a, b) => a.size >= b.size ? a : b);
+  }
+
+  final llm = pick(ModelType.llm);
+  return TierDefaults(
+    tier: tier,
+    llm: llm,
+    stt: pick(ModelType.stt),
+    contextSize: defaultContextFor(tier),
+  );
+}

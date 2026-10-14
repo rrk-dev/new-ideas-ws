@@ -49,6 +49,20 @@ if(ANDROID AND VV_ANDROID_CPU_ARCH)
   set(GGML_CPU_ARM_ARCH "${VV_ANDROID_CPU_ARCH}")
 endif()
 
+# Optional Android GPU backends (LLM-03, ADR-LLM-03). Off by default: every
+# device runs the CPU backend until a GPU family passes the device rows and is
+# added to the Dart allowlist (kAndroidGpuAllowlist). The bridge never fails
+# when a backend finds no usable device — it falls back to CPU.
+#  - Vulkan: needs glslc (NDK shader-tools) + Vulkan-Headers matching the pin.
+#  - OpenCL (Adreno): needs Khronos OpenCL headers in the NDK sysroot and an
+#    NDK-built libOpenCL.so ICD loader (llama.cpp docs/backend/OPENCL.md).
+option(VV_ANDROID_VULKAN "Android: build the ggml Vulkan backend" OFF)
+option(VV_ANDROID_OPENCL "Android: build the ggml OpenCL (Adreno) backend" OFF)
+if(ANDROID)
+  set(GGML_VULKAN ${VV_ANDROID_VULKAN})
+  set(GGML_OPENCL ${VV_ANDROID_OPENCL})
+endif()
+
 # The single ggml. Both projects skip their own copy when a `ggml` target
 # exists (`if (NOT TARGET ggml ...)` in llama.cpp/CMakeLists.txt:220 and
 # whisper.cpp/CMakeLists.txt:160). Their ggml trees are identical at the pins.
@@ -57,6 +71,27 @@ add_subdirectory(llama.cpp llama)
 add_subdirectory(whisper.cpp whisper)
 
 add_library(vv_native SHARED bridge/vv_bridge.cpp)
+# LLM bridge (LLM-02/LLM-03): backend selection, GPU discovery, benchmark.
+target_sources(vv_native PRIVATE bridge/vv_llama.cpp bridge/vv_llama_engine.cpp bridge/vv_cpu.c)
+
+# LLM-05: llama.cpp's JSON-schema -> GBNF converter as a small static lib.
+# Never link `llama-common` (HTTP/download code, egress policy): only these
+# files + a shim for the four string helpers they take from common.cpp.
+# File list verified at llama.cpp v0.6.0 (json-schema-to-grammar.cpp needs
+# json-schema.cpp, json.cpp, trie.cpp, unicode.cpp).
+set(VV_LLAMA_COMMON ${CMAKE_CURRENT_SOURCE_DIR}/llama.cpp/common)
+add_library(vv_jsg STATIC
+  ${VV_LLAMA_COMMON}/json-schema-to-grammar.cpp
+  ${VV_LLAMA_COMMON}/json-schema.cpp
+  ${VV_LLAMA_COMMON}/json.cpp
+  ${VV_LLAMA_COMMON}/trie.cpp
+  ${VV_LLAMA_COMMON}/unicode.cpp
+  bridge/vv_jsg_shim.cpp)
+target_include_directories(vv_jsg PUBLIC ${VV_LLAMA_COMMON}
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/llama.cpp/include ${CMAKE_CURRENT_SOURCE_DIR}/llama.cpp/vendor)
+target_link_libraries(vv_jsg PRIVATE ggml llama)
+target_sources(vv_native PRIVATE bridge/vv_jsg.cpp)
+target_link_libraries(vv_native PRIVATE vv_jsg)
 target_include_directories(vv_native PUBLIC bridge)
 target_link_libraries(vv_native PRIVATE whisper llama ggml)
 target_compile_definitions(vv_native PRIVATE VV_BUILDING_LIBRARY=1)
@@ -103,6 +138,27 @@ if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
   add_executable(vv_smoke tests/smoke.c)
   target_link_libraries(vv_smoke PRIVATE vv_native)
   add_test(NAME vv_smoke COMMAND vv_smoke)
+  # [LLM-02] llama.cpp backend bridge; model cases need $VV_TEST_MODELS_DIR
+  # (tools/ci/fetch_test_models.sh), otherwise they report SKIP (exit 77).
+  add_executable(vv_llm_backend_test tests/llm_backend_test.c)
+  target_link_libraries(vv_llm_backend_test PRIVATE vv_native)
+  add_test(NAME vv_llm_backend COMMAND vv_llm_backend_test)
+  set_tests_properties(vv_llm_backend PROPERTIES SKIP_RETURN_CODE 77)
+  # [LLM-04] streaming engine (create/generate/cancel/destroy, memory).
+  add_executable(vv_llm_engine_test tests/llm_engine_test.c)
+  target_link_libraries(vv_llm_engine_test PRIVATE vv_native)
+  add_test(NAME vv_llm_engine COMMAND vv_llm_engine_test)
+  set_tests_properties(vv_llm_engine PROPERTIES SKIP_RETURN_CODE 77)
+  # [LLM-05] JSON-schema -> GBNF converter and lazy grammar sampling.
+  add_executable(vv_grammar_test tests/grammar_test.c)
+  target_link_libraries(vv_grammar_test PRIVATE vv_native)
+  add_test(NAME vv_grammar COMMAND vv_grammar_test)
+  set_tests_properties(vv_grammar PROPERTIES SKIP_RETURN_CODE 77)
+  # [LLM-03] big.LITTLE perf-core detection (fake sysfs) + CPU feature guard.
+  add_executable(vv_cpu_test tests/cpu_test.c bridge/vv_cpu.c)
+  target_include_directories(vv_cpu_test PRIVATE bridge)
+  target_link_libraries(vv_cpu_test PRIVATE vv_native)
+  add_test(NAME vv_cpu COMMAND vv_cpu_test ${CMAKE_CURRENT_BINARY_DIR}/cpu_test_sysfs)
   add_test(NAME vv_exports
     COMMAND ${CMAKE_COMMAND} -DLIB=$<TARGET_FILE:vv_native>
             -P ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_exports.cmake)
