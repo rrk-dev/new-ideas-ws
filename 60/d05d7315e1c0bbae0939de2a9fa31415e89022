@@ -1,0 +1,97 @@
+app/lib/features/recording/data/pigeon/audio_import_api.g.dart
+  s_9f6fcf8c1840a0::t_caeaa482420441 1-182,188-192,194-198,200-209,211-224,226-234,236-335,337-356,358-370
+  s_9f6fcf8c1840a0::t_ea1a3db8e8bd96 336,357
+  s_9f6fcf8c1840a0::t_409d301deed1ae 183-187,193,199,210,225,235
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_9f6fcf8c1840a0::t_70f40ad55e6adf 19-20,66-67,148-149,318-319
+app/ios/Runner/Info.plist
+  s_9f6fcf8c1840a0::t_70f40ad55e6adf 33-59
+app/android/app/src/main/AndroidManifest.xml
+  s_9f6fcf8c1840a0::t_db946a632fbe6a 44-59
+app/lib/features/recording/data/audio_import_providers.g.dart
+  s_9f6fcf8c1840a0::t_4b54f09e0621ca 1-237
+app/ios/Runner/AudioImportHostApiImpl.swift
+  s_9f6fcf8c1840a0::t_70f40ad55e6adf 4,194-226
+  s_9f6fcf8c1840a0::t_409d301deed1ae 169
+  s_9f6fcf8c1840a0::t_46fb2d98820afa 1-3,5-168,170-193,227-228
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_e5c7f32e96f3ea 75-88
+app/ios/ShareExtension/ShareViewController.swift
+  s_9f6fcf8c1840a0::t_b87aaf1b9ed7c9 1-61
+app/ios/ShareExtension/ShareExtension.entitlements
+  s_9f6fcf8c1840a0::t_58a74101d392eb 4-7
+  s_9f6fcf8c1840a0::t_13fc561fcfe08d 1-3,8-15
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_e5c7f32e96f3ea 224-261
+app/test/unit/recording/audio_import_test.dart
+  s_9f6fcf8c1840a0::t_52f2dcf30920bf 1-126,145-159,161-162,166-192,194-201,205-209,212-229,235-308,312-314,326-341,349,351-381
+  s_9f6fcf8c1840a0::t_24b1ecaf0b64f3 127-144,160,163-165,202-204,210-211,230-234,309-311,315-325,342-348,350
+  s_9f6fcf8c1840a0::t_b60132d9ed27b6 193
+app/ios/Runner/AppDelegate.swift
+  s_9f6fcf8c1840a0::t_70f40ad55e6adf 41-44
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_e5c7f32e96f3ea 457-522
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/MainActivity.kt
+  s_9f6fcf8c1840a0::t_db946a632fbe6a 5-7,18-21,52-65,70-72
+docs/test-plans/device/AUD-06.md
+  s_9f6fcf8c1840a0::t_8a5bbf9760d9a2 1-28
+app/lib/features/recording/data/pigeon_audio_decoder.dart
+  s_9f6fcf8c1840a0::t_4b54f09e0621ca 70-71
+  s_9f6fcf8c1840a0::t_118192cff43b94 1-69,72-109
+tasks/02-audio/AUD-06-audio-import-conversion.md
+  s_9f6fcf8c1840a0::t_91b4a5ec273d70 11-15,21-59
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/audioimport/AudioImportHostApiImpl.kt
+  s_9f6fcf8c1840a0::t_52a734f9c3ed49 1-146,148-152,155-330
+  s_9f6fcf8c1840a0::t_db946a632fbe6a 147,153-154
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/audioimport/AudioImportApi.g.kt
+  s_9f6fcf8c1840a0::t_caeaa482420441 1-268,270-276,278,280-284,286-296,298-302,304-307,309-348,350-371,379-412,414-415,422,428-430
+  s_9f6fcf8c1840a0::t_ea1a3db8e8bd96 349,372-378,413,416-421,423-427
+  s_9f6fcf8c1840a0::t_409d301deed1ae 269,277,279,285,297,303,308
+app/pigeons/audio_import_api.dart
+  s_9f6fcf8c1840a0::t_caeaa482420441 1-24,26-59,65-69,71-79,81-90,92-93
+  s_9f6fcf8c1840a0::t_0ba7963fe9fdcd 25,60-64
+  s_9f6fcf8c1840a0::t_409d301deed1ae 70
+  s_9f6fcf8c1840a0::t_ea1a3db8e8bd96 80,91
+app/lib/features/recording/data/audio_import_providers.dart
+  s_9f6fcf8c1840a0::t_93ee4faf1c2ff9 1-83
+app/test/widget/audio_import_flow_test.dart
+  s_9f6fcf8c1840a0::t_35bfabe4a9dac0 1-121,129,131-171
+  s_9f6fcf8c1840a0::t_0edf0c99f9d533 122-128,130
+app/lib/features/recording/data/audio_import_service.dart
+  s_9f6fcf8c1840a0::t_0ba7963fe9fdcd 57-59,77
+  s_9f6fcf8c1840a0::t_4b54f09e0621ca 99-103,126-130
+  s_9f6fcf8c1840a0::t_d560693d5485b2 1-56,60-76,78-98,104-120,140,142-302
+  s_9f6fcf8c1840a0::t_0e2e5e981e3695 121-125,131-139,141
+app/lib/features/recording/domain/audio_import.dart
+  s_9f6fcf8c1840a0::t_dd43b6bdb28ce9 1-112,116-117,122-123,126-127,134-166
+  s_9f6fcf8c1840a0::t_079b9b4ea737a4 113-115,118-121,124-125,128-133
+docs/audio-import.md
+  s_9f6fcf8c1840a0::t_79b657c89859a8 1-55
+app/lib/features/recording/presentation/audio_import_flow.dart
+  s_9f6fcf8c1840a0::t_4b54f09e0621ca 6,92
+  s_9f6fcf8c1840a0::t_3dcfce6d0eba4d 1-5,7-91,93-204
+app/lib/features/recording/presentation/recording_screen.dart
+  s_9f6fcf8c1840a0::t_4b54f09e0621ca 6,27-43,46-53,56-57
+app/ios/ShareExtension/Info.plist
+  s_9f6fcf8c1840a0::t_924b543973021f 1-28
+app/ios/Runner/AudioImportApi.g.swift
+  s_9f6fcf8c1840a0::t_caeaa482420441 1-256,258-264,266-269,271-276,278-284,286-290,292-295,297-345,347-365,371-398,400-411,427-430
+  s_9f6fcf8c1840a0::t_409d301deed1ae 257,265,270,277,285,291,296
+  s_9f6fcf8c1840a0::t_ea1a3db8e8bd96 346,366-370,399,412-426
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "60d05d7315e1c0bbae0939de2a9fa31415e89022",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
