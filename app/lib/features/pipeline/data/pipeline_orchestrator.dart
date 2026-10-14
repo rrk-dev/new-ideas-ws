@@ -38,6 +38,8 @@ List<PipelineStep> defaultSteps({
     stt: engines.stt,
     config: config,
     clock: engines.clock,
+    vad: engines.vad,
+    windowCache: engines.windowCache,
   ),
   ExtractStep(db: db, llm: engines.llm, config: config, clock: engines.clock),
   RenderStep(db: db, paths: paths, renderer: engines.renderer),

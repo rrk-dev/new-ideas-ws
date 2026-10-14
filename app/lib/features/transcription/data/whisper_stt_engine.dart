@@ -22,7 +22,7 @@ typedef ModelPathResolver = Future<String?> Function();
 /// - [useGpu] is asked before each call (backend policy: background → CPU);
 ///   a change reloads the model with the other backend.
 /// - Calls are serialised (one whisper job per context).
-class WhisperSttEngine implements SttEngine {
+class WhisperSttEngine implements WindowedSttEngine {
   WhisperSttEngine({
     required this.modelId,
     required this.modelPath,
@@ -63,14 +63,50 @@ class WhisperSttEngine implements SttEngine {
     SttOptions options = const SttOptions(),
   }) {
     final run = _queue.then(
-      (_) => _transcribe(audioPath, cancel, onProgress, onSegment, options),
+      (_) => _transcribe(
+        [VvAudioRange(audioPath)],
+        const [0],
+        cancel,
+        onProgress,
+        onSegment,
+        options,
+      ),
+    );
+    _queue = run.then((_) {}, onError: (_) {});
+    return run;
+  }
+
+  /// STT-04: one decode over several chunk ranges (`vv_stt_transcribe_ranges`;
+  /// the bridge reads and concatenates the PCM, no temp WAVs). Segment times
+  /// are mapped to the recording timeline via each range's offset.
+  @override
+  Future<Result<Transcript>> transcribeRanges(
+    List<SttAudioRange> ranges, {
+    CancelToken? cancel,
+    ProgressCallback? onProgress,
+    SegmentCallback? onSegment,
+    SttOptions options = const SttOptions(),
+  }) {
+    final run = _queue.then(
+      (_) => _transcribe(
+        [
+          for (final r in ranges)
+            VvAudioRange(r.path, startMs: r.startMs, endMs: r.endMs),
+        ],
+        [for (final r in ranges) r.recordingOffsetMs],
+        cancel,
+        onProgress,
+        onSegment,
+        options,
+      ),
     );
     _queue = run.then((_) {}, onError: (_) {});
     return run;
   }
 
   Future<Result<Transcript>> _transcribe(
-    String audioPath,
+    List<VvAudioRange> ranges,
+    List<int> offsets,
     CancelToken? cancel,
     ProgressCallback? onProgress,
     SegmentCallback? onSegment,
@@ -91,15 +127,13 @@ class WhisperSttEngine implements SttEngine {
       if (cancel?.isCancelled ?? false) whisper.cancel();
     });
     try {
-      final events = whisper.transcribe([
-        VvAudioRange(audioPath),
-      ], params: _params(options));
+      final events = whisper.transcribe(ranges, params: _params(options));
       await for (final e in events) {
         switch (e) {
           case VvSttProgress(:final percent):
             onProgress?.call(percent / 100);
           case final VvSttSegment s:
-            final seg = _segment(s);
+            final seg = _segment(s, offsets);
             segments.add(seg);
             onSegment?.call(seg);
           case final VvSttDone d:
@@ -162,20 +196,30 @@ class WhisperSttEngine implements SttEngine {
     tokenTimestamps: o.tokenTimestamps,
   );
 
-  static TranscriptSegment _segment(VvSttSegment s) => TranscriptSegment(
-    start: Duration(milliseconds: s.t0SrcMs),
-    end: Duration(milliseconds: s.t1SrcMs),
-    text: s.text.trim(),
-    avgLogprob: s.avgLogprob,
-    noSpeechProb: s.noSpeechProb,
-    tokens: [
-      for (final t in s.tokens)
-        TranscriptToken(
-          text: t.text,
-          p: t.p,
-          start: t.t0Ms < 0 ? null : Duration(milliseconds: t.t0Ms),
-          end: t.t1Ms < 0 ? null : Duration(milliseconds: t.t1Ms),
-        ),
-    ],
-  );
+  static int _offset(List<int> offsets, int range) =>
+      range >= 0 && range < offsets.length ? offsets[range] : 0;
+
+  /// Segment times come mapped by the bridge (range + file time); token
+  /// times are positions in the concatenated input, so they are shifted by
+  /// the segment's own concat→recording delta (exact within one range).
+  static TranscriptSegment _segment(VvSttSegment s, List<int> offsets) {
+    final start = _offset(offsets, s.t0Range) + s.t0SrcMs;
+    final delta = start - s.t0Ms;
+    return TranscriptSegment(
+      start: Duration(milliseconds: start),
+      end: Duration(milliseconds: _offset(offsets, s.t1Range) + s.t1SrcMs),
+      text: s.text.trim(),
+      avgLogprob: s.avgLogprob,
+      noSpeechProb: s.noSpeechProb,
+      tokens: [
+        for (final t in s.tokens)
+          TranscriptToken(
+            text: t.text,
+            p: t.p,
+            start: t.t0Ms < 0 ? null : Duration(milliseconds: t.t0Ms + delta),
+            end: t.t1Ms < 0 ? null : Duration(milliseconds: t.t1Ms + delta),
+          ),
+      ],
+    );
+  }
 }

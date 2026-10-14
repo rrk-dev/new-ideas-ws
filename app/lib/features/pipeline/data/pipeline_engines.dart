@@ -1,9 +1,11 @@
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/llm_engine.dart';
 import 'package:vaultvoice/core/platform/stt_engine.dart';
+import 'package:vaultvoice/core/platform/vad_engine.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/render_write_steps.dart';
 import 'package:vaultvoice/features/pipeline/domain/heavy_model_gate.dart';
+import 'package:vaultvoice/features/transcription/data/window_result_cache.dart';
 
 /// Engine configuration the pipeline uses until the owning tasks provide
 /// richer settings (STT-07 model variants, PRF-01 profiles, EXP-03/04
@@ -38,6 +40,8 @@ class PipelineEngines {
     HeavyModelGate? gate,
     this.clock = const SystemClock(),
     this.renderer,
+    this.vad,
+    this.windowCache = const NoWindowResultCache(),
   }) : gate = gate ?? HeavyModelGate();
 
   final SttEngine stt;
@@ -50,6 +54,13 @@ class PipelineEngines {
   /// null keeps the FND-05 placeholder until the worker factory loads the
   /// built-in profiles and templates.
   final NoteRenderer? renderer;
+
+  /// VAD for recordings without stored speech spans (AUD-03); null = plan
+  /// windows from chunk boundaries (STT-04).
+  final VadEngine? vad;
+
+  /// Windows transcribed while recording (STT-04 near-real-time mode).
+  final WindowResultCache windowCache;
 }
 
 /// Creates the engines in the worker isolate. Must be sendable: a top-level

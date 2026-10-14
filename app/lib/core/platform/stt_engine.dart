@@ -94,3 +94,33 @@ abstract interface class SttEngine {
     SttOptions options = const SttOptions(),
   });
 }
+
+/// One file range of a transcription window (`vv_audio_range`, STT-04):
+/// `[startMs, endMs)` of [path]; file time 0 is at [recordingOffsetMs] on
+/// the recording timeline.
+class SttAudioRange {
+  const SttAudioRange({
+    required this.path,
+    required this.startMs,
+    required this.endMs,
+    this.recordingOffsetMs = 0,
+  });
+
+  final String path;
+  final int startMs;
+  final int endMs;
+  final int recordingOffsetMs;
+}
+
+/// An engine that decodes a window of several file ranges in one
+/// `whisper_full` (native concatenation, no temp WAVs — STT-04). Segment
+/// times are on the **recording** timeline (range offset + file time).
+abstract interface class WindowedSttEngine implements SttEngine {
+  Future<Result<Transcript>> transcribeRanges(
+    List<SttAudioRange> ranges, {
+    CancelToken? cancel,
+    ProgressCallback? onProgress,
+    SegmentCallback? onSegment,
+    SttOptions options = const SttOptions(),
+  });
+}
