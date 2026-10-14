@@ -1,0 +1,63 @@
+app/lib/features/extraction/domain/gpu_backend_guard.dart
+  s_9f6fcf8c1840a0::t_26a4160c67c548 1-142
+packages/vv_native/test/vv_native_host_test.dart
+  s_9f6fcf8c1840a0::t_26a4160c67c548 69-75
+app/test/fakes/fake_device_capabilities.dart
+  s_9f6fcf8c1840a0::t_26a4160c67c548 1-23
+native/bridge/vv_llama.cpp
+  s_9f6fcf8c1840a0::t_26a4160c67c548 24,26,99,102,107-120,186-189,312-315,321-342
+  s_9f6fcf8c1840a0::t_662874c2b4001e 343
+native/bridge/vv_llama.h
+  s_9f6fcf8c1840a0::t_26a4160c67c548 62-66,69-84
+  s_9f6fcf8c1840a0::t_927d6953cf9fd6 85
+docs/adr/ADR-LLM-03-android-cpu-gpu.md
+  s_9f6fcf8c1840a0::t_26a4160c67c548 1-89
+app/lib/core/platform/device_capabilities.dart
+  s_9f6fcf8c1840a0::t_26a4160c67c548 1-59
+app/test/unit/extraction/gpu_backend_guard_test.dart
+  s_9f6fcf8c1840a0::t_26a4160c67c548 1-204
+native/bridge/vv_cpu.c
+  s_9f6fcf8c1840a0::t_26a4160c67c548 1-87
+app/lib/features/extraction/data/file_backend_health_store.dart
+  s_9f6fcf8c1840a0::t_26a4160c67c548 1-52
+docs/test-plans/device/LLM-03.md
+  s_9f6fcf8c1840a0::t_26a4160c67c548 1-32
+packages/vv_native/lib/src/vv_bindings.g.dart
+  s_9f6fcf8c1840a0::t_26a4160c67c548 340-344,354-387,816-823
+packages/vv_native/lib/vv_native.dart
+  s_9f6fcf8c1840a0::t_26a4160c67c548 117-127
+  s_9f6fcf8c1840a0::t_129dcaa786102c 128
+native/bridge/vv_exports.txt
+  s_9f6fcf8c1840a0::t_26a4160c67c548 24-25
+native/tests/cpu_test.c
+  s_9f6fcf8c1840a0::t_26a4160c67c548 1-119
+tasks/04-llm/LLM-03-llama-android-build.md
+  s_9f6fcf8c1840a0::t_26a4160c67c548 4,11-14,22-36
+app/integration_test/llm_android_test.dart
+  s_9f6fcf8c1840a0::t_26a4160c67c548 1-101
+native/bridge/vv_cpu.h
+  s_9f6fcf8c1840a0::t_26a4160c67c548 1-44
+app/lib/features/extraction/data/native_device_capabilities.dart
+  s_9f6fcf8c1840a0::t_26a4160c67c548 1-22
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_26a4160c67c548 138,201-205
+  s_9f6fcf8c1840a0::t_9115ce06e68bac 67-80
+native/bridge/vv_exports.map
+  s_9f6fcf8c1840a0::t_77580525208fe7 26-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "af1b63736acf0851da6ff01f134f944dcc365f1d",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
