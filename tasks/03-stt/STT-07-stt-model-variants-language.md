@@ -1,7 +1,7 @@
 # STT-07 — STT Model Variants & Language Support
 
 **Workstream:** STT | **Phase:** 2 | **Size:** S | **Depends on:** STT-03, MDL-01 | **Source:** §4.2, §7 (tiny/small for Free, high-accuracy for Pro)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-whisper-stt, vv-benchmark-eval, vv-model-delivery, vv-licensing-iap
 
 ## Goal
