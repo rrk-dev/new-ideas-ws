@@ -1,0 +1,19 @@
+tasks/07-export/EXP-07-template-editor-preview.md
+  s_9f6fcf8c1840a0::t_e0ffc45b218974 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5d70b0d6efa6a4f2fd8fd617dea26ce66ec5749b",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
