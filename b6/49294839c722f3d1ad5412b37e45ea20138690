@@ -1,0 +1,33 @@
+app/lib/features/export/data/export_providers.dart
+  s_df37079f2ae5c6::t_53cee37ba34c6f 18-21,26
+app/lib/features/export/data/bookmark_vault_writer.dart
+  s_df37079f2ae5c6::t_7af146130b5668 17-18,105-108
+app/lib/features/export/domain/vault_folder.dart
+  s_df37079f2ae5c6::t_e341fc54067520 9,19-20
+app/test/unit/export/macos_bookmark_test.dart
+  s_df37079f2ae5c6::t_f3bbee21a5a66a 1-144
+docs/test-plans/device/EXP-09.md
+  s_df37079f2ae5c6::t_36174c2487206b 1-19
+packages/vv_native/macos/MacBookmarkPanel.swift
+  s_df37079f2ae5c6::t_495dc37031ce5d 1-280
+packages/vv_native/macos/VaultFolder.entitlements
+  s_df37079f2ae5c6::t_f6d17be3ec109c 1-10
+tasks/07-export/EXP-09-macos-folder-bookmarks.md
+  s_df37079f2ae5c6::t_a8335e84258871 4,11-15,24-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b649294839c722f3d1ad5412b37e45ea20138690",
+  "prompts": {},
+  "sessions": {
+    "s_df37079f2ae5c6": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "30e9ce2a-51a4-4702-8bf5-fb5b670edb58",
+        "model": "auto-smart"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
