@@ -274,6 +274,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notificationChannelProcessing => 'Processing';
 
   @override
+  String get notificationProcessingOngoingTitle => 'Processing your recording';
+
+  @override
+  String get notificationProcessingOngoingBody =>
+      'Transcription runs on this device.';
+
+  @override
   String get jobQueued => 'Queued';
 
   @override

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vaultvoice/features/pipeline/data/background_providers.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_isolate.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_providers.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
@@ -29,7 +30,16 @@ class _ProcessingServicesHostState extends ConsumerState<ProcessingServicesHost>
     WidgetsBinding.instance.addObserver(this);
     // After the first frame so the router exists for launch deep links.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) ref.read(processingMonitorProvider).start().ignore();
+      if (!mounted) return;
+      ref.read(processingMonitorProvider).start().ignore();
+      // FND-08: OS keep-alive, power/thermal holds, deferred processing.
+      final guard = ref.read(backgroundProcessingGuardProvider)
+        ..setForeground(
+          foreground:
+              WidgetsBinding.instance.lifecycleState ==
+              AppLifecycleState.resumed,
+        );
+      guard.start().ignore();
     });
   }
 
@@ -50,9 +60,15 @@ class _ProcessingServicesHostState extends ConsumerState<ProcessingServicesHost>
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) => _toWorker(
-    (w) => w.setForeground(foreground: state == AppLifecycleState.resumed),
-  );
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final foreground = state == AppLifecycleState.resumed;
+    _toWorker((w) => w.setForeground(foreground: foreground));
+    if (ref.exists(backgroundProcessingGuardProvider)) {
+      ref
+          .read(backgroundProcessingGuardProvider)
+          .setForeground(foreground: foreground);
+    }
+  }
 
   @override
   void didHaveMemoryPressure() => _toWorker((w) => w.memoryPressure());

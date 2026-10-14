@@ -96,6 +96,10 @@
     "placeholders": {"title": {"type": "String"}}
   },
   "notificationChannelProcessing": "Processing",
+  "notificationProcessingOngoingTitle": "Processing your recording",
+  "@notificationProcessingOngoingTitle": {"description": "Ongoing (foreground service) notification while a recording is transcribed or extracted. Generic: never shows content."},
+  "notificationProcessingOngoingBody": "Transcription runs on this device.",
+  "@notificationProcessingOngoingBody": {"description": "Body of the ongoing processing notification."},
 
   "jobQueued": "Queued",
   "jobTranscribing": "Transcribing",

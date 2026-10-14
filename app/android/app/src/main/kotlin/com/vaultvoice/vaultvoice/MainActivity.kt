@@ -19,7 +19,8 @@ class MainActivity : FlutterActivity() {
     override fun provideFlutterEngine(context: Context): FlutterEngine? = RetainedEngine.engine
 
     override fun shouldDestroyEngineWithHost(): Boolean {
-        if (RecordingService.isRunning) {
+        // FND-08: likewise while the processing service runs the pipeline.
+        if (RecordingService.isRunning || ProcessingService.isRunning) {
             RetainedEngine.engine = flutterEngine
             return false
         }
@@ -35,6 +36,10 @@ class MainActivity : FlutterActivity() {
         flutterEngine.plugins.add(ModelDownloadPlugin())
         // AUD-01: free-space checks for the recording storage policy.
         flutterEngine.plugins.add(StorageInfoPlugin())
+        // FND-08: processing foreground service, power/thermal conditions.
+        if (!flutterEngine.plugins.has(ProcessingPlugin::class.java)) {
+            flutterEngine.plugins.add(ProcessingPlugin())
+        }
         // AUD-05: microphone foreground service + ongoing notification.
         if (!flutterEngine.plugins.has(RecordingIndicatorPlugin::class.java)) {
             flutterEngine.plugins.add(RecordingIndicatorPlugin())

@@ -532,6 +532,18 @@ abstract class AppLocalizations {
   /// **'Processing'**
   String get notificationChannelProcessing;
 
+  /// Ongoing (foreground service) notification while a recording is transcribed or extracted. Generic: never shows content.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing your recording'**
+  String get notificationProcessingOngoingTitle;
+
+  /// Body of the ongoing processing notification.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcription runs on this device.'**
+  String get notificationProcessingOngoingBody;
+
   /// No description provided for @jobQueued.
   ///
   /// In en, this message translates to:
