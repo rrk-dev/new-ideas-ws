@@ -56,31 +56,30 @@ final class DeviceProfileProvider
 String _$deviceProfileHash() => r'0c0d71138dcd46fda64e5596f30604de96079c31';
 
 /// The active signed catalog (bundled until a newer one was fetched), or
-/// null when even the bundled catalog failed verification.
+/// null when even the bundled catalog failed verification. [refresh]
+/// fetches a newer signed catalog through the gateway (MDL-03 "Check for
+/// updates"); a rejected or unreachable catalog keeps the current one.
 
-@ProviderFor(activeCatalog)
+@ProviderFor(ActiveCatalog)
 final activeCatalogProvider = ActiveCatalogProvider._();
 
 /// The active signed catalog (bundled until a newer one was fetched), or
-/// null when even the bundled catalog failed verification.
-
+/// null when even the bundled catalog failed verification. [refresh]
+/// fetches a newer signed catalog through the gateway (MDL-03 "Check for
+/// updates"); a rejected or unreachable catalog keeps the current one.
 final class ActiveCatalogProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<ModelCatalog?>,
-          ModelCatalog?,
-          FutureOr<ModelCatalog?>
-        >
-    with $FutureModifier<ModelCatalog?>, $FutureProvider<ModelCatalog?> {
+    extends $AsyncNotifierProvider<ActiveCatalog, ModelCatalog?> {
   /// The active signed catalog (bundled until a newer one was fetched), or
-  /// null when even the bundled catalog failed verification.
+  /// null when even the bundled catalog failed verification. [refresh]
+  /// fetches a newer signed catalog through the gateway (MDL-03 "Check for
+  /// updates"); a rejected or unreachable catalog keeps the current one.
   ActiveCatalogProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
         name: r'activeCatalogProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -90,17 +89,33 @@ final class ActiveCatalogProvider
 
   @$internal
   @override
-  $FutureProviderElement<ModelCatalog?> $createElement(
-    $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
-
-  @override
-  FutureOr<ModelCatalog?> create(Ref ref) {
-    return activeCatalog(ref);
-  }
+  ActiveCatalog create() => ActiveCatalog();
 }
 
-String _$activeCatalogHash() => r'0776c6632ec8277ec8438dc07538aed365a0fe99';
+String _$activeCatalogHash() => r'51285766948eb9c24175929c357a5c8c00607664';
+
+/// The active signed catalog (bundled until a newer one was fetched), or
+/// null when even the bundled catalog failed verification. [refresh]
+/// fetches a newer signed catalog through the gateway (MDL-03 "Check for
+/// updates"); a rejected or unreachable catalog keeps the current one.
+
+abstract class _$ActiveCatalog extends $AsyncNotifier<ModelCatalog?> {
+  FutureOr<ModelCatalog?> build();
+  @$mustCallSuper
+  @override
+  WhenComplete runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<ModelCatalog?>, ModelCatalog?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<ModelCatalog?>, ModelCatalog?>,
+              AsyncValue<ModelCatalog?>,
+              Object?,
+              Object?
+            >;
+    return element.handleCreate(ref, build);
+  }
+}
 
 /// Recommended STT + LLM for this device and the current plan.
 

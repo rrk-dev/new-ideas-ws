@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart' show AppBar, Scaffold;
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_shell.dart';
 import 'package:vaultvoice/features/library/presentation/library_screen.dart';
-import 'package:vaultvoice/features/models/presentation/model_import_tile.dart';
+import 'package:vaultvoice/features/models/presentation/models_screen.dart';
 import 'package:vaultvoice/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_queue_screen.dart';
 import 'package:vaultvoice/features/pipeline/presentation/recording_status_screen.dart';
@@ -155,16 +153,14 @@ class SettingsRoute extends GoRouteData with $SettingsRoute {
       const SettingsScreen();
 }
 
-/// Settings → Processing → Models. Until model management (MDL-03)
-/// provides the full screen it hosts the offline import entry (MDL-04).
+/// Settings → Processing → Models: model management (MDL-03), including
+/// the offline import entry (MDL-04).
 class ModelsSettingsRoute extends GoRouteData with $ModelsSettingsRoute {
   const ModelsSettingsRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => Scaffold(
-    appBar: AppBar(title: Text(context.l10n.settingsModels)),
-    body: ListView(children: const [ModelImportTile()]),
-  );
+  Widget build(BuildContext context, GoRouterState state) =>
+      const ModelsScreen();
 }
 
 class VaultFoldersRoute extends GoRouteData with $VaultFoldersRoute {

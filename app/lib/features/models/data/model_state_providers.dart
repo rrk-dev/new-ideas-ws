@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
+import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/features/extraction/data/device_profile_probe.dart';
 import 'package:vaultvoice/features/extraction/data/native_device_capabilities.dart';
 import 'package:vaultvoice/features/extraction/domain/device_tiering.dart';
@@ -30,11 +31,22 @@ Future<DeviceProfile?> deviceProfile(Ref ref) async {
 }
 
 /// The active signed catalog (bundled until a newer one was fetched), or
-/// null when even the bundled catalog failed verification.
-@riverpod
-Future<ModelCatalog?> activeCatalog(Ref ref) async {
-  final repo = ref.watch(catalogRepositoryProvider);
-  return repo.current ?? (await repo.loadBundled()).valueOrNull;
+/// null when even the bundled catalog failed verification. [refresh]
+/// fetches a newer signed catalog through the gateway (MDL-03 "Check for
+/// updates"); a rejected or unreachable catalog keeps the current one.
+@Riverpod(keepAlive: true)
+class ActiveCatalog extends _$ActiveCatalog {
+  @override
+  Future<ModelCatalog?> build() async {
+    final repo = ref.watch(catalogRepositoryProvider);
+    return repo.current ?? (await repo.loadBundled()).valueOrNull;
+  }
+
+  Future<Result<ModelCatalog>> refresh() async {
+    final result = await ref.read(catalogRepositoryProvider).refresh();
+    if (result case Ok(:final value)) state = AsyncData(value);
+    return result;
+  }
 }
 
 /// Recommended STT + LLM for this device and the current plan.
