@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:vaultvoice/core/platform/backend_policy.dart';
+import 'package:vaultvoice/core/platform/device_capabilities.dart';
 
 /// Which llama.cpp backend configuration a run should request from the
 /// native bridge (`vv_llm_backend_params` in `native/bridge/vv_llama.h`).
@@ -59,52 +61,50 @@ enum FlashAttn {
   final int native;
 }
 
-/// Platform the LLM runs on (kept separate from `dart:io` for testability).
-enum LlmPlatform { ios, android, host }
-
-/// Chooses the backend for an LLM run (LLM-02 iOS, LLM-03 Android).
+/// Per-context LLM backend from the **shared** STT/LLM policy
+/// ([chooseBackend], ADR-STT-02; unified in ADR-INT-W2 — this replaces
+/// LLM-02's `LlmBackendPolicy` and LLM-03's `chooseAndroidBackend`).
 ///
-/// iOS: Metal with full offload while the app is in the foreground; **CPU
-/// only in the background** — iOS refuses GPU command submission from
-/// background apps ("Insufficient Permission (to submit GPU work from
-/// background)"), so a background job must never attach Metal.
-///
-/// Android: GPU only when the device's GPU is allowlisted (LLM-03,
-/// `gpuAllowed`); otherwise CPU.
-final class LlmBackendPolicy {
-  const LlmBackendPolicy();
-
-  LlmBackendChoice choose({
-    required LlmPlatform platform,
-    required bool foreground,
-    bool gpuAllowed = true,
-    int gpuDevice = -1,
-  }) {
-    switch (platform) {
-      case LlmPlatform.ios:
-        if (!foreground) {
-          return const LlmBackendChoice(
-            useGpu: false,
-            reason: 'ios-background-cpu',
-          );
-        }
-        return LlmBackendChoice(
-          useGpu: gpuAllowed,
-          gpuDevice: gpuDevice,
-          reason: gpuAllowed ? 'ios-foreground-metal' : 'ios-gpu-disabled',
-        );
-      case LlmPlatform.android:
-        return LlmBackendChoice(
-          useGpu: gpuAllowed,
-          gpuDevice: gpuAllowed ? gpuDevice : -1,
-          reason: gpuAllowed ? 'android-gpu-allowlisted' : 'android-cpu',
-        );
-      case LlmPlatform.host:
-        return LlmBackendChoice(
-          useGpu: gpuAllowed,
-          gpuDevice: gpuDevice,
-          reason: 'host',
-        );
+/// - `null` when the CPU lacks features the native build needs: the engine
+///   must refuse to start (no SIGILL, LLM-03).
+/// - [userForceCpu], background (hard rule: iOS refuses GPU work from
+///   background apps — "Insufficient Permission (to submit GPU work from
+///   background)") or no permitted, healthy GPU ⇒ CPU.
+/// - Otherwise the first GPU device (registry order) whose backend is built,
+///   matches [rules] (deny wins) and is not in [crashedBackends] (the shared
+///   [GpuTrialStore] sentinel) is offloaded with `n_gpu_layers = -1`.
+LlmBackendChoice? chooseLlmBackend({
+  required DeviceCapabilities caps,
+  required DevicePlatform platform,
+  required bool foreground,
+  Set<GpuBackend> crashedBackends = const {},
+  bool userForceCpu = false,
+  GpuRules rules = kDefaultGpuRules,
+}) {
+  if (!caps.cpuSupported()) return null;
+  final gpus = caps.gpuDevices();
+  BackendChoice decide(GpuDevice? d) => chooseBackend(
+    BackendPolicyInput(
+      platform: platform,
+      foreground: foreground,
+      builtGpuBackends: {?d?.backend},
+      gpu: d?.info,
+      crashedBackends: crashedBackends,
+      forceCpu: userForceCpu,
+    ),
+    rules: rules,
+  );
+  String reason(BackendChoice c) => '${platform.name}-${c.reason}';
+  for (final d in gpus) {
+    final c = decide(d);
+    if (c.useGpu) {
+      return LlmBackendChoice(
+        useGpu: true,
+        gpuDevice: d.index,
+        reason: reason(c),
+      );
     }
   }
+  final cpu = decide(gpus.isEmpty ? null : gpus.first);
+  return LlmBackendChoice(useGpu: false, reason: reason(cpu));
 }

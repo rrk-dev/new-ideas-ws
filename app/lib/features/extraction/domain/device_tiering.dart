@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:vaultvoice/core/platform/device_capabilities.dart';
+import 'package:vaultvoice/features/licensing/domain/entitlement.dart';
+import 'package:vaultvoice/features/licensing/domain/entitlement_service.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
 
 /// Thermal state reported by the OS (iOS `ProcessInfo.thermalState`,
@@ -52,14 +54,18 @@ int defaultContextFor(DeviceTier tier) => switch (tier) {
   DeviceTier.high => 8192,
 };
 
-/// Plan gate for the LLM size class. Real source: LIC-01's
-/// `EntitlementService.has(Feature.largeLlm)` (`task/LIC-01-entitlements`,
-/// not merged here) — wire it as `LlmPlanGate(largeLlm: () => svc.has(...))`.
+/// Plan gate for the LLM size class, backed by LIC-01's
+/// `EntitlementService.has(Feature.largeLlm)` ([LlmPlanGate.entitlements],
+/// integration wave 2).
 @immutable
 final class LlmPlanGate {
   const LlmPlanGate({required this.largeLlm});
 
-  /// Free plan (also the safe default before LIC-01 is wired).
+  /// The real gate: evaluated on every call, so plan changes / expiry apply.
+  factory LlmPlanGate.entitlements(EntitlementService entitlements) =>
+      LlmPlanGate(largeLlm: () => entitlements.has(Feature.largeLlm));
+
+  /// Free plan (tests; commercial Free resolves to the same via LIC-01).
   factory LlmPlanGate.free() => LlmPlanGate(largeLlm: () => false);
 
   /// Free plan → false: capped at the 1B-class model on every tier.

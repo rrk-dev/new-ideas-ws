@@ -100,12 +100,14 @@ final class ManagedSettingsProvider
 
 String _$managedSettingsHash() => r'f10e70a1d25806f2fc4786b94e41cd939715d4e3';
 
-/// Licence summary + actions; LIC-01/02/03 override the port.
+/// Licence summary + actions: LIC-01's entitlement service (integration
+/// wave 2); LIC-02/03 add restore / enterprise install behind the same port.
 
 @ProviderFor(licenseSettingsPort)
 final licenseSettingsPortProvider = LicenseSettingsPortProvider._();
 
-/// Licence summary + actions; LIC-01/02/03 override the port.
+/// Licence summary + actions: LIC-01's entitlement service (integration
+/// wave 2); LIC-02/03 add restore / enterprise install behind the same port.
 
 final class LicenseSettingsPortProvider
     extends
@@ -115,7 +117,8 @@ final class LicenseSettingsPortProvider
           LicenseSettingsPort
         >
     with $Provider<LicenseSettingsPort> {
-  /// Licence summary + actions; LIC-01/02/03 override the port.
+  /// Licence summary + actions: LIC-01's entitlement service (integration
+  /// wave 2); LIC-02/03 add restore / enterprise install behind the same port.
   LicenseSettingsPortProvider._()
     : super(
         from: null,
@@ -151,7 +154,7 @@ final class LicenseSettingsPortProvider
 }
 
 String _$licenseSettingsPortHash() =>
-    r'1c21dc6e3ffdbf6dfebdd5d58ff5f20f0875faf2';
+    r'96e15c1171909dd35255048086659008f354bc56';
 
 @ProviderFor(licenseSummary)
 final licenseSummaryProvider = LicenseSummaryProvider._();

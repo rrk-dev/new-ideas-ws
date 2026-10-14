@@ -64,20 +64,6 @@ if(ANDROID AND VV_ANDROID_CPU_ARCH)
   set(GGML_CPU_ARM_ARCH "${VV_ANDROID_CPU_ARCH}")
 endif()
 
-# Optional Android GPU backends (LLM-03, ADR-LLM-03). Off by default: every
-# device runs the CPU backend until a GPU family passes the device rows and is
-# added to the Dart allowlist (kAndroidGpuAllowlist). The bridge never fails
-# when a backend finds no usable device — it falls back to CPU.
-#  - Vulkan: needs glslc (NDK shader-tools) + Vulkan-Headers matching the pin.
-#  - OpenCL (Adreno): needs Khronos OpenCL headers in the NDK sysroot and an
-#    NDK-built libOpenCL.so ICD loader (llama.cpp docs/backend/OPENCL.md).
-option(VV_ANDROID_VULKAN "Android: build the ggml Vulkan backend" OFF)
-option(VV_ANDROID_OPENCL "Android: build the ggml OpenCL (Adreno) backend" OFF)
-if(ANDROID)
-  set(GGML_VULKAN ${VV_ANDROID_VULKAN})
-  set(GGML_OPENCL ${VV_ANDROID_OPENCL})
-endif()
-
 # The single ggml. Both projects skip their own copy when a `ggml` target
 # exists (`if (NOT TARGET ggml ...)` in llama.cpp/CMakeLists.txt:220 and
 # whisper.cpp/CMakeLists.txt:160). Their ggml trees are identical at the pins.
@@ -116,6 +102,19 @@ if(VV_GGML_BACKEND_DL)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
   endif()
 endif()
+# LLM-03 originally added static VV_ANDROID_VULKAN / VV_ANDROID_OPENCL options.
+# Integration wave 2 (docs/adr/ADR-INT-W2-integration.md) keeps only STT-02's
+# runtime-loaded design: the old names are accepted as aliases of
+# VV_GGML_VULKAN / VV_GGML_OPENCL (DL modules, so VV_GGML_BACKEND_DL=ON is
+# still required) and never build a GPU backend statically into vv_native.
+foreach(_vv_gpu VULKAN OPENCL)
+  if(DEFINED VV_ANDROID_${_vv_gpu})
+    message(DEPRECATION "VV_ANDROID_${_vv_gpu} is an alias of VV_GGML_${_vv_gpu} (runtime-loaded module)")
+    if(VV_ANDROID_${_vv_gpu})
+      set(VV_GGML_${_vv_gpu} ON)
+    endif()
+  endif()
+endforeach()
 if((VV_GGML_VULKAN OR VV_GGML_OPENCL) AND NOT VV_GGML_BACKEND_DL)
   message(FATAL_ERROR "GPU backends must be runtime-optional: set VV_GGML_BACKEND_DL=ON")
 endif()

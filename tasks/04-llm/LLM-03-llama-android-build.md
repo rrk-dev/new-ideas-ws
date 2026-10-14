@@ -34,3 +34,4 @@ llama.cpp runs on Android with the best stable backend per SoC.
 - CI / FND-06 owner: forward `VV_ANDROID_VULKAN` / `VV_ANDROID_OPENCL` in `native/build.sh android` and add an NDK build of the Vulkan variant (needs `glslc` + Vulkan-Headers); OpenCL needs the Khronos headers + ICD loader.
 - QA-05: fill the device-matrix "Dotprod" column from the `[LLM-03/AC2]` B1 rows before switching the release build to `armv8.2-a+dotprod`.
 - LLM-07: Android pre-load RAM check (memory class / `availMem`) using the CPU-path footprint (≈ full model size).
+- Integration wave 2 (ADR-INT-W2): GPU options unified onto STT-02's runtime-loaded modules (`VV_ANDROID_VULKAN/OPENCL` are deprecated aliases of `VV_GGML_VULKAN/OPENCL`); `GpuBackendGuard`/`FileBackendHealthStore`/`GpuAllowlist`/`chooseAndroidBackend` replaced by the shared `core/platform/backend_policy.dart` + `chooseLlmBackend`; the `[LLM-03/AC2]` unit tests now live in `app/test/unit/extraction/llm_backend_choice_test.dart`.

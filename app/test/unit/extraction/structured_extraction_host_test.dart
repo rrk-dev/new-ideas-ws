@@ -11,6 +11,7 @@ import 'package:vaultvoice/features/extraction/domain/llm_backend_policy.dart';
 import 'package:vaultvoice/features/extraction/domain/llm_service.dart';
 import 'package:vaultvoice/features/extraction/domain/output_schema_validator.dart';
 import 'package:vaultvoice/features/extraction/domain/structured_extractor.dart';
+import 'package:vaultvoice/features/profiles/domain/profile_grammar.dart';
 import 'package:vv_native/vv_native.dart';
 
 /// LLM-05 end-to-end on the host: profile-style schema → GBNF (vv_jsg) →
@@ -82,9 +83,15 @@ void main() {
   String transcript(int i) =>
       [for (var k = 0; k < 4; k++) line(i, k)].join('\n');
 
+  test('is the PRF-01 SchemaGrammarConverter (integration wave 2)', () {
+    expect(NativeSchemaGrammarConverter(), isA<SchemaGrammarConverter>());
+  });
+
   test('vv_jsg converts the profile schema', () async {
-    final g = await NativeSchemaGrammarConverter(hostPath: lib.absolute.path)
-        .toGbnf(jsonEncode(schema));
+    final SchemaGrammarConverter converter = NativeSchemaGrammarConverter(
+      hostPath: lib.absolute.path,
+    );
+    final g = await converter.toGbnf(jsonEncode(schema));
     expect(g.valueOrNull, contains('root ::='));
     final bad = await NativeSchemaGrammarConverter(hostPath: lib.absolute.path)
         .toGbnf('{not json');

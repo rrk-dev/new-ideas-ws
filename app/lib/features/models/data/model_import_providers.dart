@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/network/model_hosts.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
+import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
 import 'package:vaultvoice/features/models/data/catalog_providers.dart';
 import 'package:vaultvoice/features/models/data/download_providers.dart';
 import 'package:vaultvoice/features/models/data/model_importer.dart';
@@ -35,11 +36,10 @@ class FileSelectorModelPicker implements ModelFilePicker {
 @Riverpod(keepAlive: true)
 ModelFilePicker modelFilePicker(Ref ref) => const FileSelectorModelPicker();
 
-/// PLACEHOLDER until LIC-01: denies custom models. LIC-01 overrides this
-/// with the real Pro entitlement check.
+/// Custom-model entitlement from LIC-01 (`Feature.sideloadCustomModel`).
 @Riverpod(keepAlive: true)
 CustomModelEntitlement customModelEntitlement(Ref ref) =>
-    const DenyCustomModels();
+    EntitlementCustomModels(ref.watch(entitlementServiceProvider));
 
 /// `network_disabled` (offline mode / MDM): the UI hides downloads and
 /// offers import only.

@@ -22,6 +22,8 @@
 
 #include <stdint.h>
 
+#include "vv_error.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -37,13 +39,13 @@ extern "C" {
 /* Format revision of the text report (first line "... report v<N>"). */
 #define VV_CRASH_REPORT_VERSION 1
 
-/* Return codes. Values match the bridge-wide codes planned for vv_error.h
- * (vv-ffi-bridge: INVALID_ARG -1, IO -5, BUSY -7, INTERNAL -8). */
-#define VV_CRASH_OK 0
-#define VV_CRASH_E_INVALID_ARG (-1)
-#define VV_CRASH_E_IO (-5)
-#define VV_CRASH_E_BUSY (-7)
-#define VV_CRASH_E_INTERNAL (-8)
+/* Return codes: aliases of the single bridge-wide vv_error.h (integration
+ * wave 2) so the crash API and the engines share one code space. */
+#define VV_CRASH_OK VV_OK
+#define VV_CRASH_E_INVALID_ARG VV_E_INVALID_ARG
+#define VV_CRASH_E_IO VV_E_IO
+#define VV_CRASH_E_BUSY VV_E_BUSY
+#define VV_CRASH_E_INTERNAL VV_E_INTERNAL
 
 /* Kinds for vv_crash_force(). */
 #define VV_CRASH_FORCE_SEGV 1  /* write through a null pointer -> SIGSEGV/SIGBUS */

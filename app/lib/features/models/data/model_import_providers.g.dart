@@ -51,14 +51,12 @@ final class ModelFilePickerProvider
 
 String _$modelFilePickerHash() => r'cebddab64a0fa620b9ded7f6859233f26cb692fa';
 
-/// PLACEHOLDER until LIC-01: denies custom models. LIC-01 overrides this
-/// with the real Pro entitlement check.
+/// Custom-model entitlement from LIC-01 (`Feature.sideloadCustomModel`).
 
 @ProviderFor(customModelEntitlement)
 final customModelEntitlementProvider = CustomModelEntitlementProvider._();
 
-/// PLACEHOLDER until LIC-01: denies custom models. LIC-01 overrides this
-/// with the real Pro entitlement check.
+/// Custom-model entitlement from LIC-01 (`Feature.sideloadCustomModel`).
 
 final class CustomModelEntitlementProvider
     extends
@@ -68,8 +66,7 @@ final class CustomModelEntitlementProvider
           CustomModelEntitlement
         >
     with $Provider<CustomModelEntitlement> {
-  /// PLACEHOLDER until LIC-01: denies custom models. LIC-01 overrides this
-  /// with the real Pro entitlement check.
+  /// Custom-model entitlement from LIC-01 (`Feature.sideloadCustomModel`).
   CustomModelEntitlementProvider._()
     : super(
         from: null,
@@ -105,7 +102,7 @@ final class CustomModelEntitlementProvider
 }
 
 String _$customModelEntitlementHash() =>
-    r'0ab5f5a540e5a7c0a91f2b53ecb73cd0b91a8035';
+    r'8d1d19f244ff8429c1e380cb98f581d49c0d3afb';
 
 /// `network_disabled` (offline mode / MDM): the UI hides downloads and
 /// offers import only.
