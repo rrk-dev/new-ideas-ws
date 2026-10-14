@@ -1,0 +1,20 @@
+{
+  "title": "Flaky end to end tests",
+  "context": "End to end tests are flaky, mostly because of fixed sleeps.",
+  "concepts": [
+    "condition-based waiting"
+  ],
+  "api_designs": [],
+  "tradeoffs": [],
+  "decisions": [
+    "Ban fixed sleeps in tests"
+  ],
+  "todos": [
+    {
+      "task": "Replace the sleeps in the checkout tests",
+      "owner": "Diego",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

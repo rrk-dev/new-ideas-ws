@@ -1,0 +1,15 @@
+{
+  "product": "hair dryer",
+  "brand": "Fabrikam",
+  "model": "Breeze 2",
+  "serial_number": null,
+  "purchase_date": "today",
+  "retailer": "Home Hub",
+  "price": "49 dollars",
+  "warranty_period": {
+    "value": 2,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": null
+}

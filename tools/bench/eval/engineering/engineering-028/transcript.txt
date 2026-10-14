@@ -1,0 +1,4 @@
+[00:00:00] Mei: The PDF library we use is no longer maintained.
+[00:00:04] Tomas: We can fork it or switch to another library.
+[00:00:07] Mei: Forking means we own the bugs.
+[00:00:09] Tomas: Then we switch, I'll compare two alternatives by Thursday.

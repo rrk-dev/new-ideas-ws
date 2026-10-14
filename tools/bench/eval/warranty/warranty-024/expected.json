@@ -1,0 +1,15 @@
+{
+  "product": "mattress",
+  "brand": "Proseware Sleep",
+  "model": "Cloud",
+  "serial_number": null,
+  "purchase_date": "the fifth",
+  "retailer": "Northwind Furniture",
+  "price": "800 dollars",
+  "warranty_period": {
+    "value": 10,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": null
+}

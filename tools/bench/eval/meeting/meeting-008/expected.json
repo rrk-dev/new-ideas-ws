@@ -1,0 +1,23 @@
+{
+  "title": "Workshop logistics",
+  "summary": "The workshop will be remote instead of in the conference room. Kofi will send a video call link to everyone today.",
+  "attendees": [
+    "Nadia",
+    "Kofi"
+  ],
+  "decisions": [
+    "The workshop will be remote"
+  ],
+  "action_items": [
+    {
+      "task": "Send a video call link to everyone",
+      "owner": "Kofi",
+      "due": "today",
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "workshop logistics"
+  ]
+}

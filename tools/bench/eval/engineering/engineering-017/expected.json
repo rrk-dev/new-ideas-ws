@@ -1,0 +1,48 @@
+{
+  "title": "Notification system design",
+  "context": "Designing push, email and in-app notifications.",
+  "concepts": [
+    "notification service",
+    "channel plugins",
+    "exponential backoff"
+  ],
+  "api_designs": [
+    {
+      "name": "Notifications",
+      "description": "Sends a message to a user on a channel.",
+      "endpoints_or_signatures": [
+        "POST /notifications"
+      ]
+    }
+  ],
+  "tradeoffs": [
+    {
+      "option": "Channels as plugins",
+      "pros": [
+        "keeps channels separate"
+      ],
+      "cons": [
+        "needs a common retry policy"
+      ]
+    }
+  ],
+  "decisions": [
+    "One notification service with channels as plugins",
+    "Use exponential backoff for all channels"
+  ],
+  "todos": [
+    {
+      "task": "Write the plugin interface",
+      "owner": "Mei",
+      "t": null
+    },
+    {
+      "task": "Build the email channel",
+      "owner": "Ravi",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "How do we handle user preferences for quiet hours?"
+  ]
+}

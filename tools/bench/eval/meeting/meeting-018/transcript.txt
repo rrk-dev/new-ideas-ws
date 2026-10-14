@@ -1,0 +1,5 @@
+[00:00:00] Priya: The customer wants offline mode in the mobile app.
+[00:00:03] Omar: Did they say when they need it?
+[00:00:05] Priya: Before their trade show in June.
+[00:00:07] Omar: I'll estimate the offline mode work by Thursday.
+[00:00:11] Priya: And I'll ask them which screens must work offline.

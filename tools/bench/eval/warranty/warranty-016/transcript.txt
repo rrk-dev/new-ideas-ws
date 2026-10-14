@@ -1,0 +1,4 @@
+[00:00:00] Camera body, Litware shot X2.
+[00:00:03] Serial L, X2, 0, 0, 4, 9, 1.
+[00:00:09] Bought from Adventure Photo on 12 March for £1,150.
+[00:00:15] Warranty one year, support@support.litware.example.

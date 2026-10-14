@@ -1,0 +1,5 @@
+[00:00:00] Lena: Two decisions to make today.
+[00:00:02] Diego: First, we keep the dark theme as the default.
+[00:00:06] Sam: Yes, dark theme stays default.
+[00:00:09] Lena: Second, we drop support for the old tablet app.
+[00:00:12] Diego: Agreed, we drop the old tablet app.

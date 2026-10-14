@@ -1,0 +1,33 @@
+{
+  "title": "Release plan",
+  "summary": "Tomas owns this release: he will tag the release candidate tomorrow, run smoke tests on Wednesday and publish on Friday if they pass.",
+  "attendees": [
+    "Mei",
+    "Tomas"
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "task": "Tag the release candidate",
+      "owner": "Tomas",
+      "due": "tomorrow",
+      "t": null
+    },
+    {
+      "task": "Run the smoke tests",
+      "owner": "Tomas",
+      "due": "Wednesday",
+      "t": null
+    },
+    {
+      "task": "Publish the release if the smoke tests pass",
+      "owner": "Tomas",
+      "due": "Friday",
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "release"
+  ]
+}

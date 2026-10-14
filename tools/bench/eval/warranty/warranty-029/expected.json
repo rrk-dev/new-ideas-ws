@@ -1,0 +1,17 @@
+{
+  "product": "built-in oven",
+  "brand": "Proseware",
+  "model": "Bake 60",
+  "serial_number": "PB6000317",
+  "purchase_date": "the second of February",
+  "retailer": "Kitchen Depot",
+  "price": "750 euros",
+  "warranty_period": {
+    "value": 5,
+    "unit": "years"
+  },
+  "support_contacts": [
+    "020 555 0166"
+  ],
+  "notes": null
+}

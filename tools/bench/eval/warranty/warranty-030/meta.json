@@ -1,0 +1,24 @@
+{
+  "id": "warranty-030",
+  "profile": "warranty",
+  "date": "2026-03-02T18:00:00",
+  "diarization": false,
+  "synthetic": true,
+  "tags": [
+    "speaker"
+  ],
+  "speakers": [
+    {
+      "label": "S1",
+      "name": "Owner",
+      "voice": "Tessa"
+    }
+  ],
+  "duration_s": 11.99,
+  "asr": {
+    "engine": "whisper.cpp d1be6fde",
+    "model": "ggml-base.en-q8_0.bin",
+    "model_sha256": "a4d4a0768075e13c",
+    "tts": "say"
+  }
+}

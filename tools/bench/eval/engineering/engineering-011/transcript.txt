@@ -1,0 +1,5 @@
+[00:00:00] Omar: The list endpoint returns everything at once, which is too slow.
+[00:00:04] Hana: Offset pagination is simple but breaks when items are inserted.
+[00:00:09] Omar: Cursor pagination is stable, get slash items with a cursor and a limit.
+[00:00:14] Hana: Let's use cursor pagination.
+[00:00:16] Omar: I'll update the client SDK to follow the cursor.

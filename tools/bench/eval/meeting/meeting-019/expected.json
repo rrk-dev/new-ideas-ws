@@ -1,0 +1,25 @@
+{
+  "title": "Backend hiring decision",
+  "summary": "Of three backend candidates, the team chose to make an offer to the second. Tomas will call the recruiter tomorrow morning. Whether to keep the other two in the pipeline is open.",
+  "attendees": [
+    "Hana",
+    "Tomas"
+  ],
+  "decisions": [
+    "Make an offer to the second candidate"
+  ],
+  "action_items": [
+    {
+      "task": "Call the recruiter",
+      "owner": "Tomas",
+      "due": "tomorrow morning",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "Should we keep the other two candidates in the pipeline?"
+  ],
+  "topics": [
+    "hiring"
+  ]
+}

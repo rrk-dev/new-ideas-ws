@@ -1,0 +1,17 @@
+{
+  "product": "electric toothbrush",
+  "brand": "Fabrikam",
+  "model": "Smile 9",
+  "serial_number": null,
+  "purchase_date": "two days ago",
+  "retailer": null,
+  "price": "79 euros",
+  "warranty_period": {
+    "value": 2,
+    "unit": "years"
+  },
+  "support_contacts": [
+    "1 800 555 0142"
+  ],
+  "notes": null
+}

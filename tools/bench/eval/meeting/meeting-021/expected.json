@@ -1,0 +1,23 @@
+{
+  "title": "Audit report deadline",
+  "summary": "The audit report deadline moved from Monday to Wednesday because the data came in late. Ravi will deliver it Wednesday.",
+  "attendees": [
+    "Mei",
+    "Ravi"
+  ],
+  "decisions": [
+    "Move the audit report deadline to Wednesday"
+  ],
+  "action_items": [
+    {
+      "task": "Deliver the audit report",
+      "owner": "Ravi",
+      "due": "Wednesday",
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "audit report"
+  ]
+}

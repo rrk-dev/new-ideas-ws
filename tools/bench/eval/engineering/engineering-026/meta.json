@@ -1,0 +1,29 @@
+{
+  "id": "engineering-026",
+  "profile": "engineering",
+  "date": "2026-03-02T14:00:00",
+  "diarization": true,
+  "synthetic": true,
+  "tags": [
+    "observability"
+  ],
+  "speakers": [
+    {
+      "label": "S1",
+      "name": "Nadia",
+      "voice": "Samantha"
+    },
+    {
+      "label": "S2",
+      "name": "Ravi",
+      "voice": "Daniel"
+    }
+  ],
+  "duration_s": 14.0,
+  "asr": {
+    "engine": "whisper.cpp d1be6fde",
+    "model": "ggml-base.en-q8_0.bin",
+    "model_sha256": "a4d4a0768075e13c",
+    "tts": "say"
+  }
+}

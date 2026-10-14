@@ -1,0 +1,24 @@
+{
+  "title": "Daily standup",
+  "summary": "Sam fixed the login bug and is working on crash reports. Lena finished the icons and starts the onboarding screens. Kofi is blocked on vendor API keys, and Mei will call the vendor today.",
+  "attendees": [
+    "Sam",
+    "Lena",
+    "Kofi",
+    "Mei"
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "task": "Call the vendor about the API keys",
+      "owner": "Mei",
+      "due": "today",
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "standup",
+    "API keys"
+  ]
+}

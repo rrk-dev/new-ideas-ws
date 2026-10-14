@@ -1,0 +1,4 @@
+[00:00:00] Espresso machine, Contazzo Barista Pro.
+[00:00:04] Serial B, P5, 5, 0, 1.
+[00:00:09] Bought at Kitchen Depot on Monday for 459 euros, 2 years warranty.
+[00:00:15] Support Hotline 0800 555 0111, or email care@contazzo.example.

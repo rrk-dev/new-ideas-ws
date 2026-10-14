@@ -1,0 +1,26 @@
+{
+  "title": "Build system chores",
+  "context": null,
+  "concepts": [],
+  "api_designs": [],
+  "tradeoffs": [],
+  "decisions": [],
+  "todos": [
+    {
+      "task": "Upgrade the compiler version",
+      "owner": "Aisha",
+      "t": null
+    },
+    {
+      "task": "Remove the unused build scripts",
+      "owner": "Diego",
+      "t": null
+    },
+    {
+      "task": "Cache the dependencies in CI",
+      "owner": null,
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

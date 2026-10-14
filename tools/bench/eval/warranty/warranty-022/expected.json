@@ -1,0 +1,18 @@
+{
+  "product": "espresso machine",
+  "brand": "Contoso",
+  "model": "Barista Pro",
+  "serial_number": "BP5501",
+  "purchase_date": "Monday",
+  "retailer": "Kitchen Depot",
+  "price": "459 euros",
+  "warranty_period": {
+    "value": 2,
+    "unit": "years"
+  },
+  "support_contacts": [
+    "0800 555 0111",
+    "care@contoso.example"
+  ],
+  "notes": null
+}

@@ -1,0 +1,15 @@
+{
+  "product": "mechanical keyboard",
+  "brand": "Fabrikam",
+  "model": "Type 87",
+  "serial_number": null,
+  "purchase_date": "two days ago",
+  "retailer": "Wingtip Online",
+  "price": "109 dollars",
+  "warranty_period": {
+    "value": 2,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": null
+}

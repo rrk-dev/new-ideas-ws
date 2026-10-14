@@ -1,0 +1,16 @@
+{
+  "title": "Weekly status update",
+  "summary": "Status update only. The payments migration is about half done and support tickets dropped by ten percent this week.",
+  "attendees": [
+    "Lena",
+    "Omar",
+    "Mei"
+  ],
+  "decisions": [],
+  "action_items": [],
+  "open_questions": [],
+  "topics": [
+    "payments migration",
+    "support tickets"
+  ]
+}

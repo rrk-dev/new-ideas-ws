@@ -1,0 +1,29 @@
+{
+  "id": "engineering-025",
+  "profile": "engineering",
+  "date": "2026-03-02T14:00:00",
+  "diarization": true,
+  "synthetic": true,
+  "tags": [
+    "api-versioning"
+  ],
+  "speakers": [
+    {
+      "label": "S1",
+      "name": "Sam",
+      "voice": "Samantha"
+    },
+    {
+      "label": "S2",
+      "name": "Aisha",
+      "voice": "Daniel"
+    }
+  ],
+  "duration_s": 16.86,
+  "asr": {
+    "engine": "whisper.cpp d1be6fde",
+    "model": "ggml-base.en-q8_0.bin",
+    "model_sha256": "a4d4a0768075e13c",
+    "tts": "say"
+  }
+}

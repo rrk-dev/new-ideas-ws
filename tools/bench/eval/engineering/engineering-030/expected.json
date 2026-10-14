@@ -1,0 +1,28 @@
+{
+  "title": "Resumable uploads",
+  "context": "Uploads time out for big files.",
+  "concepts": [
+    "resumable chunked uploads"
+  ],
+  "api_designs": [
+    {
+      "name": "Chunked uploads",
+      "description": null,
+      "endpoints_or_signatures": [
+        "PUT /uploads/{id}/chunks"
+      ]
+    }
+  ],
+  "tradeoffs": [],
+  "decisions": [
+    "Use resumable chunked uploads"
+  ],
+  "todos": [
+    {
+      "task": "Write the chunk upload endpoint",
+      "owner": "Diego",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

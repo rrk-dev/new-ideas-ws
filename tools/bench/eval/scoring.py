@@ -136,7 +136,10 @@ def grounded(text, transcript_tokens: set[str]) -> bool:
 
 
 def scalar_equal(e, p, kind: str) -> tuple[bool, bool]:
-    """(exact, fuzzy) equality of a scalar field."""
+    """(exact, fuzzy) equality of a scalar field. Empty strings count as null
+    (the app's render-context normalizer does the same)."""
+    e = None if isinstance(e, str) and not e.strip() else e
+    p = None if isinstance(p, str) and not p.strip() else p
     if e is None or p is None:
         both = e is None and p is None
         return both, both

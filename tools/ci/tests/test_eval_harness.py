@@ -116,10 +116,10 @@ def test_PRF_09_AC2_baseline_numbers_recorded_for_each_builtin_profile():
     """[PRF-09/AC2] a baseline per built-in profile (SmolLM2) from the full case
     set, produced in < 30 min, with a committed report."""
     for profile in PROFILES:
-        path = EVAL / "baselines" / f"{profile}.SmolLM2-135M-Instruct-Q8_0.json"
+        path = EVAL / "baselines" / f"{profile}.SmolLM2-135M-Instruct-Q8-0.json"
         data = json.loads(path.read_text())
         assert data["aggregate"]["cases"] >= 30, profile
         assert data["perf"]["wall_s"] < 30 * 60, profile
         assert 0.0 <= data["aggregate"]["schema_valid"] <= 1.0
-        reports = list((ROOT / "tools/bench/results").glob(f"*-eval-{profile}-SmolLM2-135M-Instruct-Q8_0.md"))
+        reports = list((ROOT / "tools/bench/results").glob(f"*-eval-{profile}-SmolLM2-135M-Instruct-Q8-0.md"))
         assert reports, profile

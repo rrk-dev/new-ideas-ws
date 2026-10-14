@@ -1,0 +1,28 @@
+{
+  "title": "User profile API",
+  "context": "Designing endpoints to read and update user profiles.",
+  "concepts": [],
+  "api_designs": [
+    {
+      "name": "User profile API",
+      "description": "Read and update user profiles.",
+      "endpoints_or_signatures": [
+        "GET /users/{id}",
+        "PATCH /users/{id}",
+        "GET /users/me"
+      ]
+    }
+  ],
+  "tradeoffs": [],
+  "decisions": [
+    "Add GET /users/me for the current user"
+  ],
+  "todos": [
+    {
+      "task": "Write the OpenAPI spec for the user profile endpoints",
+      "owner": "Sam",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

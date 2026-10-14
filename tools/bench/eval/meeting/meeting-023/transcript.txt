@@ -1,0 +1,12 @@
+[00:00:00] Aisha: Let's plan the company offsite.
+[00:00:02] Diego: I suggest the lake venue.
+[00:00:05] Hana: The lake venue is too far for some people.
+[00:00:08] Omar: What about the city hotel?
+[00:00:10] Priya: The city hotel works for everyone, let's book it.
+[00:00:14] Aisha: Decided.
+[00:00:15] Aisha: City hotel.
+[00:00:16] Aisha: Omar.
+[00:00:17] Aisha: Can you book it by Friday?
+[00:00:18] Omar: Yes.
+[00:00:19] Omar: By Friday.
+[00:00:20] Hana: I'll collect dietary needs from everyone.

@@ -1,0 +1,50 @@
+{
+  "title": "Quarterly planning",
+  "summary": "The team set performance and the export feature as the top two priorities for the quarter. Owners were assigned for the performance plan, export requirements, error message list and budget numbers. The settings screen will be revisited next month.",
+  "attendees": [
+    "Priya",
+    "Sam",
+    "Lena",
+    "Omar",
+    "Mei",
+    "Diego"
+  ],
+  "decisions": [
+    "Performance and export are the top two priorities"
+  ],
+  "action_items": [
+    {
+      "task": "Write the performance plan",
+      "owner": "Sam",
+      "due": "Monday",
+      "t": null
+    },
+    {
+      "task": "Collect export requirements from customers",
+      "owner": "Omar",
+      "due": "this week",
+      "t": null
+    },
+    {
+      "task": "Send a list of the worst error messages to Lena",
+      "owner": "Mei",
+      "due": null,
+      "t": null
+    },
+    {
+      "task": "Send the budget numbers to Diego",
+      "owner": "Priya",
+      "due": "before the fifteenth",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "Does the settings screen wait?"
+  ],
+  "topics": [
+    "quarterly priorities",
+    "performance",
+    "export feature",
+    "budget"
+  ]
+}

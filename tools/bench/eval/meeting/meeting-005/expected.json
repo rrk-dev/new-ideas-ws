@@ -1,0 +1,24 @@
+{
+  "title": "Launch moved to April",
+  "summary": "The launch was moved to April. Hana will inform the marketing team tomorrow. It is unclear whether the press release moves too.",
+  "attendees": [
+    "Hana"
+  ],
+  "decisions": [
+    "Move the launch to April"
+  ],
+  "action_items": [
+    {
+      "task": "Tell the marketing team about the new launch date",
+      "owner": "Hana",
+      "due": "tomorrow",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "Does the press release move too?"
+  ],
+  "topics": [
+    "launch date"
+  ]
+}

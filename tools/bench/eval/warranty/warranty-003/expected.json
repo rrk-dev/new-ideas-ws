@@ -1,0 +1,17 @@
+{
+  "product": "laptop charger",
+  "brand": "Tailspin",
+  "model": "PD 65",
+  "serial_number": "T659901",
+  "purchase_date": "last Tuesday",
+  "retailer": "Wingtip Store",
+  "price": "45 pounds",
+  "warranty_period": {
+    "value": 18,
+    "unit": "months"
+  },
+  "support_contacts": [
+    "0800 555 0199"
+  ],
+  "notes": null
+}

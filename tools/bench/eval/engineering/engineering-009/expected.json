@@ -1,0 +1,33 @@
+{
+  "title": "Background email sending",
+  "context": "Email sending blocks the request thread.",
+  "concepts": [
+    "background job queue",
+    "dead letter queue"
+  ],
+  "api_designs": [],
+  "tradeoffs": [
+    {
+      "option": "Background job queue",
+      "pros": [
+        "retries for free"
+      ],
+      "cons": [
+        "needs monitoring"
+      ]
+    }
+  ],
+  "decisions": [
+    "Move email sending to a job queue"
+  ],
+  "todos": [
+    {
+      "task": "Add a dead letter queue for failed jobs",
+      "owner": "Tomas",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "How many retries before a job goes to the dead letter queue?"
+  ]
+}

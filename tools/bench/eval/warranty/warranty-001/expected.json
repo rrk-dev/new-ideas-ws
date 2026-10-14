@@ -1,0 +1,15 @@
+{
+  "product": "dishwasher",
+  "brand": "Fabrikam",
+  "model": "Series 6",
+  "serial_number": "SM441027",
+  "purchase_date": "yesterday",
+  "retailer": "Kitchen Depot",
+  "price": "649 euros",
+  "warranty_period": {
+    "value": 2,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": null
+}

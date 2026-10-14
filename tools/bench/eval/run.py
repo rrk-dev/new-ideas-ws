@@ -278,18 +278,18 @@ def main() -> int:
     report = render_report(args.profile, args.model, agg, perf, env, cases, diff, problems, cfg.get("targets", {}))
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    stem = out_dir / f"{env['date']}-eval-{args.profile}-{model_slug}"
-    stem.with_suffix(".md").write_text(report, encoding="utf-8")
+    stem = f"{env['date']}-eval-{args.profile}-{model_slug}"  # slug may contain dots
+    md, raw_path = out_dir / f"{stem}.md", out_dir / f"{stem}.json"
+    md.write_text(report, encoding="utf-8")
     raw = {"env": env, "perf": perf, "aggregate": agg,
            "cases": [{k: c[k] for k in ("id", "valid", "prompt_tokens", "latency_ms", "n_prompt", "n_gen",
                                         "prefill_ms", "decode_ms", "output", "score", "issues")} for c in cases]}
-    stem.with_suffix(".json").write_text(json.dumps(raw, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    raw_path.write_text(json.dumps(raw, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     if args.write_baseline:
         baseline_path.parent.mkdir(parents=True, exist_ok=True)
         baseline_path.write_text(json.dumps({"env": env, "perf": perf, "aggregate": agg}, indent=1) + "\n")
         print(f"eval: baseline written to {baseline_path.relative_to(ROOT)}")
     print(report.split("## Per case")[0])
-    md = stem.with_suffix(".md")
     print(f"eval: report {md.relative_to(ROOT) if md.is_relative_to(ROOT) else md}")
     if problems and args.gate:
         print("eval: REGRESSION — " + "; ".join(problems), file=sys.stderr)

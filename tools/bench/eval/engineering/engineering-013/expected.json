@@ -1,0 +1,31 @@
+{
+  "title": "Zero downtime schema migration",
+  "context": "The new schema migration would otherwise need downtime.",
+  "concepts": [
+    "expand and contract migration",
+    "backfill"
+  ],
+  "api_designs": [],
+  "tradeoffs": [
+    {
+      "option": "Expand and contract",
+      "pros": [
+        "no downtime"
+      ],
+      "cons": [
+        "takes three releases"
+      ]
+    }
+  ],
+  "decisions": [
+    "Use expand and contract for the migration"
+  ],
+  "todos": [
+    {
+      "task": "Write the backfill script",
+      "owner": "Aisha",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}
