@@ -1,0 +1,19 @@
+tasks/02-audio/AUD-03-silence-detection-vad.md
+  s_9f6fcf8c1840a0::t_9d3bd7ce7779f0 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "46747f8470774f0198d165b2d2c55e1d77e38423",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
