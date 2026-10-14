@@ -32,6 +32,11 @@ class VvSttParams {
     this.entropyThreshold = 2.4,
     this.logprobThreshold = -1,
     this.noSpeechThreshold = 0.6,
+    this.vadModelPath,
+    this.vadThreshold = 0.5,
+    this.vadMinSpeechMs = 250,
+    this.vadMinSilenceMs = 500,
+    this.vadSpeechPadMs = 200,
   });
 
   /// `en`, `de`, … or `auto`.
@@ -56,6 +61,14 @@ class VvSttParams {
   final double entropyThreshold;
   final double logprobThreshold;
   final double noSpeechThreshold;
+
+  /// AUD-03: ggml Silero VAD model; when set, whisper.cpp skips silence
+  /// before decoding and maps every time back to the original audio.
+  final String? vadModelPath;
+  final double vadThreshold;
+  final int vadMinSpeechMs;
+  final int vadMinSilenceMs;
+  final int vadSpeechPadMs;
 }
 
 /// One token with probability (token timestamps only).
@@ -210,7 +223,14 @@ class VvWhisper {
         ..suppress_nst = params.suppressNonSpeech ? 1 : 0
         ..entropy_thold = params.entropyThreshold
         ..logprob_thold = params.logprobThreshold
-        ..no_speech_thold = params.noSpeechThreshold;
+        ..no_speech_thold = params.noSpeechThreshold
+        ..vad_model_path = params.vadModelPath == null
+            ? nullptr
+            : params.vadModelPath!.toNativeUtf8(allocator: arena).cast()
+        ..vad_threshold = params.vadThreshold
+        ..vad_min_speech_ms = params.vadMinSpeechMs
+        ..vad_min_silence_ms = params.vadMinSilenceMs
+        ..vad_speech_pad_ms = params.vadSpeechPadMs;
       final rs = arena<vv_audio_range>(ranges.isEmpty ? 1 : ranges.length);
       for (var i = 0; i < ranges.length; i++) {
         rs[i].path = ranges[i].path.toNativeUtf8(allocator: arena).cast();
