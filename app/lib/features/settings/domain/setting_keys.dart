@@ -18,6 +18,13 @@ abstract final class SettingKeys {
   static const audioInputDevice = 'audio.input_device';
   static const audioAgc = 'audio.agc';
   static const audioNoiseSuppression = 'audio.noise_suppression';
+
+  /// bool, default `false`: the app's software AGC replaces the platform
+  /// AGC (AUD-02; also the automatic fallback when the platform has none).
+  static const audioSoftwareAgc = 'audio.software_agc';
+
+  /// bool, default `false`: no platform or software processing (AUD-02).
+  static const audioRawCapture = 'audio.raw_capture';
   static const audioAutoPause = 'audio.auto_pause_on_silence';
 
   /// Audio retention policy (SEC-04 applies it).

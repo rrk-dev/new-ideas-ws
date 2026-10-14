@@ -136,6 +136,18 @@ abstract final class AppSettings {
     section: SettingSection.audio,
     defaultValue: true,
   );
+
+  /// AUD-02: provisional default off (platform AGC first); QA-02 decides.
+  static const softwareAgc = ToggleSetting(
+    key: SettingKeys.audioSoftwareAgc,
+    section: SettingSection.audio,
+    defaultValue: false,
+  );
+  static const rawCapture = ToggleSetting(
+    key: SettingKeys.audioRawCapture,
+    section: SettingSection.audio,
+    defaultValue: false,
+  );
   static const autoPauseOnSilence = ToggleSetting(
     key: SettingKeys.audioAutoPause,
     section: SettingSection.audio,
@@ -226,6 +238,8 @@ abstract final class AppSettings {
     inputDevice,
     agc,
     noiseSuppression,
+    softwareAgc,
+    rawCapture,
     autoPauseOnSilence,
     audioRetention,
     autoProcess,

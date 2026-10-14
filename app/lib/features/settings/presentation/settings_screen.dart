@@ -32,6 +32,8 @@ class SettingsScreen extends ConsumerWidget {
           const SettingTile(AppSettings.inputDevice),
           const SettingTile(AppSettings.agc),
           const SettingTile(AppSettings.noiseSuppression),
+          const SettingTile(AppSettings.softwareAgc),
+          const SettingTile(AppSettings.rawCapture),
           const SettingTile(AppSettings.autoPauseOnSilence),
           const SettingTile(AppSettings.audioRetention),
           header(SettingSection.processing),
