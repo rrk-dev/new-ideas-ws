@@ -1,7 +1,7 @@
 # PRF-02 — System Prompt Builder
 
 **Workstream:** Profiles | **Phase:** 2 (pulled forward: needed by LLM-05 / PRF-09 / GATE-02) | **Size:** M | **Depends on:** PRF-01, LLM-04 | **Source:** §5 Phase 3
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-extraction-profiles, vv-llm-inference, vv-testing
 
 ## Goal
