@@ -13,6 +13,7 @@ import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/theme/app_theme.dart';
+import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
@@ -39,6 +40,7 @@ const _screens = {
   'Vault folders': '/settings/vault-folders',
   'Routing rules': '/settings/routing-rules',
   'Models': '/settings/models',
+  'Onboarding': '/onboarding',
 };
 
 List<Override> _overrides() => [
@@ -47,7 +49,10 @@ List<Override> _overrides() => [
   // Hermetic: no platform storage dir (path_provider) behind the
   // recording/model providers that joined in integration wave 2.
   storagePathsProvider.overrideWith((ref) => Completer<StoragePaths>().future),
-  settingsStoreProvider.overrideWithValue(FakeSettingsStore()),
+  // APP-01: past onboarding, so the router does not redirect.
+  settingsStoreProvider.overrideWithValue(
+    FakeSettingsStore({OnboardingKeys.completed: true}),
+  ),
   managedSettingsSourceProvider.overrideWithValue(const _Managed()),
   vaultTargetsProvider.overrideWith(
     (ref) => Stream.value(const [
