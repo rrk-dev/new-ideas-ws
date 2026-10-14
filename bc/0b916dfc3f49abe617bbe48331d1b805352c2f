@@ -1,0 +1,228 @@
+app/test/widget/settings_screen_test.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-355
+docs/test-plans/device/APP-06.md
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-17
+tasks/08-app-ux/APP-04-processing-status-notifications.md
+  s_9f6fcf8c1840a0::t_1fa646092eb763 4,11-14,18-48
+app/lib/features/recording/presentation/battery_guidance.dart
+  s_9f6fcf8c1840a0::t_81937ffef944d5 5,27-28,32,34-37,39,54,72
+app/lib/features/pipeline/domain/throughput.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-80
+tasks/04-llm/LLM-07-memory-management-device-tiering.md
+  s_9f6fcf8c1840a0::t_f219cd3a1c7cae 23
+  s_9f6fcf8c1840a0::t_1fa646092eb763 4,11-15,24-36
+app/lib/bootstrap.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 12-13,18-20,33,54-60,63
+app/lib/features/settings/domain/setting_keys.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-39
+app/lib/features/settings/presentation/setting_tiles.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-217
+app/lib/core/routing/app_routes.dart
+  s_9f6fcf8c1840a0::t_e4ae1bc6ac78b9 1
+  s_9f6fcf8c1840a0::t_1fa646092eb763 4,7-9,13,23-31,37-46,93-129,145,148-151,156-172
+  s_9f6fcf8c1840a0::t_876734ca554d71 146-147,152-155
+app/l10n.yaml
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-7
+app/test/unit/extraction/device_tiering_test.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-281
+CONTRIBUTING.md
+  s_9f6fcf8c1840a0::t_1fa646092eb763 78-89
+native/bridge/vv_llama.h
+  s_9f6fcf8c1840a0::t_1fa646092eb763 126-132
+app/lib/core/licenses/bundled_licenses.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-83
+app/lib/features/extraction/domain/memory_planner.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-122
+app/test/fakes/fake_local_notifier.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-46
+app/lib/features/pipeline/presentation/processing_queue_screen.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-63
+native/bridge/vv_llama.cpp
+  s_9f6fcf8c1840a0::t_1fa646092eb763 19,22-24,341-372
+  s_9f6fcf8c1840a0::t_81e26e24b242a8 373-374
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_e4ae1bc6ac78b9 154-156
+  s_9f6fcf8c1840a0::t_593627faa6b710 57-153
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-56,157-676
+native/tests/llm_engine_test.c
+  s_9f6fcf8c1840a0::t_1fa646092eb763 108-114
+app/lib/features/pipeline/domain/job_progress.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-83
+packages/vv_native/lib/src/vv_bindings.g.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 502-524
+tasks/08-app-ux/APP-06-accessibility-localization.md
+  s_9f6fcf8c1840a0::t_1fa646092eb763 4,11-14,19-47
+app/lib/features/recording/presentation/recovered_recordings_prompt.dart
+  s_9f6fcf8c1840a0::t_81937ffef944d5 5,66,80,88,92
+  s_9f6fcf8c1840a0::t_a893eab62e10f2 78,83
+app/lib/features/pipeline/domain/processing_notification.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-110
+app/lib/features/settings/presentation/settings_providers.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-147
+app/lib/core/l10n/l10n.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-25
+app/lib/core/routing/app_routes.g.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 29-40,59-75,127-172,212-260,262-263,265-266,268-270,272-274
+  s_9f6fcf8c1840a0::t_d3da57172c8d76 261,264,267,271
+app/lib/features/extraction/data/device_profile_probe.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-73
+app/lib/features/extraction/domain/device_tiering.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-124
+app/lib/features/pipeline/presentation/processing_providers.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-125
+app/ios/Runner/AppDelegate.swift
+  s_9f6fcf8c1840a0::t_1fa646092eb763 3,14-16
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9f6fcf8c1840a0::t_876734ca554d71 82-83
+  s_9f6fcf8c1840a0::t_1fa646092eb763 2-7,9-10,12-14,16-18,22-81,84-274,276-304,306-315
+app/test/unit/l10n/hardcoded_strings_test.dart
+  s_9f6fcf8c1840a0::t_593627faa6b710 15-18
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-14,19-129
+app/test/unit/recording/recording_indicator_test.dart
+  s_9f6fcf8c1840a0::t_52fb1ee07ed4e0 290,297
+app/lib/features/models/presentation/model_import_tile.dart
+  s_9f6fcf8c1840a0::t_593627faa6b710 43
+  s_9f6fcf8c1840a0::t_81937ffef944d5 7,29-30,62-64,83-84,88,92,99,101,103,105,107-110,112-113
+app/lib/features/library/presentation/library_screen.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 2,10-13
+app/test/golden/settings_screen_golden_test.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-31
+app/lib/features/settings/domain/settings_ports.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-106
+app/lib/features/settings/presentation/vault_settings_screens.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-200
+app/analysis_options.yaml
+  s_9f6fcf8c1840a0::t_1fa646092eb763 13-14
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_81937ffef944d5 22-50
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-21,52-227
+  s_9f6fcf8c1840a0::t_6b6633fb4eed84 51
+app/lib/features/extraction/domain/model_residency.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-35
+app/lib/features/pipeline/presentation/job_commands.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-59
+app/lib/features/profiles/presentation/profiles_screen.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 2,11
+docs/test-plans/device/APP-04.md
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-23
+app/android/app/build.gradle.kts
+  s_9f6fcf8c1840a0::t_1fa646092eb763 14-15,76-79
+  s_9f6fcf8c1840a0::t_53fd2c2ea3c378 80
+app/lib/features/settings/domain/setting_definitions.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-249
+app/test/helpers/settings_values.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-10
+app/lib/features/pipeline/domain/eta.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-166
+app/lib/features/extraction/data/memory_pressure_observer.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-26
+app/lib/features/pipeline/presentation/processing_services_host.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-31
+app/test/fakes/fake_settings_store.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-30
+docs/privacy-audit.md
+  s_9f6fcf8c1840a0::t_1fa646092eb763 109-113
+app/lib/core/widgets/placeholder_screen.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 2,27
+app/lib/features/pipeline/data/processing_monitor.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-181
+app/lib/features/pipeline/presentation/processing_queue_indicator.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-114
+app/test/helpers/golden.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 8,67-68
+app/test/widget/accessibility_test.dart
+  s_9f6fcf8c1840a0::t_4a11c841a566a4 1-2,8,10,47-49
+  s_9f6fcf8c1840a0::t_1fa646092eb763 3-7,9,11-46,50-74,76-183
+  s_9f6fcf8c1840a0::t_46316ca16e0a83 75
+app/lib/core/widgets/status_message.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-44
+native/bridge/vv_exports.txt
+  s_9f6fcf8c1840a0::t_1fa646092eb763 37
+app/lib/app.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 5,23-24
+app/test/unit/settings/settings_store_test.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-133
+app/test/widget/diagnostics_export_test.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 13,16,60-63,68-70
+app/lib/core/errors/failure.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 87-95
+app/lib/features/extraction/domain/llm_service.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 31-33,40-41,43,46-53,65-68,101-117,127-137,157-158,190,215-219,251-254
+  s_9f6fcf8c1840a0::t_01e600b54e0cb0 255-256
+app/lib/features/pipeline/presentation/processing_texts.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-79
+app/lib/features/settings/presentation/setting_texts.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-75
+app/lib/features/recording/presentation/recording_screen.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 4
+  s_9f6fcf8c1840a0::t_c62d43f759bd8b 28,33,43
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_e4ae1bc6ac78b9 337-342
+  s_9f6fcf8c1840a0::t_593627faa6b710 181-336
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-180,343-1226
+app/lib/core/routing/app_shell.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 3-4,6-7,17-44
+app/test/unit/pipeline/processing_monitor_test.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-288
+app/lib/features/pipeline/presentation/processing_providers.g.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-338
+app/lib/features/settings/data/drift_settings_store.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-17
+app/lib/features/pipeline/data/flutter_local_notifier.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-139
+docs/test-plans/device/LLM-07.md
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-17
+app/test/unit/pipeline/eta_test.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-328
+app/pubspec.yaml
+  s_9f6fcf8c1840a0::t_1fa646092eb763 19-21,25-26,58-59
+tasks/08-app-ux/APP-03-settings.md
+  s_9f6fcf8c1840a0::t_1fa646092eb763 4,11-16,20-57
+app/test/widget/processing_status_test.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 3-7,10-25,35-253
+  s_9f6fcf8c1840a0::t_93bb1b5feaee7e 1-2,8-9,26-34
+app/lib/core/app_info.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 3-6
+app/test/helpers/processing_fixtures.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-65
+app/lib/features/extraction/data/dev_llm_engine.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 6-7,10,13-14,31-40,58-69,71-72
+app/lib/features/pipeline/presentation/processing_status_card.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-160
+app/test/golden/processing_status_golden_test.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-24
+app/lib/features/settings/presentation/diagnostics_export.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 5,28,48,57,66-67,96,103-106,139,143
+packages/vv_native/lib/vv_native.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 95-102
+packages/vv_native/test/vv_native_host_test.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 69-74
+app/lib/features/pipeline/domain/local_notifier.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-56
+app/lib/features/settings/presentation/settings_providers.g.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-585
+app/test/widget/app_shell_test.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 8,11,14-15,19-26
+app/lib/features/pipeline/presentation/recording_status_screen.dart
+  s_9f6fcf8c1840a0::t_1fa646092eb763 1-63
+app/pubspec.lock
+  s_9f6fcf8c1840a0::t_cf4cca30569506 260-267,406-430,432-447,576,1140-1147
+native/bridge/vv_exports.map
+  s_9f6fcf8c1840a0::t_3171568064e3c5 39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bc0b916dfc3f49abe617bbe48331d1b805352c2f",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
