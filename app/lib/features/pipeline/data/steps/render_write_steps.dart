@@ -13,6 +13,7 @@ import 'package:vaultvoice/core/utils/ids.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/step_support.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
+import 'package:vaultvoice/features/recording/domain/recording_session.dart';
 
 /// Inputs of a rendered note.
 class NoteInput {
@@ -157,7 +158,15 @@ class WriteStep implements PipelineStep {
     final job = ctx.job;
     final targets = await db.vaultRepository.watchTargets().first;
     if (targets.isEmpty) return const StepWaiting(WaitingReason.destination);
-    final target = targets.first;
+    // AUD-08: the destination picked on the Record screen, if it still
+    // exists; otherwise the first target (EXP-05/06 routing replaces this).
+    final chosen = (await db.settingsRepository.get(
+      recordingDestinationKey(job.recordingId),
+    )).valueOrNull;
+    final target = targets.firstWhere(
+      (t) => t.id == chosen,
+      orElse: () => targets.first,
+    );
 
     final file = File(paths.renderedFile(job.recordingId));
     if (!file.existsSync()) {

@@ -23,6 +23,7 @@ import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
 import 'package:vaultvoice/features/recording/domain/level_meter.dart';
 import 'package:vaultvoice/features/recording/domain/pcm_converter.dart';
 import 'package:vaultvoice/features/recording/domain/pcm_mic_source.dart';
+import 'package:vaultvoice/features/recording/domain/recording_session.dart';
 import 'package:vaultvoice/features/recording/domain/software_agc.dart';
 import 'package:vaultvoice/features/recording/domain/storage_policy.dart';
 
@@ -40,7 +41,8 @@ import 'package:vaultvoice/features/recording/domain/storage_policy.dart';
 ///   [close] marks it `recorded`.
 /// * Free space: refuse to start below the [StoragePolicy] minimum, warn,
 ///   and raise [CaptureNotice.lowStorageStop] below the stop threshold.
-class RecordCaptureBackend implements CaptureBackend, AudioLevelSource {
+class RecordCaptureBackend
+    implements CaptureBackend, AudioLevelSource, ActiveRecording {
   RecordCaptureBackend({
     required this._mic,
     required RecordingsRepository recordings,
@@ -111,9 +113,11 @@ class RecordCaptureBackend implements CaptureBackend, AudioLevelSource {
   static const _tag = 'recording';
 
   /// Id of the open recording, if any.
+  @override
   String? get recordingId => _session?.id;
 
   /// Recorded duration of the open recording (gaps excluded).
+  @override
   Duration get recorded => _session?.writer.recorded ?? Duration.zero;
 
   /// The microphone request used for the next open/resume.
