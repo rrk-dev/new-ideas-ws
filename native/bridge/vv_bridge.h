@@ -71,11 +71,17 @@ VV_API int32_t vv_backends_describe(char* buf, size_t cap, size_t* needed);
 /* 1 when this library was built with runtime-loaded backends. */
 VV_API int32_t vv_backends_dynamic(void);
 
+/* ---- Speech-to-text (STT-03): vv_stt_* — see vv_whisper.h ---- */
+#include "vv_whisper.h"
+
 #ifdef __cplusplus
 }
 #endif
 
 /* LLM backend bridge (LLM-02/LLM-03). */
 #include "vv_llama.h"
+
+/* Native crash capture (REL-02). */
+#include "vv_crash.h"
 
 #endif /* VV_BRIDGE_H */

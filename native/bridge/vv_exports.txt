@@ -1,6 +1,15 @@
 _vv_backends_load
 _vv_backends_describe
 _vv_backends_dynamic
+_vv_stt_default_init_params
+_vv_stt_default_params
+_vv_stt_create
+_vv_stt_transcribe_async
+_vv_stt_transcribe_ranges
+_vv_stt_cancel
+_vv_stt_destroy
+_vv_stt_free_segment
+_vv_stt_last_error
 _vv_abi_version
 _vv_version
 _vv_whisper_version
@@ -26,3 +35,4 @@ _vv_llm_cancel
 _vv_llm_destroy
 _vv_json_schema_to_gbnf
 _vv_device_memory
+_vv_crash_*

@@ -1,0 +1,5 @@
+# fastlane for the iOS release lanes (REL-01). Commit Gemfile.lock after the
+# first `bundle install` on a release machine (REL-01 follow-up).
+source "https://rubygems.org"
+
+gem "fastlane", "~> 2.228"

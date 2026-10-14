@@ -17,6 +17,9 @@ The LLM produces JSON matching each profile's output schema; Markdown is rendere
 - ≥ 99% of runs on the PRF-09 eval set produce schema-valid JSON.
 - Grammar overhead on decode speed documented (< 20% target).
 
+## Notes
+- Runtime: **llama.cpp** per [ADR-LLM-01](../../docs/adr/ADR-LLM-01-runtime.md) (Proposed until device numbers exist). Host spike measured GBNF decode overhead of −66% on Llama-3.2-1B (128k vocab, Metal, CPU-contended host) — the < 20% target needs work (see ADR-LLM-01 observations).
+
 ## Completion Notes
 - **Agent:** Claude Code · **Branch:** task/LLM-05-structured-output (stacked on task/LLM-04-llm-ffi-engine) · **Date:** 2026-10-13
 - **Summary:** Native: `native/bridge/vv_jsg.cpp`, `vv_jsg_shim.cpp`, CMake target `vv_jsg`, lazy grammar sampling + `grammar_mode` in `vv_llama_engine.cpp` / `vv_gen_params`; ctest `vv_grammar` (`native/tests/grammar_test.c`). Dart: `VvNative.jsonSchemaToGbnf`, `LlmGenParams.fullGrammarMask`; app `features/extraction/domain/output_schema_validator.dart`, `structured_extractor.dart`, `data/native_schema_grammar_converter.dart`; tests `test/unit/extraction/structured_extractor_test.dart`, `structured_extraction_host_test.dart`, device test `integration_test/llm_grammar_test.dart`. Benchmark tool `tools/bench/llm_grammar/` + results.

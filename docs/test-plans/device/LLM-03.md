@@ -2,13 +2,17 @@
 
 Needs Android NDK r28c and the QA-05 Android phones; neither was available when authored.
 Host-verified: ctest `vv_cpu` (big.LITTLE detection, HWCAP mapping, CPU guard),
-`vv_llm_backend`, `app/test/unit/extraction/gpu_backend_guard_test.dart`.
+`vv_llm_backend`, `app/test/unit/extraction/llm_backend_choice_test.dart` (shared STT/LLM policy,
+ADR-INT-W2).
 
 **Builds** (from a clean checkout, `git submodule update --init --recursive`):
 - **B0 baseline**: `native/build.sh android` (armv8-a, FND-06 default).
 - **B1 dotprod**: `VV_ANDROID_CPU_ARCH=armv8.2-a+dotprod native/build.sh android`.
-- **B2 Vulkan / B3 OpenCL**: B1 plus `-DVV_ANDROID_VULKAN=ON` / `-DVV_ANDROID_OPENCL=ON` (Gradle
-  `externalNativeBuild.cmake.arguments`, or extend build.sh); OpenCL needs the Khronos headers +
+- **B2 Vulkan / B3 OpenCL** (runtime-loaded modules only, ADR-STT-02 / ADR-INT-W2):
+  `VV_GGML_BACKEND_DL=ON VV_GGML_VULKAN=ON native/build.sh android` /
+  `VV_GGML_BACKEND_DL=ON VV_GGML_OPENCL=ON native/build.sh android` (the CPU variant is then
+  picked at runtime — not combinable with `VV_ANDROID_CPU_ARCH`; the old `-DVV_ANDROID_VULKAN` /
+  `-DVV_ANDROID_OPENCL` flags are deprecated aliases). OpenCL needs the Khronos headers +
   NDK-built ICD loader (`native/llama.cpp/docs/backend/OPENCL.md`).
 
 **Model on device**: `adb push <gguf> /data/local/tmp/ && adb shell run-as com.vaultvoice.vaultvoice.dev cp /data/local/tmp/<gguf> app_flutter/`

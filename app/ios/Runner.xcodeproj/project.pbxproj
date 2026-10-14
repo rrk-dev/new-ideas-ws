@@ -13,6 +13,7 @@
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		7884E8682EC3CC0700C636F2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */; };
 		5EC09A012F00000100C0FFEE /* CallGuardPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC09A002F00000100C0FFEE /* CallGuardPlugin.swift */; };
+		AD0200000000000000000002 /* ModelDownloadPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0200000000000000000001 /* ModelDownloadPlugin.swift */; };
 		A0D01A012F00000100C0FFEE /* StorageInfoPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D01A002F00000100C0FFEE /* StorageInfoPlugin.swift */; };
 		A0D04A012F00000100C0FFEE /* AudioSessionPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D04A002F00000100C0FFEE /* AudioSessionPlugin.swift */; };
 		A0D04A032F00000100C0FFEE /* RecordingIndicatorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D04A022F00000100C0FFEE /* RecordingIndicatorPlugin.swift */; };
@@ -57,6 +58,7 @@
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5EC09A002F00000100C0FFEE /* CallGuardPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallGuardPlugin.swift; sourceTree = "<group>"; };
+		AD0200000000000000000001 /* ModelDownloadPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDownload/ModelDownloadPlugin.swift; sourceTree = "<group>"; };
 		A0D01A002F00000100C0FFEE /* StorageInfoPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageInfoPlugin.swift; sourceTree = "<group>"; };
 		A0D04A002F00000100C0FFEE /* AudioSessionPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionPlugin.swift; sourceTree = "<group>"; };
 		A0D04A022F00000100C0FFEE /* RecordingIndicatorPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingIndicatorPlugin.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
 				7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */,
 				5EC09A002F00000100C0FFEE /* CallGuardPlugin.swift */,
+				AD0200000000000000000001 /* ModelDownloadPlugin.swift */,
 				A0D01A002F00000100C0FFEE /* StorageInfoPlugin.swift */,
 				A0D04A002F00000100C0FFEE /* AudioSessionPlugin.swift */,
 				A0D04A022F00000100C0FFEE /* RecordingIndicatorPlugin.swift */,
@@ -303,6 +306,7 @@
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				7884E8682EC3CC0700C636F2 /* SceneDelegate.swift in Sources */,
 				5EC09A012F00000100C0FFEE /* CallGuardPlugin.swift in Sources */,
+				AD0200000000000000000002 /* ModelDownloadPlugin.swift in Sources */,
 				A0D01A012F00000100C0FFEE /* StorageInfoPlugin.swift in Sources */,
 				A0D04A012F00000100C0FFEE /* AudioSessionPlugin.swift in Sources */,
 				A0D04A032F00000100C0FFEE /* RecordingIndicatorPlugin.swift in Sources */,
@@ -451,7 +455,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
-				APP_DISPLAY_NAME = "Vaultvoice Dev";
+				APP_DISPLAY_NAME = "VaultVoice Dev";
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-dev";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
@@ -474,7 +478,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
-				APP_DISPLAY_NAME = "Vaultvoice";
+				APP_DISPLAY_NAME = "VaultVoice";
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-prod";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
@@ -817,7 +821,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
-				APP_DISPLAY_NAME = "Vaultvoice Dev";
+				APP_DISPLAY_NAME = "VaultVoice Dev";
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-dev";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
@@ -841,7 +845,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
-				APP_DISPLAY_NAME = "Vaultvoice";
+				APP_DISPLAY_NAME = "VaultVoice";
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-prod";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
@@ -865,7 +869,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
-				APP_DISPLAY_NAME = "Vaultvoice Dev";
+				APP_DISPLAY_NAME = "VaultVoice Dev";
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-dev";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
@@ -888,7 +892,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
-				APP_DISPLAY_NAME = "Vaultvoice";
+				APP_DISPLAY_NAME = "VaultVoice";
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-prod";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;

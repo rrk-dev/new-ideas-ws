@@ -2,6 +2,7 @@ package com.vaultvoice.vaultvoice
 
 import android.content.Context
 import android.content.Intent
+import com.vaultvoice.vaultvoice.modeldownload.ModelDownloadPlugin
 import com.vaultvoice.vaultvoice.saf.SafHostApi
 import com.vaultvoice.vaultvoice.saf.SafHostApiImpl
 import io.flutter.embedding.android.FlutterActivity
@@ -30,6 +31,8 @@ class MainActivity : FlutterActivity() {
         super.configureFlutterEngine(flutterEngine)
         // SEC-09: call detection without phone-state permissions.
         flutterEngine.plugins.add(CallGuardPlugin())
+        // MDL-02: device facts + dataSync keep-alive for model downloads.
+        flutterEngine.plugins.add(ModelDownloadPlugin())
         // AUD-01: free-space checks for the recording storage policy.
         flutterEngine.plugins.add(StorageInfoPlugin())
         // AUD-05: microphone foreground service + ongoing notification.

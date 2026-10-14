@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/features/recording/data/recording_providers.dart';
 import 'package:vaultvoice/features/recording/data/recording_recovery.dart';
 
@@ -62,7 +63,7 @@ String recoveredPromptText(BuildContext context, DateTime startedAt) {
   final when =
       '${l.formatShortDate(local)} '
       '${l.formatTimeOfDay(TimeOfDay.fromDateTime(local))}';
-  return 'Recovered recording from $when — process now?';
+  return context.l10n.recoveredPrompt(when);
 }
 
 class _RecoveredDialog extends StatelessWidget {
@@ -74,22 +75,21 @@ class _RecoveredDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final minutes = recording.duration.inMinutes;
     final seconds = recording.duration.inSeconds % 60;
+    final secs = seconds.toString().padLeft(2, '0');
     return AlertDialog(
-      title: const Text('Recording recovered'),
+      title: Text(context.l10n.recoveredTitle),
       content: Text(
         '${recoveredPromptText(context, recording.startedAt)}\n'
-        'Length: ${minutes}m ${seconds.toString().padLeft(2, '0')}s. '
-        'The app was closed while recording; the audio captured up to '
-        'then was kept.',
+        '${context.l10n.recoveredDetails(minutes, secs)}',
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('Later'),
+          child: Text(context.l10n.recoveredLater),
         ),
         FilledButton(
           onPressed: () => Navigator.of(context).pop(true),
-          child: const Text('Process now'),
+          child: Text(context.l10n.recoveredProcessNow),
         ),
       ],
     );

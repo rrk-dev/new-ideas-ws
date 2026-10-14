@@ -10,7 +10,9 @@ import 'package:vaultvoice/features/profiles/domain/profile_validator.dart';
 import 'profile_fixtures.dart';
 
 void main() {
-  final doc = File('../docs/profile-spec.md').readAsStringSync();
+  // Lazy: read inside the tests, so tag-filtered runs without docs/ (the
+  // Linux golden container) can still load this file.
+  late final doc = File('../docs/profile-spec.md').readAsStringSync();
 
   group('[PRF-01/AC1] docs/profile-spec.md documents the spec with a full '
       'example', () {

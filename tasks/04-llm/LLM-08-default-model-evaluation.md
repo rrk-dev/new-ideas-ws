@@ -15,3 +15,6 @@ Pick default and fallback models per tier using extraction quality and speed on 
 
 ## Acceptance Criteria
 - Decision backed by eval results table; ADR-LLM-08 committed.
+
+## Notes
+- Runtime: **llama.cpp** per [ADR-LLM-01](../../docs/adr/ADR-LLM-01-runtime.md) (Proposed until device numbers exist).

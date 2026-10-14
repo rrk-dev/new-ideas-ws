@@ -64,20 +64,6 @@ if(ANDROID AND VV_ANDROID_CPU_ARCH)
   set(GGML_CPU_ARM_ARCH "${VV_ANDROID_CPU_ARCH}")
 endif()
 
-# Optional Android GPU backends (LLM-03, ADR-LLM-03). Off by default: every
-# device runs the CPU backend until a GPU family passes the device rows and is
-# added to the Dart allowlist (kAndroidGpuAllowlist). The bridge never fails
-# when a backend finds no usable device — it falls back to CPU.
-#  - Vulkan: needs glslc (NDK shader-tools) + Vulkan-Headers matching the pin.
-#  - OpenCL (Adreno): needs Khronos OpenCL headers in the NDK sysroot and an
-#    NDK-built libOpenCL.so ICD loader (llama.cpp docs/backend/OPENCL.md).
-option(VV_ANDROID_VULKAN "Android: build the ggml Vulkan backend" OFF)
-option(VV_ANDROID_OPENCL "Android: build the ggml OpenCL (Adreno) backend" OFF)
-if(ANDROID)
-  set(GGML_VULKAN ${VV_ANDROID_VULKAN})
-  set(GGML_OPENCL ${VV_ANDROID_OPENCL})
-endif()
-
 # The single ggml. Both projects skip their own copy when a `ggml` target
 # exists (`if (NOT TARGET ggml ...)` in llama.cpp/CMakeLists.txt:220 and
 # whisper.cpp/CMakeLists.txt:160). Their ggml trees are identical at the pins.
@@ -116,6 +102,19 @@ if(VV_GGML_BACKEND_DL)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
   endif()
 endif()
+# LLM-03 originally added static VV_ANDROID_VULKAN / VV_ANDROID_OPENCL options.
+# Integration wave 2 (docs/adr/ADR-INT-W2-integration.md) keeps only STT-02's
+# runtime-loaded design: the old names are accepted as aliases of
+# VV_GGML_VULKAN / VV_GGML_OPENCL (DL modules, so VV_GGML_BACKEND_DL=ON is
+# still required) and never build a GPU backend statically into vv_native.
+foreach(_vv_gpu VULKAN OPENCL)
+  if(DEFINED VV_ANDROID_${_vv_gpu})
+    message(DEPRECATION "VV_ANDROID_${_vv_gpu} is an alias of VV_GGML_${_vv_gpu} (runtime-loaded module)")
+    if(VV_ANDROID_${_vv_gpu})
+      set(VV_GGML_${_vv_gpu} ON)
+    endif()
+  endif()
+endforeach()
 if((VV_GGML_VULKAN OR VV_GGML_OPENCL) AND NOT VV_GGML_BACKEND_DL)
   message(FATAL_ERROR "GPU backends must be runtime-optional: set VV_GGML_BACKEND_DL=ON")
 endif()
@@ -158,15 +157,22 @@ target_link_libraries(vv_native PRIVATE vv_jsg)
 target_include_directories(vv_native PUBLIC bridge)
 target_link_libraries(vv_native PRIVATE whisper llama ggml)
 target_compile_definitions(vv_native PRIVATE VV_BUILDING_LIBRARY=1)
-# STT-02 backend loader (kept on its own line: other tasks add sources too).
-target_sources(vv_native PRIVATE bridge/vv_backend.cpp)
+# STT-02 backend loader + STT-03 whisper bridge (own line: other tasks add
+# sources too).
+target_sources(vv_native PRIVATE bridge/vv_backend.cpp bridge/vv_whisper.cpp)
 if(VV_GGML_BACKEND_DL)
   # Module names the loader probes, e.g. "ggml-cpu-android_armv8.2_1,ggml-vulkan"
   # (GGML_AVAILABLE_BACKENDS is filled by ggml_add_backend_library()).
   string(REPLACE ";" "," _vv_backends "${GGML_AVAILABLE_BACKENDS}")
-  target_compile_definitions(vv_native PRIVATE VV_GGML_BACKENDS="${_vv_backends}")
+  target_compile_definitions(vv_native PRIVATE VV_GGML_BACKENDS="${_vv_backends}"
+                                               VV_GGML_BACKEND_DL=1)
   target_link_libraries(vv_native PRIVATE ${CMAKE_DL_LIBS})
 endif()
+
+# REL-02: async-signal-safe native crash capture (bridge/vv_crash.h,
+# ADR-REL-02-crash-capture). Frame pointers keep its backtraces walkable.
+target_sources(vv_native PRIVATE bridge/vv_crash.c)
+set_source_files_properties(bridge/vv_crash.c PROPERTIES COMPILE_OPTIONS "-fno-omit-frame-pointer")
 
 # Export only vv_* from the final library (static deps must not leak ggml_*,
 # whisper_*, llama_* — that is what would cause duplicate-symbol clashes).
@@ -246,6 +252,14 @@ if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
     set_tests_properties(stt_backend_${mode} PROPERTIES SKIP_RETURN_CODE 77)
   endforeach()
 
+  # STT-03: vv_stt_* C ABI (async worker, callbacks, cancel, ranges).
+  add_executable(stt_bridge_test tests/stt_bridge_test.cpp)
+  target_link_libraries(stt_bridge_test PRIVATE vv_native)
+  foreach(mode args jfk ranges busy cancel destroy audio churn)
+    add_test(NAME vv_stt_${mode} COMMAND stt_bridge_test ${mode})
+    set_tests_properties(vv_stt_${mode} PROPERTIES SKIP_RETURN_CODE 77)
+  endforeach()
+
   # STT-02: vv_backends_* loader + perf-core detection.
   add_executable(backends_test tests/backends_test.cpp)
   target_link_libraries(backends_test PRIVATE vv_native)
@@ -253,4 +267,12 @@ if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
     add_test(NAME vv_backends_${mode} COMMAND backends_test ${mode})
     set_tests_properties(vv_backends_${mode} PROPERTIES SKIP_RETURN_CODE 77)
   endforeach()
+endif()
+
+# REL-02 crash handler test: forced crashes in forked children (host only).
+if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
+  add_executable(vv_crash_test tests/crash_test.c)
+  target_compile_options(vv_crash_test PRIVATE -fno-omit-frame-pointer)
+  target_link_libraries(vv_crash_test PRIVATE vv_native)
+  add_test(NAME vv_crash COMMAND vv_crash_test)
 endif()

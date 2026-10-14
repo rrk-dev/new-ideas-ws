@@ -5,6 +5,20 @@
 - **Task:** LLM-03
 - **Deciders:** Claude Code (implementer); pending verifier, device matrix (QA-05) and the user (minimum supported CPU)
 - **Supersedes:** — (refines ADR-FND-06 §3, which deferred the CPU-variant decision to STT-02/LLM-03)
+- **Superseded in part by:** [ADR-STT-02](ADR-STT-02-android-backends.md) — see the note below and
+  [ADR-INT-W2](ADR-INT-W2-integration.md)
+
+> **Superseded in part by ADR-STT-02 (integration wave 2, 2026-10-14).** Decision 3 is replaced:
+> GPU backends are built only as runtime-loaded modules (`VV_GGML_BACKEND_DL=ON` +
+> `VV_GGML_VULKAN` / `VV_GGML_OPENCL`); the static `VV_ANDROID_VULKAN` / `VV_ANDROID_OPENCL`
+> options are now deprecated aliases of those DL options. `kAndroidGpuAllowlist`,
+> `GpuBackendGuard` and `FileBackendHealthStore` were removed: the single STT/LLM policy is
+> `core/platform/backend_policy.dart` (`GpuRules` allow/deny with deny winning, shipped empty for
+> Android; `GpuTrialStore` crash sentinel, persisted by `fileGpuTrialGuard`) and the LLM adapter
+> `chooseLlmBackend` (keeps `DeviceCapabilities` — now built on `vv_backends_describe` — and
+> `LlmBackendChoice`). Decisions 1, 2, 4 and 5 (dotprod guard, quant benchmarks, perf-core
+> threads, mmap) still apply; in a DL build the CPU variant is picked at runtime instead of
+> `VV_ANDROID_CPU_ARCH` (mutually exclusive).
 
 ## Context
 ADR-FND-06 ships one static `libvv_native.so` (ggml + whisper + llama) with a plain **armv8-a**

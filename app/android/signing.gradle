@@ -1,0 +1,43 @@
+// Release signing with the Play *upload* key (REL-01). Play App Signing holds
+// the app signing key; we only ever have the upload key.
+//
+// Applied from app/build.gradle.kts after the `android {}` block so it can
+// override the template's debug signing for `release`. Kept in its own file to
+// stay out of the way of other Gradle changes.
+//
+// Inputs (never committed — see .gitignore and docs/release-secrets.md):
+//   app/android/key.properties   storeFile=<abs path>, storePassword, keyAlias, keyPassword
+// CI writes key.properties from GitHub secrets (.github/workflows/release.yml).
+// Without it, local release builds keep the debug key so `flutter run --release`
+// works; with VV_REQUIRE_RELEASE_SIGNING=true (release CI) the build fails
+// instead of silently producing a debug-signed bundle.
+def keyPropsFile = rootProject.file("key.properties")
+def requireSigning = System.getenv("VV_REQUIRE_RELEASE_SIGNING") == "true"
+
+if (keyPropsFile.exists()) {
+    def keyProps = new Properties()
+    keyPropsFile.withInputStream { keyProps.load(it) }
+    ["storeFile", "storePassword", "keyAlias", "keyPassword"].each { k ->
+        if (!keyProps.getProperty(k)) {
+            throw new GradleException("key.properties is missing '${k}'")
+        }
+    }
+    android {
+        signingConfigs {
+            upload {
+                storeFile file(keyProps.getProperty("storeFile"))
+                storePassword keyProps.getProperty("storePassword")
+                keyAlias keyProps.getProperty("keyAlias")
+                keyPassword keyProps.getProperty("keyPassword")
+            }
+        }
+        buildTypes {
+            release {
+                signingConfig signingConfigs.upload
+            }
+        }
+    }
+} else if (requireSigning) {
+    throw new GradleException(
+        "VV_REQUIRE_RELEASE_SIGNING=true but app/android/key.properties is missing")
+}

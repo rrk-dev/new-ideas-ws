@@ -1,0 +1,4 @@
+# REL-01. No Apple ID / password here: CI authenticates with an App Store
+# Connect API key (Fastfile), see docs/release-secrets.md.
+app_identifier("com.vaultvoice.vaultvoice")
+team_id(ENV["APPLE_TEAM_ID"])

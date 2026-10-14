@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/app.dart';
+import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/db/enums.dart';
+import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
@@ -40,6 +44,9 @@ const _screens = {
 List<Override> _overrides() => [
   flavorProvider.overrideWithValue(Flavor.prod),
   processingViewsProvider.overrideWith((ref) async => sampleQueue()),
+  // Hermetic: no platform storage dir (path_provider) behind the
+  // recording/model providers that joined in integration wave 2.
+  storagePathsProvider.overrideWith((ref) => Completer<StoragePaths>().future),
   settingsStoreProvider.overrideWithValue(FakeSettingsStore()),
   managedSettingsSourceProvider.overrideWithValue(const _Managed()),
   vaultTargetsProvider.overrideWith(

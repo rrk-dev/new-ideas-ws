@@ -222,3 +222,73 @@ final class FilenamePatternFailure extends Failure {
 
   final int column;
 }
+
+/// Why a model download could not start or finish (MDL-02).
+enum ModelDownloadBlock {
+  /// Free space below `remaining × 1.1 + 200 MB`.
+  insufficientSpace,
+
+  /// Only a metered (cellular) network is available and the user has not
+  /// allowed cellular downloads.
+  unmeteredNetworkRequired,
+
+  /// Low-power mode is on; the UI must ask before downloading.
+  lowPowerMode,
+
+  /// No network connection, or the gateway is in offline mode.
+  offline,
+
+  /// Every URL was refused permanently (4xx, egress denied — e.g. a
+  /// redirect to a host that is not allowlisted); retrying cannot help.
+  allUrlsRejected,
+
+  /// Every URL failed and the retry budget (8 retries) is used up.
+  retriesExhausted,
+}
+
+/// A model download was refused by a precondition or gave up (MDL-02).
+/// Partial bytes are kept for a later resume unless the file was corrupt.
+final class ModelDownloadFailure extends Failure {
+  ModelDownloadFailure(
+    this.modelId,
+    this.block, {
+    this.requiredBytes,
+    this.freeBytes,
+    this.cause,
+  }) : super('model download ${block.name}: $modelId');
+
+  final String modelId;
+  final ModelDownloadBlock block;
+
+  /// For [ModelDownloadBlock.insufficientSpace].
+  final int? requiredBytes;
+  final int? freeBytes;
+
+  /// Last underlying failure (HTTP status, egress denial, …), if any.
+  final Failure? cause;
+}
+
+/// Why an offline model import was refused (MDL-04).
+enum ModelImportRejection {
+  /// No signed manifest and "Advanced: custom model" is not enabled.
+  unknownModel,
+
+  /// Custom models need the Pro entitlement.
+  entitlementRequired,
+
+  /// The custom file is not a plausible GGUF (magic, version, counts).
+  invalidGguf,
+
+  /// The signed manifest must describe exactly one model.
+  notSingleModel,
+
+  /// The picked files are not a model + `<id>.json` + `<id>.json.sig` set.
+  missingFiles,
+}
+
+/// An offline model import was refused (MDL-04).
+final class ModelImportFailure extends Failure {
+  ModelImportFailure(this.reason) : super('model import: ${reason.name}');
+
+  final ModelImportRejection reason;
+}

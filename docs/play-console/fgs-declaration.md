@@ -8,12 +8,16 @@ may edit; keep it truthful to the behaviour below.
 | Item | Value |
 |---|---|
 | Service | `com.vaultvoice.vaultvoice.RecordingService`, `exported=false` |
-| `foregroundServiceType` | `microphone` (the only FGS in the app) |
-| Permissions | `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_MICROPHONE`, `RECORD_AUDIO`, `POST_NOTIFICATIONS` |
-| Not declared | any other `FOREGROUND_SERVICE_*`, `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS`, phone/call-log permissions, `SYSTEM_ALERT_WINDOW`, accessibility (SEC-09 CI guard) |
+| `foregroundServiceType` | `microphone` (the only microphone FGS in the app) |
+| Second service (MDL-02) | `com.vaultvoice.vaultvoice.modeldownload.ModelDownloadService`, `exported=false`, `foregroundServiceType=dataSync` — keeps a user-started model download alive; never touches the microphone (ADR-MDL-02) |
+| Permissions | `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_MICROPHONE`, `FOREGROUND_SERVICE_DATA_SYNC` (MDL-02), `RECORD_AUDIO`, `POST_NOTIFICATIONS`, `INTERNET` + `ACCESS_NETWORK_STATE` (MDL-02) |
+| Not declared | any other `FOREGROUND_SERVICE_*` (only `_MICROPHONE` and `_DATA_SYNC`), `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS`, phone/call-log permissions, `SYSTEM_ALERT_WINDOW`, accessibility (SEC-09 CI guard) |
 
 Pinned by `app/test/unit/recording/recording_indicator_test.dart` (`[AUD-05/AC4]`) and
 `tools/ci/check_recording_policy.sh` (incl. the merged manifest in the CI `android` job).
+
+The `FOREGROUND_SERVICE_DATA_SYNC` declaration text for model downloads is owned by MDL-02 /
+REL-05 (follow-up from integration wave 2, `docs/adr/ADR-INT-W2-integration.md`).
 
 ## Declaration text (FOREGROUND_SERVICE_MICROPHONE)
 **Feature:** Voice note recording.

@@ -5,9 +5,11 @@ import 'package:flutter_riverpod/misc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/core/platform/backend_policy.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/features/extraction/data/ffi_llm_runtime.dart';
 import 'package:vaultvoice/features/extraction/data/memory_pressure_observer.dart';
+import 'package:vaultvoice/features/extraction/data/native_device_capabilities.dart';
 import 'package:vaultvoice/features/extraction/domain/llm_backend_policy.dart';
 import 'package:vaultvoice/features/extraction/domain/llm_service.dart';
 import 'package:vaultvoice/features/extraction/domain/memory_planner.dart';
@@ -27,7 +29,7 @@ Future<List<Override>> devLlmOverrides() async {
   return [llmEngineProvider.overrideWithValue(service)];
 }
 
-/// An [LlmService] whose backend follows [LlmBackendPolicy] and the app
+/// An [LlmService] whose backend follows [chooseLlmBackend] and the app
 /// lifecycle (iOS background ⇒ CPU; restart on CPU mid-run), with the
 /// LLM-07 pre-load memory check, STT/LLM residency and memory-pressure
 /// handling.
@@ -40,21 +42,26 @@ LlmService llmServiceForPlatform(
   final modelBytes = File(modelPath).lengthSync();
   var foreground = true;
   final platform = Platform.isIOS
-      ? LlmPlatform.ios
+      ? DevicePlatform.ios
       : Platform.isAndroid
-      ? LlmPlatform.android
-      : LlmPlatform.host;
+      ? DevicePlatform.android
+      : DevicePlatform.host;
+  final caps = NativeDeviceCapabilities(native);
   late final LlmService service;
   service = LlmService(
     runtime: FfiLlmRuntime(native),
     modelPath: modelPath,
-    // Android: CPU until a GPU is allowlisted (ADR-LLM-03); LLM-07 adds the
-    // tiering + guard wiring.
-    backend: () => const LlmBackendPolicy().choose(
-      platform: platform,
-      foreground: foreground,
-      gpuAllowed: platform != LlmPlatform.android,
-    ),
+    // Shared STT/LLM policy (ADR-STT-02, ADR-INT-W2): Android CPU until a
+    // GPU rule is added; iOS Metal in the foreground, CPU in the background.
+    // Dev wiring only — production must refuse to start on `null` (CPU
+    // lacks required features) and pass the trial store's crashed set.
+    backend: () =>
+        chooseLlmBackend(
+          caps: caps,
+          platform: platform,
+          foreground: foreground,
+        ) ??
+        const LlmBackendChoice(useGpu: false, reason: 'cpu-unsupported'),
     contextSize: contextSize,
     loadGate: (requested) {
       final plan = planLlmLoad(

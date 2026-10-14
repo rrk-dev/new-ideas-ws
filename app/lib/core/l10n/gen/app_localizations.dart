@@ -178,6 +178,282 @@ abstract class AppLocalizations {
   /// **'CallGuard debug'**
   String get callGuardDebugTooltip;
 
+  /// No description provided for @crashShareUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Sharing is not available.'**
+  String get crashShareUnavailable;
+
+  /// No description provided for @crashShareFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not share the crash report.'**
+  String get crashShareFailed;
+
+  /// No description provided for @crashPromptTitleNative.
+  ///
+  /// In en, this message translates to:
+  /// **'{appName} closed unexpectedly'**
+  String crashPromptTitleNative(String appName);
+
+  /// No description provided for @crashPromptTitleDart.
+  ///
+  /// In en, this message translates to:
+  /// **'{appName} hit an unexpected error'**
+  String crashPromptTitleDart(String appName);
+
+  /// No description provided for @crashPromptBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A crash report was saved on this device. It contains only technical details (error type, code addresses, app and OS version) — no recordings, transcripts or notes. You can review it and send it to the developers, for example by email. Nothing is sent automatically.'**
+  String get crashPromptBody;
+
+  /// No description provided for @crashPromptNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get crashPromptNotNow;
+
+  /// No description provided for @crashPromptReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review report'**
+  String get crashPromptReview;
+
+  /// No description provided for @crashPreviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Crash report'**
+  String get crashPreviewTitle;
+
+  /// No description provided for @crashPreviewInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} · {size}. This is the complete file. Nothing leaves this device unless you choose a destination in the share sheet.'**
+  String crashPreviewInfo(String name, String size);
+
+  /// No description provided for @crashPreviewDiscard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get crashPreviewDiscard;
+
+  /// No description provided for @crashPreviewShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get crashPreviewShare;
+
+  /// No description provided for @crashSettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Crash reports'**
+  String get crashSettingsTitle;
+
+  /// No description provided for @crashSettingsNone.
+  ///
+  /// In en, this message translates to:
+  /// **'None saved. Reports stay on this device until you share them.'**
+  String get crashSettingsNone;
+
+  /// No description provided for @crashSettingsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} saved on this device. Tap to review and share.'**
+  String crashSettingsCount(int count);
+
+  /// No description provided for @crashDevForceNative.
+  ///
+  /// In en, this message translates to:
+  /// **'Force native crash (dev)'**
+  String get crashDevForceNative;
+
+  /// No description provided for @crashDevForceNativeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Kills the app via SIGSEGV in libvv_native.'**
+  String get crashDevForceNativeSubtitle;
+
+  /// No description provided for @crashDevConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Crash the app now?'**
+  String get crashDevConfirmTitle;
+
+  /// No description provided for @crashDevConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Crash'**
+  String get crashDevConfirm;
+
+  /// No description provided for @crashDevThrowDart.
+  ///
+  /// In en, this message translates to:
+  /// **'Throw uncaught Dart error (dev)'**
+  String get crashDevThrowDart;
+
+  /// No description provided for @batteryGuidanceIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Long recordings can be stopped by this phone’s battery saver when the screen is off. {steps}'**
+  String batteryGuidanceIntro(String steps);
+
+  /// No description provided for @batteryGuidanceSamsung.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings → Battery → Background usage limits → Never sleeping apps → add VaultVoice.'**
+  String get batteryGuidanceSamsung;
+
+  /// No description provided for @batteryGuidanceXiaomi.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings → Apps → VaultVoice → Battery saver → No restrictions, and turn on Autostart.'**
+  String get batteryGuidanceXiaomi;
+
+  /// No description provided for @batteryGuidanceOnePlus.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings → Battery → VaultVoice → Allow background activity.'**
+  String get batteryGuidanceOnePlus;
+
+  /// No description provided for @batteryGuidanceGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'In battery settings, allow VaultVoice to run in the background.'**
+  String get batteryGuidanceGeneric;
+
+  /// No description provided for @batteryGuidanceOpenSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open battery settings'**
+  String get batteryGuidanceOpenSettings;
+
+  /// No description provided for @recoveredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording recovered'**
+  String get recoveredTitle;
+
+  /// No description provided for @recoveredPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovered recording from {when} — process now?'**
+  String recoveredPrompt(String when);
+
+  /// No description provided for @recoveredDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Length: {minutes}m {seconds}s. The app was closed while recording; the audio captured up to then was kept.'**
+  String recoveredDetails(int minutes, String seconds);
+
+  /// No description provided for @recoveredLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get recoveredLater;
+
+  /// No description provided for @recoveredProcessNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Process now'**
+  String get recoveredProcessNow;
+
+  /// No description provided for @modelImportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Import model from file'**
+  String get modelImportTitle;
+
+  /// No description provided for @modelImportSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the model file with its signed manifest (.json and .sig). Works without a network connection.'**
+  String get modelImportSubtitle;
+
+  /// No description provided for @modelImportInstalled.
+  ///
+  /// In en, this message translates to:
+  /// **'Model installed'**
+  String get modelImportInstalled;
+
+  /// No description provided for @modelImportUnsignedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsigned custom model'**
+  String get modelImportUnsignedTitle;
+
+  /// No description provided for @modelImportUnsignedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This file is not a VaultVoice-signed model. Only import GGUF files from a source you trust: a malformed or malicious model file can crash the app. Its license is your responsibility.'**
+  String get modelImportUnsignedBody;
+
+  /// No description provided for @modelImportAnyway.
+  ///
+  /// In en, this message translates to:
+  /// **'Import anyway'**
+  String get modelImportAnyway;
+
+  /// No description provided for @modelImportErrorUnknownModel.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a signed VaultVoice model. Select the model file together with its .json and .sig files.'**
+  String get modelImportErrorUnknownModel;
+
+  /// No description provided for @modelImportErrorMissingFiles.
+  ///
+  /// In en, this message translates to:
+  /// **'Select exactly one model file plus its .json and .sig files.'**
+  String get modelImportErrorMissingFiles;
+
+  /// No description provided for @modelImportErrorEntitlement.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom models require VaultVoice Pro.'**
+  String get modelImportErrorEntitlement;
+
+  /// No description provided for @modelImportErrorInvalidGguf.
+  ///
+  /// In en, this message translates to:
+  /// **'This file is not a valid GGUF model.'**
+  String get modelImportErrorInvalidGguf;
+
+  /// No description provided for @modelImportErrorNotSingleModel.
+  ///
+  /// In en, this message translates to:
+  /// **'The manifest is not a single-model manifest.'**
+  String get modelImportErrorNotSingleModel;
+
+  /// No description provided for @modelImportErrorSignature.
+  ///
+  /// In en, this message translates to:
+  /// **'The manifest signature is not valid.'**
+  String get modelImportErrorSignature;
+
+  /// No description provided for @modelImportErrorIntegrity.
+  ///
+  /// In en, this message translates to:
+  /// **'The model file does not match its manifest (size or checksum).'**
+  String get modelImportErrorIntegrity;
+
+  /// No description provided for @modelImportErrorNoSpace.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough free space.'**
+  String get modelImportErrorNoSpace;
+
+  /// No description provided for @modelImportErrorGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Import failed.'**
+  String get modelImportErrorGeneric;
+
+  /// No description provided for @recordingDebugTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording debug'**
+  String get recordingDebugTooltip;
+
   /// No description provided for @diagnosticsTitle.
   ///
   /// In en, this message translates to:

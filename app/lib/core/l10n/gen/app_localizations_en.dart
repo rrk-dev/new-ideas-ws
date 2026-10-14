@@ -54,6 +54,174 @@ class AppLocalizationsEn extends AppLocalizations {
   String get callGuardDebugTooltip => 'CallGuard debug';
 
   @override
+  String get crashShareUnavailable => 'Sharing is not available.';
+
+  @override
+  String get crashShareFailed => 'Could not share the crash report.';
+
+  @override
+  String crashPromptTitleNative(String appName) {
+    return '$appName closed unexpectedly';
+  }
+
+  @override
+  String crashPromptTitleDart(String appName) {
+    return '$appName hit an unexpected error';
+  }
+
+  @override
+  String get crashPromptBody =>
+      'A crash report was saved on this device. It contains only technical details (error type, code addresses, app and OS version) — no recordings, transcripts or notes. You can review it and send it to the developers, for example by email. Nothing is sent automatically.';
+
+  @override
+  String get crashPromptNotNow => 'Not now';
+
+  @override
+  String get crashPromptReview => 'Review report';
+
+  @override
+  String get crashPreviewTitle => 'Crash report';
+
+  @override
+  String crashPreviewInfo(String name, String size) {
+    return '$name · $size. This is the complete file. Nothing leaves this device unless you choose a destination in the share sheet.';
+  }
+
+  @override
+  String get crashPreviewDiscard => 'Discard';
+
+  @override
+  String get crashPreviewShare => 'Share';
+
+  @override
+  String get crashSettingsTitle => 'Crash reports';
+
+  @override
+  String get crashSettingsNone =>
+      'None saved. Reports stay on this device until you share them.';
+
+  @override
+  String crashSettingsCount(int count) {
+    return '$count saved on this device. Tap to review and share.';
+  }
+
+  @override
+  String get crashDevForceNative => 'Force native crash (dev)';
+
+  @override
+  String get crashDevForceNativeSubtitle =>
+      'Kills the app via SIGSEGV in libvv_native.';
+
+  @override
+  String get crashDevConfirmTitle => 'Crash the app now?';
+
+  @override
+  String get crashDevConfirm => 'Crash';
+
+  @override
+  String get crashDevThrowDart => 'Throw uncaught Dart error (dev)';
+
+  @override
+  String batteryGuidanceIntro(String steps) {
+    return 'Long recordings can be stopped by this phone’s battery saver when the screen is off. $steps';
+  }
+
+  @override
+  String get batteryGuidanceSamsung =>
+      'Settings → Battery → Background usage limits → Never sleeping apps → add VaultVoice.';
+
+  @override
+  String get batteryGuidanceXiaomi =>
+      'Settings → Apps → VaultVoice → Battery saver → No restrictions, and turn on Autostart.';
+
+  @override
+  String get batteryGuidanceOnePlus =>
+      'Settings → Battery → VaultVoice → Allow background activity.';
+
+  @override
+  String get batteryGuidanceGeneric =>
+      'In battery settings, allow VaultVoice to run in the background.';
+
+  @override
+  String get batteryGuidanceOpenSettings => 'Open battery settings';
+
+  @override
+  String get recoveredTitle => 'Recording recovered';
+
+  @override
+  String recoveredPrompt(String when) {
+    return 'Recovered recording from $when — process now?';
+  }
+
+  @override
+  String recoveredDetails(int minutes, String seconds) {
+    return 'Length: ${minutes}m ${seconds}s. The app was closed while recording; the audio captured up to then was kept.';
+  }
+
+  @override
+  String get recoveredLater => 'Later';
+
+  @override
+  String get recoveredProcessNow => 'Process now';
+
+  @override
+  String get modelImportTitle => 'Import model from file';
+
+  @override
+  String get modelImportSubtitle =>
+      'Select the model file with its signed manifest (.json and .sig). Works without a network connection.';
+
+  @override
+  String get modelImportInstalled => 'Model installed';
+
+  @override
+  String get modelImportUnsignedTitle => 'Unsigned custom model';
+
+  @override
+  String get modelImportUnsignedBody =>
+      'This file is not a VaultVoice-signed model. Only import GGUF files from a source you trust: a malformed or malicious model file can crash the app. Its license is your responsibility.';
+
+  @override
+  String get modelImportAnyway => 'Import anyway';
+
+  @override
+  String get modelImportErrorUnknownModel =>
+      'Not a signed VaultVoice model. Select the model file together with its .json and .sig files.';
+
+  @override
+  String get modelImportErrorMissingFiles =>
+      'Select exactly one model file plus its .json and .sig files.';
+
+  @override
+  String get modelImportErrorEntitlement =>
+      'Custom models require VaultVoice Pro.';
+
+  @override
+  String get modelImportErrorInvalidGguf =>
+      'This file is not a valid GGUF model.';
+
+  @override
+  String get modelImportErrorNotSingleModel =>
+      'The manifest is not a single-model manifest.';
+
+  @override
+  String get modelImportErrorSignature =>
+      'The manifest signature is not valid.';
+
+  @override
+  String get modelImportErrorIntegrity =>
+      'The model file does not match its manifest (size or checksum).';
+
+  @override
+  String get modelImportErrorNoSpace => 'Not enough free space.';
+
+  @override
+  String get modelImportErrorGeneric => 'Import failed.';
+
+  @override
+  String get recordingDebugTooltip => 'Recording debug';
+
+  @override
   String get diagnosticsTitle => 'Export diagnostics';
 
   @override

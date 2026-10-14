@@ -19,6 +19,9 @@ A Dart `LlmEngine` that loads a GGUF model and runs prompts with streaming, canc
 - Same seed + prompt yields identical output (determinism test).
 - Model unload returns RAM to baseline (± 50 MB).
 
+## Notes
+- Runtime: **llama.cpp** per [ADR-LLM-01](../../docs/adr/ADR-LLM-01-runtime.md) (Proposed until device numbers exist). `use_mmap` no longer exists at the pin (use `load_mode`); llama.h also has the new `llama_batch_ext`/`llama_process` API next to `llama_decode`.
+
 ## Completion Notes
 - **Agent:** Claude Code · **Branch:** task/LLM-04-llm-ffi-engine (stacked on task/LLM-03-llama-android → task/LLM-02-llama-ios-metal) · **Date:** 2026-10-13
 - **Summary:** Native streaming engine `native/bridge/vv_llama_engine.cpp` (+ `vv_llama_internal.h`, API in `vv_llama.h`); Dart FFI `packages/vv_native/lib/src/llm_engine.dart` (`VvLlm.load/generate/cancel/destroy`, `LlmGenParams` presets); app `LlmEngine` implementation `app/lib/features/extraction/domain/llm_service.dart` over `LlmRuntime` (`llm_runtime.dart`; real `data/ffi_llm_runtime.dart`, fake `test/fakes/fake_llm_runtime.dart`); `LlmRequest` gained `systemPrompt`, `sampling` (`LlmPreset`), `templated`. Backgrounding hook: `LlmService.onBackgrounded()` stops a running GPU generation and re-runs the request on a CPU session (also on a mid-run `VV_E_BACKEND` from the GPU), `onRestart` lets UIs drop partial text; `dev_llm_engine.dart` wires it to `AppLifecycleListener` in the dev flavor. Dev-only debug screen `presentation/llm_debug_screen.dart` (Settings → "LLM debug (dev)", `--dart-define=VV_DEV_LLM_MODEL=…`). Device tests `app/integration_test/llm_engine_test.dart`.

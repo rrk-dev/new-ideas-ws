@@ -267,9 +267,11 @@ void main() {
   });
 
   group('Play policy: foreground service declaration', () {
-    final manifest = File('android/app/src/main/AndroidManifest.xml')
+    // Lazy: read inside the test so tag-filtered runs without android/ (the
+    // Linux golden container) can still load this file.
+    late final manifest = File('android/app/src/main/AndroidManifest.xml')
         .readAsStringSync();
-    final service = File(
+    late final service = File(
       'android/app/src/main/kotlin/com/vaultvoice/vaultvoice/'
       'RecordingService.kt',
     ).readAsStringSync();
@@ -280,13 +282,21 @@ void main() {
         r'<service\b[^>]*>',
         dotAll: true,
       ).allMatches(manifest).map((m) => m.group(0)!).toList();
-      expect(services, hasLength(1));
-      expect(services.single, contains('android:name=".RecordingService"'));
-      expect(
-        services.single,
-        contains('android:foregroundServiceType="microphone"'),
+      // Integration wave 2: MDL-02 adds ModelDownloadService (type dataSync,
+      // no microphone access). The recording FGS stays the only microphone
+      // service; no other FGS type may appear.
+      expect(services, hasLength(2));
+      final recording = services.singleWhere(
+        (s) => s.contains('android:name=".RecordingService"'),
       );
-      expect(services.single, contains('android:exported="false"'));
+      expect(recording, contains('android:foregroundServiceType="microphone"'));
+      expect(recording, contains('android:exported="false"'));
+      final download = services.singleWhere(
+        (s) => s.contains('android:name=".modeldownload.ModelDownloadService"'),
+      );
+      expect(download, contains('android:foregroundServiceType="dataSync"'));
+      expect(download, contains('android:exported="false"'));
+      expect(services.where((s) => s.contains('"microphone"')), hasLength(1));
       for (final p in [
         'RECORD_AUDIO',
         'FOREGROUND_SERVICE',
@@ -298,7 +308,10 @@ void main() {
       final fgsPermissions = RegExp(
         r'android\.permission\.(FOREGROUND_SERVICE_\w+)',
       ).allMatches(manifest).map((m) => m.group(1)).toSet();
-      expect(fgsPermissions, {'FOREGROUND_SERVICE_MICROPHONE'});
+      expect(fgsPermissions, {
+        'FOREGROUND_SERVICE_MICROPHONE',
+        'FOREGROUND_SERVICE_DATA_SYNC', // MDL-02 model downloads
+      });
       expect(manifest, isNot(contains('REQUEST_IGNORE_BATTERY_OPTIMIZATIONS')));
       expect(service, contains('FOREGROUND_SERVICE_TYPE_MICROPHONE'));
       expect(service, contains('START_NOT_STICKY'));

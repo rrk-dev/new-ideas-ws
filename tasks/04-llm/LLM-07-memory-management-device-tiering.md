@@ -18,6 +18,9 @@ The app picks models and settings each device can actually run, and never gets O
 - Full pipeline on iPhone 11 and a 4 GB Android device completes without being killed on a 30-min recording.
 - Tier detection unit-tested with mocked device profiles.
 
+## Notes
+- Runtime: **llama.cpp** per [ADR-LLM-01](../../docs/adr/ADR-LLM-01-runtime.md) (Proposed until device numbers exist).
+
 ## Completion Notes
 - **Agent:** Claude Code · **Branch:** task/LLM-07-memory-tiering (stacked on task/LLM-05-structured-output) · **Date:** 2026-10-13
 - **Summary:** Native `vv_device_memory` (`native/bridge/vv_llama.cpp`) + Dart `VvNative.deviceMemory`; app `features/extraction/domain/device_tiering.dart` (DeviceProfile, tiers, tier × plan defaults, `LlmPlanGate` placeholder for LIC-01), `memory_planner.dart` (estimate, `planLlmLoad`, `assessModelFit`), `model_residency.dart`; `LlmService` gained `loadGate`, `onBeforeLoad`, `onMemoryPressure`, `effectiveContextSize`; `data/device_profile_probe.dart` (probe + `DeviceTierCache`), `data/memory_pressure_observer.dart`; dev wiring in `data/dev_llm_engine.dart`. Tests `test/unit/extraction/device_tiering_test.dart`.

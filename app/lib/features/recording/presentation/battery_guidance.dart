@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_recording_indicator.dart';
 import 'package:vaultvoice/features/recording/data/recording_providers.dart';
@@ -23,24 +24,19 @@ const kAggressiveOems = {
 
 /// OEM-specific steps to keep long recordings alive (AUD-05). Null when no
 /// guidance is needed (not Android, already exempt, or a stock-like OEM).
-String? batteryGuidanceText(BatteryStatus? status) {
+/// Strings come from [l] (English when omitted, e.g. in unit tests).
+String? batteryGuidanceText(BatteryStatus? status, [AppLocalizations? l]) {
   if (status == null || status.ignoringOptimizations) return null;
   final oem = status.manufacturer;
   if (!kAggressiveOems.contains(oem)) return null;
+  final s = l ?? lookupAppLocalizations(kFallbackLocale);
   final steps = switch (oem) {
-    'samsung' =>
-      'Settings → Battery → Background usage limits → Never sleeping apps → '
-          'add VaultVoice.',
-    'xiaomi' || 'redmi' || 'poco' =>
-      'Settings → Apps → VaultVoice → Battery saver → No restrictions, and '
-          'turn on Autostart.',
-    'oneplus' ||
-    'oppo' ||
-    'realme' => 'Settings → Battery → VaultVoice → Allow background activity.',
-    _ => 'In battery settings, allow VaultVoice to run in the background.',
+    'samsung' => s.batteryGuidanceSamsung,
+    'xiaomi' || 'redmi' || 'poco' => s.batteryGuidanceXiaomi,
+    'oneplus' || 'oppo' || 'realme' => s.batteryGuidanceOnePlus,
+    _ => s.batteryGuidanceGeneric,
   };
-  return 'Long recordings can be stopped by this phone’s battery saver when '
-      'the screen is off. $steps';
+  return s.batteryGuidanceIntro(steps);
 }
 
 /// Shows [batteryGuidanceText] above [child] with a button that opens the
@@ -55,7 +51,7 @@ class BatteryGuidance extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final status = ref.watch(batteryStatusProvider).value;
-    final text = batteryGuidanceText(status);
+    final text = batteryGuidanceText(status, context.l10n);
     if (text == null) return child;
     return Column(
       children: [
@@ -73,7 +69,7 @@ class BatteryGuidance extends ConsumerWidget {
                         .read(platformRecordingIndicatorProvider)
                         .openBatterySettings(),
                   ),
-                  child: const Text('Open battery settings'),
+                  child: Text(context.l10n.batteryGuidanceOpenSettings),
                 ),
               ],
             ),

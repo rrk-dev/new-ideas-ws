@@ -180,7 +180,7 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 | Decision | Task | Recommendation |
 |---|---|---|
 | Isar vs SQLite | FND-04 | Decided: ADR-FND-04 (Proposed) — SQLite via `drift` (FTS5 search, encryption via sqlite3mc or SQLCipher build hooks, active maintenance) |
-| llama.cpp vs ExecuTorch vs MLC-LLM | LLM-01 | llama.cpp (shared ggml with whisper.cpp, GGUF, grammars) unless benchmarks show ≥ 1.5× gap |
+| llama.cpp vs ExecuTorch vs MLC-LLM | LLM-01 | Decided: ADR-LLM-01 (Proposed — host-measured, device rows pending) — llama.cpp (shared ggml with whisper.cpp, GGUF, GBNF grammars); re-open if LLM-02/03 device targets miss by > 1.5× |
 | Default LLM per tier | LLM-08 | Decide from PRF-09 eval; expect 1B-class for Low tier, 3B for High |
 | Core ML encoder for Whisper on iOS | STT-01 | Proposed: ADR-STT-01 (Metal-only for v1, Core ML one flag away; device benchmark pending) |
 | Diarization approach | STT-05 | Spike sherpa-onnx first |
@@ -193,7 +193,7 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 | Native packaging & Android CPU variants (static vs `GGML_BACKEND_DL`) | FND-06 | Static single `vv_native` + dotprod build if all matrix devices support it |
 | VAD engine | AUD-03 | whisper.cpp built-in Silero VAD (no new runtime) |
 | File encryption: OS-only vs app-level `vvenc` | SEC-01 (Phase-1 ADR) | OS file encryption + encrypted DB for v1; `vvenc` if threat model requires |
-| Crash capture library | REL-02 | Minimal own signal handler; vetted library only via ADR |
+| Crash capture library | REL-02 | Decided: ADR-REL-02 (Proposed) — own async-signal-safe handler in the bridge (`vv_crash.c`), OS/store reports as baseline, no upload endpoint |
 | Can users disable per-recording consent confirmation? | SEC-07 | Product/legal decision |
 | Recording policy (call capture forbidden, user-tap start) | SEC-09 | Fixed requirement — ADR documents enforcement |
 | Cloud device farm (Firebase Test Lab / BrowserStack) | QA-05 | Proposed: physical lab only, no cloud farm (ADR-QA-05). Human accepts or rejects |

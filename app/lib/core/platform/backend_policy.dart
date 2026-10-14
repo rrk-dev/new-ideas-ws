@@ -9,6 +9,12 @@
 ///   device's GPU matches an allowlist rule and no denylist rule, and it did
 ///   not crash a previous run (trial sentinel, see [GpuTrialStore]);
 /// - the user's "force CPU" diagnostic switch wins.
+///
+/// This is the **single** backend policy for STT and LLM (integration wave
+/// 2, docs/adr/ADR-INT-W2-integration.md): LLM-03's separate allowlist and
+/// crash guard were folded into [GpuRules] and [GpuTrialStore]; the LLM
+/// adapter (`chooseLlmBackend`) only maps a [BackendChoice] to its
+/// per-context `LlmBackendChoice`.
 library;
 
 /// GPU backend families, matching `VV_GPU_*` in `native/bridge/vv_bridge.h`.
@@ -173,6 +179,13 @@ abstract interface class GpuTrialStore {
   Future<Set<GpuBackend>> crashed();
   Future<void> begin(GpuBackend backend);
   Future<void> succeeded(GpuBackend backend);
+
+  /// The run finished but the GPU did not work (the bridge fell back to CPU
+  /// or returned a backend error): disable the backend like a crash (LLM-03).
+  Future<void> failed(GpuBackend backend);
+
+  /// Diagnostics reset (e.g. after an OS/driver update).
+  Future<void> resetAll();
 }
 
 /// Records trials in memory or any key/value persistence via [read]/[write].
@@ -210,6 +223,16 @@ class GpuTrialGuard implements GpuTrialStore {
 
   @override
   Future<void> succeeded(GpuBackend backend) => write(_key(backend), 'ok');
+
+  @override
+  Future<void> failed(GpuBackend backend) => write(_key(backend), 'crashed');
+
+  @override
+  Future<void> resetAll() async {
+    for (final b in GpuBackend.values) {
+      await write(_key(b), null);
+    }
+  }
 }
 
 /// Default thread count: performance cores (bridge `vv_threads.h`), capped at

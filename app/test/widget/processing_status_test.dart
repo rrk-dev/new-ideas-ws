@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/app.dart';
+import 'package:vaultvoice/core/db/db_providers.dart';
+import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
@@ -19,11 +23,15 @@ import 'package:vaultvoice/features/pipeline/presentation/recording_status_scree
 
 import '../helpers/processing_fixtures.dart';
 
-List<Override> viewsOverride(Future<List<JobProgressView>> Function() views) =>
-    [
-      flavorProvider.overrideWithValue(Flavor.dev),
-      processingViewsProvider.overrideWith((ref) => views()),
-    ];
+List<Override> viewsOverride(
+  Future<List<JobProgressView>> Function() views,
+) => [
+  flavorProvider.overrideWithValue(Flavor.dev),
+  processingViewsProvider.overrideWith((ref) => views()),
+  // Hermetic: no platform storage dir (path_provider) behind the
+  // recording/model providers that joined in integration wave 2.
+  storagePathsProvider.overrideWith((ref) => Completer<StoragePaths>().future),
+];
 
 Future<ProviderContainer> pumpApp(
   WidgetTester t,

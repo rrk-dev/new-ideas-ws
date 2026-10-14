@@ -14,3 +14,23 @@ const kModelCdnHost = 'models.vaultvoice.example';
 const kModelMirrorHosts = {'huggingface.co'};
 
 const Set<String> kModelHosts = {kModelCdnHost, ...kModelMirrorHosts};
+
+/// Hugging Face file CDN hosts that `huggingface.co/<repo>/resolve/<rev>/…`
+/// URLs redirect to (MDL-02). Redirect targets only: the gateway never
+/// contacts them directly, only right after a redirect from an allowlisted
+/// host. Any other redirect target fails closed (download falls through to
+/// the next catalog URL).
+///
+/// Checked 2026-10-13 (`curl -I` on both pinned seed-model URLs, repeated):
+/// every redirect went to `us.aws.cdn.hf.co` (Xet bridge, signed query).
+/// Other HF CDN names (`cas-bridge.xethub.hf.co`, `cdn-lfs*.hf.co`,
+/// regional `*.aws.cdn.hf.co`) were NOT observed and are deliberately not
+/// listed — add one only after observing it the same way and documenting it
+/// in docs/privacy-audit.md → "Redirect targets".
+const kModelRedirectHosts = {'us.aws.cdn.hf.co'};
+
+/// Settings key (`settings` table): when true the gateway refuses every
+/// request — user "offline mode" or enterprise managed config
+/// `network_disabled` (LIC-04 writes/overrides it). Models are then
+/// provisioned by offline import only (MDL-04).
+const kNetworkDisabledKey = 'network_disabled';

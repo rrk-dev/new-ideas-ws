@@ -23,6 +23,10 @@ import UserNotifications
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "CallGuardPlugin") {
       CallGuardPlugin.register(with: registrar)
     }
+    // MDL-02: model downloads (background session, free space, backup exclusion).
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "ModelDownloadPlugin") {
+      ModelDownloadPlugin.register(with: registrar)
+    }
     // AUD-01: free-space checks for the recording storage policy.
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "StorageInfoPlugin") {
       StorageInfoPlugin.register(with: registrar)

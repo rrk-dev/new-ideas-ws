@@ -62,6 +62,11 @@ void main() {
     test('lists GPU devices and perf cores', () {
       final native = VvNative.open(hostPath: lib);
       expect(native.perfCores, greaterThanOrEqualTo(1));
+      // DL builds register GPU modules only when the backend policy asks
+      // (STT-02 loader, shared with LLM since integration wave 2).
+      if (native.dynamicBackends && Platform.isMacOS) {
+        expect(native.loadBackends(gpuMask: VV_GPU_METAL), VV_OK);
+      }
       final gpus = native.gpuDevices();
       if (Platform.isMacOS) expect(gpus.first.$2, startsWith('MTL'));
     }, skip: skip);

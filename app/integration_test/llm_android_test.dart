@@ -5,9 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:vaultvoice/features/extraction/data/file_backend_health_store.dart';
+import 'package:vaultvoice/core/platform/backend_policy.dart';
+import 'package:vaultvoice/core/platform/gpu_trial_file.dart';
 import 'package:vaultvoice/features/extraction/data/native_device_capabilities.dart';
-import 'package:vaultvoice/features/extraction/domain/gpu_backend_guard.dart';
 import 'package:vv_native/vv_native.dart';
 
 import 'llm_bench_support.dart';
@@ -53,38 +53,54 @@ void main() {
       return;
     }
     final docs = await getApplicationDocumentsDirectory();
-    final guard = GpuBackendGuard(
-      FileBackendHealthStore(File('${docs.path}/llm_backend_health.json')),
-    );
+    // The single shared crash sentinel (ADR-STT-02 / ADR-INT-W2).
+    final guard = fileGpuTrialGuard(File('${docs.path}/gpu_trials.json'));
     // A crash in the previous run of this test left a marker: report it.
-    final crashed = guard.recoverFromCrash();
+    final crashed = await guard.crashed();
     debugPrint('VV_LLM_GUARD recovered_from_crash=$crashed');
 
     final native = VvNative.open();
-    final caps = NativeDeviceCapabilities(native);
-    for (final d in caps.gpuDevices()) {
-      if (guard.isDisabled(d)) {
-        debugPrint('VV_LLM_GUARD skip disabled ${d.key}');
+    for (final backend in const [GpuBackend.vulkan, GpuBackend.opencl]) {
+      if (crashed.contains(backend)) {
+        debugPrint('VV_LLM_GUARD skip disabled ${backend.name}');
         continue;
       }
-      guard.beginGpuRun(d); // durable before native GPU init
-      var worked = false;
-      try {
-        final r = await Isolate.run(
-          () => VvNative.open().llmBench(
-            path,
-            LlmBackendParams(gpuDevice: d.index, nCtx: 512),
-            nPrompt: c.nPrompt,
-            nGen: c.nGen,
-          ),
-        );
-        worked = r.usedGpu && !r.fellBackToCpu;
-        debugPrint('VV_LLM_GUARD ${d.key} worked=$worked ${r.toJson()}');
-      } on VvLlmException catch (e) {
-        debugPrint('VV_LLM_GUARD ${d.key} error=${e.code}');
+      // Durable marker *before* the module is dlopen()ed (DL builds register
+      // GPU modules only on request, STT-02 loader) and before GPU init.
+      await guard.begin(backend);
+      final rc = native.loadBackends(gpuMask: backend.maskBit);
+      final devices = NativeDeviceCapabilities(native)
+          .gpuDevices()
+          .where((d) => d.backend == backend)
+          .toList();
+      debugPrint(
+        'VV_LLM_GUARD ${backend.name} load=$rc devices=${devices.length}',
+      );
+      var worked = devices.isNotEmpty;
+      for (final d in devices) {
+        try {
+          final r = await Isolate.run(
+            () => VvNative.open().llmBench(
+              path,
+              LlmBackendParams(gpuDevice: d.index, nCtx: 512),
+              nPrompt: c.nPrompt,
+              nGen: c.nGen,
+            ),
+          );
+          final ok = r.usedGpu && !r.fellBackToCpu;
+          worked = worked && ok;
+          debugPrint('VV_LLM_GUARD ${backend.name} worked=$ok ${r.toJson()}');
+        } on VvLlmException catch (e) {
+          worked = false;
+          debugPrint('VV_LLM_GUARD ${backend.name} error=${e.code}');
+        }
       }
-      guard.endGpuRun(d, gpuWorked: worked);
-      expect(guard.isDisabled(d), !worked);
+      if (worked) {
+        await guard.succeeded(backend);
+      } else {
+        await guard.failed(backend); // no device, fallback or error: CPU
+      }
+      expect((await guard.crashed()).contains(backend), !worked);
     }
     // CPU path must always work.
     final cpu = await Isolate.run(

@@ -18,21 +18,29 @@ class RecordScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDev = ref.watch(flavorProvider).isDev;
-    return PlaceholderScreen(
-      title: context.l10n.tabRecord,
-      icon: Icons.mic,
-      actions: [
-        if (isDev)
-          IconButton(
-            tooltip: context.l10n.callGuardDebugTooltip,
-            icon: const Icon(Icons.phone_disabled),
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(
-                builder: (_) => const CallGuardDebugScreen(),
+    // Keeps the OS recording indicator (notification) in sync (AUD-05).
+    ref.watch(recordingIndicatorBindingProvider);
+    // The launch screen: offers recordings recovered after a crash (AUD-07)
+    // and OEM battery-saver guidance (AUD-05).
+    return RecoveredRecordingsPrompt(
+      child: BatteryGuidance(
+        child: PlaceholderScreen(
+          title: context.l10n.tabRecord,
+          icon: Icons.mic,
+          actions: [
+            if (isDev)
+              IconButton(
+                tooltip: context.l10n.recordingDebugTooltip,
+                icon: const Icon(Icons.graphic_eq),
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const RecordingDebugScreen(),
+                  ),
+                ),
               ),
             if (isDev)
               IconButton(
-                tooltip: 'CallGuard debug',
+                tooltip: context.l10n.callGuardDebugTooltip,
                 icon: const Icon(Icons.phone_disabled),
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute<void>(
