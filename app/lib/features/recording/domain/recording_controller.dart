@@ -70,14 +70,20 @@ class RecordingController {
     RecordingLimits? limits,
     this._reminders,
     this._tick = const Duration(seconds: 1),
+    Set<StartSource>? allowedStarts,
   }) : _guard = callGuard,
        _isForeground = isAppInForeground,
+       _allowedStarts = allowedStarts ?? allowedStartSources,
        limits = limits ?? RecordingLimits();
 
   final CaptureBackend _capture;
   final CallGuard _guard;
   final Clock _clock;
   final bool Function() _isForeground;
+
+  /// Sources that may call [start]. Defaults to [allowedStartSources].
+  /// The macOS provider passes the Record-button-only set (AUD-09).
+  final Set<StartSource> _allowedStarts;
   final RecordingReminderSink? _reminders;
   final Duration _tick;
 
@@ -125,7 +131,7 @@ class RecordingController {
 
   /// Starts a new recording from a user tap.
   Future<Result<void>> start(StartSource source) async {
-    if (!allowedStartSources.contains(source)) {
+    if (!_allowedStarts.contains(source)) {
       return _blocked(RecordingBlockReason.sourceNotAllowed);
     }
     final canStart =

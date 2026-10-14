@@ -10,6 +10,7 @@ import 'package:vaultvoice/features/recording/domain/audio_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_format.dart';
 import 'package:vaultvoice/features/recording/domain/audio_session_monitor.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
+import 'package:vaultvoice/features/recording/domain/start_source.dart';
 import 'package:vaultvoice/features/recording/domain/storage_policy.dart';
 import 'package:vaultvoice/features/recording/domain/wav_header.dart';
 
@@ -29,6 +30,9 @@ class CaptureRig {
     Duration flushInterval = const Duration(seconds: 1),
     AudioSessionMonitor audioSession = const NoAudioSessionMonitor(),
     this.foreground = true,
+    Set<StartSource>? allowedStarts,
+    bool pauseOnInputRemoved = false,
+    bool rejectNonMicrophoneInputs = false,
   }) : db = memoryDb(),
        dir = Directory.systemTemp.createTempSync('vv_capture_') {
     paths = StoragePaths(dir.path);
@@ -44,12 +48,15 @@ class CaptureRig {
       chunkDuration: chunkDuration,
       flushInterval: flushInterval,
       audioSession: audioSession,
+      pauseOnInputRemoved: pauseOnInputRemoved,
+      rejectNonMicrophoneInputs: rejectNonMicrophoneInputs,
     );
     controller = RecordingController(
       capture: backend,
       callGuard: guard,
       clock: clock,
       isAppInForeground: () => foreground,
+      allowedStarts: allowedStarts,
     );
     addTearDown(() async {
       await controller.dispose();
