@@ -5,10 +5,12 @@ import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
 import 'package:vaultvoice/core/platform/call_guard.dart';
 import 'package:vaultvoice/core/platform/id_generator.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
+import 'package:vaultvoice/features/pipeline/data/pipeline_providers.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_call_guard.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_disk_space_probe.dart';
 import 'package:vaultvoice/features/recording/data/record_capture_backend.dart';
 import 'package:vaultvoice/features/recording/data/record_mic_source.dart';
+import 'package:vaultvoice/features/recording/data/recording_recovery.dart';
 import 'package:vaultvoice/features/recording/data/wav_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_format.dart';
@@ -65,6 +67,32 @@ Future<List<AudioInputDevice>> recordingInputDevices(Ref ref) async {
 @riverpod
 void Function(AudioInputDevice?) recordingInputSelector(Ref ref) =>
     ref.watch(recordCaptureBackendProvider).selectInput;
+
+/// Recordings repaired at launch after a crash / OS kill (AUD-07). Runs once
+/// per process; never touches the recording open in this process.
+@Riverpod(keepAlive: true)
+Future<List<RecoveredRecording>> recoveredRecordings(Ref ref) async {
+  final paths = await ref.watch(storagePathsProvider.future);
+  final open = ref.read(recordCaptureBackendProvider).recordingId;
+  final recovery = RecordingRecovery(
+    recordings: ref.watch(recordingsRepositoryProvider),
+    paths: paths,
+    codec: ref.watch(audioChunkCodecProvider),
+    logger: ref.watch(loggerProvider),
+  );
+  final r = await recovery.recoverOrphans(skip: {?open});
+  return r.valueOrNull ?? const [];
+}
+
+/// "Process now" for a recovered recording: queues it at the front of the
+/// pipeline (FND-05).
+@Riverpod(keepAlive: true)
+Future<void> Function(String recordingId) recoveredRecordingProcessor(
+  Ref ref,
+) => (id) async {
+  final client = await ref.read(pipelineClientProvider.future);
+  await client.enqueue(id, userInitiated: true);
+};
 
 /// Microphone capture driven by [recordingController]; tests override it
 /// with `FakeCaptureBackend`.

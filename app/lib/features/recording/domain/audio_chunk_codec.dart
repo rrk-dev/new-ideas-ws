@@ -27,6 +27,12 @@ abstract interface class AudioChunkCodec {
   /// Reopens a finalized chunk written by this codec to change its tail
   /// (a call-interruption discard reaching back past a chunk rollover).
   Future<AudioChunkWriter> reopen(String path);
+
+  /// Crash recovery (AUD-07): makes a chunk left behind by a killed process
+  /// readable — WAV: rewrite the header sizes from the file length (rounded
+  /// down to whole samples); `vvenc`: drop the incomplete last frame.
+  /// Returns the recovered PCM byte count (0 = nothing usable).
+  Future<int> recover(String path);
 }
 
 /// Appends mono 16 kHz PCM16 to one chunk file.
