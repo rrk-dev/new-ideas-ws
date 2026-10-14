@@ -1,0 +1,20 @@
+app/test/widget/processing_services_host_test.dart
+  s_9f6fcf8c1840a0::t_6467b0bd50d784 11
+  s_9f6fcf8c1840a0::t_f406ef8985cff6 4,7-8,43-67,74,79,104-106
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3ca58c7654348a198ac91700e9ed0f94ce23420c",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
