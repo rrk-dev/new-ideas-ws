@@ -89,67 +89,649 @@ class VvBindings {
   late final _vv_llama_system_info = _vv_llama_system_infoPtr
       .asFunction<ffi.Pointer<ffi.Char> Function()>();
 
-  /// Loads the ggml backends once per process; call before vv_stt_create /
-  /// vv_llm_create. In a VV_GGML_BACKEND_DL build it dlopen()s the best CPU
-  /// variant for this CPU plus each GPU module whose bit is set in gpu_mask
-  /// (the Dart allowlist decides the mask; 0 = CPU only). Later calls may add
-  /// GPU families but never unload. In a static build (iOS, default Android)
-  /// every compiled backend is already registered and this is a no-op; choose
-  /// CPU-only per model with use_gpu = 0 instead.
-  /// lib_dir: directory of the backend modules; NULL = the directory of this
-  /// library (works for extracted and APK-embedded Android libs).
-  /// Returns VV_OK, or VV_E_BACKEND when no CPU backend could be loaded.
-  int vv_backends_load(ffi.Pointer<ffi.Char> lib_dir, int gpu_mask) {
-    return _vv_backends_load(lib_dir, gpu_mask);
+  /// Defaults: GPU on, default device, q8_0 KV, flash attention auto, n_ctx
+  /// 4096, n_batch 512, perf-core threads, mmap on.
+  vv_llm_backend_params vv_llm_default_backend_params() {
+    return _vv_llm_default_backend_params();
   }
 
-  late final _vv_backends_loadPtr =
+  late final _vv_llm_default_backend_paramsPtr =
+      _lookup<ffi.NativeFunction<vv_llm_backend_params Function()>>(
+        'vv_llm_default_backend_params',
+      );
+  late final _vv_llm_default_backend_params = _vv_llm_default_backend_paramsPtr
+      .asFunction<vv_llm_backend_params Function()>();
+
+  /// Number of performance CPU cores (Apple: hw.perflevel0.physicalcpu;
+  /// Linux/Android: cores faster than the slowest cpufreq cluster, i.e. big.LITTLE
+  /// "LITTLE" cores excluded; fallback half the online cores). >= 1. On
+  /// Linux/Android llama.cpp's worker threads are also restricted to these cores
+  /// (ggml threadpool cpumask).
+  int vv_cpu_perf_cores() {
+    return _vv_cpu_perf_cores();
+  }
+
+  late final _vv_cpu_perf_coresPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('vv_cpu_perf_cores');
+  late final _vv_cpu_perf_cores = _vv_cpu_perf_coresPtr
+      .asFunction<int Function()>();
+
+  /// `runtime`: features this CPU reports (Android/Linux getauxval HWCAP,
+  /// Apple sysctl hw.optional.arm.*). `build`: features the ggml CPU kernels in
+  /// this library were compiled to *require* (GGML_CPU_ARM_ARCH; at the pin
+  /// ggml_cpu_has_dotprod/matmul_int8 are compile-time). Either pointer may be
+  /// NULL. Calling this never executes the optional instructions.
+  int vv_cpu_features(
+    ffi.Pointer<ffi.Int32> runtime,
+    ffi.Pointer<ffi.Int32> build,
+  ) {
+    return _vv_cpu_features(runtime, build);
+  }
+
+  late final _vv_cpu_featuresPtr =
       _lookup<
         ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Char>, ffi.Uint32)
+          ffi.Int32 Function(ffi.Pointer<ffi.Int32>, ffi.Pointer<ffi.Int32>)
         >
-      >('vv_backends_load');
-  late final _vv_backends_load = _vv_backends_loadPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
+      >('vv_cpu_features');
+  late final _vv_cpu_features = _vv_cpu_featuresPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.Int32>, ffi.Pointer<ffi.Int32>)
+      >();
 
-  /// JSON array describing the registered devices (diagnostics +
-  /// DeviceCapabilities; hardware names only, never content):
-  /// [{"name":"CPU","type":"cpu","description":"..."},{"name":"Vulkan0","type":"gpu",...}]
-  /// Writes up to cap bytes incl. NUL into buf; *needed (optional) receives the
-  /// full size incl. NUL. Returns VV_OK, or VV_E_INVALID_ARG when cap is too
-  /// small (buf then holds an empty string if cap > 0).
-  int vv_backends_describe(
-    ffi.Pointer<ffi.Char> buf,
-    int cap,
-    ffi.Pointer<ffi.Size> needed,
-  ) {
-    return _vv_backends_describe(buf, cap, needed);
+  /// 1 when every `build` feature is present at runtime, else 0: Dart must not
+  /// start whisper/llama on an unsupported CPU (SIGILL), ADR-LLM-03.
+  int vv_cpu_supported() {
+    return _vv_cpu_supported();
   }
 
-  late final _vv_backends_describePtr =
+  late final _vv_cpu_supportedPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('vv_cpu_supported');
+  late final _vv_cpu_supported = _vv_cpu_supportedPtr
+      .asFunction<int Function()>();
+
+  /// GPU / integrated-GPU devices registered in ggml (Metal, Vulkan, OpenCL).
+  int vv_llm_gpu_device_count() {
+    return _vv_llm_gpu_device_count();
+  }
+
+  late final _vv_llm_gpu_device_countPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>(
+        'vv_llm_gpu_device_count',
+      );
+  late final _vv_llm_gpu_device_count = _vv_llm_gpu_device_countPtr
+      .asFunction<int Function()>();
+
+  /// Name (e.g. "MTL0", "Vulkan0", "GPUOpenCL") and description (driver/GPU
+  /// model, e.g. "Apple M3 Pro", "Adreno (TM) 750") of GPU device `index`,
+  /// NUL-terminated and truncated to the caller's buffers. Diagnostics and
+  /// allowlisting only — never content.
+  int vv_llm_gpu_device_info(
+    int index,
+    ffi.Pointer<ffi.Char> name,
+    int name_cap,
+    ffi.Pointer<ffi.Char> description,
+    int description_cap,
+  ) {
+    return _vv_llm_gpu_device_info(
+      index,
+      name,
+      name_cap,
+      description,
+      description_cap,
+    );
+  }
+
+  late final _vv_llm_gpu_device_infoPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Int32,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+          )
+        >
+      >('vv_llm_gpu_device_info');
+  late final _vv_llm_gpu_device_info = _vv_llm_gpu_device_infoPtr
+      .asFunction<
+        int Function(
+          int,
+          ffi.Pointer<ffi.Char>,
+          int,
+          ffi.Pointer<ffi.Char>,
+          int,
+        )
+      >();
+
+  /// Loads `model_path` with `params` (falling back GPU -> CPU and q8_0 -> f16
+  /// KV when initialisation fails), prefills `n_prompt` synthetic tokens, then
+  /// greedily decodes `n_gen` tokens (end-of-generation banned) and frees
+  /// everything. Blocking and heavy: call from a background isolate / thread.
+  /// Returns VV_OK, VV_E_INVALID_ARG (null args, n_prompt + n_gen > n_ctx, bad
+  /// gpu_device), VV_E_MODEL_LOAD, VV_E_BACKEND (decode failed), VV_E_OOM.
+  int vv_llm_bench(
+    ffi.Pointer<ffi.Char> model_path,
+    ffi.Pointer<vv_llm_backend_params> params,
+    int n_prompt,
+    int n_gen,
+    ffi.Pointer<vv_llm_bench_result> out,
+  ) {
+    return _vv_llm_bench(model_path, params, n_prompt, n_gen, out);
+  }
+
+  late final _vv_llm_benchPtr =
       _lookup<
         ffi.NativeFunction<
           ffi.Int32 Function(
             ffi.Pointer<ffi.Char>,
-            ffi.Size,
-            ffi.Pointer<ffi.Size>,
+            ffi.Pointer<vv_llm_backend_params>,
+            ffi.Int32,
+            ffi.Int32,
+            ffi.Pointer<vv_llm_bench_result>,
           )
         >
-      >('vv_backends_describe');
-  late final _vv_backends_describe = _vv_backends_describePtr
+      >('vv_llm_bench');
+  late final _vv_llm_bench = _vv_llm_benchPtr
       .asFunction<
-        int Function(ffi.Pointer<ffi.Char>, int, ffi.Pointer<ffi.Size>)
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<vv_llm_backend_params>,
+          int,
+          int,
+          ffi.Pointer<vv_llm_bench_result>,
+        )
       >();
 
-  /// 1 when this library was built with runtime-loaded backends.
-  int vv_backends_dynamic() {
-    return _vv_backends_dynamic();
+  /// Current and peak memory of this process as the OS killers account it
+  /// (Apple phys_footprint; Linux/Android VmRSS / VmHWM). FND-07 metrics.
+  int vv_proc_memory(
+    ffi.Pointer<ffi.Uint64> current_bytes,
+    ffi.Pointer<ffi.Uint64> peak_bytes,
+  ) {
+    return _vv_proc_memory(current_bytes, peak_bytes);
   }
 
-  late final _vv_backends_dynamicPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('vv_backends_dynamic');
-  late final _vv_backends_dynamic = _vv_backends_dynamicPtr
-      .asFunction<int Function()>();
+  late final _vv_proc_memoryPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Pointer<ffi.Uint64>, ffi.Pointer<ffi.Uint64>)
+        >
+      >('vv_proc_memory');
+  late final _vv_proc_memory = _vv_proc_memoryPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.Uint64>, ffi.Pointer<ffi.Uint64>)
+      >();
+
+  /// LLM-07: device RAM. `total` = physical RAM the OS reports (iOS/macOS
+  /// hw.memsize, Linux/Android MemTotal). `available` = what this process can
+  /// still allocate before the OS kills it: iOS os_proc_available_memory()
+  /// (jetsam headroom incl. the increased-memory-limit entitlement), macOS
+  /// free + inactive + purgeable pages, Linux/Android MemAvailable.
+  int vv_device_memory(
+    ffi.Pointer<ffi.Uint64> total_bytes,
+    ffi.Pointer<ffi.Uint64> available_bytes,
+  ) {
+    return _vv_device_memory(total_bytes, available_bytes);
+  }
+
+  late final _vv_device_memoryPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Pointer<ffi.Uint64>, ffi.Pointer<ffi.Uint64>)
+        >
+      >('vv_device_memory');
+  late final _vv_device_memory = _vv_device_memoryPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.Uint64>, ffi.Pointer<ffi.Uint64>)
+      >();
+
+  /// Loads the model with the LLM-02/03 fallback chain. Blocking (seconds):
+  /// call from a background isolate. `*out` must be destroyed with
+  /// vv_llm_destroy.
+  int vv_llm_create(
+    ffi.Pointer<ffi.Char> model_path,
+    ffi.Pointer<vv_llm_backend_params> params,
+    ffi.Pointer<ffi.Pointer<vv_llm>> out,
+  ) {
+    return _vv_llm_create(model_path, params, out);
+  }
+
+  late final _vv_llm_createPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<vv_llm_backend_params>,
+            ffi.Pointer<ffi.Pointer<vv_llm>>,
+          )
+        >
+      >('vv_llm_create');
+  late final _vv_llm_create = _vv_llm_createPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<vv_llm_backend_params>,
+          ffi.Pointer<ffi.Pointer<vv_llm>>,
+        )
+      >();
+
+  int vv_llm_get_info(ffi.Pointer<vv_llm> h, ffi.Pointer<vv_llm_info> out) {
+    return _vv_llm_get_info(h, out);
+  }
+
+  late final _vv_llm_get_infoPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Pointer<vv_llm>, ffi.Pointer<vv_llm_info>)
+        >
+      >('vv_llm_get_info');
+  late final _vv_llm_get_info = _vv_llm_get_infoPtr
+      .asFunction<
+        int Function(ffi.Pointer<vv_llm>, ffi.Pointer<vv_llm_info>)
+      >();
+
+  /// Exact token count of `text` (with BOS as generation would add it).
+  int vv_llm_count_tokens(
+    ffi.Pointer<vv_llm> h,
+    ffi.Pointer<ffi.Char> text,
+    ffi.Pointer<ffi.Int32> out,
+  ) {
+    return _vv_llm_count_tokens(h, text, out);
+  }
+
+  late final _vv_llm_count_tokensPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<vv_llm>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Int32>,
+          )
+        >
+      >('vv_llm_count_tokens');
+  late final _vv_llm_count_tokens = _vv_llm_count_tokensPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<vv_llm>,
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Int32>,
+        )
+      >();
+
+  /// Applies the model's embedded chat template (GGUF metadata) and adds the
+  /// assistant prefix. `*out` is malloc'd: free with vv_free_string.
+  /// VV_E_INVALID_ARG when the model has no template llama.cpp supports.
+  int vv_llm_apply_chat_template(
+    ffi.Pointer<vv_llm> h,
+    ffi.Pointer<vv_chat_msg> msgs,
+    int n,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> out,
+  ) {
+    return _vv_llm_apply_chat_template(h, msgs, n, out);
+  }
+
+  late final _vv_llm_apply_chat_templatePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<vv_llm>,
+            ffi.Pointer<vv_chat_msg>,
+            ffi.Size,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          )
+        >
+      >('vv_llm_apply_chat_template');
+  late final _vv_llm_apply_chat_template = _vv_llm_apply_chat_templatePtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<vv_llm>,
+          ffi.Pointer<vv_chat_msg>,
+          int,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+        )
+      >();
+
+  void vv_free_string(ffi.Pointer<ffi.Char> s) {
+    return _vv_free_string(s);
+  }
+
+  late final _vv_free_stringPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
+        'vv_free_string',
+      );
+  late final _vv_free_string = _vv_free_stringPtr
+      .asFunction<void Function(ffi.Pointer<ffi.Char>)>();
+
+  vv_gen_params vv_llm_default_gen_params() {
+    return _vv_llm_default_gen_params();
+  }
+
+  late final _vv_llm_default_gen_paramsPtr =
+      _lookup<ffi.NativeFunction<vv_gen_params Function()>>(
+        'vv_llm_default_gen_params',
+      );
+  late final _vv_llm_default_gen_params = _vv_llm_default_gen_paramsPtr
+      .asFunction<vv_gen_params Function()>();
+
+  /// Starts generation of `prompt` (already chat-templated) on a native
+  /// worker thread and returns immediately: VV_OK, VV_E_BUSY,
+  /// VV_E_INVALID_ARG (bad args / grammar does not parse). The KV cache is
+  /// cleared first.
+  int vv_llm_generate_async(
+    ffi.Pointer<vv_llm> h,
+    ffi.Pointer<ffi.Char> prompt,
+    ffi.Pointer<vv_gen_params> params,
+    vv_llm_callbacks callbacks,
+  ) {
+    return _vv_llm_generate_async(h, prompt, params, callbacks);
+  }
+
+  late final _vv_llm_generate_asyncPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<vv_llm>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<vv_gen_params>,
+            vv_llm_callbacks,
+          )
+        >
+      >('vv_llm_generate_async');
+  late final _vv_llm_generate_async = _vv_llm_generate_asyncPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<vv_llm>,
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<vv_gen_params>,
+          vv_llm_callbacks,
+        )
+      >();
+
+  /// Requests cancellation; returns immediately. The worker stops at the next
+  /// token / prefill slice and reports VV_E_CANCELLED via on_done.
+  void vv_llm_cancel(ffi.Pointer<vv_llm> h) {
+    return _vv_llm_cancel(h);
+  }
+
+  late final _vv_llm_cancelPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<vv_llm>)>>(
+        'vv_llm_cancel',
+      );
+  late final _vv_llm_cancel = _vv_llm_cancelPtr
+      .asFunction<void Function(ffi.Pointer<vv_llm>)>();
+
+  /// Cancels any running generation, waits for it, frees model + context.
+  /// Safe on NULL and after cancel.
+  void vv_llm_destroy(ffi.Pointer<vv_llm> h) {
+    return _vv_llm_destroy(h);
+  }
+
+  late final _vv_llm_destroyPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<vv_llm>)>>(
+        'vv_llm_destroy',
+      );
+  late final _vv_llm_destroy = _vv_llm_destroyPtr
+      .asFunction<void Function(ffi.Pointer<vv_llm>)>();
+
+  /// LLM-05: converts a JSON Schema (UTF-8 JSON text) to a GBNF grammar with
+  /// root rule "root" (llama.cpp json-schema-to-grammar). `*out_gbnf` is
+  /// malloc'd: free with vv_free_string. VV_E_INVALID_ARG when the input is not
+  /// JSON or the schema cannot be converted. Pure CPU, no model needed; call
+  /// when a profile is saved (cache the result), not per run.
+  int vv_json_schema_to_gbnf(
+    ffi.Pointer<ffi.Char> schema_json,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> out_gbnf,
+  ) {
+    return _vv_json_schema_to_gbnf(schema_json, out_gbnf);
+  }
+
+  late final _vv_json_schema_to_gbnfPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          )
+        >
+      >('vv_json_schema_to_gbnf');
+  late final _vv_json_schema_to_gbnf = _vv_json_schema_to_gbnfPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>)
+      >();
+}
+
+/// How to run llama.cpp. Get defaults from vv_llm_default_backend_params().
+final class vv_llm_backend_params extends ffi.Struct {
+  /// = sizeof(vv_llm_backend_params)
+  @ffi.Int32()
+  external int struct_size;
+
+  /// 1: offload every layer + KV to the GPU (Metal / Vulkan / OpenCL).
+  /// 0: CPU only — no GPU device is even attached (iOS forbids GPU work in the
+  /// background; Android GPU backends that are not allowlisted).
+  @ffi.Int32()
+  external int use_gpu;
+
+  /// GPU device index from vv_llm_gpu_device_info (allowlist choice), or -1 =
+  /// llama.cpp's default device selection. Ignored when use_gpu = 0.
+  @ffi.Int32()
+  external int gpu_device;
+
+  /// 1: q8_0 K/V cache (needs flash attention), 0: f16
+  @ffi.Int32()
+  external int kv_quant;
+
+  /// VV_LLM_FLASH_ATTN_*
+  @ffi.Int32()
+  external int flash_attn;
+
+  /// context tokens; must hold prompt + generation
+  @ffi.Int32()
+  external int n_ctx;
+
+  /// logical = physical batch (prefill slice)
+  @ffi.Int32()
+  external int n_batch;
+
+  /// 0 = vv_cpu_perf_cores()
+  @ffi.Int32()
+  external int n_threads;
+
+  /// 1: memory-map the GGUF (pages are clean, evictable)
+  @ffi.Int32()
+  external int use_mmap;
+}
+
+final class vv_llm_bench_result extends ffi.Struct {
+  /// = sizeof(vv_llm_bench_result), set by the caller
+  @ffi.Int32()
+  external int struct_size;
+
+  /// effective after fallbacks
+  @ffi.Int32()
+  external int used_gpu;
+
+  @ffi.Int32()
+  external int used_kv_quant;
+
+  /// VV_LLM_FALLBACK_* bits
+  @ffi.Int32()
+  external int fallbacks;
+
+  @ffi.Int32()
+  external int n_threads;
+
+  @ffi.Int32()
+  external int n_prompt;
+
+  @ffi.Int32()
+  external int n_gen;
+
+  /// model load (cold for the first call in a process)
+  @ffi.Double()
+  external double load_ms;
+
+  @ffi.Double()
+  external double ctx_init_ms;
+
+  @ffi.Double()
+  external double prefill_tps;
+
+  @ffi.Double()
+  external double decode_tps;
+
+  /// tensor bytes reported by llama.cpp
+  @ffi.Uint64()
+  external int model_bytes;
+
+  /// process peak: iOS/macOS phys_footprint, Linux/Android VmHWM
+  @ffi.Uint64()
+  external int peak_mem_bytes;
+
+  /// FNV-1a of the greedy tokens: determinism check
+  @ffi.Uint64()
+  external int output_hash;
+}
+
+final class vv_llm extends ffi.Opaque {}
+
+final class vv_llm_info extends ffi.Struct {
+  /// = sizeof(vv_llm_info), set by the caller
+  @ffi.Int32()
+  external int struct_size;
+
+  @ffi.Int32()
+  external int used_gpu;
+
+  @ffi.Int32()
+  external int used_kv_quant;
+
+  /// VV_LLM_FALLBACK_*
+  @ffi.Int32()
+  external int fallbacks;
+
+  @ffi.Int32()
+  external int n_ctx;
+
+  @ffi.Int32()
+  external int n_threads;
+
+  @ffi.Double()
+  external double load_ms;
+
+  @ffi.Uint64()
+  external int model_bytes;
+}
+
+final class vv_chat_msg extends ffi.Struct {
+  /// "system" | "user" | "assistant"
+  external ffi.Pointer<ffi.Char> role;
+
+  external ffi.Pointer<ffi.Char> content;
+}
+
+/// Sampling + limits for one generation. Get defaults (structured-extraction
+/// preset) from vv_llm_default_gen_params(). temperature <= 0 = greedy.
+final class vv_gen_params extends ffi.Struct {
+  /// = sizeof(vv_gen_params)
+  @ffi.Int32()
+  external int struct_size;
+
+  /// hard cap on generated tokens
+  @ffi.Int32()
+  external int n_predict;
+
+  @ffi.Uint32()
+  external int seed;
+
+  @ffi.Float()
+  external double temperature;
+
+  /// <= 0 disables
+  @ffi.Int32()
+  external int top_k;
+
+  /// >= 1 disables
+  @ffi.Float()
+  external double top_p;
+
+  /// <= 0 disables
+  @ffi.Float()
+  external double min_p;
+
+  /// 1.0 disables (never for JSON)
+  @ffi.Float()
+  external double repeat_penalty;
+
+  @ffi.Int32()
+  external int repeat_last_n;
+
+  /// GBNF grammar (root rule "root") or NULL = unconstrained. Copied.
+  external ffi.Pointer<ffi.Char> grammar;
+
+  /// Token callback batching: emit after this many tokens or 50 ms.
+  @ffi.Int32()
+  external int token_batch;
+
+  /// VV_LLM_GRAMMAR_LAZY (default, LLM-05): check the grammar only against the
+  /// sampled token and mask the full vocabulary only when it is rejected.
+  /// VV_LLM_GRAMMAR_FULL: mask every candidate every step (reference).
+  @ffi.Int32()
+  external int grammar_mode;
+}
+
+typedef vv_llm_text_cbFunction = ffi.Void Function(
+  ffi.Pointer<ffi.Void> user,
+  ffi.Pointer<ffi.Char> text,
+);
+typedef Dartvv_llm_text_cbFunction = void Function(
+  ffi.Pointer<ffi.Void> user,
+  ffi.Pointer<ffi.Char> text,
+);
+
+/// Text callback: `text` is malloc'd UTF-8 (whole code points only); the
+/// receiver owns it and must call vv_free_string. Called on the engine's
+/// worker thread (Dart: NativeCallable.listener).
+typedef vv_llm_text_cb =
+    ffi.Pointer<ffi.NativeFunction<vv_llm_text_cbFunction>>;
+typedef vv_llm_done_cbFunction = ffi.Void Function(
+  ffi.Pointer<ffi.Void> user,
+  ffi.Int32 status,
+  ffi.Int32 n_chunks,
+  ffi.Int32 n_prompt,
+  ffi.Int32 n_gen,
+  ffi.Double prefill_ms,
+  ffi.Double decode_ms,
+);
+typedef Dartvv_llm_done_cbFunction = void Function(
+  ffi.Pointer<ffi.Void> user,
+  int status,
+  int n_chunks,
+  int n_prompt,
+  int n_gen,
+  double prefill_ms,
+  double decode_ms,
+);
+
+/// Completion: status VV_OK (EOG or n_predict reached), VV_E_CANCELLED,
+/// VV_E_INVALID_ARG (prompt does not fit n_ctx - n_predict, bad grammar),
+/// VV_E_BACKEND (decode failed, e.g. iOS refused GPU work in the background
+/// -> reload with use_gpu = 0), VV_E_OOM, VV_E_INTERNAL. Always called exactly
+/// once per accepted generate_async, after the last text callback.
+/// `n_chunks` = number of on_text calls made: receivers whose callbacks may be
+/// delivered out of order (separate Dart ports) wait until they have seen
+/// that many chunks.
+typedef vv_llm_done_cb =
+    ffi.Pointer<ffi.NativeFunction<vv_llm_done_cbFunction>>;
+
+final class vv_llm_callbacks extends ffi.Struct {
+  external vv_llm_text_cb on_text;
+
+  external vv_llm_done_cb on_done;
+
+  external ffi.Pointer<ffi.Void> user;
 }
 
 const int VV_ABI_VERSION = 1;
@@ -172,8 +754,24 @@ const int VV_E_BUSY = -7;
 
 const int VV_E_INTERNAL = -8;
 
-const int VV_GPU_METAL = 1;
+const int VV_LLM_FLASH_ATTN_AUTO = -1;
 
-const int VV_GPU_VULKAN = 2;
+const int VV_LLM_FLASH_ATTN_OFF = 0;
 
-const int VV_GPU_OPENCL = 4;
+const int VV_LLM_FLASH_ATTN_ON = 1;
+
+const int VV_LLM_FALLBACK_GPU_TO_CPU = 1;
+
+const int VV_LLM_FALLBACK_KV_TO_F16 = 2;
+
+const int VV_CPU_FEATURE_NEON = 1;
+
+const int VV_CPU_FEATURE_DOTPROD = 2;
+
+const int VV_CPU_FEATURE_I8MM = 4;
+
+const int VV_CPU_FEATURE_SVE = 8;
+
+const int VV_LLM_GRAMMAR_LAZY = 0;
+
+const int VV_LLM_GRAMMAR_FULL = 1;

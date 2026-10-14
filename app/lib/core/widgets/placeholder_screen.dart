@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 
 /// Base screen used by features until their real UI lands.
@@ -23,7 +24,7 @@ class PlaceholderScreen extends StatelessWidget {
       appBar: AppBar(title: Text(title), actions: actions),
       body: Center(
         child: Semantics(
-          label: '$title screen placeholder',
+          label: context.l10n.placeholderScreenLabel(title),
           child: Padding(
             padding: const EdgeInsets.all(AppSpacing.lg),
             child: Column(

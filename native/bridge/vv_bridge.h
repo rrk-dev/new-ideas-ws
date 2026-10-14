@@ -75,4 +75,7 @@ VV_API int32_t vv_backends_dynamic(void);
 }
 #endif
 
+/* LLM backend bridge (LLM-02/LLM-03). */
+#include "vv_llama.h"
+
 #endif /* VV_BRIDGE_H */

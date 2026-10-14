@@ -184,7 +184,7 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 | Default LLM per tier | LLM-08 | Decide from PRF-09 eval; expect 1B-class for Low tier, 3B for High |
 | Core ML encoder for Whisper on iOS | STT-01 | Proposed: ADR-STT-01 (Metal-only for v1, Core ML one flag away; device benchmark pending) |
 | Diarization approach | STT-05 | Spike sherpa-onnx first |
-| Mustache vs Handlebars | EXP-01 | Mustache (`mustache_template`) + custom lambdas |
+| Mustache vs Handlebars | EXP-01 | Decided: ADR-EXP-01 (Proposed) — Mustache (`mustache_template` 2.0.5, strict) + 15 custom lambdas |
 | Model hosting | MDL-01 | Proposed: ADR-MDL-01 — own CDN primary + Ed25519-signed catalog, HF pinned-revision mirror; CDN provider/domain + production key are owner decisions |
 | Play purchase verification without a server | LIC-02 | On-device where possible; document any stateless server |
 | Enterprise seat enforcement model | LIC-03 | Needs design review |

@@ -11,6 +11,8 @@ android {
     ndkVersion = "28.2.13676358"
 
     compileOptions {
+        // flutter_local_notifications (APP-04) needs core library desugaring.
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -31,6 +33,13 @@ android {
         ndk {
             abiFilters += listOf("arm64-v8a")
         }
+    }
+
+    // AGP 9 turns resValues off by default; the flavors below define app_name
+    // with resValue(...), which otherwise fails configuration ("Product Flavor
+    // dev contains custom resource values, but the feature is disabled").
+    buildFeatures {
+        resValues = true
     }
 
     flavorDimensions += "env"
@@ -63,4 +72,9 @@ kotlin {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    // Version per flutter_local_notifications 22.3.1 README (APP-04).
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 }
