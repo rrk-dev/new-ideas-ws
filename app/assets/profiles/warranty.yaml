@@ -1,0 +1,82 @@
+# Built-in profile — DRAFT (PRF-01). PRF-04 tunes instructions/examples
+# against the eval set (>= 90% field accuracy, serial exact >= 85%).
+# Read-only asset loaded every launch, keyed (id, version).
+# Spec: docs/profile-spec.md. Bump `version` on any change to schema,
+# instructions or examples.
+format: 1
+id: warranty
+version: 1
+name: Warranty & Receipt Logger
+description: Spoken notes about a purchase - product, serial number, purchase date, warranty and support contacts.
+icon: receipt_long
+# PRODUCT-DECISION (LIC-01 open question): master plan §7 lists Warranties
+# under Pro. `pro` is a placeholder until the user decides Free vs Pro.
+tier: pro
+stt:
+  vocabulary: []
+  diarization: false
+  num_speakers: 1
+classify:
+  keywords: [warranty, receipt, serial number, purchased, bought, model number, guarantee]
+instructions: |
+  - Extract only what is explicitly said. Never invent products, numbers or dates.
+  - product: what was bought (e.g. "dishwasher"). brand and model as spoken, else null.
+  - serial_number: the serial exactly as spelled. "S as in Sam" means the letter S.
+    Write letters and digits only, no spaces. If no serial is given, null.
+  - purchase_date: the date exactly as spoken (e.g. "last Tuesday", "March 3rd"), else null.
+  - retailer: the shop or website, else null. price: the amount with currency as spoken, else null.
+  - warranty_period: value and unit (days, weeks, months, years) if stated, else null.
+  - support_contacts: phone numbers, emails or websites for support, as spoken.
+  - notes: anything else useful in one or two short sentences, else null.
+  - Do not compute the warranty expiry; the app does that.
+schema:
+  type: object
+  required: [product, brand, model, serial_number, purchase_date, retailer, price, warranty_period, support_contacts, notes]
+  properties:
+    product: {type: [string, "null"], maxLength: 80, description: What was bought}
+    brand: {type: [string, "null"], maxLength: 60, description: Manufacturer or brand}
+    model: {type: [string, "null"], maxLength: 60, description: Model name or number as spoken}
+    serial_number: {type: [string, "null"], maxLength: 40, description: "Serial number, letters and digits only"}
+    purchase_date: {type: [string, "null"], maxLength: 40, description: Purchase date exactly as spoken}
+    retailer: {type: [string, "null"], maxLength: 80, description: Shop or website}
+    price: {type: [string, "null"], maxLength: 30, description: Price with currency as spoken}
+    warranty_period:
+      type: [object, "null"]
+      description: Warranty length if stated
+      required: [value, unit]
+      properties:
+        value: {type: integer, description: Number of units}
+        unit: {type: string, enum: [days, weeks, months, years]}
+    support_contacts:
+      type: array
+      maxItems: 5
+      description: Support phone numbers, emails or websites
+      items: {type: string, maxLength: 120}
+    notes: {type: [string, "null"], maxLength: 300, description: Other useful details}
+reduce:
+  notes: llm_summarize
+  support_contacts: union_dedupe
+post_process: [normalize_serial, resolve_relative_dates, compute_warranty_expiry]
+examples:
+  - transcript: |
+      [00:00:02] Bought a Contoso air purifier, model AP 200, at Northwind Electronics last Saturday for 149 euros.
+      [00:00:11] Serial is X as in x-ray, 7, 4, B as in boy, 2, 9. Two year warranty.
+    output:
+      product: air purifier
+      brand: Contoso
+      model: AP 200
+      serial_number: X74B29
+      purchase_date: last Saturday
+      retailer: Northwind Electronics
+      price: 149 euros
+      warranty_period: {value: 2, unit: years}
+      support_contacts: []
+      notes: null
+template_id: warranty-default
+filename_pattern: "{{date:YYYY-MM-DD}}-Warranty-{{slug}}.md"
+routing:
+  default_target: ask
+review_before_export: false
+# SEC-07: personal profile, no per-recording confirmation (first-run
+# acknowledgement still applies).
+consent_confirmation: none

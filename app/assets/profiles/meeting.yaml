@@ -1,0 +1,89 @@
+# Built-in profile (PRF-01 data model; prompt/examples tuned and eval-gated in
+# PRF-03). Read-only asset loaded every launch, keyed (id, version).
+# Spec: docs/profile-spec.md. Bump `version` on any change to schema,
+# instructions or examples.
+format: 1
+id: meeting
+version: 1
+name: Meeting Action Items
+description: In-person meetings with decisions, action items, owners and open questions.
+icon: groups
+tier: free
+stt:
+  vocabulary: []
+  diarization: true
+  num_speakers: auto
+classify:
+  keywords: [meeting, agenda, action item, follow up, next steps, standup, sync]
+instructions: |
+  - Extract only what is explicitly said in the transcript. Never invent people, tasks or dates.
+  - attendees: names of people who speak or are clearly present. Use speaker names as given.
+  - decisions: things the group agreed on, one short sentence each.
+  - action_items: concrete tasks. owner = the person responsible if stated, else null.
+    due = the due date exactly as spoken (e.g. "next Friday"), else null.
+    t = the [hh:mm:ss] timestamp of the line where the task was stated.
+  - open_questions: questions raised but not answered.
+  - summary: 2-4 sentences, neutral tone.
+  - If a field has nothing, return an empty list or null.
+schema:
+  type: object
+  required: [title, summary, attendees, decisions, action_items, open_questions, topics]
+  properties:
+    title: {type: string, maxLength: 80, description: Short meeting title}
+    summary: {type: string, maxLength: 600, description: 2-4 sentence summary}
+    attendees:
+      type: array
+      maxItems: 20
+      items: {type: string, maxLength: 60}
+    decisions:
+      type: array
+      maxItems: 30
+      items: {type: string, maxLength: 200}
+    action_items:
+      type: array
+      maxItems: 50
+      items:
+        type: object
+        required: [task, owner, due, t]
+        properties:
+          task: {type: string, maxLength: 200}
+          owner: {type: [string, "null"], maxLength: 60}
+          due: {type: [string, "null"], maxLength: 40}
+          t: {type: [string, "null"], maxLength: 8, description: "hh:mm:ss timestamp of the source line"}
+    open_questions:
+      type: array
+      maxItems: 20
+      items: {type: string, maxLength: 200}
+    topics:
+      type: array
+      maxItems: 10
+      items: {type: string, maxLength: 40}
+reduce:
+  summary: llm_summarize
+  title: llm_summarize
+  attendees: union_dedupe
+  decisions: union_dedupe
+  action_items: union_dedupe
+  open_questions: union_dedupe
+  topics: union_dedupe
+post_process: [map_owner_to_speaker, resolve_relative_dates, drop_ungrounded_timestamps, sort_by_timestamp]
+examples:
+  - transcript: |
+      [00:00:05] Priya: Let's lock the API version today. We go with v2.
+      [00:00:12] Sam: Fine. I'll update the client SDK by Friday.
+      [00:00:20] Priya: Still unclear who owns the migration guide.
+    output:
+      title: API version decision
+      summary: The team agreed to standardize on API v2. Sam will update the client SDK. Ownership of the migration guide is still open.
+      attendees: [Priya, Sam]
+      decisions: [Use API v2]
+      action_items:
+        - {task: Update the client SDK to API v2, owner: Sam, due: Friday, t: "00:00:12"}
+      open_questions: ["Who owns the migration guide?"]
+      topics: [API versioning]
+template_id: meeting-default
+filename_pattern: "{{date:YYYY-MM-DD}}-Meeting-{{slug}}.md"
+routing:
+  default_target: ask
+review_before_export: false
+consent_confirmation: required

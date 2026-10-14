@@ -24,6 +24,7 @@ dependencies:
   sqlite3: 3.7.0
   vv_native:
     path: ../packages/vv_native
+  yaml: 3.1.4
 
 dev_dependencies:
   build_runner: ^2.16.2
@@ -48,3 +49,5 @@ flutter:
     # Signed fallback model catalog (MDL-01) — never hand-edit, see
     # tools/model-catalog/README.md.
     - assets/catalog/
+    # Built-in extraction profiles (PRF-01) — read-only, keyed (id, version).
+    - assets/profiles/
