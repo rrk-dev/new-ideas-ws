@@ -1,13 +1,17 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
 import 'package:vaultvoice/features/licensing/data/local_entitlement_service.dart';
 import 'package:vaultvoice/features/licensing/domain/entitlement.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_access.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_matrix.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
+import 'package:vaultvoice/features/transcription/data/stt_model_providers.dart';
 import 'package:vaultvoice/features/transcription/domain/stt_model_policy.dart';
 
 import '../../fakes/fake_clock.dart';
@@ -21,8 +25,10 @@ Entitlement _plan(Plan p, {DateTime? expiresAt}) => Entitlement(
   expiresAt: expiresAt ?? _t0.add(const Duration(days: 365)),
 );
 
-SttPlanGate _gate(Plan p, {DistributionMode mode = DistributionMode.commercial}) =>
-    SttPlanGate.access(FeatureAccess.resolve(_plan(p), now: _t0, mode: mode));
+SttPlanGate _gate(
+  Plan p, {
+  DistributionMode mode = DistributionMode.commercial,
+}) => SttPlanGate.access(FeatureAccess.resolve(_plan(p), now: _t0, mode: mode));
 
 /// The bundled, signed catalog (STT-07 entries are real files: size and
 /// sha256 computed from the downloaded models).
@@ -139,36 +145,59 @@ void main() {
       }
     });
 
+    test('sttPlanGateProvider is backed by the LIC-01 EntitlementService', () {
+      final container = ProviderContainer(
+        overrides: [
+          entitlementServiceProvider.overrideWithValue(
+            LocalEntitlementService(
+              clock: FakeClock(_t0),
+              mode: DistributionMode.commercial,
+            ),
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+      final gate = container.read(sttPlanGateProvider);
+      final small = byId('whisper-small.en-q5_1');
+      expect(sttModelEntitled(small, gate), isFalse);
+      container
+          .read(entitlementServiceProvider)
+          .update(_plan(Plan.proLifetime));
+      expect(sttModelEntitled(small, gate), isTrue);
+    });
+
     test('non-STT models are never "STT entitled"', () {
       final llm = catalog.models.firstWhere((m) => m.type == ModelType.llm);
       expect(sttModelEntitled(llm, _gate(Plan.enterprise)), isFalse);
     });
 
     test('selection falls back to Free when Pro expires (downgrade, live '
-        'EntitlementService)', () async {
-      final clock = FakeClock(_t0);
-      final service = LocalEntitlementService(
-        clock: clock,
-        mode: DistributionMode.commercial,
-        initial: _plan(
-          Plan.proAnnual,
-          expiresAt: _t0.add(const Duration(hours: 1)),
-        ),
-      );
-      addTearDown(service.dispose);
-      final gate = SttPlanGate.entitlements(service);
-      CatalogModel? resolve() => resolveSttModel(
-        selectedId: 'whisper-small.en-q8_0',
-        tier: DeviceTier.mid,
-        totalRamMb: 6 * _gib,
-        language: 'en',
-        catalog: catalog,
-        gate: gate,
-      );
-      expect(resolve()!.id, 'whisper-small.en-q8_0');
-      clock.advance(const Duration(hours: 2));
-      expect(resolve()!.id, 'whisper-base.en-q5_1');
-      unawaited(service.dispose());
+        'EntitlementService)', () {
+      fakeAsync((async) {
+        final clock = FakeClock(_t0);
+        final service = LocalEntitlementService(
+          clock: clock,
+          mode: DistributionMode.commercial,
+          initial: _plan(
+            Plan.proAnnual,
+            expiresAt: _t0.add(const Duration(hours: 1)),
+          ),
+        );
+        final gate = SttPlanGate.entitlements(service);
+        CatalogModel? resolve() => resolveSttModel(
+          selectedId: 'whisper-small.en-q8_0',
+          tier: DeviceTier.mid,
+          totalRamMb: 6 * _gib,
+          language: 'en',
+          catalog: catalog,
+          gate: gate,
+        );
+        expect(resolve()!.id, 'whisper-small.en-q8_0');
+        clock.advance(const Duration(hours: 2));
+        async.elapse(const Duration(hours: 2));
+        expect(resolve()!.id, 'whisper-base.en-q5_1');
+        unawaited(service.dispose());
+      });
     });
   });
 
@@ -187,9 +216,12 @@ void main() {
     )?.id;
 
     test('English, Free', () {
-      expect(rec(DeviceTier.low, Plan.free, ramMb: 4 * _gib), 'whisper-base.en-q5_1');
+      expect(
+        rec(DeviceTier.low, Plan.free, ramMb: 4 * _gib),
+        'whisper-base.en-q5_1',
+      );
       expect(rec(DeviceTier.mid, Plan.free), 'whisper-base.en-q5_1');
-      expect(rec(DeviceTier.high, Plan.free), 'whisper-base.en');
+      expect(rec(DeviceTier.high, Plan.free), 'whisper-base.en-q5_1');
     });
 
     test('English, Pro', () {
@@ -197,13 +229,24 @@ void main() {
         rec(DeviceTier.low, Plan.proAnnual, ramMb: 4 * _gib),
         'whisper-small.en-q5_1',
       );
-      expect(rec(DeviceTier.mid, Plan.proLifetime), 'whisper-small.en-q8_0');
-      expect(rec(DeviceTier.high, Plan.proAnnual), kHighTierEnglishPro);
+      expect(rec(DeviceTier.mid, Plan.proLifetime), 'whisper-small.en-q5_1');
+      expect(
+        rec(DeviceTier.high, Plan.proAnnual),
+        'whisper-large-v3-turbo-q5_0',
+      );
+      // High tier without the room for turbo → small.en.
+      expect(
+        rec(DeviceTier.high, Plan.proAnnual, ramMb: 5 * _gib),
+        'whisper-small.en-q5_1',
+      );
     });
 
     test('multilingual: Free base, Pro small / large-v3-turbo', () {
       for (final lang in ['de', 'fr', 'auto']) {
-        expect(rec(DeviceTier.low, Plan.free, language: lang), 'whisper-base-q5_1');
+        expect(
+          rec(DeviceTier.low, Plan.free, language: lang),
+          'whisper-base-q5_1',
+        );
         expect(
           rec(DeviceTier.mid, Plan.proAnnual, language: lang),
           'whisper-small-q5_1',
@@ -218,7 +261,12 @@ void main() {
     test('min_ram_mb filters a model the device cannot hold', () {
       final turbo = byId('whisper-large-v3-turbo-q5_0');
       expect(
-        rec(DeviceTier.high, Plan.proAnnual, language: 'de', ramMb: turbo.minRamMb - 1),
+        rec(
+          DeviceTier.high,
+          Plan.proAnnual,
+          language: 'de',
+          ramMb: turbo.minRamMb - 1,
+        ),
         'whisper-small-q5_1',
       );
     });

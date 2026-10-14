@@ -12,11 +12,7 @@ enum SttModelSize { tiny, base, small, medium, largeTurbo, large }
 /// (`ggml-<size>[.en][-<quant>].bin`), which the catalog keeps verbatim.
 @immutable
 final class SttVariant {
-  const SttVariant({
-    required this.size,
-    required this.englishOnly,
-    this.quant,
-  });
+  const SttVariant({required this.size, required this.englishOnly, this.quant});
 
   /// Null for a file that is not a whisper.cpp model name we know.
   static SttVariant? fromFile(String file) {
@@ -159,25 +155,28 @@ String defaultSttLanguage(String localeLanguageCode) {
 @visibleForTesting
 const Map<(DeviceTier, bool pro, bool multilingual), List<String>>
 kSttPreference = {
-  // English, Free.
+  // English, Free. base.en q5_1 matches full-precision base.en on WER
+  // (3.6 % vs 3.6 %) at 40 % of the size and ~2× the Metal speed.
   (DeviceTier.low, false, false): [_baseEnQ5, _tinyEnQ5, _tinyEn],
   (DeviceTier.mid, false, false): [_baseEnQ5, _baseEn, _tinyEnQ5, _tinyEn],
-  (DeviceTier.high, false, false): [_baseEn, _baseEnQ5, _tinyEnQ5, _tinyEn],
-  // English, Pro.
+  (DeviceTier.high, false, false): [_baseEnQ5, _baseEn, _tinyEnQ5, _tinyEn],
+  // English, Pro. small.en q5_1 ≤ q8_0 on WER (2.6 % vs 3.0 %), smaller and
+  // no slower, so it is the Low/Mid default; High gets large-v3-turbo q5_0
+  // (best WER, 2.0 %) where the GPU is available.
   (DeviceTier.low, true, false): [_smallEnQ5, _baseEnQ5, _tinyEnQ5, _tinyEn],
   (DeviceTier.mid, true, false): [
-    _smallEnQ8,
     _smallEnQ5,
+    _smallEnQ8,
     _baseEnQ5,
     _tinyEnQ5,
     _tinyEn,
   ],
   (DeviceTier.high, true, false): [
     _turboQ5,
-    _smallEnQ8,
     _smallEnQ5,
-    _baseEn,
+    _smallEnQ8,
     _baseEnQ5,
+    _baseEn,
     _tinyEn,
   ],
   // Multilingual, Free.
@@ -251,9 +250,7 @@ CatalogModel? resolveSttModel({
       final v = SttVariant.fromFile(m.file);
       final languageOk =
           v != null && (v.multilingual || !needsMultilingual(language));
-      if (languageOk &&
-          m.minRamMb <= totalRamMb &&
-          sttModelEntitled(m, gate)) {
+      if (languageOk && m.minRamMb <= totalRamMb && sttModelEntitled(m, gate)) {
         return m;
       }
     }
