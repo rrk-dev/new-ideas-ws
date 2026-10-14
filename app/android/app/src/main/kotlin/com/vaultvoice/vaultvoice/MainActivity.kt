@@ -1,5 +1,6 @@
 package com.vaultvoice.vaultvoice
 
+import android.content.Context
 import android.content.Intent
 import com.vaultvoice.vaultvoice.modeldownload.ModelDownloadPlugin
 import com.vaultvoice.vaultvoice.saf.SafHostApi
@@ -11,6 +12,21 @@ class MainActivity : FlutterActivity() {
     // Storage Access Framework vault folders (EXP-03).
     private var safApi: SafHostApiImpl? = null
 
+    // AUD-05: while the recording foreground service runs, the Flutter engine
+    // (and with it the Dart capture code) must outlive this activity — e.g.
+    // when the user swipes the app away. The retained engine is handed to the
+    // next activity instead of starting a second one.
+    override fun provideFlutterEngine(context: Context): FlutterEngine? = RetainedEngine.engine
+
+    override fun shouldDestroyEngineWithHost(): Boolean {
+        if (RecordingService.isRunning) {
+            RetainedEngine.engine = flutterEngine
+            return false
+        }
+        RetainedEngine.engine = null
+        return true
+    }
+
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         // SEC-09: call detection without phone-state permissions.
@@ -19,6 +35,10 @@ class MainActivity : FlutterActivity() {
         flutterEngine.plugins.add(ModelDownloadPlugin())
         // AUD-01: free-space checks for the recording storage policy.
         flutterEngine.plugins.add(StorageInfoPlugin())
+        // AUD-05: microphone foreground service + ongoing notification.
+        if (!flutterEngine.plugins.has(RecordingIndicatorPlugin::class.java)) {
+            flutterEngine.plugins.add(RecordingIndicatorPlugin())
+        }
         val api = SafHostApiImpl(this)
         safApi = api
         SafHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, api)

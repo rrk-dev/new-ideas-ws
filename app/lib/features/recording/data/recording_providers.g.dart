@@ -508,6 +508,165 @@ final class CaptureBackendProvider
 
 String _$captureBackendHash() => r'abb770d3a28157dfc7aff6d2061bf3e16b4c54a0';
 
+/// Platform channel behind the OS recording indicator (Android foreground
+/// service notification — AUD-05; iOS — AUD-04).
+
+@ProviderFor(platformRecordingIndicator)
+final platformRecordingIndicatorProvider =
+    PlatformRecordingIndicatorProvider._();
+
+/// Platform channel behind the OS recording indicator (Android foreground
+/// service notification — AUD-05; iOS — AUD-04).
+
+final class PlatformRecordingIndicatorProvider
+    extends
+        $FunctionalProvider<
+          MethodChannelRecordingIndicator,
+          MethodChannelRecordingIndicator,
+          MethodChannelRecordingIndicator
+        >
+    with $Provider<MethodChannelRecordingIndicator> {
+  /// Platform channel behind the OS recording indicator (Android foreground
+  /// service notification — AUD-05; iOS — AUD-04).
+  PlatformRecordingIndicatorProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'platformRecordingIndicatorProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$platformRecordingIndicatorHash();
+
+  @$internal
+  @override
+  $ProviderElement<MethodChannelRecordingIndicator> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  MethodChannelRecordingIndicator create(Ref ref) {
+    return platformRecordingIndicator(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(MethodChannelRecordingIndicator value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<MethodChannelRecordingIndicator>(
+        value,
+      ),
+    );
+  }
+}
+
+String _$platformRecordingIndicatorHash() =>
+    r'5a697646e5d38dc809a765ec8e89f9844424a615';
+
+/// The always-visible OS recording indicator; tests override it.
+
+@ProviderFor(recordingIndicator)
+final recordingIndicatorProvider = RecordingIndicatorProvider._();
+
+/// The always-visible OS recording indicator; tests override it.
+
+final class RecordingIndicatorProvider
+    extends
+        $FunctionalProvider<
+          RecordingIndicator,
+          RecordingIndicator,
+          RecordingIndicator
+        >
+    with $Provider<RecordingIndicator> {
+  /// The always-visible OS recording indicator; tests override it.
+  RecordingIndicatorProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'recordingIndicatorProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$recordingIndicatorHash();
+
+  @$internal
+  @override
+  $ProviderElement<RecordingIndicator> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  RecordingIndicator create(Ref ref) {
+    return recordingIndicator(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(RecordingIndicator value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<RecordingIndicator>(value),
+    );
+  }
+}
+
+String _$recordingIndicatorHash() =>
+    r'039dc3036e439a0c1f186a44c4391f2c02e1614e';
+
+/// Battery-optimization state for the OEM guidance card (Android; null
+/// elsewhere).
+
+@ProviderFor(batteryStatus)
+final batteryStatusProvider = BatteryStatusProvider._();
+
+/// Battery-optimization state for the OEM guidance card (Android; null
+/// elsewhere).
+
+final class BatteryStatusProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<BatteryStatus?>,
+          BatteryStatus?,
+          FutureOr<BatteryStatus?>
+        >
+    with $FutureModifier<BatteryStatus?>, $FutureProvider<BatteryStatus?> {
+  /// Battery-optimization state for the OEM guidance card (Android; null
+  /// elsewhere).
+  BatteryStatusProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'batteryStatusProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$batteryStatusHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<BatteryStatus?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<BatteryStatus?> create(Ref ref) {
+    return batteryStatus(ref);
+  }
+}
+
+String _$batteryStatusHash() => r'18cdbd4405a471c412986f24b3571ffce57d91fe';
+
 /// The single recording entry point (SEC-09).
 
 @ProviderFor(recordingController)
@@ -559,4 +718,4 @@ final class RecordingControllerProvider
 }
 
 String _$recordingControllerHash() =>
-    r'2f11ff8c2f89e2d1427f2f05e30d7b2c97751363';
+    r'e803b1bde4c6a7631cee25bde6862473c7976287';

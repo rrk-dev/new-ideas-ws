@@ -9,6 +9,10 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!-- AUD-01: microphone capture (standard AudioRecord, MIC / VOICE_RECOGNITION only, SEC-09). -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- AUD-05: background recording = foreground service of type microphone
+         (Android 14+ requires the typed permission) + its ongoing notification.
+         FOREGROUND_SERVICE and POST_NOTIFICATIONS are declared once above (MDL-02). -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
     <application
         android:label="@string/app_name"
         android:name="${applicationName}"
@@ -42,6 +46,12 @@
             android:name=".modeldownload.ModelDownloadService"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
+        <!-- AUD-05: keeps a user-started recording alive in the background; started only
+             while the activity is visible, never restarted by the system (START_NOT_STICKY). -->
+        <service
+            android:name=".RecordingService"
+            android:exported="false"
+            android:foregroundServiceType="microphone" />
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
