@@ -180,7 +180,14 @@ typedef struct vv_gen_params {
   const char* grammar;
   /* Token callback batching: emit after this many tokens or 50 ms. */
   int32_t token_batch;
+  /* VV_LLM_GRAMMAR_LAZY (default, LLM-05): check the grammar only against the
+   * sampled token and mask the full vocabulary only when it is rejected.
+   * VV_LLM_GRAMMAR_FULL: mask every candidate every step (reference). */
+  int32_t grammar_mode;
 } vv_gen_params;
+
+#define VV_LLM_GRAMMAR_LAZY 0
+#define VV_LLM_GRAMMAR_FULL 1
 
 VV_API vv_gen_params vv_llm_default_gen_params(void);
 
@@ -220,6 +227,13 @@ VV_API void vv_llm_cancel(vv_llm* h);
 /* Cancels any running generation, waits for it, frees model + context.
  * Safe on NULL and after cancel. */
 VV_API void vv_llm_destroy(vv_llm* h);
+
+/* LLM-05: converts a JSON Schema (UTF-8 JSON text) to a GBNF grammar with
+ * root rule "root" (llama.cpp json-schema-to-grammar). `*out_gbnf` is
+ * malloc'd: free with vv_free_string. VV_E_INVALID_ARG when the input is not
+ * JSON or the schema cannot be converted. Pure CPU, no model needed; call
+ * when a profile is saved (cache the result), not per run. */
+VV_API int32_t vv_json_schema_to_gbnf(const char* schema_json, char** out_gbnf);
 
 #ifdef __cplusplus
 }

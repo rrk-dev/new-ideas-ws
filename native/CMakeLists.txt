@@ -136,6 +136,25 @@ add_subdirectory(whisper.cpp whisper)
 add_library(vv_native SHARED bridge/vv_bridge.cpp)
 # LLM bridge (LLM-02/LLM-03): backend selection, GPU discovery, benchmark.
 target_sources(vv_native PRIVATE bridge/vv_llama.cpp bridge/vv_llama_engine.cpp bridge/vv_cpu.c)
+
+# LLM-05: llama.cpp's JSON-schema -> GBNF converter as a small static lib.
+# Never link `llama-common` (HTTP/download code, egress policy): only these
+# files + a shim for the four string helpers they take from common.cpp.
+# File list verified at llama.cpp v0.6.0 (json-schema-to-grammar.cpp needs
+# json-schema.cpp, json.cpp, trie.cpp, unicode.cpp).
+set(VV_LLAMA_COMMON ${CMAKE_CURRENT_SOURCE_DIR}/llama.cpp/common)
+add_library(vv_jsg STATIC
+  ${VV_LLAMA_COMMON}/json-schema-to-grammar.cpp
+  ${VV_LLAMA_COMMON}/json-schema.cpp
+  ${VV_LLAMA_COMMON}/json.cpp
+  ${VV_LLAMA_COMMON}/trie.cpp
+  ${VV_LLAMA_COMMON}/unicode.cpp
+  bridge/vv_jsg_shim.cpp)
+target_include_directories(vv_jsg PUBLIC ${VV_LLAMA_COMMON}
+  PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/llama.cpp/include ${CMAKE_CURRENT_SOURCE_DIR}/llama.cpp/vendor)
+target_link_libraries(vv_jsg PRIVATE ggml llama)
+target_sources(vv_native PRIVATE bridge/vv_jsg.cpp)
+target_link_libraries(vv_native PRIVATE vv_jsg)
 target_include_directories(vv_native PUBLIC bridge)
 target_link_libraries(vv_native PRIVATE whisper llama ggml)
 target_compile_definitions(vv_native PRIVATE VV_BUILDING_LIBRARY=1)
@@ -203,6 +222,11 @@ if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
   target_link_libraries(vv_llm_engine_test PRIVATE vv_native)
   add_test(NAME vv_llm_engine COMMAND vv_llm_engine_test)
   set_tests_properties(vv_llm_engine PROPERTIES SKIP_RETURN_CODE 77)
+  # [LLM-05] JSON-schema -> GBNF converter and lazy grammar sampling.
+  add_executable(vv_grammar_test tests/grammar_test.c)
+  target_link_libraries(vv_grammar_test PRIVATE vv_native)
+  add_test(NAME vv_grammar COMMAND vv_grammar_test)
+  set_tests_properties(vv_grammar PROPERTIES SKIP_RETURN_CODE 77)
   # [LLM-03] big.LITTLE perf-core detection (fake sysfs) + CPU feature guard.
   add_executable(vv_cpu_test tests/cpu_test.c bridge/vv_cpu.c)
   target_include_directories(vv_cpu_test PRIVATE bridge)

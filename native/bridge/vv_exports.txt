@@ -33,3 +33,4 @@ _vv_llm_default_gen_params
 _vv_llm_generate_async
 _vv_llm_cancel
 _vv_llm_destroy
+_vv_json_schema_to_gbnf
