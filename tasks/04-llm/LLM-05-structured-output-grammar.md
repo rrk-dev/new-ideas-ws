@@ -16,3 +16,6 @@ The LLM produces JSON matching each profile's output schema; Markdown is rendere
 ## Acceptance Criteria
 - ≥ 99% of runs on the PRF-09 eval set produce schema-valid JSON.
 - Grammar overhead on decode speed documented (< 20% target).
+
+## Notes
+- Runtime: **llama.cpp** per [ADR-LLM-01](../../docs/adr/ADR-LLM-01-runtime.md) (Proposed until device numbers exist). Host spike measured GBNF decode overhead of −66% on Llama-3.2-1B (128k vocab, Metal, CPU-contended host) — the < 20% target needs work (see ADR-LLM-01 observations).

@@ -17,3 +17,6 @@ The app picks models and settings each device can actually run, and never gets O
 ## Acceptance Criteria
 - Full pipeline on iPhone 11 and a 4 GB Android device completes without being killed on a 30-min recording.
 - Tier detection unit-tested with mocked device profiles.
+
+## Notes
+- Runtime: **llama.cpp** per [ADR-LLM-01](../../docs/adr/ADR-LLM-01-runtime.md) (Proposed until device numbers exist).

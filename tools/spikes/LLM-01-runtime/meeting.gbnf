@@ -1,0 +1,10 @@
+# [LLM-01] Hand-written GBNF for a flat meeting-extraction schema (what LLM-05
+# will generate from a profile JSON Schema). Bounded strings/arrays so the
+# grammar cannot loop forever (vv-llm-inference -> Constrained output).
+root   ::= "{" ws "\"title\":" ws str "," ws "\"summary\":" ws str "," ws "\"action_items\":" ws items ws "}"
+items  ::= "[" ws ( item ( "," ws item ){0,19} )? ws "]"
+item   ::= "{" ws "\"text\":" ws str "," ws "\"owner\":" ws ( str | "null" ) "," ws "\"t\":" ws ts ws "}"
+ts     ::= "\"" [0-9] [0-9] ":" [0-5] [0-9] ":" [0-5] [0-9] "\""
+str    ::= "\"" char{0,200} "\""
+char   ::= [^"\\\x7F\x00-\x1F] | "\\" ["\\/bfnrt]
+ws     ::= [ \t\n]{0,4}

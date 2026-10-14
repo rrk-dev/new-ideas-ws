@@ -18,3 +18,6 @@ A Dart `LlmEngine` that loads a GGUF model and runs prompts with streaming, canc
 - Streaming output appears in a debug screen; cancel stops within 500 ms.
 - Same seed + prompt yields identical output (determinism test).
 - Model unload returns RAM to baseline (± 50 MB).
+
+## Notes
+- Runtime: **llama.cpp** per [ADR-LLM-01](../../docs/adr/ADR-LLM-01-runtime.md) (Proposed until device numbers exist). `use_mmap` no longer exists at the pin (use `load_mode`); llama.h also has the new `llama_batch_ext`/`llama_process` API next to `llama_decode`.

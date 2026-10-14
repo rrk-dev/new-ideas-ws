@@ -1,0 +1,25 @@
+# [LLM-01] Spike build: pinned native/llama.cpp + llama-bench + llm_spike.
+# Dev-host only (never shipped). LLAMA_BUILD_COMMON is ON here only because
+# llama-bench needs it; the app's native/CMakeLists.txt keeps it OFF (egress).
+cmake_minimum_required(VERSION 3.22)
+project(vv_llm01_spike C CXX)
+set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+set(BUILD_SHARED_LIBS OFF)
+set(GGML_NATIVE OFF)        # same CPU flags policy as the app build
+set(GGML_OPENMP OFF)
+set(GGML_LLAMAFILE OFF)
+set(LLAMA_BUILD_COMMON ON)
+set(LLAMA_BUILD_TOOLS ON)
+set(LLAMA_BUILD_TESTS OFF)
+set(LLAMA_BUILD_EXAMPLES OFF)
+set(LLAMA_BUILD_SERVER OFF)
+set(LLAMA_BUILD_MTMD OFF)
+set(LLAMA_OPENSSL OFF)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../../../native/llama.cpp llama)
+add_executable(llm_spike llm_spike.cpp)
+target_link_libraries(llm_spike PRIVATE llama ggml)
