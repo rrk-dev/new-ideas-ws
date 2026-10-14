@@ -1,7 +1,7 @@
 # EXP-05 — Vault Writer & Folder Routing Rules Engine
 
 **Workstream:** Export | **Phase:** 3 | **Size:** M | **Depends on:** EXP-02, EXP-03, EXP-04, LIC-01 | **Source:** §3.1.4, §4.2 (Local File Router), §5 Phase 3, §7 (Multiple folder routing rules — Pro)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-markdown-vault-export, vv-licensing-iap, vv-local-database, vv-pipeline-orchestrator, vv-testing
 
 ## Goal
