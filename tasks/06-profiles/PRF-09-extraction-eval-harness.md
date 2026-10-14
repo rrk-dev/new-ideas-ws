@@ -1,7 +1,7 @@
 # PRF-09 — Extraction Quality Evaluation Harness
 
 **Workstream:** Profiles | **Phase:** 2–3 (start early) | **Size:** L | **Depends on:** LLM-04, PRF-02 | **Source:** Gap (no quality bar defined for extraction)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-benchmark-eval, vv-extraction-profiles, vv-llm-inference, vv-testing
 
 ## Goal
