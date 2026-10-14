@@ -1,0 +1,49 @@
+app/lib/features/export/domain/routing_rule.dart
+  s_9f6fcf8c1840a0::t_396f8f4fe96acc 2-37,46-113,132-166
+  s_9f6fcf8c1840a0::t_91e721a323b873 38-45,114-131
+  s_9f6fcf8c1840a0::t_64aaca07f154cb 1
+app/lib/features/export/domain/vault_target_options.dart
+  s_9f6fcf8c1840a0::t_91e721a323b873 33-46
+  s_9f6fcf8c1840a0::t_4dd86a7937b82f 1-32,47-114
+app/lib/features/export/domain/routing_engine.dart
+  s_9f6fcf8c1840a0::t_91e721a323b873 15-23
+  s_9f6fcf8c1840a0::t_2edca9dd9dfdc5 209-213,224-226
+  s_9f6fcf8c1840a0::t_4693a06c002c1f 1-14,24-208,214-223,227-245
+app/lib/features/settings/domain/setting_keys.dart
+  s_9f6fcf8c1840a0::t_2edca9dd9dfdc5 35-42
+app/lib/features/pipeline/data/pipeline_orchestrator.dart
+  s_9f6fcf8c1840a0::t_be782cd7c30a40 13,45-61
+app/lib/features/pipeline/data/pipeline_engines.dart
+  s_9f6fcf8c1840a0::t_be782cd7c30a40 5,42-43,56-64
+app/lib/features/export/data/vault_writer_resolver.dart
+  s_9f6fcf8c1840a0::t_be782cd7c30a40 26-40,49
+  s_9f6fcf8c1840a0::t_7f1ab87b8c08e7 1-25,41-48,50-51
+app/lib/features/export/data/export_request_builder.dart
+  s_9f6fcf8c1840a0::t_be782cd7c30a40 31-32,34-35
+  s_9f6fcf8c1840a0::t_dd422e2004e2f9 56-58
+  s_9f6fcf8c1840a0::t_e969c5f7c2dc64 1-30,33,36-55,59-112
+app/lib/features/export/data/vault_exporter.dart
+  s_9f6fcf8c1840a0::t_ae1aa7721cb849 1-27,31-125,128,133-164,168-187,192-222,225-338,341-344,347-444,447-451,456-472,476-481
+  s_9f6fcf8c1840a0::t_2edca9dd9dfdc5 28-30,129-132,165-167,188-191,223-224,445-446,452-455
+  s_9f6fcf8c1840a0::t_a140b94110b0c6 126-127,339-340,345-346,473-475
+app/lib/features/pipeline/data/steps/render_write_steps.dart
+  s_9f6fcf8c1840a0::t_be782cd7c30a40 13-14,141-142,150-155,230-249,251-263
+  s_9f6fcf8c1840a0::t_dd422e2004e2f9 167,250
+  s_9f6fcf8c1840a0::t_1a91d9d5813adc 264
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "128de4cea2fd8729f025a3f03320b33b0412bd29",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
