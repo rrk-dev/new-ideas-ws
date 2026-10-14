@@ -123,7 +123,7 @@ void main() {
       expect(
         user,
         endsWith(
-          '</transcript>\nReturn one JSON object with the keys title, '
+          '</transcript>\nReturn one compact JSON object with the keys title, '
           'summary, attendees, decisions, action_items, open_questions, '
           'topics. Return the JSON now.',
         ),
