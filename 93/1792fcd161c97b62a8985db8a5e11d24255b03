@@ -1,0 +1,36 @@
+tools/bench/stt_variants/passages.jsonl
+  s_9f6fcf8c1840a0::t_f2821c73842e8b 2,5-7
+  s_9f6fcf8c1840a0::t_cdf7e340dbd095 1,3-4,8
+tools/model-catalog/tests/test_catalog.py
+  s_9f6fcf8c1840a0::t_4c1a1114c6e838 59-60
+tools/bench/stt_variants/run.py
+  s_9f6fcf8c1840a0::t_fd1c4d0f366e0a 1-148
+tools/bench/stt_variants/make_corpus.sh
+  s_9f6fcf8c1840a0::t_0440d431f866ae 1-32
+app/test/unit/transcription/stt_model_policy_test.dart
+  s_9f6fcf8c1840a0::t_65d47fdbffa201 1-316
+app/lib/features/models/domain/catalog_keys.dart
+  s_9f6fcf8c1840a0::t_d2edc78843ed8e 18-22
+app/lib/features/transcription/domain/stt_model_policy.dart
+  s_9f6fcf8c1840a0::t_7577339daa53a2 1-268
+native/tests/stt_backends.cpp
+  s_9f6fcf8c1840a0::t_65f6cd59cd047f 10-12,26-27,68-78,80,91,190,202-203,211,217,219-224,235,237,239-243
+tools/model-catalog/models.json
+  s_9f6fcf8c1840a0::t_a69fe538e3fb9b 27-194
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "931792fcd161c97b62a8985db8a5e11d24255b03",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
