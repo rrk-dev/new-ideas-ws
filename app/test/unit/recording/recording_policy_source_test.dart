@@ -67,4 +67,45 @@ void main() {
     ];
     expect(offenders, isEmpty);
   });
+
+  test('only RecordMicSource starts the plugin stream, only '
+      'RecordCaptureBackend opens a PcmMicSource, and only from '
+      'openMicrophone/resumeCapture (AUD-01)', () {
+    final streamStart = RegExp(
+      r'\.\s*(startStream|start)\s*\(\s*(rec\.)?'
+      '(RecordConfig|buildRecordConfig)',
+    );
+    final pluginStarters = [
+      for (final f in sources)
+        if (streamStart.hasMatch(f.readAsStringSync())) rel(f),
+    ];
+    expect(pluginStarters, [
+      'lib/features/recording/data/record_mic_source.dart',
+    ]);
+
+    final micOpen = RegExp(r'\.open\(\s*(_request\b|(const\s+)?MicRequest\()');
+    final micOpeners = [
+      for (final f in sources)
+        if (micOpen.hasMatch(f.readAsStringSync())) rel(f),
+    ];
+    expect(micOpeners, [
+      'lib/features/recording/data/record_capture_backend.dart',
+    ]);
+
+    final backend = File(
+      'lib/features/recording/data/record_capture_backend.dart',
+    ).readAsStringSync();
+    String body(String method) {
+      final start = backend.indexOf('> $method(');
+      expect(start, isNot(-1), reason: method);
+      final end = backend.indexOf('@override', start);
+      return backend.substring(start, end == -1 ? backend.length : end);
+    }
+
+    final openMic = RegExp(r'\b_openMic\(');
+    expect(openMic.allMatches(backend), hasLength(3)); // definition + 2 calls
+    expect(openMic.allMatches(body('openMicrophone')), hasLength(1));
+    expect(openMic.allMatches(body('resumeCapture')), hasLength(1));
+    expect(micOpen.allMatches(backend), hasLength(1));
+  });
 }

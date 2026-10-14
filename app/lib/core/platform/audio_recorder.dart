@@ -1,24 +1,24 @@
-import 'package:vaultvoice/core/errors/result.dart';
-
 /// A finished recording on disk.
-class RecordedAudio {
-  const RecordedAudio({required this.path, required this.duration});
-
-  final String path;
-  final Duration duration;
-}
-
-/// Microphone capture.
 ///
-/// Recording policy (SEC-09): [start] may only be called as the direct result
-/// of an explicit user tap, and implementations must stop when a call starts.
-abstract interface class AudioRecorder {
-  bool get isRecording;
+/// The FND-02 `AudioRecorder` interface (a bare `start()` without a
+/// start source) was retired by AUD-01: microphone capture is opened only
+/// through `RecordingController.start(StartSource)` (SEC-09), which drives
+/// the `CaptureBackend` seam (`features/recording/domain/capture_backend.dart`).
+/// See docs/adr/ADR-AUD-01-recording-service.md.
+class RecordedAudio {
+  const RecordedAudio({
+    required this.path,
+    required this.duration,
+    this.recordingId,
+  });
 
-  /// Input level in 0.0–1.0 while recording.
-  Stream<double> get levels;
+  /// Directory of the recording's chunks, relative to the storage root
+  /// (`audio/<recording_id>`).
+  final String path;
 
-  Future<Result<void>> start();
+  /// Recorded audio duration (paused spans excluded), from the sample count.
+  final Duration duration;
 
-  Future<Result<RecordedAudio>> stop();
+  /// The `recordings` row id; null for captures without a DB row.
+  final String? recordingId;
 }

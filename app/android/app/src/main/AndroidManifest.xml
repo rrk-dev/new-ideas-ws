@@ -1,4 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- AUD-01: microphone capture (standard AudioRecord, MIC / VOICE_RECOGNITION only, SEC-09). -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- AUD-05: background recording = foreground service of type microphone
+         (Android 14+ requires the typed permission) + its ongoing notification. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <application
         android:label="@string/app_name"
         android:name="${applicationName}"
@@ -28,6 +35,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!-- AUD-05: keeps a user-started recording alive in the background; started only
+             while the activity is visible, never restarted by the system (START_NOT_STICKY). -->
+        <service
+            android:name=".RecordingService"
+            android:exported="false"
+            android:foregroundServiceType="microphone" />
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

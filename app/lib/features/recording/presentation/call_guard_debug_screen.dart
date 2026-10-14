@@ -149,6 +149,10 @@ class NoMicrophoneCaptureBackend implements CaptureBackend {
   Future<Result<void>> resumeCapture() async => const Ok<void>(null);
 
   @override
-  Future<Result<RecordedAudio>> close() async =>
-      const Ok(RecordedAudio(path: '', duration: Duration.zero));
+  Future<Result<RecordedAudio>> close({
+    StopCause cause = StopCause.user,
+  }) async => const Ok(RecordedAudio(path: '', duration: Duration.zero));
+
+  @override
+  Stream<CaptureNotice> get notices => const Stream.empty();
 }
