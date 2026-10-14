@@ -23,3 +23,13 @@ _vv_llm_gpu_device_info
 _vv_llm_bench
 _vv_cpu_features
 _vv_cpu_supported
+_vv_proc_memory
+_vv_llm_create
+_vv_llm_get_info
+_vv_llm_count_tokens
+_vv_llm_apply_chat_template
+_vv_free_string
+_vv_llm_default_gen_params
+_vv_llm_generate_async
+_vv_llm_cancel
+_vv_llm_destroy

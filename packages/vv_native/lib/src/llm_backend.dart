@@ -29,7 +29,8 @@ final class LlmBackendParams {
   final int nThreads;
   final bool useMmap;
 
-  void _fill(Pointer<vv_llm_backend_params> p, VvBindings b) {
+  /// Writes these params into a native struct (package-internal).
+  void fill(Pointer<vv_llm_backend_params> p, VvBindings b) {
     p.ref = b.vv_llm_default_backend_params();
     p.ref
       ..use_gpu = useGpu ? 1 : 0
@@ -136,7 +137,7 @@ LlmBenchResult runLlmBench(
 }) {
   return using((arena) {
     final p = arena<vv_llm_backend_params>();
-    params._fill(p, b);
+    params.fill(p, b);
     final r = arena<vv_llm_bench_result>();
     r.ref.struct_size = sizeOf<vv_llm_bench_result>();
     final rc = b.vv_llm_bench(

@@ -119,6 +119,108 @@ typedef struct vv_llm_bench_result {
 VV_API int32_t vv_llm_bench(const char* model_path, const vv_llm_backend_params* params,
                             int32_t n_prompt, int32_t n_gen, vv_llm_bench_result* out);
 
+/* Current and peak memory of this process as the OS killers account it
+ * (Apple phys_footprint; Linux/Android VmRSS / VmHWM). FND-07 metrics. */
+VV_API int32_t vv_proc_memory(uint64_t* current_bytes, uint64_t* peak_bytes);
+
+/* ---------------------------------------------------------------------
+ * Streaming engine (LLM-04). One model + context per handle; one active
+ * generation per handle (a second call returns VV_E_BUSY).
+ * ------------------------------------------------------------------- */
+typedef struct vv_llm vv_llm;
+
+/* Loads the model with the LLM-02/03 fallback chain. Blocking (seconds):
+ * call from a background isolate. `*out` must be destroyed with
+ * vv_llm_destroy. */
+VV_API int32_t vv_llm_create(const char* model_path, const vv_llm_backend_params* params,
+                             vv_llm** out);
+
+typedef struct vv_llm_info {
+  int32_t struct_size; /* = sizeof(vv_llm_info), set by the caller */
+  int32_t used_gpu;
+  int32_t used_kv_quant;
+  int32_t fallbacks; /* VV_LLM_FALLBACK_* */
+  int32_t n_ctx;
+  int32_t n_threads;
+  double load_ms;
+  uint64_t model_bytes;
+} vv_llm_info;
+
+VV_API int32_t vv_llm_get_info(vv_llm* h, vv_llm_info* out);
+
+/* Exact token count of `text` (with BOS as generation would add it). */
+VV_API int32_t vv_llm_count_tokens(vv_llm* h, const char* text, int32_t* out);
+
+typedef struct vv_chat_msg {
+  const char* role; /* "system" | "user" | "assistant" */
+  const char* content;
+} vv_chat_msg;
+
+/* Applies the model's embedded chat template (GGUF metadata) and adds the
+ * assistant prefix. `*out` is malloc'd: free with vv_free_string.
+ * VV_E_INVALID_ARG when the model has no template llama.cpp supports. */
+VV_API int32_t vv_llm_apply_chat_template(vv_llm* h, const vv_chat_msg* msgs, size_t n,
+                                          char** out);
+
+VV_API void vv_free_string(char* s);
+
+/* Sampling + limits for one generation. Get defaults (structured-extraction
+ * preset) from vv_llm_default_gen_params(). temperature <= 0 = greedy. */
+typedef struct vv_gen_params {
+  int32_t struct_size; /* = sizeof(vv_gen_params) */
+  int32_t n_predict;   /* hard cap on generated tokens */
+  uint32_t seed;
+  float temperature;
+  int32_t top_k;      /* <= 0 disables */
+  float top_p;        /* >= 1 disables */
+  float min_p;        /* <= 0 disables */
+  float repeat_penalty; /* 1.0 disables (never for JSON) */
+  int32_t repeat_last_n;
+  /* GBNF grammar (root rule "root") or NULL = unconstrained. Copied. */
+  const char* grammar;
+  /* Token callback batching: emit after this many tokens or 50 ms. */
+  int32_t token_batch;
+} vv_gen_params;
+
+VV_API vv_gen_params vv_llm_default_gen_params(void);
+
+/* Text callback: `text` is malloc'd UTF-8 (whole code points only); the
+ * receiver owns it and must call vv_free_string. Called on the engine's
+ * worker thread (Dart: NativeCallable.listener). */
+typedef void (*vv_llm_text_cb)(void* user, char* text);
+
+/* Completion: status VV_OK (EOG or n_predict reached), VV_E_CANCELLED,
+ * VV_E_INVALID_ARG (prompt does not fit n_ctx - n_predict, bad grammar),
+ * VV_E_BACKEND (decode failed, e.g. iOS refused GPU work in the background
+ * -> reload with use_gpu = 0), VV_E_OOM, VV_E_INTERNAL. Always called exactly
+ * once per accepted generate_async, after the last text callback.
+ * `n_chunks` = number of on_text calls made: receivers whose callbacks may be
+ * delivered out of order (separate Dart ports) wait until they have seen
+ * that many chunks. */
+typedef void (*vv_llm_done_cb)(void* user, int32_t status, int32_t n_chunks, int32_t n_prompt,
+                               int32_t n_gen, double prefill_ms, double decode_ms);
+
+typedef struct vv_llm_callbacks {
+  vv_llm_text_cb on_text;
+  vv_llm_done_cb on_done;
+  void* user;
+} vv_llm_callbacks;
+
+/* Starts generation of `prompt` (already chat-templated) on a native
+ * worker thread and returns immediately: VV_OK, VV_E_BUSY,
+ * VV_E_INVALID_ARG (bad args / grammar does not parse). The KV cache is
+ * cleared first. */
+VV_API int32_t vv_llm_generate_async(vv_llm* h, const char* prompt, const vv_gen_params* params,
+                                     vv_llm_callbacks callbacks);
+
+/* Requests cancellation; returns immediately. The worker stops at the next
+ * token / prefill slice and reports VV_E_CANCELLED via on_done. */
+VV_API void vv_llm_cancel(vv_llm* h);
+
+/* Cancels any running generation, waits for it, frees model + context.
+ * Safe on NULL and after cancel. */
+VV_API void vv_llm_destroy(vv_llm* h);
+
 #ifdef __cplusplus
 }
 #endif

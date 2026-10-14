@@ -10,11 +10,14 @@ import 'dart:ffi';
 
 import 'package:ffi/ffi.dart';
 import 'package:vv_native/src/llm_backend.dart';
+import 'package:vv_native/src/llm_engine.dart';
 import 'package:vv_native/src/loader.dart';
 import 'package:vv_native/src/vv_bindings.g.dart';
 
 export 'package:vv_native/src/llm_backend.dart'
     show LlmBackendParams, LlmBenchResult, VvLlmException;
+export 'package:vv_native/src/llm_engine.dart'
+    show LlmGenParams, LlmGenResult, LlmGeneration, LlmInfo, VvLlm;
 export 'package:vv_native/src/vv_bindings.g.dart'
     show
         VV_E_BACKEND,
@@ -49,7 +52,7 @@ class VvAbiMismatch implements Exception {
 
 /// Loaded native bridge.
 class VvNative {
-  VvNative._(this._b, this.cpuBackendStatus);
+  VvNative._(this._b, this.cpuBackendStatus, this._hostPath);
 
   /// Loads the bridge and checks its ABI version.
   factory VvNative.open({String? hostPath}) {
@@ -58,10 +61,27 @@ class VvNative {
     if (abi != expectedAbiVersion) throw VvAbiMismatch(abi);
     // CPU backends are always safe to register (no-op in static builds);
     // GPU modules are added later by the backend policy via [loadBackends].
-    return VvNative._(bindings, bindings.vv_backends_load(nullptr, 0));
+    return VvNative._(
+      bindings,
+      bindings.vv_backends_load(nullptr, 0),
+      hostPath,
+    );
   }
 
   final VvBindings _b;
+  final String? _hostPath;
+
+  /// Loads an LLM (LLM-04) on a background isolate. See [VvLlm].
+  Future<VvLlm> loadLlm(String modelPath, LlmBackendParams params) =>
+      VvLlm.load(modelPath, params, hostPath: _hostPath);
+
+  /// Current and peak process memory in bytes (`vv_proc_memory`).
+  (int, int) get processMemory => using((arena) {
+    final cur = arena<Uint64>();
+    final peak = arena<Uint64>();
+    _b.vv_proc_memory(cur, peak);
+    return (cur.value, peak.value);
+  });
 
   /// `VV_*` code of the CPU backend registration done by [VvNative.open]
   /// (`VV_E_BACKEND` = no usable CPU module found).

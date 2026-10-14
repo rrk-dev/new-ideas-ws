@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vaultvoice/features/extraction/presentation/llm_debug_screen.dart';
 import 'package:vaultvoice/features/models/presentation/model_import_tile.dart';
 import 'package:vaultvoice/features/settings/presentation/diagnostics_export.dart';
 
@@ -10,7 +11,11 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: const Text('Settings')),
     body: ListView(
-      children: const [ModelImportTile(), DiagnosticsExportTile()],
+      children: const [
+        ModelImportTile(),
+        DiagnosticsExportTile(),
+        LlmDebugTile(),
+      ],
     ),
   );
 }
