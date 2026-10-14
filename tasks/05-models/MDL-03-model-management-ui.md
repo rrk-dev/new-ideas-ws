@@ -1,7 +1,7 @@
 # MDL-03 — Model Management Screen
 
 **Workstream:** Model Delivery | **Phase:** 3 | **Size:** S | **Depends on:** MDL-02, LLM-07, LIC-01 | **Source:** Gap
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-model-delivery, vv-flutter-architecture, vv-licensing-iap, vv-testing
 
 ## Goal
