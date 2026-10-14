@@ -1,0 +1,24 @@
+tasks/01-foundation/FND-11-production-engine-wiring.md
+  s_9f6fcf8c1840a0::t_9e1bed4f8d9f15 4
+  s_9f6fcf8c1840a0::t_f001c52b1fd059 13,17,19,22,25,28,30,32,50-110
+app/lib/features/pipeline/data/production_engines.dart
+  s_9f6fcf8c1840a0::t_228636cb47f85a 187,276,281-284,292
+app/test/unit/pipeline/active_engines_test.dart
+  s_9f6fcf8c1840a0::t_228636cb47f85a 271
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4b436544083eec964b554c9d459ef7b23e8300c4",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
