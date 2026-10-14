@@ -267,9 +267,11 @@ void main() {
   });
 
   group('Play policy: foreground service declaration', () {
-    final manifest = File('android/app/src/main/AndroidManifest.xml')
+    // Lazy: read inside the test so tag-filtered runs without android/ (the
+    // Linux golden container) can still load this file.
+    late final manifest = File('android/app/src/main/AndroidManifest.xml')
         .readAsStringSync();
-    final service = File(
+    late final service = File(
       'android/app/src/main/kotlin/com/vaultvoice/vaultvoice/'
       'RecordingService.kt',
     ).readAsStringSync();
