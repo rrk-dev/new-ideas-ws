@@ -1,0 +1,19 @@
+tasks/02-audio/AUD-06-audio-import-conversion.md
+  s_9f6fcf8c1840a0::t_7c13d3c74185a4 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ac2c839d44d95335865ea3575e8266f1bf2a7149",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
