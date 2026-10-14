@@ -1,0 +1,45 @@
+native/tests/vad_test.cpp
+  s_9f6fcf8c1840a0::t_3152f5e05c64b2 322
+  s_9f6fcf8c1840a0::t_da4158406da386 308-320,323-336,347
+  s_9f6fcf8c1840a0::t_ff13665bdf1a04 321
+app/lib/features/recording/data/recording_providers.g.dart
+  s_9f6fcf8c1840a0::t_92306f67fbc316 773
+app/lib/features/recording/data/silence_watcher.dart
+  s_9f6fcf8c1840a0::t_6298825aaffdd4 105-120
+  s_9f6fcf8c1840a0::t_80fee53c86bfc9 76,148-150,152
+docs/test-plans/device/AUD-03.md
+  s_9f6fcf8c1840a0::t_dae9846836e0e9 1-20
+app/test/unit/recording/silence_vad_test.dart
+  s_9f6fcf8c1840a0::t_646da4822d5811 207
+  s_9f6fcf8c1840a0::t_dddc7147b0043a 1-206,208-239,243-297
+  s_9f6fcf8c1840a0::t_92306f67fbc316 240-242
+tasks/README.md
+  s_9f6fcf8c1840a0::t_2cc0b064317a0d 194
+tasks/02-audio/AUD-03-silence-detection-vad.md
+  s_9f6fcf8c1840a0::t_a9c569c7df62e8 11-15,20-51
+app/test/unit/transcription/transcribe_step_vad_test.dart
+  s_9f6fcf8c1840a0::t_efaacc1e029893 1-111,113-128,138-188
+  s_9f6fcf8c1840a0::t_aaab8344a6a416 112,129-137
+app/test/native/ffi_vad_engine_test.dart
+  s_9f6fcf8c1840a0::t_b0161e98ff6070 1-51
+app/lib/features/recording/data/recording_providers.dart
+  s_9f6fcf8c1840a0::t_3835598f3c1e82 8-9,144-150,186-189
+docs/adr/ADR-AUD-03-vad.md
+  s_9f6fcf8c1840a0::t_7ebbfb3e4ab7bd 1-83
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "47229eb13a9f737f026e555c956fd7ecca21f0df",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
