@@ -1,6 +1,8 @@
 // failWith mirrors the vv-testing fake contract; a setter reads poorly.
 // ignore_for_file: use_setters_to_change_properties
 
+import 'dart:async';
+
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/audio_recorder.dart';
@@ -27,7 +29,9 @@ final class ResumeCall extends CaptureCall {
 }
 
 final class CloseCall extends CaptureCall {
-  const CloseCall();
+  const CloseCall([this.cause = StopCause.user]);
+
+  final StopCause cause;
 }
 
 /// Records every call so tests can assert the exact capture sequence.
@@ -71,9 +75,19 @@ class FakeCaptureBackend implements CaptureBackend {
     return const Ok<void>(null);
   }
 
+  final _notices = StreamController<CaptureNotice>.broadcast(sync: true);
+
+  /// Raises a capture notice (low storage, OS interruption, failure).
+  void notify(CaptureNotice notice) => _notices.add(notice);
+
   @override
-  Future<Result<RecordedAudio>> close() async {
-    calls.add(const CloseCall());
+  Stream<CaptureNotice> get notices => _notices.stream;
+
+  @override
+  Future<Result<RecordedAudio>> close({
+    StopCause cause = StopCause.user,
+  }) async {
+    calls.add(CloseCall(cause));
     micOpen = false;
     return const Ok(
       RecordedAudio(path: 'fake/rec.wav', duration: Duration.zero),

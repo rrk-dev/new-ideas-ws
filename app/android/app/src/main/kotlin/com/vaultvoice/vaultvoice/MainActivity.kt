@@ -17,6 +17,8 @@ class MainActivity : FlutterActivity() {
         flutterEngine.plugins.add(CallGuardPlugin())
         // MDL-02: device facts + dataSync keep-alive for model downloads.
         flutterEngine.plugins.add(ModelDownloadPlugin())
+        // AUD-01: free-space checks for the recording storage policy.
+        flutterEngine.plugins.add(StorageInfoPlugin())
         val api = SafHostApiImpl(this)
         safApi = api
         SafHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, api)

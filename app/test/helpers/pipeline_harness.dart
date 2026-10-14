@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../fakes/fake_audio_recorder.dart';
+import '../fakes/fake_capture_backend.dart';
 import '../fakes/fake_clock.dart';
 import '../fakes/fake_id_generator.dart';
 import '../fakes/fake_llm_engine.dart';
@@ -26,14 +26,14 @@ class PipelineHarness {
     FakeSttEngine? stt,
     FakeLlmEngine? llm,
     FakeVaultWriter? vault,
-    FakeAudioRecorder? recorder,
+    FakeCaptureBackend? capture,
     FakeClock? clock,
     SequentialIdGenerator? ids,
     this.overrides,
   }) : stt = stt ?? FakeSttEngine(),
        llm = llm ?? FakeLlmEngine(),
        vault = vault ?? FakeVaultWriter(),
-       recorder = recorder ?? FakeAudioRecorder(),
+       capture = capture ?? FakeCaptureBackend(),
        clock = clock ?? testClock(),
        ids = ids ?? testIds(),
        workDir = Directory.systemTemp.createTempSync('vv_pipeline_') {
@@ -46,7 +46,7 @@ class PipelineHarness {
   final FakeSttEngine stt;
   final FakeLlmEngine llm;
   final FakeVaultWriter vault;
-  final FakeAudioRecorder recorder;
+  final FakeCaptureBackend capture;
   final FakeClock clock;
   final SequentialIdGenerator ids;
   final Directory workDir;
@@ -76,7 +76,7 @@ class PipelineHarness {
   ProviderContainer _build() => ProviderContainer(
     overrides: [
       ...fakeEngineOverrides(
-        recorder: recorder,
+        capture: capture,
         stt: stt,
         llm: llm,
         vault: vault,

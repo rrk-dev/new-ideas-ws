@@ -22,7 +22,6 @@ void main() {
   test('every engine provider throws until overridden', () {
     final c = createContainer();
     for (final read in <void Function()>[
-      () => c.read(audioRecorderProvider),
       () => c.read(sttEngineProvider),
       () => c.read(llmEngineProvider),
       () => c.read(vaultWriterProvider),

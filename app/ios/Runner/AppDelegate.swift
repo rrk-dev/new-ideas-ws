@@ -23,6 +23,10 @@ import UIKit
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "ModelDownloadPlugin") {
       ModelDownloadPlugin.register(with: registrar)
     }
+    // AUD-01: free-space checks for the recording storage policy.
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "StorageInfoPlugin") {
+      StorageInfoPlugin.register(with: registrar)
+    }
     BookmarkHostApiSetup.setUp(
       binaryMessenger: engineBridge.applicationRegistrar.messenger(), api: bookmarkApi)
   }

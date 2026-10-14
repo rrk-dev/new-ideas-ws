@@ -2,7 +2,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/network/model_hosts.dart';
 import 'package:vaultvoice/core/network/network_gateway.dart';
-import 'package:vaultvoice/core/platform/audio_recorder.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/llm_engine.dart';
 import 'package:vaultvoice/core/platform/stt_engine.dart';
@@ -11,12 +10,10 @@ import 'package:vaultvoice/core/platform/vault_writer.dart';
 part 'providers.g.dart';
 
 // Engine providers have no default: the owning feature supplies the real
-// implementation (STT-xx, LLM-xx, AUD-xx, EXP-xx) by overriding the provider in
+// implementation (STT-xx, LLM-xx, EXP-xx) by overriding the provider in
 // `bootstrap`; tests override with the fakes in `test/fakes/`.
-
-@Riverpod(keepAlive: true)
-AudioRecorder audioRecorder(Ref ref) =>
-    throw UnimplementedError('audioRecorderProvider must be overridden');
+// Microphone capture is not an engine provider: it is opened only through
+// `recordingControllerProvider` (features/recording, SEC-09 / AUD-01).
 
 @Riverpod(keepAlive: true)
 SttEngine sttEngine(Ref ref) =>

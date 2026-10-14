@@ -54,17 +54,317 @@ final class CallGuardProvider
 
 String _$callGuardHash() => r'a6c1e88ffb8313dec8f094c025b6c092f4f3ad78';
 
-/// Microphone capture; AUD-01 supplies the real implementation.
+/// Standard OS microphone API (`record` package); tests use a fake.
+
+@ProviderFor(pcmMicSource)
+final pcmMicSourceProvider = PcmMicSourceProvider._();
+
+/// Standard OS microphone API (`record` package); tests use a fake.
+
+final class PcmMicSourceProvider
+    extends $FunctionalProvider<PcmMicSource, PcmMicSource, PcmMicSource>
+    with $Provider<PcmMicSource> {
+  /// Standard OS microphone API (`record` package); tests use a fake.
+  PcmMicSourceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'pcmMicSourceProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$pcmMicSourceHash();
+
+  @$internal
+  @override
+  $ProviderElement<PcmMicSource> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  PcmMicSource create(Ref ref) {
+    return pcmMicSource(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(PcmMicSource value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<PcmMicSource>(value),
+    );
+  }
+}
+
+String _$pcmMicSourceHash() => r'14b17b3d0b5196c19cd5ac003aa659a4c24d90a4';
+
+/// Free-space probe for the recording storage policy.
+
+@ProviderFor(diskSpaceProbe)
+final diskSpaceProbeProvider = DiskSpaceProbeProvider._();
+
+/// Free-space probe for the recording storage policy.
+
+final class DiskSpaceProbeProvider
+    extends $FunctionalProvider<DiskSpaceProbe, DiskSpaceProbe, DiskSpaceProbe>
+    with $Provider<DiskSpaceProbe> {
+  /// Free-space probe for the recording storage policy.
+  DiskSpaceProbeProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'diskSpaceProbeProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$diskSpaceProbeHash();
+
+  @$internal
+  @override
+  $ProviderElement<DiskSpaceProbe> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  DiskSpaceProbe create(Ref ref) {
+    return diskSpaceProbe(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(DiskSpaceProbe value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<DiskSpaceProbe>(value),
+    );
+  }
+}
+
+String _$diskSpaceProbeHash() => r'cdbd1cf159dc9b43d433dd4f0e67088ba3c5178f';
+
+/// Chunk file codec. SEC-01 overrides it if its ADR picks `vvenc`.
+
+@ProviderFor(audioChunkCodec)
+final audioChunkCodecProvider = AudioChunkCodecProvider._();
+
+/// Chunk file codec. SEC-01 overrides it if its ADR picks `vvenc`.
+
+final class AudioChunkCodecProvider
+    extends
+        $FunctionalProvider<AudioChunkCodec, AudioChunkCodec, AudioChunkCodec>
+    with $Provider<AudioChunkCodec> {
+  /// Chunk file codec. SEC-01 overrides it if its ADR picks `vvenc`.
+  AudioChunkCodecProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'audioChunkCodecProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$audioChunkCodecHash();
+
+  @$internal
+  @override
+  $ProviderElement<AudioChunkCodec> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  AudioChunkCodec create(Ref ref) {
+    return audioChunkCodec(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AudioChunkCodec value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AudioChunkCodec>(value),
+    );
+  }
+}
+
+String _$audioChunkCodecHash() => r'da3872a8e77c3efae435710c9f3e6e74b8420fb3';
+
+/// The real microphone capture (AUD-01).
+
+@ProviderFor(recordCaptureBackend)
+final recordCaptureBackendProvider = RecordCaptureBackendProvider._();
+
+/// The real microphone capture (AUD-01).
+
+final class RecordCaptureBackendProvider
+    extends
+        $FunctionalProvider<
+          RecordCaptureBackend,
+          RecordCaptureBackend,
+          RecordCaptureBackend
+        >
+    with $Provider<RecordCaptureBackend> {
+  /// The real microphone capture (AUD-01).
+  RecordCaptureBackendProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'recordCaptureBackendProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$recordCaptureBackendHash();
+
+  @$internal
+  @override
+  $ProviderElement<RecordCaptureBackend> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  RecordCaptureBackend create(Ref ref) {
+    return recordCaptureBackend(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(RecordCaptureBackend value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<RecordCaptureBackend>(value),
+    );
+  }
+}
+
+String _$recordCaptureBackendHash() =>
+    r'dc216464e9aa935c6157ecac70ce441de1d9dec9';
+
+/// Selectable inputs (built-in, wired, Bluetooth HFP, USB). Querying never
+/// opens the microphone.
+
+@ProviderFor(recordingInputDevices)
+final recordingInputDevicesProvider = RecordingInputDevicesProvider._();
+
+/// Selectable inputs (built-in, wired, Bluetooth HFP, USB). Querying never
+/// opens the microphone.
+
+final class RecordingInputDevicesProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<AudioInputDevice>>,
+          List<AudioInputDevice>,
+          FutureOr<List<AudioInputDevice>>
+        >
+    with
+        $FutureModifier<List<AudioInputDevice>>,
+        $FutureProvider<List<AudioInputDevice>> {
+  /// Selectable inputs (built-in, wired, Bluetooth HFP, USB). Querying never
+  /// opens the microphone.
+  RecordingInputDevicesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'recordingInputDevicesProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$recordingInputDevicesHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<List<AudioInputDevice>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<AudioInputDevice>> create(Ref ref) {
+    return recordingInputDevices(ref);
+  }
+}
+
+String _$recordingInputDevicesHash() =>
+    r'be1c03b245d93c5d82c1395e93853c70b76585da';
+
+/// Selects the input used by the next start/resume (null = default).
+
+@ProviderFor(recordingInputSelector)
+final recordingInputSelectorProvider = RecordingInputSelectorProvider._();
+
+/// Selects the input used by the next start/resume (null = default).
+
+final class RecordingInputSelectorProvider
+    extends
+        $FunctionalProvider<
+          void Function(AudioInputDevice?),
+          void Function(AudioInputDevice?),
+          void Function(AudioInputDevice?)
+        >
+    with $Provider<void Function(AudioInputDevice?)> {
+  /// Selects the input used by the next start/resume (null = default).
+  RecordingInputSelectorProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'recordingInputSelectorProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$recordingInputSelectorHash();
+
+  @$internal
+  @override
+  $ProviderElement<void Function(AudioInputDevice?)> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  void Function(AudioInputDevice?) create(Ref ref) {
+    return recordingInputSelector(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(void Function(AudioInputDevice?) value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<void Function(AudioInputDevice?)>(
+        value,
+      ),
+    );
+  }
+}
+
+String _$recordingInputSelectorHash() =>
+    r'fdc661708e30413a84094fdc2a368fc167c0f930';
+
+/// Microphone capture driven by [recordingController]; tests override it
+/// with `FakeCaptureBackend`.
 
 @ProviderFor(captureBackend)
 final captureBackendProvider = CaptureBackendProvider._();
 
-/// Microphone capture; AUD-01 supplies the real implementation.
+/// Microphone capture driven by [recordingController]; tests override it
+/// with `FakeCaptureBackend`.
 
 final class CaptureBackendProvider
     extends $FunctionalProvider<CaptureBackend, CaptureBackend, CaptureBackend>
     with $Provider<CaptureBackend> {
-  /// Microphone capture; AUD-01 supplies the real implementation.
+  /// Microphone capture driven by [recordingController]; tests override it
+  /// with `FakeCaptureBackend`.
   CaptureBackendProvider._()
     : super(
         from: null,
@@ -98,7 +398,7 @@ final class CaptureBackendProvider
   }
 }
 
-String _$captureBackendHash() => r'0088e32b6c32a62c2248d9f2cbba6f507976bb5f';
+String _$captureBackendHash() => r'abb770d3a28157dfc7aff6d2061bf3e16b4c54a0';
 
 /// The single recording entry point (SEC-09).
 
