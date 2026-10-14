@@ -102,3 +102,50 @@ final class EncryptionStatusProvider
 }
 
 String _$encryptionStatusHash() => r'0d542206d51acbd07e9f472cc2c64b6d20df7427';
+
+/// Crypto-shredding of the database key (SEC-04 "Delete all data").
+
+@ProviderFor(databaseKeyRotation)
+final databaseKeyRotationProvider = DatabaseKeyRotationProvider._();
+
+/// Crypto-shredding of the database key (SEC-04 "Delete all data").
+
+final class DatabaseKeyRotationProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<DatabaseKeyRotation>,
+          DatabaseKeyRotation,
+          FutureOr<DatabaseKeyRotation>
+        >
+    with
+        $FutureModifier<DatabaseKeyRotation>,
+        $FutureProvider<DatabaseKeyRotation> {
+  /// Crypto-shredding of the database key (SEC-04 "Delete all data").
+  DatabaseKeyRotationProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'databaseKeyRotationProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$databaseKeyRotationHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<DatabaseKeyRotation> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<DatabaseKeyRotation> create(Ref ref) {
+    return databaseKeyRotation(ref);
+  }
+}
+
+String _$databaseKeyRotationHash() =>
+    r'4843a623c80b95d4a44a250d72910b651ab08fc2';

@@ -661,6 +661,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Deleting all data is not available in this build yet.';
 
   @override
+  String get deleteAllFailed =>
+      'Some data could not be deleted. Close any recording or processing in progress and try again.';
+
+  @override
   String get licensePlanFree => 'Free';
 
   @override

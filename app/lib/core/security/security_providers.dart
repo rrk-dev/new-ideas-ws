@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/connection.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/logging/logger.dart';
+import 'package:vaultvoice/core/security/database_key_rotation.dart';
 import 'package:vaultvoice/core/security/key_vault.dart';
 import 'package:vaultvoice/core/security/sqlite3mc_cipher.dart';
 import 'package:vaultvoice/core/security/storage_protection.dart';
@@ -60,10 +63,19 @@ Future<List<Override>> prepareEncryptionAtRest({
   if (protected case Err(:final failure)) {
     logger?.failure('security', failure, level: LogLevel.warning);
   }
+  // A "Delete all data" key rotation (SEC-04) is pending: the file may be
+  // encrypted with the `db.next` key.
+  final fallback = File(rotationMarkerPath(storageRoot)).existsSync()
+      ? (await vault.getOrCreateKey(kDatabaseNextKeyName)).valueOrNull
+      : null;
   final DatabaseCipher cipher;
   switch (await vault.getOrCreateKey(kDatabaseKeyName)) {
     case Ok(value: final key):
-      cipher = Sqlite3mcCipher(key.bytes, hardwareBacked: key.hardwareBacked);
+      cipher = Sqlite3mcCipher(
+        key.bytes,
+        fallbackKey: fallback?.bytes,
+        hardwareBacked: key.hardwareBacked,
+      );
     case Err(:final failure):
       logger?.failure('security', failure);
       cipher = const UnavailableCipher();
@@ -73,3 +85,11 @@ Future<List<Override>> prepareEncryptionAtRest({
     databaseCipherProvider.overrideWithValue(cipher),
   ];
 }
+
+/// Crypto-shredding of the database key (SEC-04 "Delete all data").
+@Riverpod(keepAlive: true)
+Future<DatabaseKeyRotation> databaseKeyRotation(Ref ref) async =>
+    DatabaseKeyRotation(
+      vault: ref.watch(keyVaultProvider),
+      storageRoot: (await ref.watch(storagePathsProvider.future)).root,
+    );

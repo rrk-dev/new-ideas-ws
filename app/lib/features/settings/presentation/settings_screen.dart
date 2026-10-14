@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/app_info.dart';
+import 'package:vaultvoice/core/errors/failure.dart';
+import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/core/security/security_providers.dart';
@@ -195,9 +197,12 @@ class _DeleteAllDataTile extends ConsumerWidget {
     final result = await ref.read(dataWiperProvider).deleteAllData();
     messenger.showSnackBar(
       SnackBar(
-        content: Text(
-          result.isOk ? l10n.deleteAllDone : l10n.deleteAllUnavailable,
-        ),
+        content: Text(switch (result) {
+          Ok() => l10n.deleteAllDone,
+          Err(failure: UnsupportedFeatureFailure()) =>
+            l10n.deleteAllUnavailable,
+          Err() => l10n.deleteAllFailed,
+        }),
       ),
     );
   }

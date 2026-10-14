@@ -27,10 +27,14 @@ class PlaintextCipher implements DatabaseCipher {
 }
 
 /// Pragmas applied to every connection after the cipher.
+///
+/// `secure_delete` (SEC-04): deleted content is overwritten with zeros
+/// instead of lingering in free pages / the WAL.
 void configureConnection(Database raw) {
   raw
     ..execute('PRAGMA journal_mode = WAL')
-    ..execute('PRAGMA busy_timeout = 5000');
+    ..execute('PRAGMA busy_timeout = 5000')
+    ..execute('PRAGMA secure_delete = ON');
 }
 
 /// Opens [file] on a drift background isolate so queries never block the UI

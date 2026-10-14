@@ -1156,6 +1156,12 @@ abstract class AppLocalizations {
   /// **'Deleting all data is not available in this build yet.'**
   String get deleteAllUnavailable;
 
+  /// No description provided for @deleteAllFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Some data could not be deleted. Close any recording or processing in progress and try again.'**
+  String get deleteAllFailed;
+
   /// No description provided for @licensePlanFree.
   ///
   /// In en, this message translates to:

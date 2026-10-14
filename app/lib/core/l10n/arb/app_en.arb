@@ -220,6 +220,7 @@
   "deleteAllConfirm": "Delete everything",
   "deleteAllDone": "All data deleted.",
   "deleteAllUnavailable": "Deleting all data is not available in this build yet.",
+  "deleteAllFailed": "Some data could not be deleted. Close any recording or processing in progress and try again.",
   "licensePlanFree": "Free",
   "licensePlanPro": "Pro",
   "licensePlanEnterprise": "Enterprise",
