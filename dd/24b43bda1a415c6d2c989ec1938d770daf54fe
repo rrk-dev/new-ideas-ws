@@ -1,0 +1,21 @@
+app/test/widget/recovered_recordings_prompt_test.dart
+  s_9f6fcf8c1840a0::t_248b14d50249b2 3,14-35,37,59
+app/test/widget/llm_debug_screen_test.dart
+  s_9f6fcf8c1840a0::t_248b14d50249b2 3,13-20,34-36,52-54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dd24b43bda1a415c6d2c989ec1938d770daf54fe",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
