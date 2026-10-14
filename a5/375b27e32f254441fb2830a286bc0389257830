@@ -1,0 +1,79 @@
+app/test/unit/extraction/llm_service_test.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-150
+app/integration_test/llm_engine_test.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-100
+app/lib/features/extraction/data/dev_llm_engine.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-57
+native/bridge/vv_exports.txt
+  s_9f6fcf8c1840a0::t_40481571ab7685 26-35
+native/bridge/vv_llama_internal.h
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-53
+app/lib/core/platform/llm_engine.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 4-32,35-42,44,50-56
+packages/vv_native/lib/src/llm_engine.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-334
+packages/vv_native/lib/src/vv_bindings.g.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 481-688,989-1120
+  s_9f6fcf8c1840a0::t_c1c4f23dcd6e72 1121
+app/lib/features/extraction/domain/llm_runtime.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-82
+app/lib/main_dev.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 1,4,6-9
+native/bridge/vv_llama.cpp
+  s_9f6fcf8c1840a0::t_40481571ab7685 27,29,58-78,223,236-240,242,295-297,330-335
+  s_9f6fcf8c1840a0::t_77d85358ee17cf 336
+packages/vv_native/lib/vv_native.dart
+  s_9f6fcf8c1840a0::t_e9c4e3560e8efa 19,55
+  s_9f6fcf8c1840a0::t_40481571ab7685 13,20,72-84
+  s_9f6fcf8c1840a0::t_d45f7fa4bda8c2 64-68
+packages/vv_native/test/llm_engine_host_test.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-168
+native/tests/llm_engine_test.c
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-227
+native/bridge/vv_llama_engine.cpp
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-361
+app/test/widget/llm_debug_screen_test.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-68
+app/test/fakes/fake_llm_runtime.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-152
+app/test/unit/extraction/ffi_llm_runtime_host_test.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-101
+app/lib/features/extraction/presentation/llm_debug_screen.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-137
+app/lib/features/extraction/data/ffi_llm_runtime.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-152
+app/lib/features/extraction/domain/llm_service.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-207
+native/bridge/vv_llama.h
+  s_9f6fcf8c1840a0::t_40481571ab7685 122-223
+packages/vv_native/lib/src/llm_backend.dart
+  s_9f6fcf8c1840a0::t_40481571ab7685 32-33,140
+docs/test-plans/device/LLM-04.md
+  s_9f6fcf8c1840a0::t_40481571ab7685 1-23
+tasks/04-llm/LLM-04-llm-dart-ffi-engine.md
+  s_9f6fcf8c1840a0::t_63914c659c8631 24
+  s_9f6fcf8c1840a0::t_40481571ab7685 4,11-15,25-39
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9f6fcf8c1840a0::t_63914c659c8631 14-18
+  s_9f6fcf8c1840a0::t_40481571ab7685 2
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_40481571ab7685 138,201-205
+native/bridge/vv_exports.map
+  s_9f6fcf8c1840a0::t_f06254a689e685 28-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a5375b27e32f254441fb2830a286bc0389257830",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
