@@ -16,3 +16,8 @@ _vv_whisper_version
 _vv_ggml_version
 _vv_whisper_system_info
 _vv_llama_system_info
+_vv_llm_default_backend_params
+_vv_cpu_perf_cores
+_vv_llm_gpu_device_count
+_vv_llm_gpu_device_info
+_vv_llm_bench

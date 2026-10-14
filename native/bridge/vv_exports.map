@@ -18,6 +18,11 @@
     vv_ggml_version;
     vv_whisper_system_info;
     vv_llama_system_info;
+    vv_llm_default_backend_params;
+    vv_cpu_perf_cores;
+    vv_llm_gpu_device_count;
+    vv_llm_gpu_device_info;
+    vv_llm_bench;
   local:
     *;
 };

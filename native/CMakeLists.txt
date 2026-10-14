@@ -120,6 +120,8 @@ add_subdirectory(llama.cpp llama)
 add_subdirectory(whisper.cpp whisper)
 
 add_library(vv_native SHARED bridge/vv_bridge.cpp)
+# LLM bridge (LLM-02/LLM-03): backend selection, GPU discovery, benchmark.
+target_sources(vv_native PRIVATE bridge/vv_llama.cpp)
 target_include_directories(vv_native PUBLIC bridge)
 target_link_libraries(vv_native PRIVATE whisper llama ggml)
 target_compile_definitions(vv_native PRIVATE VV_BUILDING_LIBRARY=1)
@@ -176,6 +178,12 @@ if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
   add_executable(vv_smoke tests/smoke.c)
   target_link_libraries(vv_smoke PRIVATE vv_native)
   add_test(NAME vv_smoke COMMAND vv_smoke)
+  # [LLM-02] llama.cpp backend bridge; model cases need $VV_TEST_MODELS_DIR
+  # (tools/ci/fetch_test_models.sh), otherwise they report SKIP (exit 77).
+  add_executable(vv_llm_backend_test tests/llm_backend_test.c)
+  target_link_libraries(vv_llm_backend_test PRIVATE vv_native)
+  add_test(NAME vv_llm_backend COMMAND vv_llm_backend_test)
+  set_tests_properties(vv_llm_backend PROPERTIES SKIP_RETURN_CODE 77)
   add_test(NAME vv_exports
     COMMAND ${CMAKE_COMMAND} -DLIB=$<TARGET_FILE:vv_native>
             -P ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_exports.cmake)

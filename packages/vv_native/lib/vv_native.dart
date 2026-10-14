@@ -9,9 +9,12 @@ import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:ffi/ffi.dart';
+import 'package:vv_native/src/llm_backend.dart';
 import 'package:vv_native/src/loader.dart';
 import 'package:vv_native/src/vv_bindings.g.dart';
 
+export 'package:vv_native/src/llm_backend.dart'
+    show LlmBackendParams, LlmBenchResult, VvLlmException;
 export 'package:vv_native/src/vv_bindings.g.dart'
     show
         VV_E_BACKEND,
@@ -25,6 +28,8 @@ export 'package:vv_native/src/vv_bindings.g.dart'
         VV_GPU_METAL,
         VV_GPU_OPENCL,
         VV_GPU_VULKAN,
+        VV_LLM_FALLBACK_GPU_TO_CPU,
+        VV_LLM_FALLBACK_KV_TO_F16,
         VV_OK;
 export 'package:vv_native/src/whisper.dart';
 
@@ -105,4 +110,21 @@ class VvNative {
 
   /// Whether backends are runtime-loaded modules (`VV_GGML_BACKEND_DL`).
   bool get dynamicBackends => _b.vv_backends_dynamic() == 1;
+
+  /// Performance CPU cores (thread count default for llama.cpp/whisper.cpp).
+  int get perfCores => _b.vv_cpu_perf_cores();
+
+  /// GPU devices ggml registered: `(index, name, description)`, e.g.
+  /// `(0, 'MTL0', 'Apple A17 Pro GPU')`. Diagnostics/allowlisting only.
+  List<(int, String, String)> gpuDevices() => listGpuDevices(_b);
+
+  /// Loads [modelPath] with [params], prefills [nPrompt] synthetic tokens and
+  /// decodes [nGen] greedy tokens (LLM-02/LLM-03 device benchmark). Blocking:
+  /// run inside `Isolate.run`. Throws [VvLlmException] with a `VV_E_*` code.
+  LlmBenchResult llmBench(
+    String modelPath,
+    LlmBackendParams params, {
+    required int nPrompt,
+    required int nGen,
+  }) => runLlmBench(_b, modelPath, params, nPrompt: nPrompt, nGen: nGen);
 }
