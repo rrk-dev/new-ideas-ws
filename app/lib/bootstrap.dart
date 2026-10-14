@@ -8,6 +8,7 @@ import 'package:vaultvoice/app.dart';
 import 'package:vaultvoice/core/crash/crash_providers.dart';
 import 'package:vaultvoice/core/crash/crash_reporting.dart';
 import 'package:vaultvoice/core/crash/native_crash_capture.dart';
+import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
 import 'package:vaultvoice/core/errors/error_boundary.dart';
 import 'package:vaultvoice/core/flavor.dart';
@@ -18,6 +19,9 @@ import 'package:vaultvoice/core/logging/logger.dart';
 import 'package:vaultvoice/core/logging/redaction.dart';
 import 'package:vaultvoice/core/logging/rotating_file_sink.dart';
 import 'package:vaultvoice/core/platform/app_paths.dart';
+import 'package:vaultvoice/core/security/key_vault.dart';
+import 'package:vaultvoice/core/security/security_providers.dart';
+import 'package:vaultvoice/core/security/storage_protection.dart';
 import 'package:vaultvoice/features/pipeline/data/flutter_local_notifier.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_services_host.dart';
@@ -54,6 +58,15 @@ Future<void> bootstrap(
     onCrash: crash.recordDart,
   );
   logger.info('app', 'app start', fields: {'flavor': flavor});
+  // SEC-01: OS file protection + sqlite3mc key before anything opens the DB.
+  final security = (Platform.isAndroid || Platform.isIOS)
+      ? await prepareEncryptionAtRest(
+          vault: const MethodChannelKeyVault(),
+          protection: const MethodChannelStorageProtection(),
+          storageRoot: (await StoragePaths.fromPlatform()).root,
+          logger: logger,
+        )
+      : const <Override>[];
   runApp(
     ProviderScope(
       overrides: [
@@ -72,6 +85,7 @@ Future<void> bootstrap(
           ),
         crashReportStoreProvider.overrideWithValue(crash.store),
         nativeCrashCaptureProvider.overrideWithValue(nativeCrash),
+        ...security,
         ...overrides,
       ],
       child: const ProcessingServicesHost(child: App()),

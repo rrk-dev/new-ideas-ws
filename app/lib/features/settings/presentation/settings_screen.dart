@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/app_info.dart';
-import 'package:vaultvoice/core/db/connection.dart';
-import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
+import 'package:vaultvoice/core/security/security_providers.dart';
 import 'package:vaultvoice/features/extraction/presentation/llm_debug_screen.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
@@ -128,15 +127,20 @@ class _RoutingRulesTile extends ConsumerWidget {
   }
 }
 
-/// Truthful encryption status: on only when SEC-01's cipher is installed.
+/// Truthful encryption status (SEC-01): on only with the sqlite3mc cipher.
 class _EncryptionInfoTile extends ConsumerWidget {
   const _EncryptionInfoTile();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final encrypted = ref.watch(databaseCipherProvider) is! PlaintextCipher;
+    final state = ref.watch(encryptionStatusProvider).state;
+    final encrypted = state == EncryptionState.encrypted;
     final l10n = context.l10n;
-    final status = encrypted ? l10n.encryptionOn : l10n.encryptionOff;
+    final status = switch (state) {
+      EncryptionState.encrypted => l10n.encryptionOn,
+      EncryptionState.unavailable => l10n.encryptionUnavailable,
+      EncryptionState.off => l10n.encryptionOff,
+    };
     return ListTile(
       key: const ValueKey('privacy-encryption'),
       leading: Icon(encrypted ? Icons.lock_outline : Icons.lock_open),

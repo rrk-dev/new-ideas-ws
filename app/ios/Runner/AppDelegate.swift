@@ -31,6 +31,10 @@ import UserNotifications
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "StorageInfoPlugin") {
       StorageInfoPlugin.register(with: registrar)
     }
+    // SEC-01: Keychain data keys + Data Protection / backup exclusion of vv/.
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "SecureStoragePlugin") {
+      SecureStoragePlugin.register(with: registrar)
+    }
     // AUD-04: audio route / engine / media-services events; recording reminder.
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "AudioSessionPlugin") {
       AudioSessionPlugin.register(with: registrar)
