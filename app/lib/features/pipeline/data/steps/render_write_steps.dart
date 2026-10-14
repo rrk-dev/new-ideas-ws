@@ -10,9 +10,14 @@ import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
 import 'package:vaultvoice/core/utils/ids.dart';
+import 'package:vaultvoice/features/export/data/export_identity.dart';
+import 'package:vaultvoice/features/export/domain/export_collision.dart';
+import 'package:vaultvoice/features/export/domain/filename_pattern.dart';
+import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/step_support.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
+import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 
 /// Inputs of a rendered note.
 class NoteInput {
@@ -54,12 +59,20 @@ String _placeholderRenderer(NoteInput input) {
 /// Renders the note to `rendered/<recording_id>.md` (atomic overwrite) and
 /// replaces the extraction's action items.
 class RenderStep implements PipelineStep {
-  RenderStep({required this.db, required this.paths, NoteRenderer? renderer})
-    : renderer = renderer ?? _placeholderRenderer;
+  RenderStep({
+    required this.db,
+    required this.paths,
+    NoteRenderer? renderer,
+    this.loader,
+  }) : renderer = renderer ?? _placeholderRenderer;
 
   final VaultVoiceDatabase db;
   final StoragePaths paths;
   final NoteRenderer renderer;
+
+  /// Builds the renderer at job start (FND-11: built-ins + a DB snapshot of
+  /// user profiles/templates); [renderer] is used when null.
+  final NoteRendererLoader? loader;
 
   @override
   PipelineStepId get id => PipelineStepId.render;
@@ -92,7 +105,8 @@ class RenderStep implements PipelineStep {
         ? const <TranscriptSegmentRow>[]
         : unwrap(await db.transcriptsRepository.segments(transcript.id));
     final ext = extraction.valueOrNull!;
-    final markdown = renderer(
+    final render = loader == null ? renderer : await loader!();
+    final markdown = render(
       NoteInput(recording: recording, extraction: ext, segments: segments),
     );
     await writeFileAtomic(paths.renderedFile(job.recordingId), markdown);
@@ -128,20 +142,36 @@ class RenderStep implements PipelineStep {
 }
 
 /// Writes the rendered note into the first vault target and records the
-/// export (outbox row per recording × target). EXP-05/06 add routing rules,
-/// filename patterns and the retrying outbox.
+/// export (outbox row per recording × target). EXP-05/06 add routing rules
+/// and the retrying outbox.
+///
+/// The note path comes from EXP-02's [FilenamePattern] (profile pattern →
+/// `export.filename_pattern` setting → default) and [planExport] with the
+/// stable identity from `exports` ([ExportIdentity]): a re-export updates
+/// the same file, unchanged content is not rewritten, a foreign file is
+/// never replaced (collision mode setting, default `suffix`).
 class WriteStep implements PipelineStep {
   WriteStep({
     required this.db,
     required this.paths,
     required this.vault,
     this.clock = const SystemClock(),
+    this.vaultFor,
+    this.profiles,
   });
 
   final VaultVoiceDatabase db;
   final StoragePaths paths;
+
+  /// Writer used for every target when [vaultFor] is null.
   final VaultWriter vault;
   final Clock clock;
+
+  /// The writer of one configured target (FND-11).
+  final VaultWriterFor? vaultFor;
+
+  /// Profile lookup for the profile's own filename pattern.
+  final ProfileLookup? profiles;
 
   @override
   PipelineStepId get id => PipelineStepId.write;
@@ -158,6 +188,7 @@ class WriteStep implements PipelineStep {
     final targets = await db.vaultRepository.watchTargets().first;
     if (targets.isEmpty) return const StepWaiting(WaitingReason.destination);
     final target = targets.first;
+    final writer = vaultFor?.call(target) ?? vault;
 
     final file = File(paths.renderedFile(job.recordingId));
     if (!file.existsSync()) {
@@ -168,33 +199,63 @@ class WriteStep implements PipelineStep {
     }
     final markdown = await file.readAsString();
     final hash = fnv1a32(markdown);
-    final relPath = '${job.recordingId}.md';
-    final existing =
-        await (db.select(db.exports)..where(
-              (e) =>
-                  e.recordingId.equals(job.recordingId) &
-                  e.targetId.equals(target.id),
-            ))
-            .getSingleOrNull();
-    final alreadyWritten =
-        existing != null &&
-        existing.status == ExportStatus.written &&
-        existing.contentHash == hash;
-
-    if (!alreadyWritten) {
-      // Overwrite only the note this pipeline wrote earlier for this recording
-      // and target (re-extract / re-render); never clobber a foreign file.
-      final ownsExistingFile =
-          existing != null &&
-          existing.relPath == relPath &&
-          existing.status == ExportStatus.written;
-      final written = await vault.write(
-        NoteDraft(relativePath: relPath, markdown: markdown),
-        overwrite: ownsExistingFile,
+    final recording = unwrap(
+      await db.recordingsRepository.get(job.recordingId),
+    );
+    final extraction = (await db.extractionsRepository.get(
+      extractionIdFor(job.id),
+    )).valueOrNull;
+    final profileId = extraction?.profileId ?? recording.profileId ?? 'note';
+    final profile = await profiles?.call(profileId);
+    final pattern = await _pattern(profile?.filenamePattern);
+    final extractedTitle = extraction?.json['title'];
+    final title = extractedTitle is String && extractedTitle.trim().isNotEmpty
+        ? extractedTitle
+        : recording.title.trim().isEmpty
+        ? null
+        : recording.title;
+    final desired = pattern.renderPath(
+      FilenameValues(
+        recordingId: job.recordingId,
+        createdAt: recording.createdAt.toLocal(),
+        profileId: profileId,
+        title: title,
+      ),
+    );
+    final identity = await ExportIdentity.load(
+      db.vaultRepository,
+      recordingId: job.recordingId,
+      targetId: target.id,
+    );
+    final planned = await planExport(
+      desired: desired,
+      contentHash: hash,
+      mode: await _collisionMode(),
+      exists: writer.exists,
+      prior: identity.prior,
+      claimedByOthers: identity.claimedByOthers,
+    );
+    final ExportPlan plan;
+    switch (planned) {
+      case Err(:final failure):
+        return StepFailed(failure);
+      case Ok(:final value):
+        plan = value;
+    }
+    if (plan case WritePlan(:final overwrite)) {
+      final written = await writer.write(
+        NoteDraft(relativePath: plan.relPath, markdown: markdown),
+        overwrite: overwrite,
       );
       if (written case Err(:final failure)) return StepFailed(failure);
     }
     ctx.reportProgress(1);
+    // `skip` mode left a taken path alone: nothing was exported.
+    if (plan.reason == PlanReason.skippedCollision) {
+      return const StepSucceeded();
+    }
+    final wrote = plan is WritePlan;
+    final previousAttempts = await _attempts(job.recordingId, target.id);
     return StepSucceeded(
       commit: () async {
         unwrap(
@@ -203,17 +264,52 @@ class WriteStep implements PipelineStep {
               id: '${job.recordingId}.${target.id}',
               recordingId: job.recordingId,
               targetId: target.id,
-              relPath: relPath,
+              relPath: plan.relPath,
               contentHash: hash,
               status: ExportStatus.written,
-              attempts: Value(
-                (existing?.attempts ?? 0) + (alreadyWritten ? 0 : 1),
-              ),
+              attempts: Value(previousAttempts + (wrote ? 1 : 0)),
               updatedAt: clock.now(),
             ),
           ),
         );
       },
+    );
+  }
+
+  Future<int> _attempts(String recordingId, String targetId) async {
+    final row =
+        await (db.select(db.exports)..where(
+              (e) =>
+                  e.recordingId.equals(recordingId) &
+                  e.targetId.equals(targetId),
+            ))
+            .getSingleOrNull();
+    return row?.attempts ?? 0;
+  }
+
+  /// Profile pattern, else the setting, else the default; an invalid
+  /// pattern (validated on save, so only a stale/foreign value) falls back.
+  Future<FilenamePattern> _pattern(String? profilePattern) async {
+    final setting = (await db.settingsRepository.get(
+      SettingKeys.exportFilenamePattern,
+    )).valueOrNull;
+    for (final source in [
+      profilePattern,
+      if (setting is String) setting,
+      kDefaultFilenamePattern,
+    ]) {
+      if (source == null || source.trim().isEmpty) continue;
+      if (FilenamePattern.parse(source) case Ok(:final value)) return value;
+    }
+    return FilenamePattern.parse(kDefaultFilenamePattern).valueOrNull!;
+  }
+
+  Future<CollisionMode> _collisionMode() async {
+    final v = (await db.settingsRepository.get(SettingKeys.exportCollisionMode))
+        .valueOrNull;
+    return CollisionMode.values.firstWhere(
+      (m) => m.name == v,
+      orElse: () => CollisionMode.suffix,
     );
   }
 }

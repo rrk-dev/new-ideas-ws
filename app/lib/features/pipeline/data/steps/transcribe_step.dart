@@ -24,6 +24,7 @@ class TranscribeStep implements PipelineStep {
     required this.stt,
     required this.config,
     this.clock = const SystemClock(),
+    this.activeModel,
   });
 
   final VaultVoiceDatabase db;
@@ -31,6 +32,9 @@ class TranscribeStep implements PipelineStep {
   final SttEngine stt;
   final PipelineConfig config;
   final Clock clock;
+
+  /// The active STT model (FND-11); null uses [PipelineConfig.sttModelId].
+  final ActiveModelIdLookup? activeModel;
 
   @override
   PipelineStepId get id => PipelineStepId.transcribe;
@@ -41,12 +45,23 @@ class TranscribeStep implements PipelineStep {
   @override
   bool canRun(JobSnapshot job) => true;
 
-  String get _paramsHash =>
-      fnv1a32('${config.sttModelId}|${config.sttLanguage}');
+  String _paramsHash(String modelId) =>
+      fnv1a32('$modelId|${config.sttLanguage}');
 
   @override
   Future<StepResult> run(StepContext ctx) async {
     final job = ctx.job;
+    final String modelId;
+    if (activeModel case final lookup?) {
+      final id = await lookup(HeavyModel.stt);
+      // No usable STT model installed: wait instead of failing (MDL-02
+      // install / MDL-03 selection resumes the job).
+      if (id == null) return const StepWaiting(WaitingReason.modelMissing);
+      modelId = id;
+    } else {
+      modelId = config.sttModelId;
+    }
+    final paramsHash = _paramsHash(modelId);
     final chunks = await db.recordingsRepository
         .watchChunks(job.recordingId)
         .first;
@@ -59,13 +74,13 @@ class TranscribeStep implements PipelineStep {
     final transcriptId = transcriptIdFor(job.id);
     final cp = job.checkpoint;
     final resumable =
-        cp['paramsHash'] == _paramsHash && cp['modelId'] == config.sttModelId;
+        cp['paramsHash'] == paramsHash && cp['modelId'] == modelId;
     var next = resumable ? (cp['nextChunk'] as int? ?? 0) : 0;
 
     Map<String, Object?> checkpoint(int nextChunk) => {
       'nextChunk': nextChunk,
-      'modelId': config.sttModelId,
-      'paramsHash': _paramsHash,
+      'modelId': modelId,
+      'paramsHash': paramsHash,
     };
 
     if (next == 0) {
@@ -80,7 +95,7 @@ class TranscribeStep implements PipelineStep {
                 TranscriptsCompanion.insert(
                   id: transcriptId,
                   recordingId: job.recordingId,
-                  modelId: config.sttModelId,
+                  modelId: modelId,
                   language: config.sttLanguage,
                   createdAt: clock.now(),
                 ),

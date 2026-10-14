@@ -2,19 +2,20 @@ import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
+import 'package:vaultvoice/features/extraction/data/native_schema_grammar_converter.dart';
 import 'package:vaultvoice/features/profiles/data/profile_registry.dart';
 import 'package:vaultvoice/features/profiles/domain/builtin_profiles.dart';
 import 'package:vaultvoice/features/profiles/domain/profile_grammar.dart';
 
 part 'profile_providers.g.dart';
 
-/// Schema → GBNF converter. No default: LLM-05 overrides it with the
-/// native-bridge implementation (`vv_json_schema_to_gbnf`); tests use
-/// `FakeSchemaGrammarConverter`.
+/// Schema → GBNF converter: the native-bridge implementation
+/// (`vv_json_schema_to_gbnf`, LLM-05; wired as the default in FND-11);
+/// tests use `FakeSchemaGrammarConverter`.
 @Riverpod(keepAlive: true)
 SchemaGrammarConverter schemaGrammarConverter(Ref ref) =>
-    throw UnimplementedError(
-      'schemaGrammarConverterProvider must be overridden',
+    NativeSchemaGrammarConverter(
+      hostPath: ref.watch(nativeLibraryPathProvider),
     );
 
 /// Asset loader; tests override it to read from disk or memory.

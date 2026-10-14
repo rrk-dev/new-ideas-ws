@@ -8,28 +8,36 @@ part of 'pipeline_providers.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Builds the real engines inside the worker isolate. No default: STT-03,
-/// LLM-04 and EXP-05 supply it via `bootstrap(overrides: …)`; tests use a
-/// factory of fakes.
+/// Builds the engines inside the worker isolate. Default (FND-11): the
+/// production factory — whisper/llama engines over the active installed
+/// models, the template renderer and the vault writers
+/// ([ProductionEngineSpec.build]); tests override it with a factory of
+/// fakes.
 
 @ProviderFor(pipelineEnginesFactory)
 final pipelineEnginesFactoryProvider = PipelineEnginesFactoryProvider._();
 
-/// Builds the real engines inside the worker isolate. No default: STT-03,
-/// LLM-04 and EXP-05 supply it via `bootstrap(overrides: …)`; tests use a
-/// factory of fakes.
+/// Builds the engines inside the worker isolate. Default (FND-11): the
+/// production factory — whisper/llama engines over the active installed
+/// models, the template renderer and the vault writers
+/// ([ProductionEngineSpec.build]); tests override it with a factory of
+/// fakes.
 
 final class PipelineEnginesFactoryProvider
     extends
         $FunctionalProvider<
+          AsyncValue<PipelineEnginesFactory>,
           PipelineEnginesFactory,
-          PipelineEnginesFactory,
-          PipelineEnginesFactory
+          FutureOr<PipelineEnginesFactory>
         >
-    with $Provider<PipelineEnginesFactory> {
-  /// Builds the real engines inside the worker isolate. No default: STT-03,
-  /// LLM-04 and EXP-05 supply it via `bootstrap(overrides: …)`; tests use a
-  /// factory of fakes.
+    with
+        $FutureModifier<PipelineEnginesFactory>,
+        $FutureProvider<PipelineEnginesFactory> {
+  /// Builds the engines inside the worker isolate. Default (FND-11): the
+  /// production factory — whisper/llama engines over the active installed
+  /// models, the template renderer and the vault writers
+  /// ([ProductionEngineSpec.build]); tests override it with a factory of
+  /// fakes.
   PipelineEnginesFactoryProvider._()
     : super(
         from: null,
@@ -46,26 +54,18 @@ final class PipelineEnginesFactoryProvider
 
   @$internal
   @override
-  $ProviderElement<PipelineEnginesFactory> $createElement(
+  $FutureProviderElement<PipelineEnginesFactory> $createElement(
     $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  ) => $FutureProviderElement(pointer);
 
   @override
-  PipelineEnginesFactory create(Ref ref) {
+  FutureOr<PipelineEnginesFactory> create(Ref ref) {
     return pipelineEnginesFactory(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(PipelineEnginesFactory value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<PipelineEnginesFactory>(value),
-    );
   }
 }
 
 String _$pipelineEnginesFactoryHash() =>
-    r'84a126dd419e7876113f7a256c2a8ae47eb72a22';
+    r'9b23cab68038556f0b1ad78ba18b54b34dd5ea7a';
 
 @ProviderFor(pipelineConfig)
 final pipelineConfigProvider = PipelineConfigProvider._();
@@ -153,7 +153,7 @@ final class PipelineClientProvider
   }
 }
 
-String _$pipelineClientHash() => r'8989effdfae3194e044e5f8062c2aa4248c96d62';
+String _$pipelineClientHash() => r'7f870c1e4e83987fcd1c879c9819236715f98c98';
 
 /// Every job in queue order (global queue indicator, APP-04).
 
