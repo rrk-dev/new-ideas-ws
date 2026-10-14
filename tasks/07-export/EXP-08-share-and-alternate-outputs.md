@@ -1,7 +1,7 @@
 # EXP-08 — Share Sheet & Alternate Outputs
 
 **Workstream:** Export | **Phase:** 3–4 | **Size:** S | **Depends on:** EXP-01 | **Source:** Gap (Logseq support mentioned in §1; users without a vault)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-markdown-vault-export, vv-flutter-architecture, vv-testing
 
 ## Goal
