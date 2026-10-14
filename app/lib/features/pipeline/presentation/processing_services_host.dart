@@ -18,9 +18,22 @@ class ProcessingServicesHost extends ConsumerStatefulWidget {
 
 class _ProcessingServicesHostState
     extends ConsumerState<ProcessingServicesHost> {
+  // EXP-06: a folder that came back (SD card, iCloud, re-granted in the
+  // system settings) unblocks its pending exports on resume.
+  AppLifecycleListener? _lifecycle;
+
+  @override
+  void dispose() {
+    _lifecycle?.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
+    _lifecycle = AppLifecycleListener(
+      onResume: () => ref.read(exportOutboxProvider).recheck().ignore(),
+    );
     // After the first frame so the router exists for launch deep links.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;

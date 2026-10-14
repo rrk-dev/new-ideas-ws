@@ -49,6 +49,7 @@ class SettingsScreen extends ConsumerWidget {
           header(SettingSection.export),
           const _VaultFoldersTile(),
           const _RoutingRulesTile(),
+          const _PendingExportsTile(),
           const SettingTile(AppSettings.filenamePattern),
           const SettingTile(AppSettings.collisionMode),
           header(SettingSection.privacy),
@@ -107,6 +108,20 @@ class _VaultFoldersTile extends ConsumerWidget {
       onTap: () => const VaultFoldersRoute().push<void>(context),
     );
   }
+}
+
+class _PendingExportsTile extends StatelessWidget {
+  const _PendingExportsTile();
+
+  @override
+  Widget build(BuildContext context) => ListTile(
+    key: const ValueKey('link-pending-exports'),
+    leading: const Icon(Icons.outbox_outlined),
+    title: Text(context.l10n.settingsPendingExports),
+    subtitle: Text(context.l10n.settingsPendingExportsSubtitle),
+    trailing: const Icon(Icons.chevron_right),
+    onTap: () => const PendingExportsRoute().push<void>(context),
+  );
 }
 
 class _RoutingRulesTile extends ConsumerWidget {

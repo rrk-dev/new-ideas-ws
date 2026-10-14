@@ -247,3 +247,95 @@ final class RoutingPolicyMirrorProvider
 
 String _$routingPolicyMirrorHash() =>
     r'7d8c96c7b7d8cce19c7c56762c2575202aafd8ce';
+
+/// The export outbox (EXP-06).
+
+@ProviderFor(exportOutbox)
+final exportOutboxProvider = ExportOutboxProvider._();
+
+/// The export outbox (EXP-06).
+
+final class ExportOutboxProvider
+    extends $FunctionalProvider<ExportOutbox, ExportOutbox, ExportOutbox>
+    with $Provider<ExportOutbox> {
+  /// The export outbox (EXP-06).
+  ExportOutboxProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'exportOutboxProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$exportOutboxHash();
+
+  @$internal
+  @override
+  $ProviderElement<ExportOutbox> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  ExportOutbox create(Ref ref) {
+    return exportOutbox(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ExportOutbox value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ExportOutbox>(value),
+    );
+  }
+}
+
+String _$exportOutboxHash() => r'08ee0c642720677bf216dfdd2bb3163afbcbbe8a';
+
+/// Notes that have not reached their vault folder yet (EXP-06).
+
+@ProviderFor(pendingExports)
+final pendingExportsProvider = PendingExportsProvider._();
+
+/// Notes that have not reached their vault folder yet (EXP-06).
+
+final class PendingExportsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<PendingExport>>,
+          List<PendingExport>,
+          Stream<List<PendingExport>>
+        >
+    with
+        $FutureModifier<List<PendingExport>>,
+        $StreamProvider<List<PendingExport>> {
+  /// Notes that have not reached their vault folder yet (EXP-06).
+  PendingExportsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'pendingExportsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$pendingExportsHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<List<PendingExport>> $createElement(
+    $ProviderPointer pointer,
+  ) => $StreamProviderElement(pointer);
+
+  @override
+  Stream<List<PendingExport>> create(Ref ref) {
+    return pendingExports(ref);
+  }
+}
+
+String _$pendingExportsHash() => r'e4ced04e2c9d185c325daaeb049db536c69237f2';
