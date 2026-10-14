@@ -123,8 +123,9 @@ add_library(vv_native SHARED bridge/vv_bridge.cpp)
 target_include_directories(vv_native PUBLIC bridge)
 target_link_libraries(vv_native PRIVATE whisper llama ggml)
 target_compile_definitions(vv_native PRIVATE VV_BUILDING_LIBRARY=1)
-# STT-02 backend loader (kept on its own line: other tasks add sources too).
-target_sources(vv_native PRIVATE bridge/vv_backend.cpp)
+# STT-02 backend loader + STT-03 whisper bridge (own line: other tasks add
+# sources too).
+target_sources(vv_native PRIVATE bridge/vv_backend.cpp bridge/vv_whisper.cpp)
 if(VV_GGML_BACKEND_DL)
   # Module names the loader probes, e.g. "ggml-cpu-android_armv8.2_1,ggml-vulkan"
   # (GGML_AVAILABLE_BACKENDS is filled by ggml_add_backend_library()).
@@ -188,6 +189,14 @@ if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
   foreach(mode cpu gpu coreml-fallback)
     add_test(NAME stt_backend_${mode} COMMAND stt_backends check ${mode})
     set_tests_properties(stt_backend_${mode} PROPERTIES SKIP_RETURN_CODE 77)
+  endforeach()
+
+  # STT-03: vv_stt_* C ABI (async worker, callbacks, cancel, ranges).
+  add_executable(stt_bridge_test tests/stt_bridge_test.cpp)
+  target_link_libraries(stt_bridge_test PRIVATE vv_native)
+  foreach(mode args jfk ranges busy cancel destroy audio churn)
+    add_test(NAME vv_stt_${mode} COMMAND stt_bridge_test ${mode})
+    set_tests_properties(vv_stt_${mode} PROPERTIES SKIP_RETURN_CODE 77)
   endforeach()
 
   # STT-02: vv_backends_* loader + perf-core detection.

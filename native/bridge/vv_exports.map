@@ -3,6 +3,15 @@
     vv_backends_load;
     vv_backends_describe;
     vv_backends_dynamic;
+    vv_stt_default_init_params;
+    vv_stt_default_params;
+    vv_stt_create;
+    vv_stt_transcribe_async;
+    vv_stt_transcribe_ranges;
+    vv_stt_cancel;
+    vv_stt_destroy;
+    vv_stt_free_segment;
+    vv_stt_last_error;
     vv_abi_version;
     vv_version;
     vv_whisper_version;

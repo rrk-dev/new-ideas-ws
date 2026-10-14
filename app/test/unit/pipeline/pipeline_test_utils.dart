@@ -53,6 +53,8 @@ class ScriptedStt implements SttEngine {
     String audioPath, {
     CancelToken? cancel,
     ProgressCallback? onProgress,
+    SegmentCallback? onSegment,
+    SttOptions options = const SttOptions(),
   }) async {
     calls.add(audioPath);
     if (calls.length - 1 == blockOn) {

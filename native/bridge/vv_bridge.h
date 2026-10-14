@@ -71,6 +71,9 @@ VV_API int32_t vv_backends_describe(char* buf, size_t cap, size_t* needed);
 /* 1 when this library was built with runtime-loaded backends. */
 VV_API int32_t vv_backends_dynamic(void);
 
+/* ---- Speech-to-text (STT-03): vv_stt_* — see vv_whisper.h ---- */
+#include "vv_whisper.h"
+
 #ifdef __cplusplus
 }
 #endif
