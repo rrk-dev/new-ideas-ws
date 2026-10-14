@@ -1,0 +1,49 @@
+app/lib/features/recording/data/recording_providers.dart
+  s_df37079f2ae5c6::t_ecf394e3728dc0 23,48-51,53-54,70-71,150-152
+packages/vv_native/macos/DebugProfile.entitlements
+  s_df37079f2ae5c6::t_bd5212d5da4955 1-10
+packages/vv_native/macos/Info.plist
+  s_df37079f2ae5c6::t_78038bb1167aef 1-8
+packages/vv_native/macos/MacAudioRouteObserver.swift
+  s_df37079f2ae5c6::t_085c9588358444 1-99
+packages/vv_native/macos/Release.entitlements
+  s_df37079f2ae5c6::t_1f583a1ba1722e 1-10
+app/lib/features/recording/domain/recording_controller.dart
+  s_7ac56ff7128ad6::t_d7daa4d922a253 73,76,83-86,134
+app/lib/features/recording/data/record_capture_backend.dart
+  s_df37079f2ae5c6::t_d6ab1bff977334 22,56-57,87-94,100-103,125-136,139,141-145,163-169,263-264,289,398-406
+app/lib/features/recording/domain/macos_microphone_policy.dart
+  s_df37079f2ae5c6::t_26c98742956192 1-72
+app/test/unit/recording/capture_rig.dart
+  s_df37079f2ae5c6::t_01a924ecae6562 13,33-35,51-52,59
+app/test/unit/recording/macos_microphone_test.dart
+  s_df37079f2ae5c6::t_bb92873c15b196 1-222
+docs/test-plans/device/AUD-09.md
+  s_df37079f2ae5c6::t_41b24d636b57d5 1-17
+tasks/02-audio/AUD-09-macos-microphone.md
+  s_df37079f2ae5c6::t_31e46f45b76f40 4,11-16,25-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bd1c378a25c5f31a830dbe2277ca12f31801609a",
+  "prompts": {},
+  "sessions": {
+    "s_7ac56ff7128ad6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-afaf09db7865511d9",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_df37079f2ae5c6": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "30e9ce2a-51a4-4702-8bf5-fb5b670edb58",
+        "model": "auto-smart"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
