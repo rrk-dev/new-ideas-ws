@@ -1,7 +1,7 @@
 # SEC-01 — Encryption at Rest
 
 **Workstream:** Security & Privacy | **Phase:** 2–3 | **Size:** M | **Depends on:** FND-04, AUD-01 | **Source:** Gap (HIPAA/legal positioning in §2.1, §6.1 requires it)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-privacy-security, vv-local-database, vv-decision-records, vv-audio-capture, vv-ffi-bridge, vv-testing
 
 ## Goal
