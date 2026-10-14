@@ -204,3 +204,64 @@ final class ProfileRegistryProvider
 }
 
 String _$profileRegistryHash() => r'd2b41651e589f8b5cedca9b7827de1159dc53043';
+
+/// PRF-02 extraction prompts for a profile — the seam the extract step
+/// (FND-11) and the map-reduce strategy (LLM-06) call for single-pass and
+/// per-chunk prompts. The exact-budget chat-message path is
+/// `PromptBuilder(SessionPromptTokenizer(session)).build(...)`.
+
+@ProviderFor(extractionPrompts)
+final extractionPromptsProvider = ExtractionPromptsProvider._();
+
+/// PRF-02 extraction prompts for a profile — the seam the extract step
+/// (FND-11) and the map-reduce strategy (LLM-06) call for single-pass and
+/// per-chunk prompts. The exact-budget chat-message path is
+/// `PromptBuilder(SessionPromptTokenizer(session)).build(...)`.
+
+final class ExtractionPromptsProvider
+    extends
+        $FunctionalProvider<
+          ExtractionPromptsFactory,
+          ExtractionPromptsFactory,
+          ExtractionPromptsFactory
+        >
+    with $Provider<ExtractionPromptsFactory> {
+  /// PRF-02 extraction prompts for a profile — the seam the extract step
+  /// (FND-11) and the map-reduce strategy (LLM-06) call for single-pass and
+  /// per-chunk prompts. The exact-budget chat-message path is
+  /// `PromptBuilder(SessionPromptTokenizer(session)).build(...)`.
+  ExtractionPromptsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'extractionPromptsProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$extractionPromptsHash();
+
+  @$internal
+  @override
+  $ProviderElement<ExtractionPromptsFactory> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  ExtractionPromptsFactory create(Ref ref) {
+    return extractionPrompts(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ExtractionPromptsFactory value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ExtractionPromptsFactory>(value),
+    );
+  }
+}
+
+String _$extractionPromptsHash() => r'df4b3fd5658ab4b3cc5bfe18823db06d6822aecc';
