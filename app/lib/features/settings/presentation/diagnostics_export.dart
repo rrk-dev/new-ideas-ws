@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/diagnostics/diagnostics_bundle.dart';
 import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/logging/redaction.dart';
 import 'package:vaultvoice/core/platform/share_service.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
@@ -24,6 +25,7 @@ class _DiagnosticsExportTileState extends ConsumerState<DiagnosticsExportTile> {
   Future<void> _export() async {
     setState(() => _busy = true);
     final messenger = ScaffoldMessenger.of(context);
+    final l10n = context.l10n;
     final logger = ref.read(loggerProvider);
     try {
       final exporter = ref.read(diagnosticsExporterProvider);
@@ -43,7 +45,7 @@ class _DiagnosticsExportTileState extends ConsumerState<DiagnosticsExportTile> {
       final outcome = await exporter.share(bundle, origin: origin);
       if (outcome == ShareOutcome.unavailable) {
         messenger.showSnackBar(
-          const SnackBar(content: Text('Sharing is not available.')),
+          SnackBar(content: Text(l10n.diagnosticsShareUnavailable)),
         );
       }
     } on Object catch (e) {
@@ -52,9 +54,7 @@ class _DiagnosticsExportTileState extends ConsumerState<DiagnosticsExportTile> {
         'diagnostics export failed',
         fields: {'type': LogId(e.runtimeType.toString())},
       );
-      messenger.showSnackBar(
-        const SnackBar(content: Text('Could not export diagnostics.')),
-      );
+      messenger.showSnackBar(SnackBar(content: Text(l10n.diagnosticsFailed)));
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -63,11 +63,8 @@ class _DiagnosticsExportTileState extends ConsumerState<DiagnosticsExportTile> {
   @override
   Widget build(BuildContext context) => ListTile(
     leading: const Icon(Icons.bug_report_outlined),
-    title: const Text('Export diagnostics'),
-    subtitle: const Text(
-      'Logs, device info and performance metrics. '
-      'No recordings, transcripts or notes.',
-    ),
+    title: Text(context.l10n.diagnosticsTitle),
+    subtitle: Text(context.l10n.diagnosticsSubtitle),
     trailing: _busy
         ? const SizedBox.square(
             dimension: AppSpacing.lg,
@@ -96,17 +93,17 @@ class DiagnosticsPreviewDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return AlertDialog(
-      title: const Text('Export diagnostics'),
+      title: Text(context.l10n.diagnosticsTitle),
       content: SizedBox(
         width: double.maxFinite,
         child: ListView(
           shrinkWrap: true,
           children: [
             Text(
-              '${bundle.entries.length} files, '
-              '${formatBytes(bundle.totalBytes)}. '
-              'Nothing leaves this device unless you choose a destination '
-              'in the share sheet.',
+              context.l10n.diagnosticsPreviewSummary(
+                bundle.entries.length,
+                formatBytes(bundle.totalBytes),
+              ),
               style: theme.textTheme.bodyMedium,
             ),
             const SizedBox(height: AppSpacing.sm),
@@ -139,11 +136,11 @@ class DiagnosticsPreviewDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('Cancel'),
+          child: Text(context.l10n.commonCancel),
         ),
         FilledButton(
           onPressed: () => Navigator.of(context).pop(true),
-          child: const Text('Share'),
+          child: Text(context.l10n.diagnosticsShare),
         ),
       ],
     );

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/theme/app_theme.dart';
 
 /// Goldens are rendered and enforced on Linux (the CI `test` job).
@@ -63,6 +64,8 @@ void goldenTest(
               overrides: overrides,
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
                 theme: theme.data,
                 builder: (context, child) => MediaQuery(
                   data: MediaQuery.of(context)

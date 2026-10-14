@@ -75,6 +75,18 @@ Decisions: `docs/adr/ADR-FND-06-native-build.md`.
 - The product name lives only in `lib/core/app_info.dart` (`kAppName`); do not hard-code it.
   Native display names are set per flavor (`app_name` resValue / `APP_DISPLAY_NAME`).
 
+## User-facing text, localization and accessibility (APP-06)
+- Every string shown or announced to the user lives in `app/lib/core/l10n/arb/app_en.arb`
+  (English at launch). Add the key there, run `(cd app && fvm flutter gen-l10n)` (output in
+  `lib/core/l10n/gen/`, committed) and use `context.l10n.<key>` (`lib/core/l10n/l10n.dart`).
+  Plurals/placeholders use ICU syntax; `use-escaping` is on (quote literal `{`/`}`).
+- `test/unit/l10n/hardcoded_strings_test.dart` fails on string literals in `Text(`, `label:`,
+  `tooltip:` … in `lib/**/presentation/**`, `lib/core/routing`, `lib/core/widgets`, and on unused
+  ARB keys. Product name `kAppName` and dev-only debug screens are the only exceptions.
+- Every new screen gets a row in `test/widget/accessibility_test.dart` (labelled tap targets,
+  tap-target size, WCAG AA text contrast in light + dark, 200 % text without overflow). Never
+  convey status by colour alone (pair it with text/icon).
+
 ## Folder layout
 ```
 app/
