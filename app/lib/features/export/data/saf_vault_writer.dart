@@ -26,12 +26,26 @@ class SafVaultWriter implements VaultWriter {
 
   @override
   Future<Result<WrittenNote>> write(NoteDraft note, {bool overwrite = false}) =>
-      withVaultPath(note.relativePath, (path) async {
-        final bytes = Uint8List.fromList(utf8.encode(note.markdown));
-        return WrittenNote(
-          await _api.writeFile(treeUri, path, bytes, overwrite),
-        );
-      });
+      writeBytes(
+        note.relativePath,
+        Uint8List.fromList(utf8.encode(note.markdown)),
+        overwrite: overwrite,
+      );
+
+  @override
+  Future<Result<WrittenNote>> writeBytes(
+    String relativePath,
+    Uint8List bytes, {
+    bool overwrite = false,
+  }) => withVaultPath(
+    relativePath,
+    (path) async =>
+        WrittenNote(await _api.writeFile(treeUri, path, bytes, overwrite)),
+  );
+
+  @override
+  Future<Result<Uint8List?>> read(String relativePath) =>
+      withVaultPath(relativePath, (path) => _api.readFile(treeUri, path));
 
   @override
   Future<Result<bool>> exists(String relativePath) =>

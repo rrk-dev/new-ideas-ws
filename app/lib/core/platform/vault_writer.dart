@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:vaultvoice/core/errors/result.dart';
 
 /// Whether a vault folder can be written right now.
@@ -52,6 +54,19 @@ abstract interface class VaultWriter {
   /// replaced only when [overwrite] is true; otherwise the result is a
   /// `VaultFileExistsFailure`.
   Future<Result<WrittenNote>> write(NoteDraft note, {bool overwrite = false});
+
+  /// Writes raw [bytes] (sidecars such as an audio attachment, EXP-05) with
+  /// the same atomicity and [overwrite] rules as [write].
+  Future<Result<WrittenNote>> writeBytes(
+    String relativePath,
+    Uint8List bytes, {
+    bool overwrite = false,
+  });
+
+  /// The bytes of the file at [relativePath]; `Ok(null)` when it does not
+  /// exist. Used to detect user edits of an exported note (EXP-02
+  /// `content_hash` comparison) — callers must not log the content.
+  Future<Result<Uint8List?>> read(String relativePath);
 
   /// Whether a file or folder exists at [relativePath].
   Future<Result<bool>> exists(String relativePath);

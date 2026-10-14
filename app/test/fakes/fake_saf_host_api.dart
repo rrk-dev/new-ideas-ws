@@ -91,6 +91,16 @@ class FakeSafHostApi extends Fake implements SafHostApi {
   }
 
   @override
+  Future<Uint8List?> readFile(String treeUri, String relativePath) async {
+    calls++;
+    _requireWritable(treeUri);
+    if (dirs[treeUri]!.contains(relativePath)) {
+      throw PlatformException(code: 'invalid', message: 'is a folder');
+    }
+    return files[treeUri]![relativePath];
+  }
+
+  @override
   Future<String> writeFile(
     String treeUri,
     String relativePath,
