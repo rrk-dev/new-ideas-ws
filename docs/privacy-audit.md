@@ -8,7 +8,7 @@ the task that introduces the network use or dependency.
 | # | What | Who calls it | Hosts | Task |
 |---|---|---|---|---|
 | 1 | Model catalog `catalog.json` + `catalog.json.sig` | `CatalogRepository.refresh` via `NetworkGateway` | `kModelCdnHost` (placeholder `models.vaultvoice.example`, PRODUCT-DECISION) | MDL-01 |
-| 2 | Model files (`urls` in the signed catalog) | downloader via `NetworkGateway` (MDL-02) | `kModelHosts` = our CDN + `huggingface.co` mirror | MDL-01 / MDL-02 |
+| 2 | Model files (`urls` in the signed catalog) | `ModelDownloader` via `NetworkGateway.getStream` (Android/host) or gateway-resolved URL → iOS background download session (MDL-02) | `kModelHosts` = our CDN + `huggingface.co` mirror; redirect-only `kModelRedirectHosts` = `us.aws.cdn.hf.co` | MDL-01 / MDL-02 |
 | — | Store billing | StoreKit / Play Billing inside the OS, not our HTTP client | Apple / Google | LIC-02 |
 
 Nothing else may open a connection (`tools/ci/check_egress.sh`, allowlist in
@@ -53,6 +53,44 @@ The catalog is Ed25519-signed (pinned keys in the app, 2-key rotation), rollback
 (`issued_at` never older than the bundled / last accepted catalog), size-capped (1 MiB) and
 schema-checked; model files are checked for exact size + SHA-256 from the signed catalog before
 use. A bundled signed catalog keeps first launch and offline mode working.
+
+## Model downloads (MDL-02)
+Same request shape as the catalog (table above) plus `Range: bytes=<offset>-` on a resume and
+`If-Range: <strong ETag>` when one was seen. Nothing else is added. The iOS background session
+additionally sends `Accept-Language: *` (set explicitly so CFNetwork does not send the device
+locale) and has cookies, cache and credential storage disabled. The download is started only
+by a user action (tap "Download" or resume-on-launch of a download the user started).
+
+### Redirect targets
+`NetworkGateway.getStream` follows at most 5 redirects and checks **every hop before
+requesting it**: https only, no userinfo, host in `kModelHosts` or — for redirect targets only —
+`kModelRedirectHosts`. Any other target fails closed with `EgressDeniedFailure`; it is never
+contacted and the downloader moves on to the next catalog URL (tests:
+`app/test/unit/network/network_gateway_stream_test.dart`,
+`app/test/unit/models/model_downloader_test.dart` → "redirects").
+
+| Host | Role | Evidence (2026-10-13) | Added |
+|---|---|---|---|
+| `us.aws.cdn.hf.co` | Hugging Face Xet bridge CDN behind `huggingface.co/<repo>/resolve/<rev>/<file>` | `curl -I` of both pinned seed-model URLs (repeated 3×) → `302 Location: https://us.aws.cdn.hf.co/xet-bridge-us/<repo-id>/<sha>?…&Expires=…&Signature=…`; the target answers the file (`Content-Length` = catalog size, `ETag` = catalog sha256) | yes |
+| `cas-bridge.xethub.hf.co`, `cdn-lfs.hf.co`, `cdn-lfs-us-1.hf.co`, `cdn-lfs-eu-1.hf.co` | other HF CDN names (resolve in DNS) | not observed as a redirect target from our network | **no** — add only after observing |
+| regional `eu.aws.cdn.hf.co` / `ap.aws.cdn.hf.co` | possible regional variants | do not resolve (DNS) as of 2026-10-13 | no |
+
+What the HF CDN sees: the device IP, `User-Agent: VaultVoice/1`, the public file path and the
+signed query string Hugging Face generated (it contains `user_id=public`, an expiry, a signature
+and an opaque `xip` value chosen by HF — we add no parameters). Same-host redirects on
+`huggingface.co` (e.g. a moved repo, `307`) are allowed.
+
+**iOS residual:** background `URLSession`s follow redirects without asking the app. The Dart
+gateway therefore resolves and validates the chain first and hands the session the final URL;
+the native delegate re-checks the current host on every progress callback and on completion
+and discards the bytes (and cancels) if it is not allowlisted. A further redirect issued by an
+allowlisted CDN to an unlisted host would still cause one request (public file path only, no
+user content) before cancellation. To be confirmed by the device proxy capture
+(`docs/test-plans/device/MDL-02.md`).
+
+**Rejected:** `background_downloader` 9.6.4 (BSD-3-Clause, maintained) — follows up to 10
+redirects natively without a hook and brings its own HTTP client outside the gateway
+(ADR-MDL-02).
 
 ## Dependency review
 | Name | Version | Purpose | Network? | Telemetry? | License | Last release | Decision |

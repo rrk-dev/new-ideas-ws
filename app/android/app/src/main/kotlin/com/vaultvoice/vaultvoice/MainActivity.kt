@@ -1,6 +1,7 @@
 package com.vaultvoice.vaultvoice
 
 import android.content.Intent
+import com.vaultvoice.vaultvoice.modeldownload.ModelDownloadPlugin
 import com.vaultvoice.vaultvoice.saf.SafHostApi
 import com.vaultvoice.vaultvoice.saf.SafHostApiImpl
 import io.flutter.embedding.android.FlutterActivity
@@ -14,6 +15,8 @@ class MainActivity : FlutterActivity() {
         super.configureFlutterEngine(flutterEngine)
         // SEC-09: call detection without phone-state permissions.
         flutterEngine.plugins.add(CallGuardPlugin())
+        // MDL-02: device facts + dataSync keep-alive for model downloads.
+        flutterEngine.plugins.add(ModelDownloadPlugin())
         val api = SafHostApiImpl(this)
         safApi = api
         SafHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, api)
