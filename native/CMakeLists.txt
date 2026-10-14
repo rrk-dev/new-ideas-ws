@@ -39,6 +39,21 @@ set(WHISPER_BUILD_TESTS OFF)
 set(WHISPER_BUILD_EXAMPLES OFF)
 set(WHISPER_BUILD_SERVER OFF)
 
+# STT-01: optional whisper.cpp Core ML encoder (Apple Neural Engine). OFF by
+# default — see docs/adr/ADR-STT-01-ios-coreml-vs-metal.md. When ON, the
+# encoder `<model minus .bin/-qX_Y>-encoder.mlmodelc` is loaded from the
+# model's directory; ALLOW_FALLBACK keeps init working (Metal/CPU encoder)
+# when that companion is missing or fails to load. Option names verified at
+# whisper.cpp v1.9.5 (CMakeLists.txt:115-116, src/CMakeLists.txt:30-45).
+option(VV_WHISPER_COREML "Apple: whisper Core ML encoder with fallback" OFF)
+if(VV_WHISPER_COREML)
+  if(NOT APPLE)
+    message(FATAL_ERROR "VV_WHISPER_COREML requires an Apple target")
+  endif()
+  set(WHISPER_COREML ON)
+  set(WHISPER_COREML_ALLOW_FALLBACK ON)
+endif()
+
 # Android CPU baseline. Empty = plain armv8-a NEON (runs on every arm64
 # device). A device matrix-approved value such as "armv8.2-a+dotprod" or
 # "armv8.2-a+dotprod+i8mm" is forwarded to GGML_CPU_ARM_ARCH — never ship an
@@ -106,4 +121,15 @@ if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
   add_test(NAME vv_exports
     COMMAND ${CMAKE_COMMAND} -DLIB=$<TARGET_FILE:vv_native>
             -P ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_exports.cmake)
+
+  # STT-01/STT-02: whisper backend paths (CPU-only fallback, GPU, Core ML
+  # fallback) with ggml-tiny.en + jfk.wav from $VV_TEST_MODELS_DIR; exit 77
+  # = skipped when the models were not fetched. Also the host speed bench.
+  add_executable(stt_backends tests/stt_backends.cpp)
+  target_include_directories(stt_backends PRIVATE bridge)
+  target_link_libraries(stt_backends PRIVATE whisper ggml)
+  foreach(mode cpu gpu coreml-fallback)
+    add_test(NAME stt_backend_${mode} COMMAND stt_backends check ${mode})
+    set_tests_properties(stt_backend_${mode} PROPERTIES SKIP_RETURN_CODE 77)
+  endforeach()
 endif()

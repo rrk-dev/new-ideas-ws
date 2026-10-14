@@ -5,6 +5,7 @@
 #   native/build.sh android   libvv_native.so for arm64-v8a (needs Android NDK r28+)
 #   native/build.sh ios       vv_native.xcframework: device + simulator (needs Xcode)
 #   native/build.sh all       android + ios + host (whatever the OS supports)
+#   VV_WHISPER_COREML=ON native/build.sh ios   adds the whisper Core ML encoder (STT-01)
 #
 # From a clean checkout:
 #   git submodule update --init --recursive && native/build.sh <target>
@@ -94,6 +95,7 @@ build_ios() {
     -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_DEPLOYMENT_TARGET="$IOS_MIN_OS"
     -DGGML_METAL=ON -DGGML_METAL_EMBED_LIBRARY=ON -DGGML_METAL_TARGET_OS=ios
     -DGGML_OPENMP=OFF -DGGML_NATIVE=OFF -DGGML_BLAS_DEFAULT=ON
+    -DVV_WHISPER_COREML="${VV_WHISPER_COREML:-OFF}"   # STT-01: Core ML encoder (ADR-STT-01)
     -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED=NO
     -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED=NO
     -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY="")
