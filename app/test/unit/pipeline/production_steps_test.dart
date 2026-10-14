@@ -5,14 +5,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
+import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/llm_engine.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_orchestrator.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/extract_step.dart';
+import 'package:vaultvoice/features/pipeline/data/steps/render_write_steps.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/step_support.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
+import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
 import 'package:vaultvoice/features/profiles/domain/builtin_profiles.dart';
+import 'package:vaultvoice/features/profiles/domain/profile.dart';
 import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 
 import '../../db/db_test_utils.dart';
@@ -99,6 +103,75 @@ void main() {
       expect(ext.valid, isTrue);
       expect(ext.json['title'], 'Release sync');
       expect(ext.profileVersion, _builtins['meeting']!.version);
+    });
+
+    test('regression: Meeting action items (`task` key) reach the '
+        'action_items table with owner and evidence time', () async {
+      final r = _Run(db, paths);
+      await r.run('r1');
+      final items = await db.select(db.actionItems).get();
+      expect(items, hasLength(1));
+      expect(items.single.body, 'Send notes');
+      expect(items.single.owner, 'Ana');
+      expect(items.single.tMs, 0);
+      expect(
+        actionItemsOf({
+          'action_items': [
+            'Plain',
+            {'text': 'Old', 't': '01:02:03', 'due_iso': '2026-10-16'},
+            {'owner': 'no text'},
+            7,
+          ],
+        }),
+        [
+          (text: 'Plain', owner: null, dueIso: null, tMs: null),
+          (text: 'Old', owner: null, dueIso: '2026-10-16', tMs: 3723000),
+        ],
+      );
+    });
+
+    test('an extraction strategy (LLM-06 seam) runs first; null falls '
+        'through to the single pass', () async {
+      final strategy = _Strategy(
+        const ExtractedData(
+          json: {'title': 'Long', 'summary': 's'},
+          valid: true,
+        ),
+      );
+      final llm = ScriptedLlm(output: jsonEncode(_validMeeting));
+      Future<String> run(String rec) async {
+        final o = PipelineOrchestrator.withEngines(
+          db: db,
+          paths: paths,
+          engines: PipelineEngines(
+            stt: ScriptedStt(),
+            llm: llm,
+            vault: FakeVaultWriter(),
+            profiles: (id) async => _builtins[id],
+            grammars: (_) async => 'root ::= x',
+            extraction: strategy,
+          ),
+        );
+        addTearDown(o.dispose);
+        await o.start();
+        final id = expectOk(await o.enqueue(rec));
+        await o.whenIdle();
+        return id;
+      }
+
+      final id = await run('r1');
+      expect(strategy.calls, 1);
+      expect(llm.requests, isEmpty);
+      final ext = expectOk(
+        await db.extractionsRepository.get(extractionIdFor(id)),
+      );
+      expect(ext.json['title'], 'Long');
+
+      strategy.result = null;
+      await seedRecordingWithChunks(db, 'r2', chunks: 1);
+      await run('r2');
+      expect(strategy.calls, 2);
+      expect(llm.requests, hasLength(1));
     });
 
     test('invalid output is repaired once, then falls back to a free-text '
@@ -216,6 +289,26 @@ void main() {
       expect(job.state, isNot(JobState.done));
     });
   });
+}
+
+class _Strategy implements ExtractionStrategy {
+  _Strategy(this.result);
+
+  ExtractedData? result;
+  int calls = 0;
+
+  @override
+  Future<Result<ExtractedData>?> extract(
+    StepContext ctx, {
+    required Profile profile,
+    required String grammar,
+    required List<TranscriptSegmentRow> segments,
+    required int maxTokens,
+  }) async {
+    calls++;
+    final r = result;
+    return r == null ? null : Ok(r);
+  }
 }
 
 /// Returns [outputs] in order (last one repeated).

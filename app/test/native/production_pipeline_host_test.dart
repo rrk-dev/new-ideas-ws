@@ -159,8 +159,10 @@ void main() {
       );
 
       final client = await container.read(pipelineClientProvider.future);
-      final jobId = (await client.enqueue(rec, userInitiated: true))
-          .valueOrNull!;
+      final jobId = (await client.enqueue(
+        rec,
+        userInitiated: true,
+      )).valueOrNull!;
 
       // AC3: no model installed → waiting(model_missing), not failed.
       final waiting = await _waitFor(
@@ -222,10 +224,7 @@ void main() {
       final exports = await db.select(db.exports).get();
       expect(exports, hasLength(1));
       expect(exports.single.status, ExportStatus.written);
-      expect(
-        p.join(vault.path, exports.single.relPath),
-        notes.single.path,
-      );
+      expect(p.join(vault.path, exports.single.relPath), notes.single.path);
 
       // FND-07 metrics of the heavy steps.
       final metrics = [
@@ -234,10 +233,10 @@ void main() {
       ];
       final stt = metrics.singleWhere((m) => m['step'] == 'transcribe');
       expect(stt['audio_ms'], 11000);
-      expect(stt['wall_ms'] as num, greaterThan(0));
+      expect(stt['wall_ms']! as num, greaterThan(0));
       final llm = metrics.singleWhere((m) => m['step'] == 'extract');
-      expect(llm['gen_tokens'] as num, greaterThan(0));
-      expect(llm['prompt_tokens'] as num, greaterThan(0));
+      expect(llm['gen_tokens']! as num, greaterThan(0));
+      expect(llm['prompt_tokens']! as num, greaterThan(0));
     },
   );
 }

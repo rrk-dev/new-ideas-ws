@@ -64,6 +64,7 @@ class ExtractStep implements PipelineStep {
     this.activeModel,
     this.profiles,
     this.grammars,
+    this.strategy,
   }) : promptBuilder = promptBuilder ?? _placeholderPrompt;
 
   final VaultVoiceDatabase db;
@@ -74,6 +75,10 @@ class ExtractStep implements PipelineStep {
   final ActiveModelIdLookup? activeModel;
   final ProfileLookup? profiles;
   final ProfileGrammarLookup? grammars;
+
+  /// Long-transcript extraction (LLM-06 seam), tried first on the profile
+  /// path.
+  final ExtractionStrategy? strategy;
 
   @override
   PipelineStepId get id => PipelineStepId.extract;
@@ -119,13 +124,32 @@ class ExtractStep implements PipelineStep {
     final int profileVersion;
     if (profile != null && grammar != null) {
       profileVersion = profile.version;
-      final outcome = await _structured(ctx, profile, grammar, segments);
-      switch (outcome) {
-        case Err(:final failure):
-          return StepFailed(failure);
-        case Ok(value: final o):
-          valid = o.valid;
-          json = o.valid ? o.data! : _fallbackJson(o.fallbackSummary);
+      final long = await strategy?.extract(
+        ctx,
+        profile: profile,
+        grammar: grammar,
+        segments: segments,
+        maxTokens: config.maxLlmTokens,
+      );
+      if (long != null) {
+        switch (long) {
+          case Err(:final failure):
+            return StepFailed(failure);
+          case Ok(value: final d):
+            valid = d.valid;
+            json = d.json;
+        }
+      } else {
+        final outcome = await _structured(ctx, profile, grammar, segments);
+        switch (outcome) {
+          case Err(:final failure):
+            return StepFailed(failure);
+          case Ok(value: final o):
+            valid = o.valid;
+            json = o.valid
+                ? o.data!
+                : fallbackExtractionJson(o.fallbackSummary);
+        }
       }
     } else {
       final stored = await db.profilesRepository.getProfile(profileId);
@@ -202,7 +226,7 @@ class ExtractStep implements PipelineStep {
 
   /// Extraction JSON after a failed structured pass: the summary fallback's
   /// first line is the title (`summary-only` template, LLM-05).
-  static Map<String, Object?> _fallbackJson(String? summary) {
+  static Map<String, Object?> fallbackExtractionJson(String? summary) {
     final text = (summary ?? '').trim();
     final nl = text.indexOf('\n');
     final title = (nl < 0 ? '' : text.substring(0, nl)).trim();

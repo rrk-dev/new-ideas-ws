@@ -1,5 +1,6 @@
 import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
+import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/llm_engine.dart';
 import 'package:vaultvoice/core/platform/stt_engine.dart';
@@ -50,6 +51,31 @@ typedef NoteRendererLoader = Future<NoteRenderer> Function();
 /// The writer for one configured vault target (app-local / SAF / bookmark).
 typedef VaultWriterFor = VaultWriter Function(VaultTargetRow target);
 
+/// Result of an [ExtractionStrategy] run.
+class ExtractedData {
+  const ExtractedData({required this.json, required this.valid});
+
+  /// Schema-valid data, or `{title, summary}` from the summary fallback.
+  final Map<String, Object?> json;
+  final bool valid;
+}
+
+/// Alternative extraction for the profile path — the seam for LLM-06's
+/// long-transcript map-reduce (`LongTranscriptExtraction`: token-budget
+/// plan, chunked map step with per-chunk checkpoints through
+/// `ctx.saveCheckpoint`, deterministic reduce). Returns null when not
+/// applicable (e.g. the transcript fits one prompt); `ExtractStep` then runs
+/// the single-pass `StructuredExtractor`.
+abstract interface class ExtractionStrategy {
+  Future<Result<ExtractedData>?> extract(
+    StepContext ctx, {
+    required Profile profile,
+    required String grammar,
+    required List<TranscriptSegmentRow> segments,
+    required int maxTokens,
+  });
+}
+
 /// Per-step performance measurement (FND-07 `JobMetrics`), started right
 /// after a step's active state is persisted.
 abstract interface class StepMetrics {
@@ -82,6 +108,7 @@ class PipelineEngines {
     this.activeModel,
     this.profiles,
     this.grammars,
+    this.extraction,
     this.vaultFor,
     this.metrics,
     this.onForeground,
@@ -112,6 +139,9 @@ class PipelineEngines {
 
   /// Grammar for a profile (structured extraction, LLM-05).
   final ProfileGrammarLookup? grammars;
+
+  /// Long-transcript extraction (LLM-06), tried before the single pass.
+  final ExtractionStrategy? extraction;
   final VaultWriterFor? vaultFor;
   final StepMetrics? metrics;
 

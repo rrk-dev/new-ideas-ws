@@ -56,6 +56,45 @@ String _placeholderRenderer(NoteInput input) {
   ].join('\n');
 }
 
+/// One action item of an extraction (`action_items` row content).
+typedef ActionItemData = ({
+  String text,
+  String? owner,
+  String? dueIso,
+  int? tMs,
+});
+
+/// Action items of an extraction's `action_items` list: plain strings, or
+/// objects whose text is `task` (built-in Meeting/Engineering schemas) or
+/// `text`, with optional `owner`, `due_iso` (date post-processor) and `t`
+/// (`hh:mm:ss` evidence).
+List<ActionItemData> actionItemsOf(Map<String, Object?> json) {
+  final raw = json['action_items'];
+  if (raw is! List<Object?>) return const [];
+  String? str(Object? v) => v is String && v.trim().isNotEmpty ? v : null;
+  return [
+    for (final e in raw)
+      if (e is String && e.trim().isNotEmpty)
+        (text: e, owner: null, dueIso: null, tMs: null)
+      else if (e is Map<String, Object?> &&
+          (str(e['task']) ?? str(e['text'])) != null)
+        (
+          text: (str(e['task']) ?? str(e['text']))!,
+          owner: str(e['owner']),
+          dueIso: str(e['due_iso']),
+          tMs: _hmsToMs(e['t']),
+        ),
+  ];
+}
+
+int? _hmsToMs(Object? v) {
+  if (v is! String) return null;
+  final m = RegExp(r'^(\d{2}):([0-5]\d):([0-5]\d)$').firstMatch(v);
+  if (m == null) return null;
+  return ((int.parse(m[1]!) * 60 + int.parse(m[2]!)) * 60 + int.parse(m[3]!)) *
+      1000;
+}
+
 /// Renders the note to `rendered/<recording_id>.md` (atomic overwrite) and
 /// replaces the extraction's action items.
 class RenderStep implements PipelineStep {
@@ -112,11 +151,14 @@ class RenderStep implements PipelineStep {
     await writeFileAtomic(paths.renderedFile(job.recordingId), markdown);
     ctx.reportProgress(1);
     final items = [
-      for (final item in _actionItems(ext.json))
+      for (final item in actionItemsOf(ext.json))
         ActionItemsCompanion.insert(
           recordingId: job.recordingId,
           extractionId: ext.id,
-          body: item,
+          body: item.text,
+          owner: Value(item.owner),
+          dueIso: Value(item.dueIso),
+          tMs: Value(item.tMs),
         ),
     ];
     return StepSucceeded(
@@ -126,18 +168,6 @@ class RenderStep implements PipelineStep {
         );
       },
     );
-  }
-
-  static List<String> _actionItems(Map<String, Object?> json) {
-    final raw = json['action_items'];
-    if (raw is! List<Object?>) return const [];
-    return [
-      for (final e in raw)
-        if (e is String)
-          e
-        else if (e is Map<String, Object?> && e['text'] is String)
-          e['text']! as String,
-    ];
   }
 }
 

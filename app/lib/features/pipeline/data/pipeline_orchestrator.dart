@@ -48,6 +48,7 @@ List<PipelineStep> defaultSteps({
     activeModel: engines.activeModel,
     profiles: engines.profiles,
     grammars: engines.grammars,
+    strategy: engines.extraction,
   ),
   RenderStep(
     db: db,
