@@ -1,0 +1,26 @@
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_2533d68596ce78 167-168
+native/bridge/vv_llama_internal.h
+  s_9f6fcf8c1840a0::t_ecd9e7c96c0b79 28-34,51
+native/bridge/vv_llama.cpp
+  s_9f6fcf8c1840a0::t_2533d68596ce78 406-411
+  s_9f6fcf8c1840a0::t_ecd9e7c96c0b79 108-132,149
+packages/vv_native/test/vv_native_host_test.dart
+  s_9f6fcf8c1840a0::t_c305b9ed84826b 65-69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "104f9f130c79e03ea08186280fa96e110a7fcc62",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
