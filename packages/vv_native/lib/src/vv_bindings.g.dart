@@ -735,6 +735,86 @@ class VvBindings {
       .asFunction<
         int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>)
       >();
+
+  /// Opens (creates, truncates) `report_path` and keeps the descriptor open,
+  /// snapshots the loaded modules, then installs handlers for SIGSEGV, SIGBUS,
+  /// SIGILL, SIGFPE, SIGABRT and SIGTRAP. An empty file after a run means "no
+  /// native crash". Harvest a previous report BEFORE calling this (it truncates).
+  ///
+  /// `app_build` (borrowed, UTF-8, truncated to 127 bytes) identifies the build,
+  /// e.g. "0.1.0+42 prod"; it must not contain user content. May be NULL.
+  ///
+  /// Previous handlers are saved and chained: after the report is written the
+  /// previous disposition is restored and the signal re-delivered, so the OS /
+  /// platform crash reporter still sees the crash.
+  ///
+  /// Returns VV_CRASH_OK, VV_CRASH_E_INVALID_ARG (NULL/empty path),
+  /// VV_CRASH_E_IO (cannot open file), VV_CRASH_E_BUSY (already installed) or
+  /// VV_CRASH_E_INTERNAL (sigaction failed; nothing left installed).
+  int vv_crash_install(
+    ffi.Pointer<ffi.Char> report_path,
+    ffi.Pointer<ffi.Char> app_build,
+  ) {
+    return _vv_crash_install(report_path, app_build);
+  }
+
+  late final _vv_crash_installPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)
+        >
+      >('vv_crash_install');
+  late final _vv_crash_install = _vv_crash_installPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
+
+  /// Restores the previous handlers and closes the report file. Safe to call
+  /// when not installed (returns VV_CRASH_OK).
+  int vv_crash_uninstall() {
+    return _vv_crash_uninstall();
+  }
+
+  late final _vv_crash_uninstallPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('vv_crash_uninstall');
+  late final _vv_crash_uninstall = _vv_crash_uninstallPtr
+      .asFunction<int Function()>();
+
+  /// 1 when handlers are installed, else 0.
+  int vv_crash_is_installed() {
+    return _vv_crash_is_installed();
+  }
+
+  late final _vv_crash_is_installedPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>(
+        'vv_crash_is_installed',
+      );
+  late final _vv_crash_is_installed = _vv_crash_is_installedPtr
+      .asFunction<int Function()>();
+
+  /// Number of modules captured by the last vv_crash_install() (diagnostics).
+  int vv_crash_module_count() {
+    return _vv_crash_module_count();
+  }
+
+  late final _vv_crash_module_countPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>(
+        'vv_crash_module_count',
+      );
+  late final _vv_crash_module_count = _vv_crash_module_countPtr
+      .asFunction<int Function()>();
+
+  /// Deliberately crashes the process (dev builds / tests only; the Dart side
+  /// exposes it only in the `dev` flavor). Does not return for valid kinds;
+  /// returns VV_CRASH_E_INVALID_ARG for an unknown kind.
+  int vv_crash_force(int kind) {
+    return _vv_crash_force(kind);
+  }
+
+  late final _vv_crash_forcePtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Int32)>>(
+        'vv_crash_force',
+      );
+  late final _vv_crash_force = _vv_crash_forcePtr
+      .asFunction<int Function(int)>();
 }
 
 final class vv_stt extends ffi.Opaque {}
@@ -1221,3 +1301,21 @@ const int VV_CPU_FEATURE_SVE = 8;
 const int VV_LLM_GRAMMAR_LAZY = 0;
 
 const int VV_LLM_GRAMMAR_FULL = 1;
+
+const int VV_CRASH_REPORT_VERSION = 1;
+
+const int VV_CRASH_OK = 0;
+
+const int VV_CRASH_E_INVALID_ARG = -1;
+
+const int VV_CRASH_E_IO = -5;
+
+const int VV_CRASH_E_BUSY = -7;
+
+const int VV_CRASH_E_INTERNAL = -8;
+
+const int VV_CRASH_FORCE_SEGV = 1;
+
+const int VV_CRASH_FORCE_ABORT = 2;
+
+const int VV_CRASH_FORCE_TRAP = 3;

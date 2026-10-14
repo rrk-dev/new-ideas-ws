@@ -81,4 +81,7 @@ VV_API int32_t vv_backends_dynamic(void);
 /* LLM backend bridge (LLM-02/LLM-03). */
 #include "vv_llama.h"
 
+/* Native crash capture (REL-02). */
+#include "vv_crash.h"
+
 #endif /* VV_BRIDGE_H */

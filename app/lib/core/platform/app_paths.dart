@@ -28,6 +28,13 @@ final class AppPaths {
   /// Rotating log files.
   Directory get logs => Directory(_join([root.path, 'logs']));
 
+  /// Local crash reports (REL-02): `native-current.vvcrash` (pre-opened by
+  /// the native signal handler) and harvested `*.vvcrash` / `*.vvdart`.
+  Directory get crashReports => Directory(_join([root.path, 'crash']));
+
+  /// Copies of crash reports handed to the share sheet.
+  Directory get crashShare => Directory(_join([temp.path, 'crash-share']));
+
   /// Per-job performance metrics (JSON lines).
   File get metricsFile => File(_join([root.path, 'metrics', 'metrics.jsonl']));
 

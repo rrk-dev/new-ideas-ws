@@ -178,6 +178,120 @@ abstract class AppLocalizations {
   /// **'CallGuard debug'**
   String get callGuardDebugTooltip;
 
+  /// No description provided for @crashShareUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Sharing is not available.'**
+  String get crashShareUnavailable;
+
+  /// No description provided for @crashShareFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not share the crash report.'**
+  String get crashShareFailed;
+
+  /// No description provided for @crashPromptTitleNative.
+  ///
+  /// In en, this message translates to:
+  /// **'{appName} closed unexpectedly'**
+  String crashPromptTitleNative(String appName);
+
+  /// No description provided for @crashPromptTitleDart.
+  ///
+  /// In en, this message translates to:
+  /// **'{appName} hit an unexpected error'**
+  String crashPromptTitleDart(String appName);
+
+  /// No description provided for @crashPromptBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A crash report was saved on this device. It contains only technical details (error type, code addresses, app and OS version) — no recordings, transcripts or notes. You can review it and send it to the developers, for example by email. Nothing is sent automatically.'**
+  String get crashPromptBody;
+
+  /// No description provided for @crashPromptNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get crashPromptNotNow;
+
+  /// No description provided for @crashPromptReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review report'**
+  String get crashPromptReview;
+
+  /// No description provided for @crashPreviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Crash report'**
+  String get crashPreviewTitle;
+
+  /// No description provided for @crashPreviewInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} · {size}. This is the complete file. Nothing leaves this device unless you choose a destination in the share sheet.'**
+  String crashPreviewInfo(String name, String size);
+
+  /// No description provided for @crashPreviewDiscard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get crashPreviewDiscard;
+
+  /// No description provided for @crashPreviewShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get crashPreviewShare;
+
+  /// No description provided for @crashSettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Crash reports'**
+  String get crashSettingsTitle;
+
+  /// No description provided for @crashSettingsNone.
+  ///
+  /// In en, this message translates to:
+  /// **'None saved. Reports stay on this device until you share them.'**
+  String get crashSettingsNone;
+
+  /// No description provided for @crashSettingsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} saved on this device. Tap to review and share.'**
+  String crashSettingsCount(int count);
+
+  /// No description provided for @crashDevForceNative.
+  ///
+  /// In en, this message translates to:
+  /// **'Force native crash (dev)'**
+  String get crashDevForceNative;
+
+  /// No description provided for @crashDevForceNativeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Kills the app via SIGSEGV in libvv_native.'**
+  String get crashDevForceNativeSubtitle;
+
+  /// No description provided for @crashDevConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Crash the app now?'**
+  String get crashDevConfirmTitle;
+
+  /// No description provided for @crashDevConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Crash'**
+  String get crashDevConfirm;
+
+  /// No description provided for @crashDevThrowDart.
+  ///
+  /// In en, this message translates to:
+  /// **'Throw uncaught Dart error (dev)'**
+  String get crashDevThrowDart;
+
   /// No description provided for @batteryGuidanceIntro.
   ///
   /// In en, this message translates to:

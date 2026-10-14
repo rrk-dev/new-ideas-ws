@@ -8,6 +8,7 @@ import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/features/extraction/presentation/llm_debug_screen.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
+import 'package:vaultvoice/features/settings/presentation/crash_reports.dart';
 import 'package:vaultvoice/features/settings/presentation/diagnostics_export.dart';
 import 'package:vaultvoice/features/settings/presentation/setting_texts.dart';
 import 'package:vaultvoice/features/settings/presentation/setting_tiles.dart';
@@ -58,6 +59,8 @@ class SettingsScreen extends ConsumerWidget {
           const SettingTile(AppSettings.notificationsEnabled),
           const SettingTile(AppSettings.notificationDetails),
           const DiagnosticsExportTile(),
+          // REL-02 hook: saved crash reports (+ dev-only crash triggers).
+          const CrashReportSettingsSection(),
           const _DeleteAllDataTile(),
           header(SettingSection.license),
           const _LicenseTiles(),

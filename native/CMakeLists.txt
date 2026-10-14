@@ -169,6 +169,11 @@ if(VV_GGML_BACKEND_DL)
   target_link_libraries(vv_native PRIVATE ${CMAKE_DL_LIBS})
 endif()
 
+# REL-02: async-signal-safe native crash capture (bridge/vv_crash.h,
+# ADR-REL-02-crash-capture). Frame pointers keep its backtraces walkable.
+target_sources(vv_native PRIVATE bridge/vv_crash.c)
+set_source_files_properties(bridge/vv_crash.c PROPERTIES COMPILE_OPTIONS "-fno-omit-frame-pointer")
+
 # Export only vv_* from the final library (static deps must not leak ggml_*,
 # whisper_*, llama_* — that is what would cause duplicate-symbol clashes).
 if(APPLE)
@@ -262,4 +267,12 @@ if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
     add_test(NAME vv_backends_${mode} COMMAND backends_test ${mode})
     set_tests_properties(vv_backends_${mode} PROPERTIES SKIP_RETURN_CODE 77)
   endforeach()
+endif()
+
+# REL-02 crash handler test: forced crashes in forked children (host only).
+if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
+  add_executable(vv_crash_test tests/crash_test.c)
+  target_compile_options(vv_crash_test PRIVATE -fno-omit-frame-pointer)
+  target_link_libraries(vv_crash_test PRIVATE vv_native)
+  add_test(NAME vv_crash COMMAND vv_crash_test)
 endif()

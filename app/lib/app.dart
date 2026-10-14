@@ -6,6 +6,7 @@ import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/theme/app_theme.dart';
 import 'package:vaultvoice/features/models/data/download_providers.dart';
+import 'package:vaultvoice/features/settings/presentation/crash_reports.dart';
 
 /// Root widget: theme + router. Providers come from the enclosing scope.
 class App extends ConsumerWidget {
@@ -15,6 +16,7 @@ class App extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // MDL-02: resume model downloads interrupted by an app kill.
     ref.listen(resumeModelDownloadsProvider, (_, _) {});
+    final router = ref.watch(appRouterProvider);
     return MaterialApp.router(
       title: kAppName,
       debugShowCheckedModeBanner: ref.watch(flavorProvider).isDev,
@@ -22,7 +24,12 @@ class App extends ConsumerWidget {
       darkTheme: AppTheme.dark,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      routerConfig: ref.watch(appRouterProvider),
+      routerConfig: router,
+      // REL-02: offer last run's crash report once, after the first frame.
+      builder: (context, child) => CrashReportGate(
+        navigatorKey: router.routerDelegate.navigatorKey,
+        child: child ?? const SizedBox.shrink(),
+      ),
     );
   }
 }

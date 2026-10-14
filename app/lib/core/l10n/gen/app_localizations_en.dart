@@ -54,6 +54,74 @@ class AppLocalizationsEn extends AppLocalizations {
   String get callGuardDebugTooltip => 'CallGuard debug';
 
   @override
+  String get crashShareUnavailable => 'Sharing is not available.';
+
+  @override
+  String get crashShareFailed => 'Could not share the crash report.';
+
+  @override
+  String crashPromptTitleNative(String appName) {
+    return '$appName closed unexpectedly';
+  }
+
+  @override
+  String crashPromptTitleDart(String appName) {
+    return '$appName hit an unexpected error';
+  }
+
+  @override
+  String get crashPromptBody =>
+      'A crash report was saved on this device. It contains only technical details (error type, code addresses, app and OS version) — no recordings, transcripts or notes. You can review it and send it to the developers, for example by email. Nothing is sent automatically.';
+
+  @override
+  String get crashPromptNotNow => 'Not now';
+
+  @override
+  String get crashPromptReview => 'Review report';
+
+  @override
+  String get crashPreviewTitle => 'Crash report';
+
+  @override
+  String crashPreviewInfo(String name, String size) {
+    return '$name · $size. This is the complete file. Nothing leaves this device unless you choose a destination in the share sheet.';
+  }
+
+  @override
+  String get crashPreviewDiscard => 'Discard';
+
+  @override
+  String get crashPreviewShare => 'Share';
+
+  @override
+  String get crashSettingsTitle => 'Crash reports';
+
+  @override
+  String get crashSettingsNone =>
+      'None saved. Reports stay on this device until you share them.';
+
+  @override
+  String crashSettingsCount(int count) {
+    return '$count saved on this device. Tap to review and share.';
+  }
+
+  @override
+  String get crashDevForceNative => 'Force native crash (dev)';
+
+  @override
+  String get crashDevForceNativeSubtitle =>
+      'Kills the app via SIGSEGV in libvv_native.';
+
+  @override
+  String get crashDevConfirmTitle => 'Crash the app now?';
+
+  @override
+  String get crashDevConfirm => 'Crash';
+
+  @override
+  String get crashDevThrowDart => 'Throw uncaught Dart error (dev)';
+
+  @override
   String batteryGuidanceIntro(String steps) {
     return 'Long recordings can be stopped by this phone’s battery saver when the screen is off. $steps';
   }
