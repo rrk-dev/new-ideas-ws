@@ -1,7 +1,7 @@
 # EXP-09 — macOS Vault Folder (Security-Scoped Bookmarks)
 
 **Workstream:** Export | **Phase:** 1 | **Size:** M | **Depends on:** EXP-04, FND-09 | **Source:** User decision 2026-10-14
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-markdown-vault-export, vv-flutter-architecture, vv-testing
 
 ## Goal
