@@ -1,7 +1,7 @@
 # AUD-06 — Audio File Import & Format Conversion
 
 **Workstream:** Audio | **Phase:** 2 | **Size:** M | **Depends on:** AUD-01, FND-05, SEC-09 | **Source:** Gap (users will want to process existing recordings / voice memos)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-audio-capture, vv-pipeline-orchestrator, vv-flutter-architecture, vv-local-database, vv-testing
 
 ## Goal
