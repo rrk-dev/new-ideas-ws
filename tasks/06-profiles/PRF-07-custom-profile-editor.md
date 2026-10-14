@@ -1,7 +1,7 @@
 # PRF-07 — Custom Profile Editor (Pro)
 
 **Workstream:** Profiles | **Phase:** 3 | **Size:** L | **Depends on:** PRF-01, PRF-02, LIC-01 | **Source:** §7 (Unlimited domain extraction profiles — Pro)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-extraction-profiles, vv-flutter-architecture, vv-licensing-iap, vv-markdown-vault-export, vv-testing
 
 ## Goal
