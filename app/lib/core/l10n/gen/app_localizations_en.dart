@@ -741,4 +741,150 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get routingRulesEmpty =>
       'No routing rules. Every note goes to your first vault folder.';
+
+  @override
+  String get routingRulesAdd => 'Add rule';
+
+  @override
+  String get routingRulesLocked =>
+      'Routing rules are a Pro feature. Your rules are kept but not applied: every note goes to your first vault folder.';
+
+  @override
+  String routingRuleTo(String folder) {
+    return 'To $folder';
+  }
+
+  @override
+  String get routingRuleEveryNote => 'Every note';
+
+  @override
+  String routingRuleMatchesSome(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count conditions',
+      one: '1 condition',
+    );
+    return 'Notes matching $_temp0';
+  }
+
+  @override
+  String get routingRuleContinues => 'then later rules';
+
+  @override
+  String get routingRuleOff => 'Off';
+
+  @override
+  String get routingRuleNewTitle => 'New rule';
+
+  @override
+  String get routingRuleEditTitle => 'Edit rule';
+
+  @override
+  String get routingRuleName => 'Name (optional)';
+
+  @override
+  String get routingRuleTarget => 'Vault folder';
+
+  @override
+  String get routingRuleNoTargets => 'Add a vault folder first.';
+
+  @override
+  String get routingRuleTargetRequired => 'Choose a vault folder.';
+
+  @override
+  String get routingRuleSubPath => 'Sub-folder (optional)';
+
+  @override
+  String get routingRuleSubPathHint => 'For example Meetings/2026';
+
+  @override
+  String get routingRuleFilename => 'File name pattern (optional)';
+
+  @override
+  String get routingRuleFilenameHint =>
+      'Empty: the folder’s or the default pattern';
+
+  @override
+  String get routingRuleConditions => 'Conditions';
+
+  @override
+  String get routingRuleConditionsHelp =>
+      'Separate values with commas. Every filled-in condition must match; a rule without conditions matches every note.';
+
+  @override
+  String get routingRuleProfiles => 'Profile ids';
+
+  @override
+  String get routingRuleTags => 'Tags';
+
+  @override
+  String get routingRuleKeywords => 'Keywords in title or summary';
+
+  @override
+  String get routingRuleSpeakers => 'Speaker names';
+
+  @override
+  String get routingRuleContinue => 'Also check later rules';
+
+  @override
+  String get routingRuleContinueHelp =>
+      'Off: the first matching rule decides. On: later matching rules add more folders.';
+
+  @override
+  String get routingRuleEnabled => 'Rule is on';
+
+  @override
+  String get routingRuleSave => 'Save';
+
+  @override
+  String get routingRuleSaveFailed => 'Could not save the rule.';
+
+  @override
+  String get routingRuleDelete => 'Delete rule';
+
+  @override
+  String get routingRuleDeleteTitle => 'Delete this rule?';
+
+  @override
+  String get routingRuleDeleteBody =>
+      'Notes already written stay where they are.';
+
+  @override
+  String get routingRuleNotFound => 'This rule no longer exists.';
+
+  @override
+  String get vaultTargetOptionsTitle => 'Folder options';
+
+  @override
+  String get vaultTargetCollision => 'If the note already exists';
+
+  @override
+  String get vaultTargetCollisionDefault => 'Use the default setting';
+
+  @override
+  String get vaultTargetFilename => 'File name pattern (optional)';
+
+  @override
+  String get vaultTargetTranscript => 'Also save the transcript';
+
+  @override
+  String get vaultTargetTranscriptHelp =>
+      'Writes a separate transcript note next to each note.';
+
+  @override
+  String get vaultTargetAudio => 'Also copy the audio';
+
+  @override
+  String get vaultTargetAudioHelp =>
+      'Copies the recording into an attachments folder. Audio files are large and leave the app’s protected storage.';
+
+  @override
+  String get vaultTargetSaveFailed => 'Could not save the folder options.';
+
+  @override
+  String get vaultTargetDisabled => 'Not used on your current plan';
+
+  @override
+  String get vaultTargetNotFound => 'This folder no longer exists.';
 }

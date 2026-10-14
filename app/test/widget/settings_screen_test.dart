@@ -6,6 +6,8 @@ import 'package:vaultvoice/core/app_info.dart';
 import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
+import 'package:vaultvoice/features/export/data/routing_providers.dart';
+import 'package:vaultvoice/features/export/domain/routing_rule.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/setting_texts.dart';
@@ -300,6 +302,20 @@ void main() {
           routingRulesProvider.overrideWith(
             (ref) => rules ?? Stream.value(const []),
           ),
+          // EXP-05: the rules screen lists full rules (editable).
+          routingRuleListProvider.overrideWith(
+            (ref) => (rules ?? Stream.value(const <RoutingRuleInfo>[])).map(
+              (list) => [
+                for (final (i, r) in list.indexed)
+                  RoutingRule(
+                    id: r.id,
+                    priority: i,
+                    targetId: r.targetId,
+                    subPath: r.subPath,
+                  ),
+              ],
+            ),
+          ),
         ],
         child: MaterialApp(home: screen),
       ),
@@ -347,8 +363,8 @@ void main() {
         ]),
       );
       await t.pumpAndSettle();
-      expect(find.text('Notes'), findsOneWidget);
-      expect(find.text('Meetings'), findsOneWidget);
+      expect(find.text('To Notes'), findsOneWidget);
+      expect(find.text('Every note · Meetings'), findsOneWidget);
       expect(find.text('1'), findsOneWidget);
     });
   });

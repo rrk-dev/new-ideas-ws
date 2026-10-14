@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_shell.dart';
+import 'package:vaultvoice/features/export/presentation/routing_rule_editor_screen.dart';
+import 'package:vaultvoice/features/export/presentation/vault_target_options_screen.dart';
 import 'package:vaultvoice/features/library/presentation/library_screen.dart';
 import 'package:vaultvoice/features/models/presentation/model_import_tile.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_queue_screen.dart';
@@ -39,8 +41,16 @@ part 'app_routes.g.dart';
           path: '/settings',
           routes: [
             TypedGoRoute<ModelsSettingsRoute>(path: 'models'),
-            TypedGoRoute<VaultFoldersRoute>(path: 'vault-folders'),
-            TypedGoRoute<RoutingRulesRoute>(path: 'routing-rules'),
+            TypedGoRoute<VaultFoldersRoute>(
+              path: 'vault-folders',
+              routes: [
+                TypedGoRoute<VaultTargetOptionsRoute>(path: ':targetId'),
+              ],
+            ),
+            TypedGoRoute<RoutingRulesRoute>(
+              path: 'routing-rules',
+              routes: [TypedGoRoute<RoutingRuleEditorRoute>(path: ':ruleId')],
+            ),
           ],
         ),
       ],
@@ -169,4 +179,28 @@ class RoutingRulesRoute extends GoRouteData with $RoutingRulesRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const RoutingRulesScreen();
+}
+
+/// Settings → Vault folders → one folder's export options (EXP-05).
+class VaultTargetOptionsRoute extends GoRouteData
+    with $VaultTargetOptionsRoute {
+  const VaultTargetOptionsRoute({required this.targetId});
+
+  final String targetId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      VaultTargetOptionsScreen(targetId: targetId);
+}
+
+/// Settings → Routing rules → edit one rule; `ruleId` [kNewRuleId] adds
+/// a rule (EXP-05).
+class RoutingRuleEditorRoute extends GoRouteData with $RoutingRuleEditorRoute {
+  const RoutingRuleEditorRoute({required this.ruleId});
+
+  final String ruleId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      RoutingRuleEditorScreen(ruleId: ruleId);
 }

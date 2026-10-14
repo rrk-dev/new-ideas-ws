@@ -13,6 +13,8 @@ import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/theme/app_theme.dart';
+import 'package:vaultvoice/features/export/data/routing_providers.dart';
+import 'package:vaultvoice/features/export/domain/routing_rule.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
@@ -38,6 +40,9 @@ const _screens = {
   'Settings': '/settings',
   'Vault folders': '/settings/vault-folders',
   'Routing rules': '/settings/routing-rules',
+  'Routing rule editor': '/settings/routing-rules/r1',
+  'New routing rule': '/settings/routing-rules/new',
+  'Vault folder options': '/settings/vault-folders/v1',
   'Models': '/settings/models',
 };
 
@@ -56,6 +61,17 @@ List<Override> _overrides() => [
         name: 'Obsidian vault',
         platform: VaultPlatform.appLocal,
         handle: '/x',
+      ),
+    ]),
+  ),
+  routingRuleListProvider.overrideWith(
+    (ref) => Stream.value(const [
+      RoutingRule(
+        id: 'r1',
+        priority: 10,
+        targetId: 'v1',
+        subPath: 'Meetings',
+        match: RuleMatch(tagsAny: ['work']),
       ),
     ]),
   ),
