@@ -31,7 +31,13 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         ndk {
-            abiFilters += listOf("arm64-v8a")
+            // The Flutter Gradle plugin is applied first and pre-fills abiFilters
+            // with armeabi-v7a, arm64-v8a and x86_64 (FlutterPlugin.kt
+            // configureAbiWithoutSplits, Flutter 3.47.7), whatever
+            // --target-platform says. `+=` only adds to that set, so plugin libs
+            // (e.g. jni's libdartjni.so) shipped for every ABI. Replace it.
+            abiFilters.clear()
+            abiFilters += "arm64-v8a"
         }
     }
 

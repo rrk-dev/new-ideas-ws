@@ -45,3 +45,19 @@ def test_check_apk_native_rejects_missing_lib_and_other_abis(tmp_path):
     r = _check(_apk(tmp_path / "x86.apk", ["lib/arm64-v8a/libvv_native.so",
                                            "lib/x86_64/libvv_native.so"]))
     assert r.returncode == 1 and "non-arm64" in r.stderr
+    assert "lib/x86_64/libvv_native.so" in r.stderr, "the offending entries are listed"
+
+
+def test_app_gradle_replaces_flutter_default_abi_filters():
+    """The Flutter Gradle plugin pre-fills ndk.abiFilters with armeabi-v7a,
+    arm64-v8a and x86_64 before the app's android {} block runs, so
+    `abiFilters += ...` keeps every ABI (main run 38582822564: "contains
+    non-arm64 native libs"). The app must clear the set first."""
+    import re
+    gradle = (ROOT / "app" / "android" / "app" / "build.gradle.kts").read_text()
+    ndk = re.search(r"ndk\s*\{(.*?)\n\s*\}", gradle, re.S)
+    assert ndk, "app/android/app/build.gradle.kts has no ndk { } block"
+    body = "\n".join(l.split("//")[0] for l in ndk.group(1).splitlines())
+    assert re.search(r"abiFilters\.clear\(\)", body), "ndk { } must call abiFilters.clear()"
+    assert body.index("abiFilters.clear()") < body.index('"arm64-v8a"')
+    assert not re.search(r"armeabi|x86", body)

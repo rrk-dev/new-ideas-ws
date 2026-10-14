@@ -8,7 +8,7 @@ GitHub Actions (`.github/workflows/ci.yml`) is a thin wrapper: every job calls a
 | `static` | `setup.sh`, `format.sh`, `analyze.sh`, `check_codegen.sh`, `check_egress.sh`, `run_slot.sh check_recording_policy.sh SEC-09`, `tasks.py validate` | `analyze.sh` runs `flutter analyze` **and** `dart analyze` (riverpod_lint only reports in the latter, ADR-FND-02) |
 | `test` | `test.sh` | unit + widget tests, lcov uploaded; gate ≥ 80% lines over `lib/core/**` and `lib/**/domain/**` (`check_coverage.py`) |
 | `task-gate` | `pytest tools/ci/tests`, `tasks.py verify --all-done --run` | independent-verification gate: every `done` task keeps tagged tests, report, PASS rows |
-| `android` | `build_android.sh`, `check_recording_policy.sh --require-merged-manifest` | debug dev-flavor APK (Gradle builds `libvv_native.so` with the pinned NDK; `check_apk_native.sh` asserts it is in the APK), uploaded as `android-dev-debug-apk` |
+| `android` | `build_android.sh`, `check_recording_policy.sh --require-merged-manifest` | debug dev-flavor APK (Gradle builds `libvv_native.so` with the pinned NDK; `check_apk_native.sh` asserts it is in the APK and that no other ABI is packaged — the app's `ndk { abiFilters.clear(); … }` must replace the Flutter Gradle plugin's armeabi-v7a/arm64-v8a/x86_64 default, `+=` alone keeps all three), uploaded as `android-dev-debug-apk` |
 | `ios` | `build_ios.sh` | `native/build.sh ios` first (xcframework), then the unsigned dev-flavor build, uploaded as `ios-dev-unsigned-app` |
 | `native-host` | `native_host.sh` | `native/build.sh host` (ctest: smoke + exports) and the Dart FFI test against the built library, ccache keyed on the submodule pins |
 
