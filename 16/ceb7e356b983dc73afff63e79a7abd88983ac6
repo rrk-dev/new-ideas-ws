@@ -1,0 +1,37 @@
+native/bridge/vv_llama.h
+  s_9f6fcf8c1840a0::t_03b0bafda2aa5a 194-201,209-212,238
+native/bridge/vv_llama_engine.cpp
+  s_9f6fcf8c1840a0::t_03b0bafda2aa5a 35-39,181-182,186-207,210,214-222,256,258,263,314,355-357
+  s_9f6fcf8c1840a0::t_1c2106de711e59 358-360
+packages/vv_native/lib/src/llm_engine.dart
+  s_9f6fcf8c1840a0::t_8e8709056d19a5 27,69-73,84,94-95,276-284,286,308
+  s_9f6fcf8c1840a0::t_486b8f02a300de 97-98
+  s_9f6fcf8c1840a0::t_29ab118304f35a 96
+native/tests/llm_prefix_test.c
+  s_9f6fcf8c1840a0::t_e98ac1ef9ef50d 1-150,154-237,244-251
+  s_9f6fcf8c1840a0::t_1b1f1a648dcffc 151-153,238-243
+packages/vv_native/lib/src/vv_bindings.g.dart
+  s_9f6fcf8c1840a0::t_b05835cfc849fb 653-670,674,1221-1230
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_eb5ca77c7b8b0b 235-239
+native/bridge/vv_exports.txt
+  s_9f6fcf8c1840a0::t_d9b76933fdcccf 38
+native/bridge/vv_exports.map
+  s_9f6fcf8c1840a0::t_0865b03d080c18 40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "16ceb7e356b983dc73afff63e79a7abd88983ac6",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
