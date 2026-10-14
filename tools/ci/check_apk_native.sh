@@ -10,6 +10,8 @@ listing="$(unzip -l "$apk")"
 grep -q 'lib/arm64-v8a/libvv_native\.so' <<<"$listing" || {
   echo "FAIL: $apk does not contain lib/arm64-v8a/libvv_native.so" >&2; exit 1; }
 if grep -qE 'lib/(armeabi-v7a|x86|x86_64)/' <<<"$listing"; then
-  echo "FAIL: $apk contains non-arm64 native libs" >&2; exit 1
+  echo "FAIL: $apk contains non-arm64 native libs:" >&2
+  grep -E 'lib/(armeabi-v7a|x86|x86_64)/' <<<"$listing" | awk '{print "  " $NF}' >&2
+  exit 1
 fi
 grep 'libvv_native\.so' <<<"$listing"
