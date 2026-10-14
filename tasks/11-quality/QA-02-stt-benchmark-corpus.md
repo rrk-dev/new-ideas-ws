@@ -1,7 +1,7 @@
 # QA-02 — STT Benchmark Corpus & WER Harness
 
 **Workstream:** Quality | **Phase:** 2 | **Size:** M | **Depends on:** STT-03 | **Source:** §5 Phase 2 (benchmark transcription) + Gap
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-benchmark-eval, vv-whisper-stt
 
 ## Goal
