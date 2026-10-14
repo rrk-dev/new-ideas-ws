@@ -1,0 +1,79 @@
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/MainActivity.kt
+  s_9f6fcf8c1840a0::t_8842a6806e8ddf 8,42-43
+app/ios/Runner/AppDelegate.swift
+  s_9f6fcf8c1840a0::t_8842a6806e8ddf 38-41
+app/lib/features/app_lock/presentation/app_lock_gate.dart
+  s_9f6fcf8c1840a0::t_a2d897d1052383 3,92,123,152,154
+  s_9f6fcf8c1840a0::t_d42605c6dba8d9 54-56
+  s_9f6fcf8c1840a0::t_c55ed4373e0fec 1-2,4-53,57-91,93-122,124-151,153,155-168
+app/lib/features/app_lock/presentation/app_lock_providers.dart
+  s_9f6fcf8c1840a0::t_d42605c6dba8d9 56
+  s_9f6fcf8c1840a0::t_dffcb91c0d8375 37-38
+  s_9f6fcf8c1840a0::t_22f8d39f43e716 1-36,39-55,57-89
+  s_9f6fcf8c1840a0::t_db671b5a7a5fd4 90
+app/lib/features/app_lock/data/platform_app_lock.dart
+  s_9f6fcf8c1840a0::t_5cce077b109746 4-11,13,15-16,20-25,29,37
+  s_9f6fcf8c1840a0::t_8d590ebcd3a87a 1-3,12,14,17-19,26-28,30-36,38-57
+app/test/widget/processing_status_test.dart
+  s_9f6fcf8c1840a0::t_9417c8fe225414 23,25,36-37
+app/lib/features/app_lock/presentation/app_lock_providers.g.dart
+  s_9f6fcf8c1840a0::t_45080d1fbf1e2f 58-142
+  s_9f6fcf8c1840a0::t_e6101729ac9cb3 1-57,143-164
+app/test/widget/accessibility_test.dart
+  s_9f6fcf8c1840a0::t_708943819fb9c0 16-18,34-46,60-62,92,94,156-189
+  s_9f6fcf8c1840a0::t_923010d9adb34c 190
+docs/test-plans/device/SEC-03.md
+  s_9f6fcf8c1840a0::t_fdea8608aa2b6d 1-18
+app/android/app/src/main/AndroidManifest.xml
+  s_9f6fcf8c1840a0::t_8842a6806e8ddf 16-17
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_16724c22a1df14 643-671
+app/test/unit/app_lock/app_lock_test.dart
+  s_9f6fcf8c1840a0::t_9417c8fe225414 30-34,97
+  s_9f6fcf8c1840a0::t_84e9fa3338f913 1-29,35-96,98-187
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_9f6fcf8c1840a0::t_8842a6806e8ddf 19,66,148,318
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/security/AppLockPlugin.kt
+  s_9f6fcf8c1840a0::t_06b6e49d8ce8c5 3,115
+  s_9f6fcf8c1840a0::t_86f382661d866d 1-2,4-114,116-185
+app/lib/features/app_lock/domain/app_lock.dart
+  s_9f6fcf8c1840a0::t_fb79c903c655ee 1-83
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_a2d897d1052383 217-225
+app/ios/Runner/AppLockPlugin.swift
+  s_9f6fcf8c1840a0::t_f7b3fd594e2426 1-38,40-82,84-120
+  s_9f6fcf8c1840a0::t_d435ff1735e9cf 39,83
+app/ios/Runner/Info.plist
+  s_9f6fcf8c1840a0::t_8842a6806e8ddf 31-32
+app/test/widget/app_lock_gate_test.dart
+  s_9f6fcf8c1840a0::t_228f664385deb3 167
+  s_9f6fcf8c1840a0::t_4b84cf5f223324 98,202
+  s_9f6fcf8c1840a0::t_5698f49c7a9152 1-97,99-166,168-201,203-204
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_16724c22a1df14 1123-1170
+docs/adr/ADR-SEC-03-app-lock.md
+  s_9f6fcf8c1840a0::t_bbaafd144f6113 1-60,62-97
+  s_9f6fcf8c1840a0::t_294fdeb93f696f 61
+app/lib/app.dart
+  s_9f6fcf8c1840a0::t_b2b3b4222e09a0 8,30-35
+docs/privacy-audit.md
+  s_9f6fcf8c1840a0::t_8cc86a2c3e04e1 117
+tasks/10-security-privacy/SEC-03-app-lock-biometrics.md
+  s_9f6fcf8c1840a0::t_1e41136aa1e690 4,11-14,18-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9ddfd2730b567513a4c821ae2853dc048be64f00",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
