@@ -1,7 +1,7 @@
 # AUD-09 — macOS Microphone Capture
 
 **Workstream:** Audio | **Phase:** 1 | **Size:** M | **Depends on:** AUD-01, SEC-09, FND-09 | **Source:** User decision 2026-10-14
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-audio-capture, vv-flutter-architecture, vv-testing
 
 ## Goal
