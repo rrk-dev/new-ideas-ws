@@ -4,6 +4,7 @@ import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/features/pipeline/data/job_mapper.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_providers.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/transcription/data/just_audio_transcript_player.dart';
@@ -168,8 +169,9 @@ Future<TranscriptPlayback> transcriptPlayback(
   return playback;
 }
 
-/// Edits and re-extraction for the transcript screen.
-@riverpod
+/// Edits and re-extraction for the transcript screen. Kept alive: commands
+/// outlive the widget that started them (a dialog closes mid-write).
+@Riverpod(keepAlive: true)
 TranscriptEditor transcriptEditor(Ref ref, String recordingId) =>
     TranscriptEditor(ref, recordingId);
 
@@ -208,7 +210,11 @@ class TranscriptEditor {
   /// Re-runs extraction (and everything after it) on the edited transcript
   /// via the pipeline (`rerun(fromStep: extract)`); STT does not run again.
   Future<Result<void>> reExtract() async {
-    final jobs = await _ref.read(recordingJobsProvider(recordingId).future);
+    final rows = await _ref
+        .read(jobsRepositoryProvider)
+        .watchForRecording(recordingId)
+        .first;
+    final jobs = [for (final r in rows) jobFromRow(r)];
     if (jobs.isEmpty) {
       return const Err(UnsupportedFeatureFailure('re-extract without a job'));
     }

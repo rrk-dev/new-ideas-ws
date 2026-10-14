@@ -16,8 +16,13 @@ import 'package:vaultvoice/core/theme/app_theme.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
+import 'package:vaultvoice/features/transcription/domain/playback_timeline.dart';
+import 'package:vaultvoice/features/transcription/domain/transcript_player.dart';
+import 'package:vaultvoice/features/transcription/domain/transcript_view.dart';
+import 'package:vaultvoice/features/transcription/presentation/transcript_providers.dart';
 
 import '../fakes/fake_settings_store.dart';
+import '../fakes/fake_transcript_player.dart';
 import '../helpers/processing_fixtures.dart';
 
 class _Managed implements ManagedSettingsSource {
@@ -39,9 +44,45 @@ const _screens = {
   'Vault folders': '/settings/vault-folders',
   'Routing rules': '/settings/routing-rules',
   'Models': '/settings/models',
+  'Transcript': '/library/recordings/rec-a/transcript',
 };
 
+/// STT-06 transcript with a speaker, a low-confidence word and a marker.
+const _transcript = TranscriptViewData(
+  transcriptId: 't1',
+  edited: false,
+  segments: [
+    TranscriptSegmentView(
+      id: 1,
+      seq: 0,
+      startMs: 0,
+      endMs: 4000,
+      text: 'Ask Jon about the budget review',
+      speaker: 'Speaker 1',
+      tokens: [SegmentToken(text: ' Jon', p: 0.2)],
+    ),
+    TranscriptSegmentView(
+      id: 2,
+      seq: 1,
+      startMs: 5000,
+      endMs: 9000,
+      text: 'Notes go out on Friday',
+      originalText: 'Notes go out on Fryday',
+    ),
+  ],
+  markers: [TranscriptMarkerView(id: 1, atMs: 4500, label: 'Decision')],
+);
+
 List<Override> _overrides() => [
+  transcriptViewProvider('rec-a').overrideWith((ref) async => _transcript),
+  transcriptPlaybackProvider('rec-a').overrideWith(
+    (ref) async => TranscriptPlayback(
+      FakeTranscriptPlayer(),
+      PlaybackTimeline(const [
+        PlaybackChunk(path: '/c0', startMs: 0, pcmBytes: 10000 * 32),
+      ]),
+    ),
+  ),
   flavorProvider.overrideWithValue(Flavor.prod),
   processingViewsProvider.overrideWith((ref) async => sampleQueue()),
   // Hermetic: no platform storage dir (path_provider) behind the

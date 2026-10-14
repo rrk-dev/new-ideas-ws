@@ -414,7 +414,7 @@ final class TranscriptViewProvider
   }
 }
 
-String _$transcriptViewHash() => r'519fb77135a304b2d31763bb974a7ef8f0f68da3';
+String _$transcriptViewHash() => r'87b3a5946515ec0a4410461bd866da6435fe251c';
 
 /// The newest transcript of [recordingId] with its segments, speaker names
 /// and user markers; null before the first transcription.
@@ -556,7 +556,7 @@ final class TranscriptPlaybackProvider
 }
 
 String _$transcriptPlaybackHash() =>
-    r'e5fd68796e85f63bbb7a6cac4978286e3b367ed0';
+    r'5ecad91cc1fcea45c4e7d775aae04b80f38f6aa6';
 
 /// Playback of [recordingId]'s chunks; disposed with the screen.
 
@@ -580,12 +580,14 @@ final class TranscriptPlaybackFamily extends $Family
   String toString() => r'transcriptPlaybackProvider';
 }
 
-/// Edits and re-extraction for the transcript screen.
+/// Edits and re-extraction for the transcript screen. Kept alive: commands
+/// outlive the widget that started them (a dialog closes mid-write).
 
 @ProviderFor(transcriptEditor)
 final transcriptEditorProvider = TranscriptEditorFamily._();
 
-/// Edits and re-extraction for the transcript screen.
+/// Edits and re-extraction for the transcript screen. Kept alive: commands
+/// outlive the widget that started them (a dialog closes mid-write).
 
 final class TranscriptEditorProvider
     extends
@@ -595,14 +597,15 @@ final class TranscriptEditorProvider
           TranscriptEditor
         >
     with $Provider<TranscriptEditor> {
-  /// Edits and re-extraction for the transcript screen.
+  /// Edits and re-extraction for the transcript screen. Kept alive: commands
+  /// outlive the widget that started them (a dialog closes mid-write).
   TranscriptEditorProvider._({
     required TranscriptEditorFamily super.from,
     required String super.argument,
   }) : super(
          retry: null,
          name: r'transcriptEditorProvider',
-         isAutoDispose: true,
+         isAutoDispose: false,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -647,9 +650,10 @@ final class TranscriptEditorProvider
   }
 }
 
-String _$transcriptEditorHash() => r'817f846cecf08f46bbcb78fd8a4441095c3edef7';
+String _$transcriptEditorHash() => r'ff0625cb08b29a8598070dc812177659f868b671';
 
-/// Edits and re-extraction for the transcript screen.
+/// Edits and re-extraction for the transcript screen. Kept alive: commands
+/// outlive the widget that started them (a dialog closes mid-write).
 
 final class TranscriptEditorFamily extends $Family
     with $FunctionalFamilyOverride<TranscriptEditor, String> {
@@ -659,10 +663,11 @@ final class TranscriptEditorFamily extends $Family
         name: r'transcriptEditorProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: true,
+        isAutoDispose: false,
       );
 
-  /// Edits and re-extraction for the transcript screen.
+  /// Edits and re-extraction for the transcript screen. Kept alive: commands
+  /// outlive the widget that started them (a dialog closes mid-write).
 
   TranscriptEditorProvider call(String recordingId) =>
       TranscriptEditorProvider._(argument: recordingId, from: this);
