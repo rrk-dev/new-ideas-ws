@@ -42,6 +42,7 @@ class _ProcessingServicesHostState extends ConsumerState<ProcessingServicesHost>
   /// Sends [action] to the worker only if it is already running: lifecycle
   /// events never start the pipeline.
   void _toWorker(Future<void> Function(PipelineConditions worker) action) {
+    if (!ref.exists(pipelineClientProvider)) return;
     final Object? client = ref.read(pipelineClientProvider).value;
     if (client is PipelineConditions) {
       unawaited(action(client).catchError((Object _) {}));

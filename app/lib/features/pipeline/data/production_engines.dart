@@ -87,7 +87,9 @@ final class ProductionEngineSpec {
 
   /// Runs inside the worker isolate.
   PipelineEngines build(PipelineWorkerContext context) {
-    if (rootIsolateToken case final token?) {
+    // Only a background isolate needs (and may set up) the messenger.
+    if (rootIsolateToken case final token?
+        when RootIsolateToken.instance == null) {
       BackgroundIsolateBinaryMessenger.ensureInitialized(token);
     }
     final db = context.db;

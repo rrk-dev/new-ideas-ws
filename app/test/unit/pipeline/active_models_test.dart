@@ -6,8 +6,8 @@ import 'package:vaultvoice/features/licensing/domain/feature_matrix.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
 import 'package:vaultvoice/features/pipeline/domain/active_models.dart';
 
-const _gib = 1024 * 1024 * 1024;
-final _now = DateTime.utc(2026, 10, 14);
+const int _gib = 1024 * 1024 * 1024;
+final DateTime _now = DateTime.utc(2026, 10, 14);
 
 FeatureAccess _free() => FeatureAccess.resolve(
   Entitlement.free(_now),
@@ -185,7 +185,11 @@ void main() {
       expect(ActiveModelSelection.fromJson(s.toJson()), s);
       expect(ActiveModelSelection.fromJson(null), const ActiveModelSelection());
       expect(
-        ActiveModelSelection.fromJson({'stt': 3, 'llm': '', 'llm_context': 1}),
+        ActiveModelSelection.fromJson(const {
+          'stt': 3,
+          'llm': '',
+          'llm_context': 1,
+        }),
         const ActiveModelSelection(),
       );
       expect(s.idOf(EngineModelKind.stt), 'a');
