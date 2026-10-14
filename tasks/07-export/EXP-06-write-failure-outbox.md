@@ -1,7 +1,7 @@
 # EXP-06 — Write Failure Handling & Export Outbox
 
 **Workstream:** Export | **Phase:** 3 | **Size:** S | **Depends on:** EXP-05, FND-05 | **Source:** Gap
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-markdown-vault-export, vv-pipeline-orchestrator, vv-local-database, vv-flutter-architecture, vv-testing
 
 ## Goal
