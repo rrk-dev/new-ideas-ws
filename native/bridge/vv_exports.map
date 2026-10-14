@@ -36,6 +36,7 @@
     vv_llm_cancel;
     vv_llm_destroy;
     vv_json_schema_to_gbnf;
+    vv_device_memory;
   local:
     *;
 };

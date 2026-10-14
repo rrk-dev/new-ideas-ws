@@ -16,8 +16,12 @@
 #include <vector>
 
 #if defined(__APPLE__)
+#include <TargetConditionals.h>
 #include <mach/mach.h>
 #include <sys/sysctl.h>
+#if TARGET_OS_IOS
+#include <os/proc.h>  // os_proc_available_memory (iOS 13+)
+#endif
 #endif
 
 #include "ggml-backend.h"
@@ -332,6 +336,40 @@ int32_t vv_proc_memory(uint64_t* current_bytes, uint64_t* peak_bytes) {
   if (current_bytes) *current_bytes = current_mem_bytes();
   if (peak_bytes) *peak_bytes = peak_mem_bytes();
   return VV_OK;
+}
+
+int32_t vv_device_memory(uint64_t* total_bytes, uint64_t* available_bytes) {
+  if (!total_bytes && !available_bytes) return VV_E_INVALID_ARG;
+  uint64_t total = 0, avail = 0;
+#if defined(__APPLE__)
+  size_t len = sizeof total;
+  sysctlbyname("hw.memsize", &total, &len, nullptr, 0);
+#if TARGET_OS_IOS
+  avail = (uint64_t)os_proc_available_memory();
+#else
+  vm_statistics64_data_t vm;
+  mach_msg_type_number_t n = HOST_VM_INFO64_COUNT;
+  vm_size_t page = 0;
+  host_page_size(mach_host_self(), &page);
+  if (host_statistics64(mach_host_self(), HOST_VM_INFO64, (host_info64_t)&vm, &n) == KERN_SUCCESS) {
+    avail = ((uint64_t)vm.free_count + vm.inactive_count + vm.purgeable_count) * page;
+  }
+#endif
+#else
+  FILE* f = fopen("/proc/meminfo", "r");
+  if (f) {
+    char line[256];
+    unsigned long long kb;
+    while (fgets(line, sizeof line, f)) {
+      if (sscanf(line, "MemTotal: %llu kB", &kb) == 1) total = (uint64_t)kb * 1024;
+      if (sscanf(line, "MemAvailable: %llu kB", &kb) == 1) avail = (uint64_t)kb * 1024;
+    }
+    fclose(f);
+  }
+#endif
+  if (total_bytes) *total_bytes = total;
+  if (available_bytes) *available_bytes = avail;
+  return total > 0 ? VV_OK : VV_E_INTERNAL;
 }
 
 int32_t vv_cpu_features(int32_t* runtime, int32_t* build) {

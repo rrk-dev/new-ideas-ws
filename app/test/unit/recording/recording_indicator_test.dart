@@ -287,20 +287,14 @@ void main() {
       final recording = services.singleWhere(
         (s) => s.contains('android:name=".RecordingService"'),
       );
-      expect(
-        recording,
-        contains('android:foregroundServiceType="microphone"'),
-      );
+      expect(recording, contains('android:foregroundServiceType="microphone"'));
       expect(recording, contains('android:exported="false"'));
       final download = services.singleWhere(
         (s) => s.contains('android:name=".modeldownload.ModelDownloadService"'),
       );
       expect(download, contains('android:foregroundServiceType="dataSync"'));
       expect(download, contains('android:exported="false"'));
-      expect(
-        services.where((s) => s.contains('"microphone"')),
-        hasLength(1),
-      );
+      expect(services.where((s) => s.contains('"microphone"')), hasLength(1));
       for (final p in [
         'RECORD_AUDIO',
         'FOREGROUND_SERVICE',

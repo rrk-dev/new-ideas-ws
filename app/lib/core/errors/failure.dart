@@ -84,6 +84,15 @@ final class VaultFileExistsFailure extends Failure {
   const VaultFileExistsFailure() : super('vault file exists');
 }
 
+/// The feature is not available in this build yet (its implementation is
+/// supplied by a later task, e.g. "Delete all data" by SEC-04).
+final class UnsupportedFeatureFailure extends Failure {
+  const UnsupportedFeatureFailure(this.feature)
+    : super('unsupported: $feature');
+
+  final String feature;
+}
+
 /// A bug or an unclassified exception caught at a boundary.
 final class UnexpectedFailure extends Failure {
   const UnexpectedFailure(this.errorType) : super('unexpected: $errorType');
