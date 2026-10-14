@@ -1,0 +1,30 @@
+tasks/02-audio/AUD-02-auto-gain-level-metering.md
+  s_9f6fcf8c1840a0::t_6ed9ecfc03472a 11-15,22-37,39-45
+  s_9f6fcf8c1840a0::t_497a9f24fea797 38
+  s_9f6fcf8c1840a0::t_a3b5a21a4e6345 46
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_2d7e891f0051e4 461
+app/test/unit/recording/agc_level_meter_test.dart
+  s_9f6fcf8c1840a0::t_9b955e159d10d6 50-51,239-249,257-260
+  s_9f6fcf8c1840a0::t_87e6b1d9d2ca96 147,349
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_2d7e891f0051e4 838
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_2d7e891f0051e4 164
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ab60855f2f6c836a42f870d9ff438abe459083e9",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
