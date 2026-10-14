@@ -1,0 +1,43 @@
+tools/bench/eval/scoring.py
+  s_9f6fcf8c1840a0::t_6109a3aaadc586 1-266
+tools/bench/eval/engineering/scoring.json
+  s_9f6fcf8c1840a0::t_c80c366ef6f166 1-33
+tools/bench/eval/synth.py
+  s_9f6fcf8c1840a0::t_d020625de3a8a6 1-202
+tools/bench/eval/meeting/scoring.json
+  s_9f6fcf8c1840a0::t_c80c366ef6f166 1-31
+tools/bench/eval/warranty/scoring.json
+  s_9f6fcf8c1840a0::t_c80c366ef6f166 1-27
+tools/ci/tests/test_eval_harness.py
+  s_9f6fcf8c1840a0::t_b040c3eb0406c2 1-125
+Makefile
+  s_9f6fcf8c1840a0::t_beeb2e354a25ed 1-28
+tools/bench/eval/README.md
+  s_9f6fcf8c1840a0::t_af1f1cfa179075 1-85
+tools/bench/eval/run.py
+  s_9f6fcf8c1840a0::t_a7f3e27982f7d5 292-293
+  s_9f6fcf8c1840a0::t_7ee5aba2002346 1-138,140-146,148-210,212-214,219-222,232-288,290-291,294-301
+  s_9f6fcf8c1840a0::t_0afedd70ca82fb 139
+  s_9f6fcf8c1840a0::t_c26450d63c58c0 211,215-218
+  s_9f6fcf8c1840a0::t_74afddd0805047 147
+  s_9f6fcf8c1840a0::t_ef4f482ec36da7 223-231
+  s_9f6fcf8c1840a0::t_1c73e1da96aeb0 289
+tools/ci/eval.sh
+  s_9f6fcf8c1840a0::t_c80b136dbd7072 1-70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "55c5b3f295d27ced7c7bb290a626f26d04d6c9a0",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
