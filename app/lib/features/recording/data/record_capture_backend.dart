@@ -14,6 +14,7 @@ import 'package:vaultvoice/core/platform/audio_recorder.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/id_generator.dart';
 import 'package:vaultvoice/features/recording/data/recording_chunk_writer.dart';
+import 'package:vaultvoice/features/recording/data/silence_watcher.dart';
 import 'package:vaultvoice/features/recording/data/wav_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_format.dart';
@@ -37,7 +38,7 @@ import 'package:vaultvoice/features/recording/domain/storage_policy.dart';
 ///   [close] marks it `recorded`.
 /// * Free space: refuse to start below the [StoragePolicy] minimum, warn,
 ///   and raise [CaptureNotice.lowStorageStop] below the stop threshold.
-class RecordCaptureBackend implements CaptureBackend {
+class RecordCaptureBackend implements CaptureBackend, LivePcmSource {
   RecordCaptureBackend({
     required this._mic,
     required RecordingsRepository recordings,
@@ -83,6 +84,7 @@ class RecordCaptureBackend implements CaptureBackend {
 
   MicRequest _request;
   final _notices = StreamController<CaptureNotice>.broadcast();
+  final _pcm = StreamController<Uint8List>.broadcast();
 
   _Session? _session;
   bool _accepting = false;
@@ -123,6 +125,12 @@ class RecordCaptureBackend implements CaptureBackend {
 
   @override
   Stream<CaptureNotice> get notices => _notices.stream;
+
+  /// Contract-format (16 kHz mono PCM16) blocks as they are written, for
+  /// live analysis (AUD-03 silence VAD). Only emits while listened to;
+  /// listeners can never influence capture.
+  @override
+  Stream<Uint8List> get pcm => _pcm.stream;
 
   @override
   Future<Result<void>> openMicrophone() async {
@@ -297,6 +305,7 @@ class RecordCaptureBackend implements CaptureBackend {
     _stopTimers();
     await _closeMic();
     await _notices.close();
+    await _pcm.close();
   }
 
   // --- internals ------------------------------------------------------------
@@ -360,6 +369,7 @@ class RecordCaptureBackend implements CaptureBackend {
 
   void _append(_Session session, Uint8List pcm) {
     if (pcm.isEmpty) return;
+    if (_pcm.hasListener && _accepting) _pcm.add(pcm);
     unawaited(
       _serial(() => session.writer.append(pcm)).then((r) {
         if (r case Err() when _accepting) {

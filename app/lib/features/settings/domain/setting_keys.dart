@@ -20,6 +20,10 @@ abstract final class SettingKeys {
   static const audioNoiseSuppression = 'audio.noise_suppression';
   static const audioAutoPause = 'audio.auto_pause_on_silence';
 
+  /// `off` | `minutes_5` | `minutes_10` | `minutes_30`: stop a recording
+  /// after this much continuous silence (AUD-03; needs the VAD model).
+  static const audioSilenceAutoStop = 'audio.silence_auto_stop';
+
   /// Audio retention policy (SEC-04 applies it).
   static const audioRetention = 'audio.retention';
 
@@ -27,6 +31,10 @@ abstract final class SettingKeys {
   static const processingAutoProcess = 'processing.auto_process';
   static const processingChargeOnly = 'processing.charge_only';
   static const processingDiarization = 'processing.diarization_default';
+
+  /// bool, default `true`: skip silence before transcription with the VAD
+  /// model when installed (AUD-03).
+  static const processingSkipSilence = 'processing.skip_silence';
 
   // Export (EXP-02 / EXP-05).
   static const exportFilenamePattern = 'export.filename_pattern';

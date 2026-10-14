@@ -15,6 +15,11 @@ import 'package:vaultvoice/features/models/domain/catalog_verifier.dart';
 const kPinnedCatalogKeysBase64 = <String, String>{
   // key_id c6ced0f07343ec41
   'vv-catalog-dev-2026a': 'l5vmi7GbOkg3ut65n8IlF/W2N2+eGgTkGb1R8bDdTKk=',
+  // key_id 6efb7566801e04e1 — second development key (AUD-03 re-signed the
+  // bundled catalog to add the VAD model; 2026a's private half was not
+  // available). Same status as 2026a: replaced by the production key in
+  // MDL-05.
+  'vv-catalog-dev-2026b': 'V+MDMHYNLoQ2OmdSyGpOE9AhQKild7hW1ld86wdCDjI=',
 };
 
 /// [kPinnedCatalogKeysBase64] as verifier keys.

@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "issued_at": "2026-10-12T00:00:00Z",
+  "issued_at": "2026-10-14T22:57:49Z",
   "min_app_version": "1.0.0",
   "models": [
     {
@@ -48,6 +48,30 @@
       "urls": [
         "https://models.vaultvoice.example/llm/qwen2.5-0.5b-instruct-q4_k_m.gguf",
         "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/9217f5db79a29953eb74d5343926648285ec7e67/qwen2.5-0.5b-instruct-q4_k_m.gguf"
+      ],
+      "companions": []
+    },
+    {
+      "id": "silero-vad-v6.2.0",
+      "type": "vad",
+      "version": "1",
+      "display_name": "Voice detection (Silero VAD v6.2.0)",
+      "tier": "free",
+      "file": "ggml-silero-v6.2.0.bin",
+      "size": 885098,
+      "sha256": "2aa269b785eeb53a82983a20501ddf7c1d9c48e33ab63a41391ac6c9f7fb6987",
+      "min_ram_mb": 1024,
+      "recommended_device_tiers": [
+        "low",
+        "mid",
+        "high"
+      ],
+      "license": "MIT",
+      "license_url": "https://github.com/snakers4/silero-vad/blob/master/LICENSE",
+      "attribution": "Silero VAD by Silero Team (MIT), ggml conversion by ggml-org",
+      "urls": [
+        "https://models.vaultvoice.example/vad/ggml-silero-v6.2.0.bin",
+        "https://huggingface.co/ggml-org/whisper-vad/resolve/9ffd54a1e1ee413ddf265af9913beaf518d1639b/ggml-silero-v6.2.0.bin"
       ],
       "companions": []
     }

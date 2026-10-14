@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/widgets/placeholder_screen.dart';
+import 'package:vaultvoice/features/recording/data/recording_providers.dart';
 import 'package:vaultvoice/features/recording/presentation/battery_guidance.dart';
 import 'package:vaultvoice/features/recording/presentation/call_guard_debug_screen.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_debug_screen.dart';
@@ -18,8 +19,11 @@ class RecordScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDev = ref.watch(flavorProvider).isDev;
-    // Keeps the OS recording indicator (notification) in sync (AUD-05).
-    ref.watch(recordingIndicatorBindingProvider);
+    ref
+      // Keeps the OS recording indicator (notification) in sync (AUD-05).
+      ..watch(recordingIndicatorBindingProvider)
+      // Auto-pause / auto-stop after silence (AUD-03): pause/stop only.
+      ..watch(silenceWatcherProvider);
     // The launch screen: offers recordings recovered after a crash (AUD-07)
     // and OEM battery-saver guidance (AUD-05).
     return RecoveredRecordingsPrompt(

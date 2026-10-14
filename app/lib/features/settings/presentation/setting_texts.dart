@@ -18,6 +18,8 @@ abstract final class SettingTexts {
     SettingKeys.audioAgc => l.settingAgc,
     SettingKeys.audioNoiseSuppression => l.settingNoiseSuppression,
     SettingKeys.audioAutoPause => l.settingAutoPause,
+    SettingKeys.audioSilenceAutoStop => l.settingSilenceAutoStop,
+    SettingKeys.processingSkipSilence => l.settingSkipSilence,
     SettingKeys.audioRetention => l.settingAudioRetention,
     SettingKeys.processingAutoProcess => l.settingAutoProcess,
     SettingKeys.processingChargeOnly => l.settingChargeOnly,
@@ -35,6 +37,8 @@ abstract final class SettingTexts {
   static String? description(AppLocalizations l, String key) => switch (key) {
     SettingKeys.audioAgc => l.settingAgcDescription,
     SettingKeys.audioAutoPause => l.settingAutoPauseDescription,
+    SettingKeys.audioSilenceAutoStop => l.settingSilenceAutoStopDescription,
+    SettingKeys.processingSkipSilence => l.settingSkipSilenceDescription,
     SettingKeys.processingAutoProcess => l.settingAutoProcessDescription,
     SettingKeys.processingChargeOnly => l.settingChargeOnlyDescription,
     SettingKeys.processingDiarization => l.settingDiarizationDescription,
@@ -62,6 +66,9 @@ abstract final class SettingTexts {
     'minutes_1' => l.optionMinutes(1),
     'minutes_5' => l.optionMinutes(5),
     'minutes_15' => l.optionMinutes(15),
+    'minutes_10' => l.optionMinutes(10),
+    'minutes_30' => l.optionMinutes(30),
+    'off' => l.optionOff,
     _ => option,
   };
 

@@ -1,13 +1,16 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/widgets.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
+import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
 import 'package:vaultvoice/core/platform/call_guard.dart';
 import 'package:vaultvoice/core/platform/id_generator.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_providers.dart';
+import 'package:vaultvoice/features/recording/data/ffi_live_vad.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_audio_session_monitor.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_call_guard.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_disk_space_probe.dart';
@@ -15,6 +18,7 @@ import 'package:vaultvoice/features/recording/data/method_channel_recording_indi
 import 'package:vaultvoice/features/recording/data/record_capture_backend.dart';
 import 'package:vaultvoice/features/recording/data/record_mic_source.dart';
 import 'package:vaultvoice/features/recording/data/recording_recovery.dart';
+import 'package:vaultvoice/features/recording/data/silence_watcher.dart';
 import 'package:vaultvoice/features/recording/data/wav_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_format.dart';
@@ -23,7 +27,10 @@ import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
 import 'package:vaultvoice/features/recording/domain/pcm_mic_source.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
 import 'package:vaultvoice/features/recording/domain/recording_indicator.dart';
+import 'package:vaultvoice/features/recording/domain/silence_monitor.dart';
 import 'package:vaultvoice/features/recording/domain/storage_policy.dart';
+import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
+import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 
 part 'recording_providers.g.dart';
 
@@ -130,6 +137,67 @@ RecordingIndicator recordingIndicator(Ref ref) =>
 @riverpod
 Future<BatteryStatus?> batteryStatus(Ref ref) =>
     ref.watch(platformRecordingIndicatorProvider).batteryStatus();
+
+/// Path of the installed VAD model (AUD-03; MDL catalog type `vad`), or
+/// null when none is installed.
+@riverpod
+Future<String?> installedVadModelPath(Ref ref) async {
+  final paths = await ref.watch(storagePathsProvider.future);
+  final models = await ref
+      .watch(modelsRepositoryProvider)
+      .watchAll(type: ModelType.vad)
+      .first;
+  for (final m in models) {
+    try {
+      final path = paths.resolve(m.path);
+      if (File(path).existsSync()) return path;
+    } on Object {
+      continue; // corrupt row (absolute / escaping path)
+    }
+  }
+  return null;
+}
+
+/// Auto-pause / auto-stop after silence (AUD-03). Watching it (Record tab)
+/// attaches it to the controller; it can only pause or stop (SEC-09).
+@Riverpod(keepAlive: true)
+SilenceWatcher silenceWatcher(Ref ref) {
+  final capture = ref.watch(captureBackendProvider);
+  final watcher = SilenceWatcher(
+    controller: ref.watch(recordingControllerProvider),
+    pcm: capture is LivePcmSource ? capture as LivePcmSource : const _NoPcm(),
+    policy: () async {
+      final managed = await ref
+          .read(managedSettingsSourceProvider)
+          .watch()
+          .first;
+      final store = ref.read(settingsStoreProvider);
+      Future<Object> read(SettingDef<Object> def) async => def.decode(
+        managed.values.containsKey(def.key)
+            ? managed.values[def.key]
+            : await store.watch(def.key).first,
+      );
+      return SilencePolicy.fromSettings(
+        autoPause: await read(AppSettings.autoPauseOnSilence) as bool,
+        autoStop: await read(AppSettings.silenceAutoStop) as String,
+      );
+    },
+    openVad: () async {
+      final path = await ref.read(installedVadModelPathProvider.future);
+      return path == null ? null : await FfiLiveVad.open(path);
+    },
+    logger: ref.watch(loggerProvider),
+  )..attach();
+  ref.onDispose(watcher.dispose);
+  return watcher;
+}
+
+class _NoPcm implements LivePcmSource {
+  const _NoPcm();
+
+  @override
+  Stream<Uint8List> get pcm => const Stream.empty();
+}
 
 /// The single recording entry point (SEC-09).
 @Riverpod(keepAlive: true)

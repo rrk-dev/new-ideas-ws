@@ -16,8 +16,9 @@ Tests: `python3 -m pytest tools/model-catalog/tests -q` (CI job `task-gate`).
 - Pin: put the base64 public key in `app/lib/features/models/domain/catalog_keys.dart`
   (max two keys). Rotation: ship an app with old + new key → sign with the new key → drop the
   old key in a later release.
-- The committed bundled catalog is signed with the **development** key `vv-catalog-dev-2026a`
-  (key_id `c6ced0f07343ec41`). Its private half is not in the repo; if you need to re-sign and
+- The committed bundled catalog is signed with the **development** key `vv-catalog-dev-2026b`
+  (key_id `6efb7566801e04e1`, added by AUD-03 to publish the VAD model; `vv-catalog-dev-2026a`,
+  key_id `c6ced0f07343ec41`, stays pinned so catalogs it signed still verify). Its private half is not in the repo; if you need to re-sign and
   do not have it, generate a new dev key and replace the pinned key + re-sign (pre-release only).
   The production key is an owner decision (ADR-MDL-01 → Open).
 

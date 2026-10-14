@@ -44,6 +44,27 @@
       ],
       "companions": [],
       "_provenance": "2026-10-12: size and sha256 = HF LFS metadata (api/models/Qwen/Qwen2.5-0.5B-Instruct-GGUF/tree/<rev>, lfs.oid is the SHA-256 of the file). Local re-hash by download was blocked by the network proxy; re-verify with `catalog.py hash` (follow-up in MDL-01)."
+    },
+    {
+      "id": "silero-vad-v6.2.0",
+      "type": "vad",
+      "version": "1",
+      "display_name": "Voice detection (Silero VAD v6.2.0)",
+      "tier": "free",
+      "file": "ggml-silero-v6.2.0.bin",
+      "size": 885098,
+      "sha256": "2aa269b785eeb53a82983a20501ddf7c1d9c48e33ab63a41391ac6c9f7fb6987",
+      "min_ram_mb": 1024,
+      "recommended_device_tiers": ["low", "mid", "high"],
+      "license": "MIT",
+      "license_url": "https://github.com/snakers4/silero-vad/blob/master/LICENSE",
+      "attribution": "Silero VAD by Silero Team (MIT), ggml conversion by ggml-org",
+      "urls": [
+        "https://models.vaultvoice.example/vad/ggml-silero-v6.2.0.bin",
+        "https://huggingface.co/ggml-org/whisper-vad/resolve/9ffd54a1e1ee413ddf265af9913beaf518d1639b/ggml-silero-v6.2.0.bin"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (AUD-03): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS oid (api/models/ggml-org/whisper-vad/tree/9ffd54a)."
     }
   ]
 }

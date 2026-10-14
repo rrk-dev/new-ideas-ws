@@ -835,8 +835,38 @@ abstract class AppLocalizations {
   /// No description provided for @settingAutoPauseDescription.
   ///
   /// In en, this message translates to:
-  /// **'Pauses capture during long silences.'**
+  /// **'Pauses after 2 minutes of silence. Tap Resume to continue. Needs the voice detection model.'**
   String get settingAutoPauseDescription;
+
+  /// No description provided for @settingSilenceAutoStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop after silence'**
+  String get settingSilenceAutoStop;
+
+  /// No description provided for @settingSilenceAutoStopDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Ends the recording after this much silence. Needs the voice detection model.'**
+  String get settingSilenceAutoStopDescription;
+
+  /// No description provided for @settingSkipSilence.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip silence'**
+  String get settingSkipSilence;
+
+  /// No description provided for @settingSkipSilenceDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcribes only the parts with speech: faster, and no text invented in silence.'**
+  String get settingSkipSilenceDescription;
+
+  /// No description provided for @optionOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get optionOff;
 
   /// No description provided for @settingAudioRetention.
   ///

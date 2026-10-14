@@ -33,11 +33,13 @@ class SettingsScreen extends ConsumerWidget {
           const SettingTile(AppSettings.agc),
           const SettingTile(AppSettings.noiseSuppression),
           const SettingTile(AppSettings.autoPauseOnSilence),
+          const SettingTile(AppSettings.silenceAutoStop),
           const SettingTile(AppSettings.audioRetention),
           header(SettingSection.processing),
           const SettingTile(AppSettings.autoProcess),
           const SettingTile(AppSettings.chargeOnly),
           const SettingTile(AppSettings.diarizationDefault),
+          const SettingTile(AppSettings.skipSilence),
           ListTile(
             key: const ValueKey('link-models'),
             leading: const Icon(Icons.memory),
