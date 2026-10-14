@@ -1,7 +1,7 @@
 # STT-06 — Transcript Viewer & Editor
 
 **Workstream:** STT | **Phase:** 2–3 | **Size:** M | **Depends on:** STT-03, FND-04 | **Source:** Gap (users must correct STT errors before extraction)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-whisper-stt, vv-flutter-architecture, vv-local-database, vv-pipeline-orchestrator, vv-testing
 
 ## Goal
@@ -47,7 +47,7 @@ Users can review, play back and correct transcripts before (re)running extractio
 - **Acceptance evidence:**
   - AC1: ✅ test: [STT-06/AC1]
   - AC2: ✅ test: [STT-06/AC2]
-  - AC3: ✅ test: [STT-06/AC3]; ⏳ device: docs/test-plans/device/STT-06.md
+  - AC3: ⏳ test: [STT-06/AC3]; device: docs/test-plans/device/STT-06.md
 - **Decisions:** none (just_audio is the player the `vv-whisper-stt` skill prescribes; dependency
   review in `docs/privacy-audit.md`).
 - **Follow-ups:** STT-08 (see below).
