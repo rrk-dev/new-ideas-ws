@@ -1,0 +1,56 @@
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_5959316951b3c2 744-976
+app/lib/features/profiles/presentation/profile_editor_screen.dart
+  s_9f6fcf8c1840a0::t_746467072441d7 213-214,607-609,651
+  s_9f6fcf8c1840a0::t_b9e0c8be68991a 184,323-326,474-476,488-489,621-622
+  s_9f6fcf8c1840a0::t_ef1245b38b9bba 1-183,185-212,215-322,327-473,477-487,490-606,610-620,623-650,652-706
+app/test/widget/profile_editor_test.dart
+  s_9f6fcf8c1840a0::t_62ab9f6aa4d4c6 1-194
+app/lib/features/profiles/domain/profile_draft.dart
+  s_9f6fcf8c1840a0::t_7b7839e6721df7 31-32
+  s_9f6fcf8c1840a0::t_746467072441d7 488,526
+  s_9f6fcf8c1840a0::t_fe73e7b970ffa9 62-111,237-261,461,484-486
+  s_9f6fcf8c1840a0::t_b9e0c8be68991a 287-289,553-554
+  s_9f6fcf8c1840a0::t_3d9a77ca23d8ab 262
+  s_9f6fcf8c1840a0::t_e086d4b37e4c9c 487
+app/lib/features/profiles/data/custom_profile_providers.dart
+  s_9f6fcf8c1840a0::t_2542e2d8f04f1c 73-81,91-92
+  s_9f6fcf8c1840a0::t_746467072441d7 99
+app/lib/features/profiles/data/custom_profile_providers.g.dart
+  s_9f6fcf8c1840a0::t_2542e2d8f04f1c 1-395
+app/lib/core/routing/app_routes.g.dart
+  s_9f6fcf8c1840a0::t_5959316951b3c2 50-61,205-235,237-238,240-241,243-245,247-249
+  s_9f6fcf8c1840a0::t_0eb62bc2460fd8 236,239,242,246,250
+app/lib/core/routing/app_routes.dart
+  s_9f6fcf8c1840a0::t_5959316951b3c2 10,35-43,147-165
+  s_9f6fcf8c1840a0::t_b19533f721a507 166
+app/lib/features/profiles/data/custom_profile_service.dart
+  s_9f6fcf8c1840a0::t_e8e76bd050a61c 288-299
+  s_9f6fcf8c1840a0::t_fe73e7b970ffa9 193-195,201
+  s_9f6fcf8c1840a0::t_2542e2d8f04f1c 300-312
+  s_9f6fcf8c1840a0::t_746467072441d7 147,188
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_5959316951b3c2 1308-1727
+app/test/db/repositories/custom_profile_service_test.dart
+  s_9f6fcf8c1840a0::t_fe73e7b970ffa9 50
+  s_9f6fcf8c1840a0::t_7b7839e6721df7 207
+  s_9f6fcf8c1840a0::t_ef1245b38b9bba 1-24,26-49,51-206,208-232,237-305,307-322
+  s_9f6fcf8c1840a0::t_746467072441d7 25
+  s_9f6fcf8c1840a0::t_b9e0c8be68991a 233-236,306
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2db0e305e4f6fd5ddb4467ff170f00f1c6ff7101",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
