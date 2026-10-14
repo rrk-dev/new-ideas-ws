@@ -1,0 +1,45 @@
+packages/vv_native/lib/src/vv_bindings.g.dart
+  s_9f6fcf8c1840a0::t_07950859a68b2f 327-471,1189-1234
+  s_9f6fcf8c1840a0::t_cc57c24feb37a0 1052-1070,1494
+  s_9f6fcf8c1840a0::t_752d2009f15f8d 1235,1495
+native/bridge/vv_whisper.h
+  s_9f6fcf8c1840a0::t_bb4a60ea4d53c5 65-74,77-78
+  s_9f6fcf8c1840a0::t_dbc450f14f3971 79
+native/bridge/vv_vad.h
+  s_9f6fcf8c1840a0::t_1e5ffeb0e31a12 1-95
+native/tests/vad_test.cpp
+  s_9f6fcf8c1840a0::t_f47b2d7b47df13 1-320
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_38f7ae0d25b52d 162
+  s_9f6fcf8c1840a0::t_2c1616dcebb757 263-272
+native/bridge/vv_exports.txt
+  s_9f6fcf8c1840a0::t_38f7ae0d25b52d 13-19
+native/bridge/vv_whisper.cpp
+  s_9f6fcf8c1840a0::t_bb4a60ea4d53c5 68,117-120,214-224,265,286-291,340-344
+packages/vv_native/ffigen.yaml
+  s_9f6fcf8c1840a0::t_07950859a68b2f 12
+native/bridge/vv_vad.cpp
+  s_9f6fcf8c1840a0::t_2e1c12fef55a3d 1-229
+native/bridge/vv_bridge.h
+  s_9f6fcf8c1840a0::t_38f7ae0d25b52d 77-79
+native/bridge/vv_exports.map
+  s_9f6fcf8c1840a0::t_ac05a6fc7f48dd 15-21
+tools/ci/test-models.lock
+  s_9f6fcf8c1840a0::t_3e5eeed8b09edf 13-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "166887671c16cbd1adfafa4600cc20117ccda975",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
