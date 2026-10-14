@@ -1,0 +1,33 @@
+app/test/fakes/oracle_llm_engine.dart
+  s_9f6fcf8c1840a0::t_cca9935cd24a1c 1-19,21-33,35-119
+  s_9f6fcf8c1840a0::t_58f216a52bbf6a 20,34
+app/test/unit/pipeline/long_transcript_pipeline_test.dart
+  s_9f6fcf8c1840a0::t_db6635d494ba58 208-220,225-230
+  s_9f6fcf8c1840a0::t_b7dd5a7af3efd8 221-224
+  s_9f6fcf8c1840a0::t_72a4deb10d3ebc 1-207,231
+app/test/unit/extraction/llm_service_test.dart
+  s_9f6fcf8c1840a0::t_2d2191869b00c9 31-55
+app/test/unit/extraction/long_transcript_test.dart
+  s_9f6fcf8c1840a0::t_58f216a52bbf6a 1-2,16,18-19,252-256,320-323,457-474,476-480,482-510,526-534,616-622,625-628,643-658,683-685,688,697-702
+  s_9f6fcf8c1840a0::t_832c2877d0c4da 3-15,17,20-110,117-251,257-319,324-456,475,481,511-525,535,537-615,623-624,629-642,659-663,665-682,686-687,689-696,703-741
+  s_9f6fcf8c1840a0::t_a123d6b52e3252 111-116,536,664
+app/test/helpers/synthetic_transcript.dart
+  s_9f6fcf8c1840a0::t_e7b2744fc1744d 1-7,12-164
+  s_9f6fcf8c1840a0::t_58f216a52bbf6a 8-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8009122402ced3929e8cb1e36753d9802d571b88",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
