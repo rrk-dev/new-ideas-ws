@@ -114,6 +114,18 @@ class VvNative {
   /// Performance CPU cores (thread count default for llama.cpp/whisper.cpp).
   int get perfCores => _b.vv_cpu_perf_cores();
 
+  /// False when this build's ggml CPU kernels need features (dotprod/i8mm)
+  /// the CPU lacks: never start whisper/llama then (SIGILL), ADR-LLM-03.
+  bool get cpuSupported => _b.vv_cpu_supported() == 1;
+
+  /// `(runtime, build)` `VV_CPU_FEATURE_*` bit sets (diagnostics).
+  (int, int) get cpuFeatures => using((arena) {
+    final rt = arena<Int32>();
+    final b = arena<Int32>();
+    _b.vv_cpu_features(rt, b);
+    return (rt.value, b.value);
+  });
+
   /// GPU devices ggml registered: `(index, name, description)`, e.g.
   /// `(0, 'MTL0', 'Apple A17 Pro GPU')`. Diagnostics/allowlisting only.
   List<(int, String, String)> gpuDevices() => listGpuDevices(_b);

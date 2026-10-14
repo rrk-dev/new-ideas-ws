@@ -21,3 +21,5 @@ _vv_cpu_perf_cores
 _vv_llm_gpu_device_count
 _vv_llm_gpu_device_info
 _vv_llm_bench
+_vv_cpu_features
+_vv_cpu_supported

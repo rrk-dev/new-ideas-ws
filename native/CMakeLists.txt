@@ -64,6 +64,20 @@ if(ANDROID AND VV_ANDROID_CPU_ARCH)
   set(GGML_CPU_ARM_ARCH "${VV_ANDROID_CPU_ARCH}")
 endif()
 
+# Optional Android GPU backends (LLM-03, ADR-LLM-03). Off by default: every
+# device runs the CPU backend until a GPU family passes the device rows and is
+# added to the Dart allowlist (kAndroidGpuAllowlist). The bridge never fails
+# when a backend finds no usable device — it falls back to CPU.
+#  - Vulkan: needs glslc (NDK shader-tools) + Vulkan-Headers matching the pin.
+#  - OpenCL (Adreno): needs Khronos OpenCL headers in the NDK sysroot and an
+#    NDK-built libOpenCL.so ICD loader (llama.cpp docs/backend/OPENCL.md).
+option(VV_ANDROID_VULKAN "Android: build the ggml Vulkan backend" OFF)
+option(VV_ANDROID_OPENCL "Android: build the ggml OpenCL (Adreno) backend" OFF)
+if(ANDROID)
+  set(GGML_VULKAN ${VV_ANDROID_VULKAN})
+  set(GGML_OPENCL ${VV_ANDROID_OPENCL})
+endif()
+
 # The single ggml. Both projects skip their own copy when a `ggml` target
 # exists (`if (NOT TARGET ggml ...)` in llama.cpp/CMakeLists.txt:220 and
 # whisper.cpp/CMakeLists.txt:160). Their ggml trees are identical at the pins.
@@ -121,7 +135,7 @@ add_subdirectory(whisper.cpp whisper)
 
 add_library(vv_native SHARED bridge/vv_bridge.cpp)
 # LLM bridge (LLM-02/LLM-03): backend selection, GPU discovery, benchmark.
-target_sources(vv_native PRIVATE bridge/vv_llama.cpp)
+target_sources(vv_native PRIVATE bridge/vv_llama.cpp bridge/vv_cpu.c)
 target_include_directories(vv_native PUBLIC bridge)
 target_link_libraries(vv_native PRIVATE whisper llama ggml)
 target_compile_definitions(vv_native PRIVATE VV_BUILDING_LIBRARY=1)
@@ -184,6 +198,11 @@ if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
   target_link_libraries(vv_llm_backend_test PRIVATE vv_native)
   add_test(NAME vv_llm_backend COMMAND vv_llm_backend_test)
   set_tests_properties(vv_llm_backend PROPERTIES SKIP_RETURN_CODE 77)
+  # [LLM-03] big.LITTLE perf-core detection (fake sysfs) + CPU feature guard.
+  add_executable(vv_cpu_test tests/cpu_test.c bridge/vv_cpu.c)
+  target_include_directories(vv_cpu_test PRIVATE bridge)
+  target_link_libraries(vv_cpu_test PRIVATE vv_native)
+  add_test(NAME vv_cpu COMMAND vv_cpu_test ${CMAKE_CURRENT_BINARY_DIR}/cpu_test_sysfs)
   add_test(NAME vv_exports
     COMMAND ${CMAKE_COMMAND} -DLIB=$<TARGET_FILE:vv_native>
             -P ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_exports.cmake)

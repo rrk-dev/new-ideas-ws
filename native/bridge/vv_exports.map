@@ -23,6 +23,8 @@
     vv_llm_gpu_device_count;
     vv_llm_gpu_device_info;
     vv_llm_bench;
+    vv_cpu_features;
+    vv_cpu_supported;
   local:
     *;
 };
