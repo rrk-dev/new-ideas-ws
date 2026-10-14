@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
+import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/core/widgets/status_message.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_progress.dart';
@@ -54,7 +55,16 @@ class RecordingStatusScreen extends ConsumerWidget {
           }
           return ListView(
             padding: const EdgeInsets.all(AppSpacing.md),
-            children: [ConnectedProcessingStatusCard(view: view)],
+            children: [
+              ConnectedProcessingStatusCard(view: view),
+              // STT-06: review/correct the transcript once there is one.
+              ListTile(
+                leading: const Icon(Icons.notes_outlined),
+                title: Text(context.l10n.transcriptOpen),
+                onTap: () =>
+                    TranscriptRoute(recordingId: recordingId).go(context),
+              ),
+            ],
           );
         },
       ),

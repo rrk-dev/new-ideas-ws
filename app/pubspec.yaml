@@ -24,6 +24,7 @@ dependencies:
   http: ^1.6.0
   # Version pinned by flutter_localizations (APP-06).
   intl: 0.20.3
+  just_audio: 0.10.6
   mustache_template: 2.0.5
   path: 1.9.1
   path_provider: 2.1.6

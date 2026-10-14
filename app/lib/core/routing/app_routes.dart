@@ -11,6 +11,7 @@ import 'package:vaultvoice/features/profiles/presentation/profiles_screen.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/vault_settings_screens.dart';
+import 'package:vaultvoice/features/transcription/presentation/transcript_screen.dart';
 
 part 'app_routes.g.dart';
 
@@ -25,7 +26,10 @@ part 'app_routes.g.dart';
           path: '/library',
           routes: [
             TypedGoRoute<ProcessingQueueRoute>(path: 'processing'),
-            TypedGoRoute<RecordingStatusRoute>(path: 'recordings/:recordingId'),
+            TypedGoRoute<RecordingStatusRoute>(
+              path: 'recordings/:recordingId',
+              routes: [TypedGoRoute<TranscriptRoute>(path: 'transcript')],
+            ),
           ],
         ),
       ],
@@ -125,6 +129,17 @@ class RecordingStatusRoute extends GoRouteData with $RecordingStatusRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       RecordingStatusScreen(recordingId: recordingId);
+}
+
+/// Transcript viewer & editor of one recording (STT-06).
+class TranscriptRoute extends GoRouteData with $TranscriptRoute {
+  const TranscriptRoute({required this.recordingId});
+
+  final String recordingId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      TranscriptScreen(recordingId: recordingId);
 }
 
 class ProfilesRoute extends GoRouteData with $ProfilesRoute {
