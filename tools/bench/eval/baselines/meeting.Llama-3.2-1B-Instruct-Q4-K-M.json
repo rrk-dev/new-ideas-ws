@@ -7,72 +7,72 @@
   "model_sha256": "6f85a640a97cf2bf5b8e764087b1e83da0fdb51d7c9fab7d0fece9385611df83",
   "n_ctx": 4096,
   "max_tokens": 1024,
-  "commit": "863fde7",
+  "commit": "279469c",
   "llama": "d81235049",
   "profile_version": 1
  },
  "perf": {
-  "wall_s": 81.60187987500103,
-  "peak_rss": 1281392640,
-  "prefill_tps": 3285.8019159931664,
-  "decode_tps": 80.2352211009136,
-  "latency_med_s": 1.943,
-  "latency_max_s": 8.013,
-  "prompt_tokens_med": 755,
-  "prompt_tokens_max": 974
+  "wall_s": 74.37224641600915,
+  "peak_rss": 1206796288,
+  "prefill_tps": 3627.2362019109314,
+  "decode_tps": 92.79322816135596,
+  "latency_med_s": 1.7315,
+  "latency_max_s": 10.891,
+  "prompt_tokens_med": 784,
+  "prompt_tokens_max": 1003
  },
  "aggregate": {
   "cases": 30,
-  "schema_valid": 1.0,
+  "schema_valid": 0.9666666666666667,
   "scalars": {},
   "lists": {
    "attendees": {
-    "precision": 0.9864864864864865,
-    "recall": 1.0,
-    "f1": 0.9931972789115647,
-    "tp": 73,
+    "precision": 1.0,
+    "recall": 0.9041095890410958,
+    "f1": 0.949640287769784,
+    "tp": 66,
     "expected": 73,
-    "predicted": 74
+    "predicted": 66
    },
    "decisions": {
-    "precision": 0.08633093525179857,
-    "recall": 0.75,
-    "f1": 0.15483870967741936,
-    "tp": 12,
+    "precision": 0.12941176470588237,
+    "recall": 0.6875,
+    "f1": 0.21782178217821782,
+    "tp": 11,
     "expected": 16,
-    "predicted": 139
+    "predicted": 85
    },
    "action_items": {
-    "precision": 0.5217391304347826,
-    "recall": 0.5714285714285714,
-    "f1": 0.5454545454545454,
-    "tp": 24,
+    "precision": 0.5945945945945946,
+    "recall": 0.5238095238095238,
+    "f1": 0.5569620253164557,
+    "tp": 22,
     "expected": 42,
-    "predicted": 46,
-    "owner_accuracy": 0.6666666666666666,
-    "due_accuracy": 0.7083333333333334
+    "predicted": 37,
+    "owner_accuracy": 0.5454545454545454,
+    "due_accuracy": 0.7727272727272727
    },
    "open_questions": {
-    "precision": 0.05555555555555555,
-    "recall": 0.7,
-    "f1": 0.10294117647058822,
-    "tp": 7,
+    "precision": 0.05357142857142857,
+    "recall": 0.6,
+    "f1": 0.0983606557377049,
+    "tp": 6,
     "expected": 10,
-    "predicted": 126
+    "predicted": 112
    },
    "topics": {
-    "precision": 0.2830188679245283,
-    "recall": 0.7142857142857143,
-    "f1": 0.4054054054054054,
-    "tp": 30,
+    "precision": 0.3176470588235294,
+    "recall": 0.6428571428571429,
+    "f1": 0.42519685039370075,
+    "tp": 27,
     "expected": 42,
-    "predicted": 106
+    "predicted": 85
    }
   },
   "prose": {
-   "title": 0.7742737263525286,
-   "summary": 0.8051187927083061
+   "title": 0.7509421279546964,
+   "summary": 0.7653229771452027
   },
-  "hallucination_rate": 0.07331975560081466
+  "hallucination_rate": 0.05454545454545454
  }
 }

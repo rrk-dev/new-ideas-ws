@@ -36,14 +36,19 @@ A repeatable, offline eval that scores prompts/models per profile so changes are
 - **Baselines (M3 Pro, macOS; n_ctx 4096, max_tokens 1024; full set, 1 run each — deterministic):**
   | Profile | Model | Valid | Key metric | Hallucination | Wall |
   |---|---|---|---|---|---|
-  | meeting | SmolLM2-135M Q8_0 (CPU) | 100 % | action items P 7 % / R 5 % | 45 % | 734 s |
-  | meeting | Llama-3.2-1B Q4_K_M (Metal) | 100 % | action items P 52 % / R 57 %, attendees F1 99 % | 7 % | 82 s |
-  | warranty | SmolLM2-135M | 100 % | field accuracy 38 %, serial exact 3 % | 41 % | 213 s |
-  | warranty | Llama-3.2-1B | 100 % | field accuracy 72 %, serial exact 13 % | 9 % | 37 s |
-  | engineering | SmolLM2-135M | 100 % | TODO recall 19 %, trade-offs recall 25 % | 44 % | 89 s |
-  | engineering | Llama-3.2-1B | 97 % | TODO recall 50 %, trade-offs recall 66 % | 14 % | 176 s |
-  Neither model meets the PRF-03/04/05 targets yet — that is PRF-03/04/05/LLM-08 work (prompt tuning, 3B-class models); the
-  1B over-extracts decisions/open questions (precision < 10 %) and fills placeholders ("unknown", "N/A") for missing serials.
+  | meeting | SmolLM2-135M Q8_0 (CPU) | 100 % | action items P 3 % / R 2 % | 34 % | 117 s |
+  | meeting | Llama-3.2-1B Q4_K_M (Metal) | 97 % | action items P 59 % / R 52 %, owner 66 %, attendees F1 95 % | 5 % | 74 s |
+  | warranty | SmolLM2-135M | 100 % | field accuracy 39 %, serial exact 3 % | 39 % | 52 s |
+  | warranty | Llama-3.2-1B | 100 % | field accuracy 71 %, serial exact 17 % | 8 % | 35 s |
+  | engineering | SmolLM2-135M | 100 % | TODO recall 9 %, trade-offs recall 22 % | 50 % | 92 s |
+  | engineering | Llama-3.2-1B | 93 % | TODO recall 34 %, trade-offs recall 72 % | 19 % | 184 s |
+  Prompt = PRF-02 incl. the compact-JSON guidance (11912d6). The first baseline run before that change (same cases) had
+  Llama meeting valid 100 % / action items P 52 % R 57 %, engineering valid 97 % / TODO R 50 % — the change is not a clear
+  win and is exactly what PRF-03/05 should tune with `--gate`. Every invalid output (meeting-006, engineering-012/013) hit
+  the 1024-token cap through runaway lists (decisions / open questions up to `maxItems`), not whitespace: lower `maxItems`
+  or raise `n_predict` (PRF-03/05, LLM-05). Neither model meets the PRF-03/04/05 targets yet (PRF-03/04/05/LLM-08 work:
+  prompt tuning, 3B-class models); the 1B over-extracts decisions/open questions (precision < 15 %) and fills placeholders
+  ("unknown", "N/A") for missing serials.
 - **Acceptance evidence:**
   - AC1: ✅ test: [PRF-09/AC1]; artifact: Makefile; artifact: tools/ci/eval.sh; artifact: tools/bench/eval/README.md
   - AC2: ✅ test: [PRF-09/AC2]; artifact: tools/bench/eval/baselines/; artifact: tools/bench/results/2026-10-14-eval-meeting-SmolLM2-135M-Instruct-Q8-0.md
