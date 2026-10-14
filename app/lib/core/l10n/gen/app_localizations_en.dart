@@ -458,7 +458,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingSoftwareAgcDescription =>
-      'Use VaultVoices own gain control instead of the phones. Used automatically when the phone has none.';
+      'Use VaultVoice’s own gain control instead of the phone’s. Used automatically when the phone has none.';
 
   @override
   String get settingRawCapture => 'Raw capture';

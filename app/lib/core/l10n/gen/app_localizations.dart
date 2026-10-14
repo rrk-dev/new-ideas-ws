@@ -835,7 +835,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingSoftwareAgcDescription.
   ///
   /// In en, this message translates to:
-  /// **'Use VaultVoice\'s own gain control instead of the phone\'s. Used automatically when the phone has none.'**
+  /// **'Use VaultVoice’s own gain control instead of the phone’s. Used automatically when the phone has none.'**
   String get settingSoftwareAgcDescription;
 
   /// No description provided for @settingRawCapture.

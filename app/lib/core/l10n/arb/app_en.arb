@@ -161,7 +161,7 @@
   "settingAgcDescription": "Evens out quiet and loud voices.",
   "settingNoiseSuppression": "Noise suppression",
   "settingSoftwareAgc": "App gain control",
-  "settingSoftwareAgcDescription": "Use VaultVoice's own gain control instead of the phone's. Used automatically when the phone has none.",
+  "settingSoftwareAgcDescription": "Use VaultVoice’s own gain control instead of the phone’s. Used automatically when the phone has none.",
   "settingRawCapture": "Raw capture",
   "settingRawCaptureDescription": "Turns off all audio processing. For external microphones and testing.",
   "clippingHint": "Too loud — move the phone further away.",

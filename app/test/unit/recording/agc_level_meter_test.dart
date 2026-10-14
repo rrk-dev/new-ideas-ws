@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math' as math;
-import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -48,8 +47,8 @@ double rmsDb(Uint8List pcm) {
   return linearToDb(math.sqrt(sum / s.length) / 32767);
 }
 
-/// Runs [seconds] of [gen] through [agc] in 20 ms blocks; returns the last
-/// block's output.
+/// Runs [seconds] of a [dbfs] tone through [agc] in 20 ms blocks; returns
+/// the last block's output.
 Uint8List run(SoftwareAgc agc, double seconds, double dbfs) {
   const block = 320;
   final blocks = (seconds * 16000 / block).round();
@@ -145,13 +144,7 @@ void main() {
         (on.autoGain, on.noiseSuppress, on.echoCancel, on.softwareAgc),
         (true, true, false, false),
       );
-      final off = resolveAudioProcessing(
-        const AudioProcessingSettings(
-          platformAgc: false,
-          noiseSuppression: false,
-        ),
-        android,
-      );
+      final off = resolveAudioProcessing(AudioProcessingSettings.none, android);
       expect(
         (off.autoGain, off.noiseSuppress, off.echoCancel, off.softwareAgc),
         (false, false, false, false),
@@ -243,13 +236,17 @@ void main() {
       () async {
         TestWidgetsFlutterBinding.ensureInitialized();
         const channel = MethodChannel('test/audio_effects');
-        final messenger =
-            TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
-        messenger.setMockMethodCallHandler(channel, (call) async {
-          expect(call.method, 'audioEffects');
-          return {'agc': false, 'noiseSuppression': true};
-        });
-        addTearDown(() => messenger.setMockMethodCallHandler(channel, null));
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+            .setMockMethodCallHandler(channel, (call) async {
+              expect(call.method, 'audioEffects');
+              return {'agc': false, 'noiseSuppression': true};
+            });
+        addTearDown(
+          () => TestDefaultBinaryMessengerBinding
+              .instance
+              .defaultBinaryMessenger
+              .setMockMethodCallHandler(channel, null),
+        );
         final e = await const PlatformAudioEffectsProbe(
           channel: channel,
           isIOS: false,
@@ -257,9 +254,10 @@ void main() {
         ).probe();
         expect((e.agc, e.noiseSuppression), (false, true));
 
-        messenger.setMockMethodCallHandler(channel, (_) async {
-          throw PlatformException(code: 'x');
-        });
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+            .setMockMethodCallHandler(channel, (_) async {
+              throw PlatformException(code: 'x');
+            });
         final failed = await const PlatformAudioEffectsProbe(
           channel: channel,
           isIOS: false,
@@ -348,7 +346,7 @@ void main() {
       final rig = CaptureRig(
         processing: () async => resolveAudioProcessing(settings, effects),
       );
-      final quiet = (int i) => (300 * math.sin(i / 3)).round();
+      int quiet(int i) => (300 * math.sin(i / 3)).round();
 
       await rig.controller.start(StartSource.inAppButton);
       final first = rig.mic.requests.last;
