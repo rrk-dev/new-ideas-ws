@@ -1,0 +1,27 @@
+app/test/unit/pipeline/pipeline_orchestrator_test.dart
+  s_9f6fcf8c1840a0::t_77999917cf4561 72-79,135-136,141-144,221,293-296
+  s_9f6fcf8c1840a0::t_ecf93ab6504eb1 298-300,303
+app/test/unit/pipeline/active_models_test.dart
+  s_9f6fcf8c1840a0::t_42adfb6f3ada42 1-197
+  s_9f6fcf8c1840a0::t_d29cf5ee13e39b 198-204
+app/test/unit/pipeline/pipeline_isolate_test.dart
+  s_9f6fcf8c1840a0::t_f50db14abd2c9c 22,92
+app/test/native/production_pipeline_host_test.dart
+  s_9f6fcf8c1840a0::t_c0736a8da91cc4 1-243
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "224f63cd2ba8cdf5ce9e32b2280f8a5753c53b91",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
