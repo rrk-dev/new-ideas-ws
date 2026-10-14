@@ -191,12 +191,24 @@ typedef struct vv_gen_params {
    * sampled token and mask the full vocabulary only when it is rejected.
    * VV_LLM_GRAMMAR_FULL: mask every candidate every step (reference). */
   int32_t grammar_mode;
+  /* LLM-06 KV prefix reuse: 1 = keep the KV cache entries of the longest
+   * token prefix this prompt shares with the previous run on this handle
+   * (llama_memory_seq_rm from that position) and prefill only the rest;
+   * 0 (default) = clear the KV cache first. Falls back to a full clear when
+   * the memory cannot drop a partial sequence (recurrent models) or has
+   * pruned early positions (SWA caches). Map-reduce chunks share the system
+   * prompt + instructions prefix. */
+  int32_t reuse_prefix;
 } vv_gen_params;
 
 #define VV_LLM_GRAMMAR_LAZY 0
 #define VV_LLM_GRAMMAR_FULL 1
 
 VV_API vv_gen_params vv_llm_default_gen_params(void);
+
+/* LLM-06: prompt tokens the last generation on `h` took from the KV cache
+ * instead of prefilling (0 without reuse_prefix). Call after on_done. */
+VV_API int32_t vv_llm_last_reused_tokens(vv_llm* h, int32_t* out);
 
 /* Text callback: `text` is malloc'd UTF-8 (whole code points only); the
  * receiver owns it and must call vv_free_string. Called on the engine's
@@ -223,7 +235,7 @@ typedef struct vv_llm_callbacks {
 /* Starts generation of `prompt` (already chat-templated) on a native
  * worker thread and returns immediately: VV_OK, VV_E_BUSY,
  * VV_E_INVALID_ARG (bad args / grammar does not parse). The KV cache is
- * cleared first. */
+ * cleared first unless params->reuse_prefix is set. */
 VV_API int32_t vv_llm_generate_async(vv_llm* h, const char* prompt, const vv_gen_params* params,
                                      vv_llm_callbacks callbacks);
 

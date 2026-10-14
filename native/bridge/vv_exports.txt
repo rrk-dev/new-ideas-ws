@@ -35,4 +35,5 @@ _vv_llm_cancel
 _vv_llm_destroy
 _vv_json_schema_to_gbnf
 _vv_device_memory
+_vv_llm_last_reused_tokens
 _vv_crash_*

@@ -650,10 +650,28 @@ class VvBindings {
   late final _vv_llm_default_gen_params = _vv_llm_default_gen_paramsPtr
       .asFunction<vv_gen_params Function()>();
 
+  /// LLM-06: prompt tokens the last generation on `h` took from the KV cache
+  /// instead of prefilling (0 without reuse_prefix). Call after on_done.
+  int vv_llm_last_reused_tokens(
+    ffi.Pointer<vv_llm> h,
+    ffi.Pointer<ffi.Int32> out,
+  ) {
+    return _vv_llm_last_reused_tokens(h, out);
+  }
+
+  late final _vv_llm_last_reused_tokensPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Pointer<vv_llm>, ffi.Pointer<ffi.Int32>)
+        >
+      >('vv_llm_last_reused_tokens');
+  late final _vv_llm_last_reused_tokens = _vv_llm_last_reused_tokensPtr
+      .asFunction<int Function(ffi.Pointer<vv_llm>, ffi.Pointer<ffi.Int32>)>();
+
   /// Starts generation of `prompt` (already chat-templated) on a native
   /// worker thread and returns immediately: VV_OK, VV_E_BUSY,
   /// VV_E_INVALID_ARG (bad args / grammar does not parse). The KV cache is
-  /// cleared first.
+  /// cleared first unless params->reuse_prefix is set.
   int vv_llm_generate_async(
     ffi.Pointer<vv_llm> h,
     ffi.Pointer<ffi.Char> prompt,
@@ -1200,6 +1218,16 @@ final class vv_gen_params extends ffi.Struct {
   /// VV_LLM_GRAMMAR_FULL: mask every candidate every step (reference).
   @ffi.Int32()
   external int grammar_mode;
+
+  /// LLM-06 KV prefix reuse: 1 = keep the KV cache entries of the longest
+  /// token prefix this prompt shares with the previous run on this handle
+  /// (llama_memory_seq_rm from that position) and prefill only the rest;
+  /// 0 (default) = clear the KV cache first. Falls back to a full clear when
+  /// the memory cannot drop a partial sequence (recurrent models) or has
+  /// pruned early positions (SWA caches). Map-reduce chunks share the system
+  /// prompt + instructions prefix.
+  @ffi.Int32()
+  external int reuse_prefix;
 }
 
 typedef vv_llm_text_cbFunction = ffi.Void Function(
