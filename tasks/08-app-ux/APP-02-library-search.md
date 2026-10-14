@@ -1,7 +1,7 @@
 # APP-02 — Recording Library & Local Full-Text Search
 
 **Workstream:** App UX | **Phase:** 3 | **Size:** M | **Depends on:** FND-04, STT-03 | **Source:** Gap (§4.1 mentions indexing metadata & task status but no UI)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-local-database, vv-whisper-stt, vv-pipeline-orchestrator, vv-markdown-vault-export, vv-testing
 
 ## Goal
