@@ -1,7 +1,7 @@
 # EXP-07 — Template Editor with Live Preview (Pro)
 
 **Workstream:** Export | **Phase:** 3 | **Size:** M | **Depends on:** EXP-01, LIC-01 | **Source:** §7 (Custom Markdown template engine — Pro)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-markdown-vault-export, vv-flutter-architecture, vv-licensing-iap, vv-extraction-profiles, vv-testing
 
 ## Goal
