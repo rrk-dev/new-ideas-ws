@@ -1,0 +1,19 @@
+tasks/07-export/EXP-06-write-failure-outbox.md
+  s_44fc6cbac239c5::t_9897e3fce6bd36 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e19cd5a2c5c259ba7c701df9cce579492cf55119",
+  "prompts": {},
+  "sessions": {
+    "s_44fc6cbac239c5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a0cae818862c32443",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
