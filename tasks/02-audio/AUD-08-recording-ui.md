@@ -1,7 +1,7 @@
 # AUD-08 — Recording Screen UI
 
 **Workstream:** Audio | **Phase:** 1 | **Size:** M | **Depends on:** AUD-01, AUD-02, SEC-09 | **Source:** §3 (UX)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-audio-capture, vv-flutter-architecture, vv-testing, vv-extraction-profiles, vv-markdown-vault-export
 
 ## Goal
