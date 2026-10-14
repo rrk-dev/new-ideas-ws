@@ -200,7 +200,7 @@ final class LibraryResultsProvider
   }
 }
 
-String _$libraryResultsHash() => r'5a2462c3fb597e2d15425ac6f7c507cceb08d4d2';
+String _$libraryResultsHash() => r'28df505b042374ffe3ae9eea5a86745cef4e8b93';
 
 /// Profile names by id (built-in + user), for list subtitles and filters.
 
