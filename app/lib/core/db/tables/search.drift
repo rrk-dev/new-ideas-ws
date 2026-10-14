@@ -1,8 +1,12 @@
--- APP-02 full-text search (vv-local-database → FTS5). One row per
--- (recording, kind): kind = 'title' (title + tags), 'transcript' (all segment
--- text of the recording) or 'extraction' (every string value of the newest
--- extraction). Kept in sync by the triggers below — the single place that
--- writes the index, whichever isolate or feature changes the source rows.
+-- APP-02 full-text search (vv-local-database → FTS5). Rows:
+--   kind 'title'      one per recording: title + tags (auto rowid)
+--   kind 'transcript' one per transcript segment, rowid = -segment id, so a
+--                     segment change touches exactly one row (no rebuild of
+--                     the whole transcript — O(1) per segment written)
+--   kind 'extraction' one per recording: every string value of its newest
+--                     extraction (auto rowid)
+-- Kept in sync by the triggers below — the single place that writes the
+-- index, whichever isolate or feature changes the source rows.
 import 'recording_tables.dart';
 import 'transcript_tables.dart';
 import 'extraction_tables.dart';
@@ -35,49 +39,23 @@ CREATE TRIGGER search_recording_delete AFTER DELETE ON recordings BEGIN
   DELETE FROM search_index WHERE recording_id = old.id;
 END;
 
--- Transcript text: rebuilt for the recording whenever a segment changes.
+-- Transcript segments: one row each.
 CREATE TRIGGER search_segment_insert AFTER INSERT ON transcript_segments BEGIN
-  DELETE FROM search_index WHERE kind = 'transcript' AND recording_id =
-    (SELECT recording_id FROM transcripts WHERE id = new.transcript_id);
-  INSERT INTO search_index (recording_id, kind, body)
-    SELECT t.recording_id, 'transcript', group_concat(s.body, ' ')
-    FROM transcripts t JOIN transcript_segments s ON s.transcript_id = t.id
-    WHERE t.recording_id =
-      (SELECT recording_id FROM transcripts WHERE id = new.transcript_id)
-    GROUP BY t.recording_id;
+  INSERT INTO search_index (rowid, recording_id, kind, body)
+    SELECT -new.id, t.recording_id, 'transcript', new.body
+    FROM transcripts t WHERE t.id = new.transcript_id;
 END;
 
 CREATE TRIGGER search_segment_update AFTER UPDATE OF body
     ON transcript_segments BEGIN
-  DELETE FROM search_index WHERE kind = 'transcript' AND recording_id =
-    (SELECT recording_id FROM transcripts WHERE id = new.transcript_id);
-  INSERT INTO search_index (recording_id, kind, body)
-    SELECT t.recording_id, 'transcript', group_concat(s.body, ' ')
-    FROM transcripts t JOIN transcript_segments s ON s.transcript_id = t.id
-    WHERE t.recording_id =
-      (SELECT recording_id FROM transcripts WHERE id = new.transcript_id)
-    GROUP BY t.recording_id;
+  DELETE FROM search_index WHERE rowid = -old.id;
+  INSERT INTO search_index (rowid, recording_id, kind, body)
+    SELECT -new.id, t.recording_id, 'transcript', new.body
+    FROM transcripts t WHERE t.id = new.transcript_id;
 END;
 
 CREATE TRIGGER search_segment_delete AFTER DELETE ON transcript_segments BEGIN
-  DELETE FROM search_index WHERE kind = 'transcript' AND recording_id =
-    (SELECT recording_id FROM transcripts WHERE id = old.transcript_id);
-  INSERT INTO search_index (recording_id, kind, body)
-    SELECT t.recording_id, 'transcript', group_concat(s.body, ' ')
-    FROM transcripts t JOIN transcript_segments s ON s.transcript_id = t.id
-    WHERE t.recording_id =
-      (SELECT recording_id FROM transcripts WHERE id = old.transcript_id)
-    GROUP BY t.recording_id;
-END;
-
-CREATE TRIGGER search_transcript_delete AFTER DELETE ON transcripts BEGIN
-  DELETE FROM search_index
-    WHERE kind = 'transcript' AND recording_id = old.recording_id;
-  INSERT INTO search_index (recording_id, kind, body)
-    SELECT t.recording_id, 'transcript', group_concat(s.body, ' ')
-    FROM transcripts t JOIN transcript_segments s ON s.transcript_id = t.id
-    WHERE t.recording_id = old.recording_id
-    GROUP BY t.recording_id;
+  DELETE FROM search_index WHERE rowid = -old.id;
 END;
 
 -- Extracted fields: every string leaf of the recording's newest extraction.

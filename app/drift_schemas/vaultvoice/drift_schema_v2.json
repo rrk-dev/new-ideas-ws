@@ -535,7 +535,7 @@
           5
         ],
         "name": "search_segment_insert",
-        "sql": "CREATE TRIGGER search_segment_insert AFTER INSERT ON transcript_segments BEGIN\n  DELETE FROM search_index WHERE kind = 'transcript' AND recording_id =\n    (SELECT recording_id FROM transcripts WHERE id = new.transcript_id);\n  INSERT INTO search_index (recording_id, kind, body)\n    SELECT t.recording_id, 'transcript', group_concat(s.body, ' ')\n    FROM transcripts t JOIN transcript_segments s ON s.transcript_id = t.id\n    WHERE t.recording_id =\n      (SELECT recording_id FROM transcripts WHERE id = new.transcript_id)\n    GROUP BY t.recording_id;\nEND;"
+        "sql": "CREATE TRIGGER search_segment_insert AFTER INSERT ON transcript_segments BEGIN\n  INSERT INTO search_index (rowid, recording_id, kind, body)\n    SELECT -new.id, t.recording_id, 'transcript', new.body\n    FROM transcripts t WHERE t.id = new.transcript_id;\nEND;"
       }
     },
     {
@@ -554,49 +554,28 @@
           5
         ],
         "name": "search_segment_update",
-        "sql": "CREATE TRIGGER search_segment_update AFTER UPDATE OF body\n    ON transcript_segments BEGIN\n  DELETE FROM search_index WHERE kind = 'transcript' AND recording_id =\n    (SELECT recording_id FROM transcripts WHERE id = new.transcript_id);\n  INSERT INTO search_index (recording_id, kind, body)\n    SELECT t.recording_id, 'transcript', group_concat(s.body, ' ')\n    FROM transcripts t JOIN transcript_segments s ON s.transcript_id = t.id\n    WHERE t.recording_id =\n      (SELECT recording_id FROM transcripts WHERE id = new.transcript_id)\n    GROUP BY t.recording_id;\nEND;"
+        "sql": "CREATE TRIGGER search_segment_update AFTER UPDATE OF body\n    ON transcript_segments BEGIN\n  DELETE FROM search_index WHERE rowid = -old.id;\n  INSERT INTO search_index (rowid, recording_id, kind, body)\n    SELECT -new.id, t.recording_id, 'transcript', new.body\n    FROM transcripts t WHERE t.id = new.transcript_id;\nEND;"
       }
     },
     {
       "id": 9,
       "references": [
         6,
-        0,
-        5
+        0
       ],
       "type": "trigger",
       "data": {
         "on": 6,
         "references_in_body": [
           6,
-          0,
-          5
+          0
         ],
         "name": "search_segment_delete",
-        "sql": "CREATE TRIGGER search_segment_delete AFTER DELETE ON transcript_segments BEGIN\n  DELETE FROM search_index WHERE kind = 'transcript' AND recording_id =\n    (SELECT recording_id FROM transcripts WHERE id = old.transcript_id);\n  INSERT INTO search_index (recording_id, kind, body)\n    SELECT t.recording_id, 'transcript', group_concat(s.body, ' ')\n    FROM transcripts t JOIN transcript_segments s ON s.transcript_id = t.id\n    WHERE t.recording_id =\n      (SELECT recording_id FROM transcripts WHERE id = old.transcript_id)\n    GROUP BY t.recording_id;\nEND;"
+        "sql": "CREATE TRIGGER search_segment_delete AFTER DELETE ON transcript_segments BEGIN\n  DELETE FROM search_index WHERE rowid = -old.id;\nEND;"
       }
     },
     {
       "id": 10,
-      "references": [
-        5,
-        0,
-        6
-      ],
-      "type": "trigger",
-      "data": {
-        "on": 5,
-        "references_in_body": [
-          5,
-          0,
-          6
-        ],
-        "name": "search_transcript_delete",
-        "sql": "CREATE TRIGGER search_transcript_delete AFTER DELETE ON transcripts BEGIN\n  DELETE FROM search_index\n    WHERE kind = 'transcript' AND recording_id = old.recording_id;\n  INSERT INTO search_index (recording_id, kind, body)\n    SELECT t.recording_id, 'transcript', group_concat(s.body, ' ')\n    FROM transcripts t JOIN transcript_segments s ON s.transcript_id = t.id\n    WHERE t.recording_id = old.recording_id\n    GROUP BY t.recording_id;\nEND;"
-      }
-    },
-    {
-      "id": 11,
       "references": [
         1
       ],
@@ -723,16 +702,16 @@
       }
     },
     {
-      "id": 12,
+      "id": 11,
       "references": [
-        11,
+        10,
         0
       ],
       "type": "trigger",
       "data": {
-        "on": 11,
+        "on": 10,
         "references_in_body": [
-          11,
+          10,
           0
         ],
         "name": "search_extraction_insert",
@@ -740,16 +719,16 @@
       }
     },
     {
-      "id": 13,
+      "id": 12,
       "references": [
-        11,
+        10,
         0
       ],
       "type": "trigger",
       "data": {
-        "on": 11,
+        "on": 10,
         "references_in_body": [
-          11,
+          10,
           0
         ],
         "name": "search_extraction_update",
@@ -757,16 +736,16 @@
       }
     },
     {
-      "id": 14,
+      "id": 13,
       "references": [
-        11,
+        10,
         0
       ],
       "type": "trigger",
       "data": {
-        "on": 11,
+        "on": 10,
         "references_in_body": [
-          11,
+          10,
           0
         ],
         "name": "search_extraction_delete",
@@ -774,10 +753,10 @@
       }
     },
     {
-      "id": 15,
+      "id": 14,
       "references": [
         1,
-        11
+        10
       ],
       "type": "table",
       "data": {
@@ -927,7 +906,7 @@
       }
     },
     {
-      "id": 16,
+      "id": 15,
       "references": [
         1
       ],
@@ -1061,7 +1040,7 @@
       }
     },
     {
-      "id": 17,
+      "id": 16,
       "references": [
         1
       ],
@@ -1139,7 +1118,7 @@
       }
     },
     {
-      "id": 18,
+      "id": 17,
       "references": [
         1
       ],
@@ -1231,7 +1210,7 @@
       }
     },
     {
-      "id": 19,
+      "id": 18,
       "references": [
         1
       ],
@@ -1315,7 +1294,7 @@
       }
     },
     {
-      "id": 20,
+      "id": 19,
       "references": [
         1
       ],
@@ -1516,7 +1495,7 @@
       }
     },
     {
-      "id": 21,
+      "id": 20,
       "references": [],
       "type": "table",
       "data": {
@@ -1595,9 +1574,9 @@
       }
     },
     {
-      "id": 22,
+      "id": 21,
       "references": [
-        21
+        20
       ],
       "type": "table",
       "data": {
@@ -1684,7 +1663,7 @@
       }
     },
     {
-      "id": 23,
+      "id": 22,
       "references": [],
       "type": "table",
       "data": {
@@ -1759,9 +1738,9 @@
       }
     },
     {
-      "id": 24,
+      "id": 23,
       "references": [
-        23
+        22
       ],
       "type": "table",
       "data": {
@@ -1858,10 +1837,10 @@
       }
     },
     {
-      "id": 25,
+      "id": 24,
       "references": [
         1,
-        23
+        22
       ],
       "type": "table",
       "data": {
@@ -2004,7 +1983,7 @@
       }
     },
     {
-      "id": 26,
+      "id": 25,
       "references": [],
       "type": "table",
       "data": {
@@ -2099,7 +2078,7 @@
       }
     },
     {
-      "id": 27,
+      "id": 26,
       "references": [],
       "type": "table",
       "data": {
@@ -2205,7 +2184,7 @@
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE TRIGGER search_segment_insert AFTER INSERT ON transcript_segments BEGIN DELETE FROM search_index WHERE kind = 'transcript' AND recording_id = (SELECT recording_id FROM transcripts WHERE id = new.transcript_id);INSERT INTO search_index (recording_id, kind, body) SELECT t.recording_id, 'transcript', group_concat(s.body, ' ') FROM transcripts AS t JOIN transcript_segments AS s ON s.transcript_id = t.id WHERE t.recording_id = (SELECT recording_id FROM transcripts WHERE id = new.transcript_id) GROUP BY t.recording_id;END"
+          "sql": "CREATE TRIGGER search_segment_insert AFTER INSERT ON transcript_segments BEGIN INSERT INTO search_index (\"rowid\", recording_id, kind, body) SELECT -new.id, t.recording_id, 'transcript', new.body FROM transcripts AS t WHERE t.id = new.transcript_id;END"
         }
       ]
     },
@@ -2214,7 +2193,7 @@
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE TRIGGER search_segment_update AFTER UPDATE OF body ON transcript_segments BEGIN DELETE FROM search_index WHERE kind = 'transcript' AND recording_id = (SELECT recording_id FROM transcripts WHERE id = new.transcript_id);INSERT INTO search_index (recording_id, kind, body) SELECT t.recording_id, 'transcript', group_concat(s.body, ' ') FROM transcripts AS t JOIN transcript_segments AS s ON s.transcript_id = t.id WHERE t.recording_id = (SELECT recording_id FROM transcripts WHERE id = new.transcript_id) GROUP BY t.recording_id;END"
+          "sql": "CREATE TRIGGER search_segment_update AFTER UPDATE OF body ON transcript_segments BEGIN DELETE FROM search_index WHERE \"rowid\" = -old.id;INSERT INTO search_index (\"rowid\", recording_id, kind, body) SELECT -new.id, t.recording_id, 'transcript', new.body FROM transcripts AS t WHERE t.id = new.transcript_id;END"
         }
       ]
     },
@@ -2223,16 +2202,7 @@
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE TRIGGER search_segment_delete AFTER DELETE ON transcript_segments BEGIN DELETE FROM search_index WHERE kind = 'transcript' AND recording_id = (SELECT recording_id FROM transcripts WHERE id = old.transcript_id);INSERT INTO search_index (recording_id, kind, body) SELECT t.recording_id, 'transcript', group_concat(s.body, ' ') FROM transcripts AS t JOIN transcript_segments AS s ON s.transcript_id = t.id WHERE t.recording_id = (SELECT recording_id FROM transcripts WHERE id = old.transcript_id) GROUP BY t.recording_id;END"
-        }
-      ]
-    },
-    {
-      "name": "search_transcript_delete",
-      "sql": [
-        {
-          "dialect": "sqlite",
-          "sql": "CREATE TRIGGER search_transcript_delete AFTER DELETE ON transcripts BEGIN DELETE FROM search_index WHERE kind = 'transcript' AND recording_id = old.recording_id;INSERT INTO search_index (recording_id, kind, body) SELECT t.recording_id, 'transcript', group_concat(s.body, ' ') FROM transcripts AS t JOIN transcript_segments AS s ON s.transcript_id = t.id WHERE t.recording_id = old.recording_id GROUP BY t.recording_id;END"
+          "sql": "CREATE TRIGGER search_segment_delete AFTER DELETE ON transcript_segments BEGIN DELETE FROM search_index WHERE \"rowid\" = -old.id;END"
         }
       ]
     },

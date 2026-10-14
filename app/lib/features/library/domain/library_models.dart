@@ -224,19 +224,19 @@ DateTime _day(DateTime d) {
   return DateTime(l.year, l.month, l.day);
 }
 
-/// FTS5 MATCH expression for free text typed by the user, or null when it
-/// holds no searchable term. Every term is quoted (FTS operators such as
-/// `"`, `*`, `-`, `AND`, `NEAR` are taken literally) and the last one is a
-/// prefix query so results appear while typing; terms are ANDed.
-String? buildFtsQuery(String input) {
+/// FTS5 terms for free text typed by the user (empty when it holds no
+/// searchable term). Every term is quoted, so FTS operators such as `"`,
+/// `*`, `-`, `AND`, `NEAR` are taken literally, and the last one is a prefix
+/// query so results appear while typing. A recording matches when it
+/// contains every term (in any of its rows).
+List<String> ftsTerms(String input) {
   final terms = [
     for (final t in input.split(RegExp(r'\s+')))
-      if (t.replaceAll('"', '').trim().isNotEmpty) t,
+      if (t.replaceAll('"', '').trim().isNotEmpty)
+        '"${t.replaceAll('"', '""')}"',
   ];
-  if (terms.isEmpty) return null;
-  final quoted = [for (final t in terms) '"${t.replaceAll('"', '""')}"'];
-  quoted[quoted.length - 1] = '${quoted.last}*';
-  return quoted.join(' ');
+  if (terms.isNotEmpty) terms[terms.length - 1] = '${terms.last}*';
+  return terms;
 }
 
 /// A full-text hit: where in the recording the query matched.

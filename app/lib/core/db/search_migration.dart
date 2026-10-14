@@ -15,7 +15,6 @@ Future<void> migrateToV2SearchIndex(Migrator m, GeneratedDatabase db) async {
     schema.searchSegmentInsert,
     schema.searchSegmentUpdate,
     schema.searchSegmentDelete,
-    schema.searchTranscriptDelete,
     schema.searchExtractionInsert,
     schema.searchExtractionUpdate,
     schema.searchExtractionDelete,
@@ -25,8 +24,8 @@ Future<void> migrateToV2SearchIndex(Migrator m, GeneratedDatabase db) async {
   await backfillSearchIndex(db);
 }
 
-/// Rebuilds every row of `search_index` from recordings, transcripts and the
-/// newest extraction of each recording (same content the triggers write).
+/// Rebuilds every row of `search_index` from recordings, transcript segments
+/// and the newest extraction of each recording (what the triggers write).
 Future<void> backfillSearchIndex(GeneratedDatabase db) async {
   await db.customStatement('DELETE FROM search_index');
   await db.customStatement(
@@ -36,10 +35,10 @@ Future<void> backfillSearchIndex(GeneratedDatabase db) async {
     'FROM recordings r',
   );
   await db.customStatement(
-    'INSERT INTO search_index (recording_id, kind, body) '
-    "SELECT t.recording_id, 'transcript', group_concat(s.body, ' ') "
-    'FROM transcripts t JOIN transcript_segments s '
-    'ON s.transcript_id = t.id GROUP BY t.recording_id',
+    'INSERT INTO search_index (rowid, recording_id, kind, body) '
+    "SELECT -s.id, t.recording_id, 'transcript', s.body "
+    'FROM transcript_segments s JOIN transcripts t '
+    'ON t.id = s.transcript_id',
   );
   await db.customStatement(
     'INSERT INTO search_index (recording_id, kind, body) '

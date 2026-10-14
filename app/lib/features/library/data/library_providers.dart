@@ -133,7 +133,7 @@ typedef LibraryResults = ({
 Future<LibraryResults> libraryResults(Ref ref) async {
   final filter = ref.watch(libraryFilterStateProvider);
   final items = await ref.watch(libraryItemsProvider.future);
-  final searching = buildFtsQuery(filter.query) != null;
+  final searching = ftsTerms(filter.query).isNotEmpty;
   if (!searching) {
     return (
       items: applyLibraryFilter(items, filter),

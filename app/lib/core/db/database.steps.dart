@@ -19,7 +19,6 @@ final class Schema2 extends i0.VersionedSchema {
     searchSegmentInsert,
     searchSegmentUpdate,
     searchSegmentDelete,
-    searchTranscriptDelete,
     extractions,
     searchExtractionInsert,
     searchExtractionUpdate,
@@ -124,20 +123,16 @@ final class Schema2 extends i0.VersionedSchema {
     alias: null,
   );
   final i1.Trigger searchSegmentInsert = i1.Trigger(
-    'CREATE TRIGGER search_segment_insert AFTER INSERT ON transcript_segments BEGIN DELETE FROM search_index WHERE kind = \'transcript\' AND recording_id = (SELECT recording_id FROM transcripts WHERE id = new.transcript_id);INSERT INTO search_index (recording_id, kind, body) SELECT t.recording_id, \'transcript\', group_concat(s.body, \' \') FROM transcripts AS t JOIN transcript_segments AS s ON s.transcript_id = t.id WHERE t.recording_id = (SELECT recording_id FROM transcripts WHERE id = new.transcript_id) GROUP BY t.recording_id;END',
+    'CREATE TRIGGER search_segment_insert AFTER INSERT ON transcript_segments BEGIN INSERT INTO search_index ("rowid", recording_id, kind, body) SELECT -new.id, t.recording_id, \'transcript\', new.body FROM transcripts AS t WHERE t.id = new.transcript_id;END',
     'search_segment_insert',
   );
   final i1.Trigger searchSegmentUpdate = i1.Trigger(
-    'CREATE TRIGGER search_segment_update AFTER UPDATE OF body ON transcript_segments BEGIN DELETE FROM search_index WHERE kind = \'transcript\' AND recording_id = (SELECT recording_id FROM transcripts WHERE id = new.transcript_id);INSERT INTO search_index (recording_id, kind, body) SELECT t.recording_id, \'transcript\', group_concat(s.body, \' \') FROM transcripts AS t JOIN transcript_segments AS s ON s.transcript_id = t.id WHERE t.recording_id = (SELECT recording_id FROM transcripts WHERE id = new.transcript_id) GROUP BY t.recording_id;END',
+    'CREATE TRIGGER search_segment_update AFTER UPDATE OF body ON transcript_segments BEGIN DELETE FROM search_index WHERE "rowid" = -old.id;INSERT INTO search_index ("rowid", recording_id, kind, body) SELECT -new.id, t.recording_id, \'transcript\', new.body FROM transcripts AS t WHERE t.id = new.transcript_id;END',
     'search_segment_update',
   );
   final i1.Trigger searchSegmentDelete = i1.Trigger(
-    'CREATE TRIGGER search_segment_delete AFTER DELETE ON transcript_segments BEGIN DELETE FROM search_index WHERE kind = \'transcript\' AND recording_id = (SELECT recording_id FROM transcripts WHERE id = old.transcript_id);INSERT INTO search_index (recording_id, kind, body) SELECT t.recording_id, \'transcript\', group_concat(s.body, \' \') FROM transcripts AS t JOIN transcript_segments AS s ON s.transcript_id = t.id WHERE t.recording_id = (SELECT recording_id FROM transcripts WHERE id = old.transcript_id) GROUP BY t.recording_id;END',
+    'CREATE TRIGGER search_segment_delete AFTER DELETE ON transcript_segments BEGIN DELETE FROM search_index WHERE "rowid" = -old.id;END',
     'search_segment_delete',
-  );
-  final i1.Trigger searchTranscriptDelete = i1.Trigger(
-    'CREATE TRIGGER search_transcript_delete AFTER DELETE ON transcripts BEGIN DELETE FROM search_index WHERE kind = \'transcript\' AND recording_id = old.recording_id;INSERT INTO search_index (recording_id, kind, body) SELECT t.recording_id, \'transcript\', group_concat(s.body, \' \') FROM transcripts AS t JOIN transcript_segments AS s ON s.transcript_id = t.id WHERE t.recording_id = old.recording_id GROUP BY t.recording_id;END',
-    'search_transcript_delete',
   );
   late final Shape4 extractions = Shape4(
     source: i0.VersionedTable(

@@ -8565,20 +8565,16 @@ abstract class _$V2FixtureDatabase extends GeneratedDatabase {
   late final $TranscriptSegmentsTable transcriptSegments =
       $TranscriptSegmentsTable(this);
   late final Trigger searchSegmentInsert = Trigger(
-    'CREATE TRIGGER search_segment_insert AFTER INSERT ON transcript_segments BEGIN DELETE FROM search_index WHERE kind = \'transcript\' AND recording_id = (SELECT recording_id FROM transcripts WHERE id = new.transcript_id);INSERT INTO search_index (recording_id, kind, body) SELECT t.recording_id, \'transcript\', group_concat(s.body, \' \') FROM transcripts AS t JOIN transcript_segments AS s ON s.transcript_id = t.id WHERE t.recording_id = (SELECT recording_id FROM transcripts WHERE id = new.transcript_id) GROUP BY t.recording_id;END',
+    'CREATE TRIGGER search_segment_insert AFTER INSERT ON transcript_segments BEGIN INSERT INTO search_index ("rowid", recording_id, kind, body) SELECT -new.id, t.recording_id, \'transcript\', new.body FROM transcripts AS t WHERE t.id = new.transcript_id;END',
     'search_segment_insert',
   );
   late final Trigger searchSegmentUpdate = Trigger(
-    'CREATE TRIGGER search_segment_update AFTER UPDATE OF body ON transcript_segments BEGIN DELETE FROM search_index WHERE kind = \'transcript\' AND recording_id = (SELECT recording_id FROM transcripts WHERE id = new.transcript_id);INSERT INTO search_index (recording_id, kind, body) SELECT t.recording_id, \'transcript\', group_concat(s.body, \' \') FROM transcripts AS t JOIN transcript_segments AS s ON s.transcript_id = t.id WHERE t.recording_id = (SELECT recording_id FROM transcripts WHERE id = new.transcript_id) GROUP BY t.recording_id;END',
+    'CREATE TRIGGER search_segment_update AFTER UPDATE OF body ON transcript_segments BEGIN DELETE FROM search_index WHERE "rowid" = -old.id;INSERT INTO search_index ("rowid", recording_id, kind, body) SELECT -new.id, t.recording_id, \'transcript\', new.body FROM transcripts AS t WHERE t.id = new.transcript_id;END',
     'search_segment_update',
   );
   late final Trigger searchSegmentDelete = Trigger(
-    'CREATE TRIGGER search_segment_delete AFTER DELETE ON transcript_segments BEGIN DELETE FROM search_index WHERE kind = \'transcript\' AND recording_id = (SELECT recording_id FROM transcripts WHERE id = old.transcript_id);INSERT INTO search_index (recording_id, kind, body) SELECT t.recording_id, \'transcript\', group_concat(s.body, \' \') FROM transcripts AS t JOIN transcript_segments AS s ON s.transcript_id = t.id WHERE t.recording_id = (SELECT recording_id FROM transcripts WHERE id = old.transcript_id) GROUP BY t.recording_id;END',
+    'CREATE TRIGGER search_segment_delete AFTER DELETE ON transcript_segments BEGIN DELETE FROM search_index WHERE "rowid" = -old.id;END',
     'search_segment_delete',
-  );
-  late final Trigger searchTranscriptDelete = Trigger(
-    'CREATE TRIGGER search_transcript_delete AFTER DELETE ON transcripts BEGIN DELETE FROM search_index WHERE kind = \'transcript\' AND recording_id = old.recording_id;INSERT INTO search_index (recording_id, kind, body) SELECT t.recording_id, \'transcript\', group_concat(s.body, \' \') FROM transcripts AS t JOIN transcript_segments AS s ON s.transcript_id = t.id WHERE t.recording_id = old.recording_id GROUP BY t.recording_id;END',
-    'search_transcript_delete',
   );
   late final $ExtractionsTable extractions = $ExtractionsTable(this);
   late final Trigger searchExtractionInsert = Trigger(
@@ -8626,7 +8622,6 @@ abstract class _$V2FixtureDatabase extends GeneratedDatabase {
     searchSegmentInsert,
     searchSegmentUpdate,
     searchSegmentDelete,
-    searchTranscriptDelete,
     extractions,
     searchExtractionInsert,
     searchExtractionUpdate,
@@ -8691,10 +8686,7 @@ abstract class _$V2FixtureDatabase extends GeneratedDatabase {
         'transcript_segments',
         limitUpdateKind: UpdateKind.insert,
       ),
-      result: [
-        TableUpdate('search_index', kind: UpdateKind.delete),
-        TableUpdate('search_index', kind: UpdateKind.insert),
-      ],
+      result: [TableUpdate('search_index', kind: UpdateKind.insert)],
     ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(
@@ -8711,20 +8703,7 @@ abstract class _$V2FixtureDatabase extends GeneratedDatabase {
         'transcript_segments',
         limitUpdateKind: UpdateKind.delete,
       ),
-      result: [
-        TableUpdate('search_index', kind: UpdateKind.delete),
-        TableUpdate('search_index', kind: UpdateKind.insert),
-      ],
-    ),
-    WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'transcripts',
-        limitUpdateKind: UpdateKind.delete,
-      ),
-      result: [
-        TableUpdate('search_index', kind: UpdateKind.delete),
-        TableUpdate('search_index', kind: UpdateKind.insert),
-      ],
+      result: [TableUpdate('search_index', kind: UpdateKind.delete)],
     ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(
