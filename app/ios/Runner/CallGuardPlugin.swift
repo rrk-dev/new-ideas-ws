@@ -95,7 +95,10 @@ final class CallGuardPlugin: NSObject, FlutterPlugin, FlutterStreamHandler, CXCa
 
   private func emit(_ signal: String) {
     let atMs = Int64(Date().timeIntervalSince1970 * 1000)
-    let send = { [weak self] in
+    // Explicit type: the inferred `() -> Void?` does not convert to the
+    // `() -> Void` block `DispatchQueue.async` expects (found by AUD-04's
+    // type-check of the Runner sources).
+    let send: () -> Void = { [weak self] in
       self?.sink?(["signal": signal, "atMs": atMs])
     }
     if Thread.isMainThread {
