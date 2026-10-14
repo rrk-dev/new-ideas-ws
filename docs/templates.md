@@ -119,3 +119,48 @@ It is also used when a profile's `template_id` names no available template.
 2-space nesting, `_emphasis_`, `**strong**`; disabled: MD013 (line length — values are long),
 MD034 (bare URLs from transcripts), MD041 (Logseq notes start with properties);
 MD024 siblings only; MD025 ignores the front-matter `title`.
+
+## Filename patterns (EXP-02)
+Own token syntax — **not** Mustache. Code: `app/lib/features/export/domain/filename_pattern.dart`,
+`filename_sanitizer.dart`, `export_collision.dart`; identity from the DB:
+`app/lib/features/export/data/export_identity.dart`.
+
+| Token | Value |
+|---|---|
+| `{{date:FMT}}` | recording start (local time); FMT from `YYYY MM DD HH mm ss` and `- _ .` / space |
+| `{{date}}` | `YYYY-MM-DD` |
+| `{{time}}` | `HHmm` |
+| `{{title}}` | note title (extraction `title`, else recording title) |
+| `{{slug}}` | slugified title, ≤ 60 characters |
+| `{{profile}}` | profile id |
+| `{{id}}` | first 8 characters of the recording id |
+
+Default: `{{date:YYYY-MM-DD}}-{{profile}}-{{slug}}.md`. A literal `/` creates a sub-folder
+(`{{date:YYYY}}/{{date:MM}}/{{slug}}.md`); token values never create folders. `.md` is enforced.
+Parse errors (`FilenamePatternFailure`, 1-based column): unknown token, unclosed `{{`, bad date
+format, `/` inside a date format, argument on a token without one, leading/trailing `/`, empty /
+`.` / `..` segments. A token that renders empty drops one adjacent joiner (`-`, `_`, `.`, space).
+
+**Segment sanitization** (`sanitizeSegment`, every folder and the file name): NFC; remove
+`\ / : * ? " < > |` (Windows-synced vaults) and `# ^ [ ]` (Obsidian links); remove C0/C1
+controls, DEL, U+2028/9, BOM and bidi controls (an RLO can disguise an extension); line breaks
+and tabs → space, whitespace collapsed; leading dots/spaces (hidden files, `.`/`..`) and trailing
+dots/spaces removed; Windows device names (`CON`, `PRN`, `AUX`, `NUL`, `COM1-9`, `LPT1-9`, with
+or without extension) get `_`; ≤ 255 UTF-8 bytes per segment, truncated before the extension and
+never inside a grapheme cluster (emoji ZWJ sequences, flags); empty → `untitled`. Emoji allowed.
+
+**Collisions** (`planExport`; paths compared NFC + case-insensitively, because iOS, Windows and
+most Android storage are case-insensitive):
+
+| Situation | `suffix` (default) | `overwrite` | `skip` |
+|---|---|---|---|
+| Path free | write | write | write |
+| Re-export, our note unchanged on disk (`exports.rel_path` exists) | update in place | update in place | update in place |
+| Re-export, same content hash | nothing to write | nothing | nothing |
+| Re-export, our note deleted by the user | re-create at `rel_path` | same | same |
+| Re-export, our note edited by the user (needs a vault read: `currentHash`) | new file (pattern path, else `-N`) | replace it | leave it |
+| Path taken by a foreign file or claimed by another recording's export | `-2`, `-3`, … | `-N` (never replaces a foreign file) | leave it |
+
+Stable identity: this recording's `exports` row (any status) fixes the note path for that
+target; re-exports update it even when the title or pattern now renders another name.
+

@@ -205,3 +205,11 @@ final class TemplateSyntaxFailure extends Failure {
   final int line;
   final int column;
 }
+
+/// A filename pattern does not parse (EXP-02); [column] is 1-based.
+final class FilenamePatternFailure extends Failure {
+  const FilenamePatternFailure(this.column, String detail)
+    : super('filename pattern:$column: $detail');
+
+  final int column;
+}

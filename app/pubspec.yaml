@@ -24,6 +24,7 @@ dependencies:
   riverpod_annotation: ^4.0.7
   share_plus: ^13.3.1
   sqlite3: 3.7.0
+  unorm_dart: 0.3.2
   vv_native:
     path: ../packages/vv_native
   yaml: 3.1.4
