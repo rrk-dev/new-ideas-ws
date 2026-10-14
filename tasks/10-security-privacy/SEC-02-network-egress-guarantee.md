@@ -1,7 +1,7 @@
 # SEC-02 — Network Egress Guarantee & Verification
 
 **Workstream:** Security & Privacy | **Phase:** 2–4 | **Size:** M | **Depends on:** MDL-02, LIC-02 | **Source:** §1 ("without ever sending byte zero of data to a cloud server") + Gap
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-privacy-security, vv-ci-release, vv-model-delivery, vv-testing
 
 ## Goal
