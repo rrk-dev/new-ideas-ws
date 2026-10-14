@@ -105,6 +105,31 @@ std::vector<ggml_backend_dev_t> gpu_devices() {
   return out;
 }
 
+namespace {
+ggml_backend_reg_t cpu_reg() {
+  ensure_backend();
+  ggml_backend_dev_t dev = ggml_backend_dev_by_type(GGML_BACKEND_DEVICE_TYPE_CPU);
+  return dev ? ggml_backend_dev_backend_reg(dev) : nullptr;
+}
+}  // namespace
+
+ggml_threadpool* threadpool_new(ggml_threadpool_params* params) {
+  ggml_backend_reg_t reg = cpu_reg();
+  if (!reg) return nullptr;
+  auto* fn = (decltype(ggml_threadpool_new)*)ggml_backend_reg_get_proc_address(
+      reg, "ggml_threadpool_new");
+  return fn ? fn(params) : nullptr;
+}
+
+void threadpool_free(ggml_threadpool* pool) {
+  if (!pool) return;
+  ggml_backend_reg_t reg = cpu_reg();
+  if (!reg) return;
+  auto* fn = (decltype(ggml_threadpool_free)*)ggml_backend_reg_get_proc_address(
+      reg, "ggml_threadpool_free");
+  if (fn) fn(pool);
+}
+
 void copy_str(char* dst, size_t cap, const char* src) {
   if (!dst || cap == 0) return;
   snprintf(dst, cap, "%s", src ? src : "");
@@ -121,7 +146,7 @@ ggml_threadpool* perf_core_pool(int32_t n_threads) {
   ggml_threadpool_params tp = ggml_threadpool_params_default(n_threads);
   for (int i = 0; i < VV_CPU_MAX && i < GGML_MAX_N_THREADS; i++) tp.cpumask[i] = mask[i] != 0;
   tp.strict_cpu = false;
-  return ggml_threadpool_new(&tp);
+  return threadpool_new(&tp);
 }
 #endif
 
@@ -378,7 +403,12 @@ int32_t vv_cpu_features(int32_t* runtime, int32_t* build) {
     // Compile-time answers from the ggml-cpu translation units (they carry
     // the GGML_CPU_ARM_ARCH flags); returning constants executes nothing.
     int32_t b = 0;
-#if defined(__aarch64__) || defined(__arm__)
+#if defined(VV_GGML_BACKEND_DL)
+    // Runtime-loaded CPU variants (STT-02): ggml only loads a variant whose
+    // ggml_backend_score() accepts this CPU, and ggml_cpu_has_* live in those
+    // modules (not linkable from vv_native). The build itself requires
+    // nothing beyond the arm64 baseline (integration wave 2, ADR-INT-W2).
+#elif defined(__aarch64__) || defined(__arm__)
     if (ggml_cpu_has_neon()) b |= VV_CPU_FEATURE_NEON;
     if (ggml_cpu_has_dotprod()) b |= VV_CPU_FEATURE_DOTPROD;
     if (ggml_cpu_has_matmul_int8()) b |= VV_CPU_FEATURE_I8MM;

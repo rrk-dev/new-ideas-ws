@@ -164,7 +164,8 @@ if(VV_GGML_BACKEND_DL)
   # Module names the loader probes, e.g. "ggml-cpu-android_armv8.2_1,ggml-vulkan"
   # (GGML_AVAILABLE_BACKENDS is filled by ggml_add_backend_library()).
   string(REPLACE ";" "," _vv_backends "${GGML_AVAILABLE_BACKENDS}")
-  target_compile_definitions(vv_native PRIVATE VV_GGML_BACKENDS="${_vv_backends}")
+  target_compile_definitions(vv_native PRIVATE VV_GGML_BACKENDS="${_vv_backends}"
+                                               VV_GGML_BACKEND_DL=1)
   target_link_libraries(vv_native PRIVATE ${CMAKE_DL_LIBS})
 endif()
 

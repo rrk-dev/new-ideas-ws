@@ -25,6 +25,13 @@ uint64_t peak_mem_bytes();
 void ensure_backend();
 std::vector<ggml_backend_dev_t> gpu_devices();
 
+// ggml-cpu threadpool create/free resolved through the CPU backend registry
+// (ggml_backend_reg_get_proc_address), so the same code links in the static
+// build and in VV_GGML_BACKEND_DL builds where ggml-cpu is a dlopen()ed
+// variant module (integration wave 2). NULL / no-op when unavailable.
+ggml_threadpool* threadpool_new(ggml_threadpool_params* params);
+void threadpool_free(ggml_threadpool* pool);
+
 // The loaded model + context, after the fallback chain. Frees everything.
 struct Loaded {
   llama_model* model = nullptr;
@@ -41,7 +48,7 @@ struct Loaded {
   Loaded& operator=(const Loaded&) = delete;
   ~Loaded() {
     if (ctx) llama_free(ctx);
-    if (pool) ggml_threadpool_free(pool);
+    if (pool) threadpool_free(pool);
     if (model) llama_model_free(model);
   }
 };
