@@ -20,7 +20,9 @@ import 'package:vaultvoice/features/pipeline/presentation/processing_queue_scree
 import 'package:vaultvoice/features/pipeline/presentation/processing_status_card.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_texts.dart';
 import 'package:vaultvoice/features/pipeline/presentation/recording_status_screen.dart';
+import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 
+import '../fakes/fake_settings_store.dart';
 import '../helpers/processing_fixtures.dart';
 
 List<Override> viewsOverride(
@@ -31,6 +33,8 @@ List<Override> viewsOverride(
   // Hermetic: no platform storage dir (path_provider) behind the
   // recording/model providers that joined in integration wave 2.
   storagePathsProvider.overrideWith((ref) => Completer<StoragePaths>().future),
+  // SEC-03: the app lock decides once settings load (no DB here).
+  settingsStoreProvider.overrideWithValue(FakeSettingsStore()),
 ];
 
 Future<ProviderContainer> pumpApp(

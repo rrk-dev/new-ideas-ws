@@ -5,6 +5,7 @@ import android.content.Intent
 import com.vaultvoice.vaultvoice.modeldownload.ModelDownloadPlugin
 import com.vaultvoice.vaultvoice.saf.SafHostApi
 import com.vaultvoice.vaultvoice.saf.SafHostApiImpl
+import com.vaultvoice.vaultvoice.security.AppLockPlugin
 import com.vaultvoice.vaultvoice.security.SecureStoragePlugin
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
@@ -38,6 +39,8 @@ class MainActivity : FlutterActivity() {
         flutterEngine.plugins.add(StorageInfoPlugin())
         // SEC-01: Keystore-wrapped data keys (sqlite3mc database key).
         flutterEngine.plugins.add(SecureStoragePlugin())
+        // SEC-03: device authentication + FLAG_SECURE privacy screen.
+        flutterEngine.plugins.add(AppLockPlugin())
         // AUD-05: microphone foreground service + ongoing notification.
         if (!flutterEngine.plugins.has(RecordingIndicatorPlugin::class.java)) {
             flutterEngine.plugins.add(RecordingIndicatorPlugin())

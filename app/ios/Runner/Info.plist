@@ -28,6 +28,8 @@
 	<array>
 		<string>audio</string>
 	</array>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Face ID unlocks your recordings and notes when the app lock is on.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>VaultVoice uses the microphone only to record notes you start. Audio is processed on this device and never uploaded.</string>
 	<key>LSRequiresIPhoneOS</key>

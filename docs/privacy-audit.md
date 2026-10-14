@@ -114,6 +114,7 @@ redirects natively without a hook and brings its own HTTP client outside the gat
 | `com.android.tools:desugar_jdk_libs` (Gradle) | 2.1.4 | Core library desugaring required by `flutter_local_notifications` on Android | no | no | GPL-2.0 with Classpath Exception (OpenJDK, Google-distributed; the exception permits linking into proprietary apps) | 2024 | Accepted — APP-04; SEC-05 to confirm in `docs/licenses.md` |
 | SQLite3 Multiple Ciphers (native, via `sqlite3` 3.7.0 hook `source: sqlite3mc`) | 2.5.0 on SQLite 3.53.4 | Encrypted drift database (SEC-01) — replaces the plain SQLite build | **build time only**: the `sqlite3` hook downloads the prebuilt library from the `simolus3/sqlite3.dart` GitHub release and checks its sha256 against `lib/src/hook/asset_hashes.dart`; no network code in the library at runtime | no | MIT (SQLite itself public domain) | 2026 (sqlite3 3.7.0 changelog) | Accepted — ADR-SEC-01 |
 | Keychain / AndroidKeyStore (OS) | iOS 16+ / API 26+ | SEC-01 data keys via our `SecureStoragePlugin` (no third-party package; `flutter_secure_storage` not used) | no | no | OS | — | Accepted — ADR-SEC-01 |
+| LocalAuthentication / `BiometricPrompt` + `KeyguardManager` (OS) | iOS 16+ / API 26+ | SEC-03 app lock via our `AppLockPlugin`; `local_auth` rejected (needs FragmentActivity, ADR-SEC-03). Adds only `USE_BIOMETRIC` (normal permission) | no | no | OS | — | Accepted — ADR-SEC-03 |
 
 ## Models (license must allow our use and, for our CDN, redistribution — SEC-05)
 | Model | Source (pinned revision) | License | Redistribution on our CDN |

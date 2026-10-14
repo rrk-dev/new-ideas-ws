@@ -1120,6 +1120,54 @@ abstract class AppLocalizations {
   /// **'{status}\n\nAudio files are protected by the device’s file encryption, and app data is never included in cloud backups. Recordings, transcripts and notes never leave this device unless you export or share them. Notes exported to a vault folder are plain Markdown files, readable by any app with access to that folder.'**
   String encryptionDetails(String status);
 
+  /// No description provided for @appLockTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{appName} is locked'**
+  String appLockTitle(String appName);
+
+  /// No description provided for @appLockBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock to see your recordings, transcripts and notes.'**
+  String get appLockBody;
+
+  /// No description provided for @appLockUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This device has no passcode or biometrics set up, so the app cannot be locked. Set a device passcode to use the app lock.'**
+  String get appLockUnavailable;
+
+  /// No description provided for @appLockReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock to see your recordings and notes'**
+  String get appLockReason;
+
+  /// No description provided for @appLockUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock'**
+  String get appLockUnlock;
+
+  /// No description provided for @appLockRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Start recording'**
+  String get appLockRecord;
+
+  /// No description provided for @appLockRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording. Your recordings and notes stay hidden until you unlock.'**
+  String get appLockRecording;
+
+  /// No description provided for @appLockStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop recording'**
+  String get appLockStop;
+
   /// No description provided for @deleteAllTitle.
   ///
   /// In en, this message translates to:
