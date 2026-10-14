@@ -89,6 +89,10 @@ final class ProfilePromptSource implements ExtractionPromptSource {
     ].join('\n');
   }
 
+  static String _example(String transcript, Map<String, Object?> output) =>
+      'Example transcript:\n${transcript.trim()}\n'
+      'Example JSON:\n${jsonEncode(output)}';
+
   String get _meta => metadata.isEmpty ? '' : 'Metadata: $metadata\n';
 
   @override
@@ -96,8 +100,7 @@ final class ProfilePromptSource implements ExtractionPromptSource {
     final examples = withExamples && profile.examples.isNotEmpty
         ? [
             for (final ex in profile.examples)
-              'Example transcript:\n${ex.transcript.trim()}\n'
-                  'Example JSON:\n${jsonEncode(ex.output)}',
+              _example(ex.transcript, ex.output),
           ].join('\n\n')
         : '';
     return [

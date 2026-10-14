@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/cancel_token.dart';
+import 'package:vaultvoice/core/platform/llm_engine.dart';
 import 'package:vaultvoice/features/extraction/domain/long_transcript/extraction_prompts.dart';
 import 'package:vaultvoice/features/extraction/domain/long_transcript/map_reduce_extractor.dart';
 import 'package:vaultvoice/features/extraction/domain/long_transcript/partial_reducer.dart';
@@ -672,7 +673,7 @@ void main() {
       final r = expectOk(
         await MapReduceExtractor(
           engine: engine,
-          tokenizer: WordTokenizer(context: 4096),
+          tokenizer: WordTokenizer(),
           reduceMaxTokens: 4000,
         ).extract(_input(m.lines)),
       );
@@ -694,12 +695,7 @@ void main() {
       final prompts = ProfilePromptSource(meeting, metadata: 'date 2026-10-14');
       expect(prompts.systemPrompt, contains('untrusted data'));
       expect(prompts.systemPrompt, contains('- summary: 2-4 sentence summary'));
-      final info = const ChunkInfo(
-        index: 1,
-        count: 4,
-        startMs: 0,
-        endMs: 61000,
-      );
+      const info = ChunkInfo(index: 1, count: 4, startMs: 0, endMs: 61000);
       final a = prompts.chunkUser('<transcript>\nA\n</transcript>', info);
       expect(a, startsWith('Metadata: date 2026-10-14\nThis is part 2 of 4'));
       expect(a, contains('00:01:01'));
@@ -729,7 +725,7 @@ void main() {
 final class _BadJsonEngine extends OracleLlmEngine {
   @override
   Future<Result<String>> generate(
-    request, {
+    LlmRequest request, {
     CancelToken? cancel,
     void Function(String token)? onToken,
   }) async {

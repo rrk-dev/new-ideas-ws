@@ -111,9 +111,7 @@ class OracleLlmEngine implements LlmEngine {
       'open_questions': <String>[],
       'topics': <String>[],
     });
-    for (final tok in out.split(',')) {
-      onToken?.call(tok);
-    }
+    if (onToken != null) out.split(',').forEach(onToken);
     return Ok(out);
   }
 }
