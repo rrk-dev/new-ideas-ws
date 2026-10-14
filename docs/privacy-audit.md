@@ -12,7 +12,9 @@ the task that introduces the network use or dependency.
 | — | Store billing | StoreKit / Play Billing inside the OS, not our HTTP client | Apple / Google | LIC-02 |
 
 Nothing else may open a connection (`tools/ci/check_egress.sh`, allowlist in
-`app/lib/core/network/model_hosts.dart`).
+`app/lib/core/network/model_hosts.dart`). With `network_disabled` (settings key, user offline
+mode or MDM managed config) the gateway refuses every request before it is sent and models are
+provisioned by offline import only (MDL-04, ADR-MDL-04).
 
 ## What the model CDN / mirror can see (MDL-01)
 Requests are only made when the app refreshes the catalog or the user starts a model download.
@@ -101,6 +103,7 @@ redirects natively without a hook and brings its own HTTP client outside the gat
 | `mustache_template` (flutter/core-packages) | 2.0.5 (exact) | Markdown templates (EXP-01), strict mode | no (only `src/` imports; no `dart:io`/`http`) | no | BSD-2-Clause | 2026-06-09 (2.0.6 on 2026-09-15 is docs-only) | Accepted — ADR-EXP-01 |
 | `characters` (Dart, dart-lang) | ^1.4.1 (Flutter SDK pin) | grapheme-safe slug/filename truncation (EXP-01/02) | no | no | BSD-3-Clause | already a transitive Flutter dependency | Accepted — ADR-EXP-01 |
 | `unorm_dart` | 0.3.2 (exact) | NFC normalization of vault file names (EXP-02) | no (only its own `src/` imports; pure Dart tables) | no | MIT | 2025-10-01 (0.3.3 of 2026-10-04 is < 2 weeks old) | Accepted — EXP-02 (no Dart SDK API for Unicode normalization) |
+| `file_selector` (+ `file_selector_android` 0.5.2+11, `file_selector_ios` 0.5.3+6) | 1.1.0 (exact) | system file picker for offline model import (MDL-04) | no (source grep: no `HttpURLConnection`/`OkHttp`/`URLSession`/`http`; Android copies the picked document into `cacheDir`, iOS document picker in import mode) | no | BSD-3-Clause (flutter.dev) | 2025-11-21 (platform pkgs 2026-08/09) | Accepted — ADR-MDL-04 |
 | `cryptography` (Python, pyca) | 46.0.3 | `tools/model-catalog` signing CLI only (not shipped in the app) | no | no | Apache-2.0 OR BSD-3-Clause | 2025 | Accepted — ADR-MDL-01 |
 
 ## Models (license must allow our use and, for our CDN, redistribution — SEC-05)

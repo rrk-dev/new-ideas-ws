@@ -1,4 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/network/model_hosts.dart';
 import 'package:vaultvoice/core/network/network_gateway.dart';
 import 'package:vaultvoice/core/platform/audio_recorder.dart';
@@ -41,7 +42,17 @@ NetworkConfig networkConfig(Ref ref) => const NetworkConfig(
 
 @Riverpod(keepAlive: true)
 NetworkGateway networkGateway(Ref ref) {
-  final gateway = NetworkGateway(config: ref.watch(networkConfigProvider));
+  final gateway = NetworkGateway(
+    config: ref.watch(networkConfigProvider),
+    // Checked before every request; unreadable → refused (fail closed).
+    networkDisabled: () async {
+      final value = await ref
+          .read(settingsRepositoryProvider)
+          .get(kNetworkDisabledKey);
+      if (!value.isOk) throw StateError('settings unreadable');
+      return value.valueOrNull == true;
+    },
+  );
   ref.onDispose(gateway.close);
   return gateway;
 }

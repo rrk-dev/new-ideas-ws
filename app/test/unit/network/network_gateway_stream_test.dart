@@ -85,8 +85,11 @@ void main() {
     final r = await g.getStream(Uri.parse('https://us.aws.cdn.hf.co/x'));
     expect(r.failureOrNull, isA<EgressDeniedFailure>());
     expect(requested, isEmpty);
-    expect(g.authorize(Uri.parse('https://us.aws.cdn.hf.co/x')).isOk, isFalse);
-    expect(g.authorize(Uri.parse(start)).isOk, isTrue);
+    expect(
+      (await g.authorize(Uri.parse('https://us.aws.cdn.hf.co/x'))).isOk,
+      isFalse,
+    );
+    expect((await g.authorize(Uri.parse(start))).isOk, isTrue);
   });
 
   test('stops after the redirect limit', () async {
@@ -114,7 +117,45 @@ void main() {
       (await g.getStream(Uri.parse(start))).failureOrNull,
       isA<EgressDeniedFailure>(),
     );
-    expect(g.authorize(Uri.parse(start)), isA<Err<void>>());
+    expect(await g.authorize(Uri.parse(start)), isA<Err<void>>());
     expect(requested, isEmpty);
+  });
+
+  test('[MDL-04/AC1] network_disabled refuses every request before it is '
+      'sent; an unreadable setting fails closed', () async {
+    var disabled = true;
+    requested = [];
+    final g = NetworkGateway(
+      config: const NetworkConfig(allowedHosts: {'huggingface.co'}),
+      client: MockClient((req) async {
+        requested.add(req.url);
+        return http.Response('ok', 200);
+      }),
+      networkDisabled: () async => disabled,
+    );
+    expect(
+      (await g.getStream(Uri.parse(start))).failureOrNull,
+      isA<EgressDeniedFailure>(),
+    );
+    expect(
+      (await g.get(Uri.parse(start))).failureOrNull,
+      isA<EgressDeniedFailure>(),
+    );
+    expect((await g.authorize(Uri.parse(start))).isOk, isFalse);
+    expect(requested, isEmpty);
+
+    disabled = false;
+    expect((await g.get(Uri.parse(start))).isOk, isTrue);
+    expect(requested, hasLength(1));
+
+    final broken = NetworkGateway(
+      config: const NetworkConfig(allowedHosts: {'huggingface.co'}),
+      client: MockClient((req) async => http.Response('ok', 200)),
+      networkDisabled: () async => throw StateError('db'),
+    );
+    expect(
+      (await broken.get(Uri.parse(start))).failureOrNull,
+      isA<EgressDeniedFailure>(),
+    );
   });
 }

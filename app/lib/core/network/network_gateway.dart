@@ -56,11 +56,27 @@ const _redirectStatuses = {301, 302, 303, 307, 308};
 ///
 /// Minimal in FND-02; SEC-02 adds the activity log, CI egress guard and audit.
 class NetworkGateway {
-  NetworkGateway({required this.config, http.Client? client})
-    : _client = client ?? http.Client();
+  /// `networkDisabled` is consulted before **every** request (user offline
+  /// mode / MDM `network_disabled`, MDL-04); true or an error refuses it.
+  NetworkGateway({
+    required this.config,
+    http.Client? client,
+    this._networkDisabled,
+  }) : _client = client ?? http.Client();
 
   final NetworkConfig config;
   final http.Client _client;
+  final Future<bool> Function()? _networkDisabled;
+
+  Future<bool> _disabled() async {
+    final check = _networkDisabled;
+    if (check == null) return false;
+    try {
+      return await check();
+    } on Object {
+      return true; // Fail closed: the setting could not be read.
+    }
+  }
 
   /// HTTPS GET to an allowlisted host.
   Future<Result<http.Response>> get(
@@ -69,6 +85,7 @@ class NetworkGateway {
   }) async {
     final denied = _check(uri, redirect: false);
     if (denied != null) return Err(denied);
+    if (await _disabled()) return Err(EgressDeniedFailure(uri.host));
     try {
       // Redirects are not followed: a 3xx could point at a non-allowlisted
       // host. Callers see the 3xx response and decide.
@@ -84,9 +101,11 @@ class NetworkGateway {
 
   /// Whether a direct request to [uri] would be allowed (used by native
   /// transports that cannot run through this client, MDL-02).
-  Result<void> authorize(Uri uri) {
+  Future<Result<void>> authorize(Uri uri) async {
     final denied = _check(uri, redirect: false);
-    return denied == null ? const Ok(null) : Err(denied);
+    if (denied != null) return Err(denied);
+    if (await _disabled()) return Err(EgressDeniedFailure(uri.host));
+    return const Ok(null);
   }
 
   /// Streamed HTTPS GET that follows up to [maxRedirects] redirects itself.
@@ -103,6 +122,7 @@ class NetworkGateway {
   }) async {
     final first = _check(uri, redirect: false);
     if (first != null) return Err(first);
+    if (await _disabled()) return Err(EgressDeniedFailure(uri.host));
     var current = uri;
     final hops = <Uri>[];
     try {

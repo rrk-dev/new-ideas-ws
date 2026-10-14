@@ -37,3 +37,13 @@ Never hand-edit `catalog.json` after signing: the signature covers the exact byt
 (`.gitattributes` marks the files binary). Publish the same two files to
 `https://<cdn>/catalog/v1/` for online refresh. Each new catalog needs a later `issued_at`
 than the one apps already accepted, or apps reject it as a rollback.
+
+## Single-model manifest for offline import (MDL-04)
+```bash
+python3 tools/model-catalog/catalog.py build --models tools/model-catalog/models.json \
+  --only whisper-tiny.en --out whisper-tiny.en.json
+python3 tools/model-catalog/catalog.py sign --catalog whisper-tiny.en.json --key-file <key>
+```
+Ship `<model file>` + `whisper-tiny.en.json` + `whisper-tiny.en.json.sig` together (USB,
+AirDrop, MDM). The app verifies it exactly like `catalog.json` and requires exactly one model
+(ADR-MDL-04).

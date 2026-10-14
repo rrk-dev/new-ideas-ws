@@ -5,13 +5,13 @@ import 'dart:isolate';
 
 import 'package:path/path.dart' as p;
 import 'package:vaultvoice/core/db/database.dart';
-import 'package:vaultvoice/core/db/enums.dart' as db;
 import 'package:vaultvoice/core/db/repositories/models_repository.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/features/models/data/catalog_config.dart';
+import 'package:vaultvoice/features/models/data/model_installer.dart';
 import 'package:vaultvoice/features/models/domain/download_platform.dart';
 import 'package:vaultvoice/features/models/domain/download_policy.dart';
 import 'package:vaultvoice/features/models/domain/download_state.dart';
@@ -54,10 +54,12 @@ class ModelDownloader {
     this._keepAlive = const NoDownloadKeepAlive(),
     this._clock = const SystemClock(),
     Future<bool> Function()? cellularAllowedSetting,
+    Future<bool> Function()? networkDisabled,
     this._verify = verifyModelFileInIsolate,
     Future<void> Function(Duration)? delay,
     this._headers = kAnonymousRequestHeaders,
   }) : _cellularSetting = cellularAllowedSetting ?? _no,
+       _networkDisabled = networkDisabled ?? _no,
        _delay = delay ?? Future<void>.delayed;
 
   final StoragePaths _paths;
@@ -67,6 +69,9 @@ class ModelDownloader {
   final DownloadKeepAlive _keepAlive;
   final Clock _clock;
   final Future<bool> Function() _cellularSetting;
+
+  /// `network_disabled` (user offline mode / MDM, MDL-04): refuse up front.
+  final Future<bool> Function() _networkDisabled;
   final ModelFileCheck _verify;
   final Future<void> Function(Duration) _delay;
   final Map<String, String> _headers;
@@ -75,6 +80,13 @@ class ModelDownloader {
 
   /// Progress is re-emitted at most every this many bytes.
   static const int _progressStepBytes = 1024 * 1024;
+
+  late final ModelInstaller _installer = ModelInstaller(
+    paths: _paths,
+    models: _models,
+    device: _device,
+    clock: _clock,
+  );
 
   final _jobs = <String, _Job>{};
   final StreamController<DownloadProgress> _progress =
@@ -104,7 +116,10 @@ class ModelDownloader {
     final required = requiredFreeBytes(model.size - existing);
     await Directory(_paths.modelsDir).create(recursive: true);
     final free = await _device.freeBytes(_paths.modelsDir);
-    final net = await _device.networkStatus();
+    final disabled = await _networkDisabled();
+    final net = disabled
+        ? const NetworkStatus(connected: false, unmetered: false)
+        : await _device.networkStatus();
     final cellular = allowCellular ?? await _cellularSetting();
     return DownloadPlan(
       modelId: model.id,
@@ -353,36 +368,14 @@ class ModelDownloader {
 
   Future<Result<InstalledModelRow>> _install(CatalogModel model) async {
     _emit(model, DownloadPhase.installing, model.size);
-    final dir = Directory(p.join(_paths.modelsDir, _segment(model.id)));
-    await dir.create(recursive: true);
-    await _device.excludeFromBackup(dir.path);
-    final target = File(p.join(dir.path, model.file));
-    // Same directory tree → same volume → rename(2) is atomic; an existing
-    // file of the same name (reinstall) is replaced in one step.
-    await _partial(model.id).rename(target.path);
-    final row = await _models.upsert(
-      ModelsInstalledCompanion.insert(
-        id: model.id,
-        type: _dbType(model.type),
-        version: model.version,
-        path: _paths.relativize(target.path),
-        sha256: model.sha256,
-        size: model.size,
-        installedAt: _clock.now(),
-      ),
-    );
-    if (!row.isOk) {
-      await target.delete();
+    final installed = await _installer.install(model, _partial(model.id));
+    if (!installed.isOk) {
       await _deletePartial(model.id);
-      return _fail(model, row.failureOrNull!, 0);
-    }
-    // Drop files of an older version with a different file name.
-    await for (final e in dir.list()) {
-      if (e.path != target.path) await e.delete(recursive: true);
+      return _fail(model, installed.failureOrNull!, 0);
     }
     await _deleteIfExists(_meta(model.id));
     _emit(model, DownloadPhase.installed, model.size);
-    return await _models.get(model.id);
+    return installed;
   }
 
   Future<Result<InstalledModelRow>> _stopped(
@@ -466,12 +459,7 @@ class ModelDownloader {
   static Future<int> _length(File f) async =>
       f.existsSync() ? await f.length() : 0;
 
-  static String _segment(String id) {
-    if (id.isEmpty || id.contains('/') || id.contains(r'\') || id == '..') {
-      throw ArgumentError.value(id, 'id', 'not a single path segment');
-    }
-    return id;
-  }
+  static String _segment(String id) => ModelInstaller.segment(id);
 
   static ModelDownloadBlock _firstBlock(Set<ModelDownloadBlock> blocks) {
     for (final b in ModelDownloadBlock.values) {
@@ -479,14 +467,6 @@ class ModelDownloader {
     }
     throw StateError('no block');
   }
-
-  static db.ModelType _dbType(ModelType t) => switch (t) {
-    ModelType.stt || ModelType.coremlEncoder => db.ModelType.stt,
-    ModelType.llm => db.ModelType.llm,
-    ModelType.vad => db.ModelType.vad,
-    ModelType.diarizationSeg ||
-    ModelType.diarizationEmb => db.ModelType.diarization,
-  };
 }
 
 class _Job {
