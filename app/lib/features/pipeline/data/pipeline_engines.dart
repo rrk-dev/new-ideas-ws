@@ -2,6 +2,7 @@ import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/llm_engine.dart';
 import 'package:vaultvoice/core/platform/stt_engine.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
+import 'package:vaultvoice/features/pipeline/data/steps/render_write_steps.dart';
 import 'package:vaultvoice/features/pipeline/domain/heavy_model_gate.dart';
 
 /// Engine configuration the pipeline uses until the owning tasks provide
@@ -36,6 +37,7 @@ class PipelineEngines {
     required this.vault,
     HeavyModelGate? gate,
     this.clock = const SystemClock(),
+    this.renderer,
   }) : gate = gate ?? HeavyModelGate();
 
   final SttEngine stt;
@@ -43,6 +45,11 @@ class PipelineEngines {
   final VaultWriter vault;
   final HeavyModelGate gate;
   final Clock clock;
+
+  /// Markdown renderer for `RenderStep` (EXP-01 `TemplateNoteRenderer`);
+  /// null keeps the FND-05 placeholder until the worker factory loads the
+  /// built-in profiles and templates.
+  final NoteRenderer? renderer;
 }
 
 /// Creates the engines in the worker isolate. Must be sendable: a top-level

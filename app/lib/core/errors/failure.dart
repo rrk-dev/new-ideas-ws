@@ -189,3 +189,19 @@ final class ProfileValidationFailure extends Failure {
 final class ProfileReadOnlyFailure extends Failure {
   const ProfileReadOnlyFailure(super.message);
 }
+
+/// A Markdown template does not parse (EXP-01). [line]/[column] are 1-based
+/// positions in the template source; the message describes the syntax
+/// problem and never contains rendered values.
+final class TemplateSyntaxFailure extends Failure {
+  const TemplateSyntaxFailure(
+    this.templateName,
+    this.line,
+    this.column,
+    String detail,
+  ) : super('template $templateName:$line:$column: $detail');
+
+  final String templateName;
+  final int line;
+  final int column;
+}

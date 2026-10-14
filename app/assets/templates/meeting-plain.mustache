@@ -1,0 +1,49 @@
+# {{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}
+
+- Date: {{meta.date}} {{meta.time}}
+- Duration: {{meta.duration_human}}
+{{#has_attendees}}
+- Attendees: {{#data.attendees}}{{.}}; {{/data.attendees}}
+{{/has_attendees}}
+
+{{#has_summary}}
+## Summary
+
+{{data.summary}}
+
+{{/has_summary}}
+{{#has_decisions}}
+## Decisions
+
+{{#data.decisions}}
+- {{.}}
+{{/data.decisions}}
+
+{{/has_decisions}}
+## Action Items
+
+{{#data.action_items}}
+- [ ] {{task}}{{#has_owner}} ({{owner}}){{/has_owner}}{{#has_due_iso}} — due: {{due_iso}}{{/has_due_iso}}{{^has_due_iso}}{{#has_due}} — due: {{due}}{{/has_due}}{{/has_due_iso}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.action_items}}
+{{^has_action_items}}
+No action items.
+{{/has_action_items}}
+
+{{#has_open_questions}}
+## Open Questions
+
+{{#data.open_questions}}
+- {{.}}
+{{/data.open_questions}}
+
+{{/has_open_questions}}
+{{#has_topics}}
+## Topics
+
+{{#data.topics}}
+- {{.}}
+{{/data.topics}}
+
+{{/has_topics}}
+{{! Built-in plain Markdown variant (EXP-01; EXP-08 exposes it): no
+    front-matter, wikilinks, callouts or plugin syntax. }}

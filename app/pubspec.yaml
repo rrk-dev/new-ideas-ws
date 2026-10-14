@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   archive: ^4.5.1
+  characters: ^1.4.1
   crypto: 3.0.7
   cryptography: 2.9.0
   cupertino_icons: ^1.0.8
@@ -17,6 +18,7 @@ dependencies:
   flutter_riverpod: ^3.4.3
   go_router: ^18.0.2
   http: ^1.6.0
+  mustache_template: 2.0.5
   path: 1.9.1
   path_provider: 2.1.6
   riverpod_annotation: ^4.0.7
@@ -51,3 +53,5 @@ flutter:
     - assets/catalog/
     # Built-in extraction profiles (PRF-01) — read-only, keyed (id, version).
     - assets/profiles/
+    # Built-in Markdown templates (EXP-01) — read-only, never stored as rows.
+    - assets/templates/
