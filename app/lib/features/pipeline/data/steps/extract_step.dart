@@ -5,6 +5,8 @@ import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/llm_engine.dart';
+import 'package:vaultvoice/features/extraction/domain/long_transcript/map_reduce_extractor.dart';
+import 'package:vaultvoice/features/extraction/domain/long_transcript/transcript_chunker.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/step_support.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
@@ -26,6 +28,24 @@ LlmRequest _placeholderPrompt(String profileId, String text, int maxTokens) =>
       maxTokens: maxTokens,
     );
 
+/// LLM-06 wiring: extraction through [MapReduceExtractor] (token-budget
+/// plan, chunked map step with per-chunk checkpoints, deterministic reduce).
+/// [inputFor] resolves the profile's prompts/schemas/grammars and the device
+/// tier; null means "use the plain single prompt" (e.g. no grammar yet).
+final class LongTranscriptExtraction {
+  const LongTranscriptExtraction({
+    required this.extractor,
+    required this.inputFor,
+  });
+
+  final MapReduceExtractor extractor;
+  final Future<LongExtractionInput?> Function(
+    String profileId,
+    List<TranscriptLine> lines,
+  )
+  inputFor;
+}
+
 /// Runs the LLM over the latest transcript and stores the extraction under a
 /// job-keyed id (re-extract overwrites). Never invokes STT.
 class ExtractStep implements PipelineStep {
@@ -35,6 +55,7 @@ class ExtractStep implements PipelineStep {
     required this.config,
     this.clock = const SystemClock(),
     ExtractionPromptBuilder? promptBuilder,
+    this.longTranscript,
   }) : promptBuilder = promptBuilder ?? _placeholderPrompt;
 
   final VaultVoiceDatabase db;
@@ -42,6 +63,7 @@ class ExtractStep implements PipelineStep {
   final PipelineConfig config;
   final Clock clock;
   final ExtractionPromptBuilder promptBuilder;
+  final LongTranscriptExtraction? longTranscript;
 
   @override
   PipelineStepId get id => PipelineStepId.extract;
@@ -73,6 +95,48 @@ class ExtractStep implements PipelineStep {
     final profileId = recording.profileId ?? config.defaultProfileId;
     final profile = await db.profilesRepository.getProfile(profileId);
     final profileVersion = profile.valueOrNull?.version ?? 1;
+
+    if (longTranscript case final lt?) {
+      final lines = [
+        for (final s in segments)
+          TranscriptLine(startMs: s.startMs, speaker: s.speaker, text: s.body),
+      ];
+      final input = await lt.inputFor(profileId, lines);
+      if (input != null) {
+        final result = await lt.extractor.extract(
+          input,
+          cancel: ctx.cancel,
+          onProgress: ctx.reportProgress,
+          checkpoints: _StepCheckpoints(ctx),
+        );
+        switch (result) {
+          case Err(:final failure):
+            return StepFailed(failure);
+          case Ok(value: final r):
+            final o = r.outcome;
+            return StepSucceeded(
+              commit: () async {
+                unwrap(
+                  await db.extractionsRepository.upsert(
+                    ExtractionsCompanion.insert(
+                      id: extractionIdFor(job.id),
+                      recordingId: job.recordingId,
+                      profileId: profileId,
+                      profileVersion: profileVersion,
+                      modelId: config.llmModelId,
+                      json:
+                          o.data ??
+                          {'fallback_summary': o.fallbackSummary ?? ''},
+                      valid: o.valid,
+                      createdAt: clock.now(),
+                    ),
+                  ),
+                );
+              },
+            );
+        }
+      }
+    }
 
     final request = promptBuilder(
       profileId,
@@ -119,4 +183,19 @@ class ExtractStep implements PipelineStep {
       return null;
     }
   }
+}
+
+/// Map checkpoints through the orchestrator (one transaction per chunk).
+final class _StepCheckpoints implements MapReduceCheckpointStore {
+  _StepCheckpoints(this._ctx)
+    : initial = MapReduceCheckpoint.fromJson(_ctx.job.checkpoint);
+
+  final StepContext _ctx;
+
+  @override
+  final MapReduceCheckpoint? initial;
+
+  @override
+  Future<void> save(MapReduceCheckpoint checkpoint, double progress) =>
+      _ctx.saveCheckpoint(checkpoint.toJson(), progress: progress);
 }
