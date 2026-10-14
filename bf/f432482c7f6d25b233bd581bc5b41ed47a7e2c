@@ -1,0 +1,55 @@
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_7a84c92c2ad677 219-290
+app/lib/features/library/presentation/transcript_navigation.g.dart
+  s_9f6fcf8c1840a0::t_49f306804282fd 1-58
+app/lib/features/library/domain/extraction_summary.dart
+  s_9f6fcf8c1840a0::t_a16d834401a2aa 1-51
+app/lib/features/library/presentation/library_screen.dart
+  s_9f6fcf8c1840a0::t_ad139b1483d9a5 131-132,186-187,204,215-216,224-225
+  s_9f6fcf8c1840a0::t_600923bf7e90c8 33-35
+  s_9f6fcf8c1840a0::t_bb4d6b7bd53dd7 2,4-9,11-14,18-23,25-32,36-130,133-185,188-203,205-214,217-223,226-359
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_7a84c92c2ad677 1189-1566
+app/lib/features/library/presentation/library_texts.dart
+  s_9f6fcf8c1840a0::t_49bc7a77078629 1-52
+app/lib/features/library/presentation/action_items_screen.dart
+  s_9f6fcf8c1840a0::t_ad139b1483d9a5 106-108
+  s_9f6fcf8c1840a0::t_668d47ef8eb323 1-105,109-119
+app/lib/features/library/presentation/transcript_lines_screen.dart
+  s_9f6fcf8c1840a0::t_3df686e3763b99 42
+  s_9f6fcf8c1840a0::t_600923bf7e90c8 39
+  s_9f6fcf8c1840a0::t_68e0d7f6b08062 1-38,40-41,43-163
+app/lib/features/library/presentation/recording_detail_screen.dart
+  s_9f6fcf8c1840a0::t_600923bf7e90c8 319-322
+  s_9f6fcf8c1840a0::t_ad139b1483d9a5 184-185,209,229-231,293-294,407-408
+  s_9f6fcf8c1840a0::t_62c8d391824b54 1-183,186-208,210-228,232-292,295-318,323-406,409-440
+app/lib/features/library/presentation/transcript_navigation.dart
+  s_9f6fcf8c1840a0::t_5dbadd03e5c91b 1-10,14-22,27-31
+  s_9f6fcf8c1840a0::t_600923bf7e90c8 11-13
+  s_9f6fcf8c1840a0::t_ad139b1483d9a5 23-26
+app/lib/core/routing/app_routes.g.dart
+  s_9f6fcf8c1840a0::t_49f306804282fd 63-66,71-77,187-207,233-261,364-371
+  s_9f6fcf8c1840a0::t_82c3cc2aac3ff8 62,372
+app/lib/core/routing/app_routes.dart
+  s_9f6fcf8c1840a0::t_3e50ca4b09427a 4,6-7,40-44,118-119,143-165
+app/lib/core/db/search_migration.dart
+  s_9f6fcf8c1840a0::t_600923bf7e90c8 34
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_7a84c92c2ad677 672-895
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bff432482c7f6d25b233bd581bc5b41ed47a7e2c",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
