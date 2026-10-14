@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/db/enums.dart';
+import 'package:vaultvoice/core/db/repositories/models_repository.dart';
+import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
 import 'package:vaultvoice/core/platform/call_guard.dart';
 import 'package:vaultvoice/core/platform/id_generator.dart';
@@ -139,15 +141,13 @@ Future<BatteryStatus?> batteryStatus(Ref ref) =>
     ref.watch(platformRecordingIndicatorProvider).batteryStatus();
 
 /// Path of the installed VAD model (AUD-03; MDL catalog type `vad`), or
-/// null when none is installed.
-@riverpod
-Future<String?> installedVadModelPath(Ref ref) async {
-  final paths = await ref.watch(storagePathsProvider.future);
-  final models = await ref
-      .watch(modelsRepositoryProvider)
-      .watchAll(type: ModelType.vad)
-      .first;
-  for (final m in models) {
+/// null when none is installed. Read fresh at every recording start.
+Future<String?> installedVadModelPath(
+  StoragePaths paths,
+  ModelsRepository models,
+) async {
+  final rows = await models.watchAll(type: ModelType.vad).first;
+  for (final m in rows) {
     try {
       final path = paths.resolve(m.path);
       if (File(path).existsSync()) return path;
@@ -183,7 +183,10 @@ SilenceWatcher silenceWatcher(Ref ref) {
       );
     },
     openVad: () async {
-      final path = await ref.read(installedVadModelPathProvider.future);
+      final path = await installedVadModelPath(
+        await ref.read(storagePathsProvider.future),
+        ref.read(modelsRepositoryProvider),
+      );
       return path == null ? null : await FfiLiveVad.open(path);
     },
     logger: ref.watch(loggerProvider),

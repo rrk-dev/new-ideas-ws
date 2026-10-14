@@ -305,6 +305,35 @@ int stt_v1() {
   return 0;
 }
 
+// Host bench (not a ctest): jfk.wav with 4 s pauses x 10 (~55 % speech,
+// like a meeting with gaps); prints STT wall time and text without / with
+// VAD. AUD-03 AC1 is decided on the QA-02 corpus on devices; this is the
+// host sanity number recorded in ADR-AUD-03.
+int bench() {
+  if (!have(true)) return kSkip;
+  const std::vector<float> speech = jfk();
+  std::vector<float> pcm;
+  for (int i = 0; i < 10; ++i) {
+    pcm.insert(pcm.end(), speech.begin(), speech.end());
+    pcm.insert(pcm.end(), 16000 * 4 * (1 + i % 3), 0.0f);  // 4/8/12 s gaps
+  }
+  const std::string wav = write_wav("bench", pcm);
+  for (int run = 0; run < 8; ++run) {
+    const int with_vad = (run + 1) % 2;
+    vv_stt_params p = vv_stt_default_params();
+    if (with_vad) p.vad_model_path = g_vad.c_str();
+    Sink sink;
+    const auto t0 = std::chrono::steady_clock::now();
+    if (int rc = transcribe(wav, p, &sink)) return rc;
+    const auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+                        std::chrono::steady_clock::now() - t0)
+                        .count();
+    std::printf("bench %s VAD: %lld ms for %zu ms audio, %zu segments\n", with_vad ? "with" : "without",
+                static_cast<long long>(ms), pcm.size() / 16, sink.times.size());
+  }
+  return 0;
+}
+
 }  // namespace
 
 int main(int argc, char** argv) {
@@ -315,6 +344,7 @@ int main(int argc, char** argv) {
   if (mode == "stt_silence") return stt_silence();
   if (mode == "stt_mapped") return stt_mapped();
   if (mode == "stt_v1") return stt_v1();
+  if (mode == "bench") return bench();
   std::fprintf(stderr, "unknown mode %s\n", mode.c_str());
   return 2;
 }

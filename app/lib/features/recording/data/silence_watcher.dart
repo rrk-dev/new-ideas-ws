@@ -73,7 +73,7 @@ class SilenceWatcher {
   }
 
   Future<void> dispose() async {
-    await _states?.cancel();
+    unawaited(_states?.cancel());
     _states = null;
     await _end();
   }
@@ -102,9 +102,22 @@ class SilenceWatcher {
   Future<void> _begin() async {
     await _end();
     final session = ++_session;
-    final p = await policy();
-    if (!p.enabled) return;
-    final vad = await openVad();
+    final SilencePolicy p;
+    final LiveVad? vad;
+    try {
+      p = await policy();
+      if (!p.enabled) return;
+      vad = await openVad();
+    } on Object catch (e) {
+      // Settings or model unreadable: silence detection stays off; the
+      // recording itself is unaffected.
+      _log?.warning(
+        _tag,
+        'silence detection unavailable',
+        fields: {'error': e.runtimeType},
+      );
+      return;
+    }
     if (vad == null) {
       _log?.info(_tag, 'silence detection off: no VAD model');
       return;
@@ -132,9 +145,11 @@ class SilenceWatcher {
     _session++;
     _pausedStop?.cancel();
     _pausedStop = null;
-    await _pcmSub?.cancel();
+    // Not awaited: the cancel futures carry nothing we need, and the next
+    // recording must not wait for them.
+    unawaited(_pcmSub?.cancel());
     _pcmSub = null;
-    await _resultsSub?.cancel();
+    unawaited(_resultsSub?.cancel());
     _resultsSub = null;
     _buffer.clear();
     _monitor = null;
