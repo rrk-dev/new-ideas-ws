@@ -1,0 +1,65 @@
+packages/vv_native/lib/src/llm_engine.dart
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 26,64-67,287-289
+tools/bench/llm_grammar/run.sh
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 1-12
+app/integration_test/llm_grammar_test.dart
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 1-98
+native/bridge/vv_llama.h
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 183-186,189-191,231-236
+  s_9f6fcf8c1840a0::t_db6c252720e015 237
+app/test/unit/extraction/structured_extractor_test.dart
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 1-225
+packages/vv_native/lib/src/vv_bindings.g.dart
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 689-714,1094-1099,1197-1200
+tools/bench/llm_grammar/grammar_bench.c
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 1-129
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 139-157,225-229
+app/lib/features/extraction/data/native_schema_grammar_converter.dart
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 1-38
+native/bridge/vv_exports.txt
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 36
+app/test/unit/extraction/structured_extraction_host_test.dart
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 1-149
+tasks/04-llm/LLM-05-structured-output-grammar.md
+  s_9f6fcf8c1840a0::t_03c574381e918d 22
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 4,11-14,23-36
+app/test/fakes/scripted_llm_engine.dart
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 1-27
+app/lib/features/extraction/domain/output_schema_validator.dart
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 1-103
+docs/test-plans/device/LLM-05.md
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 1-16
+native/bridge/vv_jsg_shim.cpp
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 1-57
+native/bridge/vv_jsg.cpp
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 1-35
+app/lib/features/extraction/domain/structured_extractor.dart
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 1-237
+native/bridge/vv_llama_engine.cpp
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 75-80,82,91-95,120,123,126-157,202-203,248,374-376,382
+packages/vv_native/lib/vv_native.dart
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 78-94
+native/tests/grammar_test.c
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 1-120
+tools/bench/results/2026-10-13-llm05-grammar.md
+  s_9f6fcf8c1840a0::t_5af08ae2d3dce1 1-27
+native/bridge/vv_exports.map
+  s_9f6fcf8c1840a0::t_a6460b4b766e19 38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c338c4c782a99822aacba5abe5351a167fb8deaf",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
