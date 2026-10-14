@@ -29,6 +29,9 @@ const int kRepeatedNgram = 3;
 const int kRepeatedNgramTimes = 4;
 const double kMaxCompressionRatio = 2.4;
 
+/// Duplicates shorter than this (in words) are kept.
+const int kMinDuplicateWords = 3;
+
 /// Known hallucinations on silence/music (normalized: lower-case, no
 /// punctuation). A segment consisting only of one of these is dropped.
 const Set<String> kKnownHallucinations = {
@@ -95,7 +98,11 @@ GuardReason? guardSegment(TranscriptSegment s, {String? previous}) {
   }
   final norm = _normalize(s.text);
   if (kKnownHallucinations.contains(norm)) return GuardReason.knownPhrase;
-  if (previous != null && norm.isNotEmpty && norm == _normalize(previous)) {
+  // Short replies ("Yes." "Yes.") legitimately repeat; a repeated longer
+  // segment is a decoder echo.
+  if (previous != null &&
+      norm.split(' ').length >= kMinDuplicateWords &&
+      norm == _normalize(previous)) {
     return GuardReason.duplicate;
   }
   if (hasRepetitionLoop(s.text)) return GuardReason.repetitionLoop;

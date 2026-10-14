@@ -75,20 +75,23 @@ void main() {
         guardSegment(_s('The budget is approved.'), previous: 'Next topic'),
         isNull,
       );
+      // Short replies may repeat.
+      expect(guardSegment(_s('Yes.'), previous: 'yes'), isNull);
     });
 
     test('zlib compression ratio > 2.4', () {
-      final degenerate = 'la ' * 40; // compresses far better than speech
+      // Compresses far better than speech.
+      final degenerate = List.filled(40, 'la').join(' ');
       expect(compressionRatio(degenerate), greaterThan(2.4));
-      final normal =
+      const normal =
           'Marcus will own the Android crash fix and report back on Thursday.';
       expect(compressionRatio(normal), lessThan(2.4));
-      // Words repeated without a repeated 3-gram run: only the ratio catches it.
-      final ratioOnly = List.generate(
+      // Alternating words: both the 3-gram loop and the ratio fire.
+      final alternating = List.generate(
         30,
-        (i) => 'na${i % 2 == 0 ? '' : 'h'}',
+        (i) => i.isEven ? 'na' : 'nah',
       ).join(' ');
-      expect(hasRepetitionLoop(ratioOnly), isTrue); // 3-gram also repeats
+      expect(hasRepetitionLoop(alternating), isTrue);
       expect(guardSegment(_s(degenerate)), isNotNull);
       expect(
         guardSegment(_s('${'abcdefghij' * 12} plus unique tail words here')),
@@ -100,12 +103,12 @@ void main() {
       'applyGuards keeps order, counts drops, duplicates across windows',
       () {
         final r = applyGuards([
-          _s('Hello team.'),
-          _s('Hello team.'),
+          _s('Hello team members.'),
+          _s('Hello team members.'),
           _s('Thanks for watching!'),
           _s('   '),
           _s('Next item is the budget.'),
-        ], previous: 'Hello team');
+        ], previous: 'Hello team members');
         expect(r.kept.map((s) => s.text), ['Next item is the budget.']);
         expect(r.dropped, {
           GuardReason.duplicate: 2,

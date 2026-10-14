@@ -15,6 +15,7 @@ import 'package:vaultvoice/features/pipeline/data/steps/step_support.dart';
 import 'package:vaultvoice/features/pipeline/domain/heavy_model_gate.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/transcription/data/live_transcriber.dart';
+import 'package:vaultvoice/features/transcription/data/live_transcription_service.dart';
 import 'package:vaultvoice/features/transcription/data/window_result_cache.dart';
 import 'package:vaultvoice/features/transcription/domain/window_planner.dart';
 
@@ -116,8 +117,11 @@ void main() {
     return o;
   }
 
-  Future<List<TranscriptSegmentRow>> segments(String jobId) async =>
-      expectOk(await db.transcriptsRepository.segments(transcriptIdFor(jobId)));
+  Future<List<TranscriptSegmentRow>> segments(String jobId) async {
+    final r = await db.transcriptsRepository.segments(transcriptIdFor(jobId));
+    final List<TranscriptSegmentRow> rows = expectOk(r);
+    return rows;
+  }
 
   test(
     '[STT-04/AC1] 2-hour recording: bounded windows, killed mid-job, '
@@ -428,4 +432,81 @@ void main() {
       expect(live.calls, hasLength(n));
     },
   );
+
+  test('LiveTranscriptionService follows the DB while recording and stops '
+      'on demand', () async {
+    await seedRecording(db, 'r2');
+    final engine = FakeWindowedSttEngine();
+    final cache = FileWindowResultCache(root);
+    final service = LiveTranscriptionService(
+      recordings: db.recordingsRepository,
+      paths: StoragePaths(root),
+      allowed: () => true,
+      create: (id) => LiveTranscriber(
+        recordingId: id,
+        engine: engine,
+        cache: cache,
+        modelId: 'm',
+        language: 'en',
+      ),
+    );
+    addTearDown(service.dispose);
+    service
+      ..watch('r2')
+      ..watch('r2'); // idempotent
+    expect(service.isWatching('r2'), isTrue);
+    for (var seq = 0; seq < 4; seq++) {
+      expectOk(
+        await db.recordingsRepository.upsertChunk(
+          AudioChunksCompanion.insert(
+            recordingId: 'r2',
+            seq: seq,
+            path: p.join('audio', 'r2', 'chunk_$seq.wav'),
+            sampleRate: 16000,
+            startMs: seq * _chunkMs,
+            endMs: (seq + 1) * _chunkMs,
+            bytes: 1,
+          ),
+        ),
+      );
+      expectOk(
+        await db.recordingsRepository.replaceSpeechSegments('r2', [
+          for (final s in _spans((seq + 1) * _chunkMs))
+            SpeechSegmentsCompanion.insert(
+              recordingId: 'r2',
+              startMs: s.startMs,
+              endMs: s.endMs,
+            ),
+        ]),
+      );
+      await pumpEventQueue();
+      await service.idle();
+    }
+    // 2 min recorded → the first windows (≥ 30 s each) are already decoded.
+    expect(engine.calls.length, greaterThanOrEqualTo(2));
+    for (final c in engine.calls) {
+      expect(
+        c.last.endMs + c.last.recordingOffsetMs,
+        lessThanOrEqualTo(119000),
+      );
+    }
+    await service.stop('r2');
+    expect(service.isWatching('r2'), isFalse);
+    final n = engine.calls.length;
+    expectOk(
+      await db.recordingsRepository.upsertChunk(
+        AudioChunksCompanion.insert(
+          recordingId: 'r2',
+          seq: 4,
+          path: p.join('audio', 'r2', 'chunk_4.wav'),
+          sampleRate: 16000,
+          startMs: 4 * _chunkMs,
+          endMs: 5 * _chunkMs,
+          bytes: 1,
+        ),
+      ),
+    );
+    await pumpEventQueue();
+    expect(engine.calls, hasLength(n), reason: 'stopped: no more decoding');
+  });
 }

@@ -68,7 +68,7 @@ class FakeWindowedSttEngine implements WindowedSttEngine {
               noSpeechProb: 0.01,
             ),
         ];
-    segments.forEach(onSegment ?? (_) {});
+    if (onSegment != null) segments.forEach(onSegment);
     return Ok(Transcript(segments));
   }
 }
