@@ -34,7 +34,7 @@ final class SttVariant {
   }
 
   static final _fileRe = RegExp(
-    r'^ggml-(tiny|base|small|medium|large-v3-turbo|large(?:-v[123])?)'
+    '^ggml-(tiny|base|small|medium|large-v3-turbo|large(?:-v[123])?)'
     r'(\.en)?(?:-(q\d_[01k]|q\d_k|f16))?\.bin$',
   );
 

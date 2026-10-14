@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:fake_async/fake_async.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
 import 'package:vaultvoice/features/licensing/data/local_entitlement_service.dart';
