@@ -1,7 +1,7 @@
 # FND-01 — Initialize Flutter Repository & Code Standards
 
 **Workstream:** Foundation | **Phase:** 1 (Weeks 1–3) | **Size:** S | **Depends on:** — | **Source:** §5 Phase 1
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-testing
 
 ## Goal
@@ -55,3 +55,24 @@ Create the Flutter monorepo with strict, enforced code style so every later task
 - **Issues found:**
   1. `[FND-01/AC1]` does not fail when analyze would fail. It must assert a clean `flutter analyze` and `dart format --set-exit-if-changed`, or the evidence must be something that actually runs those commands and fails closed.
   2. Rewrite `docs/test-plans/device/FND-01.md` so `[FND-01/AC2]` is `fvm flutter run --flavor dev -t lib/main_dev.dart` on an iOS simulator and an Android emulator, with the expected "dev flavor" launch. Leave Result blank until that run happens.
+
+## Rework
+- **Agent:** Claude Code · **Branch:** task/FND-01-rework · **Date:** 2026-10-13 — answers the Cursor FAIL report above (report left unchanged).
+- **Issue 1 (`[FND-01/AC1]` could not fail):** AC1 evidence is now mainly the new pytest `tools/ci/tests/test_repo_standards.py`
+  (`test_FND_01_AC1_format_gate_…`, `test_FND_01_AC1_analyze_gate_…`). It mirrors the working tree of `app/`,
+  `packages/vv_native/`, `.fvmrc` and the CI scripts into a temp dir, runs the real `tools/ci/format.sh`
+  (`dart format --set-exit-if-changed`) and `tools/ci/analyze.sh` (`flutter analyze` + `dart analyze --fatal-infos`)
+  and asserts exit 0; then writes temp fixtures into the mirror only — an unformatted file (format gate must exit ≠ 0
+  and name the file) and `print('x')` in `lib/` (analyze gate must exit ≠ 0 with `avoid_print`). The repository
+  is never modified. Without fvm/flutter on PATH the test fails (no silent skip). It runs in CI `task-gate`
+  (`pytest tools/ci/tests`) and through `tasks.py verify --run`.
+  Mutation check (2026-10-13): appended `print('leak')` to `app/lib/core/app_info.dart` →
+  `pytest tools/ci/tests/test_repo_standards.py -k analyze` → `1 failed` (`avoid_print • lib/core/app_info.dart:5:3`);
+  restored → `2 passed in 152s`.
+- **Issue 2 (device rows named physical phones):** `docs/test-plans/device/FND-01.md` rewritten: both `[FND-01/AC2]`
+  rows are `fvm flutter run --flavor dev -t lib/main_dev.dart` on an arm64 iOS simulator and an arm64-v8a Android
+  emulator (API 26+), expected "VaultVoice Dev" launch with the dev-flavor DEBUG banner; Result/Date/Tester blank.
+  Physical devices stay in GATE-01.
+- **Also fixed:** iOS `APP_DISPLAY_NAME` was "Vaultvoice Dev"/"Vaultvoice" (lower-case v) while Android and
+  `kAppName` use "VaultVoice"; now "VaultVoice Dev"/"VaultVoice".
+- **Still needed:** a run of both AC2 rows on a Mac with Xcode + Android SDK (not available on the authoring machine).
