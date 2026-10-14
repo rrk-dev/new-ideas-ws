@@ -1,0 +1,53 @@
+import 'package:drift/drift.dart';
+import 'package:vaultvoice/core/db/database.dart';
+import 'package:vaultvoice/core/db/db_guard.dart';
+import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/features/library/domain/library_models.dart';
+
+/// Full-text search over the FTS5 `search_index` (APP-02): recording titles
+/// and tags, transcripts and extracted fields. Queries are built with
+/// [buildFtsQuery], so user input never reaches FTS syntax.
+class SearchRepository {
+  SearchRepository(this._db);
+
+  final VaultVoiceDatabase _db;
+
+  /// Best hit per recording for [input], most relevant first; empty for
+  /// blank input. At most [limit] recordings.
+  Future<Result<List<SearchHit>>> search(String input, {int limit = 500}) {
+    final match = buildFtsQuery(input);
+    if (match == null) return Future.value(const Ok(<SearchHit>[]));
+    return guardDb(() async {
+      final rows = await _db
+          .customSelect(
+            'SELECT recording_id, kind, '
+            "snippet(search_index, 2, ?, ?, '…', 12) AS snip, "
+            'bm25(search_index) AS rank '
+            'FROM search_index WHERE search_index MATCH ? '
+            'ORDER BY rank LIMIT ?',
+            variables: [
+              const Variable(kSnippetOpen),
+              const Variable(kSnippetClose),
+              Variable(match),
+              // A recording has up to three rows (title, transcript,
+              // extraction).
+              Variable(limit * 3),
+            ],
+          )
+          .get();
+      final best = <String, SearchHit>{};
+      for (final r in rows) {
+        final id = r.read<String>('recording_id');
+        if (best.containsKey(id)) continue;
+        best[id] = SearchHit(
+          recordingId: id,
+          kind: r.read<String>('kind'),
+          snippet: r.read<String>('snip'),
+          rank: r.read<double>('rank'),
+        );
+        if (best.length == limit) break;
+      }
+      return best.values.toList();
+    });
+  }
+}
