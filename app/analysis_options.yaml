@@ -10,6 +10,8 @@ analyzer:
     - ios/**
     - '**/*.g.dart'
     - '**/*.freezed.dart'
+    # `flutter gen-l10n` output (APP-06).
+    - lib/core/l10n/gen/**
     # drift_dev schema snapshots (`drift_dev make-migrations`).
     - test/db/migrations/**/generated/**
   language:

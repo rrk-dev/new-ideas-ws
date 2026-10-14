@@ -9,10 +9,15 @@ import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
 import 'package:vaultvoice/core/errors/error_boundary.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
+import 'package:vaultvoice/core/licenses/bundled_licenses.dart';
 import 'package:vaultvoice/core/logging/logger.dart';
 import 'package:vaultvoice/core/logging/redaction.dart';
 import 'package:vaultvoice/core/logging/rotating_file_sink.dart';
 import 'package:vaultvoice/core/platform/app_paths.dart';
+import 'package:vaultvoice/features/pipeline/data/flutter_local_notifier.dart';
+import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
+import 'package:vaultvoice/features/pipeline/presentation/processing_services_host.dart';
 import 'package:vaultvoice/features/settings/data/share_plus_share_service.dart';
 import 'package:vv_native/vv_native.dart';
 
@@ -25,6 +30,7 @@ Future<void> bootstrap(
   List<Override> overrides = const [],
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
+  registerBundledLicenses();
   final paths = await _resolvePaths();
   final sink = RotatingFileSink(paths.logs);
   final logger = Logger.forFlavor(
@@ -45,9 +51,16 @@ Future<void> bootstrap(
         loggerProvider.overrideWithValue(logger),
         nativeVersionsProvider.overrideWithValue(_nativeVersions()),
         shareServiceProvider.overrideWithValue(const SharePlusShareService()),
+        if (Platform.isAndroid || Platform.isIOS)
+          localNotificationsProvider.overrideWithValue(
+            FlutterLocalNotifier(
+              channelName: l10nFor(PlatformDispatcher.instance.locale)
+                  .notificationChannelProcessing,
+            ),
+          ),
         ...overrides,
       ],
-      child: const App(),
+      child: const ProcessingServicesHost(child: App()),
     ),
   );
 }
