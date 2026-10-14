@@ -1,0 +1,82 @@
+app/test/helpers/model_download_server.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-299
+app/ios/Runner/ModelDownload/ModelDownloadPlugin.swift
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-400
+app/lib/core/platform/providers.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 37-40
+app/lib/features/models/data/gateway_download_transport.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-140
+app/lib/features/models/data/model_downloader.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-551
+app/test/unit/models/model_download_channel_test.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-220
+app/test/unit/models/model_downloader_test.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-619
+tools/ci/check_egress.sh
+  s_9f6fcf8c1840a0::t_37a295425df0ba 12-15
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/modeldownload/ModelDownloadPlugin.kt
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-101
+app/android/app/src/main/AndroidManifest.xml
+  s_9f6fcf8c1840a0::t_37a295425df0ba 2-9,39-42
+docs/privacy-audit.md
+  s_9f6fcf8c1840a0::t_37a295425df0ba 11,57-93
+  s_9f6fcf8c1840a0::t_04f0eb873a4261 94
+app/lib/features/models/domain/download_platform.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-61
+app/lib/features/models/domain/download_state.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-91
+app/lib/core/errors/failure.dart
+  s_9f6fcf8c1840a0::t_7fc3017df97769 216
+  s_9f6fcf8c1840a0::t_37a295425df0ba 217-260
+app/lib/core/platform/providers.g.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 260
+app/lib/features/models/data/download_providers.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-64
+tasks/05-models/MDL-02-model-downloader.md
+  s_9f6fcf8c1840a0::t_37a295425df0ba 4,11-16,22-69
+app/lib/features/models/domain/download_transport.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-114
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/MainActivity.kt
+  s_9f6fcf8c1840a0::t_37a295425df0ba 4,18-19
+app/lib/core/network/model_hosts.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 17-30
+docs/adr/ADR-MDL-02-model-downloader.md
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-87
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/modeldownload/ModelDownloadService.kt
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-94
+app/test/unit/network/network_gateway_stream_test.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-120
+docs/test-plans/device/MDL-02.md
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-29
+app/lib/features/models/domain/download_policy.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-31
+app/lib/core/network/network_gateway.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-2,9-13,18-22,27-54,70-71,85-161
+  s_9f6fcf8c1840a0::t_6e40e665ab10dd 162
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_9f6fcf8c1840a0::t_37a295425df0ba 16,58,135,300
+app/lib/app.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 7,15-16
+app/ios/Runner/AppDelegate.swift
+  s_9f6fcf8c1840a0::t_37a295425df0ba 22-25
+app/lib/features/models/data/download_providers.g.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-209
+app/lib/features/models/data/model_download_channel.dart
+  s_9f6fcf8c1840a0::t_37a295425df0ba 1-230
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6b4348b43e00f23687ce73214062e6a816b55378",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
