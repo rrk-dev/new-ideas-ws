@@ -1,0 +1,80 @@
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_3743af5ec51e9f 1308-1547
+app/lib/features/templates/data/template_store.dart
+  s_9f6fcf8c1840a0::t_83daa23343b4f7 109,133,161
+  s_9f6fcf8c1840a0::t_150d5b3c0854a4 1-108,110-132,134-160,162-179
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9f6fcf8c1840a0::t_998a79f2429acb 52-59
+app/lib/core/routing/app_routes.dart
+  s_9f6fcf8c1840a0::t_998a79f2429acb 14-15,46-49,179-198
+app/lib/features/templates/presentation/template_editor_screen.dart
+  s_9f6fcf8c1840a0::t_b70ce6a7f2bdcc 238,240-241,243-244,523-555,557-566
+  s_9f6fcf8c1840a0::t_7f333a96ad1466 1-28,31-56,60-63,68-191,194-195,199-201,207-237,239,242,245-258,261-270,273-323,328-346,350-421,426-431,435,440-484,487-500,505-522,556,567-572,574-636,638-644
+  s_9f6fcf8c1840a0::t_998a79f2429acb 57-59,64-67,192-193,196-198,202-206,259-260,271-272,347-349,432-434,436-439,485-486,501-504,573,637
+  s_9f6fcf8c1840a0::t_dc938d0b906071 325-327,424
+  s_9f6fcf8c1840a0::t_83daa23343b4f7 29-30,324,422-423,425
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_3743af5ec51e9f 249-294
+app/lib/features/templates/data/template_editor_providers.dart
+  s_9f6fcf8c1840a0::t_680570d6ba8383 1-41,43-50,54-57,59-107
+  s_9f6fcf8c1840a0::t_83daa23343b4f7 58
+  s_9f6fcf8c1840a0::t_998a79f2429acb 42,51-53
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_3743af5ec51e9f 744-884
+app/pubspec.yaml
+  s_9f6fcf8c1840a0::t_adbb700762449f 22,31
+  s_9f6fcf8c1840a0::t_3e125ccc3fcec0 32
+app/lib/core/routing/app_routes.g.dart
+  s_9f6fcf8c1840a0::t_998a79f2429acb 75-86,287-318,320-321,323-324,326-328,330-332
+  s_9f6fcf8c1840a0::t_98ceddf366b0bc 319,322,325,329
+app/test/unit/templates/template_editing_test.dart
+  s_9f6fcf8c1840a0::t_9c6850b9eca7f3 1,5-19,46-62,67-113,115-120,122-125,145,152,163,173,179,191-198
+  s_9f6fcf8c1840a0::t_cc9689a37afd40 114
+  s_9f6fcf8c1840a0::t_dff9f17a3ee1af 3
+  s_9f6fcf8c1840a0::t_8fe62abfabb651 2,4,20-45,63-66,121,126-144,146-151,153-162,164-172,174-178,180-190
+docs/test-plans/device/EXP-07.md
+  s_9f6fcf8c1840a0::t_b16b632230fd2e 1-14
+docs/privacy-audit.md
+  s_9f6fcf8c1840a0::t_c923c0491f8bdb 115-118
+tasks/07-export/EXP-07-template-editor-preview.md
+  s_9f6fcf8c1840a0::t_b16b632230fd2e 11-14,18-46
+app/lib/features/settings/domain/setting_keys.dart
+  s_9f6fcf8c1840a0::t_3d5fef4c4f3cd9 35-42
+app/lib/features/templates/domain/template_editing.dart
+  s_9f6fcf8c1840a0::t_83daa23343b4f7 1,15,190,192
+  s_9f6fcf8c1840a0::t_f87492053892b6 2-14,16-189,193-201
+  s_9f6fcf8c1840a0::t_998a79f2429acb 191
+app/test/widget/template_editor_test.dart
+  s_9f6fcf8c1840a0::t_b70ce6a7f2bdcc 17,136-137,139-140,146,185-188
+  s_9f6fcf8c1840a0::t_8cd37aefefa49a 97,145,176,202,226,243,250
+  s_9f6fcf8c1840a0::t_2c685e200f1ebb 1-16,18-96,98-135,138,141-144,147-175,177-184,189-201,203-225,227-242,244-249,251-268
+app/lib/features/templates/presentation/templates_screen.dart
+  s_9f6fcf8c1840a0::t_cd0a9736c8e623 1-37,40-41,44-99,104-112
+  s_9f6fcf8c1840a0::t_83daa23343b4f7 100-103
+  s_9f6fcf8c1840a0::t_998a79f2429acb 38-39,42-43
+app/test/widget/accessibility_test.dart
+  s_9f6fcf8c1840a0::t_dff9f17a3ee1af 12,19,22-23
+  s_9f6fcf8c1840a0::t_e8475350694904 47-49,52-77,79,85-88
+  s_9f6fcf8c1840a0::t_dc578bc50d37fb 2,80-84
+app/lib/features/templates/data/template_editor_providers.g.dart
+  s_9f6fcf8c1840a0::t_e8d9420bfe7b63 237
+  s_9f6fcf8c1840a0::t_998a79f2429acb 1-236,238-323
+app/pubspec.lock
+  s_9f6fcf8c1840a0::t_2aedd1b6e24b1c 451-458,599-614,687-694,911-926
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ec13f17a9dd5cfd88cc6df111e8f6bbb740282b3",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
