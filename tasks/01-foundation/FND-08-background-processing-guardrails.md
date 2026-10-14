@@ -1,7 +1,7 @@
 # FND-08 — Background Processing Guardrails (iOS & Android)
 
 **Workstream:** Foundation | **Phase:** 4 (design in Phase 2) | **Size:** L | **Depends on:** FND-05, STT-03, LLM-04 | **Source:** §5 Phase 4
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-background-execution, vv-pipeline-orchestrator, vv-flutter-architecture, vv-whisper-stt, vv-llm-inference, vv-testing
 
 ## Goal
