@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
@@ -9,14 +10,14 @@ import 'package:vaultvoice/features/extraction/presentation/llm_debug_screen.dar
 import '../fakes/fake_llm_engine.dart';
 
 void main() {
-  Widget app(FakeLlmEngine engine, {Flavor flavor = Flavor.dev}) =>
-      ProviderScope(
-        overrides: [
-          llmEngineProvider.overrideWithValue(engine),
-          flavorProvider.overrideWithValue(flavor),
-        ],
-        child: const MaterialApp(home: LlmDebugScreen()),
-      );
+  List<Override> overrides(
+    FakeLlmEngine engine, {
+    Flavor flavor = Flavor.dev,
+  }) => [
+    llmEngineProvider.overrideWithValue(engine),
+    flavorProvider.overrideWithValue(flavor),
+  ];
+  const screen = MaterialApp(home: LlmDebugScreen());
 
   String output(WidgetTester t) =>
       t.widget<SelectableText>(find.byKey(const Key('llm-debug-output'))).data!;
@@ -30,7 +31,9 @@ void main() {
       tokens: const ['Red', ', green', ', blue'],
       perToken: const Duration(milliseconds: 100),
     );
-    await t.pumpWidget(app(engine));
+    await t.pumpWidget(
+      ProviderScope(overrides: overrides(engine), child: screen),
+    );
     await t.tap(find.byKey(const Key('llm-debug-generate')));
     await t.pump(const Duration(milliseconds: 150));
     expect(output(t), 'Red'); // partial: streamed, not all at once
@@ -46,7 +49,9 @@ void main() {
       tokens: List.filled(50, 'x'),
       perToken: const Duration(milliseconds: 50),
     );
-    await t.pumpWidget(app(engine));
+    await t.pumpWidget(
+      ProviderScope(overrides: overrides(engine), child: screen),
+    );
     await t.tap(find.byKey(const Key('llm-debug-generate')));
     await t.pump(const Duration(milliseconds: 120));
     await t.tap(find.byKey(const Key('llm-debug-cancel')));
