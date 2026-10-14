@@ -95,6 +95,10 @@ class VvNative {
     return (cur.value, peak.value);
   });
 
+  /// `VV_*` code of the CPU backend registration done by [VvNative.open]
+  /// (`VV_E_BACKEND` = no usable CPU module found).
+  final int cpuBackendStatus;
+
   int get abiVersion => _b.vv_abi_version();
 
   /// Bridge semver, e.g. `0.1.0`.

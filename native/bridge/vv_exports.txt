@@ -1,3 +1,6 @@
+_vv_backends_load
+_vv_backends_describe
+_vv_backends_dynamic
 _vv_abi_version
 _vv_version
 _vv_whisper_version

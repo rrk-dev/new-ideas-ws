@@ -1,5 +1,8 @@
 {
   global:
+    vv_backends_load;
+    vv_backends_describe;
+    vv_backends_dynamic;
     vv_abi_version;
     vv_version;
     vv_whisper_version;
