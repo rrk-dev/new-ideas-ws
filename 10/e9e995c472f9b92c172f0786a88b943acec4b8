@@ -1,0 +1,19 @@
+tasks/07-export/EXP-08-share-and-alternate-outputs.md
+  s_e9783e887142e8::t_25ea0fbdf6a8d5 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "10e9e995c472f9b92c172f0786a88b943acec4b8",
+  "prompts": {},
+  "sessions": {
+    "s_e9783e887142e8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a771c98780c83d33f",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
