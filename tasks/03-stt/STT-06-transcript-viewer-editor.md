@@ -1,7 +1,7 @@
 # STT-06 — Transcript Viewer & Editor
 
 **Workstream:** STT | **Phase:** 2–3 | **Size:** M | **Depends on:** STT-03, FND-04 | **Source:** Gap (users must correct STT errors before extraction)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-whisper-stt, vv-flutter-architecture, vv-local-database, vv-pipeline-orchestrator, vv-testing
 
 ## Goal
