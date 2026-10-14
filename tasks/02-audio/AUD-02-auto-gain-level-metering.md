@@ -1,7 +1,7 @@
 # AUD-02 — Auto-Gain Control & Level Metering
 
 **Workstream:** Audio | **Phase:** 1 | **Size:** S | **Depends on:** AUD-01 | **Source:** §3.1.1
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-audio-capture, vv-benchmark-eval, vv-testing
 
 ## Goal
