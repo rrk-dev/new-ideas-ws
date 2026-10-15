@@ -81,6 +81,31 @@ void main() {
     expect(rig.controller.state.phase, RecordingPhase.stopped);
   });
 
+  test('[SEC-07/AC2] consent time is stored; spoken-consent marker is '
+      'kind consent', () async {
+    final rig = CaptureRig();
+    final service = RecordingSessionService(
+      recordings: rig.db.recordingsRepository,
+      settings: rig.db.settingsRepository,
+    );
+    await rig.controller.start(StartSource.inAppButton);
+    final id = rig.backend.recordingId!;
+    final at = DateTime.utc(2026, 10, 14, 9);
+    await service.applySetup(
+      id,
+      const RecordingSetup(profileId: 'meeting'),
+      consentConfirmedAt: at,
+    );
+    expect((await rig.row(id)).consentConfirmedAt, at);
+    final m = await service.addSpokenConsentMarker(
+      id,
+      const Duration(seconds: 3),
+    );
+    expect(m, isA<Ok<int>>());
+    final markers = await rig.db.recordingsRepository.watchMarkers(id).first;
+    expect(markers.single.kind, MarkerKind.consent);
+  });
+
   test('[AUD-08] finish() queues per processing.auto_process; processNow '
       'jumps the queue', () async {
     final rig = CaptureRig();

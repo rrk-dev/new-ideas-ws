@@ -11,6 +11,7 @@ import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/features/onboarding/data/onboarding_providers.dart';
 import 'package:vaultvoice/features/onboarding/presentation/permission_priming.dart';
+import 'package:vaultvoice/features/onboarding/presentation/recording_consent_explainer.dart';
 import 'package:vaultvoice/features/recording/data/recording_providers.dart';
 import 'package:vaultvoice/features/recording/data/recording_screen_providers.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
@@ -60,6 +61,10 @@ class _RecordScreenState extends ConsumerState<RecordScreen>
   /// AC1); null = unknown → primed on the tap.
   bool? _micPrimed;
 
+  /// First-run consent explainer acknowledged (SEC-07); null = unknown →
+  /// asked on the tap. Read up front like [_micPrimed].
+  bool? _consentAcked;
+
   /// Row id of the recording opened from this screen (for markers and the
   /// post-recording details).
   String? _recordingId;
@@ -81,6 +86,7 @@ class _RecordScreenState extends ConsumerState<RecordScreen>
     WidgetsBinding.instance.addObserver(this);
     unawaited(_checkCallState());
     unawaited(_loadMicPrimed());
+    unawaited(_loadConsentAcked());
   }
 
   @override
@@ -94,6 +100,17 @@ class _RecordScreenState extends ConsumerState<RecordScreen>
       if (mounted) _micPrimed = primed;
     } on Object {
       // Unknown: the first tap shows the priming dialog.
+    }
+  }
+
+  Future<void> _loadConsentAcked() async {
+    try {
+      final acked = await ref
+          .read(onboardingStoreProvider)
+          .consentAcknowledged();
+      if (mounted) _consentAcked = acked;
+    } on Object {
+      // Unknown: the first tap shows the explainer.
     }
   }
 
@@ -146,15 +163,36 @@ class _RecordScreenState extends ConsumerState<RecordScreen>
         .value
         ?.where((p) => p.id == _setup.profileId)
         .firstOrNull;
-    DateTime? consentAt;
-    if (profile?.consentRequired ?? false) {
-      final ok = await showDialog<bool>(
+    if (_consentAcked != true) {
+      final ack = await showDialog<bool>(
         context: context,
         barrierDismissible: false,
-        builder: (_) => const ConsentDialog(),
+        builder: (_) => const FirstRunConsentDialog(),
       );
-      if (ok != true || !mounted) return;
-      consentAt = ref.read(clockProvider).now();
+      if (ack != true || !mounted) return;
+      await ref.read(onboardingStoreProvider).acknowledgeConsent();
+      _consentAcked = true;
+    }
+    if (!mounted) return;
+    // Auto (no profile) may resolve to a multi-person profile: ask too.
+    final mode = profile == null
+        ? ConsentMode.required
+        : profile.consentRequired
+        ? ConsentMode.required
+        : profile.consentOptional
+        ? ConsentMode.optional
+        : ConsentMode.none;
+    DateTime? consentAt;
+    if (mode != ConsentMode.none) {
+      final choice = await showDialog<ConsentChoice>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => ConsentDialog(allowSkip: mode == ConsentMode.optional),
+      );
+      if (!mounted || choice == null || choice == ConsentChoice.cancel) return;
+      if (choice == ConsentChoice.confirm) {
+        consentAt = ref.read(clockProvider).now();
+      }
     }
     // APP-01: explain the microphone once, on the first Record tap, before
     // the OS asks (integration wave 3).
@@ -632,27 +670,68 @@ class _SideButton extends StatelessWidget {
   );
 }
 
-/// The SEC-07 hook: a profile with `consent_confirmation: required` must get
-/// this confirmation before the microphone opens (the time is stored as
-/// `recordings.consent_confirmed_at`). Returns true on confirm.
+/// How the per-recording consent step applies to the chosen profile.
+enum ConsentMode { required, optional, none }
+
+/// What the user chose in [ConsentDialog].
+enum ConsentChoice { confirm, skip, cancel }
+
+/// Per-recording confirmation (SEC-07): "everyone present knows and agrees".
+/// The confirm button is the default action; [allowSkip] (profiles with
+/// `consent_confirmation: optional`) adds "record without confirming". The
+/// confirmation time is stored as `recordings.consent_confirmed_at`.
 class ConsentDialog extends StatelessWidget {
-  const ConsentDialog({super.key});
+  const ConsentDialog({super.key, this.allowSkip = false});
+
+  final bool allowSkip;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return AlertDialog(
       title: Text(l10n.consentTitle),
-      content: Text(l10n.consentBody),
+      content: Text(allowSkip ? l10n.consentOptionalBody : l10n.consentBody),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(ConsentChoice.cancel),
+          child: Text(l10n.commonCancel),
+        ),
+        if (allowSkip)
+          TextButton(
+            key: const ValueKey('consent-skip'),
+            onPressed: () => Navigator.of(context).pop(ConsentChoice.skip),
+            child: Text(l10n.consentSkip),
+          ),
+        FilledButton(
+          key: const ValueKey('consent-confirm'),
+          onPressed: () => Navigator.of(context).pop(ConsentChoice.confirm),
+          child: Text(l10n.consentConfirm),
+        ),
+      ],
+    );
+  }
+}
+
+/// The first-run acknowledgement, shown before the first recording when it
+/// was not given during onboarding (SEC-07).
+class FirstRunConsentDialog extends StatelessWidget {
+  const FirstRunConsentDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    return AlertDialog(
+      title: Text(l10n.consentFirstRunTitle),
+      content: const SingleChildScrollView(child: RecordingConsentExplainer()),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
           child: Text(l10n.commonCancel),
         ),
         FilledButton(
-          key: const ValueKey('consent-confirm'),
+          key: const ValueKey('consent-first-run-ack'),
           onPressed: () => Navigator.of(context).pop(true),
-          child: Text(l10n.consentConfirm),
+          child: Text(l10n.consentFirstRunConfirm),
         ),
       ],
     );

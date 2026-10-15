@@ -297,6 +297,12 @@ void main() {
     await t.pumpAndSettle();
     await show(t, find.byKey(const ValueKey('about-version')));
     expect(find.text('$kAppName $kAppVersion'), findsOneWidget);
+    await show(t, find.byKey(const ValueKey('about-privacy-policy')));
+    await t.tap(find.byKey(const ValueKey('about-privacy-policy')));
+    await t.pumpAndSettle();
+    expect(find.byKey(const ValueKey('privacy-policy-text')), findsOneWidget);
+    await t.pageBack();
+    await t.pumpAndSettle();
     await show(t, find.byKey(const ValueKey('about-licenses')));
     await t.tap(find.byKey(const ValueKey('about-licenses')));
     await t.pumpAndSettle();

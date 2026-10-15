@@ -14,8 +14,8 @@ typedef BookmarkRefreshed = void Function(
   VaultFolder updated,
 );
 
-/// [VaultWriter] for an iOS folder reached through a security-scoped
-/// bookmark (EXP-04).
+/// [VaultWriter] for an iOS or macOS folder reached through a security-scoped
+/// bookmark (EXP-04, EXP-09). The bytes are the UTF-8 of [NoteDraft.markdown].
 ///
 /// Every call goes to the Swift host (`BookmarkHostApiImpl.swift`), which
 /// resolves the bookmark, opens a short security-scoped access window and
@@ -116,9 +116,10 @@ Future<(VaultAccess, String?)> bookmarkCheckAccess(
   }
 }
 
-/// [VaultFolderAccess] backed by `UIDocumentPickerViewController` (folder
-/// mode) and security-scoped bookmarks. Bookmarks survive restarts and app
-/// updates, not app deletion (then: re-pick).
+/// [VaultFolderAccess] backed by a security-scoped bookmark. iOS picks with
+/// `UIDocumentPickerViewController`; macOS picks with `NSOpenPanel` and
+/// `.withSecurityScope` (EXP-09). The stored handle is the bookmark blob.
+/// It survives restarts and app updates, not app deletion (then: re-pick).
 class BookmarkFolderAccess implements VaultFolderAccess {
   BookmarkFolderAccess({BookmarkHostApi? api, this._onRefreshed})
     : _api = api ?? BookmarkHostApi();

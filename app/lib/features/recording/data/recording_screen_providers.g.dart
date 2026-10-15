@@ -162,7 +162,7 @@ final class ProfileChoicesProvider
   }
 }
 
-String _$profileChoicesHash() => r'baf5ef3133070e681ea7a9b4ef17c7b3c08a5eca';
+String _$profileChoicesHash() => r'e749838af2fc0752ec5cb95849cf443f7c453a41';
 
 /// Vault folders to send the note to (Auto = routing rules).
 
