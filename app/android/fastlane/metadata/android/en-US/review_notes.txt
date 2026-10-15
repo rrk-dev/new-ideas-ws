@@ -1,0 +1,45 @@
+VaultVoice Play review notes (engineering — not marketing copy)
+
+WHAT THE APP DOES
+On-device voice notes: record from the microphone after an explicit tap,
+transcribe with whisper.cpp, extract structure with a local LLM
+(llama.cpp), write Markdown into a user-chosen folder. No account.
+Audio, transcripts, and extracted text never leave the device.
+
+RECORDING POLICY (SEC-09) — PLEASE READ
+- Recording starts only after the user taps the Record control. There is
+  no always-on capture and no scheduled recording.
+- The app does NOT record phone calls or VoIP calls. Capture stops when
+  a call rings or starts and never auto-resumes. We do not request
+  READ_PHONE_STATE, READ_CALL_LOG, CAPTURE_AUDIO_OUTPUT, or use
+  Accessibility / MediaProjection capture.
+- Foreground service type `microphone` is used only while a user-started
+  recording is in progress (Android 14+ FGS).
+- Per-recording consent confirmation is a user setting (default on).
+
+HOW TO DEMO WITHOUT SPEAKING
+Import app/test/fixtures/audio/store_demo_silence.wav (16 kHz mono PCM,
+0.5 s silence). Then open Library. Production builds show the user's
+own notes; screenshot builds seed "Sample weekly planning".
+
+MODELS (Hugging Face)
+Speech and LLM models are not bundled. On first launch the user taps
+Download; files come from Hugging Face over HTTPS, signature-checked
+against the signed catalog (MDL-01). Reviewers can skip the download
+and use Import only.
+
+BACKGROUND / FGS
+- FOREGROUND_SERVICE_MICROPHONE: in-progress user-started recording
+  (the audio foreground-service type; RECORD_AUDIO only after a tap).
+- processing work: on-device transcribe / extract jobs after the user
+  starts a recording. No GPU in background.
+
+IN-APP PURCHASES
+vv_pro_annual — Play Billing subscription (1 year).
+vv_pro_lifetime — Play Billing one-time product.
+Restore is on Settings. No sign-in.
+
+PRIVACY
+No analytics, crash, or ads SDKs. Network only: Hugging Face model
+catalog/CDN (user-initiated) and Play Billing. Data Safety form is
+authored in SEC-06.

@@ -64,4 +64,16 @@ Procedure, exit criteria and triage: `docs/beta.md`.
       satisfaction ≥ 0.80, no open S1. The workflow's `production` action runs
       that gate and then only prepares a Play **draft** and selects the iOS
       build (`submit_for_review: false`). A human still submits for review.
+## Store listing (REL-05)
+Engineering assets live in-repo (`docs/store-listing.md`). Marketing copy is product-owned.
+- [ ] Screenshots captured (`bash tools/release/capture_store_screenshots.sh ios` and `android`) at the sizes in `tools/release/store_screenshot_sizes.json` (iPhone 1206×2622, iPad 2064×2752, Android 1080×1920). Seed is `app/test/helpers/store_demo_data.dart` (Speaker A/B — no real people).
+- [ ] Play feature graphic 1024×500 and hi-res icon 512×512 (`python3 tools/release/gen_store_graphics.py`, or product artwork in the same paths).
+- [ ] `[PRODUCT]` placeholders in `app/ios/fastlane/metadata/` and `app/android/fastlane/metadata/` replaced with product copy.
+- [ ] IAP `vv_pro_annual` (annual subscription) and `vv_pro_lifetime` (one-time) created in App Store Connect and Play Console (`docs/iap-products.md`).
+- [ ] Reviewer notes current: no phone/VoIP recording, user-tap start with a visible indicator, Hugging Face model download on first launch, `audio`/`processing` background modes and Android microphone FGS, demo WAV `app/test/fixtures/audio/store_demo_silence.wav`.
+- [ ] Privacy nutrition labels / Data Safety (SEC-06) still match.
+- [ ] Submitted on both stores; approval is the REL-05 acceptance criterion (device rows in `docs/test-plans/device/REL-05.md`).
+
+## Promotion (manual, outside this pipeline)
+- [ ] Beta (REL-04) / production rollout decided by a human in App Store Connect / Play Console.
 - [ ] Post-release: watch App Store Connect / Play Console crash reports (OS-level opt-in baseline).

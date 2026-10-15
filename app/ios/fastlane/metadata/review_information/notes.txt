@@ -1,0 +1,48 @@
+VaultVoice App Review notes (engineering — not marketing copy)
+
+WHAT THE APP DOES
+On-device voice notes: record from the microphone after an explicit tap,
+transcribe with whisper.cpp, extract structure with a local LLM
+(llama.cpp), write Markdown into a user-chosen folder. No account.
+Audio, transcripts, and extracted text never leave the device.
+
+RECORDING POLICY (SEC-09) — PLEASE READ
+- Recording starts only after the user taps the Record control. There is
+  no always-on capture, no lock-screen start, and no scheduled recording.
+- The app does NOT record phone calls or VoIP calls. Capture stops when
+  a call rings or starts and never auto-resumes. We do not use CallKit
+  VoIP modes, READ_PHONE_STATE, READ_CALL_LOG, CAPTURE_AUDIO_OUTPUT,
+  Accessibility, or MediaProjection.
+- Per-recording consent confirmation is a user setting (default on).
+
+HOW TO DEMO WITHOUT SPEAKING
+1. Complete onboarding (microphone permission, local-only processing).
+2. Settings → Import a WAV, or drop
+   app/test/fixtures/audio/store_demo_silence.wav onto the simulator.
+   16 kHz mono PCM, 0.5 s of silence — enough to exercise import, not a
+   call recording.
+3. Open Library → Sample weekly planning (seeded in TestFlight builds
+   via store demo data; production builds show the user's own notes).
+
+MODELS (Hugging Face)
+Speech and LLM models are not bundled. On first launch the user taps
+Download; files come from Hugging Face over HTTPS, signature-checked
+against the signed catalog (MDL-01). Reviewers can skip the download
+and use Import only.
+
+BACKGROUND MODES (Info.plist)
+- audio: continue an in-progress microphone recording if the user
+  backgrounds the app. Recording still started from a user tap.
+- processing: on-device transcribe / extract jobs
+  (BGProcessingTask / BGContinuedProcessingTask). No GPU in background.
+
+IN-APP PURCHASES
+vv_pro_annual — auto-renewable annual Pro subscription.
+vv_pro_lifetime — non-consumable lifetime Pro.
+Restore Purchases is on Settings. No account. Demo account fields are
+"not-required".
+
+PRIVACY
+No analytics, crash, or ads SDKs. Network only: Hugging Face model
+catalog/CDN (user-initiated) and StoreKit. Privacy nutrition labels
+are authored in SEC-06.

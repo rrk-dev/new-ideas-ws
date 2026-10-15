@@ -1,0 +1,15 @@
+# REL-05 store-listing lanes. Loaded with:
+#   bundle exec fastlane --fastfile Fastfile.store screenshots
+# Does not replace Fastfile (REL-01) or Fastfile.beta (REL-04).
+fastlane_require "fastlane"
+
+default_platform(:android)
+
+ROOT = File.expand_path("../../..", __dir__)
+
+platform :android do
+  desc "Capture Play Store screenshots (Flutter integration_test, synthetic demo)"
+  lane :screenshots do
+    sh("bash", File.join(ROOT, "tools/release/capture_store_screenshots.sh"), "android")
+  end
+end
