@@ -93,6 +93,101 @@ class TranscriptsRepository extends DatabaseAccessor<VaultVoiceDatabase>
     }),
   );
 
+  /// Writes diarization output (STT-05) in one transaction: every segment
+  /// gets its speaker label; a segment cut at a speaker change keeps its row
+  /// for the first part and gains rows for the others. Sequence numbers are
+  /// renumbered per audio chunk (`seq ~/ 100000`) so order and the
+  /// `chunk * 100000 + index` convention survive. Unsplit segments keep their
+  /// text (user edits stay). Pieces of one source must be consecutive.
+  Future<Result<void>> applyDiarization(
+    String transcriptId,
+    List<
+      ({
+        int sourceId,
+        int startMs,
+        int endMs,
+        String body,
+        String? tokensJson,
+        String? speaker,
+        bool isSplit,
+      })
+    >
+    pieces,
+  ) => guardDb(
+    () => transaction(() async {
+      final rows = await _segments(transcriptId).get();
+      for (final r in rows) {
+        await (update(transcriptSegments)..where((s) => s.id.equals(r.id)))
+            .write(TranscriptSegmentsCompanion(seq: Value(-r.id)));
+      }
+      final bySource =
+          <
+            int,
+            List<
+              ({
+                int sourceId,
+                int startMs,
+                int endMs,
+                String body,
+                String? tokensJson,
+                String? speaker,
+                bool isSplit,
+              })
+            >
+          >{};
+      for (final p in pieces) {
+        bySource.putIfAbsent(p.sourceId, () => []).add(p);
+      }
+      final next = <int, int>{};
+      for (final r in rows) {
+        final chunk = r.seq ~/ 100000;
+        final mine = bySource[r.id];
+        if (mine == null || mine.isEmpty) {
+          final idx = next[chunk] = (next[chunk] ?? -1) + 1;
+          await (update(
+            transcriptSegments,
+          )..where((s) => s.id.equals(r.id))).write(
+            TranscriptSegmentsCompanion(seq: Value(chunk * 100000 + idx)),
+          );
+          continue;
+        }
+        for (final (i, p) in mine.indexed) {
+          final idx = next[chunk] = (next[chunk] ?? -1) + 1;
+          final seq = chunk * 100000 + idx;
+          if (i == 0) {
+            await (update(
+              transcriptSegments,
+            )..where((s) => s.id.equals(r.id))).write(
+              TranscriptSegmentsCompanion(
+                seq: Value(seq),
+                speaker: Value(p.speaker),
+                startMs: p.isSplit ? Value(p.startMs) : const Value.absent(),
+                endMs: p.isSplit ? Value(p.endMs) : const Value.absent(),
+                body: p.isSplit ? Value(p.body) : const Value.absent(),
+                tokensJson: p.isSplit
+                    ? Value(p.tokensJson)
+                    : const Value.absent(),
+              ),
+            );
+          } else {
+            await into(transcriptSegments).insert(
+              TranscriptSegmentsCompanion.insert(
+                transcriptId: transcriptId,
+                seq: seq,
+                startMs: p.startMs,
+                endMs: p.endMs,
+                body: p.body,
+                speaker: Value(p.speaker),
+                avgLogprob: Value(r.avgLogprob),
+                tokensJson: Value(p.tokensJson),
+              ),
+            );
+          }
+        }
+      }
+    }),
+  );
+
   Future<String> _edit(int segmentId, String newText) async {
     final row = await (select(
       transcriptSegments,

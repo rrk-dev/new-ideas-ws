@@ -7,6 +7,7 @@ import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/core/widgets/status_message.dart';
 import 'package:vaultvoice/features/transcription/domain/transcript_player.dart';
 import 'package:vaultvoice/features/transcription/domain/transcript_view.dart';
+import 'package:vaultvoice/features/transcription/presentation/speaker_names_dialog.dart';
 import 'package:vaultvoice/features/transcription/presentation/transcript_providers.dart';
 
 /// `m:ss` / `h:mm:ss` for a recording time.
@@ -46,6 +47,16 @@ class TranscriptScreen extends ConsumerWidget {
                   context: context,
                   builder: (_) =>
                       FindReplaceDialog(recordingId: recordingId, view: data),
+                ),
+              ),
+            ),
+            IconButton(
+              tooltip: l.transcriptSpeakers,
+              icon: const Icon(Icons.record_voice_over_outlined),
+              onPressed: () => unawaited(
+                showDialog<void>(
+                  context: context,
+                  builder: (_) => SpeakerNamesDialog(recordingId: recordingId),
                 ),
               ),
             ),

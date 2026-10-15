@@ -3634,6 +3634,24 @@ abstract class AppLocalizations {
   /// **'Find and replace'**
   String get transcriptFindReplace;
 
+  /// No description provided for @transcriptSpeakers.
+  ///
+  /// In en, this message translates to:
+  /// **'Name speakers'**
+  String get transcriptSpeakers;
+
+  /// No description provided for @transcriptSpeakerNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Name for {label}'**
+  String transcriptSpeakerNameHint(String label);
+
+  /// No description provided for @transcriptSpeakersNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Names are saved for this recording only and appear in the exported note.'**
+  String get transcriptSpeakersNote;
+
   /// No description provided for @transcriptFind.
   ///
   /// In en, this message translates to:

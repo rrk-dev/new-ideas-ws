@@ -2111,6 +2111,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get transcriptFindReplace => 'Find and replace';
 
   @override
+  String get transcriptSpeakers => 'Name speakers';
+
+  @override
+  String transcriptSpeakerNameHint(String label) {
+    return 'Name for $label';
+  }
+
+  @override
+  String get transcriptSpeakersNote =>
+      'Names are saved for this recording only and appear in the exported note.';
+
+  @override
   String get transcriptFind => 'Find';
 
   @override

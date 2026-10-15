@@ -63,7 +63,13 @@ class TemplateNoteRenderer {
     final meta = _meta(input, profile);
     final transcript = buildNoteTranscript([
       for (final s in input.segments)
-        (startMs: s.startMs, speaker: s.speaker, text: s.body),
+        (
+          startMs: s.startMs,
+          speaker: s.speaker == null
+              ? null
+              : input.speakerNames[s.speaker] ?? s.speaker,
+          text: s.body,
+        ),
     ]);
     final warnings = <String>[];
     RenderedNote? note;
@@ -135,7 +141,9 @@ class TemplateNoteRenderer {
       durationMs: r.durationMs,
       profileId: input.extraction.profileId,
       profileName: profile?.name ?? input.extraction.profileId,
-      speakers: [for (final s in speakers) (label: s, name: null)],
+      speakers: [
+        for (final s in speakers) (label: s, name: input.speakerNames[s]),
+      ],
       tags: r.tags,
       llmModel: input.extraction.modelId,
       appVersion: appVersion,
