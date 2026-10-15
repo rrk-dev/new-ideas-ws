@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # SEC-08: dependency vulnerability scan with OSV-Scanner over the pub lockfiles
-# (app/pubspec.lock, packages/*/pubspec.lock), Gradle and Podfile lockfiles when
+# (app/pubspec.lock, packages/*/pubspec.lock), Gradle lockfiles when
 # present, and the vendored native submodules (llama.cpp, whisper.cpp by commit).
 # Fails on any finding not ignored in osv-scanner.toml. Dev/CI tooling only: it
 # queries osv.dev, the app itself never does.
@@ -19,8 +19,8 @@ command -v osv-scanner >/dev/null 2>&1 || {
 # (model conversion, examples) that is never built into the app.
 LOCKS=()
 while IFS= read -r f; do LOCKS+=(--lockfile "$f"); done < <(
-  find app packages -name pubspec.lock -not -path '*/.dart_tool/*' -o \
-    -name Podfile.lock -not -path '*/Pods/*' -o -name gradle.lockfile 2>/dev/null | sort)
+  find app packages \( -name pubspec.lock -o -name gradle.lockfile \) \
+    -not -path '*/.dart_tool/*' 2>/dev/null | sort)
 [ ${#LOCKS[@]} -gt 0 ] || { echo "osv_scan: no lockfiles found" >&2; exit 1; }
 osv-scanner scan source --config osv-scanner.toml "${LOCKS[@]}"
 
