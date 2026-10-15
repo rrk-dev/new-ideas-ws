@@ -55,6 +55,14 @@ abstract final class SettingKeys {
   /// from the UI isolate for the pipeline worker (EXP-05, LIC-01).
   static const exportRoutingPolicy = 'export.routing_policy';
 
+  // Templates (EXP-07).
+  /// `{templateId: {profile, base}}` — schema profile and built-in origin of
+  /// each custom template (built-in profiles cannot be `templates.profile_id`).
+  static const templatesMeta = 'templates.meta';
+
+  /// `{profileId: templateId}` — custom template used for a profile's notes.
+  static const templatesBindings = 'templates.bindings';
+
   // Privacy & security (SEC-03 / SEC-04).
   static const securityAppLock = 'security.app_lock';
   static const securityLockTimeout = 'security.lock_timeout';

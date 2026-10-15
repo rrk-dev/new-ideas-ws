@@ -9,6 +9,7 @@ import 'package:vaultvoice/app.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
+import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
@@ -19,9 +20,12 @@ import 'package:vaultvoice/features/export/domain/pending_export.dart';
 import 'package:vaultvoice/features/export/domain/routing_rule.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/profiles/data/custom_profile_providers.dart';
+import 'package:vaultvoice/features/profiles/data/profile_providers.dart';
 import 'package:vaultvoice/features/profiles/domain/profile_codec.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
+import 'package:vaultvoice/features/templates/data/template_editor_providers.dart';
+import 'package:vaultvoice/features/templates/data/template_store.dart';
 import 'package:vaultvoice/features/transcription/domain/playback_timeline.dart';
 import 'package:vaultvoice/features/transcription/domain/transcript_player.dart';
 import 'package:vaultvoice/features/transcription/domain/transcript_view.dart';
@@ -57,7 +61,36 @@ const _screens = {
   'Pending exports': '/settings/pending-exports',
   'Models': '/settings/models',
   'Transcript': '/library/recordings/rec-a/transcript',
+  'Templates': '/settings/templates',
+  'Template (built-in)': '/settings/templates/meeting-default',
+  'Template editor': '/settings/templates/mine',
 };
+
+class _Templates implements TemplateStore {
+  @override
+  Stream<List<CustomTemplate>> watch() => Stream.value(const [
+    CustomTemplate(
+      id: 'mine',
+      body: '# {{data.title}}\n\n{{#data.action_items}}\n',
+      filenamePattern: '{{slug}}.md',
+      profileId: 'meeting',
+      baseId: 'meeting-default',
+    ),
+  ]);
+
+  @override
+  Stream<Map<String, String>> watchBindings() => Stream.value(const {});
+
+  @override
+  Future<Result<void>> save(CustomTemplate template) async => const Ok(null);
+
+  @override
+  Future<Result<void>> delete(String id) async => const Ok(null);
+
+  @override
+  Future<Result<void>> bind(String profileId, String? templateId) async =>
+      const Ok(null);
+}
 
 /// STT-06 transcript with a speaker, a low-confidence word and a marker.
 const _transcript = TranscriptViewData(
@@ -86,6 +119,16 @@ const _transcript = TranscriptViewData(
 );
 
 List<Override> _overrides() => [
+  templateStoreProvider.overrideWithValue(_Templates()),
+  // rootBundle caches futures across tests (fake-async zones): read the
+  // asset files directly instead.
+  profileAssetLoaderProvider.overrideWithValue(
+    (key) async => File(key).readAsStringSync(),
+  ),
+  editorProfilesProvider.overrideWith(
+    (ref) async => (await ref.watch(builtinProfilesProvider.future)).all,
+  ),
+  templatePreviewRecordingsProvider.overrideWith((ref, id) async => const []),
   transcriptViewProvider('rec-a').overrideWith((ref) async => _transcript),
   transcriptPlaybackProvider('rec-a').overrideWith(
     (ref) async => TranscriptPlayback(

@@ -15,6 +15,8 @@ import 'package:vaultvoice/features/profiles/presentation/profiles_screen.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/vault_settings_screens.dart';
+import 'package:vaultvoice/features/templates/presentation/template_editor_screen.dart';
+import 'package:vaultvoice/features/templates/presentation/templates_screen.dart';
 import 'package:vaultvoice/features/transcription/presentation/transcript_screen.dart';
 
 part 'app_routes.g.dart';
@@ -65,6 +67,10 @@ part 'app_routes.g.dart';
             TypedGoRoute<RoutingRulesRoute>(
               path: 'routing-rules',
               routes: [TypedGoRoute<RoutingRuleEditorRoute>(path: ':ruleId')],
+            ),
+            TypedGoRoute<TemplatesRoute>(
+              path: 'templates',
+              routes: [TypedGoRoute<TemplateEditorRoute>(path: ':templateId')],
             ),
           ],
         ),
@@ -258,4 +264,24 @@ class PendingExportsRoute extends GoRouteData with $PendingExportsRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const PendingExportsScreen();
+}
+
+/// Settings → Templates (EXP-07).
+class TemplatesRoute extends GoRouteData with $TemplatesRoute {
+  const TemplatesRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const TemplatesScreen();
+}
+
+/// Settings → Templates → one template (built-in read-only or custom).
+class TemplateEditorRoute extends GoRouteData with $TemplateEditorRoute {
+  const TemplateEditorRoute({required this.templateId});
+
+  final String templateId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      TemplateEditorScreen(templateId: templateId);
 }
