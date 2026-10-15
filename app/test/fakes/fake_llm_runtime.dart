@@ -27,6 +27,10 @@ class FakeLlmRuntime implements LlmRuntime {
   /// Called when a run has emitted its first chunk.
   void Function(FakeLlmRun run)? onFirstChunk;
 
+  /// When set, [load] waits for this future before returning the session
+  /// (simulates the asynchronous native load, LLM-04 rework).
+  Future<void>? loadDelay;
+
   @override
   Future<LlmSession> load(
     String modelPath,
@@ -34,6 +38,7 @@ class FakeLlmRuntime implements LlmRuntime {
     required int contextSize,
   }) async {
     loads.add(choice);
+    if (loadDelay case final delay?) await delay;
     if (loadError case final code?) throw LlmLoadException(code);
     final s = FakeLlmSession(
       this,

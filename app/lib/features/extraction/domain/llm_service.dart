@@ -85,10 +85,15 @@ final class LlmService implements LlmEngine, LlmTokenizer {
   }
 
   /// The app moved to the background: iOS forbids GPU work from now on.
+  ///
+  /// Always forces CPU for the next load — also when nothing is loaded yet
+  /// or a GPU load is still in flight: [_ensureSession] discards a GPU
+  /// session that finishes loading after this call before any generation
+  /// starts on it (LLM-04 rework: background-during-load race).
   void onBackgrounded() {
+    _forceCpu = true;
     final s = _session;
     if (s == null || !s.usedGpu) return;
-    _forceCpu = true;
     if (_active != null) {
       _internalCancel = true;
       _active!.cancel();
@@ -115,7 +120,23 @@ final class LlmService implements LlmEngine, LlmTokenizer {
     }
   }
 
+  /// A session that may run work now: never a GPU session while
+  /// backgrounded. The app can be backgrounded while the (asynchronous)
+  /// load is in flight; such a GPU session is disposed unused and the model
+  /// is reloaded on the CPU — every caller that awaited the same load
+  /// re-checks, so no caller ever receives it.
   Future<LlmSession> _ensureSession() async {
+    while (true) {
+      final s = await _ensureSessionOnce();
+      if (!(s.usedGpu && _forceCpu)) return s;
+      if (identical(_session, s)) {
+        s.dispose();
+        _session = null;
+      }
+    }
+  }
+
+  Future<LlmSession> _ensureSessionOnce() async {
     if (_loading != null) return await _loading!;
     final want = _forceCpu
         ? const LlmBackendChoice(useGpu: false, reason: 'forced-cpu')

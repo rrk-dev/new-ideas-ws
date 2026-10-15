@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
@@ -117,6 +119,62 @@ void main() {
         expect(rt.loads.last.useGpu, isTrue, reason: 'GPU again in foreground');
       },
     );
+
+    test('[LLM-04/AC1] backgrounded while the GPU model is still loading '
+        '-> no GPU generation; the run uses a CPU session', () async {
+      // Regression for the Codex FAIL (2026-10-14): onBackgrounded() was a
+      // no-op while `_session == null`, so the in-flight GPU load was
+      // installed and generation started on the GPU in the background.
+      final gate = Completer<void>();
+      final rt = FakeLlmRuntime()..loadDelay = gate.future;
+      final s = service(rt);
+      final pending = s.generate(const LlmRequest(prompt: 'p'));
+      await pumpEventQueue();
+      expect(rt.loads.single.useGpu, isTrue, reason: 'GPU load in flight');
+      s.onBackgrounded();
+      rt.loadDelay = null;
+      gate.complete();
+      final r = await pending;
+      expect(r.valueOrNull, 'Hello!');
+      final ran = rt.sessions.where((x) => x.prompts.isNotEmpty).toList();
+      expect(ran, hasLength(1));
+      expect(ran.single.usedGpu, isFalse, reason: 'no GPU work in background');
+      expect(rt.sessions.first.disposed, isTrue, reason: 'GPU session freed');
+      expect(s.usesGpu, isFalse);
+    });
+
+    test('[LLM-04/AC1] backgrounded before any load -> the first load is CPU; '
+        'the next foreground load uses the GPU', () async {
+      final rt = FakeLlmRuntime();
+      final s = service(rt)..onBackgrounded();
+      await s.generate(const LlmRequest(prompt: 'p'));
+      expect(rt.loads.single.useGpu, isFalse);
+      // A loaded CPU session is kept; the next load uses the GPU again.
+      s
+        ..onForegrounded()
+        ..unload();
+      await s.generate(const LlmRequest(prompt: 'p2'));
+      expect(rt.loads.map((c) => c.useGpu), [false, true]);
+    });
+
+    test('[LLM-04/AC1] concurrent callers awaiting a GPU load that finishes '
+        'in the background never get the GPU session', () async {
+      final gate = Completer<void>();
+      final rt = FakeLlmRuntime()..loadDelay = gate.future;
+      final s = service(rt);
+      final count = s.countTokens('a b');
+      final gen = s.generate(const LlmRequest(prompt: 'p'));
+      await pumpEventQueue();
+      s.onBackgrounded();
+      rt.loadDelay = null;
+      gate.complete();
+      expect((await count).valueOrNull, 2);
+      expect((await gen).isOk, isTrue);
+      expect(
+        rt.sessions.where((x) => x.prompts.isNotEmpty).map((x) => x.usedGpu),
+        [false],
+      );
+    });
 
     test('VV_E_BACKEND on the GPU retries once on CPU; then fails', () async {
       final rt = FakeLlmRuntime(gpuStatus: LlmRunStatus.backend);
