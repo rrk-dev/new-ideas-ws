@@ -1,0 +1,30 @@
+app/test/db/recording_deletion_test.dart
+  s_9f6fcf8c1840a0::t_30cb60337e0003 11,227-267
+app/lib/features/library/data/library_providers.g.dart
+  s_9f6fcf8c1840a0::t_789ad15ecc62b3 701
+app/lib/features/library/data/recording_deleter.dart
+  s_9f6fcf8c1840a0::t_b53bd9ca38697b 9,47-48,59-65,107-124
+app/lib/features/retention/data/recording_purger.dart
+  s_9f6fcf8c1840a0::t_491afbba4a4f46 72-75,80-83
+  s_9f6fcf8c1840a0::t_1b4069965c8ac6 84-85
+app/test/unit/retention/secure_deletion_test.dart
+  s_9f6fcf8c1840a0::t_491afbba4a4f46 110-112,150,164-168
+app/lib/features/library/data/library_providers.dart
+  s_9f6fcf8c1840a0::t_b53bd9ca38697b 18,302-303,308
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5532246ad8dff8030c06f6e6c2a7dd0a86873059",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
