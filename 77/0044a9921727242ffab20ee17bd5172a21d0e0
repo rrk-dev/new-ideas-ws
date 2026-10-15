@@ -1,0 +1,61 @@
+app/lib/features/profiles/data/profile_providers.dart
+  s_9f6fcf8c1840a0::t_abe4c6cac3248f 8,43-50
+app/lib/features/profiles/data/profile_providers.g.dart
+  s_9f6fcf8c1840a0::t_0a0b1f66493bad 207-267
+app/lib/features/profiles/data/session_prompt_tokenizer.dart
+  s_9f6fcf8c1840a0::t_dbe88f02964452 1-20
+app/lib/features/profiles/domain/extraction_prompts.dart
+  s_9f6fcf8c1840a0::t_d04b198f37415b 1-110
+app/lib/features/profiles/domain/prompt_builder.dart
+  s_9f6fcf8c1840a0::t_949aee215cd756 1-420
+app/lib/features/profiles/domain/prompt_inputs.dart
+  s_9f6fcf8c1840a0::t_8918a997b70370 1-68
+app/lib/features/profiles/domain/schema_prompt_text.dart
+  s_9f6fcf8c1840a0::t_3aa0b6d5a331af 1-90
+app/test/fakes/fake_prompt_tokenizer.dart
+  s_9f6fcf8c1840a0::t_0ac44eed3a3a3d 1-28
+app/test/golden_prompts/engineering.single_pass.txt
+  s_9f6fcf8c1840a0::t_71084c5deead6b 1-64
+app/test/golden_prompts/meeting.chunk_1_of_2.txt
+  s_9f6fcf8c1840a0::t_315307073fbb24 1-45
+app/test/golden_prompts/meeting.single_pass.txt
+  s_9f6fcf8c1840a0::t_9781b48245ed46 1-55
+app/test/golden_prompts/warranty.single_pass.txt
+  s_9f6fcf8c1840a0::t_f5fd6cf7c3853d 1-55
+app/test/native/prompt_builder_host_test.dart
+  s_9f6fcf8c1840a0::t_4e865d0251f61d 1-132
+app/test/unit/profiles/extraction_prompts_test.dart
+  s_9f6fcf8c1840a0::t_31bd3ba63755e2 1-49
+app/test/unit/profiles/profile_fixtures.dart
+  s_9f6fcf8c1840a0::t_db6f738dc24f03 4,11-16
+app/test/unit/profiles/prompt_builder_test.dart
+  s_9f6fcf8c1840a0::t_96c27331dcc588 1-343
+app/test/unit/profiles/prompt_snapshot_test.dart
+  s_9f6fcf8c1840a0::t_b32adbdf982e59 1-112
+app/test/unit/profiles/render_prompt_tool_test.dart
+  s_9f6fcf8c1840a0::t_18895ea8d076b7 1-62
+app/tool/render_prompt.dart
+  s_9f6fcf8c1840a0::t_8ee9bd751e6c4f 1-251
+app/tool/src/prompt_case.dart
+  s_9f6fcf8c1840a0::t_c92eea1f1334c4 1-164
+docs/profile-spec.md
+  s_9f6fcf8c1840a0::t_11ada46fd8046c 180-205
+tasks/06-profiles/PRF-02-system-prompt-builder.md
+  s_9f6fcf8c1840a0::t_c2c0cd3ee3b55e 4,11-15,19-80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "770044a9921727242ffab20ee17bd5172a21d0e0",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
