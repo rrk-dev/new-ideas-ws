@@ -1725,6 +1725,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Close'**
   String get profileEditorTestClose;
+
+  /// No description provided for @profilesImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Import profile'**
+  String get profilesImport;
+
+  /// No description provided for @profilesImportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Import {name}?'**
+  String profilesImportTitle(String name);
+
+  /// No description provided for @profilesImportNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Adds this profile and its note template.'**
+  String get profilesImportNew;
+
+  /// No description provided for @profilesImportUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Updates version {from} to version {to}.'**
+  String profilesImportUpdate(int from, int to);
+
+  /// No description provided for @profilesImportManaged.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed by your organization. It will be read-only.'**
+  String get profilesImportManaged;
+
+  /// No description provided for @profilesImportConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Import'**
+  String get profilesImportConfirm;
+
+  /// No description provided for @profilesImported.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile imported.'**
+  String get profilesImported;
+
+  /// No description provided for @profilesImportInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'This file is not a valid VaultVoice profile.'**
+  String get profilesImportInvalid;
+
+  /// No description provided for @profilesImportUntrusted.
+  ///
+  /// In en, this message translates to:
+  /// **'This profile pack is signed by an unknown organization.'**
+  String get profilesImportUntrusted;
+
+  /// No description provided for @profilesImportTampered.
+  ///
+  /// In en, this message translates to:
+  /// **'This profile pack was changed after signing and cannot be imported.'**
+  String get profilesImportTampered;
+
+  /// No description provided for @profilesImportIdTaken.
+  ///
+  /// In en, this message translates to:
+  /// **'A different profile with this name is already installed.'**
+  String get profilesImportIdTaken;
+
+  /// No description provided for @profilesImportOlder.
+  ///
+  /// In en, this message translates to:
+  /// **'A newer version of this profile is already installed.'**
+  String get profilesImportOlder;
+
+  /// No description provided for @profilesImportSame.
+  ///
+  /// In en, this message translates to:
+  /// **'This version is already installed.'**
+  String get profilesImportSame;
+
+  /// No description provided for @profilesImportNotEntitled.
+  ///
+  /// In en, this message translates to:
+  /// **'Importing this profile needs a plan that includes it.'**
+  String get profilesImportNotEntitled;
+
+  /// No description provided for @profilesImportFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The import failed.'**
+  String get profilesImportFailed;
+
+  /// No description provided for @profileEditorExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export profile'**
+  String get profileEditorExport;
+
+  /// No description provided for @profileEditorExportFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not export the profile.'**
+  String get profileEditorExportFailed;
 }
 
 class _AppLocalizationsDelegate

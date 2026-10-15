@@ -9,6 +9,7 @@ import 'package:vaultvoice/features/licensing/domain/paywall.dart';
 import 'package:vaultvoice/features/licensing/presentation/feature_gate.dart';
 import 'package:vaultvoice/features/profiles/data/custom_profile_providers.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
+import 'package:vaultvoice/features/profiles/presentation/profile_transfer_actions.dart';
 
 /// Profiles tab (PRF-07): built-in profiles (read-only, duplicable) and the
 /// user's custom profiles; creating/editing is gated by
@@ -22,7 +23,16 @@ class ProfilesScreen extends ConsumerWidget {
     final profiles = ref.watch(profileListProvider);
     final canEdit = ref.watch(canEditProfilesProvider);
     return Scaffold(
-      appBar: AppBar(title: Text(l.tabProfiles)),
+      appBar: AppBar(
+        title: Text(l.tabProfiles),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.file_open_outlined),
+            tooltip: l.profilesImport,
+            onPressed: () => importProfileBundle(context, ref),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _create(context, ref),
         icon: const Icon(Icons.add),

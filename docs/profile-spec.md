@@ -203,6 +203,23 @@ otherwise parse as special tokens) and line breaks collapsed (no forged `[hh:mm:
 lines). Snapshots: `app/test/golden_prompts/`; CLI for the eval harness:
 `app/tool/render_prompt.dart`.
 
+## `.vvprofile` bundles (PRF-08, `ProfileBundleCodec`)
+A zip with exactly these root entries (no directories): `manifest.json`
+`{format: 1, id, version, created_by, managed, files: {"profile.yaml": sha256, "template.mustache": sha256}}`,
+`profile.yaml` (the canonical definition, written as indented JSON — valid YAML 1.2), `template.mustache`
+(the bound template) and, for managed packs only, `signature.ed25519` = `{key_id, sig}` (base64 Ed25519
+over the exact `manifest.json` bytes; `key_id` = first 16 hex of sha256(public key)). Entry timestamps are
+fixed, so the same profile always exports to the same bytes.
+
+Import order: bundle ≤ 2 MB → zip parses, ≤ 4 entries, only the known names (rejects `..`, `/`, `\`, `:`,
+`~`, duplicates) → each file ≤ 1 MB → `format == 1` → hashes → signature when `managed` or a signature is
+present (key must be one of the enterprise license's org keys, LIC-03) → profile validation (managed →
+`enterprise`, else `user`) → `id`/`version` match the manifest → template validation against the
+profile. Conflicts: built-in id or an id of another source → refused; same version → already installed;
+higher → update offered; lower → refused. Custom imports need `Feature.customProfiles`, managed packs
+`Feature.managedProfiles`. File type: extension `vvprofile`, UTI `com.vaultvoice.profile`, MIME
+`application/vnd.vaultvoice.profile+zip`.
+
 ## Full example (built-in `meeting`, version 1)
 
 This block is validated by `[PRF-01/AC1]` in `app/test/unit/profiles/profile_spec_doc_test.dart`
