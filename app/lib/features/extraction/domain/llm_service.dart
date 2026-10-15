@@ -6,6 +6,7 @@ import 'package:vaultvoice/core/platform/cancel_token.dart';
 import 'package:vaultvoice/core/platform/llm_engine.dart';
 import 'package:vaultvoice/features/extraction/domain/llm_backend_policy.dart';
 import 'package:vaultvoice/features/extraction/domain/llm_runtime.dart';
+import 'package:vaultvoice/features/extraction/domain/model_residency.dart';
 
 /// [LlmEngine] over a native [LlmRuntime] (LLM-04).
 ///
@@ -47,9 +48,10 @@ final class LlmService implements LlmEngine, LlmTokenizer {
   /// load with, or `Err(OutOfMemoryFailure)` to refuse the load.
   final Result<int> Function(int requestedContext)? loadGate;
 
-  /// Called right before a model load (LLM-07 `ModelResidency.acquire`:
-  /// unloads STT first — never STT and LLM together).
-  final void Function()? onBeforeLoad;
+  /// Awaited right before a model load (LLM-07 `ModelResidency.acquire`:
+  /// unloads STT first and waits for it — never STT and LLM together). A
+  /// throw (e.g. `ModelResidencyException`) refuses the load.
+  final FutureOr<void> Function()? onBeforeLoad;
 
   /// Per-run stats (FND-07 metrics: prefill/decode tok/s, token counts).
   final void Function(LlmRunStats stats)? onStats;
@@ -154,14 +156,26 @@ final class LlmService implements LlmEngine, LlmTokenizer {
           throw _GateRefused(failure);
       }
     }
-    onBeforeLoad?.call();
-    final loading = runtime.load(modelPath, want, contextSize: ctx);
+    // `_loading` covers the residency wait too, so a concurrent request
+    // joins this load instead of starting a second one.
+    final loading = _load(want, ctx);
     _loading = loading;
     try {
       return _session = await loading;
     } finally {
       _loading = null;
     }
+  }
+
+  Future<LlmSession> _load(LlmBackendChoice want, int ctx) async {
+    // Awaited: the other model's (asynchronous) disposal must have finished
+    // before the native load starts (LLM-07 rework).
+    await onBeforeLoad?.call();
+    // Backgrounded while waiting (iOS forbids GPU work): load on the CPU.
+    final choice = _forceCpu && want.useGpu
+        ? const LlmBackendChoice(useGpu: false, reason: 'forced-cpu')
+        : want;
+    return await runtime.load(modelPath, choice, contextSize: ctx);
   }
 
   @override
@@ -296,6 +310,9 @@ final class LlmService implements LlmEngine, LlmTokenizer {
   Failure _loadFailure(Object e) => switch (e) {
     LlmLoadException(:final code) when code == -3 => const OutOfMemoryFailure(),
     LlmLoadException(:final code) => NativeFailure(code, 'llm: model load'),
+    // The other model could not be freed: retry later (classified
+    // retryable, like an OOM) — never load on top of it.
+    ModelResidencyException() => const OutOfMemoryFailure(),
     _ => UnexpectedFailure(e.runtimeType.toString()),
   };
 }

@@ -206,9 +206,8 @@ void main() {
     test('loading the LLM unloads STT first; never both', () async {
       final residency = ModelResidency();
       var sttUnloads = 0;
-      residency
-        ..register(ResidentModel.stt, () => sttUnloads++)
-        ..acquire(ResidentModel.stt);
+      residency.register(ResidentModel.stt, () => sttUnloads++);
+      await residency.acquire(ResidentModel.stt);
       final rt = FakeLlmRuntime();
       final s = LlmService(
         runtime: rt,
@@ -220,7 +219,7 @@ void main() {
       await s.generate(const LlmRequest(prompt: 'p'));
       expect(sttUnloads, 1);
       expect(residency.loaded, {ResidentModel.llm});
-      residency.acquire(ResidentModel.stt); // pipeline moves on to STT
+      await residency.acquire(ResidentModel.stt); // pipeline moves on to STT
       expect(s.isLoaded, isFalse);
       expect(residency.loaded, {ResidentModel.stt});
     });

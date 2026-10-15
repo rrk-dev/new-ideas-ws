@@ -165,9 +165,8 @@ void main() {
       final created = <String>[];
       final residency = ModelResidency();
       var llmUnloads = 0;
-      residency
-        ..register(ResidentModel.llm, () => llmUnloads++)
-        ..acquire(ResidentModel.llm);
+      residency.register(ResidentModel.llm, () => llmUnloads++);
+      await residency.acquire(ResidentModel.llm);
       final stt = ActiveSttEngine(
         resolve: () async => active,
         residency: residency,
@@ -211,9 +210,8 @@ void main() {
       final runtime = FakeLlmRuntime();
       final residency = ModelResidency();
       var sttUnloads = 0;
-      residency
-        ..register(ResidentModel.stt, () => sttUnloads++)
-        ..acquire(ResidentModel.stt);
+      residency.register(ResidentModel.stt, () => sttUnloads++);
+      await residency.acquire(ResidentModel.stt);
       final stats = LlmStatsTap();
       final llm = ActiveLlmEngine(
         resolve: () async => active,
