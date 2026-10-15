@@ -1,0 +1,28 @@
+app/lib/features/profiles/domain/post_processing.dart
+  s_9f6fcf8c1840a0::t_33b9dd80663425 115-116,665-683
+  s_9f6fcf8c1840a0::t_b08a4b5d9d117e 684-685
+app/test/unit/profiles/post_processing_test.dart
+  s_9f6fcf8c1840a0::t_559177230d9c80 280-297
+docs/profile-spec.md
+  s_9f6fcf8c1840a0::t_33b9dd80663425 70-73,83
+.agents/skills/vv-extraction-profiles/references/profile-spec.md
+  s_9f6fcf8c1840a0::t_33b9dd80663425 23
+app/lib/features/profiles/domain/post_processors.dart
+  s_9f6fcf8c1840a0::t_33b9dd80663425 26-31,108-111
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b35bbc09ae925c98c32c10f51168e9a7f2d1473e",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
