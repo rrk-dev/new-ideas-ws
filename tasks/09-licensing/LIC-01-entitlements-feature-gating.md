@@ -64,3 +64,14 @@ One central place that decides what Free / Pro / Enterprise users can do.
   `EntitlementService.update` and overrides `paywallPresenterProvider`; LIC-03 maps licence
   `features[]` to `Entitlement.extraFeatures`; APP-xx Settings reads `entitlementSummaryProvider`;
   PRF/EXP/MDL screens gate via `featureProvider` / `FeatureAccess` access levels.
+
+## Verification Report
+- **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ (0 changed) · analyze ✅ (no issues) · tests ✅ (785 passed, 24 skipped, coverage 93.2% of 4708 gated lines, min 80%) · native smoke ✅ (host ctest 9 passed / 14 skipped / 0 failed, includes `vv_crash`) · egress ✅ · recording policy ✅ · CI run: https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858 (run 51, success, `67b6fcf`) and https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638136574 (run 50, success)
+- **Acceptance criteria:**
+  - AC1: ✅ re-ran `[LIC-01/AC1]` (`feature_matrix_test.dart`, `downgrade_test.dart`). Every `Feature` × `Plan` × `DistributionMode` is asserted against an expected table that is not the production map. Commercial Free is off for Pro features; Enterprise alone has `managedProfiles`; limits are one vault target on Free and read-only custom profiles/templates/rules after expiry. Annual without expiry fails closed; lifetime does not expire; `featureProvider` follows `update` and a clock jump. Checked `smallStt × free (commercial)` fails when that cell is flipped to `true`.
+- **Adversarial checks:** Expired Pro keeps custom data but `AccessLevel.readOnly` / disabled for extra vault targets and Pro models. Personal build (`VV_COMMERCIAL` unset) enables every non-managed feature and never shows a paywall — the test locks that default. No store SDK in this task. `tasks.py verify LIC-01 --run` short-circuits because dependencies are not `done`; the tagged tests passed in the full suite.
+- **Skill/rule compliance:** One matrix in `feature_matrix.dart`. §7 cells that conflict with the skill (`small` Whisper, Warranty/Engineering profiles) are `// PRODUCT-DECISION` comments, not silent changes. Downgrade does not delete profiles. Paywall is an entry point (`ensureFeature` / `FeatureGate`) with `NoPaywallPresenter` until LIC-02.
+- **Issues found:** none
+- **Pending for done:** dependency FND-02 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task
