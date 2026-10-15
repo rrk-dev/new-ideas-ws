@@ -1,0 +1,14 @@
+tasks/12-release/REL-05-store-listing-technical-assets.md
+  h_9c63801c22a53c 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "96447d396e4eef828852220a864c7dce61b03c4f",
+  "prompts": {},
+  "humans": {
+    "h_9c63801c22a53c": {
+      "author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
