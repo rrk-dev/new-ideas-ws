@@ -155,7 +155,7 @@ final class ModelDownloaderProvider
   }
 }
 
-String _$modelDownloaderHash() => r'64fe3f621f605c2845a2613d1e9ef96bd5ca263e';
+String _$modelDownloaderHash() => r'ac7569cdb02d0eb1df067d93c69657bf5f3ad32a';
 
 /// Resumes downloads interrupted by an app kill (MDL-02/AC1). Watched once
 /// at app start; returns the resumed model ids (empty on any error — never
