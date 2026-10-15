@@ -154,7 +154,7 @@ final class LicenseSettingsPortProvider
 }
 
 String _$licenseSettingsPortHash() =>
-    r'96e15c1171909dd35255048086659008f354bc56';
+    r'400ccdd09163c420855348e919d5c8516444261a';
 
 @ProviderFor(licenseSummary)
 final licenseSummaryProvider = LicenseSummaryProvider._();
