@@ -1,7 +1,7 @@
 # SEC-05 — Model & Open-Source License Compliance
 
 **Workstream:** Security & Privacy | **Phase:** 2–4 | **Size:** S | **Depends on:** LLM-08, STT-07 | **Source:** Gap
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-privacy-security, vv-model-delivery
 
 ## Goal
