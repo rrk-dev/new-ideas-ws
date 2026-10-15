@@ -112,6 +112,8 @@ Map<String, Object?> applyPostProcessors(
         _resolveDates(out, profile.schema, context.recordedAt);
       case PostProcessor.computeWarrantyExpiry:
         out[kWarrantyExpiryField] = _expiryOf(out, context.recordedAt);
+      case PostProcessor.dedupeLists:
+        _visitLists(out, dedupeList);
     }
   }
   return out;
@@ -658,6 +660,27 @@ String? _expiryOf(Map<String, Object?> out, DateTime ref) {
   if (value is! num || unit is! String) return null;
   final expiry = computeWarrantyExpiry(purchase, value.toInt(), unit);
   return expiry == null ? null : _isoDate(expiry);
+}
+
+// ---------------------------------------------------------------- lists
+
+String _dedupeKey(Object? item) => switch (item) {
+  final String s =>
+    s.toLowerCase().replaceAll(RegExp('[^a-z0-9]+'), ' ').trim(),
+  final Map<Object?, Object?> m => [
+    for (final e in m.entries)
+      if (e.key != 't') '${e.key}=${_dedupeKey(e.value)}',
+  ].join('|'),
+  final List<Object?> l => l.map(_dedupeKey).join(','),
+  _ => '$item',
+};
+
+/// `dedupe_lists` for one list (in place): drops items whose normalized
+/// content (case, punctuation, whitespace; object timestamps `t` ignored)
+/// equals an earlier item's.
+void dedupeList(List<Object?> list) {
+  final seen = <String>{};
+  list.retainWhere((item) => seen.add(_dedupeKey(item)));
 }
 
 // ---------------------------------------------------------------- helpers

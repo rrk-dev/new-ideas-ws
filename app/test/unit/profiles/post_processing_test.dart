@@ -277,4 +277,22 @@ void main() {
       expect(input.containsKey('warranty_expiry'), isFalse);
     });
   });
+
+  group('[PRF-03/AC1] dedupe_lists', () {
+    test('drops repeated strings and objects (t ignored), keeps order', () {
+      final list = <Object?>[
+        'Release notes signed off by Priya.',
+        'release notes signed off by priya',
+        'Use API v2',
+        {'task': 'Ship', 'owner': 'Sam', 't': '00:00:01'},
+        {'task': 'ship', 'owner': 'Sam', 't': '00:00:09'},
+        {'task': 'Ship', 'owner': 'Lena', 't': '00:00:01'},
+      ];
+      dedupeList(list);
+      expect(list, hasLength(4));
+      expect(list[0], 'Release notes signed off by Priya.');
+      expect(list[1], 'Use API v2');
+      expect((list[3]! as Map)['owner'], 'Lena');
+    });
+  });
 }

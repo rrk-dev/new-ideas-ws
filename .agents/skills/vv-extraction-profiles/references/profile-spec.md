@@ -20,7 +20,7 @@ A profile is YAML (built-in assets, `.vvprofile` bundles) or the equivalent JSON
 | `schema` | JSON Schema (subset) | ✅ | Root `type: object`. Every array needs `maxItems`, every string `maxLength`. Supported keywords: `type`, `properties`, `required`, `items`, `enum`, `maxItems`, `minItems`, `maxLength`, `description`, `format: date` (hint only). |
 | `map_schema` | JSON Schema | – | Schema for map step of map-reduce; defaults to `schema` with prose fields removed. |
 | `reduce` | map field→strategy | – | `union_dedupe` (lists), `first_non_null`, `llm_summarize` (prose), `max`, `min`. Default: lists `union_dedupe`, scalars `first_non_null`, `summary`/`title` `llm_summarize`. |
-| `post_process` | list | – | Named Dart post-processors in order: `resolve_relative_dates`, `compute_warranty_expiry`, `normalize_serial`, `map_owner_to_speaker`, `sort_by_timestamp`, `drop_ungrounded_timestamps`. Unknown names = validation error. |
+| `post_process` | list | – | Named Dart post-processors in order: `resolve_relative_dates`, `compute_warranty_expiry`, `normalize_serial`, `map_owner_to_speaker`, `sort_by_timestamp`, `drop_ungrounded_timestamps`, `dedupe_lists`. Unknown names = validation error. |
 | `examples` | list of {transcript, output} | – | 0–2; `output` must validate against `schema`. |
 | `template_id` | string | ✅ | Default template (built-in id or user template). |
 | `filename_pattern` | string | – | Overrides template default, e.g. `{{date:YYYY-MM-DD}}-{{slug}}.md` (filename token syntax: `vv-markdown-vault-export`). |
