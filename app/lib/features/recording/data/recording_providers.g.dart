@@ -193,14 +193,18 @@ final class AudioChunkCodecProvider
 
 String _$audioChunkCodecHash() => r'da3872a8e77c3efae435710c9f3e6e74b8420fb3';
 
-/// iOS audio-session observer (route / engine configuration / media-services
-/// reset, AUD-04). Android `AudioRecord` follows routes itself.
+/// iOS / macOS audio-session observer (route / engine configuration /
+/// media-services reset). Android `AudioRecord` follows routes itself.
+/// macOS uses the same event channel; `MacAudioRouteObserver` (AUD-09)
+/// reports an unplugged input. FND-09 compiles that Swift into the runner.
 
 @ProviderFor(audioSessionMonitor)
 final audioSessionMonitorProvider = AudioSessionMonitorProvider._();
 
-/// iOS audio-session observer (route / engine configuration / media-services
-/// reset, AUD-04). Android `AudioRecord` follows routes itself.
+/// iOS / macOS audio-session observer (route / engine configuration /
+/// media-services reset). Android `AudioRecord` follows routes itself.
+/// macOS uses the same event channel; `MacAudioRouteObserver` (AUD-09)
+/// reports an unplugged input. FND-09 compiles that Swift into the runner.
 
 final class AudioSessionMonitorProvider
     extends
@@ -210,8 +214,10 @@ final class AudioSessionMonitorProvider
           AudioSessionMonitor
         >
     with $Provider<AudioSessionMonitor> {
-  /// iOS audio-session observer (route / engine configuration / media-services
-  /// reset, AUD-04). Android `AudioRecord` follows routes itself.
+  /// iOS / macOS audio-session observer (route / engine configuration /
+  /// media-services reset). Android `AudioRecord` follows routes itself.
+  /// macOS uses the same event channel; `MacAudioRouteObserver` (AUD-09)
+  /// reports an unplugged input. FND-09 compiles that Swift into the runner.
   AudioSessionMonitorProvider._()
     : super(
         from: null,
@@ -247,7 +253,7 @@ final class AudioSessionMonitorProvider
 }
 
 String _$audioSessionMonitorHash() =>
-    r'4f507bc4d2d641013bdbe8582588cdb91ff7a66e';
+    r'2d90d6e84e217948aabfe7141999c549e2af095b';
 
 /// Platform voice-processing effects of this device (AUD-02).
 
@@ -408,7 +414,7 @@ final class RecordCaptureBackendProvider
 }
 
 String _$recordCaptureBackendHash() =>
-    r'02f4bc106f124f78ce905bb5ead34028a4b58c0f';
+    r'3e6a312bb832f3a8593a4a07bdb391650e9bab5e';
 
 /// Live input level of the open recording (AUD-02 meter). Empty when the
 /// capture backend does not meter (test fakes).
@@ -977,4 +983,4 @@ final class RecordingControllerProvider
 }
 
 String _$recordingControllerHash() =>
-    r'e803b1bde4c6a7631cee25bde6862473c7976287';
+    r'ee7f45c73592156f25f80038a0a7aa3285fca478';
