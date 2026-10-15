@@ -100,12 +100,13 @@ void main() {
     Future<bool> Function()? cellular,
     ModelFileCheck? verify,
     Future<bool> Function()? networkDisabled,
+    int checkpointEveryBytes = 256 * 1024,
   }) => ModelDownloader(
     paths: paths,
     models: database.modelsRepository,
     transport: GatewayDownloadTransport(
       via ?? gateway,
-      checkpointEveryBytes: 256 * 1024,
+      checkpointEveryBytes: checkpointEveryBytes,
     ),
     device: device,
     cellularAllowedSetting: cellular,
@@ -439,13 +440,14 @@ void main() {
     test('[MDL-04/AC1] enabling network_disabled mid-download pauses and '
         'keeps the partial', () async {
       server.routes['$_cdn/stt/ggml-tiny.en.bin'] = FileRoute(bytes);
-      var disabled = false;
-      final d = downloader(networkDisabled: () async => disabled);
-      final sub = d.progress.listen((e) {
-        if (e.receivedBytes >= _mib) disabled = true;
-      });
+      // Checkpoint after every chunk and flip after the preflight call, so
+      // chunk coalescing on a fast loopback cannot outrun the check.
+      var calls = 0;
+      final d = downloader(
+        networkDisabled: () async => ++calls > 1,
+        checkpointEveryBytes: 1,
+      );
       final r = await d.download(model());
-      await sub.cancel();
       expect(r.isOk, isFalse);
       expect(d.latest('whisper-tiny.en')!.phase, DownloadPhase.paused);
       expect(partialFile().existsSync(), isTrue);
