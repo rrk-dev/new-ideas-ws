@@ -1,0 +1,45 @@
+tools/licenses/native_models.py
+  s_82d5aced1a47c9::t_0f066ef09d3515 1-74
+app/assets/licenses/native_models.json
+  s_82d5aced1a47c9::t_1110b49359c25c 1-45
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_82d5aced1a47c9::t_355decd1411227 420,476,677,735,788,846
+app/lib/features/settings/presentation/settings_providers.dart
+  s_82d5aced1a47c9::t_89dab3c94a44cc 9
+app/pubspec.yaml
+  s_82d5aced1a47c9::t_cda61280692399 74-75
+app/test/unit/settings/settings_store_test.dart
+  s_82d5aced1a47c9::t_524c71f1d3be41 126-128
+app/test/widget/template_editor_test.dart
+  s_82d5aced1a47c9::t_2ebea24ea01476 14,115-117
+docs/adr/ADR-LIC-02-store-verification.md
+  s_82d5aced1a47c9::t_7a6d0be60e4e1b 9
+docs/in-app-purchases.md
+  s_82d5aced1a47c9::t_a8e80743522e8e 39
+docs/test-plans/device/LIC-02.md
+  s_82d5aced1a47c9::t_2048b347213c7c 9-10,12
+tasks/09-licensing/LIC-02-in-app-purchases.md
+  s_82d5aced1a47c9::t_14b9756381c9a5 4,11-15,20-29
+tasks/10-security-privacy/SEC-05-model-and-oss-license-compliance.md
+  s_82d5aced1a47c9::t_c0a50827affff1 4,11-15,19-27
+tools/licenses/texts/apache-2.0.txt
+  s_82d5aced1a47c9::t_7d2ae8999ff3f3 1-202
+tools/licenses/texts/ggml-mit.txt
+  s_82d5aced1a47c9::t_2fac34ba255cbf 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "068f69b1db2c01ee4d05859dc43352290061adc2",
+  "prompts": {},
+  "sessions": {
+    "s_82d5aced1a47c9": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b2039aa9-d7cb-47b2-bcc8-4bcf8dbdcf11",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
