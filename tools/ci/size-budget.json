@@ -1,0 +1,19 @@
+{
+  "comment": "REL-03 size budget (tools/ci/size_check.py). Sizes in MiB. PRODUCT-DECISION: 40 MiB store download per platform. Baselines: null = not measured yet (first CI release build records them with --update-baseline). Growth over a baseline above max_regression_pct fails.",
+  "max_regression_pct": 10,
+  "max_bundled_model_mb": 5,
+  "budgets": {
+    "android_download_mb": 40,
+    "ios_download_mb": 40,
+    "ios_install_mb": 120,
+    "host_native_lib_darwin_mb": 15,
+    "host_native_lib_linux_mb": 15
+  },
+  "baseline": {
+    "android_download_mb": null,
+    "ios_download_mb": null,
+    "ios_install_mb": null,
+    "host_native_lib_darwin_mb": 8.92,
+    "host_native_lib_linux_mb": null
+  }
+}

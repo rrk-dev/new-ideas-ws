@@ -66,8 +66,18 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
+            // REL-03: R8 code shrinking + resource shrinking. The Flutter Gradle
+            // plugin already turns both on for release (FlutterPlugin.kt,
+            // Flutter 3.47.7); stated here so a template change cannot silently
+            // drop them (tools/ci/tests/test_size_check.py pins it).
+            isMinifyEnabled = true
+            isShrinkResources = true
         }
     }
+    // REL-03: native .so files are stripped by AGP's stripDebugSymbols task in
+    // release (default; uses the NDK pinned above). No keepDebugSymbols entry
+    // may be added — unstripped copies stay in the build dir for private
+    // symbolication (REL-02, docs/crash-triage.md).
 }
 
 // REL-01: upload-key signing for release builds (key.properties, CI only).
