@@ -170,7 +170,7 @@ void main() {
         await DatabaseKeyRotation(
           vault: vault,
           storageRoot: paths.root,
-        ).finishPendingRotation(),
+        ).finishPendingRotation(second),
       );
       expect(vault.keys.keys, [kDatabaseKeyName]);
       expect(File(rotationMarkerPath(paths.root)).existsSync(), isFalse);
@@ -185,6 +185,21 @@ void main() {
       await third.close();
     },
   );
+
+  test('[SEC-04] finishing the rotation in the same session keeps the '
+      'database readable after a restart', () async {
+    final db = await launch();
+    await seedRecording(db, 'r1');
+    final rotation = DatabaseKeyRotation(vault: vault, storageRoot: paths.root);
+    expectOk(await rotation.rotate(db));
+    expectOk(await rotation.finishPendingRotation(db));
+    expect(vault.keys.keys, [kDatabaseKeyName]);
+    await db.close();
+
+    final again = await launch();
+    expect(expectOk(await again.recordingsRepository.get('r1')).id, 'r1');
+    await again.close();
+  });
 
   test('without encryption the wipe still clears rows and files', () async {
     final db = VaultVoiceDatabase(openDatabaseFile(File(paths.dbFile)));

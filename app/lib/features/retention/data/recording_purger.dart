@@ -4,6 +4,7 @@ import 'package:drift/drift.dart';
 import 'package:path/path.dart' as p;
 import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/db_guard.dart';
+import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
@@ -146,11 +147,26 @@ class RecordingPurger {
             .map((r) => r.id)
             .toSet(),
         'jobs': (await db.select(db.jobs).get()).map((j) => j.id).toSet(),
+        // A surviving recording whose chunk / extraction rows were deleted
+        // (partial retention) no longer owns its audio / rendered note.
+        'audio': (await db.select(db.audioChunks).get())
+            .map((c) => c.recordingId)
+            .toSet(),
+        'capturing': (await db.select(db.recordings).get())
+            .where((r) => r.status == RecordingStatus.recording)
+            .map((r) => r.id)
+            .toSet(),
+        'extracted': (await db.select(db.extractions).get())
+            .map((e) => e.recordingId)
+            .toSet(),
       },
     );
     if (ids case Err(:final failure)) return Err(failure);
     final recordings = ids.valueOrNull!['recordings']!;
     final jobs = ids.valueOrNull!['jobs']!;
+    final withAudio = ids.valueOrNull!['audio']!;
+    final capturing = ids.valueOrNull!['capturing']!;
+    final extracted = ids.valueOrNull!['extracted']!;
     var removed = 0;
     void sweep(String dir, bool Function(String name) keep) {
       final d = Directory(dir);
@@ -163,12 +179,17 @@ class RecordingPurger {
     }
 
     try {
-      sweep(p.join(paths.root, 'audio'), recordings.contains);
+      sweep(
+        p.join(paths.root, 'audio'),
+        (n) =>
+            recordings.contains(n) &&
+            (withAudio.contains(n) || capturing.contains(n)),
+      );
       sweep(
         p.join(paths.root, 'rendered'),
         (n) =>
             n.endsWith('.md') &&
-            recordings.contains(n.substring(0, n.length - 3)),
+            extracted.contains(n.substring(0, n.length - 3)),
       );
       sweep(p.join(paths.root, 'work'), jobs.contains);
     } on FileSystemException {

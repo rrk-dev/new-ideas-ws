@@ -55,11 +55,24 @@ class DatabaseKeyRotation {
     return await vault.deleteKey(kDatabaseKeyName);
   }
 
-  /// After the database opened (with the rekeyed primary key), drops the
-  /// rotation's `db.next` key and the marker. No-op without a marker.
-  Future<Result<void>> finishPendingRotation() async {
+  /// Rekeys the open [db] to the primary `db.v1` key (a no-op rekey when the
+  /// launch already did it), then drops the rotation's `db.next` key and the
+  /// marker. Rotating in the same session leaves the open file on `db.next`,
+  /// so deleting it before this rekey would strand the database.
+  /// No-op without a marker.
+  Future<Result<void>> finishPendingRotation(GeneratedDatabase db) async {
     final marker = File(rotationMarkerPath(storageRoot));
     if (!marker.existsSync()) return const Ok(null);
+    switch (await vault.getOrCreateKey(kDatabaseKeyName)) {
+      case Err(:final failure):
+        return Err(failure);
+      case Ok(value: final key):
+        try {
+          await db.customStatement("PRAGMA hexrekey = '${_hex(key.bytes)}'");
+        } on Object catch (e) {
+          return Err(UnexpectedFailure(e.runtimeType.toString()));
+        }
+    }
     final deleted = await vault.deleteKey(kDatabaseNextKeyName);
     if (deleted case Err()) return deleted;
     try {

@@ -56,5 +56,3 @@ Users see installed/available models, disk usage and can swap or delete them.
   those keys (`ActiveModelKeys`) with a `models_installed` id. `activeModelIdsProvider` gives the
   same resolution (choice → recommended → first usable) for UI/pipeline use.
 - **Note:** the Settings › Models tile does not yet show an "update available" badge.
-- Codex review 2026-10-15 (open): management and pipeline use different fallback selectors (first usable vs largest recommended); share the pipeline selector and test the disagreement.
-- Codex review 2026-10-15 (open): installed models absent from the catalog (custom sideloads) are omitted from the management list; merge installed-only entries.

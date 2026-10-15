@@ -8,6 +8,7 @@ import 'package:vaultvoice/features/models/data/catalog_providers.dart';
 import 'package:vaultvoice/features/models/data/gateway_download_transport.dart';
 import 'package:vaultvoice/features/models/data/model_download_channel.dart';
 import 'package:vaultvoice/features/models/data/model_downloader.dart';
+import 'package:vaultvoice/features/models/data/model_import_providers.dart';
 import 'package:vaultvoice/features/models/domain/download_transport.dart';
 
 part 'download_providers.g.dart';
@@ -35,7 +36,7 @@ Future<ModelDownloader> modelDownloader(Ref ref) async {
   final paths = await ref.watch(storagePathsProvider.future);
   final platform = ref.watch(modelDownloadPlatformProvider);
   final settings = ref.watch(settingsRepositoryProvider);
-  return ModelDownloader(
+  final downloader = ModelDownloader(
     paths: paths,
     models: ref.watch(modelsRepositoryProvider),
     transport: ref.watch(modelDownloadTransportProvider),
@@ -49,6 +50,11 @@ Future<ModelDownloader> modelDownloader(Ref ref) async {
       return !v.isOk || v.valueOrNull == true;
     },
   );
+  // MDL-04: turning network_disabled on stops transfers already running.
+  ref.listen(networkDisabledProvider, (_, next) {
+    if (next.value == true) downloader.pauseAll();
+  });
+  return downloader;
 }
 
 /// Resumes downloads interrupted by an app kill (MDL-02/AC1). Watched once

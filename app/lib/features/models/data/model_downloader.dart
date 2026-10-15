@@ -163,6 +163,14 @@ class ModelDownloader {
   /// Stops [modelId] and keeps the partial file for a later resume.
   void pause(String modelId) => _jobs[modelId]?.control.pause();
 
+  /// Pauses every running transfer (e.g. `network_disabled` was enabled);
+  /// partial files are kept.
+  void pauseAll() {
+    for (final job in _jobs.values.toList()) {
+      job.control.pause();
+    }
+  }
+
   /// Stops [modelId] (if running) and deletes its partial file.
   Future<void> cancel(String modelId) async {
     final job = _jobs[modelId];
@@ -359,6 +367,9 @@ class ModelDownloader {
   }
 
   Future<Failure?> _networkCheckpoint(String id, bool allowCellular) async {
+    if (await _networkDisabled()) {
+      return ModelDownloadFailure(id, ModelDownloadBlock.offline);
+    }
     final net = await _device.networkStatus();
     if (net.connected && !net.unmetered && !allowCellular) {
       return ModelDownloadFailure(
