@@ -26,6 +26,7 @@
   "targets": {
     "lists.action_items.recall": 0.8,
     "lists.action_items.precision": 0.8,
+    "lists.action_items.owner_accuracy": 0.7,
     "schema_valid": 0.99
   }
 }

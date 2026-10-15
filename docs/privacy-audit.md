@@ -291,3 +291,17 @@ redirects natively without a hook and brings its own HTTP client outside the gat
 |---|---|---|---|
 | `ggml-tiny.en.bin` (Whisper tiny.en) | `huggingface.co/ggerganov/whisper.cpp` @ `5359861c739e955e79d9a303bcbc70fb988958b1` | MIT (OpenAI Whisper weights; whisper.cpp MIT) | allowed (keep license notice) |
 | `qwen2.5-0.5b-instruct-q4_k_m.gguf` | `huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF` @ `9217f5db79a29953eb74d5343926648285ec7e67` | Apache-2.0 | allowed (keep LICENSE + NOTICE) — SEC-05 to confirm |
+
+## LIC-02 store billing dependency review (2026-10-14)
+
+StoreKit 2 is an OS framework and accepts only verified JWS transactions.
+Play Billing 9.1.0 (2026-06-18, Android SDK terms) uses the OS Play service.
+Its optional DataTransport telemetry and unused Play services location
+transitives are excluded; no application analytics or crash SDK is added.
+Published artifact / bytecode inspection and the exact exclusion rationale are
+in [billing SDK audit](billing-sdk-audit.md). Final Android dependency graph,
+R8 build and device egress capture remain pending on the LIC-02 checklist.
+No billing token, signature, receipt or user content is sent to an application
+server or logged. Verification metadata persists in the encrypted settings DB.
+The Play console public RSA key is injected through build configuration;
+no key material is committed. SDK upgrades must repeat the exclusion audit.

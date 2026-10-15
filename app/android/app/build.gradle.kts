@@ -19,6 +19,10 @@ android {
 
     defaultConfig {
         applicationId = "com.vaultvoice.vaultvoice"
+        // LIC-02: console public key injected at build time, never committed.
+        val playKey = providers.environmentVariable("VV_PLAY_PUBLIC_KEY").orElse("").get()
+        require(playKey.matches(Regex("[A-Za-z0-9+/=]*"))) { "Invalid Play public key encoding" }
+        buildConfigField("String", "PLAY_LICENSE_KEY_REVERSED", "\"${playKey.reversed()}\"")
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         // Min API 26 / arm64-v8a only: see CONTRIBUTING.md "Platform targets".
@@ -46,6 +50,7 @@ android {
     // dev contains custom resource values, but the feature is disabled").
     buildFeatures {
         resValues = true
+        buildConfig = true
     }
 
     flavorDimensions += "env"
@@ -70,6 +75,7 @@ android {
             // plugin already turns both on for release (FlutterPlugin.kt,
             // Flutter 3.47.7); stated here so a template change cannot silently
             // drop them (tools/ci/tests/test_size_check.py pins it).
+            proguardFiles("proguard-rules.pro")
             isMinifyEnabled = true
             isShrinkResources = true
         }
@@ -94,6 +100,13 @@ flutter {
 }
 
 dependencies {
+    // LIC-02: exclude client telemetry and unused location dependencies.
+    // Pinned SDK logger catches missing transport classes and disables logging;
+    // bytecode evidence: docs/billing-sdk-audit.md. Re-audit on every update.
+    implementation("com.android.billingclient:billing:9.1.0") {
+        exclude(group = "com.google.android.gms", module = "play-services-location")
+        exclude(group = "com.google.android.datatransport")
+    }
     // Version per flutter_local_notifications 22.3.1 README (APP-04).
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 }

@@ -1,5 +1,6 @@
 package com.vaultvoice.vaultvoice
 
+import com.vaultvoice.vaultvoice.billing.PurchasePlugin
 import android.content.Context
 import android.content.Intent
 import com.vaultvoice.vaultvoice.audioimport.AudioImportFlutterApi
@@ -39,6 +40,7 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        if (!flutterEngine.plugins.has(PurchasePlugin::class.java)) flutterEngine.plugins.add(PurchasePlugin())
         // SEC-09: call detection without phone-state permissions.
         flutterEngine.plugins.add(CallGuardPlugin())
         // MDL-02: device facts + dataSync keep-alive for model downloads.

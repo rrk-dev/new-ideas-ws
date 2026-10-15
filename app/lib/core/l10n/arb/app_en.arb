@@ -878,5 +878,32 @@
   "betaFeedbackEmailSubject": "VaultVoice beta feedback",
   "betaFeedbackDiagnosticsNote": "A diagnostics zip is attached. It contains logs, device info and metrics only.",
   "betaFeedbackSatisfactionLine": "Extraction satisfaction: {score}/5",
-  "@betaFeedbackSatisfactionLine": {"placeholders": {"score": {"type": "int"}}}
+  "@betaFeedbackSatisfactionLine": {"placeholders": {"score": {"type": "int"}}},
+  "paywallTitle": "Get VaultVoice Pro",
+  "paywallBenefits": "Unlock larger models, custom profiles and templates, and multiple vault folders.",
+  "purchaseLoading": "Loading store prices",
+  "purchaseAnnual": "Annual subscription · {price} per year",
+  "@purchaseAnnual": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "purchaseLifetime": "Lifetime purchase · {price}",
+  "@purchaseLifetime": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "purchaseAnnualTerms": "Annual subscriptions renew automatically unless cancelled in your store account settings. Lifetime is a one-time purchase.",
+  "purchaseRestore": "Restore purchases",
+  "purchaseRetry": "Refresh store prices",
+  "purchaseComplete": "Purchase verified. Your feature access has been updated.",
+  "purchasePending": "Payment is pending. Pro will unlock after the store confirms it.",
+  "purchaseCancelled": "Purchase cancelled.",
+  "purchaseUnavailable": "The store could not complete this request. Check your connection and try again.",
+  "purchaseRestored": "Purchases checked. Your feature access has been updated."
 }

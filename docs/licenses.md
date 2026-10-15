@@ -1,0 +1,218 @@
+# Distribution license inventory — SEC-05
+
+Engineering inventory reviewed by Codex against the resolved package sources and pinned native sources, 2026-10-14. Independent acceptance remains pending. Regenerate with `python3 tools/licenses/generate.py`; this runs `flutter pub deps --json`. Full package notices are in `app/assets/licenses/pub_inventory.json`, including build-only packages. Flutter supplies pub notices to LicenseRegistry at build time; additional native/model notices are registered by `bundled_licenses.dart`. Settings → About → Open-source & model licenses displays both.
+
+## Native and model obligations
+
+- whisper.cpp, llama.cpp and their ggml copies: MIT; retain the exact upstream copyright and permission notices, pinned commits in `native/VERSIONS.md`. ggml is built once from the llama.cpp tree.
+- SQLite3 Multiple Ciphers 2.5.0 / SQLite 3.53.4: MIT wrapper and cipher implementation notices plus SQLite public-domain dedication. sqlite3 Dart hook pins the binary and hashes. Preserve bundled third-party notices (AES, ChaCha20, Ascon and Argon2 where included); source: https://github.com/utelle/SQLite3MultipleCiphers/blob/v2.5.0/LICENSE .
+- Whisper weights (including quantizations and Core ML encoder conversions): MIT, OpenAI copyright; conversion does not remove original obligations. https://github.com/openai/whisper/blob/main/LICENSE
+- Silero VAD v6.2.0: MIT, Silero Team copyright; ggml conversion by ggml-org. https://github.com/snakers4/silero-vad/blob/v6.2.0/LICENSE
+- Qwen2.5 **0.5B Instruct**: Apache-2.0, preserve license, attribution and any upstream NOTICE; mark modifications. This does not grant a license for every Qwen size or generation. The exact catalog revision is listed below.
+- SmolLM2 (135M/360M/1.7B): Apache-2.0, preserve license and any NOTICE and describe quantization modifications. Not currently in the bundled catalog; adding weights requires a pinned model card and notice. Source: https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct .
+- No diarization weights are currently shipped. Do not infer redistribution rights from a framework license: pyannote gated/non-commercial variants need individual review.
+
+## Conditional model families (not currently distributed)
+
+Llama 3.2 text: Llama 3.2 Community License (September 25, 2024), not MIT/Apache. Before catalog admission, include the agreement, retain its attribution notice, display “Built with Llama”, pass through the Acceptable Use Policy, and meet the 700-million monthly-active-user commercial-license threshold. Distributed derivatives trained/fine-tuned using Llama materials/outputs must begin their names with Llama. EU-domiciled individuals/companies are excluded from the grant for **multimodal** models (with the stated end-user exception); this exclusion does not apply to text-only models. Sources: https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE and https://www.llama.com/llama3_2/use-policy/ . No Llama model is enabled here, so no “Built with Llama” product claim is added.
+
+Gemma: version-specific Gemma Terms of Use, plus Prohibited Use Policy, not a blanket Apache license. Redistribution must include the agreement, enforceable downstream use restrictions, notice to recipients, modification notices, and the required Notice file. Terms reviewed at https://ai.google.dev/gemma/terms (April 1, 2026; Gemma 4 has separate terms) and https://ai.google.dev/gemma/prohibited_use_policy . No Gemma weights are enabled before those pass-through controls exist.
+
+Preserve full upstream notices in the shipped app and with redistributed model files. Inventory refresh and separate licensing review are required whenever lockfile, native pins, model revision, or distribution changes. This is an engineering record, not independent legal approval.
+
+## Resolved pub inventory
+
+- `_fe_analyzer_shared` 109.0.0 (transitive, hosted): notice SHA-256 `efa31b5ac790016736fa9761642b0af16d37cd4fb483de2905adb5258cb89722`.
+- `analysis_server_plugin` 0.3.24 (transitive, hosted): notice SHA-256 `d835fefac60dc74b36ce506f36b16eebba8e6a790859e7dbf8d7de1b02484256`.
+- `analyzer` 14.5.0 (transitive, hosted): notice SHA-256 `7e124af6a556f045cb3a20cafbdaa31602ac2c82cbcb3c3b15faaaf514b06028`.
+- `analyzer_buffer` 0.3.4 (transitive, hosted): notice SHA-256 `dd7fb6cf35c0eb61c8bb8d20c4806d635be6be0df9fc9ff8d66cb09fe7251bdc`.
+- `analyzer_plugin` 0.14.18 (transitive, hosted): notice SHA-256 `b9b748d4dd6f725387bf69e96df4e4ebff167ae83547954242a731504d037644`.
+- `ansicolor` 2.0.3 (transitive, hosted): notice SHA-256 `cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30`.
+- `archive` 4.5.1 (direct, hosted): notice SHA-256 `c60fe3905d0dd779ec83f11253ee561d9b341942be67612348166c1e59b94130`.
+- `args` 2.7.0 (transitive, hosted): notice SHA-256 `dfb09c74e29386cd3e2719f32d4995d59526179753931d31840757c77fbf2791`.
+- `async` 2.13.1 (transitive, hosted): notice SHA-256 `ff15faa32a2e638107b7789592b14426162a75ba620044ee2340a20ec6ce5e73`.
+- `audio_session` 0.2.4 (transitive, hosted): notice SHA-256 `2568490c678ba27cc8a405238637c4ba76adc632232f05dc1c36cbf59381dba4`.
+- `boolean_selector` 2.1.2 (transitive, hosted): notice SHA-256 `b71519245009a3b8f126196a5408ec031e216e8e0d985085958c6543f82a8a2a`.
+- `build` 4.0.11 (transitive, hosted): notice SHA-256 `a4b5d7d31626e90b77e8696f1c47643aa31f52e17c1907c1ab60b068110e6e10`.
+- `build_config` 1.3.3 (transitive, hosted): notice SHA-256 `ea97a7558a7bd7cee4e2355f7529e3cbebb0dcbb546ddb9a90f10c9eb6b08da5`.
+- `build_daemon` 4.1.6 (transitive, hosted): notice SHA-256 `0371d1da6a57fb791db29d29b95333429205f51f3cb2eb3a0c12d91838a38744`.
+- `build_runner` 2.16.2 (dev, hosted): notice SHA-256 `a4b5d7d31626e90b77e8696f1c47643aa31f52e17c1907c1ab60b068110e6e10`.
+- `built_collection` 5.1.2 (transitive, hosted): notice SHA-256 `4f1b0f444c862e8dc586122c00592538fb0e9dd6d81a5214882b25b8054f7dfa`.
+- `built_value` 8.13.0 (transitive, hosted): notice SHA-256 `4f1b0f444c862e8dc586122c00592538fb0e9dd6d81a5214882b25b8054f7dfa`.
+- `characters` 1.4.1 (direct, hosted): notice SHA-256 `0371d1da6a57fb791db29d29b95333429205f51f3cb2eb3a0c12d91838a38744`.
+- `charcode` 1.4.0 (transitive, hosted): notice SHA-256 `ef58f7a43dcae90ca5f77d971b4ae80a83f4f2d8a331c194423c56cb1225abd6`.
+- `checked_yaml` 2.0.4 (transitive, hosted): notice SHA-256 `4771d808721f4d5f02318ab857c92f5a5dce87b14ae1c3770fe21ca7fd4a9280`.
+- `cli_util` 0.4.2 (transitive, hosted): notice SHA-256 `ff15faa32a2e638107b7789592b14426162a75ba620044ee2340a20ec6ce5e73`.
+- `clock` 1.1.3 (transitive, hosted): notice SHA-256 `58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd`.
+- `code_assets` 2.1.0 (transitive, hosted): notice SHA-256 `21ae23b0b9ff67a2dc75ab085d1e8db8ac548c5faf370af17f28dd2ef3b52b7b`.
+- `code_builder` 4.12.0 (transitive, hosted): notice SHA-256 `a4b5d7d31626e90b77e8696f1c47643aa31f52e17c1907c1ab60b068110e6e10`.
+- `collection` 1.19.1 (transitive, hosted): notice SHA-256 `ff15faa32a2e638107b7789592b14426162a75ba620044ee2340a20ec6ce5e73`.
+- `convert` 3.1.2 (transitive, hosted): notice SHA-256 `ad6a71997da90924b2cfb1fb47ec46537f70faf469efe016168794ae45ed6888`.
+- `cross_file` 0.3.5+5 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `crypto` 3.0.7 (direct, hosted): notice SHA-256 `ad6a71997da90924b2cfb1fb47ec46537f70faf469efe016168794ae45ed6888`.
+- `cryptography` 2.9.0 (direct, hosted): notice SHA-256 `59899c6091b540582ed617e8eeaac4919dc985ccfc35459ee9752b699be5205b`.
+- `csslib` 1.0.2 (transitive, hosted): notice SHA-256 `dfb09c74e29386cd3e2719f32d4995d59526179753931d31840757c77fbf2791`.
+- `cupertino_icons` 1.0.9 (direct, hosted): notice SHA-256 `310d6ab6483280280c9db122bded0a63c09558bc5743720f61dbcbb494db370a`.
+- `cupertino_ui` 1.1.2 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `dart_style` 3.1.13 (transitive, hosted): notice SHA-256 `3c32b53167c7dae9190c38dab5dd9fe1789c53623ebc7d1babcb29914c5b3f16`.
+- `dbus` 0.8.0 (transitive, hosted): notice SHA-256 `1f256ecad192880510e84ad60474eab7589218784b9a50bc7ceee34c2b91f1d5`.
+- `drift` 2.35.2 (direct, hosted): notice SHA-256 `31f84e4edff98f0238a5bef1c2ce754e401fbab149782f0ff4dc9b68fd086f75`.
+- `drift_dev` 2.35.1 (dev, hosted): notice SHA-256 `31f84e4edff98f0238a5bef1c2ce754e401fbab149782f0ff4dc9b68fd086f75`.
+- `fake_async` 1.3.3 (dev, hosted): notice SHA-256 `58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd`.
+- `ffi` 2.2.0 (transitive, hosted): notice SHA-256 `0371d1da6a57fb791db29d29b95333429205f51f3cb2eb3a0c12d91838a38744`.
+- `ffi_leak_tracker` 0.1.2 (transitive, hosted): notice SHA-256 `332f290333e64ed007b4f59aeeebd8fd3ceaadfbfa226a6cf2a3ab1583281624`.
+- `file` 7.0.1 (transitive, hosted): notice SHA-256 `f6df86b1412172537273e8e80ee2fb8a66aa7307ce0b39ea5ddab47ca41b8c49`.
+- `file_selector` 1.1.0 (direct, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `file_selector_android` 0.5.2+11 (transitive, hosted): notice SHA-256 `8e139d4c7faa5e7a76752e743a745113f46e658071733bfae4914a04da12ae0e`.
+- `file_selector_ios` 0.5.3+6 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `file_selector_linux` 0.9.4+1 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `file_selector_macos` 0.9.5+1 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `file_selector_platform_interface` 2.7.0 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `file_selector_web` 0.9.5 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `file_selector_windows` 0.9.3+6 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `fixnum` 1.1.1 (transitive, hosted): notice SHA-256 `ff0b91d4f3c32b25cb6ec84985e8da89b0ba2a2b2f7eef353cda5e5423a20390`.
+- `flutter` 0.0.0 (direct, sdk): notice SHA-256 `a598db94b6290ffbe10b5ecf911057b6a943351c727fdda9e5f2891d68700a20`.
+- `flutter_driver` 0.0.0 (transitive, sdk): notice SHA-256 `a598db94b6290ffbe10b5ecf911057b6a943351c727fdda9e5f2891d68700a20`.
+- `flutter_launcher_icons` 0.14.4 (dev, hosted): notice SHA-256 `02c454256448927423b4c0e517a083cadf78a8d9467a9d31ad3b4f4ff48ff7ca`.
+- `flutter_local_notifications` 22.3.1 (direct, hosted): notice SHA-256 `d6885e4633e08ec3a52cd90299b97831444d487f16721e5d092289bcfedfc511`.
+- `flutter_local_notifications_linux` 8.0.2 (transitive, hosted): notice SHA-256 `d6885e4633e08ec3a52cd90299b97831444d487f16721e5d092289bcfedfc511`.
+- `flutter_local_notifications_platform_interface` 12.2.0 (transitive, hosted): notice SHA-256 `2d77e2f3421858873865cf0bb0afd2fcf6f5ad8df9bdab10a7d7503bcf8a1c44`.
+- `flutter_local_notifications_web` 1.0.0 (transitive, hosted): notice SHA-256 `0573f66054d8a6a7c64be9378a07586516d533122812c4c2160dd398adc50c0c`.
+- `flutter_local_notifications_windows` 3.1.1 (transitive, hosted): notice SHA-256 `bfe6db9a3430334378d729fb52a0d29972383a41e09a1d2e41f73890dcf508ca`.
+- `flutter_localizations` 0.0.0 (direct, sdk): notice SHA-256 `a598db94b6290ffbe10b5ecf911057b6a943351c727fdda9e5f2891d68700a20`.
+- `flutter_markdown_plus` 1.0.12 (direct, hosted): notice SHA-256 `89519eca6f7b9529b35bdddd623a58c3af06a88c458dbd6531ddb4675acf75a9`.
+- `flutter_native_splash` 2.4.8 (dev, hosted): notice SHA-256 `5870d8524ee2ef9f7410f1fe9511c83a02f7dda6ef0f566597aa2fd036f6498c`.
+- `flutter_riverpod` 3.4.3 (direct, hosted): notice SHA-256 `757d9c09a9a2a701144328c0fd596234ea287ff62952b39cd22f9ad4caed1171`.
+- `flutter_test` 0.0.0 (dev, sdk): notice SHA-256 `a598db94b6290ffbe10b5ecf911057b6a943351c727fdda9e5f2891d68700a20`.
+- `flutter_web_plugins` 0.0.0 (transitive, sdk): notice SHA-256 `a598db94b6290ffbe10b5ecf911057b6a943351c727fdda9e5f2891d68700a20`.
+- `freezed_annotation` 3.1.0 (transitive, hosted): notice SHA-256 `757d9c09a9a2a701144328c0fd596234ea287ff62952b39cd22f9ad4caed1171`.
+- `fuchsia_remote_debug_protocol` 0.0.0 (transitive, sdk): notice SHA-256 `a598db94b6290ffbe10b5ecf911057b6a943351c727fdda9e5f2891d68700a20`.
+- `glob` 2.2.0 (transitive, hosted): notice SHA-256 `3c32b53167c7dae9190c38dab5dd9fe1789c53623ebc7d1babcb29914c5b3f16`.
+- `go_router` 18.0.2 (direct, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `go_router_builder` 4.5.0 (dev, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `graphs` 2.3.2 (transitive, hosted): notice SHA-256 `ea97a7558a7bd7cee4e2355f7529e3cbebb0dcbb546ddb9a90f10c9eb6b08da5`.
+- `hooks` 2.2.0 (transitive, hosted): notice SHA-256 `21ae23b0b9ff67a2dc75ab085d1e8db8ac548c5faf370af17f28dd2ef3b52b7b`.
+- `html` 0.15.7 (transitive, hosted): notice SHA-256 `6ed8a26ed0f30589422f86356eed53bb6dacffc3e2fd4feddc944c4331945151`.
+- `http` 1.6.0 (direct, hosted): notice SHA-256 `3c32b53167c7dae9190c38dab5dd9fe1789c53623ebc7d1babcb29914c5b3f16`.
+- `http_multi_server` 3.2.2 (transitive, hosted): notice SHA-256 `ff0b91d4f3c32b25cb6ec84985e8da89b0ba2a2b2f7eef353cda5e5423a20390`.
+- `http_parser` 4.1.2 (transitive, hosted): notice SHA-256 `3c32b53167c7dae9190c38dab5dd9fe1789c53623ebc7d1babcb29914c5b3f16`.
+- `image` 4.12.0 (transitive, hosted): notice SHA-256 `9b32444630d2a870a2903d1e3111a0a0324ebdfca46156bba55edcac95040a89`.
+- `integration_test` 0.0.0 (dev, sdk): notice SHA-256 `a598db94b6290ffbe10b5ecf911057b6a943351c727fdda9e5f2891d68700a20`.
+- `intl` 0.20.3 (direct, hosted): notice SHA-256 `7e124af6a556f045cb3a20cafbdaa31602ac2c82cbcb3c3b15faaaf514b06028`.
+- `io` 1.1.0 (transitive, hosted): notice SHA-256 `ea97a7558a7bd7cee4e2355f7529e3cbebb0dcbb546ddb9a90f10c9eb6b08da5`.
+- `isolate_contactor` 4.1.0 (transitive, hosted): notice SHA-256 `b6ac5dcee3faa11230fe658a928f486f79d8686e7ff735db85b5b50d3679df70`.
+- `isolate_manager` 4.1.5+1 (transitive, hosted): notice SHA-256 `814d2c7b35235559712567b8e719fa781059019ece0ba05807b8467ec6b45ee4`.
+- `jni` 1.1.0 (transitive, hosted): notice SHA-256 `08a004aa8956c3cf3b24f7f69c966247233953e18e6afaa61191ea47b7eb70f6`.
+- `jni_flutter` 1.0.4+1 (transitive, hosted): notice SHA-256 `b1fcb475d67817411f335ac92872507011e574c4cb29cfdaaf7707b75641932c`.
+- `jni_util` 1.0.0 (transitive, hosted): notice SHA-256 `b1fcb475d67817411f335ac92872507011e574c4cb29cfdaaf7707b75641932c`.
+- `json_annotation` 4.12.0 (transitive, hosted): notice SHA-256 `143839f62c9b7f88143ea9f688361c27050888acde7696b34e04414bd254fafc`.
+- `just_audio` 0.10.6 (direct, hosted): notice SHA-256 `63ce4443e916b27424700d7fe970003add9f54944daf732f2dbcc1d8caf1bbad`.
+- `just_audio_platform_interface` 4.6.0 (transitive, hosted): notice SHA-256 `2568490c678ba27cc8a405238637c4ba76adc632232f05dc1c36cbf59381dba4`.
+- `just_audio_web` 0.4.16 (transitive, hosted): notice SHA-256 `2568490c678ba27cc8a405238637c4ba76adc632232f05dc1c36cbf59381dba4`.
+- `leak_tracker` 11.0.2 (transitive, hosted): notice SHA-256 `08a004aa8956c3cf3b24f7f69c966247233953e18e6afaa61191ea47b7eb70f6`.
+- `leak_tracker_flutter_testing` 3.0.10 (transitive, hosted): notice SHA-256 `08a004aa8956c3cf3b24f7f69c966247233953e18e6afaa61191ea47b7eb70f6`.
+- `leak_tracker_testing` 3.0.2 (transitive, hosted): notice SHA-256 `08a004aa8956c3cf3b24f7f69c966247233953e18e6afaa61191ea47b7eb70f6`.
+- `listen` 1.0.1 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `logging` 1.3.0 (transitive, hosted): notice SHA-256 `dfb09c74e29386cd3e2719f32d4995d59526179753931d31840757c77fbf2791`.
+- `markdown` 7.3.1 (transitive, hosted): notice SHA-256 `0aa335b5e036b9efbb35ad7a35835cd32e4eb656c08bfe040550a9f6fa84fcc7`.
+- `matcher` 0.12.20 (transitive, hosted): notice SHA-256 `3c32b53167c7dae9190c38dab5dd9fe1789c53623ebc7d1babcb29914c5b3f16`.
+- `material_color_utilities` 0.13.0 (transitive, hosted): notice SHA-256 `d103f246ef4c18dab8af0c1dcf6a8af884e5cff554da7261a48ac43c17d98f2e`.
+- `material_ui` 1.6.0 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `meta` 1.19.0 (transitive, hosted): notice SHA-256 `b71519245009a3b8f126196a5408ec031e216e8e0d985085958c6543f82a8a2a`.
+- `mime` 2.1.0 (transitive, hosted): notice SHA-256 `ff15faa32a2e638107b7789592b14426162a75ba620044ee2340a20ec6ce5e73`.
+- `mockito` 5.8.1 (transitive, hosted): notice SHA-256 `cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30`.
+- `mocktail` 1.0.5 (dev, hosted): notice SHA-256 `798c1759b3fb8bbcb91ba0f22360bf60070a07ded17cfff0f77d5e7183c494e6`.
+- `mustache_template` 2.0.5 (direct, hosted): notice SHA-256 `f0a458aa6632b99f13d44c57fa41aa6231b24badb319456504c1fc9c5b638672`.
+- `native_toolchain_c` 0.19.5 (transitive, hosted): notice SHA-256 `aa81abb1ac43e40d2f5a606385edd37e974a5858d4109f7f439dd43d964487a7`.
+- `objective_c` 9.6.2 (transitive, hosted): notice SHA-256 `1cda25a8de6880c5338de0b4a06ee89e8537c213eb1379c16a4c035bfd198b5c`.
+- `package_config` 3.0.0 (transitive, hosted): notice SHA-256 `0371d1da6a57fb791db29d29b95333429205f51f3cb2eb3a0c12d91838a38744`.
+- `path` 1.9.1 (direct, hosted): notice SHA-256 `3c32b53167c7dae9190c38dab5dd9fe1789c53623ebc7d1babcb29914c5b3f16`.
+- `path_provider` 2.1.6 (direct, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `path_provider_android` 2.3.1 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `path_provider_foundation` 2.6.0 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `path_provider_linux` 2.2.2 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `path_provider_platform_interface` 2.1.3 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `path_provider_windows` 2.3.0 (transitive, hosted): notice SHA-256 `89519eca6f7b9529b35bdddd623a58c3af06a88c458dbd6531ddb4675acf75a9`.
+- `petitparser` 7.0.2 (transitive, hosted): notice SHA-256 `d2e8ffdbe89acbc10d5d1f2b03e7dbddf0a9f1742e809176682b62ef3d573b3e`.
+- `pigeon` 29.0.8 (dev, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `platform` 3.2.0 (transitive, hosted): notice SHA-256 `143839f62c9b7f88143ea9f688361c27050888acde7696b34e04414bd254fafc`.
+- `plugin_platform_interface` 2.1.8 (transitive, hosted): notice SHA-256 `89519eca6f7b9529b35bdddd623a58c3af06a88c458dbd6531ddb4675acf75a9`.
+- `pool` 1.5.3 (transitive, hosted): notice SHA-256 `3c32b53167c7dae9190c38dab5dd9fe1789c53623ebc7d1babcb29914c5b3f16`.
+- `posix` 6.5.2 (transitive, hosted): notice SHA-256 `aaf6271abd048deb3125828613f1797b7556472de6c7acd7103bd43e9cb6a84b`.
+- `process` 5.0.6 (transitive, hosted): notice SHA-256 `5f018bbc25a55406d7a4e1d3229135439e315210b0050ca56dbb367a4934e85d`.
+- `pub_semver` 2.2.1 (transitive, hosted): notice SHA-256 `3c32b53167c7dae9190c38dab5dd9fe1789c53623ebc7d1babcb29914c5b3f16`.
+- `pubspec_parse` 1.6.0 (transitive, hosted): notice SHA-256 `479bb84361ed3d6b78f55871c9ae5d6c8f15f49c2089e59fc1d6644d8b0ed32b`.
+- `re_editor` 0.10.0 (direct, hosted): notice SHA-256 `5d37eaa3f35293d2141f08ffeb897040380eeb25016a5a17f71200a56bf44767`.
+- `re_highlight` 0.0.3 (direct, hosted): notice SHA-256 `5d37eaa3f35293d2141f08ffeb897040380eeb25016a5a17f71200a56bf44767`.
+- `recase` 4.1.0 (transitive, hosted): notice SHA-256 `389acee6b73f27ef83bdd997f32acc7dc12970c68fbc505284b7bf39d6d80bde`.
+- `record` 7.1.2 (direct, hosted): notice SHA-256 `b0cbe4a6717dc8286d44792bd905fdc49f179b80af8d1543e4194e61766803a3`.
+- `record_android` 2.2.0 (transitive, hosted): notice SHA-256 `b0cbe4a6717dc8286d44792bd905fdc49f179b80af8d1543e4194e61766803a3`.
+- `record_ios` 2.1.1 (transitive, hosted): notice SHA-256 `b0cbe4a6717dc8286d44792bd905fdc49f179b80af8d1543e4194e61766803a3`.
+- `record_linux` 2.1.3 (transitive, hosted): notice SHA-256 `b0cbe4a6717dc8286d44792bd905fdc49f179b80af8d1543e4194e61766803a3`.
+- `record_macos` 2.1.1 (transitive, hosted): notice SHA-256 `b0cbe4a6717dc8286d44792bd905fdc49f179b80af8d1543e4194e61766803a3`.
+- `record_platform_interface` 2.1.0 (transitive, hosted): notice SHA-256 `b0cbe4a6717dc8286d44792bd905fdc49f179b80af8d1543e4194e61766803a3`.
+- `record_use` 1.1.1 (transitive, hosted): notice SHA-256 `1cda25a8de6880c5338de0b4a06ee89e8537c213eb1379c16a4c035bfd198b5c`.
+- `record_web` 2.1.3 (transitive, hosted): notice SHA-256 `b0cbe4a6717dc8286d44792bd905fdc49f179b80af8d1543e4194e61766803a3`.
+- `record_windows` 2.3.0 (transitive, hosted): notice SHA-256 `b0cbe4a6717dc8286d44792bd905fdc49f179b80af8d1543e4194e61766803a3`.
+- `riverpod` 3.4.3 (transitive, hosted): notice SHA-256 `757d9c09a9a2a701144328c0fd596234ea287ff62952b39cd22f9ad4caed1171`.
+- `riverpod_analyzer_utils` 1.0.0-dev.12 (transitive, hosted): notice SHA-256 `52cb88cd866462fcf9e04dcdf491df9d2eee144ab06683b36cfdab603ed7ffd3`.
+- `riverpod_annotation` 4.0.7 (direct, hosted): notice SHA-256 `757d9c09a9a2a701144328c0fd596234ea287ff62952b39cd22f9ad4caed1171`.
+- `riverpod_generator` 4.0.9 (dev, hosted): notice SHA-256 `757d9c09a9a2a701144328c0fd596234ea287ff62952b39cd22f9ad4caed1171`.
+- `riverpod_lint` 3.1.9 (dev, hosted): notice SHA-256 `52cb88cd866462fcf9e04dcdf491df9d2eee144ab06683b36cfdab603ed7ffd3`.
+- `rxdart` 0.28.0 (transitive, hosted): notice SHA-256 `c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4`.
+- `share_plus` 13.3.1 (direct, hosted): notice SHA-256 `eb9741a672906ebd01fd9b3bef38f6c82eff250e91149cf404539ee7981079fd`.
+- `share_plus_platform_interface` 7.2.0 (transitive, hosted): notice SHA-256 `3b38d48befd0af70b892e13d10c9e34679416c24a9277f962629951c64d71f4c`.
+- `shelf` 1.4.2 (transitive, hosted): notice SHA-256 `ff0b91d4f3c32b25cb6ec84985e8da89b0ba2a2b2f7eef353cda5e5423a20390`.
+- `shelf_web_socket` 3.0.0 (transitive, hosted): notice SHA-256 `ff0b91d4f3c32b25cb6ec84985e8da89b0ba2a2b2f7eef353cda5e5423a20390`.
+- `sky_engine` 0.0.0 (transitive, sdk): notice SHA-256 `3c0040023a5789bf56d6bf41fd44f08b21758523d41f128fb7dd6beb398d1191`.
+- `source_gen` 4.3.0 (transitive, hosted): notice SHA-256 `ad6a71997da90924b2cfb1fb47ec46537f70faf469efe016168794ae45ed6888`.
+- `source_helper` 1.3.13 (transitive, hosted): notice SHA-256 `cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30`.
+- `source_span` 1.10.2 (transitive, hosted): notice SHA-256 `3c32b53167c7dae9190c38dab5dd9fe1789c53623ebc7d1babcb29914c5b3f16`.
+- `sqlite3` 3.7.0 (direct, hosted): notice SHA-256 `67e5d73a3a0c6e41f33d688a672b1161bf7f16e04da9ae48a7a14f1ba7436a4d`.
+- `sqlparser` 0.45.0 (transitive, hosted): notice SHA-256 `bec8c7a58f3e043a40123d332260048aeff40ebdcaf33bf8d497a3fea84b8f84`.
+- `stack_trace` 1.12.2 (transitive, hosted): notice SHA-256 `ff0b91d4f3c32b25cb6ec84985e8da89b0ba2a2b2f7eef353cda5e5423a20390`.
+- `state_notifier` 1.0.0 (transitive, hosted): notice SHA-256 `757d9c09a9a2a701144328c0fd596234ea287ff62952b39cd22f9ad4caed1171`.
+- `stream_channel` 2.1.4 (transitive, hosted): notice SHA-256 `ff15faa32a2e638107b7789592b14426162a75ba620044ee2340a20ec6ce5e73`.
+- `stream_transform` 2.1.2 (transitive, hosted): notice SHA-256 `ea97a7558a7bd7cee4e2355f7529e3cbebb0dcbb546ddb9a90f10c9eb6b08da5`.
+- `string_scanner` 1.4.1 (transitive, hosted): notice SHA-256 `3c32b53167c7dae9190c38dab5dd9fe1789c53623ebc7d1babcb29914c5b3f16`.
+- `sync_http` 0.3.1 (transitive, hosted): notice SHA-256 `b9b748d4dd6f725387bf69e96df4e4ebff167ae83547954242a731504d037644`.
+- `synchronized` 3.5.0 (transitive, hosted): notice SHA-256 `6d07c6bb60afb906049d507e19fcc4c6b59e35c0dd0f8a7302e87b3fb0576900`.
+- `term_glyph` 1.2.2 (transitive, hosted): notice SHA-256 `ea97a7558a7bd7cee4e2355f7529e3cbebb0dcbb546ddb9a90f10c9eb6b08da5`.
+- `test_api` 0.7.12 (transitive, hosted): notice SHA-256 `ff1b9f0df9036c04be424b1e3ce12789bea880ad5ffc3a48e069ae2d40a087a4`.
+- `timezone` 0.11.2 (transitive, hosted): notice SHA-256 `d8f160d6dcdd4ec77522646d04c139d89d55910d6852792d2b441625763c012f`.
+- `typed_data` 1.4.0 (transitive, hosted): notice SHA-256 `ff15faa32a2e638107b7789592b14426162a75ba620044ee2340a20ec6ce5e73`.
+- `universal_io` 2.3.1 (transitive, hosted): notice SHA-256 `59899c6091b540582ed617e8eeaac4919dc985ccfc35459ee9752b699be5205b`.
+- `unorm_dart` 0.3.2 (direct, hosted): notice SHA-256 `8884fc22f0944465ab8fca4e934fef3db9ab2b3b14f95874f1d833aa75f81553`.
+- `url_launcher_linux` 3.2.3 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `url_launcher_platform_interface` 2.3.2 (transitive, hosted): notice SHA-256 `89519eca6f7b9529b35bdddd623a58c3af06a88c458dbd6531ddb4675acf75a9`.
+- `url_launcher_web` 2.4.3 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `url_launcher_windows` 3.1.6 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `uuid` 4.6.0 (transitive, hosted): notice SHA-256 `2656b23d5495d846ed19a6073c1d45b4dab26e9af306d28a81bb3a208f827e5b`.
+- `vector_math` 2.4.0 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
+- `very_good_analysis` 11.0.0 (dev, hosted): notice SHA-256 `bfbb8537e605264df1d138ec4661ee066f828764c3c17b405e6f8f33e3189311`.
+- `vm_service` 15.3.0 (transitive, hosted): notice SHA-256 `ad6a71997da90924b2cfb1fb47ec46537f70faf469efe016168794ae45ed6888`.
+- `vv_native` 0.1.0 (direct, path): notice SHA-256 `c1a20e727ec1c0a94d28edc5b40d8fc25b956b74f114af2e07340da6c2edcbf2`.
+- `watcher` 1.2.1 (transitive, hosted): notice SHA-256 `3c32b53167c7dae9190c38dab5dd9fe1789c53623ebc7d1babcb29914c5b3f16`.
+- `web` 1.1.1 (transitive, hosted): notice SHA-256 `aa913ff50d7542eb8cc35b9f48a80928ac6819ba9057f85d424655e3e8dc271c`.
+- `web_socket` 1.0.1 (transitive, hosted): notice SHA-256 `cbe822ef3446af4366b2b82c48b0979d0b12865edfe74c22b9aa617fc362d6e0`.
+- `web_socket_channel` 3.0.3 (transitive, hosted): notice SHA-256 `a4b5d7d31626e90b77e8696f1c47643aa31f52e17c1907c1ab60b068110e6e10`.
+- `webdriver` 3.2.0 (transitive, hosted): notice SHA-256 `74cb46b123c9fa918ea8e0a0f5be736a1cd661edf145ccc723dc7ce30324ebab`.
+- `win32` 6.4.0 (transitive, hosted): notice SHA-256 `87ef8bccdd619f2345ba5b9026cf1d6cccb305e36ab83849a8a3af9293abde7e`.
+- `xdg_directories` 1.1.0 (transitive, hosted): notice SHA-256 `89519eca6f7b9529b35bdddd623a58c3af06a88c458dbd6531ddb4675acf75a9`.
+- `xml` 7.0.1 (transitive, hosted): notice SHA-256 `0be767174b97278f17da4923a74169e8645631f03ea3d8482ec3523c9b1a0dd3`.
+- `yaml` 3.1.4 (direct, hosted): notice SHA-256 `d47b93335401b052d79a2f5a3710e4cf7b5aed782faedf84d40fbdd6eb934ec7`.
+- `yaml_edit` 2.2.4 (transitive, hosted): notice SHA-256 `021c41b9b081664f6ee181aaf4e03602c51591204dabe9ac8c8d736f0965b851`.
+
+## Catalog snapshot
+
+- `whisper-tiny.en`: [MIT](https://github.com/openai/whisper/blob/main/LICENSE); attribution: upstream copyright retained in bundled notice.
+- `whisper-tiny.en-q5_1`: [MIT](https://github.com/openai/whisper/blob/main/LICENSE); attribution: upstream copyright retained in bundled notice.
+- `whisper-base.en-q5_1`: [MIT](https://github.com/openai/whisper/blob/main/LICENSE); attribution: upstream copyright retained in bundled notice.
+- `whisper-base.en`: [MIT](https://github.com/openai/whisper/blob/main/LICENSE); attribution: upstream copyright retained in bundled notice.
+- `whisper-small.en-q5_1`: [MIT](https://github.com/openai/whisper/blob/main/LICENSE); attribution: upstream copyright retained in bundled notice.
+- `whisper-small.en-q8_0`: [MIT](https://github.com/openai/whisper/blob/main/LICENSE); attribution: upstream copyright retained in bundled notice.
+- `whisper-base-q5_1`: [MIT](https://github.com/openai/whisper/blob/main/LICENSE); attribution: upstream copyright retained in bundled notice.
+- `whisper-small-q5_1`: [MIT](https://github.com/openai/whisper/blob/main/LICENSE); attribution: upstream copyright retained in bundled notice.
+- `whisper-large-v3-turbo-q5_0`: [MIT](https://github.com/openai/whisper/blob/main/LICENSE); attribution: upstream copyright retained in bundled notice.
+- `qwen2.5-0.5b-instruct-q4_k_m`: [Apache-2.0](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/blob/9217f5db79a29953eb74d5343926648285ec7e67/LICENSE); attribution: upstream copyright retained in bundled notice.
+- `silero-vad-v6.2.0`: [MIT](https://github.com/snakers4/silero-vad/blob/master/LICENSE); attribution: Silero VAD by Silero Team (MIT), ggml conversion by ggml-org.

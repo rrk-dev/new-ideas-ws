@@ -1,0 +1,21 @@
+# Distribution license inventory — SEC-05
+
+Engineering inventory reviewed by Codex against the resolved package sources and pinned native sources, 2026-10-14. Independent acceptance remains pending. Regenerate with `python3 tools/licenses/generate.py`; this runs `flutter pub deps --json`. Full package notices are in `app/assets/licenses/pub_inventory.json`, including build-only packages. Flutter supplies pub notices to LicenseRegistry at build time; additional native/model notices are registered by `bundled_licenses.dart`. Settings → About → Open-source & model licenses displays both.
+
+## Native and model obligations
+
+- whisper.cpp, llama.cpp and their ggml copies: MIT; retain the exact upstream copyright and permission notices, pinned commits in `native/VERSIONS.md`. ggml is built once from the llama.cpp tree.
+- SQLite3 Multiple Ciphers 2.5.0 / SQLite 3.53.4: MIT wrapper and cipher implementation notices plus SQLite public-domain dedication. sqlite3 Dart hook pins the binary and hashes. Preserve bundled third-party notices (AES, ChaCha20, Ascon and Argon2 where included); source: https://github.com/utelle/SQLite3MultipleCiphers/blob/v2.5.0/LICENSE .
+- Whisper weights (including quantizations and Core ML encoder conversions): MIT, OpenAI copyright; conversion does not remove original obligations. https://github.com/openai/whisper/blob/main/LICENSE
+- Silero VAD v6.2.0: MIT, Silero Team copyright; ggml conversion by ggml-org. https://github.com/snakers4/silero-vad/blob/v6.2.0/LICENSE
+- Qwen2.5 **0.5B Instruct**: Apache-2.0, preserve license, attribution and any upstream NOTICE; mark modifications. This does not grant a license for every Qwen size or generation. The exact catalog revision is listed below.
+- SmolLM2 (135M/360M/1.7B): Apache-2.0, preserve license and any NOTICE and describe quantization modifications. Not currently in the bundled catalog; adding weights requires a pinned model card and notice. Source: https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct .
+- No diarization weights are currently shipped. Do not infer redistribution rights from a framework license: pyannote gated/non-commercial variants need individual review.
+
+## Conditional model families (not currently distributed)
+
+Llama 3.2 text: Llama 3.2 Community License (September 25, 2024), not MIT/Apache. Before catalog admission, include the agreement, retain its attribution notice, display “Built with Llama”, pass through the Acceptable Use Policy, and meet the 700-million monthly-active-user commercial-license threshold. Distributed derivatives trained/fine-tuned using Llama materials/outputs must begin their names with Llama. EU-domiciled individuals/companies are excluded from the grant for **multimodal** models (with the stated end-user exception); this exclusion does not apply to text-only models. Sources: https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE and https://www.llama.com/llama3_2/use-policy/ . No Llama model is enabled here, so no “Built with Llama” product claim is added.
+
+Gemma: version-specific Gemma Terms of Use, plus Prohibited Use Policy, not a blanket Apache license. Redistribution must include the agreement, enforceable downstream use restrictions, notice to recipients, modification notices, and the required Notice file. Terms reviewed at https://ai.google.dev/gemma/terms (April 1, 2026; Gemma 4 has separate terms) and https://ai.google.dev/gemma/prohibited_use_policy . No Gemma weights are enabled before those pass-through controls exist.
+
+Preserve full upstream notices in the shipped app and with redistributed model files. Inventory refresh and separate licensing review are required whenever lockfile, native pins, model revision, or distribution changes. This is an engineering record, not independent legal approval.

@@ -108,6 +108,8 @@ jobs:
           } > app/android/key.properties
       - name: Build signed AAB (no upload)
         working-directory: app/android
+        env:
+          VV_PLAY_PUBLIC_KEY: ${{ secrets.VV_PLAY_PUBLIC_KEY }}
         run: bundle exec fastlane android build
       # REL-03: release bundle within the size budget (+ no bundled models).
       - run: bash tools/ci/size_check.sh
