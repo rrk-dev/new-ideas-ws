@@ -8,6 +8,7 @@ import 'package:vaultvoice/features/library/presentation/action_items_screen.dar
 import 'package:vaultvoice/features/library/presentation/library_screen.dart';
 import 'package:vaultvoice/features/library/presentation/recording_detail_screen.dart';
 import 'package:vaultvoice/features/library/presentation/transcript_lines_screen.dart';
+import 'package:vaultvoice/features/licensing/presentation/paywall_screen.dart';
 import 'package:vaultvoice/features/models/presentation/models_screen.dart';
 import 'package:vaultvoice/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_queue_screen.dart';
@@ -94,6 +95,7 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
               routes: [TypedGoRoute<TemplateEditorRoute>(path: ':templateId')],
             ),
             TypedGoRoute<ReviewSettingsRoute>(path: 'review'),
+            TypedGoRoute<ProRoute>(path: 'pro'),
           ],
         ),
       ],
@@ -349,4 +351,11 @@ class TemplateEditorRoute extends GoRouteData with $TemplateEditorRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       TemplateEditorScreen(templateId: templateId);
+}
+
+class ProRoute extends GoRouteData with $ProRoute {
+  const ProRoute();
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const PaywallScreen();
 }

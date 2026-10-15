@@ -169,6 +169,11 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
               hasOverriddenOnExit: false,
               factory: $ReviewSettingsRoute._fromState,
             ),
+            GoRouteData.$route(
+              path: 'pro',
+              hasOverriddenOnExit: false,
+              factory: $ProRoute._fromState,
+            ),
           ],
         ),
       ],
@@ -642,6 +647,26 @@ mixin $ReviewSettingsRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/settings/review');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $ProRoute on GoRouteData {
+  static ProRoute _fromState(GoRouterState state) => const ProRoute();
+
+  @override
+  String get location => GoRouteData.$location('/settings/pro');
 
   @override
   void go(BuildContext context) => context.go(location);

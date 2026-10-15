@@ -2585,4 +2585,53 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noteShareHint =>
       'The note leaves the app only through the app you pick.';
+
+  @override
+  String get paywallTitle => 'Get VaultVoice Pro';
+
+  @override
+  String get paywallBenefits =>
+      'Unlock larger models, custom profiles and templates, and multiple vault folders.';
+
+  @override
+  String get purchaseLoading => 'Loading store prices';
+
+  @override
+  String purchaseAnnual(String price) {
+    return 'Annual subscription · $price per year';
+  }
+
+  @override
+  String purchaseLifetime(String price) {
+    return 'Lifetime purchase · $price';
+  }
+
+  @override
+  String get purchaseAnnualTerms =>
+      'Annual subscriptions renew automatically unless cancelled in your store account settings. Lifetime is a one-time purchase.';
+
+  @override
+  String get purchaseRestore => 'Restore purchases';
+
+  @override
+  String get purchaseRetry => 'Refresh store prices';
+
+  @override
+  String get purchaseComplete =>
+      'Purchase verified. Your feature access has been updated.';
+
+  @override
+  String get purchasePending =>
+      'Payment is pending. Pro will unlock after the store confirms it.';
+
+  @override
+  String get purchaseCancelled => 'Purchase cancelled.';
+
+  @override
+  String get purchaseUnavailable =>
+      'The store could not complete this request. Check your connection and try again.';
+
+  @override
+  String get purchaseRestored =>
+      'Purchases checked. Your feature access has been updated.';
 }

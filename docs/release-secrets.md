@@ -48,3 +48,9 @@ No Apple ID password or app-specific password is used anywhere (API key only).
   with `set +x` and write files with `umask 077`.
 - Release symbols (Dart `.symbols`, obfuscation map, unstripped `.so`, dSYMs) are **private**
   workflow artifacts — they are not secrets but must not be published (see `docs/release-checklist.md`).
+
+## Purchase verification build configuration
+
+| Secret | Purpose |
+|---|---|
+| `VV_PLAY_PUBLIC_KEY` | Base64 RSA public licensing key from this app’s Play Console; injected into Android billing build configuration, never committed. |

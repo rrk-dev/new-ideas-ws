@@ -8,11 +8,13 @@ import 'package:vaultvoice/features/licensing/domain/feature_access.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 
 /// APP-03's Settings "License" hook over LIC-01's [EntitlementService]
-/// (integration wave 2). The summary reflects the *effective* plan; the
-/// restore / enterprise actions stay unavailable until LIC-02 / LIC-03
-/// provide their sources.
+/// (integration wave 2). The summary reflects the *effective* plan;
+/// LIC-02 supplies store restore through [restore]. Enterprise remains
+/// unavailable (outside v1 scope).
 class EntitlementLicensePort implements LicenseSettingsPort {
-  const EntitlementLicensePort(this._entitlements);
+  const EntitlementLicensePort(this._entitlements, {this.restore});
+
+  final Future<Result<void>> Function()? restore;
 
   final EntitlementService _entitlements;
 
@@ -32,8 +34,9 @@ class EntitlementLicensePort implements LicenseSettingsPort {
   }
 
   @override
-  Future<Result<void>> restorePurchases() async =>
-      const Err(UnsupportedFeatureFailure('purchases'));
+  Future<Result<void>> restorePurchases() async => restore == null
+      ? const Err(UnsupportedFeatureFailure('purchases'))
+      : await restore!();
 
   @override
   Future<Result<void>> installEnterpriseLicense(String license) async =>

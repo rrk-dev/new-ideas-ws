@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- MDL-02 model downloads: the only network use (allowlisted hosts via the
          Dart NetworkGateway); network state for the Wi-Fi-only default; a
          dataSync foreground service keeps a user-started download alive. -->

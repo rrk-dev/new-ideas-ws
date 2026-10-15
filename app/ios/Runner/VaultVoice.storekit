@@ -1,0 +1,64 @@
+{
+  "identifier": "574B8465-5B9F-4704-AD3B-5DA285770716",
+  "nonRenewingSubscriptions": [],
+  "products": [
+    {
+      "displayPrice": "2.00",
+      "familyShareable": true,
+      "internalID": "LIC02-LIFETIME",
+      "localizations": [
+        {
+          "description": "Synthetic local purchase only",
+          "displayName": "Pro lifetime test",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "vv_pro_lifetime",
+      "referenceName": "Pro lifetime local test",
+      "type": "NonConsumable"
+    }
+  ],
+  "settings": {
+    "_askToBuyEnabled": false,
+    "_billingGracePeriodEnabled": false,
+    "_failTransactionsEnabled": false,
+    "_locale": "en_US",
+    "_storefront": "USA",
+    "_storeKitErrors": [],
+    "_timeRate": 0
+  },
+  "subscriptionGroups": [
+    {
+      "id": "LIC02-PRO",
+      "localizations": [],
+      "name": "Pro test",
+      "subscriptions": [
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "1.00",
+          "familyShareable": true,
+          "groupNumber": 1,
+          "internalID": "LIC02-ANNUAL",
+          "introductoryOffer": null,
+          "localizations": [
+            {
+              "description": "Synthetic annual purchase only",
+              "displayName": "Pro annual test",
+              "locale": "en_US"
+            }
+          ],
+          "productID": "vv_pro_annual",
+          "recurringSubscriptionPeriod": "P1Y",
+          "referenceName": "Pro annual local test",
+          "subscriptionGroupID": "LIC02-PRO",
+          "type": "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version": {
+    "major": 3,
+    "minor": 0
+  }
+}

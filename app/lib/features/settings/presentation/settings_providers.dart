@@ -5,6 +5,7 @@ import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/features/licensing/data/entitlement_license_port.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
+import 'package:vaultvoice/features/licensing/data/purchase_providers.dart';
 import 'package:vaultvoice/features/retention/data/retention_providers.dart';
 import 'package:vaultvoice/features/settings/data/drift_settings_store.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
@@ -24,8 +25,10 @@ Stream<ManagedSettings> managedSettings(Ref ref) =>
 /// Licence summary + actions: LIC-01's entitlement service (integration
 /// wave 2); LIC-02/03 add restore / enterprise install behind the same port.
 @Riverpod(keepAlive: true)
-LicenseSettingsPort licenseSettingsPort(Ref ref) =>
-    EntitlementLicensePort(ref.watch(entitlementServiceProvider));
+LicenseSettingsPort licenseSettingsPort(Ref ref) => EntitlementLicensePort(
+  ref.watch(entitlementServiceProvider),
+  restore: () => ref.read(purchaseServiceProvider).restore(),
+);
 
 @riverpod
 Stream<LicenseSummary> licenseSummary(Ref ref) =>
