@@ -981,4 +981,66 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileEditorTestClose => 'Close';
+
+  @override
+  String get profilesImport => 'Import profile';
+
+  @override
+  String profilesImportTitle(String name) {
+    return 'Import $name?';
+  }
+
+  @override
+  String get profilesImportNew => 'Adds this profile and its note template.';
+
+  @override
+  String profilesImportUpdate(int from, int to) {
+    return 'Updates version $from to version $to.';
+  }
+
+  @override
+  String get profilesImportManaged =>
+      'Signed by your organization. It will be read-only.';
+
+  @override
+  String get profilesImportConfirm => 'Import';
+
+  @override
+  String get profilesImported => 'Profile imported.';
+
+  @override
+  String get profilesImportInvalid =>
+      'This file is not a valid VaultVoice profile.';
+
+  @override
+  String get profilesImportUntrusted =>
+      'This profile pack is signed by an unknown organization.';
+
+  @override
+  String get profilesImportTampered =>
+      'This profile pack was changed after signing and cannot be imported.';
+
+  @override
+  String get profilesImportIdTaken =>
+      'A different profile with this name is already installed.';
+
+  @override
+  String get profilesImportOlder =>
+      'A newer version of this profile is already installed.';
+
+  @override
+  String get profilesImportSame => 'This version is already installed.';
+
+  @override
+  String get profilesImportNotEntitled =>
+      'Importing this profile needs a plan that includes it.';
+
+  @override
+  String get profilesImportFailed => 'The import failed.';
+
+  @override
+  String get profileEditorExport => 'Export profile';
+
+  @override
+  String get profileEditorExportFailed => 'Could not export the profile.';
 }

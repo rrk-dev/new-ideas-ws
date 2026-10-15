@@ -44,6 +44,24 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            <!-- PRF-08: open .vvprofile bundles (profile import). Files only;
+                 no scheme handlers beyond content/file. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="content"/>
+                <data android:mimeType="application/vnd.vaultvoice.profile+zip"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="content"/>
+                <data android:scheme="file"/>
+                <data android:host="*"/>
+                <data android:mimeType="application/octet-stream"/>
+                <data android:pathPattern=".*\\.vvprofile"/>
+                <data android:pathPattern=".*\\..*\\.vvprofile"/>
+            </intent-filter>
         </activity>
         <service
             android:name=".modeldownload.ModelDownloadService"

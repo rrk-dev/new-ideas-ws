@@ -9,6 +9,7 @@ import 'package:vaultvoice/features/profiles/data/custom_profile_providers.dart'
 import 'package:vaultvoice/features/profiles/data/custom_profile_service.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
 import 'package:vaultvoice/features/profiles/domain/profile_draft.dart';
+import 'package:vaultvoice/features/profiles/presentation/profile_transfer_actions.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 
 /// Custom profile editor (PRF-07): field builder → JSON Schema (never shown),
@@ -216,6 +217,14 @@ class _EditorState extends ConsumerState<_Editor> {
       appBar: AppBar(
         title: Text(title),
         actions: [
+          if (!widget.isNew)
+            Builder(
+              builder: (c) => IconButton(
+                icon: const Icon(Icons.ios_share),
+                tooltip: l.profileEditorExport,
+                onPressed: () => exportProfileBundle(c, ref, _draft.id),
+              ),
+            ),
           if (_editable && !widget.isNew)
             IconButton(
               icon: const Icon(Icons.delete_outline),
