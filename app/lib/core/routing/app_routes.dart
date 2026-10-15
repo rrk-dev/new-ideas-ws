@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vaultvoice/core/routing/app_shell.dart';
+import 'package:vaultvoice/features/beta/presentation/beta_feedback_screen.dart';
 import 'package:vaultvoice/features/export/presentation/pending_exports_screen.dart';
 import 'package:vaultvoice/features/export/presentation/routing_rule_editor_screen.dart';
 import 'package:vaultvoice/features/export/presentation/vault_target_options_screen.dart';
@@ -94,6 +95,7 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
               routes: [TypedGoRoute<TemplateEditorRoute>(path: ':templateId')],
             ),
             TypedGoRoute<ReviewSettingsRoute>(path: 'review'),
+            TypedGoRoute<BetaFeedbackRoute>(path: 'feedback'),
           ],
         ),
       ],
@@ -349,4 +351,13 @@ class TemplateEditorRoute extends GoRouteData with $TemplateEditorRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       TemplateEditorScreen(templateId: templateId);
+}
+
+/// Settings → Send beta feedback (REL-04).
+class BetaFeedbackRoute extends GoRouteData with $BetaFeedbackRoute {
+  const BetaFeedbackRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const BetaFeedbackScreen();
 }

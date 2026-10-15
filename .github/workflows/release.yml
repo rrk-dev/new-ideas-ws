@@ -2,6 +2,10 @@
 # Play internal track. All logic lives in tools/release/ and the fastlane lanes
 # (app/ios/fastlane, app/android/fastlane); this file is a thin wrapper.
 #
+# External TestFlight and Play closed testing, and the production exit gate,
+# are the manual beta workflow (.github/workflows/beta.yml, docs/beta.md).
+# This tag pipeline stays on the internal tracks.
+#
 # Secrets: GitHub environment "release" only — names and how to create them
 # are in docs/release-secrets.md. Nothing secret is committed. Symbols are
 # uploaded as PRIVATE workflow artifacts only (never to a crash service or a

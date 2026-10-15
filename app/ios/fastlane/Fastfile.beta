@@ -1,0 +1,86 @@
+# VaultVoice TestFlight external beta + gated production (REL-04).
+#
+# Separate from Fastfile so the REL-01 internal upload lane stays tag-only.
+# Run from app/ios:
+#   bundle exec fastlane ios external --fastfile fastlane/Fastfile.beta
+#   bundle exec fastlane ios production --fastfile fastlane/Fastfile.beta
+#
+# Not executed here (no Xcode / fastlane). Options checked against fastlane
+# 2.228.0 (pilot upload_to_testflight / deliver): distribute_only,
+# distribute_external (requires groups; incompatible with
+# skip_waiting_for_build_processing), app_version, build_number,
+# skip_binary_upload, submit_for_review.
+#
+# Credentials: the same App Store Connect API key as REL-01
+# (docs/release-secrets.md). Nothing secret is written in this file.
+require "fileutils"
+
+default_platform(:ios)
+
+ROOT = File.expand_path("../../..", __dir__)
+# Created once in App Store Connect → TestFlight → External Groups.
+# Override with VV_TESTFLIGHT_EXTERNAL_GROUP if the console name differs.
+EXTERNAL_GROUP = ENV.fetch("VV_TESTFLIGHT_EXTERNAL_GROUP", "VaultVoice External")
+
+platform :ios do
+  def api_key
+    app_store_connect_api_key(
+      key_id: ENV.fetch("APP_STORE_CONNECT_API_KEY_ID"),
+      issuer_id: ENV.fetch("APP_STORE_CONNECT_API_KEY_ISSUER_ID"),
+      key_filepath: ENV.fetch("APP_STORE_CONNECT_API_KEY_P8_PATH"),
+      in_house: false
+    )
+  end
+
+  def build_identity
+    {
+      app_version: ENV.fetch("VV_BUILD_NAME"),
+      build_number: ENV.fetch("VV_BUILD_NUMBER")
+    }
+  end
+
+  # Exit criteria before any production lane (also enforced by beta.yml).
+  def require_beta_exit
+    report = ENV.fetch("VV_BETA_REPORT")
+    sh("python3", File.join(ROOT, "tools/release/beta_gate.py"), report)
+  end
+
+  desc "Distribute an already-processed TestFlight build to the external group"
+  lane :external do
+    # distribute_external does not work with skip_waiting_for_build_processing
+    # (fastlane 2.228 pilot). The build must already have finished processing
+    # after the REL-01 internal upload.
+    notes_path = File.join(__dir__, "beta_review_notes.txt")
+    upload_to_testflight(
+      api_key: api_key,
+      distribute_only: true,
+      distribute_external: true,
+      groups: [EXTERNAL_GROUP],
+      notify_external_testers: true,
+      skip_waiting_for_build_processing: false,
+      demo_account_required: false,
+      beta_app_review_info: {
+        notes: File.read(notes_path)
+      },
+      changelog: File.exist?(ENV["VV_RELEASE_NOTES_PATH"].to_s) ? File.read(ENV["VV_RELEASE_NOTES_PATH"]) : nil,
+      **build_identity
+    )
+  end
+
+  desc "Select the TestFlight build for App Store release after the beta gate"
+  lane :production do
+    require_beta_exit
+    # Does not submit for review: store metadata is still product copy
+    # (REL-05). A human submits in App Store Connect after this lane.
+    deliver(
+      api_key: api_key,
+      submit_for_review: false,
+      automatic_release: false,
+      force: true,
+      skip_binary_upload: true,
+      skip_metadata: true,
+      skip_screenshots: true,
+      **build_identity
+    )
+  end
+end

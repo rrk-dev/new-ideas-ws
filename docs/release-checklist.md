@@ -48,6 +48,20 @@ started by pushing the tag; everything before that happens on a normal reviewed 
       attach them to a public GitHub Release. Symbolication: `docs/crash-triage.md` (REL-02).
 - [ ] Release notes (`release-notes` artifact) attached to the internal release record.
 
-## Promotion (manual, outside this pipeline)
-- [ ] Beta (REL-04) / production rollout decided by a human in App Store Connect / Play Console.
+## Promotion (manual, outside the tag pipeline)
+The tag workflow stops at TestFlight internal and the Play internal track.
+Further promotion is the `beta` workflow (`.github/workflows/beta.yml`, REL-04).
+Procedure, exit criteria and triage: `docs/beta.md`.
+
+- [ ] After the internal build has finished processing, run **beta** → `external`
+      (TestFlight group `VaultVoice External`) and **beta** → `closed` (Play
+      closed testing, API track `alpha`).
+- [ ] Triage feedback labelled `beta` (S1 data loss/crash blocks release, S2 wrong
+      output, S3 UX). In-app path: Settings → Send beta feedback.
+- [ ] Production only when `python3 tools/release/beta_gate.py <report.json>`
+      exits 0: ≥ 50 testers with at least one on iOS and one on Android,
+      crash-free sessions ≥ 99.5%, zero data-loss reports, extraction
+      satisfaction ≥ 0.80, no open S1. The workflow's `production` action runs
+      that gate and then only prepares a Play **draft** and selects the iOS
+      build (`submit_for_review: false`). A human still submits for review.
 - [ ] Post-release: watch App Store Connect / Play Console crash reports (OS-level opt-in baseline).
