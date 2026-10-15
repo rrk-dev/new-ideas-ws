@@ -1,0 +1,21 @@
+app/integration_test/support/stt_live_harness.dart
+  s_9f6fcf8c1840a0::t_054758f83a12f7 294-299
+tasks/03-stt/STT-03-whisper-dart-ffi-binding.md
+  s_9f6fcf8c1840a0::t_51be04433f774c 107-116
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cd666843d9773db93fcebf81531813c83375204b",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
