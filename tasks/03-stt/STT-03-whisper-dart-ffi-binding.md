@@ -1,7 +1,7 @@
 # STT-03 — Whisper Dart FFI Binding & Engine Service
 
 **Workstream:** STT | **Phase:** 2 | **Size:** M | **Depends on:** STT-01, STT-02 | **Source:** §4.2 (FFI / C++ bridge)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-ffi-bridge, vv-whisper-stt, vv-testing, vv-local-database, vv-pipeline-orchestrator
 
 ## Goal
@@ -67,3 +67,50 @@ A Dart `SttEngine` implementation that transcribes audio with progress, cancella
   1. `app/integration_test/stt_engine_test.dart`: StatefulBuilder receives setState but never calls it. onProgress only assigns progress and onSegment only mutates the list, so the visible progress bar and segment count remain at their initial values. The test checks variables, not displayed values; AC1/AC3 evidence is incomplete.
   2. The same test maps `timings.isEmpty` to p99=0, so zero measured frames pass AC2. Require nonempty meaningful profile-mode timings and assert the actual frame budget; the host p95 timer proxy cannot replace it.
   3. Cancellation always waits 30 seconds before cancel, even if the tiny-model run has completed. It then requires CancelledFailure from an already completed run, making the device test unreliable on fast devices. Cancel while a run is demonstrably active.
+
+## Rework
+- **Agent:** Claude Code · **Branch:** task/STT-03-rework-1 (from origin/integration/wave-4) · **Date:** 2026-10-14 — answers the Codex FAIL report above (report left unchanged).
+- **Approach:** the device harness logic moved to `app/integration_test/support/stt_live_harness.dart`
+  (`SttLiveState`/`SttLiveView`, `runLiveAndCancel`, `liveUiProblems`, `frameBudgetProblems`,
+  `minFrameSamplesFor`) so it is host-testable; `app/integration_test/stt_engine_test.dart` now only wires
+  the real `WhisperSttEngine` into it. Host self-test (written first, red before the harness existed):
+  `app/test/unit/transcription/stt_live_harness_test.dart` — 7 tests tagged `[STT-03/AC1]` / `[STT-03/AC2]`.
+- **Issue 1 (UI never rebuilt; checks read variables, not the screen):** engine callbacks now feed a
+  `ChangeNotifier` rendered by a `ListenableBuilder` (progress bar, "N segments" counter, latest segment
+  text). After every pumped frame the harness reads the **displayed** values back from the widget tree
+  (`readDisplayed`: `LinearProgressIndicator.value`, counter `Text`, latest-segment widget) and
+  `liveUiProblems` requires ≥ 2 distinct increasing displayed progress values, no regression, and a
+  displayed segment before cancel. Host proof: `[STT-03/AC1] … fails when the screen never rebuilds`
+  replays the old shape (callbacks fire, nothing notifies the view; `callbackCount > 0`) and the checks
+  report "displayed progress never advanced" + "no segment was displayed"; the streaming case passes.
+  Mutation (2026-10-14): removed both `notifyListeners()` calls in `SttLiveState` → the passing
+  `[STT-03/AC1]` streaming test failed (`Expected: empty`); restored → 7/7 pass.
+- **Issue 2 (empty frame list passed as p99 = 0):** `p99FrameUs` is −1 for no samples (never passes);
+  `frameBudgetProblems` requires `frames ≥ minFrameSamplesFor(liveWindow)` (half of 60 Hz, min 60 → ≥ 300
+  for the 10 s window) **and** p99 build+raster ≤ 16 000 µs. The AC2 device test runs only in profile mode
+  (`skip: … || !kProfileMode` — debug timings are not a jank measurement) over ≥ 10 s of live 10-min
+  transcription, flushes batched FrameTimings, and fails on any problem. Added `app/test_driver/integration_test.dart`
+  (+ `flutter_driver` dev dependency, SDK package) so the documented `flutter drive --profile` row is runnable.
+  Host proof: `[STT-03/AC2]` tests — zero samples fail, 89 samples in a 3 s window fail (floor 90),
+  p99 17 000 µs fails, exactly 16 000 µs passes.
+- **Issue 3 (fixed 30 s wait, cancel after completion):** `runLiveAndCancel` cancels as soon as the run has
+  been live ≥ `minLive` (3 s; 10 s for AC2) with ≥ 3 displayed segments, checks completion after every frame,
+  never cancels a finished run and reports `completedBeforeCancel`, which `liveUiProblems` treats as a
+  failure (as is a non-`CancelledFailure` result or cancel latency ≥ 1 s). Host proof: `[STT-03/AC1] …
+  fails when the run completes before cancel is issued` (fast fake, `cancel.isCancelled == false`) and
+  `… fails on a non-cancelled result or a slow cancel`.
+- **Device rows:** `docs/test-plans/device/STT-03.md` rewritten for the new harness (debug run for AC1,
+  `flutter drive --profile` for AC2, both modes for AC3); Result/Date/Tester blank — no device here.
+  Devices needed: iPhone 13 (iOS 17/18, Metal) and an Android arm64 mid-range phone (Android 14/15).
+- **Acceptance evidence (unchanged lines above remain valid):** AC1 ⏳ device (host ✅ `[STT-03/AC1]`),
+  AC2 ⏳ device (host ✅ `[STT-03/AC2]`), AC3 ⏳ device.
+- **Cancel latency clock:** on a device (`LiveTestWidgetsFlutterBinding`) the harness uses wall clock
+  (≥ pumped time); under the host fake-async binding it uses pumped time only, so the host self-test is not
+  sensitive to runner load.
+- **Gates (2026-10-15, macOS host, load average ~55 from parallel agents):** `dart format` 0 changed ·
+  `flutter analyze` / `dart analyze --fatal-infos` 0 issues · `check_codegen.sh` clean · `check_recording_policy.sh`
+  OK · `check_egress.sh` OK · `tasks.py validate` 0 problems · `pytest tools/ci/tests` 90 passed, 1 skipped ·
+  `flutter test`: 1360 passed, 52 skipped, 4 failed — 1 was this harness's cancel latency (wall clock under load,
+  fixed above; file now 7/7), the other 3 are pre-existing wall-clock budget tests outside this task
+  (`[AUD-08/AC1]` < 300 ms, `[APP-02/AC1]` < 200 ms, `[AUD-05/AC1]` background recording) that fail only
+  under this load (no code they exercise changed here).
