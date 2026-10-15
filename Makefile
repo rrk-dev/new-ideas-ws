@@ -5,6 +5,7 @@
 #       tools/bench/results/<date>-eval-<profile>-<model>.md (+ .json).
 #   make eval-all MODEL=<model.gguf>    all built-in profiles
 #   make eval-synth                     (re)generate missing eval transcripts
+#   make llm-select                     rank candidate LLMs from eval results (LLM-08)
 #                                       (macOS say + host whisper-cli)
 # Needs the host bridge: native/build.sh host.
 
@@ -14,10 +15,13 @@ MODEL ?= $(VV_TEST_MODELS_DIR)/SmolLM2-135M-Instruct-Q8_0.gguf
 EVAL_ARGS ?=
 EVAL_PROFILES := meeting warranty engineering
 
-.PHONY: eval eval-all eval-synth
+.PHONY: eval eval-all eval-synth llm-select
 
 eval:
 	python3 tools/bench/eval/run.py --profile $(PROFILE) --model $(MODEL) $(EVAL_ARGS)
+
+llm-select:
+	python3 tools/bench/llm_select/rank.py --out tools/bench/results/$$(date +%F)-llm08-selection.md
 
 eval-all:
 	@set -e; for p in $(EVAL_PROFILES); do \
