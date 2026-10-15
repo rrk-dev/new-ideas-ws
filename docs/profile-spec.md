@@ -67,8 +67,10 @@ Everything here converts to a **bounded** GBNF grammar (`vv-llm-inference` → C
 
 ## Post-processors
 
-Contract in `post_processors.dart`; implementations land with the profile tasks (PRF-03/04) and
-LLM-05. A processor whose required fields are missing is a validation error.
+Contract in `post_processors.dart`; implementations in `post_processing.dart`
+(`applyPostProcessors`, PRF-03/04/05), run by the extract step on every valid result (single
+pass and map-reduce) and by the eval harness (`render_prompt.dart --generate` →
+`post_processed`). A processor whose required fields are missing is a validation error.
 
 | Name | Needs | Adds to the extraction JSON |
 |---|---|---|
@@ -78,6 +80,7 @@ LLM-05. A processor whose required fields are missing is a validation error.
 | `map_owner_to_speaker` | a string field `owner` | – |
 | `sort_by_timestamp` | a list of objects with a string field `t` | – |
 | `drop_ungrounded_timestamps` | a string field `t` | – (nulls `t` values not present in the transcript) |
+| `dedupe_lists` | a list field | – (drops repeated items: same text ignoring case/punctuation; objects compared without `t`) |
 
 A schema field that collides with an added field (e.g. a declared `due_iso`) is an error.
 
@@ -122,7 +125,7 @@ validates cannot hit a missing key at export time:
 - Lambdas (`vv-markdown-vault-export`; EXP-01 implements them): content lambdas
   (`yaml`, `wikilink`, `slug`, `upper`, `lower`, `trim`, `checkbox`, `code_block` — inner tags
   are checked), text-argument lambdas (`date`, `duration`; an optional `path|FORMAT` path must
-  be a scalar), path-argument lambdas (`yaml_list`, `bullets`, `md_table` — the text before an
+  be a scalar), path-argument lambdas (`yaml_list`, `bullets`, `md_table`, `code_lines` — the text before an
   optional `|args` must name a list; `md_table` columns must be item fields), and variable
   lambdas (`transcript_block`, `audio_link`). Reference: `docs/templates.md`.
 
