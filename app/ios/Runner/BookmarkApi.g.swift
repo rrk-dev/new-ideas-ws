@@ -390,6 +390,9 @@ protocol BookmarkHostApi {
   /// missing sub-folders. Replaces an existing file only when [overwrite].
   /// Returns the file URL string.
   func writeFile(bookmark: String, relativePath: String, bytes: FlutterStandardTypedData, overwrite: Bool, completion: @escaping (Result<String, Error>) -> Void)
+  /// The bytes of the file at [relativePath], or null when it does not
+  /// exist (EXP-05 user-edit detection). Fails with `invalid` for a folder.
+  func readFile(bookmark: String, relativePath: String, completion: @escaping (Result<FlutterStandardTypedData?, Error>) -> Void)
   /// Creates [relativePath] and all missing parent folders.
   func mkdirs(bookmark: String, relativePath: String, completion: @escaping (Result<Void, Error>) -> Void)
   /// Deletes the file at [relativePath]. Returns false if it did not exist.
@@ -484,6 +487,26 @@ class BookmarkHostApiSetup {
       }
     } else {
       writeFileChannel.setMessageHandler(nil)
+    }
+    /// The bytes of the file at [relativePath], or null when it does not
+    /// exist (EXP-05 user-edit detection). Fails with `invalid` for a folder.
+    let readFileChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.vaultvoice.BookmarkHostApi.readFile\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      readFileChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let bookmarkArg = args[0] as! String
+        let relativePathArg = args[1] as! String
+        api.readFile(bookmark: bookmarkArg, relativePath: relativePathArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      readFileChannel.setMessageHandler(nil)
     }
     /// Creates [relativePath] and all missing parent folders.
     let mkdirsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.vaultvoice.BookmarkHostApi.mkdirs\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)

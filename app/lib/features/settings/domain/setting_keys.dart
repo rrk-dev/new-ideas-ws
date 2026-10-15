@@ -47,6 +47,14 @@ abstract final class SettingKeys {
   static const exportFilenamePattern = 'export.filename_pattern';
   static const exportCollisionMode = 'export.collision_mode';
 
+  /// Map `{targetId: {collision, filename_pattern, transcript_sidecar,
+  /// audio_sidecar}}` — per-target export options (EXP-05).
+  static const exportTargetOptions = 'export.target_options';
+
+  /// `{rules: bool, max_targets: int?}` — the routing entitlement mirrored
+  /// from the UI isolate for the pipeline worker (EXP-05, LIC-01).
+  static const exportRoutingPolicy = 'export.routing_policy';
+
   // Privacy & security (SEC-03 / SEC-04).
   static const securityAppLock = 'security.app_lock';
   static const securityLockTimeout = 'security.lock_timeout';

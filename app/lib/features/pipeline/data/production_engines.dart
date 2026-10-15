@@ -1,19 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:drift/drift.dart' show Value;
 import 'package:flutter/services.dart';
 import 'package:vaultvoice/core/db/database.dart';
-import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/diagnostics/job_metrics.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/backend_policy.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
-import 'package:vaultvoice/core/platform/vault_writer.dart';
 import 'package:vaultvoice/features/export/data/app_local_vault_writer.dart';
-import 'package:vaultvoice/features/export/data/bookmark_vault_writer.dart';
-import 'package:vaultvoice/features/export/data/saf_vault_writer.dart';
+import 'package:vaultvoice/features/export/data/vault_writer_resolver.dart';
 import 'package:vaultvoice/features/extraction/data/ffi_llm_runtime.dart';
 import 'package:vaultvoice/features/extraction/data/native_device_capabilities.dart';
 import 'package:vaultvoice/features/extraction/data/native_schema_grammar_converter.dart';
@@ -168,6 +164,10 @@ final class ProductionEngineSpec {
       },
     );
     final appLocal = AppLocalVaultWriter.at(Directory(appLocalVaultRoot));
+    final vaults = platformVaultWriterResolver(
+      appLocal: appLocal,
+      repo: db.vaultRepository,
+    );
     final vad = FfiVadEngine(hostLibPath: nativeLibPath);
 
     Future<Profile?> profile(String id) async =>
@@ -214,7 +214,12 @@ final class ProductionEngineSpec {
         templates: templates,
         appVersion: appVersion,
       ),
-      vaultFor: (target) => vaultWriterFor(target, appLocal: appLocal, db: db),
+      // EXP-05 VaultTarget abstraction: SAF / bookmark / app-local writers
+      // (platform host APIs reached from this isolate through
+      // `BackgroundIsolateBinaryMessenger`, set up above) and routed,
+      // multi-target export with the routing rules.
+      vaultFor: vaults,
+      vaultResolver: vaults,
       metrics: PipelineJobMetrics(
         db: db,
         sessions: JobMetricsRecorder(
@@ -248,27 +253,6 @@ final class _LazyNative {
   NativeDeviceCapabilities get caps =>
       _caps ??= NativeDeviceCapabilities(value);
 }
-
-/// The writer of one configured vault target. App-local targets use the
-/// app's own folder; SAF/bookmark writers call the platform host APIs (from
-/// the worker via `BackgroundIsolateBinaryMessenger`). A refreshed iOS
-/// bookmark is stored back on the target row.
-VaultWriter vaultWriterFor(
-  VaultTargetRow target, {
-  required VaultWriter appLocal,
-  required VaultVoiceDatabase db,
-}) => switch (target.platform) {
-  VaultPlatform.appLocal => appLocal,
-  VaultPlatform.androidSaf => SafVaultWriter(treeUri: target.handle),
-  VaultPlatform.iosBookmark => BookmarkVaultWriter(
-    bookmark: target.handle,
-    onRefreshed: (refreshed) => unawaited(
-      (db.update(db.vaultTargets)..where((t) => t.id.equals(target.id))).write(
-        VaultTargetsCompanion(handle: Value(refreshed)),
-      ),
-    ),
-  ),
-};
 
 /// A [TemplateNoteRenderer] over the built-ins plus a snapshot of the user
 /// profiles and templates stored now (FND-11: taken at job start, so edits

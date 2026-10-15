@@ -85,11 +85,25 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
               path: 'vault-folders',
               hasOverriddenOnExit: false,
               factory: $VaultFoldersRoute._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: ':targetId',
+                  hasOverriddenOnExit: false,
+                  factory: $VaultTargetOptionsRoute._fromState,
+                ),
+              ],
             ),
             GoRouteData.$route(
               path: 'routing-rules',
               hasOverriddenOnExit: false,
               factory: $RoutingRulesRoute._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: ':ruleId',
+                  hasOverriddenOnExit: false,
+                  factory: $RoutingRuleEditorRoute._fromState,
+                ),
+              ],
             ),
           ],
         ),
@@ -342,12 +356,62 @@ mixin $VaultFoldersRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
+mixin $VaultTargetOptionsRoute on GoRouteData {
+  static VaultTargetOptionsRoute _fromState(GoRouterState state) =>
+      VaultTargetOptionsRoute(targetId: state.pathParameters['targetId']!);
+
+  VaultTargetOptionsRoute get _self => this as VaultTargetOptionsRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/settings/vault-folders/${Uri.encodeComponent(_self.targetId)}',
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
 mixin $RoutingRulesRoute on GoRouteData {
   static RoutingRulesRoute _fromState(GoRouterState state) =>
       const RoutingRulesRoute();
 
   @override
   String get location => GoRouteData.$location('/settings/routing-rules');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $RoutingRuleEditorRoute on GoRouteData {
+  static RoutingRuleEditorRoute _fromState(GoRouterState state) =>
+      RoutingRuleEditorRoute(ruleId: state.pathParameters['ruleId']!);
+
+  RoutingRuleEditorRoute get _self => this as RoutingRuleEditorRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/settings/routing-rules/${Uri.encodeComponent(_self.ruleId)}',
+  );
 
   @override
   void go(BuildContext context) => context.go(location);

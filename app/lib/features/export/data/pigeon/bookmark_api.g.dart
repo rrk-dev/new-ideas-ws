@@ -398,6 +398,29 @@ class BookmarkHostApi {
     return pigeonVar_replyValue! as String;
   }
 
+  /// The bytes of the file at [relativePath], or null when it does not
+  /// exist (EXP-05 user-edit detection). Fails with `invalid` for a folder.
+  Future<Uint8List?> readFile(String bookmark, String relativePath) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.vaultvoice.BookmarkHostApi.readFile$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
+    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[bookmark, relativePath],
+    );
+    final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
+
+    final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
+    return pigeonVar_replyValue as Uint8List?;
+  }
+
   /// Creates [relativePath] and all missing parent folders.
   Future<void> mkdirs(String bookmark, String relativePath) async {
     final pigeonVar_channelName =

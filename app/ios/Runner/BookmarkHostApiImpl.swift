@@ -164,6 +164,34 @@ final class BookmarkHostApiImpl: NSObject, BookmarkHostApi, UIDocumentPickerDele
     }
   }
 
+  func readFile(
+    bookmark: String, relativePath: String,
+    completion: @escaping (Result<FlutterStandardTypedData?, Error>) -> Void
+  ) {
+    runIo(completion) {
+      try Self.withFolder(bookmark) { root -> FlutterStandardTypedData? in
+        let target = try Self.child(root, relativePath)
+        switch Self.state(of: target) {
+        case .none:
+          return nil
+        case .some(.directory):
+          throw Self.err("invalid", "path is a folder")
+        case .some(.notDownloaded):
+          // Reading a placeholder would block on the download: start it and
+          // let the caller retry (EXP-06 outbox).
+          try? FileManager.default.startDownloadingUbiquitousItem(at: target)
+          throw Self.err("unavailable", "icloud item not downloaded")
+        case .some(.file):
+          var data = Data()
+          try Self.coordinate(reading: target, options: []) { url in
+            data = try Data(contentsOf: url)
+          }
+          return FlutterStandardTypedData(bytes: data)
+        }
+      }.0
+    }
+  }
+
   func mkdirs(
     bookmark: String, relativePath: String, completion: @escaping (Result<Void, Error>) -> Void
   ) {

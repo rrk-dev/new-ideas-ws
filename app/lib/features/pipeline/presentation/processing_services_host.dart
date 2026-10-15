@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/pipeline/data/background_providers.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_isolate.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_providers.dart';
@@ -40,6 +41,8 @@ class _ProcessingServicesHostState extends ConsumerState<ProcessingServicesHost>
               AppLifecycleState.resumed,
         );
       guard.start().ignore();
+      // EXP-05: mirror the routing entitlement for the pipeline isolate.
+      ref.read(routingPolicyMirrorProvider);
     });
   }
 

@@ -2373,6 +2373,264 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{kind} at {time}'**
   String transcriptMarkerLabel(String kind, String time);
+
+  /// No description provided for @routingRulesAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add rule'**
+  String get routingRulesAdd;
+
+  /// No description provided for @routingRulesLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Routing rules are a Pro feature. Your rules are kept but not applied: every note goes to your first vault folder.'**
+  String get routingRulesLocked;
+
+  /// No description provided for @routingRuleTo.
+  ///
+  /// In en, this message translates to:
+  /// **'To {folder}'**
+  String routingRuleTo(String folder);
+
+  /// No description provided for @routingRuleEveryNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Every note'**
+  String get routingRuleEveryNote;
+
+  /// No description provided for @routingRuleMatchesSome.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes matching {count, plural, =1{1 condition} other{{count} conditions}}'**
+  String routingRuleMatchesSome(int count);
+
+  /// No description provided for @routingRuleContinues.
+  ///
+  /// In en, this message translates to:
+  /// **'then later rules'**
+  String get routingRuleContinues;
+
+  /// No description provided for @routingRuleOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get routingRuleOff;
+
+  /// No description provided for @routingRuleNewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New rule'**
+  String get routingRuleNewTitle;
+
+  /// No description provided for @routingRuleEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit rule'**
+  String get routingRuleEditTitle;
+
+  /// No description provided for @routingRuleName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name (optional)'**
+  String get routingRuleName;
+
+  /// No description provided for @routingRuleTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Vault folder'**
+  String get routingRuleTarget;
+
+  /// No description provided for @routingRuleNoTargets.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a vault folder first.'**
+  String get routingRuleNoTargets;
+
+  /// No description provided for @routingRuleTargetRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a vault folder.'**
+  String get routingRuleTargetRequired;
+
+  /// No description provided for @routingRuleSubPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Sub-folder (optional)'**
+  String get routingRuleSubPath;
+
+  /// No description provided for @routingRuleSubPathHint.
+  ///
+  /// In en, this message translates to:
+  /// **'For example Meetings/2026'**
+  String get routingRuleSubPathHint;
+
+  /// No description provided for @routingRuleFilename.
+  ///
+  /// In en, this message translates to:
+  /// **'File name pattern (optional)'**
+  String get routingRuleFilename;
+
+  /// No description provided for @routingRuleFilenameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty: the folder’s or the default pattern'**
+  String get routingRuleFilenameHint;
+
+  /// No description provided for @routingRuleConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Conditions'**
+  String get routingRuleConditions;
+
+  /// No description provided for @routingRuleConditionsHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Separate values with commas. Every filled-in condition must match; a rule without conditions matches every note.'**
+  String get routingRuleConditionsHelp;
+
+  /// No description provided for @routingRuleProfiles.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile ids'**
+  String get routingRuleProfiles;
+
+  /// No description provided for @routingRuleTags.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get routingRuleTags;
+
+  /// No description provided for @routingRuleKeywords.
+  ///
+  /// In en, this message translates to:
+  /// **'Keywords in title or summary'**
+  String get routingRuleKeywords;
+
+  /// No description provided for @routingRuleSpeakers.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaker names'**
+  String get routingRuleSpeakers;
+
+  /// No description provided for @routingRuleContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Also check later rules'**
+  String get routingRuleContinue;
+
+  /// No description provided for @routingRuleContinueHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Off: the first matching rule decides. On: later matching rules add more folders.'**
+  String get routingRuleContinueHelp;
+
+  /// No description provided for @routingRuleEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule is on'**
+  String get routingRuleEnabled;
+
+  /// No description provided for @routingRuleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get routingRuleSave;
+
+  /// No description provided for @routingRuleSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the rule.'**
+  String get routingRuleSaveFailed;
+
+  /// No description provided for @routingRuleDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete rule'**
+  String get routingRuleDelete;
+
+  /// No description provided for @routingRuleDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this rule?'**
+  String get routingRuleDeleteTitle;
+
+  /// No description provided for @routingRuleDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes already written stay where they are.'**
+  String get routingRuleDeleteBody;
+
+  /// No description provided for @routingRuleNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule no longer exists.'**
+  String get routingRuleNotFound;
+
+  /// No description provided for @vaultTargetOptionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Folder options'**
+  String get vaultTargetOptionsTitle;
+
+  /// No description provided for @vaultTargetCollision.
+  ///
+  /// In en, this message translates to:
+  /// **'If the note already exists'**
+  String get vaultTargetCollision;
+
+  /// No description provided for @vaultTargetCollisionDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the default setting'**
+  String get vaultTargetCollisionDefault;
+
+  /// No description provided for @vaultTargetFilename.
+  ///
+  /// In en, this message translates to:
+  /// **'File name pattern (optional)'**
+  String get vaultTargetFilename;
+
+  /// No description provided for @vaultTargetTranscript.
+  ///
+  /// In en, this message translates to:
+  /// **'Also save the transcript'**
+  String get vaultTargetTranscript;
+
+  /// No description provided for @vaultTargetTranscriptHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Writes a separate transcript note next to each note.'**
+  String get vaultTargetTranscriptHelp;
+
+  /// No description provided for @vaultTargetAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Also copy the audio'**
+  String get vaultTargetAudio;
+
+  /// No description provided for @vaultTargetAudioHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Copies the recording into an attachments folder. Audio files are large and leave the app’s protected storage.'**
+  String get vaultTargetAudioHelp;
+
+  /// No description provided for @vaultTargetSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the folder options.'**
+  String get vaultTargetSaveFailed;
+
+  /// No description provided for @vaultTargetDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Not used on your current plan'**
+  String get vaultTargetDisabled;
+
+  /// No description provided for @vaultTargetNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'This folder no longer exists.'**
+  String get vaultTargetNotFound;
 }
 
 class _AppLocalizationsDelegate

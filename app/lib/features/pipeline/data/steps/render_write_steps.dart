@@ -11,6 +11,8 @@ import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
 import 'package:vaultvoice/core/utils/ids.dart';
 import 'package:vaultvoice/features/export/data/export_identity.dart';
+import 'package:vaultvoice/features/export/data/export_request_builder.dart';
+import 'package:vaultvoice/features/export/data/vault_exporter.dart';
 import 'package:vaultvoice/features/export/domain/export_collision.dart';
 import 'package:vaultvoice/features/export/domain/filename_pattern.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
@@ -189,6 +191,8 @@ class WriteStep implements PipelineStep {
     this.clock = const SystemClock(),
     this.vaultFor,
     this.profiles,
+    this.exporter,
+    this.defaultProfileId = 'meeting',
   });
 
   final VaultVoiceDatabase db;
@@ -204,6 +208,12 @@ class WriteStep implements PipelineStep {
   /// Profile lookup for the profile's own filename pattern.
   final ProfileLookup? profiles;
 
+  /// EXP-05 routed export; null = write to [vault] (first target) only.
+  final VaultExporter? exporter;
+
+  /// Profile used for routing when the recording has none.
+  final String defaultProfileId;
+
   @override
   PipelineStepId get id => PipelineStepId.write;
 
@@ -215,6 +225,7 @@ class WriteStep implements PipelineStep {
 
   @override
   Future<StepResult> run(StepContext ctx) async {
+    if (exporter case final e?) return await _routedExport(ctx, e);
     final job = ctx.job;
     final targets = await db.vaultRepository.watchTargets().first;
     if (targets.isEmpty) return const StepWaiting(WaitingReason.destination);
@@ -350,5 +361,40 @@ class WriteStep implements PipelineStep {
       (m) => m.name == v,
       orElse: () => CollisionMode.suffix,
     );
+  }
+
+  /// EXP-05: routing rules → every chosen target. The exporter persists the
+  /// `exports` rows itself (before and after each write), so a kill between
+  /// the vault write and the job commit never duplicates the note.
+  Future<StepResult> _routedExport(StepContext ctx, VaultExporter e) async {
+    final job = ctx.job;
+    final file = File(paths.renderedFile(job.recordingId));
+    if (!file.existsSync()) {
+      return const StepFailed(
+        StorageFailure('no rendered note'),
+        kind: FailureKind.permanent,
+      );
+    }
+    final extraction = (await db.extractionsRepository.get(
+      extractionIdFor(job.id),
+    )).valueOrNull;
+    final request = await buildExportRequest(
+      db,
+      recordingId: job.recordingId,
+      markdown: await file.readAsString(),
+      fallbackProfileId: defaultProfileId,
+      extraction: extraction,
+    );
+    final outcome = await e.export(request);
+    ctx.reportProgress(1);
+    return switch (outcome) {
+      ExportDone() => const StepSucceeded(),
+      ExportNeedsDestination() => const StepWaiting(WaitingReason.destination),
+      ExportFailed(:final failure) => StepFailed(
+        failure,
+        // Unreachable storage (SD card, iCloud) is worth retrying.
+        kind: failure is VaultAccessFailure ? FailureKind.retryable : null,
+      ),
+    };
   }
 }

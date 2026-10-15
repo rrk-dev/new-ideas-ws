@@ -10,6 +10,7 @@ import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/cancel_token.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/utils/ids.dart';
+import 'package:vaultvoice/features/export/data/vault_exporter.dart';
 import 'package:vaultvoice/features/pipeline/data/job_mapper.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/extract_step.dart';
@@ -65,6 +66,17 @@ List<PipelineStep> defaultSteps({
     clock: engines.clock,
     vaultFor: engines.vaultFor,
     profiles: engines.profiles,
+    // EXP-05: routing rules + multi-target export when the engines supply
+    // a target resolver; otherwise the single-target write.
+    exporter: engines.vaultResolver == null
+        ? null
+        : VaultExporter(
+            db: db,
+            writerFor: engines.vaultResolver!,
+            audio: engines.audioAttachments,
+            clock: engines.clock,
+          ),
+    defaultProfileId: config.defaultProfileId,
   ),
 ];
 
