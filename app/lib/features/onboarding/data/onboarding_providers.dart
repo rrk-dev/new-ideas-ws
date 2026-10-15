@@ -37,6 +37,13 @@ class OnboardingStore {
         _ref.read(clockProvider).now().toUtc().millisecondsSinceEpoch,
       );
 
+  Future<bool> consentAcknowledged() async =>
+      await _ref
+              .read(settingsStoreProvider)
+              .watch(OnboardingKeys.consentAcknowledgedAt)
+              .first
+          is int;
+
   Future<Result<void>> complete() =>
       _ref.read(settingsStoreProvider).set(OnboardingKeys.completed, true);
 

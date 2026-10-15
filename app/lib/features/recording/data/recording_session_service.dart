@@ -82,6 +82,18 @@ class RecordingSessionService {
         ),
       );
 
+  /// Optional spoken-consent marker (SEC-07): the user noted at [at] that
+  /// consent was stated aloud. Stored as `markers.kind = consent`; no audio
+  /// or text is derived from it.
+  Future<Result<int>> addSpokenConsentMarker(String recordingId, Duration at) =>
+      _repo.addMarker(
+        MarkersCompanion.insert(
+          recordingId: recordingId,
+          atMs: at.inMilliseconds,
+          kind: MarkerKind.consent,
+        ),
+      );
+
   /// Post-recording details: title, tags, and the (possibly changed)
   /// profile/destination. Tags are trimmed, de-duplicated, empty ones
   /// dropped.

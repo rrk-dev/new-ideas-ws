@@ -5,6 +5,7 @@ committed. The parametrize id carries the acceptance tag so that
 `pytest -k SEC-09_AC1` (what `tasks.py verify --run` uses) selects these tests.
 """
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -191,6 +192,80 @@ def test_SEC_09_AC1_repository_passes_and_ci_runs_the_guard(tag):
     assert "check_recording_policy.sh --require-merged-manifest" in ci
     android_job = ci.split("\n  android:")[1].split("\n  ios:")[0]
     assert android_job.index("build_android.sh") < android_job.index("check_recording_policy.sh")
+
+
+MAC_INFO = "app/macos/Runner/Info.plist"
+MAC_PURPOSE = "Records a note you start, not a call."
+
+
+def mac_plist(extra: str = "", purpose: str = MAC_PURPOSE) -> str:
+    body = PLIST.replace("Record notes", purpose).format(modes="")
+    return body.replace("</dict>", extra + "</dict>")
+
+
+MAC = pytest.mark.parametrize("tag", ["AUD-09_AC3"])
+
+
+@MAC
+def test_AUD_09_AC3_macos_microphone_only_passes(tmp_path, tag):
+    """[AUD-09/AC3] a microphone-only macOS Runner passes the guard."""
+    ok = tree(tmp_path, {
+        MAC_INFO: mac_plist(),
+        "app/macos/Runner/Release.entitlements": mac_plist().replace(
+            "<key>NSMicrophoneUsageDescription</key><string>%s</string>" % MAC_PURPOSE,
+            "<key>com.apple.security.device.audio-input</key><true/>"),
+    })
+    r = run(ok)
+    assert r.returncode == 0, r.stderr
+
+
+@MAC
+@pytest.mark.parametrize("key,needle", [
+    ("<key>NSScreenCaptureUsageDescription</key><string>x</string>", "forbidden screen capture"),
+    ("<key>NSAudioCaptureUsageDescription</key><string>x</string>", "forbidden system-audio capture"),
+    ("<key>com.apple.security.device.camera</key><true/>", "forbidden camera"),
+    ("<key>com.apple.security.temporary-exception.mach-lookup.global-name</key><array/>", "entitlement exception"),
+    ("<key>LSUIElement</key><true/>", "hides the recording app"),
+    ("<key>NSUserActivityTypes</key><array><string>INStartCallIntent</string></array>", "call intent"),
+])
+def test_AUD_09_AC3_macos_forbidden_keys_fail(tmp_path, tag, key, needle):
+    """[AUD-09/AC3] screen/system-audio capture, call intents and hidden-agent keys fail on macOS."""
+    for rel in (MAC_INFO, "app/macos/Runner/Release.entitlements", "packages/vv_native/macos/Info.plist"):
+        bad = tree(tmp_path / rel.replace("/", "_"), {rel: mac_plist(key)})
+        assert_fails(run(bad), needle)
+
+
+@MAC
+def test_AUD_09_AC3_macos_purpose_string_must_say_not_a_call(tmp_path, tag):
+    """[AUD-09/AC3] the Runner purpose string states the user records a note, not a call."""
+    bad = tree(tmp_path, {MAC_INFO: mac_plist(purpose="Needs the microphone.")})
+    assert_fails(run(bad), "not a call")
+
+
+@MAC
+@pytest.mark.parametrize("rel,body", [
+    ("app/macos/Runner/S.swift", "let s = SCStream(filter: f, configuration: c, delegate: nil)\n"),
+    ("packages/vv_native/macos/T.swift", "AudioHardwareCreateProcessTap(d, &t)\n"),
+    ("packages/vv_native/macos/A.swift", "AudioHardwareCreateAggregateDevice(d, &a)\n"),
+    ("app/macos/Runner/I.swift", "let i = INStartCallIntent()\n"),
+])
+def test_AUD_09_AC3_macos_capture_sources_fail(tmp_path, tag, rel, body):
+    """[AUD-09/AC3] macOS screen / process-audio capture and call-intent APIs fail the source scan."""
+    assert_fails(run(tree(tmp_path, {rel: body})), rel)
+
+
+@MAC
+def test_AUD_09_AC3_repository_macos_files_are_scanned(tag):
+    """[AUD-09/AC3] the real macOS runner and plugin files are in scope and pass."""
+    r = run(ROOT)
+    assert r.returncode == 0, r.stderr
+    summary = r.stdout
+    assert "plist/entitlement file(s)" in summary
+    sys.path.insert(0, str(ROOT / "tools/ci"))
+    import check_recording_policy as crp  # noqa: PLC0415
+    rels = {p.relative_to(ROOT).as_posix() for p in crp.ios_plists(ROOT)}
+    assert {"app/macos/Runner/Info.plist", "app/macos/Runner/Release.entitlements",
+            "packages/vv_native/macos/Info.plist"} <= rels
 
 
 @pytest.mark.parametrize("tag", ["SEC-09_AC2"])
