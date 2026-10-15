@@ -1,0 +1,29 @@
+{
+  "title": "Vendor contract review",
+  "summary": "Aisha will review the vendor contract by next Friday and Diego will send the signed copy to finance by the end of the month. Whether legal needs to review it is open.",
+  "attendees": [
+    "Diego",
+    "Aisha"
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "task": "Review the vendor contract",
+      "owner": "Aisha",
+      "due": "next Friday",
+      "t": null
+    },
+    {
+      "task": "Send the signed copy to finance",
+      "owner": "Diego",
+      "due": "end of the month",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "Do we still need legal to look at it?"
+  ],
+  "topics": [
+    "vendor contract"
+  ]
+}

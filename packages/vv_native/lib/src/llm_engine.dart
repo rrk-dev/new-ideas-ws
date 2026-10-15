@@ -24,6 +24,7 @@ final class LlmGenParams {
     this.grammar,
     this.tokenBatch = 4,
     this.fullGrammarMask = false,
+    this.reusePrefix = false,
   });
 
   /// Structured extraction (default): grammar + temp 0.2, min_p 0.05,
@@ -65,6 +66,11 @@ final class LlmGenParams {
   /// `VV_LLM_GRAMMAR_FULL` (mask every candidate each step) instead of the
   /// default lazy check of the sampled token (LLM-05). Benchmarks only.
   final bool fullGrammarMask;
+
+  /// LLM-06: keep the KV cache of the token prefix shared with the previous
+  /// generation on this handle (`vv_gen_params.reuse_prefix`) and prefill
+  /// only the rest. Map-reduce chunk prompts share the system prompt.
+  final bool reusePrefix;
 }
 
 /// Outcome of one generation (`on_done`).
@@ -75,6 +81,7 @@ final class LlmGenResult {
     required this.nGen,
     required this.prefillMs,
     required this.decodeMs,
+    this.reusedTokens = 0,
   });
 
   /// `VV_OK`, `VV_E_CANCELLED`, `VV_E_BACKEND`, …
@@ -84,7 +91,11 @@ final class LlmGenResult {
   final double prefillMs;
   final double decodeMs;
 
-  double get prefillTps => prefillMs > 0 ? nPrompt * 1000 / prefillMs : 0;
+  /// Prompt tokens taken from the KV cache instead of prefilled (LLM-06).
+  final int reusedTokens;
+
+  double get prefillTps =>
+      prefillMs > 0 ? (nPrompt - reusedTokens) * 1000 / prefillMs : 0;
   double get decodeTps => decodeMs > 0 ? nGen * 1000 / decodeMs : 0;
 }
 
@@ -262,7 +273,17 @@ final class VvLlm {
       double decodeMs,
     ) {
       expected = nChunks;
+      var reused = 0;
+      if (_h != nullptr) {
+        using((arena) {
+          final out = arena<Int32>();
+          if (_b.vv_llm_last_reused_tokens(_h, out) == VV_OK) {
+            reused = out.value;
+          }
+        });
+      }
       result = LlmGenResult(
+        reusedTokens: reused,
         status: status,
         nPrompt: nPrompt,
         nGen: nGen,
@@ -284,6 +305,7 @@ final class VvLlm {
         ..repeat_penalty = params.repeatPenalty
         ..repeat_last_n = params.repeatLastN
         ..token_batch = params.tokenBatch
+        ..reuse_prefix = params.reusePrefix ? 1 : 0
         ..grammar_mode = params.fullGrammarMask
             ? VV_LLM_GRAMMAR_FULL
             : VV_LLM_GRAMMAR_LAZY

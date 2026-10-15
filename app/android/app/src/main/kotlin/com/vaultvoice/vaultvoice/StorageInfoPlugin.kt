@@ -1,5 +1,7 @@
 package com.vaultvoice.vaultvoice
 
+import android.media.audiofx.AutomaticGainControl
+import android.media.audiofx.NoiseSuppressor
 import android.os.StatFs
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -11,6 +13,11 @@ import java.io.File
  * app-private recording directory (`StatFs.getAvailableBytes`, API 18+).
  *
  * Method channel `vaultvoice/storage_info`: `freeBytes({path})` -> Long.
+ *
+ * AUD-02 also asks here which platform voice-processing effects exist
+ * (`audioEffects()` -> {agc, noiseSuppression}: `AutomaticGainControl` /
+ * `NoiseSuppressor.isAvailable()`, API 16+). The `record` plugin enables them
+ * on its `AudioRecord` session; without AGC the app's software AGC is used.
  */
 class StorageInfoPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
     private var channel: MethodChannel? = null
@@ -44,6 +51,12 @@ class StorageInfoPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
                     result.error("unavailable", "statfs failed", null)
                 }
             }
+            "audioEffects" -> result.success(
+                mapOf(
+                    "agc" to AutomaticGainControl.isAvailable(),
+                    "noiseSuppression" to NoiseSuppressor.isAvailable(),
+                ),
+            )
             else -> result.notImplemented()
         }
     }

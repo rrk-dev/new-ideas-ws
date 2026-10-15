@@ -36,6 +36,17 @@ class ExtractionsRepository extends DatabaseAccessor<VaultVoiceDatabase>
     () => (delete(extractions)..where((e) => e.id.equals(id))).go(),
   );
 
+  /// Replaces the extracted JSON of [id] (APP-05 review edits).
+  Future<Result<void>> updateJson(
+    String id,
+    Map<String, Object?> json, {
+    required bool valid,
+  }) => guardAffected(
+    () => (update(extractions)..where((e) => e.id.equals(id))).write(
+      ExtractionsCompanion(json: Value(json), valid: Value(valid)),
+    ),
+  );
+
   /// Replaces the action items of [extractionId] atomically (idempotent
   /// RenderStep output).
   Future<Result<void>> replaceActionItems(

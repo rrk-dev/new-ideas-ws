@@ -14,6 +14,8 @@ import UserNotifications
     // APP-04: local notifications (flutter_local_notifications 22.3.1 README)
     // — taps and foreground presentation go through FlutterAppDelegate.
     UNUserNotificationCenter.current().delegate = self
+    // FND-08: BGProcessingTask handler must be registered before launch ends.
+    ProcessingPlugin.registerBackgroundTask()
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
@@ -31,14 +33,44 @@ import UserNotifications
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "StorageInfoPlugin") {
       StorageInfoPlugin.register(with: registrar)
     }
+    // SEC-01: Keychain data keys + Data Protection / backup exclusion of vv/.
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "SecureStoragePlugin") {
+      SecureStoragePlugin.register(with: registrar)
+    }
+    // SEC-03: app lock (LocalAuthentication) + app-switcher privacy cover.
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "AppLockPlugin") {
+      AppLockPlugin.register(with: registrar)
+    }
     // AUD-04: audio route / engine / media-services events; recording reminder.
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "AudioSessionPlugin") {
       AudioSessionPlugin.register(with: registrar)
     }
+    // FND-08: background processing (background task, BGProcessingTask, power/thermal).
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "ProcessingPlugin") {
+      ProcessingPlugin.register(with: registrar)
+    }
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "RecordingIndicatorPlugin") {
       RecordingIndicatorPlugin.register(with: registrar)
     }
+    // AUD-06: audio import (AVFoundation decoding, "Open in" / share inbox).
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "AudioImportPlugin") {
+      AudioImportPlugin.register(with: registrar)
+    }
     BookmarkHostApiSetup.setUp(
       binaryMessenger: engineBridge.applicationRegistrar.messenger(), api: bookmarkApi)
+    // APP-01: "Open settings" recovery after a denied permission. Opens this
+    // app's page in Settings (UIApplication.openSettingsURLString, iOS 8+).
+    let appSettings = FlutterMethodChannel(
+      name: "vaultvoice/app_settings",
+      binaryMessenger: engineBridge.applicationRegistrar.messenger())
+    appSettings.setMethodCallHandler { call, result in
+      guard call.method == "open",
+        let url = URL(string: UIApplication.openSettingsURLString)
+      else {
+        result(FlutterMethodNotImplemented)
+        return
+      }
+      UIApplication.shared.open(url) { opened in result(opened) }
+    }
   }
 }

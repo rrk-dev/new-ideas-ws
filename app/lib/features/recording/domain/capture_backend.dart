@@ -16,6 +16,10 @@ enum GapKind {
   /// The user tapped Pause.
   userPause('user_pause'),
 
+  /// Auto-pause after continuous silence (AUD-03 setting). Like a user
+  /// pause, only a user tap resumes.
+  silencePause('silence_pause'),
+
   /// The microphone stream failed or the OS paused it by itself (AUD-01).
   captureError('capture_error'),
 

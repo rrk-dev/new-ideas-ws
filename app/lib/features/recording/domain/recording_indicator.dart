@@ -66,6 +66,10 @@ IndicatorContent? indicatorContentFor(RecordingState state, DateTime now) {
           'Another app or the system took the microphone. '
               'Tap Resume to continue.',
         ),
+        PauseCause.silence => (
+          'Recording paused after silence',
+          'Tap Resume to continue.',
+        ),
         _ => ('Recording paused', 'Tap Resume to continue.'),
       };
       return IndicatorContent(

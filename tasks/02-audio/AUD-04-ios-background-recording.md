@@ -53,3 +53,16 @@ Recording continues with the app backgrounded or the device locked, and recovers
   recording/paused + timer, updated from `RecordingIndicatorBinding` via the existing
   `vaultvoice/recording_indicator` channel; buttons only open the app (no start from the Activity).
   Needs Xcode to create the target. Deferred from AUD-04 scope.
+
+## Verification Report
+- **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ (0 changed) · analyze ✅ (no issues) · tests ✅ (785 passed, 24 skipped, coverage 93.2% of 4708 gated lines, min 80%) · native smoke ✅ (host ctest 9 passed / 14 skipped / 0 failed, includes `vv_crash`) · egress ✅ · recording policy ✅ · CI run: https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858 (run 51, success, `67b6fcf`) and https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638136574 (run 50, success)
+- **Acceptance criteria:**
+  - AC1: ✅ re-ran `[AUD-04/AC1]`. Backgrounded rig records 60 minutes as 12 chunks, never enters `paused`, and the session observer is listening only while open. Locked-screen device row is blank (no Xcode).
+  - AC2: ✅ re-ran `[AUD-04/AC2]`. Ringing pauses immediately, post-event audio is not kept (1750 ms of 2000), a `call_interruption` marker is written, and `interruptionEnded` plus `callEnded` leave the mic closed. Device call row is blank.
+  - AC3: ✅ re-ran `[AUD-04/AC3]`. A plain route change does not reopen; an engine-configuration change reopens into a new chunk and the recording stays in `recording` with a `route_change` marker. Media-services reset continues in a second chunk. Checked it fails when `_restartInput` is replaced with `return`. Bluetooth device row is blank.
+- **Adversarial checks:** Route/engine restart while `inCall` pauses instead of reopening (fail closed). A paused recording is not reopened by an engine change. Controller drops `callEnded` and `interruptionEnded` (`blocksCapture` is false), so `.shouldResume` cannot resume. `UIBackgroundModes` is `audio` only. CallKit is the SEC-09 observer, not a call provider. `tasks.py verify AUD-04 --run` short-circuits on pending evidence; tagged tests passed in the full suite.
+- **Skill/rule compliance:** No auto-resume. Live Activity is `[~] deferred → AUD-10` with a reason (needs a WidgetKit target and Xcode). Input reopen is a route recovery, not a resume, and fails closed on calls (ADR-AUD-04).
+- **Issues found:** none
+- **Pending for done:** AC1: still pending (⏳) — cannot be done; AC1: device row in docs/test-plans/device/AUD-04.md has no PASS result with a date; AC2: still pending (⏳) — cannot be done; AC2: device row in docs/test-plans/device/AUD-04.md has no PASS result with a date; AC3: still pending (⏳) — cannot be done; AC3: device row in docs/test-plans/device/AUD-04.md has no PASS result with a date; dependency AUD-01 is not done; dependency SEC-09 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task

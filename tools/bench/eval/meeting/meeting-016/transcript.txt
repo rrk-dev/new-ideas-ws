@@ -1,0 +1,4 @@
+[00:00:00] Sam: Stand up, yesterday I fixed the log and bug, today I'm on the crash reports.
+[00:00:06] Lena: I finished the icons, today I start the onboarding screens.
+[00:00:10] Kofi: I'm blocked on the API keys from the vendor.
+[00:00:13] Mei: I'll call the vendor about coffee's API keys today.

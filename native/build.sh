@@ -102,7 +102,16 @@ build_ios() {
     -DVV_WHISPER_COREML="${VV_WHISPER_COREML:-OFF}"   # STT-01: Core ML encoder (ADR-STT-01)
     -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED=NO
     -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED=NO
-    -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY="")
+    -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY=""
+    # REL-03: strip local symbols from the framework binary at build time (it is
+    # a prebuilt xcframework, so the app's archive strip never touches it) and
+    # keep a private dSYM for symbolication (REL-02). non-global keeps the
+    # exported vv_* entry points Dart looks up.
+    -DCMAKE_XCODE_ATTRIBUTE_DEPLOYMENT_POSTPROCESSING=YES
+    -DCMAKE_XCODE_ATTRIBUTE_STRIP_INSTALLED_PRODUCT=YES
+    -DCMAKE_XCODE_ATTRIBUTE_STRIP_STYLE=non-global
+    -DCMAKE_XCODE_ATTRIBUTE_DEAD_CODE_STRIPPING=YES
+    -DCMAKE_XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT=dwarf-with-dsym)
   local dev="$OUT/ios/device" sim="$OUT/ios/simulator"
   cmake -S "$NATIVE" -B "$dev" "${args[@]}" -DCMAKE_OSX_SYSROOT=iphoneos \
     -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_XCODE_ATTRIBUTE_SUPPORTED_PLATFORMS=iphoneos

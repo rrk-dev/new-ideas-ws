@@ -1,0 +1,29 @@
+{
+  "title": "Billing project handover",
+  "summary": "Mei handed over the billing project to Diego before her leave. Diego will finish the invoice template this week and the tax report next week.",
+  "attendees": [
+    "Mei",
+    "Diego"
+  ],
+  "decisions": [
+    "Diego takes over the billing project"
+  ],
+  "action_items": [
+    {
+      "task": "Finish the invoice template",
+      "owner": "Diego",
+      "due": "this week",
+      "t": null
+    },
+    {
+      "task": "Finish the tax report",
+      "owner": "Diego",
+      "due": "next week",
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "billing project"
+  ]
+}

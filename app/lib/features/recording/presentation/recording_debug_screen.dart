@@ -9,6 +9,7 @@ import 'package:vaultvoice/features/recording/data/recording_providers.dart';
 import 'package:vaultvoice/features/recording/domain/audio_format.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
 import 'package:vaultvoice/features/recording/domain/start_source.dart';
+import 'package:vaultvoice/features/recording/presentation/level_meter_bar.dart';
 
 /// Dev-flavor screen for the AUD-01 device tests
 /// (docs/test-plans/device/AUD-01.md) until AUD-08 builds the real
@@ -124,6 +125,9 @@ class _RecordingDebugScreenState extends ConsumerState<RecordingDebugScreen> {
               style: theme.textTheme.titleLarge,
             ),
           ),
+          const SizedBox(height: AppSpacing.sm),
+          // AUD-02 live meter + clipping hint (device rows AUD-02).
+          const LevelMeterBar(),
           const SizedBox(height: AppSpacing.md),
           Wrap(
             spacing: AppSpacing.md,

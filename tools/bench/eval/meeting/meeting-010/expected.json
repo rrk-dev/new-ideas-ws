@@ -1,0 +1,29 @@
+{
+  "title": "Server cost reduction",
+  "summary": "The server bill rose to four thousand dollars last month and the team agreed to cut it by twenty percent. Omar will turn off unused staging servers and Mei will check storage costs.",
+  "attendees": [
+    "Omar",
+    "Mei"
+  ],
+  "decisions": [
+    "Cut the server bill by twenty percent"
+  ],
+  "action_items": [
+    {
+      "task": "Turn off the unused staging servers",
+      "owner": "Omar",
+      "due": "Tuesday",
+      "t": null
+    },
+    {
+      "task": "Check the storage costs",
+      "owner": "Mei",
+      "due": "next week",
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "server costs"
+  ]
+}

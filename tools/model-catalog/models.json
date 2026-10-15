@@ -25,6 +25,174 @@
       "_provenance": "2026-10-12: downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS oid."
     },
     {
+      "id": "whisper-tiny.en-q5_1",
+      "type": "stt",
+      "version": "1",
+      "display_name": "Whisper Tiny (English, compact)",
+      "tier": "free",
+      "file": "ggml-tiny.en-q5_1.bin",
+      "size": 32166155,
+      "sha256": "c77c5766f1cef09b6b7d47f21b546cbddd4157886b3b5d6d4f709e91e66c7c2b",
+      "min_ram_mb": 2048,
+      "recommended_device_tiers": ["low"],
+      "license": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": null,
+      "urls": [
+        "https://models.vaultvoice.example/stt/ggml-tiny.en-q5_1.bin",
+        "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-tiny.en-q5_1.bin"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
+    },
+    {
+      "id": "whisper-base.en-q5_1",
+      "type": "stt",
+      "version": "1",
+      "display_name": "Whisper Base (English)",
+      "tier": "free",
+      "file": "ggml-base.en-q5_1.bin",
+      "size": 59721011,
+      "sha256": "4baf70dd0d7c4247ba2b81fafd9c01005ac77c2f9ef064e00dcf195d0e2fdd2f",
+      "min_ram_mb": 2048,
+      "recommended_device_tiers": ["low", "mid", "high"],
+      "license": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": null,
+      "urls": [
+        "https://models.vaultvoice.example/stt/ggml-base.en-q5_1.bin",
+        "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-base.en-q5_1.bin"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
+    },
+    {
+      "id": "whisper-base.en",
+      "type": "stt",
+      "version": "1",
+      "display_name": "Whisper Base (English, full precision)",
+      "tier": "free",
+      "file": "ggml-base.en.bin",
+      "size": 147964211,
+      "sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+      "min_ram_mb": 3072,
+      "recommended_device_tiers": ["mid", "high"],
+      "license": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": null,
+      "urls": [
+        "https://models.vaultvoice.example/stt/ggml-base.en.bin",
+        "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-base.en.bin"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
+    },
+    {
+      "id": "whisper-small.en-q5_1",
+      "type": "stt",
+      "version": "1",
+      "display_name": "Whisper Small (English)",
+      "tier": "pro",
+      "file": "ggml-small.en-q5_1.bin",
+      "size": 190098681,
+      "sha256": "bfdff4894dcb76bbf647d56263ea2a96645423f1669176f4844a1bf8e478ad30",
+      "min_ram_mb": 3072,
+      "recommended_device_tiers": ["low", "mid", "high"],
+      "license": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": null,
+      "urls": [
+        "https://models.vaultvoice.example/stt/ggml-small.en-q5_1.bin",
+        "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-small.en-q5_1.bin"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
+    },
+    {
+      "id": "whisper-small.en-q8_0",
+      "type": "stt",
+      "version": "1",
+      "display_name": "Whisper Small (English, high precision)",
+      "tier": "pro",
+      "file": "ggml-small.en-q8_0.bin",
+      "size": 264477561,
+      "sha256": "67a179f608ea6114bd3fdb9060e762b588a3fb3bd00c4387971be4d177958067",
+      "min_ram_mb": 4096,
+      "recommended_device_tiers": ["mid", "high"],
+      "license": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": null,
+      "urls": [
+        "https://models.vaultvoice.example/stt/ggml-small.en-q8_0.bin",
+        "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-small.en-q8_0.bin"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
+    },
+    {
+      "id": "whisper-base-q5_1",
+      "type": "stt",
+      "version": "1",
+      "display_name": "Whisper Base (Multilingual)",
+      "tier": "free",
+      "file": "ggml-base-q5_1.bin",
+      "size": 59707625,
+      "sha256": "422f1ae452ade6f30a004d7e5c6a43195e4433bc370bf23fac9cc591f01a8898",
+      "min_ram_mb": 2048,
+      "recommended_device_tiers": ["low", "mid", "high"],
+      "license": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": null,
+      "urls": [
+        "https://models.vaultvoice.example/stt/ggml-base-q5_1.bin",
+        "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-base-q5_1.bin"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
+    },
+    {
+      "id": "whisper-small-q5_1",
+      "type": "stt",
+      "version": "1",
+      "display_name": "Whisper Small (Multilingual)",
+      "tier": "pro",
+      "file": "ggml-small-q5_1.bin",
+      "size": 190085487,
+      "sha256": "ae85e4a935d7a567bd102fe55afc16bb595bdb618e11b2fc7591bc08120411bb",
+      "min_ram_mb": 3072,
+      "recommended_device_tiers": ["low", "mid", "high"],
+      "license": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": null,
+      "urls": [
+        "https://models.vaultvoice.example/stt/ggml-small-q5_1.bin",
+        "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-small-q5_1.bin"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
+    },
+    {
+      "id": "whisper-large-v3-turbo-q5_0",
+      "type": "stt",
+      "version": "1",
+      "display_name": "Whisper Large v3 Turbo (Multilingual)",
+      "tier": "pro",
+      "file": "ggml-large-v3-turbo-q5_0.bin",
+      "size": 574041195,
+      "sha256": "394221709cd5ad1f40c46e6031ca61bce88931e6e088c188294c6d5a55ffa7e2",
+      "min_ram_mb": 6144,
+      "recommended_device_tiers": ["high"],
+      "license": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": null,
+      "urls": [
+        "https://models.vaultvoice.example/stt/ggml-large-v3-turbo-q5_0.bin",
+        "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-large-v3-turbo-q5_0.bin"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
+    },
+    {
       "id": "qwen2.5-0.5b-instruct-q4_k_m",
       "type": "llm",
       "version": "1",
@@ -44,6 +212,27 @@
       ],
       "companions": [],
       "_provenance": "2026-10-12: size and sha256 = HF LFS metadata (api/models/Qwen/Qwen2.5-0.5B-Instruct-GGUF/tree/<rev>, lfs.oid is the SHA-256 of the file). Local re-hash by download was blocked by the network proxy; re-verify with `catalog.py hash` (follow-up in MDL-01)."
+    },
+    {
+      "id": "silero-vad-v6.2.0",
+      "type": "vad",
+      "version": "1",
+      "display_name": "Voice detection (Silero VAD v6.2.0)",
+      "tier": "free",
+      "file": "ggml-silero-v6.2.0.bin",
+      "size": 885098,
+      "sha256": "2aa269b785eeb53a82983a20501ddf7c1d9c48e33ab63a41391ac6c9f7fb6987",
+      "min_ram_mb": 1024,
+      "recommended_device_tiers": ["low", "mid", "high"],
+      "license": "MIT",
+      "license_url": "https://github.com/snakers4/silero-vad/blob/master/LICENSE",
+      "attribution": "Silero VAD by Silero Team (MIT), ggml conversion by ggml-org",
+      "urls": [
+        "https://models.vaultvoice.example/vad/ggml-silero-v6.2.0.bin",
+        "https://huggingface.co/ggml-org/whisper-vad/resolve/9ffd54a1e1ee413ddf265af9913beaf518d1639b/ggml-silero-v6.2.0.bin"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (AUD-03): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS oid (api/models/ggml-org/whisper-vad/tree/9ffd54a)."
     }
   ]
 }

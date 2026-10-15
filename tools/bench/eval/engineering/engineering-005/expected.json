@@ -1,0 +1,18 @@
+{
+  "title": "Streaming CSV importer",
+  "context": "Large CSV files crash the app when loaded into memory.",
+  "concepts": [
+    "streaming CSV import"
+  ],
+  "api_designs": [],
+  "tradeoffs": [],
+  "decisions": [],
+  "todos": [
+    {
+      "task": "Benchmark streaming with a one gigabyte file",
+      "owner": "Kofi",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

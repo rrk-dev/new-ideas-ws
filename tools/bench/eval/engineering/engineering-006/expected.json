@@ -1,0 +1,41 @@
+{
+  "title": "Monolith versus microservices",
+  "context": "Deciding whether to split the monolith into microservices.",
+  "concepts": [
+    "modular monolith",
+    "module boundaries"
+  ],
+  "api_designs": [],
+  "tradeoffs": [
+    {
+      "option": "Microservices",
+      "pros": [
+        "teams deploy independently"
+      ],
+      "cons": [
+        "network latency",
+        "operational overhead"
+      ]
+    },
+    {
+      "option": "Modular monolith",
+      "pros": [
+        "clear boundaries without the overhead"
+      ],
+      "cons": []
+    }
+  ],
+  "decisions": [
+    "Go with a modular monolith for now"
+  ],
+  "todos": [
+    {
+      "task": "Draw the module boundaries",
+      "owner": "Ravi",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "Which module do we extract first if we ever split?"
+  ]
+}

@@ -1,0 +1,5 @@
+[00:00:00] Nadia: Partners want webhooks when in order ships.
+[00:00:03] Sam: We expose post/webhooks to register a URL, and delete/webhooks/ide to remove it.
+[00:00:10] Nadia: We should sign each payload with a shared secret.
+[00:00:13] Sam: Agreed, payloads are signed.
+[00:00:16] Nadia: I'll document the signature format.

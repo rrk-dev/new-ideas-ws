@@ -1,0 +1,40 @@
+{
+  "title": "Search performance",
+  "context": "The search page is slow because every request hits the database.",
+  "concepts": [
+    "search cache",
+    "search index"
+  ],
+  "api_designs": [],
+  "tradeoffs": [
+    {
+      "option": "Redis cache",
+      "pros": [
+        "fast"
+      ],
+      "cons": [
+        "invalidation is tricky"
+      ]
+    },
+    {
+      "option": "Search index with incremental updates",
+      "pros": [
+        "stays consistent"
+      ],
+      "cons": [
+        "more work"
+      ]
+    }
+  ],
+  "decisions": [
+    "Prototype the cache first and measure"
+  ],
+  "todos": [
+    {
+      "task": "Set up the cache prototype",
+      "owner": "Mei",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

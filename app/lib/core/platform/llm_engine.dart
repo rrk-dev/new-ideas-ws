@@ -39,6 +39,7 @@ class LlmRequest {
     this.systemPrompt,
     this.sampling = const LlmSampling(),
     this.templated = false,
+    this.reusePrefix = false,
   });
 
   /// User message (or the full prompt when [templated] is true).
@@ -54,6 +55,25 @@ class LlmRequest {
 
   /// True when [prompt] already contains the chat template (no wrapping).
   final bool templated;
+
+  /// Keep the KV cache of the prefix this prompt shares with the previous
+  /// request (LLM-06 map chunks share the system prompt); engines without a
+  /// cache ignore it. Outputs may differ from a full prefill in the last
+  /// float bits on GPU backends.
+  final bool reusePrefix;
+}
+
+/// Exact token counts for budget planning (LLM-06). Counting needs the
+/// model's vocabulary, so implementations may load the model first.
+abstract interface class LlmTokenizer {
+  /// Tokens of [text] (with BOS, as generation adds it).
+  Future<Result<int>> countTokens(String text);
+
+  /// Tokens of the chat-templated prompt (system + user + assistant prefix).
+  Future<Result<int>> countPromptTokens(String user, {String? systemPrompt});
+
+  /// Context window (n_ctx) the loaded model runs with.
+  Future<Result<int>> contextWindow();
 }
 
 /// Local LLM inference (llama.cpp behind the native bridge).

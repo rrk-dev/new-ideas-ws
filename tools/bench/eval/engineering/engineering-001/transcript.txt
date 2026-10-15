@@ -1,0 +1,5 @@
+[00:00:00] Lena: For image thumbnails we either generate them on upload or on demand.
+[00:00:04] Omar: On upload is fast to serve but wastes storage, on demand saves storage but the first view
+[00:00:10] Omar: is slow.
+[00:00:11] Lena: Let's generate on upload, Omar, can you write the resize worker?
+[00:00:15] Omar: Sure, open question is which size is we keep.

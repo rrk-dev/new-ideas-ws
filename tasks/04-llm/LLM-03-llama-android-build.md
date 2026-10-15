@@ -35,3 +35,18 @@ llama.cpp runs on Android with the best stable backend per SoC.
 - QA-05: fill the device-matrix "Dotprod" column from the `[LLM-03/AC2]` B1 rows before switching the release build to `armv8.2-a+dotprod`.
 - LLM-07: Android pre-load RAM check (memory class / `availMem`) using the CPU-path footprint (≈ full model size).
 - Integration wave 2 (ADR-INT-W2): GPU options unified onto STT-02's runtime-loaded modules (`VV_ANDROID_VULKAN/OPENCL` are deprecated aliases of `VV_GGML_VULKAN/OPENCL`); `GpuBackendGuard`/`FileBackendHealthStore`/`GpuAllowlist`/`chooseAndroidBackend` replaced by the shared `core/platform/backend_policy.dart` + `chooseLlmBackend`; the `[LLM-03/AC2]` unit tests now live in `app/test/unit/extraction/llm_backend_choice_test.dart`.
+
+
+## Verification Report
+- **Verifier:** Codex · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ (387 files, 0 changed) · analyze ✅ (zero issues) · Flutter tests ✅ (785 passed, 24 skipped; coverage 93.3%, gate 80%) · pytest ✅ (66 passed) · native host ✅ (fresh native/build.sh host; model-backed ctest 21 passed, 2 explicitly skipped) · egress ✅ · recording policy ✅ · tasks validate ✅ (85 tasks, 0 problems) · CI run: local. No Xcode/NDK/mobile SDKs; no mobile/device reruns.
+- **Acceptance criteria:**
+  - AC1: ⏳ integration benchmark asserts CPU support, thread count and ≥10 tok/s when the documented define is supplied. Snapdragon flagship/7-series rows remain unrun.
+  - AC2: ✅ tagged tests cover unsupported CPU refusal, interrupted/failed GPU trial persistence and CPU fallback; native vv_cpu fake-sysfs/feature-guard tests passed. Actual device-matrix crashes/SIGILL and GPU probes remain ⏳.
+- **Mutation sanity check:** Removed the cpuSupported guard from chooseLlmBackend: `[LLM-03/AC2] unsupported CPU` failed; restored with git checkout.
+- **Adversarial checks:** Reviewed shared GPU policy after integration wave 2, durable sentinel, baseline CPU architecture and runtime optional backends. Empty shipped allowlist is CPU-only; no Android GPU performance/crash result is inferred from host tests.
+- **Device evidence:** Reviewed every row in `docs/test-plans/device/LLM-03.md`. Result/date/tester cells are unfilled; no physical run is represented as PASS. The user explicitly permits a provisional verifier PASS with these rows pending.
+- **Skill/rule compliance:** Read AGENTS.md, verifier prompt, workflow/verification skills and all task-listed skills; reviewed the merged implementation at main (no unmerged task diff). Pins checked against local headers. RTK.md is referenced by the supplied instructions but absent. Product code/tests unchanged after temporary mutations; no criteria weakened, GitHub API/gh, pushes, git config edits or model commits.
+- **Issues found:** none in the verified host implementation; physical acceptance remains pending.
+- **Pending for done:** LLM-03: FAIL AC1: still pending (⏳) — cannot be done | LLM-03: FAIL AC1: device row in docs/test-plans/device/LLM-03.md has no PASS result with a date | LLM-03: FAIL AC2: still pending (⏳) — cannot be done | LLM-03: FAIL AC2: device row in docs/test-plans/device/LLM-03.md has no PASS result with a date | LLM-03: FAIL dependency LLM-01 is not done | LLM-03: FAIL dependency FND-06 is not done | LLM-03: FAIL FND-03 (CI / test framework) must be done before any non-bootstrap task | LLM-03: FAIL QA-01 (CI / test framework) must be done before any non-bootstrap task | refusing to set LLM-03 to done: 8 problem(s) (see vv-task-verify)

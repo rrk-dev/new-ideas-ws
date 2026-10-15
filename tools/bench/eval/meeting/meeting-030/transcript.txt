@@ -1,0 +1,6 @@
+[00:00:00] Aisha: Let's talk about the support chatbot.
+[00:00:03] Kofi: It answers about 60% of questions correctly.
+[00:00:07] Mei: That's not good enough to launch.
+[00:00:09] Aisha: Agreed, we don't launch until it reaches 80%.
+[00:00:13] Kofi: I'll add more training examples by next Friday.
+[00:00:16] Mei: How do we measure the 80%?

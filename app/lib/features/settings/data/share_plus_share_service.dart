@@ -33,4 +33,28 @@ class SharePlusShareService implements ShareService {
       ShareResultStatus.unavailable => ShareOutcome.unavailable,
     };
   }
+
+  @override
+  Future<ShareOutcome> shareText(
+    String text, {
+    String? subject,
+    Rect? origin,
+  }) async {
+    final result = await SharePlus.instance.share(
+      ShareParams(
+        text: text,
+        subject: subject,
+        sharePositionOrigin: origin,
+        mailToFallbackEnabled: false,
+        downloadFallbackEnabled: false,
+      ),
+    );
+    return _outcome(result.status);
+  }
+
+  static ShareOutcome _outcome(ShareResultStatus s) => switch (s) {
+    ShareResultStatus.success => ShareOutcome.shared,
+    ShareResultStatus.dismissed => ShareOutcome.dismissed,
+    ShareResultStatus.unavailable => ShareOutcome.unavailable,
+  };
 }

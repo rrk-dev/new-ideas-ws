@@ -1,0 +1,27 @@
+{
+  "title": "Database outage follow-up",
+  "context": "Yesterday's outage was caused by a full disk on the database server.",
+  "concepts": [
+    "disk usage alerts"
+  ],
+  "api_designs": [],
+  "tradeoffs": [],
+  "decisions": [
+    "Add disk usage alerts at eighty percent"
+  ],
+  "todos": [
+    {
+      "task": "Add the disk usage alert",
+      "owner": "Tomas",
+      "t": null
+    },
+    {
+      "task": "Write the incident report",
+      "owner": "Nadia",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "Do we also need automatic log rotation?"
+  ]
+}

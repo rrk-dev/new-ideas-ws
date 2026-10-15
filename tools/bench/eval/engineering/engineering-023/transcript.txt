@@ -1,0 +1,5 @@
+[00:00:00] Omar: Secrets are stored in environment files on the servers.
+[00:00:04] Lena: We should move them to a Secrets Manager.
+[00:00:07] Omar: It costs a bit but gives us rotation and audit logs.
+[00:00:10] Lena: Decided, we adopt a Secrets Manager.
+[00:00:13] Omar: I'll migrate the database password first.

@@ -5,6 +5,7 @@ import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/theme/app_theme.dart';
+import 'package:vaultvoice/features/app_lock/presentation/app_lock_gate.dart';
 import 'package:vaultvoice/features/models/data/download_providers.dart';
 import 'package:vaultvoice/features/settings/presentation/crash_reports.dart';
 
@@ -26,9 +27,12 @@ class App extends ConsumerWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: router,
       // REL-02: offer last run's crash report once, after the first frame.
-      builder: (context, child) => CrashReportGate(
-        navigatorKey: router.routerDelegate.navigatorKey,
-        child: child ?? const SizedBox.shrink(),
+      // SEC-03: the app lock covers everything (dialogs included).
+      builder: (context, child) => AppLockGate(
+        child: CrashReportGate(
+          navigatorKey: router.routerDelegate.navigatorKey,
+          child: child ?? const SizedBox.shrink(),
+        ),
       ),
     );
   }

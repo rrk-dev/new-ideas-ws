@@ -6,6 +6,8 @@ import 'package:vaultvoice/core/app_info.dart';
 import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
+import 'package:vaultvoice/features/export/data/routing_providers.dart';
+import 'package:vaultvoice/features/export/domain/routing_rule.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/setting_texts.dart';
@@ -48,6 +50,16 @@ class _License implements LicenseSettingsPort {
   @override
   Future<Result<void>> installEnterpriseLicense(String license) async {
     installed.add(license);
+    return const Ok(null);
+  }
+}
+
+class _Wiper implements DataWiper {
+  int calls = 0;
+
+  @override
+  Future<Result<void>> deleteAllData() async {
+    calls++;
     return const Ok(null);
   }
 }
@@ -235,9 +247,13 @@ void main() {
     t,
   ) async {
     final license = _License();
+    final wiper = _Wiper();
     await pump(
       t,
-      overrides: [licenseSettingsPortProvider.overrideWithValue(license)],
+      overrides: [
+        licenseSettingsPortProvider.overrideWithValue(license),
+        dataWiperProvider.overrideWithValue(wiper),
+      ],
     );
     await t.pumpAndSettle();
     for (final s in SettingSection.values) {
@@ -249,17 +265,18 @@ void main() {
     expect(find.text('Models'), findsOneWidget);
 
     await show(t, find.byKey(const ValueKey('privacy-encryption')));
-    expect(find.text('Not enabled in this build yet.'), findsOneWidget);
+    expect(
+      find.text('Off — this build does not encrypt the database.'),
+      findsOneWidget,
+    );
 
     await show(t, find.byKey(const ValueKey('privacy-delete-all')));
     await t.tap(find.byKey(const ValueKey('privacy-delete-all')));
     await t.pumpAndSettle();
     await t.tap(find.text('Delete everything'));
     await t.pumpAndSettle();
-    expect(
-      find.text('Deleting all data is not available in this build yet.'),
-      findsOneWidget,
-    );
+    expect(find.text('All data deleted.'), findsOneWidget);
+    expect(wiper.calls, 1);
 
     await show(t, find.byKey(const ValueKey('license-status')));
     expect(find.text('Enterprise · Acme · until 2027-03-31'), findsOneWidget);
@@ -299,6 +316,20 @@ void main() {
           vaultTargetsProvider.overrideWith((ref) => targets),
           routingRulesProvider.overrideWith(
             (ref) => rules ?? Stream.value(const []),
+          ),
+          // EXP-05: the rules screen lists full rules (editable).
+          routingRuleListProvider.overrideWith(
+            (ref) => (rules ?? Stream.value(const <RoutingRuleInfo>[])).map(
+              (list) => [
+                for (final (i, r) in list.indexed)
+                  RoutingRule(
+                    id: r.id,
+                    priority: i,
+                    targetId: r.targetId,
+                    subPath: r.subPath,
+                  ),
+              ],
+            ),
           ),
         ],
         child: MaterialApp(home: screen),
@@ -347,8 +378,8 @@ void main() {
         ]),
       );
       await t.pumpAndSettle();
-      expect(find.text('Notes'), findsOneWidget);
-      expect(find.text('Meetings'), findsOneWidget);
+      expect(find.text('To Notes'), findsOneWidget);
+      expect(find.text('Every note · Meetings'), findsOneWidget);
       expect(find.text('1'), findsOneWidget);
     });
   });

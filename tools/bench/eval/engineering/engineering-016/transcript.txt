@@ -1,0 +1,5 @@
+[00:00:00] Sam: Some clients send too many requests.
+[00:00:03] Hana: A token bucket per API key would limit bursts fairly.
+[00:00:07] Omar: A fixed window is simpler but allows spikes at the window edge.
+[00:00:11] Sam: Token bucket it is.
+[00:00:12] Hana: I'll implement the token bucket middle way.

@@ -35,7 +35,12 @@ final class FfiLlmRuntime implements LlmRuntime {
 }
 
 /// Maps an [LlmSampling] request to native generation params.
-LlmGenParams genParamsFor(LlmSampling s, int maxTokens, String? grammar) {
+LlmGenParams genParamsFor(
+  LlmSampling s,
+  int maxTokens,
+  String? grammar, {
+  bool reusePrefix = false,
+}) {
   final base = switch (s.preset) {
     LlmPreset.extraction => LlmGenParams.extraction(
       grammar: grammar,
@@ -64,6 +69,7 @@ LlmGenParams genParamsFor(LlmSampling s, int maxTokens, String? grammar) {
     repeatLastN: base.repeatLastN,
     grammar: grammar,
     tokenBatch: base.tokenBatch,
+    reusePrefix: reusePrefix,
   );
 }
 
@@ -107,11 +113,12 @@ final class _FfiSession implements LlmSession {
     required LlmSampling sampling,
     required int maxTokens,
     String? grammar,
+    bool reusePrefix = false,
   }) {
     try {
       final g = _llm.generate(
         prompt,
-        genParamsFor(sampling, maxTokens, grammar),
+        genParamsFor(sampling, maxTokens, grammar, reusePrefix: reusePrefix),
       );
       return _FfiRun(g, gpu: usedGpu);
     } on VvLlmException catch (e) {
@@ -144,6 +151,7 @@ final class _FfiRun implements LlmRun {
       prefill: Duration(microseconds: (r.prefillMs * 1000).round()),
       decode: Duration(microseconds: (r.decodeMs * 1000).round()),
       usedGpu: gpu,
+      reusedPromptTokens: r.reusedTokens,
     ),
   );
 

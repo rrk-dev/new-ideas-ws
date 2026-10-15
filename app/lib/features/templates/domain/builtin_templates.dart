@@ -49,12 +49,39 @@ const List<BuiltinTemplateInfo> kBuiltinTemplates = [
     profileId: 'warranty',
   ),
   BuiltinTemplateInfo(
+    'warranty-logseq',
+    flavor: TemplateFlavor.logseq,
+    profileId: 'warranty',
+  ),
+  BuiltinTemplateInfo(
+    'warranty-plain',
+    flavor: TemplateFlavor.plain,
+    profileId: 'warranty',
+  ),
+  BuiltinTemplateInfo(
     'engineering-default',
     flavor: TemplateFlavor.obsidian,
     profileId: 'engineering',
   ),
+  BuiltinTemplateInfo(
+    'engineering-logseq',
+    flavor: TemplateFlavor.logseq,
+    profileId: 'engineering',
+  ),
+  BuiltinTemplateInfo(
+    'engineering-plain',
+    flavor: TemplateFlavor.plain,
+    profileId: 'engineering',
+  ),
   BuiltinTemplateInfo(kSummaryOnlyTemplateId, flavor: TemplateFlavor.obsidian),
 ];
+
+/// The built-in template of [profileId] in [flavor] (EXP-08 alternate
+/// outputs), or null when the profile has none in that flavor.
+BuiltinTemplateInfo? builtinVariant(String profileId, TemplateFlavor flavor) =>
+    kBuiltinTemplates
+        .where((t) => t.profileId == profileId && t.flavor == flavor)
+        .firstOrNull;
 
 /// Thrown when a shipped template does not parse — a build bug caught by
 /// the asset tests.

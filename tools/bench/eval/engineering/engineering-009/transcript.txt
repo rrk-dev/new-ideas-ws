@@ -1,0 +1,6 @@
+[00:00:00] Nadia: Email sending blocks the request thread right now.
+[00:00:04] Tomas: We should move it to a background job queue.
+[00:00:06] Kofi: A queue adds retries for free, but we need to monitor it.
+[00:00:10] Nadia: Agreed, we move email sending to a job queue.
+[00:00:14] Tomas: I'll add a dead letter queue for failed jobs.
+[00:00:17] Kofi: How many retries before a job goes to the dead letter queue?

@@ -1,0 +1,29 @@
+{
+  "title": "Order shipped webhooks",
+  "context": "Partners want webhooks when an order ships.",
+  "concepts": [
+    "signed webhook payloads"
+  ],
+  "api_designs": [
+    {
+      "name": "Webhooks",
+      "description": "Register and remove partner webhook URLs.",
+      "endpoints_or_signatures": [
+        "POST /webhooks",
+        "DELETE /webhooks/{id}"
+      ]
+    }
+  ],
+  "tradeoffs": [],
+  "decisions": [
+    "Sign each webhook payload with a shared secret"
+  ],
+  "todos": [
+    {
+      "task": "Document the signature format",
+      "owner": "Nadia",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

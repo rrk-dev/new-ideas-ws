@@ -18,7 +18,18 @@ abstract final class SettingKeys {
   static const audioInputDevice = 'audio.input_device';
   static const audioAgc = 'audio.agc';
   static const audioNoiseSuppression = 'audio.noise_suppression';
+
+  /// bool, default `false`: the app's software AGC replaces the platform
+  /// AGC (AUD-02; also the automatic fallback when the platform has none).
+  static const audioSoftwareAgc = 'audio.software_agc';
+
+  /// bool, default `false`: no platform or software processing (AUD-02).
+  static const audioRawCapture = 'audio.raw_capture';
   static const audioAutoPause = 'audio.auto_pause_on_silence';
+
+  /// `off` | `minutes_5` | `minutes_10` | `minutes_30`: stop a recording
+  /// after this much continuous silence (AUD-03; needs the VAD model).
+  static const audioSilenceAutoStop = 'audio.silence_auto_stop';
 
   /// Audio retention policy (SEC-04 applies it).
   static const audioRetention = 'audio.retention';
@@ -28,12 +39,37 @@ abstract final class SettingKeys {
   static const processingChargeOnly = 'processing.charge_only';
   static const processingDiarization = 'processing.diarization_default';
 
+  /// bool, default `true`: skip silence before transcription with the VAD
+  /// model when installed (AUD-03).
+  static const processingSkipSilence = 'processing.skip_silence';
+
   // Export (EXP-02 / EXP-05).
   static const exportFilenamePattern = 'export.filename_pattern';
   static const exportCollisionMode = 'export.collision_mode';
+
+  /// Map `{targetId: {collision, filename_pattern, transcript_sidecar,
+  /// audio_sidecar}}` — per-target export options (EXP-05).
+  static const exportTargetOptions = 'export.target_options';
+
+  /// `{rules: bool, max_targets: int?}` — the routing entitlement mirrored
+  /// from the UI isolate for the pipeline worker (EXP-05, LIC-01).
+  static const exportRoutingPolicy = 'export.routing_policy';
+
+  // Templates (EXP-07).
+  /// `{templateId: {profile, base}}` — schema profile and built-in origin of
+  /// each custom template (built-in profiles cannot be `templates.profile_id`).
+  static const templatesMeta = 'templates.meta';
+
+  /// `{profileId: templateId}` — custom template used for a profile's notes.
+  static const templatesBindings = 'templates.bindings';
 
   // Privacy & security (SEC-03 / SEC-04).
   static const securityAppLock = 'security.app_lock';
   static const securityLockTimeout = 'security.lock_timeout';
   static const privacyTranscriptRetention = 'privacy.transcript_retention';
+
+  /// bool, default `false`: offline mode — the network gateway refuses
+  /// every request (SEC-02). Same key as MDM `network_disabled`
+  /// (`kNetworkDisabledKey`, MDL-04 / LIC-04).
+  static const networkOffline = 'network_disabled';
 }

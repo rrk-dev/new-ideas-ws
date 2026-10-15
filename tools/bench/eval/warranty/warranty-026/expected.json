@@ -1,0 +1,15 @@
+{
+  "product": "phone",
+  "brand": "Litware",
+  "model": "One 5",
+  "serial_number": "LO522836",
+  "purchase_date": "March third",
+  "retailer": "Adventure Mobile",
+  "price": "699 dollars",
+  "warranty_period": {
+    "value": 1,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": "256 gigabyte model. The store adds another year of warranty."
+}

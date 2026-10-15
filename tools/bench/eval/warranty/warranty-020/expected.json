@@ -1,0 +1,15 @@
+{
+  "product": "monitor",
+  "brand": "Tailspin",
+  "model": "View 27",
+  "serial_number": "TV278810",
+  "purchase_date": "October first",
+  "retailer": "Wingtip Store",
+  "price": "329 dollars",
+  "warranty_period": {
+    "value": 3,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": null
+}

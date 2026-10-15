@@ -1,0 +1,16 @@
+{
+  "title": "Automatic tag suggestions",
+  "context": "Ideas for suggesting tags automatically.",
+  "concepts": [
+    "keyword extraction",
+    "tags from similar notes",
+    "user-defined tagging rules"
+  ],
+  "api_designs": [],
+  "tradeoffs": [],
+  "decisions": [],
+  "todos": [],
+  "open_questions": [
+    "How should the app suggest tags automatically?"
+  ]
+}

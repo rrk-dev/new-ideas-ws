@@ -67,3 +67,14 @@ Render structured extraction JSON into Markdown using user-editable templates.
 - LLM-05: render invalid extractions with `summary-only` (already the renderer's fallback); decide
   where a free-text summary comes from when JSON is invalid.
 
+## Verification Report
+- **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ · analyze ✅ · tests ✅ (780 passed, 29 skipped; coverage not re-measured locally, CI test job gates ≥80% and is green) · native smoke n/a (no native/bridge change) · egress ✅ · recording policy ✅ · CI run: https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858 (run 51 of ci, commit 67b6fcf, completed successfully; run 50 also succeeded)
+- **Acceptance criteria:**
+  - AC1: ✅ re-ran `[EXP-01/AC1]`; golden test renders every built-in template × full/empty/adversarial and compares the bytes to `app/test/fixtures/markdown/golden/` (exact equality, not a snapshot helper that always passes). Also checks the asset folder, strict variable check, and lint basics
+  - AC2: ✅ re-ran `[EXP-01/AC2]`; adversarial strings include `---`, `#`, `{{`, wikilinks, fences, bidi overrides. Structure skeleton must match a benign twin, Obsidian front-matter round-trips through a YAML parser, `{{` in values is not re-parsed as a template, and a transcript newline cannot close the callout. Mutation: stopped escaping `{{` in `markdown_sanitizer.dart`; `values are never re-parsed as templates` failed (heading stayed `# {{meta.recording_id}}`); restored
+- **Adversarial checks:** empty extraction, the adversarial golden set (quotes, YAML document markers, template tags, RTL/bidi, emoji ZWJ), and a transcript line containing a heading and fence. Missing variables are specified to render empty with content-free warnings (`name:line:col`). ADR-EXP-01 exists (Proposed, host timings recorded). `mustache_template` 2.0.5 is in the privacy audit. No new egress.
+- **Skill/rule compliance:** logic-less Mustache plus the documented lambda set (`vv-markdown-vault-export`, `vv-decision-records`). Built-in templates are assets, not `templates` rows, so the FND-04 FK note is handled without a migration. No credentials or certificates.
+- **Issues found:** none
+- **Pending for done:** dependency PRF-01 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task

@@ -1,0 +1,22 @@
+{
+  "title": "One-on-one: mentoring and demo",
+  "summary": "Ravi wants to present at the team demo in two weeks. He will send Aisha a short outline by Monday.",
+  "attendees": [
+    "Aisha",
+    "Ravi"
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "task": "Send a short outline of the demo presentation to Aisha",
+      "owner": "Ravi",
+      "due": "Monday",
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "mentoring",
+    "team demo"
+  ]
+}

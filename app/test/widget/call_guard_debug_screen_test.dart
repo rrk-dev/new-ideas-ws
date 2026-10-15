@@ -9,6 +9,7 @@ import 'package:vaultvoice/features/recording/presentation/call_guard_debug_scre
 import 'package:vaultvoice/features/recording/presentation/recording_screen.dart';
 
 import '../fakes/fake_call_guard.dart';
+import '../helpers/record_screen_overrides.dart';
 
 void main() {
   Future<FakeCallGuard> pump(
@@ -19,6 +20,7 @@ void main() {
     await t.pumpWidget(
       ProviderScope(
         overrides: [
+          ...recordScreenPickerOverrides(),
           callGuardProvider.overrideWithValue(guard),
           flavorProvider.overrideWithValue(flavor),
         ],

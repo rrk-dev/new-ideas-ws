@@ -212,6 +212,22 @@ class SafHostApiImpl(private val activity: Activity) : SafHostApi {
         written.toString()
     }
 
+    override fun readFile(treeUri: String, relativePath: String, callback: (Result<ByteArray?>) -> Unit) =
+        runIo(callback) {
+            val tree = parseTree(treeUri)
+            requireWritable(tree)
+            val child = resolve(tree, segments(relativePath))
+            when {
+                child == null -> null
+                child.isDir -> throw err("invalid", "path is a folder")
+                else -> {
+                    val input = resolver.openInputStream(docUri(tree, child.docId))
+                        ?: throw err("unavailable", "no input stream")
+                    input.use { it.readBytes() }
+                }
+            }
+        }
+
     override fun mkdirs(treeUri: String, relativePath: String, callback: (Result<Unit>) -> Unit) =
         runIo(callback) {
             val tree = parseTree(treeUri)

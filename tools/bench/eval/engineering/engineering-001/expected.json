@@ -1,0 +1,41 @@
+{
+  "title": "Image thumbnail generation",
+  "context": "Choosing when image thumbnails are generated.",
+  "concepts": [
+    "resize worker"
+  ],
+  "api_designs": [],
+  "tradeoffs": [
+    {
+      "option": "Generate on upload",
+      "pros": [
+        "fast to serve"
+      ],
+      "cons": [
+        "wastes storage"
+      ]
+    },
+    {
+      "option": "Generate on demand",
+      "pros": [
+        "saves storage"
+      ],
+      "cons": [
+        "first view is slow"
+      ]
+    }
+  ],
+  "decisions": [
+    "Generate thumbnails on upload"
+  ],
+  "todos": [
+    {
+      "task": "Write the resize worker",
+      "owner": "Omar",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "Which thumbnail sizes do we keep?"
+  ]
+}

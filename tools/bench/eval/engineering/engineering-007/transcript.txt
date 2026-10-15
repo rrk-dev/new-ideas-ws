@@ -1,0 +1,4 @@
+[00:00:00] Sam: For login we need to pick between session cookies and JSON wed tokens.
+[00:00:05] Mei: Cookies are easy to revoke, tokens work better for the mobile apps.
+[00:00:10] Sam: We'll use short lived tokens with refresh tokens.
+[00:00:13] Mei: I'll implement the refresh endpoint, post slash auth slash refresh.

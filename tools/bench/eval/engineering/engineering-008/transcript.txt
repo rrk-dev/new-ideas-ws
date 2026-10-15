@@ -1,0 +1,4 @@
+[00:00:00] Diego: Quick list of chores for the build system.
+[00:00:03] Aisha: I'll upgrade the compiler version.
+[00:00:05] Diego: I'll remove the unused build scripts.
+[00:00:08] Aisha: And someone should cache the dependencies in CI.

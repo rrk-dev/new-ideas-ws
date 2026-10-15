@@ -65,7 +65,7 @@ struct Job {
   vv_stt* h;
   std::vector<Range> ranges;
   // Owned copies of the string params.
-  std::string language, prompt;
+  std::string language, prompt, vad_model;
   bool has_prompt = false;
   vv_stt_params p;
   vv_stt_callbacks cbs;
@@ -114,8 +114,10 @@ vv_stt_segment* make_segment(Job& job, whisper_context* ctx, int i) {
       vv_stt_token t;
       t.text = dup(whisper_full_get_token_text(ctx, i, j));
       t.p = d.p;
-      t.t0_ms = d.t0 >= 0 ? d.t0 * 10 : -1;
-      t.t1_ms = d.t1 >= 0 ? d.t1 * 10 : -1;
+      // whisper_full_get_token_t0/t1 map VAD-processed time back to the
+      // original timeline (unchanged without VAD).
+      t.t0_ms = d.t0 >= 0 ? whisper_full_get_token_t0(ctx, i, j) * 10 : -1;
+      t.t1_ms = d.t1 >= 0 ? whisper_full_get_token_t1(ctx, i, j) * 10 : -1;
       toks.push_back(t);
     }
   }
@@ -209,6 +211,17 @@ void run_job(Job* job_ptr) {
       if (job.p.beam_size > 1) wp.beam_search.beam_size = job.p.beam_size;
       wp.initial_prompt = job.has_prompt ? job.prompt.c_str() : nullptr;
       wp.carry_initial_prompt = job.has_prompt && job.p.carry_initial_prompt != 0;
+      if (!job.vad_model.empty()) {
+        // AUD-03: skip silence (fewer encoder windows, no hallucinated text
+        // on silence). The VAD context is cached in the whisper state.
+        wp.vad = true;
+        wp.vad_model_path = job.vad_model.c_str();
+        wp.vad_params = whisper_vad_default_params();
+        wp.vad_params.threshold = job.p.vad_threshold;
+        wp.vad_params.min_speech_duration_ms = job.p.vad_min_speech_ms;
+        wp.vad_params.min_silence_duration_ms = job.p.vad_min_silence_ms;
+        wp.vad_params.speech_pad_ms = job.p.vad_speech_pad_ms;
+      }
       wp.print_progress = false;
       wp.print_realtime = false;
       wp.print_timestamps = false;
@@ -249,7 +262,7 @@ void run_job(Job* job_ptr) {
 
 int32_t start(vv_stt* h, std::vector<Range> ranges, const vv_stt_params* params,
               vv_stt_callbacks cbs, void* user) {
-  if (!h || !params || params->struct_size < sizeof(vv_stt_params) || !cbs.on_done ||
+  if (!h || !params || params->struct_size < VV_STT_PARAMS_V1_SIZE || !cbs.on_done ||
       ranges.empty()) {
     if (h) set_error(h, "invalid argument");
     return VV_E_INVALID_ARG;
@@ -270,7 +283,12 @@ int32_t start(vv_stt* h, std::vector<Range> ranges, const vv_stt_params* params,
   auto* job = new Job();
   job->h = h;
   job->ranges = std::move(ranges);
-  job->p = *params;
+  // Defaults for fields the caller's (older) layout does not have.
+  job->p = vv_stt_default_params();
+  std::memcpy(&job->p, params, std::min<size_t>(params->struct_size, sizeof(vv_stt_params)));
+  job->p.struct_size = sizeof(vv_stt_params);
+  if (job->p.vad_model_path && *job->p.vad_model_path) job->vad_model = job->p.vad_model_path;
+  job->p.vad_model_path = nullptr;  // borrowed: use the owned copy
   job->language = params->language && *params->language ? params->language : "en";
   job->has_prompt = params->initial_prompt && *params->initial_prompt;
   if (job->has_prompt) job->prompt = params->initial_prompt;
@@ -319,6 +337,11 @@ vv_stt_params vv_stt_default_params(void) {
   p.entropy_thold = 2.4f;
   p.logprob_thold = -1.0f;
   p.no_speech_thold = 0.6f;
+  p.vad_model_path = nullptr;
+  p.vad_threshold = 0.5f;
+  p.vad_min_speech_ms = 250;
+  p.vad_min_silence_ms = 500;
+  p.vad_speech_pad_ms = 200;
   return p;
 }
 

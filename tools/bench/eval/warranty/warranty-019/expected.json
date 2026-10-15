@@ -1,0 +1,15 @@
+{
+  "product": "drill",
+  "brand": "Fabrikam",
+  "model": "Power 18",
+  "serial_number": null,
+  "purchase_date": "last weekend",
+  "retailer": "Home Hub",
+  "price": "139 euros",
+  "warranty_period": {
+    "value": 3,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": "Three year warranty requires registration."
+}

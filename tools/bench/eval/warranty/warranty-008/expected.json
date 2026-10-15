@@ -1,0 +1,17 @@
+{
+  "product": "robot vacuum",
+  "brand": "Fabrikam",
+  "model": "Clean Bot 2",
+  "serial_number": "CB27714",
+  "purchase_date": "Saturday",
+  "retailer": "Home Hub",
+  "price": "299 dollars",
+  "warranty_period": {
+    "value": 2,
+    "unit": "years"
+  },
+  "support_contacts": [
+    "fabrikam.example/register"
+  ],
+  "notes": "The battery is covered for only one year."
+}

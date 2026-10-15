@@ -6,12 +6,15 @@ import 'package:vaultvoice/features/recording/data/recording_providers.dart';
 import 'package:vaultvoice/features/recording/data/recording_recovery.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_screen.dart';
 
+import '../helpers/record_screen_overrides.dart';
+
 void main() {
   testWidgets('a recovered recording is offered once: "Recovered recording '
       'from <time> — process now?"; Process now queues it', (t) async {
     final processed = <String>[];
     final started = DateTime(2026, 10, 13, 9, 41);
     List<Override> overrides() => [
+      ...recordScreenPickerOverrides(),
       recoveredRecordingsProvider.overrideWith(
         (ref) async => [
           RecoveredRecording(

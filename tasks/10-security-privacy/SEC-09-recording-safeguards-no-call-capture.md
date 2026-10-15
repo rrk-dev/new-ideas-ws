@@ -1,7 +1,7 @@
 # SEC-09 — Recording Safeguards: User-Started Only, Never Record Calls
 
 **Workstream:** Security & Privacy | **Phase:** 1 | **Size:** M | **Depends on:** FND-02 | **Source:** Product/legal requirement (user directive): use only the standard OS microphone APIs, never record phone/VoIP calls, never record without the user's explicit action
-**Status:** review
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-audio-capture, vv-privacy-security, vv-ci-release, vv-testing
 
 ## Goal
@@ -73,3 +73,23 @@ standard, permission-gated OS microphone APIs — and it never captures telephon
   `DispatchQueue.main.async(execute:)` rejects. Fixed on `task/AUD-04-ios-background-recording`
   with an explicit `let send: () -> Void` (no behaviour change); merge that branch or cherry-pick
   the one-line fix.
+
+
+## Verification Report
+- **Verifier:** Codex · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** FAIL
+- **Gates:** format ✅ (387 files, 0 changed) · flutter analyze ✅ (0 issues) · flutter test --coverage ✅ (785 passed, 24 skipped on this host; Linux goldens/platform/model-dependent checks are not all executed locally) · coverage check_coverage: 93.2% of 4708 lines in 126 gated files (min 80%) · pytest tools/ci/tests ✅ (66 passed) · native/build.sh host + ctest ✅ (23 registered: 9 executed/pass, 14 explicitly skipped without configured model/backend fixtures) · egress ✅ · recording policy ✅ (source manifests; no local merged Android build) · tasks.py validate ✅ (85 tasks, 0 problems) · CI: [main run 51](https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858), same verified SHA, six jobs green; [PR run 50](https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638136574) also green. Shared gates were run once before mutations, as requested; logs under /tmp/vv-verify-a/.
+- **Fresh state / review:** Fresh clone of origin/main; local branch `verify/codex-a`. Reviewed task scope, Completion Notes, implementation history/diffs, current source, listed skills and tagged tests. No product/test fixes retained.
+- **Acceptance criteria:**
+  - AC1: ❌ CI wiring and fixture tests cover READ_PHONE_STATE, VOICE_CALL and merged-manifest enforcement. Public green main CI confirms policy checks run on clean code, but the required bad test-branch demonstration has no run URL/result in SEC-09.md.
+  - AC2: ⏳ Dart tests exercise channel decoding, unavailable-channel fail-closed behavior, call-refused start and debug UI. Read Swift/Kotlin permissionless observation and platform registration; CI compiles current sources. No physical cellular/VoIP latency rows have been run.
+  - AC3: ✅ Controller tests assert immediate fake capture suspension, event timestamp discardFrom, call_interruption gap, stayed-paused on call end and explicit tapped resume. Actual file/call-audio evidence is explicitly owned by AUD-01/04/05 and QA-04.
+  - AC4: ✅ Read allowlisted start/resume enums, tap handlers and all source guards. Tests assert no pre-capture, no background/headless start, correct phase refusal, microphone-failure reset and no timer/lifecycle automatic start.
+  - AC5: ⏳ Fake-clock tests exercise 4 h default, 8 h ceiling, pause exclusion, hourly background-only reminders and silence auto-stop. Real notification/max-duration rows on both platforms remain pending.
+  - AC6: ⏳ ADR Legal review section records requested/awaiting product/legal and the draft wording. Confirmation is absent; the task explicitly cannot become done before it is confirmed.
+- **Adversarial checks:** Changed _callCheck to ignore the queried in-call boolean; [SEC-09/AC2] refused-start tests failed and passed after git checkout restored recording_controller.dart. Reviewed call during query/open, unavailable platform channel, background attempt, call end/no auto-resume and merged-manifest guard failure fixtures. No real call was recorded and no phone permissions were added.
+- **Skill/rule compliance:** Standard mic-only call path, CallGuard, allowed user taps and source/merged-manifest policy checked against recording/privacy/CI/testing skills. The old Swift closure type issue is fixed at this main SHA. Device timing and legal approval are not inferred from fake tests or a green compile. AGENTS.md, vv-task-workflow and vv-task-verify followed; no push, PR, GitHub API, tool installation or git-config changes.
+- **Issues found:** 
+  1. AC1 requires a CI test-branch demonstration for forbidden permission and call-source additions. The checklist has neither result nor run URLs; local fixture rejection alone does not meet that explicit criterion. Record failing static/merged-manifest job evidence.
+  2. AC6 remains awaiting product/legal confirmation. This is a non-device acceptance hold, so the physical-device-only exception cannot make SEC-09 done. Obtain and record product/legal confirmation; keep device AC2/AC5 runs pending until actually executed.
+- **Acceptance runner:** `python3 .agents/skills/vv-task-workflow/scripts/tasks.py verify SEC-09 --run` was invoked; its evidence/dependency checks refused before launching tagged tests. All referenced tagged tests were instead executed in the shared full Dart/pytest suites, then the mutation target was re-run red and green after restoration (QA-05 is artifact-only). Pre-report diagnostic output: `/tmp/vv-verify-a/SEC-09-verify.log`.

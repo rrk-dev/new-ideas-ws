@@ -1,0 +1,27 @@
+{
+  "_doc": "Scoring config for run.py (PRF-09). Targets from vv-extraction-profiles (PRF-04 ACs).",
+  "prose": [
+    "notes"
+  ],
+  "scalars": {
+    "product": "text",
+    "brand": "text",
+    "model": "text",
+    "serial_number": "serial",
+    "purchase_date": "text",
+    "retailer": "text",
+    "price": "text",
+    "warranty_period": "period"
+  },
+  "lists": {
+    "support_contacts": {
+      "match": "contact"
+    }
+  },
+  "ignore": [],
+  "targets": {
+    "scalars.accuracy": 0.9,
+    "scalars.serial_number.exact": 0.85,
+    "schema_valid": 0.99
+  }
+}

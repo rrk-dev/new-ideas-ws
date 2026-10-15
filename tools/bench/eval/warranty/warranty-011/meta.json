@@ -1,0 +1,24 @@
+{
+  "id": "warranty-011",
+  "profile": "warranty",
+  "date": "2026-03-02T18:00:00",
+  "diarization": false,
+  "synthetic": true,
+  "tags": [
+    "weeks"
+  ],
+  "speakers": [
+    {
+      "label": "S1",
+      "name": "Owner",
+      "voice": "Rishi"
+    }
+  ],
+  "duration_s": 16.3,
+  "asr": {
+    "engine": "whisper.cpp d1be6fde",
+    "model": "ggml-base.en-q8_0.bin",
+    "model_sha256": "a4d4a0768075e13c",
+    "tts": "say"
+  }
+}

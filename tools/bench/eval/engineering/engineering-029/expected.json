@@ -1,0 +1,39 @@
+{
+  "title": "gRPC for internal services",
+  "context": "Internal services talk JSON over HTTP today.",
+  "concepts": [
+    "typed contracts"
+  ],
+  "api_designs": [
+    {
+      "name": "Inventory service",
+      "description": null,
+      "endpoints_or_signatures": [
+        "GetStock"
+      ]
+    }
+  ],
+  "tradeoffs": [
+    {
+      "option": "gRPC",
+      "pros": [
+        "typed contracts",
+        "faster serialization"
+      ],
+      "cons": [
+        "harder to debug"
+      ]
+    }
+  ],
+  "decisions": [
+    "Try gRPC for the inventory service only"
+  ],
+  "todos": [
+    {
+      "task": "Define the inventory proto",
+      "owner": "Priya",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

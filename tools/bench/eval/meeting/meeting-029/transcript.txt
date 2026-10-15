@@ -1,0 +1,3 @@
+[00:00:00] Priya: The board meeting is on March 20th.
+[00:00:02] Tomas: I'll prepare the slides by March 18th.
+[00:00:05] Priya: I'll review them on March 19th.

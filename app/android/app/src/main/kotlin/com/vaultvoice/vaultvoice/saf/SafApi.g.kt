@@ -359,6 +359,11 @@ interface SafHostApi {
    * [overwrite] is true. Returns the document URI of the written file.
    */
   fun writeFile(treeUri: String, relativePath: String, bytes: ByteArray, overwrite: Boolean, callback: (Result<String>) -> Unit)
+  /**
+   * The bytes of the file at [relativePath], or null when it does not
+   * exist (EXP-05 user-edit detection). Fails with `invalid` for a folder.
+   */
+  fun readFile(treeUri: String, relativePath: String, callback: (Result<ByteArray?>) -> Unit)
   /** Creates [relativePath] and all missing parent folders. */
   fun mkdirs(treeUri: String, relativePath: String, callback: (Result<Unit>) -> Unit)
   /** Deletes the file at [relativePath]. Returns false if it did not exist. */
@@ -481,6 +486,27 @@ interface SafHostApi {
             val bytesArg = args[2] as ByteArray
             val overwriteArg = args[3] as Boolean
             api.writeFile(treeUriArg, relativePathArg, bytesArg, overwriteArg) { result: Result<String> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(SafApiPigeonUtils.wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(SafApiPigeonUtils.wrapResult(data))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.vaultvoice.SafHostApi.readFile$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val treeUriArg = args[0] as String
+            val relativePathArg = args[1] as String
+            api.readFile(treeUriArg, relativePathArg) { result: Result<ByteArray?> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(SafApiPigeonUtils.wrapError(error))

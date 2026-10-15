@@ -136,10 +136,31 @@ abstract final class AppSettings {
     section: SettingSection.audio,
     defaultValue: true,
   );
+
+  /// AUD-02: provisional default off (platform AGC first); QA-02 decides.
+  static const softwareAgc = ToggleSetting(
+    key: SettingKeys.audioSoftwareAgc,
+    section: SettingSection.audio,
+    defaultValue: false,
+  );
+  static const rawCapture = ToggleSetting(
+    key: SettingKeys.audioRawCapture,
+    section: SettingSection.audio,
+    defaultValue: false,
+  );
   static const autoPauseOnSilence = ToggleSetting(
     key: SettingKeys.audioAutoPause,
     section: SettingSection.audio,
     defaultValue: false,
+  );
+
+  /// AUD-03. PRODUCT-DECISION: off by default (SEC-09 §6 asks for a
+  /// configurable silence stop; the 4 h max-duration stop is always on).
+  static const silenceAutoStop = ChoiceSetting(
+    key: SettingKeys.audioSilenceAutoStop,
+    section: SettingSection.audio,
+    defaultValue: 'off',
+    options: ['off', 'minutes_5', 'minutes_10', 'minutes_30'],
   );
 
   /// PRODUCT-DECISION: default keeps audio until the user deletes it.
@@ -171,6 +192,14 @@ abstract final class AppSettings {
     key: SettingKeys.processingDiarization,
     section: SettingSection.processing,
     defaultValue: false,
+  );
+
+  /// AUD-03: provisional default on — AC1 (≥ 20 % less STT time, ≤ 1 pt
+  /// WER) is measured on the QA-02 corpus.
+  static const skipSilence = ToggleSetting(
+    key: SettingKeys.processingSkipSilence,
+    section: SettingSection.processing,
+    defaultValue: true,
   );
 
   /// Default per vv-markdown-vault-export (EXP-02).
@@ -211,6 +240,14 @@ abstract final class AppSettings {
       RetentionOption.days30,
     ],
   );
+
+  /// SEC-02 offline mode: no network at all (models must be installed or
+  /// imported offline, MDL-04).
+  static const offlineMode = ToggleSetting(
+    key: SettingKeys.networkOffline,
+    section: SettingSection.privacy,
+    defaultValue: false,
+  );
   static const notificationsEnabled = ToggleSetting(
     key: SettingKeys.notificationsEnabled,
     section: SettingSection.privacy,
@@ -226,16 +263,21 @@ abstract final class AppSettings {
     inputDevice,
     agc,
     noiseSuppression,
+    softwareAgc,
+    rawCapture,
     autoPauseOnSilence,
+    silenceAutoStop,
     audioRetention,
     autoProcess,
     chargeOnly,
     diarizationDefault,
+    skipSilence,
     filenamePattern,
     collisionMode,
     appLock,
     lockTimeout,
     transcriptRetention,
+    offlineMode,
     notificationsEnabled,
     notificationDetails,
   ];

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
@@ -37,22 +38,45 @@ class AppLocalVaultWriter implements VaultWriter {
 
   @override
   Future<Result<WrittenNote>> write(NoteDraft note, {bool overwrite = false}) =>
-      _io(note.relativePath, (root, path) async {
-        final target = _fileAt(root, path.segments);
-        final type = FileSystemEntity.typeSync(target.path, followLinks: false);
+      writeBytes(
+        note.relativePath,
+        Uint8List.fromList(utf8.encode(note.markdown)),
+        overwrite: overwrite,
+      );
+
+  @override
+  Future<Result<WrittenNote>> writeBytes(
+    String relativePath,
+    Uint8List bytes, {
+    bool overwrite = false,
+  }) => _io(relativePath, (root, path) async {
+    final target = _fileAt(root, path.segments);
+    final type = FileSystemEntity.typeSync(target.path, followLinks: false);
+    if (type == FileSystemEntityType.directory) {
+      return const Err(StorageFailure('invalid vault path'));
+    }
+    if (type != FileSystemEntityType.notFound && !overwrite) {
+      return const Err(VaultFileExistsFailure());
+    }
+    await target.parent.create(recursive: true);
+    final tmp = File(
+      '${target.parent.path}${Platform.pathSeparator}.${path.name}.vvtmp',
+    );
+    await tmp.writeAsBytes(bytes, flush: true);
+    await tmp.rename(target.path);
+    return Ok(WrittenNote(target.uri.toString()));
+  });
+
+  @override
+  Future<Result<Uint8List?>> read(String relativePath) =>
+      _io(relativePath, (root, path) async {
+        final f = _fileAt(root, path.segments);
+        final type = FileSystemEntity.typeSync(f.path, followLinks: false);
+        if (type == FileSystemEntityType.notFound) return const Ok(null);
         if (type == FileSystemEntityType.directory) {
           return const Err(StorageFailure('invalid vault path'));
         }
-        if (type != FileSystemEntityType.notFound && !overwrite) {
-          return const Err(VaultFileExistsFailure());
-        }
-        await target.parent.create(recursive: true);
-        final tmp = File(
-          '${target.parent.path}${Platform.pathSeparator}.${path.name}.vvtmp',
-        );
-        await tmp.writeAsBytes(utf8.encode(note.markdown), flush: true);
-        await tmp.rename(target.path);
-        return Ok(WrittenNote(target.uri.toString()));
+        return Ok(await f.readAsBytes());
       });
 
   @override

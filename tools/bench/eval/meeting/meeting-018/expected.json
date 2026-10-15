@@ -1,0 +1,28 @@
+{
+  "title": "Customer request: offline mode",
+  "summary": "The customer wants offline mode in the mobile app before their June trade show. Omar will estimate the work by Thursday and Priya will ask which screens must work offline.",
+  "attendees": [
+    "Priya",
+    "Omar"
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "task": "Estimate the offline mode work",
+      "owner": "Omar",
+      "due": "Thursday",
+      "t": null
+    },
+    {
+      "task": "Ask the customer which screens must work offline",
+      "owner": "Priya",
+      "due": null,
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "offline mode",
+    "customer request"
+  ]
+}

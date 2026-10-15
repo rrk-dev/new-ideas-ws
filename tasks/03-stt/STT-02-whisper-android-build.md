@@ -43,3 +43,18 @@ whisper.cpp runs on Android with the fastest available backend per device.
   `c++_shared` and verify AGP packages the MODULE libs (after device rows); KleidiAI vendoring spike;
   CI: fetch `ggml-tiny.en.bin`/`jfk.wav` in the native-host job and add a `-DVV_GGML_BACKEND_DL=ON`
   host ctest run (CI owner).
+
+
+## Verification Report
+- **Verifier:** Codex · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ (387 files, 0 changed) · analyze ✅ (zero issues) · Flutter tests ✅ (785 passed, 24 skipped; coverage 93.3%, gate 80%) · pytest ✅ (66 passed) · native host ✅ (fresh native/build.sh host; model-backed ctest 21 passed, 2 explicitly skipped) · egress ✅ · recording policy ✅ · tasks validate ✅ (85 tasks, 0 problems) · CI run: local. No Xcode/NDK/mobile SDKs; no mobile/device reruns.
+- **Acceptance criteria:**
+  - AC1: ⏳ Snapdragon 8 Gen 2, 8 Gen 3 and 7-series backend RTF/thread measurements have documented rows; none has a result.
+  - AC2: ✅ `[STT-02/AC2]` policy and host FFI tests exercise OpenCL/Vulkan preference, denylist, unknown GPU, missing module, background/forced CPU and crash persistence. Native backend ctests passed; Mali and Android APK/16 KB/oldest CPU checks remain ⏳.
+- **Mutation sanity check:** Removed the CMake runtime-optional GPU guard diagnostic: tagged `test_STT_02_gpu_backends_only_as_runtime_modules` failed (1 failed); restored with git checkout.
+- **Adversarial checks:** Empty shipped Android allowlist selects CPU. Crash sentinel disables an interrupted first trial; CPU remains available. Reviewed optional module loader, pins and mutually exclusive fixed-arch/runtime-variant flags. Independently built native/build/host-dl with VV_GGML_BACKEND_DL=ON: 22/23 ctests passed; only the non-Core-ML configuration skipped its Core ML test. Missing module directory returned VV_E_BACKEND and retry succeeded.
+- **Device evidence:** Reviewed every row in `docs/test-plans/device/STT-02.md`. Result/date/tester cells are unfilled; no physical run is represented as PASS. The user explicitly permits a provisional verifier PASS with these rows pending.
+- **Skill/rule compliance:** Read AGENTS.md, verifier prompt, workflow/verification skills and all task-listed skills; reviewed the merged implementation at main (no unmerged task diff). Pins checked against local headers. RTK.md is referenced by the supplied instructions but absent. Product code/tests unchanged after temporary mutations; no criteria weakened, GitHub API/gh, pushes, git config edits or model commits.
+- **Issues found:** none in the verified host implementation; physical acceptance remains pending.
+- **Pending for done:** STT-02: FAIL AC1: still pending (⏳) — cannot be done | STT-02: FAIL AC1: device row in docs/test-plans/device/STT-02.md has no PASS result with a date | STT-02: FAIL AC2: still pending (⏳) — cannot be done | STT-02: FAIL AC2: device row in docs/test-plans/device/STT-02.md has no PASS result with a date | STT-02: FAIL dependency FND-06 is not done | STT-02: FAIL FND-03 (CI / test framework) must be done before any non-bootstrap task | STT-02: FAIL QA-01 (CI / test framework) must be done before any non-bootstrap task | refusing to set STT-02 to done: 7 problem(s) (see vv-task-verify)

@@ -1,11 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:vaultvoice/features/profiles/domain/profile.dart';
 import 'package:vaultvoice/features/profiles/domain/profile_codec.dart';
 
 /// Reads a built-in profile asset from disk (tests run with cwd = `app/`).
 String builtinYaml(String id) =>
     File('assets/profiles/$id.yaml').readAsStringSync();
+
+/// Built-in profile [id], parsed and validated.
+Profile builtinProfile(String id) => ProfileCodec.parseYaml(
+  builtinYaml(id),
+  profileSource: ProfileSource.builtin,
+).profile!;
 
 /// A fresh, mutable decoded copy of built-in profile [id].
 Map<String, Object?> builtinMap(String id) {

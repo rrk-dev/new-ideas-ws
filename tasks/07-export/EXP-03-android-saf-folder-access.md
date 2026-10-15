@@ -45,3 +45,14 @@ User picks any folder (e.g., Obsidian vault on internal storage or SD card) and 
   the Android app-local fallback vault is app-private `filesDir/vault`.
 - **Follow-ups:** none new — the re-grant prompt UI belongs to APP-03 (settings) / EXP-06 (outbox), storing
   `VaultFolder.handle` in `vault_targets` to EXP-05 (needs FND-04).
+## Verification Report
+- **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ · analyze ✅ · tests ✅ (780 passed, 29 skipped; coverage not re-measured locally, CI test job gates ≥80% and is green) · native smoke n/a (no native/bridge change) · egress ✅ · recording policy ✅ · CI run: https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858 (run 51 of ci, commit 67b6fcf, completed successfully; run 50 also succeeded)
+- **Acceptance criteria:**
+  - AC1: ✅ host re-ran `[EXP-03/AC1]` (fake persisted-grant table stands in for the OS). Tests assert no second picker after a Dart "restart", revoked vs unavailable (SD card), and re-grant at the previous tree URI. Device rows in `docs/test-plans/device/EXP-03.md` (restart, reboot, revoke, SD card) have steps and expected results; Result/Date are blank (⏳). Mutation: mapped `SafAccessStatus.revoked` to `VaultAccess.ok`; the revoked-grant test failed; restored
+  - AC2: ✅ host re-ran `[EXP-03/AC2]`; write sends the exact relative path and UTF-8 bytes, overwrite replaces the whole file, a non-overwrite keeps the existing note. Obsidian/Syncthing rows in the same checklist are blank (⏳). This machine has no Android SDK (doctor: Android SDK, adb, JDK, emulator, NDK missing), so the device rows were not re-run. Kotlin `SafHostApiImpl` uses `ACTION_OPEN_DOCUMENT_TREE`, `takePersistableUriPermission`, and `DocumentsContract` (no `DocumentFile`); CI run 51 built Android on this sha
+- **Adversarial checks:** picker cancel is not an error; a bookmark handle is not used as a tree URI; host errors never report ok; manifest scan test rejects `MANAGE_EXTERNAL_STORAGE`; traversal is guarded in `VaultPath`. No phone-state permissions added.
+- **Skill/rule compliance:** Pigeon channel as required by `vv-flutter-architecture` / `vv-markdown-vault-export`. Scope item for Obsidian/Syncthing is `[~] deferred` to the device checklist. No credentials or certificates in the SAF code.
+- **Issues found:** none
+- **Pending for done:** AC1: still pending (⏳) — cannot be done; AC1: device row in docs/test-plans/device/EXP-03.md has no PASS result with a date; AC2: still pending (⏳) — cannot be done; AC2: device row in docs/test-plans/device/EXP-03.md has no PASS result with a date; dependency FND-02 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task

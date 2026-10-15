@@ -1,0 +1,31 @@
+{
+  "title": "Unmaintained PDF library",
+  "context": "The PDF library is no longer maintained.",
+  "concepts": [],
+  "api_designs": [],
+  "tradeoffs": [
+    {
+      "option": "Fork the library",
+      "pros": [],
+      "cons": [
+        "we own the bugs"
+      ]
+    },
+    {
+      "option": "Switch to another library",
+      "pros": [],
+      "cons": []
+    }
+  ],
+  "decisions": [
+    "Switch to another PDF library"
+  ],
+  "todos": [
+    {
+      "task": "Compare two alternative PDF libraries",
+      "owner": "Tomas",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

@@ -1,0 +1,15 @@
+{
+  "product": "electric kettle",
+  "brand": "Contoso",
+  "model": "Boil Max",
+  "serial_number": null,
+  "purchase_date": "last week",
+  "retailer": "Northwind Market",
+  "price": "35 euros",
+  "warranty_period": {
+    "value": 24,
+    "unit": "months"
+  },
+  "support_contacts": [],
+  "notes": null
+}

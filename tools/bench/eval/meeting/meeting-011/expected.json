@@ -1,0 +1,19 @@
+{
+  "title": "Theme and tablet decisions",
+  "summary": "The team decided to keep the dark theme as the default and to drop support for the old tablet app.",
+  "attendees": [
+    "Lena",
+    "Diego",
+    "Sam"
+  ],
+  "decisions": [
+    "Keep the dark theme as the default",
+    "Drop support for the old tablet app"
+  ],
+  "action_items": [],
+  "open_questions": [],
+  "topics": [
+    "dark theme",
+    "tablet app"
+  ]
+}

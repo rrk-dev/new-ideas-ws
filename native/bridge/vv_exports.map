@@ -12,6 +12,13 @@
     vv_stt_destroy;
     vv_stt_free_segment;
     vv_stt_last_error;
+    vv_vad_default_params;
+    vv_vad_create;
+    vv_vad_segments;
+    vv_vad_feed;
+    vv_vad_reset;
+    vv_vad_destroy;
+    vv_vad_last_error;
     vv_abi_version;
     vv_version;
     vv_whisper_version;
@@ -37,6 +44,7 @@
     vv_llm_destroy;
     vv_json_schema_to_gbnf;
     vv_device_memory;
+    vv_llm_last_reused_tokens;
     vv_crash_*;
   local:
     *;
