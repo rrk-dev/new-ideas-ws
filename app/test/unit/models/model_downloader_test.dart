@@ -439,13 +439,11 @@ void main() {
     test('[MDL-04/AC1] enabling network_disabled mid-download pauses and '
         'keeps the partial', () async {
       server.routes['$_cdn/stt/ggml-tiny.en.bin'] = FileRoute(bytes);
-      var disabled = false;
-      final d = downloader(networkDisabled: () async => disabled);
-      final sub = d.progress.listen((e) {
-        if (e.receivedBytes >= _mib) disabled = true;
-      });
+      var calls = 0;
+      // The first call is the pre-flight check; the next is a mid-transfer
+      // checkpoint, so the flip does not depend on stream delivery timing.
+      final d = downloader(networkDisabled: () async => ++calls > 1);
       final r = await d.download(model());
-      await sub.cancel();
       expect(r.isOk, isFalse);
       expect(d.latest('whisper-tiny.en')!.phase, DownloadPhase.paused);
       expect(partialFile().existsSync(), isTrue);
