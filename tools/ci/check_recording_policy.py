@@ -7,7 +7,8 @@ without a user tap, or hide recording appears in:
 * Android manifests: every first-party source manifest and, when present, the
   **merged** manifest produced by the Gradle build (covers third-party plugins
   and implicit permissions added by the manifest merger);
-* iOS `Info.plist` files and `*.entitlements`;
+* iOS and macOS `Info.plist` files and `*.entitlements` (macOS: microphone only,
+  no screen/system-audio capture, no call/Continuity intents, no hidden agent app);
 * first-party Dart / Kotlin / Java / Swift / Objective-C sources.
 
 Usage: check_recording_policy.py [repo-root] [--require-merged-manifest]
@@ -69,6 +70,23 @@ PERMISSION_TAGS = {"uses-permission", "uses-permission-sdk-23", "uses-permission
 # --- Source rules -------------------------------------------------------------
 # (rule id, regex, file suffixes or None for all scanned sources)
 _ALL = None
+# macOS: the microphone is the only audio input (AUD-09). Entitlement and
+# Info.plist keys that grant screen / other-process audio capture, or attach
+# to calls (FaceTime, Continuity), are forbidden.
+FORBIDDEN_PLIST_KEYS = {
+    "NSScreenCaptureUsageDescription": "screen capture",
+    "NSAudioCaptureUsageDescription": "system-audio capture",
+    "com.apple.security.device.camera": "camera",
+    "NSCameraUsageDescription": "camera",
+    "com.apple.developer.screen-capture": "screen capture",
+    "com.apple.security.temporary-exception.audio-unit-host": "audio-unit host exception",
+    "com.apple.developer.coreaudio.tap": "audio tap",
+}
+FORBIDDEN_PLIST_PREFIXES = ("com.apple.security.temporary-exception.mach-lookup",
+                            "com.apple.security.temporary-exception.apple-events")
+CALL_INTENT_RX = re.compile(r"\bIN(Start(Audio|Video)?Call|Answer|Hangup|Search)CallIntent\b|\bINStartCallIntent\b")
+HIDDEN_APP_KEYS = ("LSUIElement", "LSBackgroundOnly")
+
 SOURCE_RULES: list[tuple[str, re.Pattern[str], set[str] | None]] = [
     ("call audio source",
      re.compile(r"\b(VOICE_CALL|VOICE_UPLINK|VOICE_DOWNLINK|VOICE_COMMUNICATION|REMOTE_SUBMIX)\b"), _ALL),
@@ -77,6 +95,12 @@ SOURCE_RULES: list[tuple[str, re.Pattern[str], set[str] | None]] = [
      re.compile(r"\bAndroidAudioSource\s*\.\s*(?!mic\b|voiceRecognition\b)\w+"), {".dart"}),
     ("playback / screen capture",
      re.compile(r"\b(AudioPlaybackCaptureConfiguration|MediaProjection\w*|RPScreenRecorder|RPBroadcast\w*|ReplayKit)\b"), _ALL),
+    ("macOS screen / process audio capture",
+     re.compile(r"\b(ScreenCaptureKit|SCStream\w*|SCShareableContent|CGDisplayStream\w*|CGWindowListCreateImage|"
+                r"AVCaptureScreenInput|AudioHardwareCreateProcessTap|CATapDescription|"
+                r"AudioHardwareCreateAggregateDevice|AudioHardwareCreateProcessTap)\b"), _ALL),
+    ("call / Continuity intent",
+     re.compile(r"\b(INStartCallIntent|INStartAudioCallIntent|INStartVideoCallIntent|INAnswerCallIntent)\b"), _ALL),
     ("accessibility service", re.compile(r"\bAccessibilityService\b"), _ALL),
     ("telephony / telecom service",
      re.compile(r"\b(TelephonyManager|PhoneStateListener|TelephonyCallback|InCallService|CallScreeningService|"
@@ -98,9 +122,10 @@ SKIP_PARTS = {"build", ".dart_tool", ".gradle", "Pods", ".symlinks", "test", "an
 
 
 def first_party_source_dirs(root: Path) -> list[Path]:
-    dirs = [root / "app/lib", root / "app/android/app/src", root / "app/ios/Runner"]
+    dirs = [root / "app/lib", root / "app/android/app/src", root / "app/ios/Runner",
+            root / "app/macos/Runner"]
     for pkg in sorted((root / "packages").glob("*")):
-        dirs += [pkg / "lib", pkg / "android/src", pkg / "ios/Classes"]
+        dirs += [pkg / "lib", pkg / "android/src", pkg / "ios/Classes", pkg / "macos"]
     return [d for d in dirs if d.is_dir()]
 
 
@@ -163,6 +188,21 @@ def check_plist(path: Path, rel: str) -> list[str]:
         modes = data.get("UIBackgroundModes") or []
         if "voip" in modes:
             errs.append(f"{rel}: forbidden UIBackgroundModes entry 'voip'")
+    if isinstance(data, dict):
+        for k in data:
+            if k in FORBIDDEN_PLIST_KEYS:
+                errs.append(f"{rel}: forbidden {FORBIDDEN_PLIST_KEYS[k]} key {k}")
+            elif k.startswith(FORBIDDEN_PLIST_PREFIXES):
+                errs.append(f"{rel}: forbidden entitlement exception {k}")
+        for k in HIDDEN_APP_KEYS:
+            if data.get(k) in (True, "1", 1):
+                errs.append(f"{rel}: {k} hides the recording app (visible indicator required)")
+        if CALL_INTENT_RX.search(str(data.get("NSUserActivityTypes", ""))):
+            errs.append(f"{rel}: NSUserActivityTypes declares a call intent (Continuity)")
+        if rel == "app/macos/Runner/Info.plist":
+            purpose = str(data.get("NSMicrophoneUsageDescription", ""))
+            if "not a call" not in purpose:
+                errs.append(f"{rel}: NSMicrophoneUsageDescription must say the user records a note, not a call")
     if path.suffix == ".entitlements":
         def walk(v, key=""):
             if isinstance(v, dict):
@@ -181,7 +221,8 @@ def check_plist(path: Path, rel: str) -> list[str]:
 
 def ios_plists(root: Path) -> list[Path]:
     out = []
-    bases = [root / "app/ios", *sorted((root / "packages").glob("*/ios"))]
+    bases = [root / "app/ios", root / "app/macos",
+             *sorted((root / "packages").glob("*/ios")), *sorted((root / "packages").glob("*/macos"))]
     for base in bases:
         if not base.is_dir():
             continue
@@ -192,6 +233,9 @@ def ios_plists(root: Path) -> list[Path]:
     built = root / "app/build/ios"
     if built.is_dir():
         out += [p for p in built.rglob("Info.plist") if p.parent.name.endswith(".app")]
+    built = root / "app/build/macos"
+    if built.is_dir():
+        out += [p for p in built.rglob("Info.plist") if p.parent.name == "Contents" and p.parent.parent.name.endswith(".app")]
     return out
 
 

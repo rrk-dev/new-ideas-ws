@@ -10,16 +10,20 @@ part of 'export_providers.dart';
 // ignore_for_file: type=lint, type=warning
 /// Folder picking + persistent access for the current platform.
 ///
-/// iOS: refreshed (stale) bookmarks are handed to `onRefreshed`; persisting
-/// them in `vault_targets` is EXP-05's job once that table exists.
+/// iOS and macOS: refreshed (stale) bookmarks are handed to `onRefreshed`;
+/// persisting them in `vault_targets` is EXP-05's job once that table exists.
+/// macOS uses the same [BookmarkFolderAccess] as EXP-04. The panel is
+/// `NSOpenPanel` (`packages/vv_native/macos/MacBookmarkPanel.swift`).
 
 @ProviderFor(vaultFolderAccess)
 final vaultFolderAccessProvider = VaultFolderAccessProvider._();
 
 /// Folder picking + persistent access for the current platform.
 ///
-/// iOS: refreshed (stale) bookmarks are handed to `onRefreshed`; persisting
-/// them in `vault_targets` is EXP-05's job once that table exists.
+/// iOS and macOS: refreshed (stale) bookmarks are handed to `onRefreshed`;
+/// persisting them in `vault_targets` is EXP-05's job once that table exists.
+/// macOS uses the same [BookmarkFolderAccess] as EXP-04. The panel is
+/// `NSOpenPanel` (`packages/vv_native/macos/MacBookmarkPanel.swift`).
 
 final class VaultFolderAccessProvider
     extends
@@ -31,8 +35,10 @@ final class VaultFolderAccessProvider
     with $Provider<VaultFolderAccess> {
   /// Folder picking + persistent access for the current platform.
   ///
-  /// iOS: refreshed (stale) bookmarks are handed to `onRefreshed`; persisting
-  /// them in `vault_targets` is EXP-05's job once that table exists.
+  /// iOS and macOS: refreshed (stale) bookmarks are handed to `onRefreshed`;
+  /// persisting them in `vault_targets` is EXP-05's job once that table exists.
+  /// macOS uses the same [BookmarkFolderAccess] as EXP-04. The panel is
+  /// `NSOpenPanel` (`packages/vv_native/macos/MacBookmarkPanel.swift`).
   VaultFolderAccessProvider._()
     : super(
         from: null,
@@ -67,7 +73,7 @@ final class VaultFolderAccessProvider
   }
 }
 
-String _$vaultFolderAccessHash() => r'c92b528607c8cd6d57c8e9fcf39d873be22e4553';
+String _$vaultFolderAccessHash() => r'e4a96f02187bb185028154671f52db285fa6d90e';
 
 /// Detects revoked access and drives the re-grant flow.
 

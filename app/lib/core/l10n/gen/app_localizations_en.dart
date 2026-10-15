@@ -1126,6 +1126,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get consentConfirm => 'Everyone present agrees';
 
   @override
+  String get consentOptionalBody =>
+      'Several people may be recorded. Confirm that everyone present knows and agrees, or record without confirming.';
+
+  @override
+  String get consentSkip => 'Record without confirming';
+
+  @override
+  String get consentFirstRunTitle => 'Before your first recording';
+
+  @override
+  String get consentFirstRunConfirm => 'I understand';
+
+  @override
   String get detailsTitle => 'Recording saved';
 
   @override
@@ -1757,6 +1770,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aboutVersion => 'Version';
+
+  @override
+  String get aboutPrivacyPolicy => 'Privacy policy';
+
+  @override
+  String get privacyPolicyTitle => 'Privacy policy';
+
+  @override
+  String get privacyPolicyLoadFailed =>
+      'The privacy policy could not be shown.';
 
   @override
   String get aboutLicenses => 'Open-source & model licenses';

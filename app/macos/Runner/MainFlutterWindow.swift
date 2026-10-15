@@ -21,6 +21,9 @@ class MainFlutterWindow: NSWindow {
     }
 
     RegisterGeneratedPlugins(registry: flutterViewController)
+    MacAudioRouteObserver.register(
+      with: flutterViewController.registrar(forPlugin: "MacAudioRouteObserver")
+    )
 
     super.awakeFromNib()
   }

@@ -49,6 +49,8 @@ jobs:
       # Recording policy (SEC-09) on source manifests, plists, entitlements and
       # sources; the android job re-runs it on the merged manifest.
       - run: bash tools/ci/run_slot.sh check_recording_policy.sh SEC-09
+      # Store privacy (SEC-06): manifests, usage strings, permissions, copy.
+      - run: bash tools/ci/check_store_privacy.sh
       - run: python3 .agents/skills/vv-task-workflow/scripts/tasks.py validate
 
   test:

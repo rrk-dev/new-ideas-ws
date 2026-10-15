@@ -1960,6 +1960,30 @@ abstract class AppLocalizations {
   /// **'Everyone present agrees'**
   String get consentConfirm;
 
+  /// No description provided for @consentOptionalBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Several people may be recorded. Confirm that everyone present knows and agrees, or record without confirming.'**
+  String get consentOptionalBody;
+
+  /// No description provided for @consentSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Record without confirming'**
+  String get consentSkip;
+
+  /// No description provided for @consentFirstRunTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Before your first recording'**
+  String get consentFirstRunTitle;
+
+  /// No description provided for @consentFirstRunConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand'**
+  String get consentFirstRunConfirm;
+
   /// No description provided for @detailsTitle.
   ///
   /// In en, this message translates to:
@@ -3009,6 +3033,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version'**
   String get aboutVersion;
+
+  /// No description provided for @aboutPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy policy'**
+  String get aboutPrivacyPolicy;
+
+  /// No description provided for @privacyPolicyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy policy'**
+  String get privacyPolicyTitle;
+
+  /// No description provided for @privacyPolicyLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The privacy policy could not be shown.'**
+  String get privacyPolicyLoadFailed;
 
   /// No description provided for @aboutLicenses.
   ///
