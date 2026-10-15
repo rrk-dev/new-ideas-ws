@@ -49,8 +49,8 @@ Route each rendered note to the right destination(s) based on rules.
   (`waiting(destination)`, rendered note stays in app storage) instead of silently writing to the
   app-local folder; profile `default_target: ask` treated as unset; a target is used once per note
   (first matching rule wins, exports are keyed recording × target); audio sidecar off by default.
-- **Follow-ups:** EXP-09 (proposed): persist PRF-06 classification result so `classification_any`
-  applies; EXP-10 (proposed): `AudioAttachmentSource` implementation (m4a/AAC encode of the WAV
+- **Follow-ups:** EXP-10 (proposed; renumbered in integration wave 3 — EXP-09 is taken by the macOS work): persist PRF-06 classification result so `classification_any`
+  applies; EXP-11 (proposed): `AudioAttachmentSource` implementation (m4a/AAC encode of the WAV
   chunks) and per-target `audio_link` rendering; FND-11: pass `platformVaultWriterResolver` in the
   real engines factory + `BackgroundIsolateBinaryMessenger` in the pipeline isolate.
 

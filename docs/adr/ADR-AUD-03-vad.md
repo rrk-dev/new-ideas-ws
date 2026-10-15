@@ -81,3 +81,12 @@ commercial redistribution, VAD may stop/pause but **never start or resume** a re
 - whisper keeps the VAD context per whisper state (loaded once per STT model load).
 - Open: confirm the `skip_silence` default and AC1/AC2 with QA-02; if VAD does not reduce STT time
   on devices, keep it for hallucination suppression only (AC2) or default it off.
+
+## QA-02 findings (recorded by integration wave 3)
+`tools/bench/results/2026-10-14-qa02-stt-wer.md` (8 s pauses between turns, base.en-q5_1):
+transcribing only speech (oracle spans + 200 ms padding) cut processing time by **35 %**
+(13.9 s → 9.0 s) and removed 2 of 5 insertions in the pauses (WER 2.72 → 2.12 %); a crude
+energy VAD saved 48 % but lost words at turn edges (2.87 %). **Decision: `skip_silence` stays on
+by default, and VAD spans keep ≥ 200 ms padding** (`VvVadParams.speechPadMs = 200`, the value
+`FfiVadEngine` uses). Integration wave 3 made these spans the cut points of STT-04's long-form
+windows (one `VadEngine` interface, ADR-INT-W3). Device RTF rows stay ⏳.

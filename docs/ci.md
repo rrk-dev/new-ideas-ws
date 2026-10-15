@@ -5,12 +5,18 @@ GitHub Actions (`.github/workflows/ci.yml`) is a thin wrapper: every job calls a
 
 | Job | Script(s) | Notes |
 |---|---|---|
-| `static` | `setup.sh`, `format.sh`, `analyze.sh`, `check_codegen.sh`, `check_egress.sh`, `run_slot.sh check_recording_policy.sh SEC-09`, `tasks.py validate` | `analyze.sh` runs `flutter analyze` **and** `dart analyze` (riverpod_lint only reports in the latter, ADR-FND-02) |
+| `static` | `setup.sh`, `format.sh`, `analyze.sh`, `check_codegen.sh`, `check_egress.sh`, `check_packages.sh` (SEC-02 package audit), `markdownlint.sh` (EXP-01 Markdown goldens, needs Node/npx), `run_slot.sh check_recording_policy.sh SEC-09`, `tasks.py validate` | `analyze.sh` runs `flutter analyze` **and** `dart analyze` (riverpod_lint only reports in the latter, ADR-FND-02) |
 | `test` | `test.sh` | unit + widget tests, lcov uploaded; gate ≥ 80% lines over `lib/core/**` and `lib/**/domain/**` (`check_coverage.py`) |
 | `task-gate` | `pytest tools/ci/tests`, `tasks.py verify --all-done --run` | independent-verification gate: every `done` task keeps tagged tests, report, PASS rows |
 | `android` | `build_android.sh`, `check_recording_policy.sh --require-merged-manifest` | debug dev-flavor APK (Gradle builds `libvv_native.so` with the pinned NDK; `check_apk_native.sh` asserts it is in the APK and that no other ABI is packaged — the app's `ndk { abiFilters.clear(); … }` must replace the Flutter Gradle plugin's armeabi-v7a/arm64-v8a/x86_64 default, `+=` alone keeps all three), uploaded as `android-dev-debug-apk` |
 | `ios` | `build_ios.sh` | `native/build.sh ios` first (xcframework), then the unsigned dev-flavor build, uploaded as `ios-dev-unsigned-app` |
-| `native-host` | `native_host.sh` | `native/build.sh host` (ctest: smoke + exports) and the Dart FFI test against the built library, ccache keyed on the submodule pins |
+| `native-host` | `native_host.sh`, `size_check.sh`, `fetch_test_models.sh`, `eval.sh` | `native/build.sh host` (ctest: smoke + exports) and the Dart FFI test against the built library, ccache keyed on the submodule pins; REL-03 host-library size budget; PRF-09 extraction eval with `--gate` only when profiles, the prompt builder, the eval data/runner or llama.cpp changed (`eval.sh` diffs against the base branch, so the checkout uses `fetch-depth: 0`; test models cached by `test-models.lock`; reports uploaded as `extraction-eval`) |
+
+Release (`.github/workflows/release.yml`): the android and ios jobs run `size_check.sh` on the signed
+AAB / IPA after the fastlane upload (REL-03 budget, no bundled models).
+
+Integration wave 3 added the `check_packages.sh`, `markdownlint.sh`, `size_check.sh` and PRF-09
+eval steps (ADR-INT-W3).
 
 Slot (`run_slot.sh`, currently only `check_recording_policy.sh`) run `tools/ci/<script>` if present, otherwise emit a visible warning and pass.
 Delivering the script is what activates the check — no workflow change needed.

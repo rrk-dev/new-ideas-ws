@@ -71,6 +71,15 @@ int32_t vv_vad_create(const char* model_path, const vv_vad_params* params, vv_va
     set_error(nullptr, "invalid argument");
     return VV_E_INVALID_ARG;
   }
+  // A GGML_BACKEND_DL build registers no CPU device until vv_backends_load
+  // runs, and VAD can be the first ggml user of a process (pipeline worker,
+  // recording isolate): whisper_vad_init would abort on GGML_ASSERT(device).
+  // Registering the CPU module is idempotent (no-op in static builds).
+  // Integration wave 3 (AUD-03 x STT-02 DL backends).
+  if (vv_backends_load(nullptr, 0) != VV_OK) {
+    set_error(nullptr, "no CPU backend");
+    return VV_E_BACKEND;
+  }
   try {
     auto* h = new vv_vad();
     h->params = params ? *params : vv_vad_default_params();

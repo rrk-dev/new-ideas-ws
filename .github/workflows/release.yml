@@ -108,6 +108,8 @@ jobs:
         env:
           VV_RELEASE_NOTES_PATH: ${{ runner.temp }}/release-notes/store.txt
         run: bundle exec fastlane android internal
+      # REL-03: release bundle within the size budget (+ no bundled models).
+      - run: bash tools/ci/size_check.sh
       # SEC-09: the shipped manifest must pass the recording policy.
       - run: bash tools/ci/check_recording_policy.sh --require-merged-manifest
       - uses: actions/upload-artifact@v7.0.2
@@ -167,6 +169,8 @@ jobs:
         run: |
           (cd .. && fvm flutter precache --ios && fvm flutter pub get)
           bundle exec fastlane ios beta
+      # REL-03: release IPA within the size budget (+ no bundled models).
+      - run: bash tools/ci/size_check.sh
       - run: bash tools/ci/check_recording_policy.sh
       - uses: actions/upload-artifact@v7.0.2
         with:

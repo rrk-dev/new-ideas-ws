@@ -60,7 +60,7 @@ Future<ExportRequest> buildExportRequest(
       speakers: [for (final s in speakers) s.displayName ?? s.label],
       // PRF-06 (auto classification) does not persist its result yet, so
       // `classifiedProfileId` stays unset and the `classification_any`
-      // matcher is inert until it does (follow-up EXP-09).
+      // matcher is inert until it does (follow-up EXP-10).
       profileDefaultTargetId: _defaultTarget(profile?.definition),
       chosenTargetId: chosen is String && chosen.isNotEmpty ? chosen : null,
     ),

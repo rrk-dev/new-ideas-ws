@@ -42,5 +42,5 @@ Pro users edit Markdown templates and filename patterns with immediate feedback.
 - **Follow-ups:** FND-11 wiring: build `TemplateNoteRenderer` with `userTemplates` (custom
   template bodies) and `templateOverrides` (`templates.bindings`) from this store; custom
   templates' `filenamePattern` is stored but not yet used by the exporter (EXP-05 uses rule /
-  folder / global patterns) — proposed EXP-11.
+  folder / global patterns) — proposed EXP-12 (renumbered in integration wave 3).
 

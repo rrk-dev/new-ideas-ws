@@ -70,3 +70,11 @@ lower WER is a measurement, made on the QA-02 corpus — not in this task.**
 - Follow-up from AUD-01 stays with QA-02: iOS session mode (`.default` vs `.measurement`) and the
   Android source (`VOICE_RECOGNITION` vs `MIC`) are measured on the same corpus.
 - Device-only evidence (meter smoothness, real effect behaviour): docs/test-plans/device/AUD-02.md.
+
+## QA-02 findings (recorded by integration wave 3)
+`tools/bench/results/2026-10-14-qa02-stt-wer.md` (base.en-q5_1, 8 synthetic items, host CPU):
+software AGC gives **no WER benefit** — equal on clean audio, +0.15 / +0.45 / +0.76 points in
+quiet / babble / white noise (it also lifts the noise floor between words), −0.61 only for
+quiet + babble; differences under ~0.5 points are within noise. Whisper's log-mel front end
+already normalises level. **Decision stands: software AGC stays off by default.** Platform AGC /
+noise suppression cannot be emulated on the host and remain device rows (⏳ QA-02 / AUD-02).
