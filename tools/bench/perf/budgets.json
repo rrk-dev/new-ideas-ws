@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "reference_audio_minutes": 60,
+  "tiers": {
+    "high": {"max_process_minutes_per_60": 15, "max_battery_pct_per_audio_hour": 10},
+    "mid": {"max_process_minutes_per_60": 22, "max_battery_pct_per_audio_hour": 14},
+    "low": {"max_process_minutes_per_60": 30, "max_battery_pct_per_audio_hour": 18}
+  },
+  "forbidden_thermal_states": ["critical", "severe", "emergency", "shutdown"],
+  "sustained_run_minutes": 30,
+  "regression_limit_pct": 10,
+  "notes": "high/low come from tasks/11-quality/QA-03 and vv-benchmark-eval. mid and the low-tier battery budget are interpolated placeholders until the first device runs; revise through an ADR."
+}

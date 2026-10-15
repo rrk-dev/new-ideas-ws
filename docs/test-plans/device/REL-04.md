@@ -1,0 +1,14 @@
+# Device verification — REL-04 Beta Program
+
+The exit-criteria arithmetic is covered by `[REL-04/AC1]` on the host
+(`tools/release/tests/test_beta_program.py` and
+`app/test/unit/beta/beta_exit_test.dart`). These rows need store consoles,
+a processed internal build, and testers. Devices are not available to the
+implementer; leave Result blank until someone runs the row.
+
+| AC | Steps | Expected | Device | OS | Result | Date | Tester |
+|---|---|---|---|---|---|---|---|
+| [REL-04/AC1] | 1. Finish a REL-01 tag upload and wait until the build has processed in TestFlight. 2. Create the external group `VaultVoice External` if it does not exist. 3. Actions → beta → action `external`, with that version name and build number. 4. Install from the external invite on a phone that is not an internal tester. | The workflow is green. TestFlight shows the build on the external group. The app installs. Beta App Review notes match `app/ios/fastlane/beta_review_notes.txt` (no phone/VoIP recording, user-tap only, Hugging Face models). | iPhone (matrix) | iOS 16.4+ | | | |
+| [REL-04/AC1] | 1. Same internal build on the Play internal track. 2. Actions → beta → action `closed` with the same build number. 3. Open the closed-testing link and install. | Play Console Closed testing (API track `alpha`, or `VV_PLAY_CLOSED_TRACK`) shows the build. The app installs. The internal track build is unchanged. | arm64 Android phone (matrix) | API 26+ | | | |
+| [REL-04/AC1] | 1. On a beta build, Settings → Send beta feedback. 2. Enter a short note, leave Include diagnostics off, tap Share, then cancel the sheet. 3. Tap Share again and pick Mail (or Save). 4. Repeat with Include diagnostics on: read the preview, tap Cancel. 5. Repeat, tap Share in the preview, then pick a destination. | Nothing is sent when the sheet is cancelled or the preview is cancelled. The shared message has the note and no recording or transcript. The zip lists only `logs/`, `device.json`, `metrics.jsonl`, `manifest.json`. No network request is added. | iPhone and Android phone | iOS 16.4+ / API 26+ | | | |
+| [REL-04/AC1] | 1. Write a beta report with 49 testers (or all testers on one platform, or crash-free 0.994, or one data-loss report, or satisfaction 0.79, or open_s1 1). 2. Actions → beta → action `production` with that JSON. 3. After a real beta, fill a report that meets `docs/beta.md` (≥ 50 testers across both platforms, crash-free ≥ 0.995, zero data-loss, satisfaction ≥ 0.80, open S1 = 0) and run `production` again. | The failing report ends the gate job; TestFlight and Play production are not changed. The passing report selects the iOS build without submitting it for review, and Play production shows a draft only. Public release still needs a human. | GitHub Actions + App Store Connect + Play Console | runner images | | | |

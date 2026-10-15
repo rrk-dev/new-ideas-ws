@@ -1,0 +1,39 @@
+# SEC-08: dependency vulnerability scan (pub, Gradle, native submodules).
+name: osv
+
+on:
+  pull_request:
+    paths:
+      - "**/pubspec.lock"
+      - "**/*.gradle*"
+      - "**/Podfile.lock"
+      - "native/**"
+      - ".gitmodules"
+      - "osv-scanner.toml"
+  schedule:
+    - cron: "17 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  osv:
+    name: osv
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OSV_VERSION: "2.7.0"
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          submodules: recursive
+      - name: Install osv-scanner (pinned, checksum verified)
+        run: |
+          base="https://github.com/google/osv-scanner/releases/download/v${OSV_VERSION}"
+          curl -fsSLo osv-scanner "$base/osv-scanner_linux_amd64"
+          curl -fsSLo SHA256SUMS "$base/osv-scanner_SHA256SUMS"
+          grep " osv-scanner_linux_amd64\$" SHA256SUMS | sed 's/osv-scanner_linux_amd64/osv-scanner/' | sha256sum -c -
+          chmod +x osv-scanner
+          sudo mv osv-scanner /usr/local/bin/
+      - run: bash tools/ci/osv_scan.sh

@@ -1,0 +1,8 @@
+# SEC-08: OSV-Scanner config. Every ignore needs the advisory id, an expiry date
+# and a reason that links to the triage entry in docs/threat-model.md
+# ("Dependency findings"). There are no ignores today.
+#
+# [[IgnoredVulns]]
+# id = "GHSA-xxxx-xxxx-xxxx"
+# ignoreUntil = 2027-01-01
+# reason = "Not reachable: <why>. Triage: docs/threat-model.md#dependency-findings"

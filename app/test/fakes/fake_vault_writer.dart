@@ -25,6 +25,8 @@ class FakeVaultWriter implements VaultWriter {
 
   void failWith(Failure failure) => _failure = failure;
 
+  void clearFailure() => _failure = null;
+
   /// When set, only [read] fails with it.
   Failure? readFailure;
 

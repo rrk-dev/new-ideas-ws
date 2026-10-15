@@ -1,0 +1,213 @@
+# Beta promotion (REL-04). The tag workflow (.github/workflows/release.yml)
+# stays internal-only. A human runs this after that upload has finished
+# processing:
+#   external   — TestFlight group "VaultVoice External"
+#   closed     — Play closed testing (API track alpha)
+#   production — only after tools/release/beta_gate.py accepts the report
+#
+# Secrets are the REL-01 `release` environment (docs/release-secrets.md).
+# No rebuild, no symbol upload. Production Play status is draft and the
+# App Store lane does not submit for review.
+name: beta
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "external, closed, or production"
+        required: true
+        type: choice
+        options:
+          - external
+          - closed
+          - production
+      build_name:
+        description: "Version name X.Y.Z already uploaded to the internal tracks"
+        required: true
+        type: string
+      build_number:
+        description: "Build number of that upload"
+        required: true
+        type: string
+      beta_report:
+        description: "Exit-criteria JSON (required for production). Counts only — no user content."
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: beta
+  cancel-in-progress: false
+
+jobs:
+  gate:
+    name: gate
+    if: inputs.action == 'production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Write beta report
+        env:
+          BETA_REPORT: ${{ inputs.beta_report }}
+        run: |
+          set +x
+          umask 077
+          if [ -z "$BETA_REPORT" ]; then
+            echo "production requires the beta_report input" >&2
+            exit 2
+          fi
+          printf '%s' "$BETA_REPORT" > "$RUNNER_TEMP/beta-report.json"
+          echo "VV_BETA_REPORT=$RUNNER_TEMP/beta-report.json" >> "$GITHUB_ENV"
+      - name: Exit criteria
+        run: python3 tools/release/beta_gate.py "$VV_BETA_REPORT"
+
+  external:
+    name: external
+    if: inputs.action == 'external'
+    runs-on: macos-latest
+    timeout-minutes: 30
+    environment: release
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: app/ios
+      - name: Write App Store Connect API key (secret never echoed)
+        env:
+          APP_STORE_CONNECT_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
+        run: |
+          set +x
+          umask 077
+          printf '%s' "$APP_STORE_CONNECT_API_KEY_P8" | base64 --decode > "$RUNNER_TEMP/asc.p8"
+          echo "APP_STORE_CONNECT_API_KEY_P8_PATH=$RUNNER_TEMP/asc.p8" >> "$GITHUB_ENV"
+      - name: Distribute to the TestFlight external group
+        working-directory: app/ios
+        env:
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          VV_BUILD_NAME: ${{ inputs.build_name }}
+          VV_BUILD_NUMBER: ${{ inputs.build_number }}
+        run: bundle exec fastlane ios external --fastfile fastlane/Fastfile.beta
+      - if: always()
+        run: rm -f "$RUNNER_TEMP/asc.p8"
+
+  closed:
+    name: closed
+    if: inputs.action == 'closed'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: release
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: app/android
+      - name: Write Play service account (secret never echoed)
+        env:
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          set +x
+          umask 077
+          printf '%s' "$PLAY_SERVICE_ACCOUNT_JSON" > "$RUNNER_TEMP/play.json"
+          echo "PLAY_SERVICE_ACCOUNT_JSON_PATH=$RUNNER_TEMP/play.json" >> "$GITHUB_ENV"
+      - name: Promote internal to Play closed testing
+        working-directory: app/android
+        env:
+          VV_BUILD_NAME: ${{ inputs.build_name }}
+          VV_BUILD_NUMBER: ${{ inputs.build_number }}
+        run: bundle exec fastlane android closed --fastfile fastlane/Fastfile.beta
+      - if: always()
+        run: rm -f "$RUNNER_TEMP/play.json"
+
+  production_ios:
+    name: production_ios
+    needs: gate
+    if: inputs.action == 'production' && needs.gate.result == 'success'
+    runs-on: macos-latest
+    timeout-minutes: 30
+    environment: release
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: app/ios
+      - name: Write beta report
+        env:
+          BETA_REPORT: ${{ inputs.beta_report }}
+        run: |
+          set +x
+          umask 077
+          printf '%s' "$BETA_REPORT" > "$RUNNER_TEMP/beta-report.json"
+          echo "VV_BETA_REPORT=$RUNNER_TEMP/beta-report.json" >> "$GITHUB_ENV"
+      - name: Exit criteria
+        run: python3 tools/release/beta_gate.py "$VV_BETA_REPORT"
+      - name: Write App Store Connect API key (secret never echoed)
+        env:
+          APP_STORE_CONNECT_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
+        run: |
+          set +x
+          umask 077
+          printf '%s' "$APP_STORE_CONNECT_API_KEY_P8" | base64 --decode > "$RUNNER_TEMP/asc.p8"
+          echo "APP_STORE_CONNECT_API_KEY_P8_PATH=$RUNNER_TEMP/asc.p8" >> "$GITHUB_ENV"
+      - name: Select the build for App Store release
+        working-directory: app/ios
+        env:
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          VV_BUILD_NAME: ${{ inputs.build_name }}
+          VV_BUILD_NUMBER: ${{ inputs.build_number }}
+        run: bundle exec fastlane ios production --fastfile fastlane/Fastfile.beta
+      - if: always()
+        run: rm -f "$RUNNER_TEMP/asc.p8"
+
+  production_android:
+    name: production_android
+    needs: gate
+    if: inputs.action == 'production' && needs.gate.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: release
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: app/android
+      - name: Write beta report
+        env:
+          BETA_REPORT: ${{ inputs.beta_report }}
+        run: |
+          set +x
+          umask 077
+          printf '%s' "$BETA_REPORT" > "$RUNNER_TEMP/beta-report.json"
+          echo "VV_BETA_REPORT=$RUNNER_TEMP/beta-report.json" >> "$GITHUB_ENV"
+      - name: Exit criteria
+        run: python3 tools/release/beta_gate.py "$VV_BETA_REPORT"
+      - name: Write Play service account (secret never echoed)
+        env:
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          set +x
+          umask 077
+          printf '%s' "$PLAY_SERVICE_ACCOUNT_JSON" > "$RUNNER_TEMP/play.json"
+          echo "PLAY_SERVICE_ACCOUNT_JSON_PATH=$RUNNER_TEMP/play.json" >> "$GITHUB_ENV"
+      - name: Promote closed testing to a production draft
+        working-directory: app/android
+        env:
+          VV_BUILD_NAME: ${{ inputs.build_name }}
+          VV_BUILD_NUMBER: ${{ inputs.build_number }}
+        run: bundle exec fastlane android production --fastfile fastlane/Fastfile.beta
+      - if: always()
+        run: rm -f "$RUNNER_TEMP/play.json"

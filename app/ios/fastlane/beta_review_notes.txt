@@ -1,0 +1,14 @@
+VaultVoice beta — please read before testing.
+
+This app does not record phone calls or VoIP calls. It records only after
+the tester taps Record, and a visible indicator stays on while the
+microphone is open. An incoming call stops capture and the app does not
+resume recording when the call ends.
+
+No account is required. On first launch the app downloads speech and
+language models from Hugging Face (huggingface.co). Those files stay on
+the device. Audio, transcripts and notes are not uploaded.
+
+The microphone background mode and the Android microphone foreground
+service exist only so a recording the tester already started can continue
+with the screen off, with the indicator still visible.

@@ -2645,6 +2645,71 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get betaFeedbackTitle => 'Send beta feedback';
+
+  @override
+  String get betaFeedbackSubtitle =>
+      'Email or share a note. Nothing is sent until you pick a destination.';
+
+  @override
+  String get betaFeedbackIntro =>
+      'Tell us what worked and what did not. Do not include recordings or transcripts. Share opens the system sheet, where you can choose Mail.';
+
+  @override
+  String get betaFeedbackMessageLabel => 'Message';
+
+  @override
+  String get betaFeedbackMessageHint => 'What happened, and what you expected';
+
+  @override
+  String get betaFeedbackSatisfaction => 'Extraction satisfaction (optional)';
+
+  @override
+  String get betaFeedbackSatisfactionHelp =>
+      'How useful was the last extraction? 1 is not useful, 5 is very useful. Skip this if you have not extracted a note yet.';
+
+  @override
+  String betaFeedbackScore(int score) {
+    return 'Score $score out of 5';
+  }
+
+  @override
+  String get betaFeedbackIncludeDiagnostics => 'Include diagnostics';
+
+  @override
+  String get betaFeedbackIncludeDiagnosticsSubtitle =>
+      'Logs, device info and performance metrics. No recordings, transcripts or notes. You can read them before sharing.';
+
+  @override
+  String get betaFeedbackShare => 'Share';
+
+  @override
+  String get betaFeedbackShared =>
+      'Choose a destination in the share sheet. Nothing is sent until you do.';
+
+  @override
+  String get betaFeedbackDismissed => 'Nothing was shared.';
+
+  @override
+  String get betaFeedbackUnavailable =>
+      'Sharing is not available on this device.';
+
+  @override
+  String get betaFeedbackFailed => 'Could not prepare feedback.';
+
+  @override
+  String get betaFeedbackEmailSubject => 'VaultVoice beta feedback';
+
+  @override
+  String get betaFeedbackDiagnosticsNote =>
+      'A diagnostics zip is attached. It contains logs, device info and metrics only.';
+
+  @override
+  String betaFeedbackSatisfactionLine(int score) {
+    return 'Extraction satisfaction: $score/5';
+  }
+
+  @override
   String get paywallTitle => 'Get VaultVoice Pro';
 
   @override

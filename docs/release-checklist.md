@@ -48,6 +48,32 @@ started by pushing the tag; everything before that happens on a normal reviewed 
       attach them to a public GitHub Release. Symbolication: `docs/crash-triage.md` (REL-02).
 - [ ] Release notes (`release-notes` artifact) attached to the internal release record.
 
+## Promotion (manual, outside the tag pipeline)
+The tag workflow stops at TestFlight internal and the Play internal track.
+Further promotion is the `beta` workflow (`.github/workflows/beta.yml`, REL-04).
+Procedure, exit criteria and triage: `docs/beta.md`.
+
+- [ ] After the internal build has finished processing, run **beta** → `external`
+      (TestFlight group `VaultVoice External`) and **beta** → `closed` (Play
+      closed testing, API track `alpha`).
+- [ ] Triage feedback labelled `beta` (S1 data loss/crash blocks release, S2 wrong
+      output, S3 UX). In-app path: Settings → Send beta feedback.
+- [ ] Production only when `python3 tools/release/beta_gate.py <report.json>`
+      exits 0: ≥ 50 testers with at least one on iOS and one on Android,
+      crash-free sessions ≥ 99.5%, zero data-loss reports, extraction
+      satisfaction ≥ 0.80, no open S1. The workflow's `production` action runs
+      that gate and then only prepares a Play **draft** and selects the iOS
+      build (`submit_for_review: false`). A human still submits for review.
+## Store listing (REL-05)
+Engineering assets live in-repo (`docs/store-listing.md`). Marketing copy is product-owned.
+- [ ] Screenshots captured (`bash tools/release/capture_store_screenshots.sh ios` and `android`) at the sizes in `tools/release/store_screenshot_sizes.json` (iPhone 1206×2622, iPad 2064×2752, Android 1080×1920). Seed is `app/test/helpers/store_demo_data.dart` (Speaker A/B — no real people).
+- [ ] Play feature graphic 1024×500 and hi-res icon 512×512 (`python3 tools/release/gen_store_graphics.py`, or product artwork in the same paths).
+- [ ] `[PRODUCT]` placeholders in `app/ios/fastlane/metadata/` and `app/android/fastlane/metadata/` replaced with product copy.
+- [ ] IAP `vv_pro_annual` (annual subscription) and `vv_pro_lifetime` (one-time) created in App Store Connect and Play Console (`docs/iap-products.md`).
+- [ ] Reviewer notes current: no phone/VoIP recording, user-tap start with a visible indicator, Hugging Face model download on first launch, `audio`/`processing` background modes and Android microphone FGS, demo WAV `app/test/fixtures/audio/store_demo_silence.wav`.
+- [ ] Privacy nutrition labels / Data Safety (SEC-06) still match.
+- [ ] Submitted on both stores; approval is the REL-05 acceptance criterion (device rows in `docs/test-plans/device/REL-05.md`).
+
 ## Promotion (manual, outside this pipeline)
 - [ ] Beta (REL-04) / production rollout decided by a human in App Store Connect / Play Console.
 - [ ] Post-release: watch App Store Connect / Play Console crash reports (OS-level opt-in baseline).
