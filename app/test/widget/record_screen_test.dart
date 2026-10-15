@@ -103,9 +103,12 @@ void main() {
   Future<void> pump(
     WidgetTester t, {
     bool micPrimed = true,
+    bool consentAcked = true,
+    bool pickMeeting = true,
     List<ProfileChoice> profiles = const [
       ProfileChoice(id: 'meeting', name: 'Meeting'),
       ProfileChoice(id: 'interview', name: 'Interview', consentRequired: true),
+      ProfileChoice(id: 'notes', name: 'Notes', consentOptional: true),
     ],
   }) async {
     t.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
@@ -115,7 +118,10 @@ void main() {
           captureBackendProvider.overrideWithValue(capture),
           // APP-01 priming state (integration W3).
           settingsStoreProvider.overrideWithValue(
-            FakeSettingsStore({if (micPrimed) OnboardingKeys.micPrimed: true}),
+            FakeSettingsStore({
+              if (micPrimed) OnboardingKeys.micPrimed: true,
+              if (consentAcked) OnboardingKeys.consentAcknowledgedAt: 1,
+            }),
           ),
           callGuardProvider.overrideWithValue(guard),
           flavorProvider.overrideWithValue(Flavor.prod),
@@ -138,6 +144,13 @@ void main() {
       ),
     );
     await t.pumpAndSettle();
+    // Auto asks for consent (SEC-07); most tests use a no-confirmation profile.
+    if (pickMeeting) {
+      await t.tap(find.byKey(const ValueKey('record-profile')));
+      await t.pumpAndSettle();
+      await t.tap(find.text('Meeting').last);
+      await t.pumpAndSettle();
+    }
   }
 
   Finder main() => find.byKey(const ValueKey('record-main'));
@@ -325,6 +338,90 @@ void main() {
     final applied = session.applied.single;
     expect(applied.$2.profileId, 'interview');
     expect(applied.$3, isNotNull, reason: 'consent_confirmed_at');
+  });
+
+  testWidgets('[SEC-07/AC1] a required-consent profile cannot start until '
+      'the confirmation is accepted; the time is stored', (t) async {
+    await pump(t);
+    await t.tap(find.byKey(const ValueKey('record-profile')));
+    await t.pumpAndSettle();
+    await t.tap(find.text('Interview').last);
+    await t.pumpAndSettle();
+    await t.tap(main());
+    await t.pumpAndSettle();
+    expect(find.byKey(const ValueKey('consent-skip')), findsNothing);
+    await t.tap(find.text('Cancel'));
+    await t.pumpAndSettle();
+    expect(capture.calls, isEmpty);
+    await t.tap(main());
+    await t.pumpAndSettle();
+    await t.tap(find.byKey(const ValueKey('consent-confirm')));
+    await t.pump();
+    await t.pump();
+    expect(capture.calls.single, isA<OpenCall>());
+    expect(session.applied.single.$3, isNotNull);
+  });
+
+  testWidgets('[SEC-07/AC1] Auto (no profile) asks for the confirmation too', (
+    t,
+  ) async {
+    await pump(t, pickMeeting: false);
+    await t.tap(main());
+    await t.pumpAndSettle();
+    expect(find.byType(ConsentDialog), findsOneWidget);
+    expect(capture.calls, isEmpty);
+  });
+
+  testWidgets('[SEC-07/AC1] an optional-consent profile may record without '
+      'confirming; no consent time is stored', (t) async {
+    await pump(t);
+    await t.tap(find.byKey(const ValueKey('record-profile')));
+    await t.pumpAndSettle();
+    await t.tap(find.text('Notes').last);
+    await t.pumpAndSettle();
+    await t.tap(main());
+    await t.pumpAndSettle();
+    await t.tap(find.byKey(const ValueKey('consent-skip')));
+    await t.pump();
+    await t.pump();
+    expect(capture.calls.single, isA<OpenCall>());
+    expect(session.applied.single.$3, isNull);
+  });
+
+  testWidgets('[SEC-07/AC1] a profile with consent none starts directly', (
+    t,
+  ) async {
+    await pump(t);
+    await t.tap(find.byKey(const ValueKey('record-profile')));
+    await t.pumpAndSettle();
+    await t.tap(find.text('Meeting').last);
+    await t.pumpAndSettle();
+    await t.tap(main());
+    await t.pump();
+    expect(find.byType(ConsentDialog), findsNothing);
+    expect(capture.calls.single, isA<OpenCall>());
+  });
+
+  testWidgets('[SEC-07/AC1] the first recording needs the first-run '
+      'acknowledgement; it is stored once given', (t) async {
+    await pump(t, consentAcked: false);
+    await t.tap(find.byKey(const ValueKey('record-profile')));
+    await t.pumpAndSettle();
+    await t.tap(find.text('Meeting').last);
+    await t.pumpAndSettle();
+    await t.tap(main());
+    await t.pumpAndSettle();
+    expect(find.byType(FirstRunConsentDialog), findsOneWidget);
+    expect(capture.calls, isEmpty);
+    await t.tap(find.text('Cancel'));
+    await t.pumpAndSettle();
+    expect(capture.calls, isEmpty);
+    await t.tap(main());
+    await t.pumpAndSettle();
+    await t.tap(find.byKey(const ValueKey('consent-first-run-ack')));
+    await t.pump();
+    await t.pump();
+    expect(capture.calls.single, isA<OpenCall>());
   });
 
   testWidgets('[AUD-08/AC2] the marker button stores the recorded time', (

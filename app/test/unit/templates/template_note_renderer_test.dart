@@ -16,6 +16,7 @@ import 'template_fixtures.dart';
 NoteInput input({
   String profileId = 'meeting',
   bool valid = true,
+  bool consent = true,
   Map<String, Object?>? json,
 }) => NoteInput(
   recording: RecordingRow(
@@ -26,7 +27,7 @@ NoteInput input({
     status: RecordingStatus.values.first,
     source: RecordingSource.values.first,
     tags: const ['work'],
-    consentConfirmedAt: DateTime.utc(2026, 10, 13, 12),
+    consentConfirmedAt: consent ? DateTime.utc(2026, 10, 13, 12) : null,
     recovered: false,
   ),
   extraction: ExtractionRow(
@@ -72,6 +73,16 @@ void main() {
     expect(md, contains('consent_at: "2026-10-13T'));
     expect(warnings, isEmpty);
   });
+
+  test(
+    '[SEC-07/AC2] consent_at is in the front-matter only when confirmed',
+    () {
+      final withConsent = renderer(input());
+      final front = withConsent.split('\n---\n').first;
+      expect(front, contains('consent_at: "2026-10-13T'));
+      expect(renderer(input(consent: false)), isNot(contains('consent_at')));
+    },
+  );
 
   test('invalid extraction or unknown profile → summary-only', () {
     final md = renderer(input(valid: false, json: {'summary': 'Prose.'}));

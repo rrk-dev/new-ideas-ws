@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
   s.dependency 'Flutter'
   s.platform = :ios, '16.0'
   s.vendored_frameworks = 'Frameworks/vv_native.xcframework'
+  s.resource_bundles = { 'vv_native_privacy' => ['PrivacyInfo.xcprivacy'] }
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.swift_version = '5.0'
 end

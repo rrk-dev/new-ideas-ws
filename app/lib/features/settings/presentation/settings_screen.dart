@@ -12,6 +12,7 @@ import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/crash_reports.dart';
 import 'package:vaultvoice/features/settings/presentation/diagnostics_export.dart';
 import 'package:vaultvoice/features/settings/presentation/network_activity_screen.dart';
+import 'package:vaultvoice/features/settings/presentation/privacy_policy_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/setting_texts.dart';
 import 'package:vaultvoice/features/settings/presentation/setting_tiles.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
@@ -96,6 +97,17 @@ class SettingsScreen extends ConsumerWidget {
             leading: const Icon(Icons.info_outline),
             title: Text(l10n.aboutVersion),
             subtitle: const Text('$kAppName $kAppVersion'),
+          ),
+          ListTile(
+            key: const ValueKey('about-privacy-policy'),
+            leading: const Icon(Icons.privacy_tip_outlined),
+            title: Text(l10n.aboutPrivacyPolicy),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => const PrivacyPolicyScreen(),
+              ),
+            ),
           ),
           ListTile(
             key: const ValueKey('about-licenses'),
