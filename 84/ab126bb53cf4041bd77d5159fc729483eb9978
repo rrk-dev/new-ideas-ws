@@ -1,0 +1,67 @@
+tools/bench/corpus/scripts/engineering-brainstorm.txt
+  s_9f6fcf8c1840a0::t_5193f4a155db68 1
+  s_9f6fcf8c1840a0::t_2a79217fb99334 2-5
+tools/bench/corpus/scripts/notes-grocery.txt
+  s_9f6fcf8c1840a0::t_cd5ad62d13a6e9 1-4
+tools/bench/corpus/scripts/meeting-sprint.txt
+  s_9f6fcf8c1840a0::t_f06262c7720de1 1,3-4,6
+  s_9f6fcf8c1840a0::t_2a79217fb99334 2,5,7
+tools/bench/corpus/scripts/warranty-receipt.txt
+  s_9f6fcf8c1840a0::t_2a79217fb99334 2-4
+  s_9f6fcf8c1840a0::t_60a88cc8a83715 1
+tools/bench/corpus/scripts/accent-au-travel.txt
+  s_9f6fcf8c1840a0::t_c8e884cce60f98 1-4
+tools/bench/corpus/make_corpus.py
+  s_9f6fcf8c1840a0::t_1b2779c9c47bbe 1-17,20-160,192-201,204-209
+  s_9f6fcf8c1840a0::t_0edb6e78868f03 18-19,161-191,202-203
+tools/bench/corpus/corpus.jsonl
+  s_9f6fcf8c1840a0::t_0edb6e78868f03 1-48
+tools/bench/stt_wer/audio.py
+  s_9f6fcf8c1840a0::t_4ddf08cd0480cb 1-130
+tools/bench/corpus/scripts/meeting-customer.txt
+  s_9f6fcf8c1840a0::t_2af183a544ed8b 1-6
+docs/test-plans/device/QA-02.md
+  s_9f6fcf8c1840a0::t_34d2eba454a6a4 1-15
+tasks/11-quality/QA-02-stt-benchmark-corpus.md
+  s_9f6fcf8c1840a0::t_867ba85445e66b 4,11-15,19-46
+tools/bench/stt_wer/bridge.py
+  s_9f6fcf8c1840a0::t_627f9ec1ea9fd7 1-135
+tools/bench/corpus/scripts/accent-in-standup.txt
+  s_9f6fcf8c1840a0::t_934fd1a3ecc0ab 1-4
+tools/bench/stt_wer/run.py
+  s_9f6fcf8c1840a0::t_bf4064cd2ac3b5 153,162-163,165,168-173,283,304-306,308-309,322
+  s_9f6fcf8c1840a0::t_709ed3ecc4cdd6 1-92,95-152,154-161,164,166-167,174-282,284-303,307,310-321,323,327-331,333-364
+  s_9f6fcf8c1840a0::t_f235a6fec24dd5 93-94,324-326,332
+tools/bench/corpus/scripts/notes-recipe.txt
+  s_9f6fcf8c1840a0::t_2a79217fb99334 2-5
+  s_9f6fcf8c1840a0::t_6bb7c9654b459d 1
+tools/ci/tests/test_stt_wer_harness.py
+  s_9f6fcf8c1840a0::t_275e8e6df32e3a 1-78
+tools/bench/corpus/librispeech-test-clean.jsonl
+  s_9f6fcf8c1840a0::t_3ff24f75d85a04 1-40
+tools/bench/stt_wer/wer.py
+  s_9f6fcf8c1840a0::t_21aff5d30d74b7 56-59
+  s_9f6fcf8c1840a0::t_1eec8d4e62b3e5 1-55,60-113
+tools/bench/results/2026-10-14-qa02-stt-wer.md
+  s_9f6fcf8c1840a0::t_dba4a467a11ab3 1-7,9,13-27,33
+  s_9f6fcf8c1840a0::t_b8137eb4d1b851 34-53
+  s_9f6fcf8c1840a0::t_f80b1ea22fe3dc 8,10-12,28-32
+tools/bench/results/2026-10-14-qa02-stt-wer.jsonl
+  s_9f6fcf8c1840a0::t_d9a8a2188c7bec 1-537
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "84ab126bb53cf4041bd77d5159fc729483eb9978",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
