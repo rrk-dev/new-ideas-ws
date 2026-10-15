@@ -47,3 +47,13 @@ Predictable, valid, configurable filenames and sub-folder paths.
   `VaultWriter` so `currentHash` can detect user edits; store the collision mode in settings (per target).
 - EXP-07/PRF-07: validate a pattern on save with `FilenamePattern.parse` and show the column.
 
+## Verification Report
+- **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ · analyze ✅ · tests ✅ (780 passed, 29 skipped; coverage not re-measured locally, CI test job gates ≥80% and is green) · native smoke n/a (no native/bridge change) · egress ✅ · recording policy ✅ · CI run: https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858 (run 51 of ci, commit 67b6fcf, completed successfully; run 50 also succeeded)
+- **Acceptance criteria:**
+  - AC1: ✅ re-ran `[EXP-02/AC1]`; sanitization covers reserved characters, controls, bidi/RLO, whitespace, `.`/`..`, Windows device names, NFC, 255-byte grapheme truncation, emoji. Collision tests cover suffix, overwrite (never a foreign file), and skip, plus stable identity via `exports.rel_path` (update in place, unchanged hash skips, deleted note recreated, user-edited note follows the mode). Mutation: dropped `:` from the reserved class; the sanitizer test failed (`abc:defghij` vs `abcdefghij`); restored
+- **Adversarial checks:** empty title, `CON`/`COM1`/`nul.txt`, decomposed `é`, surrogate, path traversal tokens (`../`, absolute, `//`), unknown token column, suffix exhaustion, vault errors propagated, case-insensitive claimed paths. Token values cannot create folders. No content logging.
+- **Skill/rule compliance:** own token parser (not Mustache), documented in `docs/templates.md`. `unorm_dart` reviewed in the privacy audit; no ADR required. No credentials, certificates, or banned crypto.
+- **Issues found:** none
+- **Pending for done:** dependency EXP-01 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task

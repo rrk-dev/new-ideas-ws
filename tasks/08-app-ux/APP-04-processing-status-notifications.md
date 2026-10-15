@@ -46,3 +46,13 @@ Users always know where a recording is in the pipeline and when the note is read
 
 ## Follow-ups
 - APP-07 (proposed): notifications for `waiting` reasons that need the user (model missing, vault access lost); live in-step progress from `PipelineClient.events` between checkpoints.
+## Verification Report
+- **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ · analyze ✅ · tests ✅ (780 passed, 29 skipped; coverage not re-measured locally, CI test job gates ≥80% and is green) · native smoke n/a (no native/bridge change) · egress ✅ · recording policy ✅ · CI run: https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858 (run 51 of ci, commit 67b6fcf, completed successfully; run 50 also succeeded)
+- **Acceptance criteria:**
+  - AC1: ✅ host re-ran `[APP-04/AC1]`. `eta_test.dart` learns throughput on two recordings, then checks a 20% slower run stays within ±30% of the simulated remaining time at every 10% checkpoint, and a mis-calibrated run converges via live progress; with no measurement the ETA is null ("Estimating time…"), not a guess. `processing_monitor_test.dart` asserts generic lock-screen text by default, title only when details are enabled, an allowlist of processing routes, note-ready deep link, and failure Retry. Widget test checks the typed route. Device rows in `docs/test-plans/device/APP-04.md` (ETA and notification deep links on iOS and Android) are blank (⏳). Mutation: forced `estimateRemaining` to 1µs; the ±30% test failed; restored
+- **Adversarial checks:** queued job with no live progress; paused/failed runs dropped by the observer (unit tests around the tagged case); notification `toString` omits the title; deep-link allowlist rejects non-processing payloads; details default off so the recording title is not on the lock screen. No new network host.
+- **Skill/rule compliance:** local notifications via `flutter_local_notifications` (named by `vv-flutter-architecture`), dependency row in the privacy audit. ETA uses audio-seconds because token counts are not on `jobs` (recorded). No credentials or certificates.
+- **Issues found:** none
+- **Pending for done:** AC1: still pending (⏳) — cannot be done; AC1: device row in docs/test-plans/device/APP-04.md has no PASS result with a date; dependency FND-05 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task
