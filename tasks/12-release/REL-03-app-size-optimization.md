@@ -44,3 +44,4 @@ Keep the store download small; all models delivered post-install.
   - AC1: ⏳ test: [REL-03/AC1]; device: docs/test-plans/device/REL-03.md; artifact: tools/bench/results/2026-10-14-rel03-size.md
 - **Decisions:** none new (ADR-FND-06 build flags kept). PRODUCT-DECISION: 40 MiB budget.
 - **Follow-ups:** add the CI steps above; record mobile baselines on the first release run.
+  - Codex review 2026-10-15 (open): mobile size baselines in tools/ci/size-budget.json are null; record baselines and make release checks fail when missing

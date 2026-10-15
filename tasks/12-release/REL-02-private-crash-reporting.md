@@ -42,3 +42,4 @@ Get actionable crash data without violating "no data leaves the device".
 - **Skill/rule compliance:** Capture is local files plus a user-reviewed share sheet. No Crashlytics/Sentry. Symbolication uses private symbols (REL-01). ADR-REL-02 Proposed (own handler vs Crashpad/Breakpad). Signal handler is async-signal-safe C, not a third-party native crash SDK.
 - **Issues found:** none
 - **Pending for done:** AC1: still pending (⏳) — cannot be done; AC1: device row in docs/test-plans/device/REL-02.md has no PASS result with a date; dependency FND-07 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task
+- Codex review 2026-10-15 (open): dSYM packaging (`-debug-symbols`) and collection are written but unrun (needs macOS/Xcode); verify on first release build that `symbols-ios` contains `native/dSYMs/<slice>/vv_native.framework.dSYM`.

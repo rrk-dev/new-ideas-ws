@@ -53,6 +53,10 @@ Reproducible, signed release builds shipped to stores from CI.
     first run; pin all release actions to commit SHAs.
   - Workflow artifacts expire after 90 days: symbols must be copied to the private release archive
     each release (checklist item) — a dedicated private storage target is a follow-up decision.
+  - Codex review 2026-10-15 (open): durable private symbol archive (beyond 90-day workflow artifacts) is
+    still manual; pick a private storage target and add an upload step in `android`/`ios` jobs before publish.
+  - Codex review 2026-10-15 (open): release.yml split into build+gates jobs and `publish-*` jobs
+    (fastlane `upload` lanes, `binary-*` hand-off artifacts); unrun until first tagged release on GitHub.
   - Gradle signing lives in `app/android/signing.gradle` (Groovy, applied from the Kotlin script) to
     avoid conflicts with the Gradle owner; fold it into `build.gradle.kts` later if preferred.
   - REL-04 (external beta groups / closed testing) promotes these builds; REL-03 adds `size_check.sh`

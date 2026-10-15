@@ -41,7 +41,8 @@ started by pushing the tag; everything before that happens on a normal reviewed 
       install from TestFlight / Play internal, onboarding, record 1 min, transcribe, extract,
       export to a vault folder, kill + relaunch during processing, call interruption stops capture.
 - [ ] **Symbols archived**: download `symbols-android-X.Y.Z-N` and `symbols-ios-X.Y.Z-N` artifacts
-      (Dart `app.*.symbols`, `obfuscation_map.json`, unstripped `libvv_native.so`, dSYMs,
+      (Dart `app.*.symbols`, `obfuscation_map.json`, unstripped `libvv_native.so`, app + `vv_native`
+      dSYMs under `native/dSYMs/`,
       `SHA256SUMS`) and store them in the private release archive for the lifetime of the build
       (workflow artifacts expire after 90 days). Never upload them to third-party crash services or
       attach them to a public GitHub Release. Symbolication: `docs/crash-triage.md` (REL-02).

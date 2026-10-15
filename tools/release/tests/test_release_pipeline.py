@@ -58,16 +58,19 @@ def test_REL_01_AC1_release_runs_only_on_version_tags():
     for j in ("android", "ios"):
         assert "needs: prepare" in jobs[j]
         assert "environment: release" in jobs[j]
+    for j in ("publish-android", "publish-ios"):
+        assert "environment: release" in jobs[j]
 
 
 def test_REL_01_AC1_signed_builds_go_to_testflight_and_play_internal():
     """[REL-01/AC1] Both lanes sign and upload: TestFlight + Play internal track."""
     jobs = _jobs(WORKFLOW.read_text(encoding="utf-8"))
-    assert "bundle exec fastlane android internal" in jobs["android"]
-    assert "bundle exec fastlane ios beta" in jobs["ios"]
+    assert "bundle exec fastlane android upload" in jobs["publish-android"]
+    assert "bundle exec fastlane ios upload" in jobs["publish-ios"]
 
     ios = _code(IOS_FASTFILE)
-    assert re.search(r"lane :beta do\s*\n\s*build\b", ios)
+    assert re.search(r"lane :beta do\s*\n\s*build\s*\n\s*upload\b", ios)
+    assert re.search(r"lane :upload do", ios)
     assert re.search(r"match\(type: \"appstore\", readonly: true", ios)
     assert "app_store_connect_api_key(" in ios
     assert "upload_to_testflight(" in ios
@@ -76,7 +79,8 @@ def test_REL_01_AC1_signed_builds_go_to_testflight_and_play_internal():
     assert not re.search(r"FASTLANE_PASSWORD|APP_SPECIFIC_PASSWORD|apple_id\(", ios)
 
     android = _code(ANDROID_FASTFILE)
-    assert re.search(r"lane :internal do\s*\n\s*build\b", android)
+    assert re.search(r"lane :internal do\s*\n\s*build\s*\n\s*upload\b", android)
+    assert re.search(r"lane :upload do", android)
     assert re.search(r"upload_to_play_store\(\s*\n\s*track: \"internal\"", android)
     assert "app-prod-release.aab" in android
 
@@ -166,3 +170,42 @@ def test_release_checklist_covers_required_items():
     for item in ("sec-06", "licence screen", "version bumped", "changelog", "egress report",
                  "size check", "oldest and newest device", "symbols archived"):
         assert item in text, item
+
+
+def test_REL_01_AC1_uploads_only_after_all_gates_pass():
+    """[REL-01/AC1] Codex review: size + recording-policy gates precede BOTH store uploads."""
+    jobs = _jobs(WORKFLOW.read_text(encoding="utf-8"))
+    for j in ("android", "ios"):
+        assert "fastlane" in jobs[j] and f"fastlane {j} build" in jobs[j]
+        assert not re.search(r"fastlane (android internal|ios beta|\w+ upload)", jobs[j])
+        assert "tools/ci/size_check.sh" in jobs[j]
+        assert "check_recording_policy.sh" in jobs[j]
+        assert f"name: binary-{j}" in jobs[j]
+        # build jobs hold no store credentials
+        assert "PLAY_SERVICE_ACCOUNT" not in jobs[j]
+    for j, lane in (("publish-android", "android upload"), ("publish-ios", "ios upload")):
+        needs = re.search(r"needs: \[([^\]]*)\]", jobs[j])[1]
+        assert {"android", "ios"} <= {n.strip() for n in needs.split(",")}
+        assert f"fastlane {lane}" in jobs[j]
+        assert "size_check.sh" not in jobs[j]
+
+
+def test_REL_01_AC1_symbols_archived_with_release_and_retention_documented():
+    """[REL-01/AC1] Codex review: symbols are uploaded before publish and the
+    90-day artifact limit is documented as needing a durable archive."""
+    jobs = _jobs(WORKFLOW.read_text(encoding="utf-8"))
+    for j in ("android", "ios"):
+        assert f"name: symbols-{j}-" in jobs[j]
+    for j in ("publish-android", "publish-ios"):
+        assert "symbols-" not in jobs[j]
+    assert "90 days" in CHECKLIST.read_text(encoding="utf-8")
+
+
+def test_REL_02_AC1_native_dsyms_packaged_and_collected():
+    """[REL-02/AC1] Codex review: vv_native dSYMs go into the xcframework and into release symbols."""
+    native = _code(ROOT / "native/build.sh")
+    assert native.count("-debug-symbols") >= 2
+    assert "vv_native.framework.dSYM" in native
+    build = _code(BUILD)
+    assert "vv_native.xcframework" in build and "dSYMs/*.dSYM" in build
+    assert "native/dSYMs/" in build
