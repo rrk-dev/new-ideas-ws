@@ -1,0 +1,56 @@
+# VaultVoice Play closed testing + gated production (REL-04).
+#
+# Separate from Fastfile so the REL-01 internal upload stays tag-only.
+# Run from app/android:
+#   bundle exec fastlane android closed --fastfile fastlane/Fastfile.beta
+#   bundle exec fastlane android production --fastfile fastlane/Fastfile.beta
+#
+# Not executed here (no Android SDK / fastlane). Options checked against
+# fastlane 2.228.0 supply: track, track_promote_to, track_promote_release_status,
+# version_code, skip_upload_*. Play's default closed track id is "alpha"
+# (shown in Play Console as Closed testing).
+#
+# Credentials: PLAY_SERVICE_ACCOUNT_JSON_PATH via Appfile (docs/release-secrets.md).
+require "fileutils"
+
+default_platform(:android)
+
+ROOT = File.expand_path("../../..", __dir__)
+# Play Console "Closed testing" is the API track `alpha` unless a custom
+# closed track id is set in VV_PLAY_CLOSED_TRACK.
+CLOSED_TRACK = ENV.fetch("VV_PLAY_CLOSED_TRACK", "alpha")
+
+platform :android do
+  def require_beta_exit
+    report = ENV.fetch("VV_BETA_REPORT")
+    sh("python3", File.join(ROOT, "tools/release/beta_gate.py"), report)
+  end
+
+  def promote(from_track, to_track, status)
+    upload_to_play_store(
+      track: from_track,
+      track_promote_to: to_track,
+      track_promote_release_status: status,
+      version_code: ENV.fetch("VV_BUILD_NUMBER").to_i,
+      skip_upload_apk: true,
+      skip_upload_aab: true,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_changelogs: true
+    )
+  end
+
+  desc "Promote the Play internal build to the closed testing track"
+  lane :closed do
+    promote("internal", CLOSED_TRACK, "completed")
+  end
+
+  desc "Promote closed testing to a production draft after the beta gate"
+  lane :production do
+    require_beta_exit
+    # draft: nothing rolls out to the public until a human starts the release
+    # in Play Console. The gate still refuses to create that draft early.
+    promote(CLOSED_TRACK, "production", "draft")
+  end
+end

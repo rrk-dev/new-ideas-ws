@@ -100,6 +100,7 @@ const _screens = {
   'Template (built-in)': '/settings/templates/meeting-default',
   'Template editor': '/settings/templates/mine',
   'Onboarding': '/onboarding',
+  'Beta feedback': '/settings/feedback',
 };
 
 class _Templates implements TemplateStore {

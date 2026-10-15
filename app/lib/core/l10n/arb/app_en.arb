@@ -838,5 +838,26 @@
   "noteCopied": "Note copied.",
   "noteShareFailed": "Could not prepare the note.",
   "noteShareUnavailable": "Sharing is not available on this device.",
-  "noteShareHint": "The note leaves the app only through the app you pick."
+  "noteShareHint": "The note leaves the app only through the app you pick.",
+
+  "betaFeedbackTitle": "Send beta feedback",
+  "betaFeedbackSubtitle": "Email or share a note. Nothing is sent until you pick a destination.",
+  "betaFeedbackIntro": "Tell us what worked and what did not. Do not include recordings or transcripts. Share opens the system sheet, where you can choose Mail.",
+  "betaFeedbackMessageLabel": "Message",
+  "betaFeedbackMessageHint": "What happened, and what you expected",
+  "betaFeedbackSatisfaction": "Extraction satisfaction (optional)",
+  "betaFeedbackSatisfactionHelp": "How useful was the last extraction? 1 is not useful, 5 is very useful. Skip this if you have not extracted a note yet.",
+  "betaFeedbackScore": "Score {score} out of 5",
+  "@betaFeedbackScore": {"placeholders": {"score": {"type": "int"}}},
+  "betaFeedbackIncludeDiagnostics": "Include diagnostics",
+  "betaFeedbackIncludeDiagnosticsSubtitle": "Logs, device info and performance metrics. No recordings, transcripts or notes. You can read them before sharing.",
+  "betaFeedbackShare": "Share",
+  "betaFeedbackShared": "Choose a destination in the share sheet. Nothing is sent until you do.",
+  "betaFeedbackDismissed": "Nothing was shared.",
+  "betaFeedbackUnavailable": "Sharing is not available on this device.",
+  "betaFeedbackFailed": "Could not prepare feedback.",
+  "betaFeedbackEmailSubject": "VaultVoice beta feedback",
+  "betaFeedbackDiagnosticsNote": "A diagnostics zip is attached. It contains logs, device info and metrics only.",
+  "betaFeedbackSatisfactionLine": "Extraction satisfaction: {score}/5",
+  "@betaFeedbackSatisfactionLine": {"placeholders": {"score": {"type": "int"}}}
 }

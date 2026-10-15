@@ -52,6 +52,37 @@ class SharePlusShareService implements ShareService {
     return _outcome(result.status);
   }
 
+  @override
+  Future<ShareOutcome> sharePayload({
+    String? text,
+    String? subject,
+    String? filePath,
+    String? mimeType,
+    Rect? origin,
+  }) async {
+    final result = await SharePlus.instance.share(
+      ShareParams(
+        text: text,
+        subject: subject,
+        files: filePath == null
+            ? null
+            : [
+                XFile(
+                  filePath,
+                  mimeType: mimeType ?? 'application/octet-stream',
+                ),
+              ],
+        sharePositionOrigin: origin,
+        // Web-only fallbacks; disabled so nothing is ever sent implicitly.
+        // Verified against share_plus 13.3.1: text and files may be combined;
+        // Mail uses [subject] as the message subject (EXTRA_SUBJECT).
+        mailToFallbackEnabled: false,
+        downloadFallbackEnabled: false,
+      ),
+    );
+    return _outcome(result.status);
+  }
+
   static ShareOutcome _outcome(ShareResultStatus s) => switch (s) {
     ShareResultStatus.success => ShareOutcome.shared,
     ShareResultStatus.dismissed => ShareOutcome.dismissed,
