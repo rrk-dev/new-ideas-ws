@@ -1,0 +1,36 @@
+app/lib/features/profiles/data/custom_profile_providers.g.dart
+  s_9f6fcf8c1840a0::t_0dccc3953f9a63 186-187,192-194,205-206,234,273
+  s_9f6fcf8c1840a0::t_891f89330875b8 188
+  s_9f6fcf8c1840a0::t_e65e4049dca455 381
+app/lib/features/profiles/domain/profile_draft.dart
+  s_9f6fcf8c1840a0::t_278f619ed4131b 537-539
+app/test/unit/profiles/profile_draft_test.dart
+  s_9f6fcf8c1840a0::t_2cfac8cd0f7b0d 1-128,134
+  s_9f6fcf8c1840a0::t_c633d662adc516 129-133,135-147
+app/test/widget/profile_editor_test.dart
+  s_9f6fcf8c1840a0::t_0dccc3953f9a63 33
+  s_9f6fcf8c1840a0::t_bf6508ed46160d 78,80,86-87,129,131,148,150
+  s_9f6fcf8c1840a0::t_e9edbdbb55aa39 77,79,81
+app/lib/features/profiles/data/custom_profile_providers.dart
+  s_9f6fcf8c1840a0::t_ad91cf79bbebaf 49-50,52-63,67,70
+app/test/widget/accessibility_test.dart
+  s_9f6fcf8c1840a0::t_92734435baa640 2,18-19,41-42,67-75
+tasks/06-profiles/PRF-07-custom-profile-editor.md
+  s_9f6fcf8c1840a0::t_e3dcaea667f61a 4,11-16,21-54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2866740eb09613cd4cf851b3e865fb2aaeb61575",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
