@@ -1,0 +1,67 @@
+app/test/widget/app_shell_test.dart
+  s_9f6fcf8c1840a0::t_ac358956b882c6 10,27-29
+app/lib/features/recording/presentation/recording_details_sheet.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 1-209
+app/test/unit/recording/recording_session_test.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 1-103
+app/lib/features/recording/data/recording_session_service.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 1-120
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 523-761
+  s_9f6fcf8c1840a0::t_35e00a86193bf7 762
+app/lib/features/recording/data/recording_screen_providers.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 1-64
+app/lib/features/recording/presentation/recording_screen.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 1-2,5-6,9-10,12-15,19,21,25-34,38-201,244,280-526,528-529,532-567,569-597
+  s_9f6fcf8c1840a0::t_899f3f63979ccc 208-211,218-231,234-241,245-279
+app/test/helpers/record_screen_overrides.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 1-9
+app/lib/features/pipeline/data/steps/render_write_steps.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 20,221-229
+app/test/unit/pipeline/pipeline_orchestrator_test.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 18,150-160
+  s_9f6fcf8c1840a0::t_60b2fd6e22ccfa 161-162
+app/lib/features/recording/data/recording_screen_providers.g.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 1-212
+app/test/widget/record_screen_test.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 1-370
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 89-131
+app/lib/features/recording/domain/recording_session.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 1-55
+app/test/widget/call_guard_debug_screen_test.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 12,23
+app/test/widget/recording_debug_screen_test.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 13,27
+app/test/golden/placeholder_screens_golden_test.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 2-3,6-8,16-25
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_f6ac1f0efd15bc 262
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 263-389
+  s_9f6fcf8c1840a0::t_ecdfe8022e0249 390
+app/test/widget/recovered_recordings_prompt_test.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 9-10,17
+docs/test-plans/device/AUD-08.md
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 1-16
+app/lib/features/recording/data/record_capture_backend.dart
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 27,122,126
+  s_9f6fcf8c1840a0::t_3713df6745b093 46-50
+tasks/02-audio/AUD-08-recording-ui.md
+  s_9f6fcf8c1840a0::t_4d3edc74b5f385 4,11-17,23-61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3955572df90d317d9205b6ddb12af84fa06f50ac",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
