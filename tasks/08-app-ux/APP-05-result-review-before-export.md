@@ -50,3 +50,5 @@ Optionally review and correct extracted fields before the note is written to the
   audio (AC "source-link jumps to correct audio position" device row depends on it).
 - **APP-04 note:** a local notification "Your result is waiting for review" when a job enters
   `waiting(review)` would help review-first users (not in scope here).
+- Codex review 2026-10-15 (open): preview omits custom templates/bindings used by production export; share renderer loader
+- Codex review 2026-10-15 (open): schema_form.dart:151 invalid numeric input silently becomes 0/null; preserve invalid state and block export

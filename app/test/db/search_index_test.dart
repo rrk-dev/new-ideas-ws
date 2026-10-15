@@ -165,6 +165,18 @@ void main() {
     expect(await indexRows('r1'), 0, reason: 'no FTS residue');
   });
 
+  test('[APP-02] many repeated hits in one recording do not hide other '
+      'matching recordings', () async {
+    await _recording(db, 'long');
+    await _transcript(db, 'long', [for (var i = 0; i < 60; i++) 'budget']);
+    await _recording(db, 'short');
+    await _transcript(db, 'short', [
+      'one budget among ${List.filled(40, 'filler').join(' ')}',
+    ]);
+    final hits = expectOk(await search.search('budget', limit: 2));
+    expect({for (final h in hits) h.recordingId}, {'long', 'short'});
+  });
+
   test('[APP-02] user input never breaks the FTS query syntax', () async {
     await _recording(db, 'r1', title: 'C++ "quoted" AND-or NEAR(x) cafés');
     for (final q in [

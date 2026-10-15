@@ -33,13 +33,12 @@ class SearchRepository {
             'bm25(search_index) AS rank '
             'FROM search_index WHERE search_index MATCH ? '
             'AND recording_id IN ($everyTerm) '
-            'ORDER BY rank LIMIT ?',
+            'ORDER BY rank',
             variables: [
               const Variable(kSnippetOpen),
               const Variable(kSnippetClose),
               Variable(terms.join(' OR ')),
               for (final t in terms) Variable(t),
-              Variable(limit * 10),
             ],
           )
           .get();
