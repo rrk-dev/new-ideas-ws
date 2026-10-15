@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:drift/isolate.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/database.dart';
@@ -46,10 +48,20 @@ Future<PipelineClient> pipelineClient(Ref ref) async {
   final sub = publisher.watch(
     onAvailable: (_) => resumeModelWaits(db.jobsRepository, client),
   );
+  var disposed = false;
   ref.onDispose(() async {
+    disposed = true;
     await sub.cancel();
     await client.dispose();
   });
+  // The worker crashed after startup: respawn it (startup recovery resumes
+  // the interrupted job from its checkpoint) instead of leaving a dead
+  // client behind.
+  unawaited(
+    client.terminated.then((_) {
+      if (!disposed) ref.invalidateSelf();
+    }),
+  );
   return client;
 }
 

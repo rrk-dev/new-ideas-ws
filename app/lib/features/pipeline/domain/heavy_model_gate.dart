@@ -16,6 +16,7 @@ class HeavyModelGate {
   HeavyModel? get loaded => _loaded;
 
   /// Makes [model] the only loaded model (no-op for null or the same one).
+  /// Throws (leaving the previous model loaded) when its release fails.
   Future<void> use(HeavyModel? model) async {
     if (model == null || model == _loaded) return;
     await releaseAll();
@@ -23,10 +24,20 @@ class HeavyModelGate {
   }
 
   /// Releases whatever is loaded.
+  ///
+  /// If the release throws, the model is still considered loaded (it may
+  /// still be resident) and the error is rethrown, so the next [use] or
+  /// [releaseAll] tries the release again and the other model is never
+  /// loaded beside it.
   Future<void> releaseAll() async {
     final current = _loaded;
     if (current == null) return;
     _loaded = null;
-    await release?.call(current);
+    try {
+      await release?.call(current);
+    } on Object {
+      _loaded = current;
+      rethrow;
+    }
   }
 }

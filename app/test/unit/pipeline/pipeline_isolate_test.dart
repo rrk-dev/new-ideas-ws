@@ -52,9 +52,9 @@ PipelineEngines faultyEngines(PipelineWorkerContext ctx) => PipelineEngines(
   onForeground: ({required foreground}) {
     if (foreground) {
       Isolate.current.kill(priority: Isolate.immediate);
-      return Completer<void>().future;
+      return;
     }
-    return Future<void>.error(StateError('async hook failed'));
+    unawaited(Future<void>.error(StateError('async hook failed')));
   },
 );
 

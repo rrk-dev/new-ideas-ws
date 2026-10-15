@@ -632,6 +632,21 @@ void main() {
       expect(job.notBefore, isNotNull);
     });
 
+    test('[FND-05/AC3] an unexpected exception outside a step does not '
+        'kill the worker loop', () async {
+      final o = PipelineOrchestrator(
+        db: db,
+        clock: h.clock,
+        newId: sequentialIds(),
+        steps: [_TestStep(PipelineStepId.transcribe, canRunThrows: 1)],
+      );
+      addTearDown(o.dispose);
+      await o.start();
+      final id = expectOk(await o.enqueue('r1'));
+      await o.whenIdle().timeout(const Duration(seconds: 5));
+      expect((await loadJob(db, id)).state, JobState.done);
+    });
+
     test('an orchestrator without steps refuses to enqueue', () async {
       final o = PipelineOrchestrator(db: db, steps: const []);
       addTearDown(o.dispose);
@@ -643,19 +658,33 @@ void main() {
 }
 
 class _TestStep implements PipelineStep {
-  _TestStep(this.id, {this.enabled = true, StepResult Function()? result})
-    : _result = result ?? (() => const StepSucceeded());
+  _TestStep(
+    this.id, {
+    this.enabled = true,
+    StepResult Function()? result,
+    this.canRunThrows = 0,
+  }) : _result = result ?? (() => const StepSucceeded());
 
   @override
   final PipelineStepId id;
   final bool enabled;
+
+  /// The first [canRunThrows] calls of [canRun] throw (a bug outside the
+  /// step's run, i.e. outside the orchestrator's step try/catch).
+  int canRunThrows;
   final StepResult Function() _result;
 
   @override
   HeavyModel? get model => null;
 
   @override
-  bool canRun(JobSnapshot job) => enabled;
+  bool canRun(JobSnapshot job) {
+    if (canRunThrows > 0) {
+      canRunThrows--;
+      throw StateError('canRun bug');
+    }
+    return enabled;
+  }
 
   @override
   Future<StepResult> run(StepContext ctx) async => _result();
