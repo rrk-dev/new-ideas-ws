@@ -40,7 +40,7 @@ Create the Flutter monorepo with strict, enforced code style so every later task
   - AC2: ⏳ device: docs/test-plans/device/FND-01.md
   - AC3: ✅ test: [FND-01/AC3]; artifact: CONTRIBUTING.md
 - **Decisions:** none (SDK/lint choices follow the vv-flutter-architecture skill)
-- **Follow-ups:** none
+- **Follow-ups:** FND-09 re-enables a macOS desktop target. FND-01 stays iOS + Android only; do not turn desktop back on inside this task.
 
 ## Verification Report
 - **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-13 · **Commit:** 7b969547f514631d2787bc2b8793805ae017b5d8
