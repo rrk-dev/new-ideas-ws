@@ -1,0 +1,19 @@
+app/test/db/search_index_test.dart
+  s_64781eb60f7b87::t_b0165cb210f71f 265,267
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c1f70e10aa01be05e8a5ec43705f490952936dad",
+  "prompts": {},
+  "sessions": {
+    "s_64781eb60f7b87": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "6c497edc-f7a9-431a-88c5-4dfc614958b7",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
