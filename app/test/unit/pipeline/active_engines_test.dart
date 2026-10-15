@@ -260,6 +260,28 @@ void main() {
     });
   });
 
+  group('ActiveLlmEngine background (LLM-04 rework)', () {
+    test('[LLM-04/AC1] a service created while backgrounded with a GPU '
+        'policy loads on the CPU', () async {
+      final runtime = FakeLlmRuntime();
+      final llm = ActiveLlmEngine(
+        resolve: () async =>
+            const ActiveModel(id: 'l', path: '/m/l.gguf', sizeBytes: 1),
+        residency: ModelResidency(),
+        create: (m) => LlmService(
+          runtime: runtime,
+          modelPath: m.path,
+          backend: () => const LlmBackendChoice(useGpu: true, reason: 'gpu'),
+        ),
+      )..setForeground(foreground: false);
+      expect(
+        (await llm.generate(const LlmRequest(prompt: 'hi'))).valueOrNull,
+        'Hello!',
+      );
+      expect(runtime.loads.map((c) => c.useGpu), [false]);
+    });
+  });
+
   group('PipelineJobMetrics', () {
     test('records audio duration for transcribe and summed LLM stats for '
         'extract; failed runs and light steps are not stored', () async {
