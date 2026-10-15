@@ -1,7 +1,7 @@
 # LIC-03 — Enterprise Offline License Keys & Seat Management
 
 **Workstream:** Licensing | **Phase:** 4+ | **Size:** L | **Depends on:** LIC-01 | **Source:** §7 (Centralized local license management without cloud analytics)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-licensing-iap, vv-decision-records, vv-privacy-security, vv-testing
 
 ## Goal
