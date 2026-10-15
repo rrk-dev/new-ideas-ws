@@ -251,7 +251,10 @@ void main() {
     expect(find.text('Models'), findsOneWidget);
 
     await show(t, find.byKey(const ValueKey('privacy-encryption')));
-    expect(find.text('Not enabled in this build yet.'), findsOneWidget);
+    expect(
+      find.text('Off — this build does not encrypt the database.'),
+      findsOneWidget,
+    );
 
     await show(t, find.byKey(const ValueKey('privacy-delete-all')));
     await t.tap(find.byKey(const ValueKey('privacy-delete-all')));

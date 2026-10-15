@@ -69,3 +69,11 @@ flutter:
     - assets/profiles/
     # Built-in Markdown templates (EXP-01) — read-only, never stored as rows.
     - assets/templates/
+
+# SEC-01 (ADR-SEC-01-file-encryption): bundle SQLite3 Multiple Ciphers instead
+# of plain SQLite so the drift database is encrypted (`PRAGMA key`). Verified
+# against sqlite3 3.7.0 `doc/hook.md`.
+hooks:
+  user_defines:
+    sqlite3:
+      source: sqlite3mc

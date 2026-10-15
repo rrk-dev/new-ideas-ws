@@ -2743,19 +2743,25 @@ abstract class AppLocalizations {
   /// No description provided for @encryptionOn.
   ///
   /// In en, this message translates to:
-  /// **'On — the database is encrypted with a key kept in the device keychain.'**
+  /// **'On — the database is encrypted with a key kept in this device’s secure key store.'**
   String get encryptionOn;
+
+  /// No description provided for @encryptionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Unavailable — the encryption key could not be read, so your data stays locked. Restart the app.'**
+  String get encryptionUnavailable;
 
   /// No description provided for @encryptionOff.
   ///
   /// In en, this message translates to:
-  /// **'Not enabled in this build yet.'**
+  /// **'Off — this build does not encrypt the database.'**
   String get encryptionOff;
 
   /// No description provided for @encryptionDetails.
   ///
   /// In en, this message translates to:
-  /// **'{status}\n\nRecordings, transcripts and notes never leave this device unless you export or share them. Notes exported to a vault folder are plain Markdown files, readable by any app with access to that folder.'**
+  /// **'{status}\n\nAudio files are protected by the device’s file encryption, and app data is never included in cloud backups. Recordings, transcripts and notes never leave this device unless you export or share them. Notes exported to a vault folder are plain Markdown files, readable by any app with access to that folder.'**
   String encryptionDetails(String status);
 
   /// No description provided for @deleteAllTitle.

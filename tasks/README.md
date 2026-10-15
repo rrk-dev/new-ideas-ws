@@ -193,7 +193,7 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 | Final product name (OmniScribe vs VaultVoice) | FND-01 | Keep behind a constant until decided |
 | Native packaging & Android CPU variants (static vs `GGML_BACKEND_DL`) | FND-06 | Static single `vv_native` + dotprod build if all matrix devices support it |
 | VAD engine | AUD-03 | Decided: ADR-AUD-03 (Proposed) — whisper.cpp built-in Silero VAD via `vv_vad_*` (no new runtime); speed numbers from QA-02 |
-| File encryption: OS-only vs app-level `vvenc` | SEC-01 (Phase-1 ADR) | OS file encryption + encrypted DB for v1; `vvenc` if threat model requires |
+| File encryption: OS-only vs app-level `vvenc` | SEC-01 (Phase-1 ADR) | Decided: ADR-SEC-01 (Proposed) — OS file encryption (iOS `completeUntilFirstUserAuthentication`, Android CE storage) + sqlite3mc-encrypted DB for v1; `vvenc` → SEC-10 if the strict audio reading is required |
 | Crash capture library | REL-02 | Decided: ADR-REL-02 (Proposed) — own async-signal-safe handler in the bridge (`vv_crash.c`), OS/store reports as baseline, no upload endpoint |
 | Can users disable per-recording consent confirmation? | SEC-07 | Product/legal decision |
 | Recording policy (call capture forbidden, user-tap start) | SEC-09 | Fixed requirement — ADR documents enforcement |

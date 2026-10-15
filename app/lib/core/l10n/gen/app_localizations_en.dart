@@ -1604,14 +1604,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get encryptionOn =>
-      'On — the database is encrypted with a key kept in the device keychain.';
+      'On — the database is encrypted with a key kept in this device’s secure key store.';
 
   @override
-  String get encryptionOff => 'Not enabled in this build yet.';
+  String get encryptionUnavailable =>
+      'Unavailable — the encryption key could not be read, so your data stays locked. Restart the app.';
+
+  @override
+  String get encryptionOff => 'Off — this build does not encrypt the database.';
 
   @override
   String encryptionDetails(String status) {
-    return '$status\n\nRecordings, transcripts and notes never leave this device unless you export or share them. Notes exported to a vault folder are plain Markdown files, readable by any app with access to that folder.';
+    return '$status\n\nAudio files are protected by the device’s file encryption, and app data is never included in cloud backups. Recordings, transcripts and notes never leave this device unless you export or share them. Notes exported to a vault folder are plain Markdown files, readable by any app with access to that folder.';
   }
 
   @override
