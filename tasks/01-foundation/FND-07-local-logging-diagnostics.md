@@ -1,7 +1,7 @@
 # FND-07 — Local-Only Logging & Diagnostics
 
 **Workstream:** Foundation | **Phase:** 1 | **Size:** S | **Depends on:** FND-02 | **Source:** Gap (privacy promise rules out cloud telemetry)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-privacy-security, vv-flutter-architecture, vv-benchmark-eval, vv-testing
 
 ## Goal
