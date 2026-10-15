@@ -31,3 +31,14 @@ Get actionable crash data without violating "no data leaves the device".
 - FND-06 / REL-03: emit `vv_native.framework.dSYM` from `native/build.sh ios` (dsymutil) and keep it with the release symbols; consider `-fno-omit-frame-pointer` for ggml/whisper/llama if device traces stop inside them (ADR-REL-02 risks).
 - APP-xx (Settings owner): place `CrashReportSettingsSection` where it fits (currently appended after Export diagnostics in `settings_screen.dart`).
 
+
+## Verification Report
+- **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ (0 changed) · analyze ✅ (no issues) · tests ✅ (785 passed, 24 skipped, coverage 93.2% of 4708 gated lines, min 80%) · native smoke ✅ (host ctest 9 passed / 14 skipped / 0 failed, includes `vv_crash`) · egress ✅ · recording policy ✅ · CI run: https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858 (run 51, success, `67b6fcf`) and https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638136574 (run 50, success)
+- **Acceptance criteria:**
+  - AC1: ✅ re-ran `[REL-02/AC1]` (`native_crash_e2e_test.dart` in the 785, `tools/crash/tests/test_crash_symbolize.py` in the pytest 35, and ctest `vv_crash` passed). The e2e compiles `vv_crash.c`, force-crashes a child, harvests the tombstone on the next `CrashReporting.start`, shares a `.vvcrash.txt` via the share sheet, and `symbolize.py` resolves frame `#00` to `vv_crash_force_segv (vv_crash.c:<line>)`. Artifact `docs/crash-triage.md` exists. Checked the e2e fails when the function is renamed to `forced_fault` (frame text no longer contains `vv_crash_force_segv`). Device rows (iPhone, Android, ART coexistence, Dart error) are blank.
+- **Adversarial checks:** Reports are content-free in the test (no message text). Share does not upload; egress check OK. Handler chains to the previous action so the OS reporter still runs (documented and covered by the device logcat/Organizer rows). No new dependency. `tasks.py verify REL-02 --run` short-circuits on the pending device rows; the host tagged tests passed before the mutation.
+- **Skill/rule compliance:** Capture is local files plus a user-reviewed share sheet. No Crashlytics/Sentry. Symbolication uses private symbols (REL-01). ADR-REL-02 Proposed (own handler vs Crashpad/Breakpad). Signal handler is async-signal-safe C, not a third-party native crash SDK.
+- **Issues found:** none
+- **Pending for done:** AC1: still pending (⏳) — cannot be done; AC1: device row in docs/test-plans/device/REL-02.md has no PASS result with a date; dependency FND-07 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task

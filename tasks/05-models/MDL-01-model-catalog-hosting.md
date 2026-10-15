@@ -57,3 +57,15 @@ A trustworthy source of model files that keeps the privacy promise: the only net
   not follow redirects — the downloader must re-check each redirect target against the allowlist
   (or the files must be mirrored on our CDN). Reuse `kAnonymousRequestHeaders` and
   `verifyModelBytes`.
+
+## Verification Report
+- **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ (0 changed) · analyze ✅ (no issues) · tests ✅ (785 passed, 24 skipped, coverage 93.2% of 4708 gated lines, min 80%) · native smoke ✅ (host ctest 9 passed / 14 skipped / 0 failed, includes `vv_crash`) · egress ✅ · recording policy ✅ · CI run: https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858 (run 51, success, `67b6fcf`) and https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638136574 (run 50, success)
+- **Acceptance criteria:**
+  - AC1: ✅ re-ran `[MDL-01/AC1]` (Dart `catalog_verifier_test.dart`, `catalog_repository_test.dart`, and `tools/model-catalog/tests/test_catalog.py` — 35 passed across catalog/release/crash pytest, and the Dart files inside the 785). Tests reject a one-byte catalog change, a swapped model hash, a forged/zeroed/foreign signature, rollback, unknown schema, oversized body, and a newer `min_app_version`. Checked the CLI test fails when `catalog.py` skips the Ed25519 verify (tampered catalog then returns 0).
+  - AC2: ✅ re-ran `[MDL-01/AC2]`. Asserts every catalog request is HTTPS GET, host is the primary or mirror, path is only `catalog.json` or `catalog.json.sig`, no query or userinfo, redirects not followed, and headers are exactly `User-Agent: VaultVoice/1` and `Accept: */*`. Proxy-capture device row is blank.
+- **Adversarial checks:** Non-allowlisted host returns `EgressDeniedFailure` and sends nothing. Bundled catalog stays when the remote signature fails. No cookies, auth, or install id in `kAnonymousRequestHeaders`. Signing private key is not in the repo (keygen writes a file or reads env; REL-01's private-key scan also passes). `tasks.py verify MDL-01 --run` short-circuits on the pending AC2 row; tagged tests passed in the suites above.
+- **Skill/rule compliance:** Fetch goes through `NetworkGateway` and `kModelHosts`. Ed25519 + SHA-256, at most two pinned keys. ADR-MDL-01 is Proposed (CDN domain and production key are owner decisions), which matches the follow-up. No recording code and no content logs.
+- **Issues found:** none
+- **Pending for done:** AC2: still pending (⏳) — cannot be done; AC2: device row in docs/test-plans/device/MDL-01.md has no PASS result with a date; dependency FND-02 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task
