@@ -2,7 +2,8 @@
 
 Host-verified: `[LLM-07/AC2]` tier detection, tier × plan defaults, pre-load memory check, model
 fit, STT/LLM residency and memory-pressure handling (`app/test/unit/extraction/device_tiering_test.dart`,
-fakes); `vv_device_memory` (ctest `vv_llm_engine`, M3 Pro: total 18432 MiB).
+fakes); `[LLM-07/AC1]` host part — residency awaits the asynchronous STT disposal before the LLM loads
+(`app/test/unit/extraction/model_residency_test.dart`); `vv_device_memory` (ctest `vv_llm_engine`, M3 Pro: total 18432 MiB).
 
 **AC1 needs the full pipeline** (recording → STT → extraction → export), which is assembled by
 FND-05 / STT-* / PRF-* / EXP-*; this task provides the memory pieces it must use:
