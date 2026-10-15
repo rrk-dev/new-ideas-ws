@@ -1,7 +1,7 @@
 # FND-01 — Initialize Flutter Repository & Code Standards
 
 **Workstream:** Foundation | **Phase:** 1 (Weeks 1–3) | **Size:** S | **Depends on:** — | **Source:** §5 Phase 1
-**Status:** review
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-testing
 
 ## Goal
@@ -76,3 +76,19 @@ Create the Flutter monorepo with strict, enforced code style so every later task
 - **Also fixed:** iOS `APP_DISPLAY_NAME` was "Vaultvoice Dev"/"Vaultvoice" (lower-case v) while Android and
   `kAppName` use "VaultVoice"; now "VaultVoice Dev"/"VaultVoice".
 - **Still needed:** a run of both AC2 rows on a Mac with Xcode + Android SDK (not available on the authoring machine).
+
+
+## Verification Report
+- **Verifier:** Codex · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** FAIL
+- **Gates:** format ✅ (387 files, 0 changed) · flutter analyze ✅ (0 issues) · flutter test --coverage ✅ (785 passed, 24 skipped on this host; Linux goldens/platform/model-dependent checks are not all executed locally) · coverage check_coverage: 93.2% of 4708 lines in 126 gated files (min 80%) · pytest tools/ci/tests ✅ (66 passed) · native/build.sh host + ctest ✅ (23 registered: 9 executed/pass, 14 explicitly skipped without configured model/backend fixtures) · egress ✅ · recording policy ✅ (source manifests; no local merged Android build) · tasks.py validate ✅ (85 tasks, 0 problems) · CI: [main run 51](https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858), same verified SHA, six jobs green; [PR run 50](https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638136574) also green. Shared gates were run once before mutations, as requested; logs under /tmp/vv-verify-a/.
+- **Fresh state / review:** Fresh clone of origin/main; local branch `verify/codex-a`. Reviewed task scope, Completion Notes, implementation history/diffs, current source, listed skills and tagged tests. No product/test fixes retained.
+- **Acceptance criteria:**
+  - AC1: ✅ Host format and analyzer clean; read Dart lint/config checks and pytest mirror tests, which execute real format/analyze gates and inject unformatted/print fixtures. Rework fixes the earlier hollow-test finding.
+  - AC2: ❌ Both simulator/emulator rows are correctly specified but Result/OS/Date/Tester are blank. Neither launch was run here (no Xcode, CocoaPods, Android SDK/JDK/emulators). Green unsigned/APK builds do not prove launch.
+  - AC3: ✅ CONTRIBUTING.md documents feature layout, flavors, targets, hooks and the name constant; tagged document assertions passed.
+- **Adversarial checks:** Disabled avoid_print enforcement locally; the [FND-01/AC1] tagged lint-configuration test failed, then passed after git checkout restored app/analysis_options.yaml. The shared pytest mirror separately proves real analyzer and formatter reject violations. Simulator/emulator execution is unavailable.
+- **Skill/rule compliance:** FVM pin, strict analysis, iOS/Android flavors and arm64 targets inspected. The user exception permits pending physical-device runs; AC2 specifically requires simulator/emulator launches, so this report does not waive it. AGENTS.md, vv-task-workflow and vv-task-verify followed; no push, PR, GitHub API, tool installation or git-config changes.
+- **Issues found:** 
+  1. AC2 lacks the required successful dev-flavor launch on an arm64 iOS simulator and arm64-v8a Android emulator. Run and date both rows in docs/test-plans/device/FND-01.md; this is an evidence gap, not a demonstrated launch defect.
+- **Acceptance runner:** `python3 .agents/skills/vv-task-workflow/scripts/tasks.py verify FND-01 --run` was invoked; its evidence/dependency checks refused before launching tagged tests. All referenced tagged tests were instead executed in the shared full Dart/pytest suites, then the mutation target was re-run red and green after restoration (QA-05 is artifact-only). Pre-report diagnostic output: `/tmp/vv-verify-a/FND-01-verify.log`.
