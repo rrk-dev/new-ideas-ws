@@ -24,7 +24,7 @@ def _have_xcode():
 def test_FND_06_AC1_one_command_per_target_and_clear_toolchain_errors(tmp_path):
     """[FND-06/AC1] build.sh offers host/android/ios and fails clearly without a toolchain."""
     r = run(["bogus"])
-    assert r.returncode == 64 and "host|android|ios|all" in r.stderr
+    assert r.returncode == 64 and "host|android|ios|macos|all" in r.stderr
 
     empty_sdk = {"ANDROID_HOME": str(tmp_path), "ANDROID_SDK_ROOT": str(tmp_path),
                  "ANDROID_NDK_HOME": "", "ANDROID_NDK_ROOT": ""}

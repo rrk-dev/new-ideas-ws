@@ -117,7 +117,7 @@ tasks/                    task files (status lives here)
   permissions (`READ_PHONE_STATE`, `READ_CALL_LOG`, `CAPTURE_AUDIO_OUTPUT`…), no call audio
   sources, no CallKit/VoIP modes, no Accessibility/MediaProjection capture, no voiceprints.
   Details: `vv-audio-capture` → "Recording policy".
-- **Platforms:** iOS 16+, Android API 26+ (arm64-v8a only). Flutter/Dart pinned via FVM.
+- **Platforms:** iOS 16+, Android API 26+ (arm64-v8a only), macOS 13+ arm64. Flutter/Dart pinned via FVM.
 - **State:** Riverpod (code-gen). **DB:** SQLite via drift (see ADR-FND-04 once written).
 - **Native:** Dart calls only `native/bridge` C functions (incl. VAD and diarization — no direct
   third-party native Dart packages unless an ADR approves an exception). No C++ types across FFI.
