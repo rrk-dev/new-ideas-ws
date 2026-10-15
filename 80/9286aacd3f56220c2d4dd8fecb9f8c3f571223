@@ -1,0 +1,23 @@
+app/ios/Flutter/Debug.xcconfig
+  s_5a534bed398a49::t_e41a372a066464 1
+app/ios/Flutter/Release.xcconfig
+  s_5a534bed398a49::t_08028993b34af4 1
+tasks/04-llm/LLM-05-structured-output-grammar.md
+  s_5a534bed398a49::t_3796143492c8ad 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "809286aacd3f56220c2d4dd8fecb9f8c3f571223",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
