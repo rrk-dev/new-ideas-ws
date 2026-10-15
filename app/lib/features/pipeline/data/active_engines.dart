@@ -85,7 +85,9 @@ final class ActiveSttEngine implements WindowedSttEngine {
     required this.create,
     required this.residency,
   }) {
-    residency.register(ResidentModel.stt, () => unawaited(unload()));
+    // Awaited by [ModelResidency.acquire]: the LLM never starts loading
+    // before the whisper context is freed (LLM-07 rework).
+    residency.register(ResidentModel.stt, unload);
   }
 
   final Future<ActiveModel?> Function() resolve;
@@ -106,7 +108,13 @@ final class ActiveSttEngine implements WindowedSttEngine {
     SegmentCallback? onSegment,
     SttOptions options = const SttOptions(),
   }) async {
-    final engine = await _current();
+    final WhisperSttEngine? engine;
+    try {
+      engine = await _current();
+    } on ModelResidencyException {
+      // The LLM could not be freed: retryable, never load over it.
+      return const Err(OutOfMemoryFailure());
+    }
     if (engine == null) return const Err(ModelMissingFailure('stt'));
     return await engine.transcribe(
       audioPath,
@@ -125,7 +133,13 @@ final class ActiveSttEngine implements WindowedSttEngine {
     SegmentCallback? onSegment,
     SttOptions options = const SttOptions(),
   }) async {
-    final engine = await _current();
+    final WhisperSttEngine? engine;
+    try {
+      engine = await _current();
+    } on ModelResidencyException {
+      // The LLM could not be freed: retryable, never load over it.
+      return const Err(OutOfMemoryFailure());
+    }
     if (engine == null) return const Err(ModelMissingFailure('stt'));
     return await engine.transcribeRanges(
       ranges,
@@ -142,7 +156,9 @@ final class ActiveSttEngine implements WindowedSttEngine {
   }
 
   /// The engine of the active model (rebuilt when the selection changed),
-  /// marked resident; null when no usable STT model is installed.
+  /// marked resident once the LLM is unloaded; null when no usable STT model
+  /// is installed. Throws [ModelResidencyException] if the LLM could not be
+  /// unloaded.
   Future<WhisperSttEngine?> _current() async {
     final model = await resolve();
     if (model == null) return null;
@@ -151,7 +167,7 @@ final class ActiveSttEngine implements WindowedSttEngine {
       _engine = create(model);
       _model = model;
     }
-    residency.acquire(ResidentModel.stt);
+    await residency.acquire(ResidentModel.stt);
     return _engine;
   }
 
