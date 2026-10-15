@@ -1,0 +1,21 @@
+tools/licenses/generate.py
+  s_8203843ced3acd::t_0de82e6f4a9702 1-32
+tools/licenses/inventory-header.md
+  s_8203843ced3acd::t_5c60c835423ccd 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "de69248c81c1000bd0cd25cc515aede1e454f0f3",
+  "prompts": {},
+  "sessions": {
+    "s_8203843ced3acd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "01a13da6-4aed-7483-be05-a4cdcd6209b9",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
