@@ -1,3 +1,5 @@
+import 'package:vaultvoice/core/errors/failure.dart';
+
 import 'dart:io';
 
 import 'package:flutter/services.dart';
@@ -176,6 +178,18 @@ void main() {
         await b.rig.controller.stop();
       },
     );
+
+    test('[AUD-05/AC1] a refused indicator / foreground service suspends '
+        'capture: no invisible recording', () async {
+      final b = _Background();
+      b.indicator.showFailure = const UnexpectedFailure('fgs_refused');
+      expectOk(await b.rig.controller.start(StartSource.inAppButton));
+      await pumpEventQueue();
+      await b.rig.settle();
+      expect(b.rig.controller.state.phase, RecordingPhase.paused);
+      expect(b.rig.mic.micOpen, isFalse);
+      await b.rig.controller.stop();
+    });
 
     test('the "Still recording" reminder goes to the indicator', () {
       final indicator = FakeRecordingIndicator()

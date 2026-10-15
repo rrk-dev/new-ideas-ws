@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:vaultvoice/core/errors/result.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
@@ -51,7 +52,15 @@ class RecordingIndicatorBinding {
     }
     _shown = true;
     _actions ??= _indicator.actions.listen(_onAction);
-    unawaited(_indicator.show(content));
+    unawaited(_show(content));
+  }
+
+  // SEC-09: capture never continues without its visible indicator.
+  Future<void> _show(IndicatorContent content) async {
+    final shown = await _indicator.show(content);
+    if (shown is Err && _controller.state.phase == RecordingPhase.recording) {
+      await _controller.pause();
+    }
   }
 
   Future<void> _onAction(IndicatorAction action) async {
