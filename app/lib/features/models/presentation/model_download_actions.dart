@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -10,16 +11,23 @@ import 'package:vaultvoice/features/models/data/model_downloader.dart';
 import 'package:vaultvoice/features/models/domain/download_policy.dart';
 import 'package:vaultvoice/features/models/domain/download_state.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
+import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
+import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 
 /// Human-readable size in decimal units (what OS storage screens show):
-/// `78 MB`, `1.9 GB`.
+/// `42 KB`, `78 MB`, `1.9 GB`.
 String formatBytes(AppLocalizations l, int bytes) {
   const mb = 1000 * 1000;
   const gb = 1000 * mb;
   if (bytes >= gb) {
     final value = NumberFormat('0.0', l.localeName).format(bytes / gb);
     return l.bytesGigabytes(value);
+  }
+  if (bytes < mb) {
+    const kb = 1000;
+    final value = NumberFormat('0', l.localeName).format((bytes / kb).ceil());
+    return l.bytesKilobytes(value);
   }
   final value = NumberFormat('0', l.localeName).format((bytes / mb).ceil());
   return l.bytesMegabytes(value);
@@ -133,6 +141,11 @@ Future<DownloadStart> startModelDownloads(
     if (ok != true) return DownloadStart.declined;
     allowLowPower = true;
   }
+  // Android 13+: the download's foreground-service progress notification is
+  // only visible with POST_NOTIFICATIONS — ask once, before the first one.
+  if (defaultTargetPlatform == TargetPlatform.android) {
+    await _askNotificationsOnce(ref);
+  }
   for (final model in models) {
     final failedText = l10n.downloadFailed(model.displayName);
     unawaited(
@@ -152,6 +165,14 @@ Future<DownloadStart> startModelDownloads(
     );
   }
   return DownloadStart.started;
+}
+
+Future<void> _askNotificationsOnce(WidgetRef ref) async {
+  final store = ref.read(settingsStoreProvider);
+  const key = SettingKeys.notificationsPermissionAsked;
+  if (await store.watch(key).first == true) return;
+  await store.set(key, true);
+  await ref.read(localNotificationsProvider).requestPermission();
 }
 
 class _CellularChoice {

@@ -225,6 +225,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commonNotNow => 'Not now';
 
   @override
+  String bytesKilobytes(String value) {
+    return '$value KB';
+  }
+
+  @override
   String bytesMegabytes(String value) {
     return '$value MB';
   }
@@ -517,6 +522,152 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingExplore => 'Explore first';
+
+  @override
+  String get modelsCheckUpdates => 'Check for model updates';
+
+  @override
+  String get modelsCatalogChecked => 'Model list checked.';
+
+  @override
+  String get modelsCatalogFailed =>
+      'Couldn’t check for model updates. Try again later.';
+
+  @override
+  String get modelsLoadFailed => 'Couldn’t load the model list.';
+
+  @override
+  String get modelsEmpty =>
+      'No models are available. Check for updates or import model files.';
+
+  @override
+  String get modelsStorageTitle => 'Storage used';
+
+  @override
+  String get modelsStorageModels => 'Models';
+
+  @override
+  String get modelsStorageAudio => 'Recordings (audio)';
+
+  @override
+  String get modelsStorageTranscripts => 'Transcripts';
+
+  @override
+  String modelsUpdatesAvailable(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Updates are available for $count models.',
+      one: 'An update is available for 1 model.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get modelsOfflineNotice =>
+      'Downloads are turned off on this device (offline mode or your organization). Import model files below.';
+
+  @override
+  String get modelsImportSection => 'Import from files';
+
+  @override
+  String get modelsAdvancedCustom => 'Advanced: custom models';
+
+  @override
+  String get modelsAdvancedCustomSubtitle =>
+      'Allow importing unsigned GGUF files. Only use files you trust.';
+
+  @override
+  String get modelBadgePro => 'Pro';
+
+  @override
+  String get modelBadgeEnterprise => 'Enterprise';
+
+  @override
+  String get modelBadgeActive => 'In use';
+
+  @override
+  String get modelBadgeRecommended => 'Recommended';
+
+  @override
+  String get modelBadgeUpdate => 'Update available';
+
+  @override
+  String modelSizeVersion(String size, String version) {
+    return '$size · version $version';
+  }
+
+  @override
+  String modelIncompatible(String ram) {
+    return 'Needs $ram of memory — may not run on this device.';
+  }
+
+  @override
+  String get modelNotOnPlan =>
+      'Not available on your current plan. It stays installed but can’t be used.';
+
+  @override
+  String get modelRequiresPro => 'Requires Pro';
+
+  @override
+  String get modelActionDownload => 'Download';
+
+  @override
+  String get modelActionResume => 'Resume';
+
+  @override
+  String get modelActionUpdate => 'Update';
+
+  @override
+  String get modelActionPause => 'Pause';
+
+  @override
+  String get modelActionCancel => 'Cancel download';
+
+  @override
+  String get modelActionUse => 'Use this model';
+
+  @override
+  String get modelActionDelete => 'Delete';
+
+  @override
+  String modelActivated(String name) {
+    return '$name will be used for new processing.';
+  }
+
+  @override
+  String modelDeleteTitle(String name) {
+    return 'Delete $name?';
+  }
+
+  @override
+  String modelDeleteBody(String size) {
+    return 'This frees $size. You can download it again later.';
+  }
+
+  @override
+  String modelDeleteReplaceBody(String name) {
+    return '$name is used to process recordings. Choose the model to use instead:';
+  }
+
+  @override
+  String get modelDeleteAndSwitch => 'Switch and delete';
+
+  @override
+  String get modelDeleteBlockedTitle => 'Can’t delete this model';
+
+  @override
+  String modelDeleteBlockedBody(String type) {
+    return 'It’s the only installed model for $type, and VaultVoice needs one to process recordings. Download another one first, then delete this one.';
+  }
+
+  @override
+  String modelDeleted(String name) {
+    return '$name deleted.';
+  }
+
+  @override
+  String get modelDeleteFailed => 'Couldn’t delete the model.';
 
   @override
   String get recordingDebugTooltip => 'Recording debug';

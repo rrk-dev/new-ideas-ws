@@ -18,6 +18,12 @@ import 'package:vaultvoice/core/theme/app_theme.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/export/domain/pending_export.dart';
 import 'package:vaultvoice/features/export/domain/routing_rule.dart';
+import 'package:vaultvoice/features/licensing/domain/feature_access.dart';
+import 'package:vaultvoice/features/models/data/model_import_providers.dart';
+import 'package:vaultvoice/features/models/data/model_management_providers.dart';
+import 'package:vaultvoice/features/models/data/model_state_providers.dart';
+import 'package:vaultvoice/features/models/domain/installed_model.dart';
+import 'package:vaultvoice/features/models/domain/model_management.dart';
 import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/profiles/data/custom_profile_providers.dart';
@@ -34,6 +40,7 @@ import 'package:vaultvoice/features/transcription/presentation/transcript_provid
 
 import '../fakes/fake_settings_store.dart';
 import '../fakes/fake_transcript_player.dart';
+import '../helpers/model_fixtures.dart';
 import '../helpers/processing_fixtures.dart';
 
 class _Managed implements ManagedSettingsSource {
@@ -198,6 +205,40 @@ List<Override> _overrides() => [
       ),
     ]),
   ),
+  // MDL-03 model screen: hermetic catalog/install state.
+  modelEntriesProvider.overrideWith(
+    (ref) async => [
+      ModelEntry(
+        model: seedStt,
+        installed: InstalledModel(
+          id: seedStt.id,
+          version: '1',
+          size: seedStt.size,
+          relativePath: 'models/x/y.bin',
+          installedAt: DateTime.utc(2026),
+        ),
+        access: AccessLevel.full,
+        compatible: true,
+        recommended: true,
+        active: true,
+      ),
+      ModelEntry(
+        model: seedLlm,
+        installed: null,
+        access: AccessLevel.full,
+        compatible: true,
+        recommended: true,
+        active: false,
+      ),
+    ],
+  ),
+  storageUsageProvider.overrideWith(
+    (ref) => Stream.value(
+      const StorageUsage(modelBytes: 1, audioBytes: 2, transcriptBytes: 3),
+    ),
+  ),
+  modelDownloadProgressProvider.overrideWith((ref) => Stream.value(const {})),
+  networkDisabledProvider.overrideWith((ref) => Stream.value(false)),
   routingRulesProvider.overrideWith(
     (ref) => Stream.value(const [
       RoutingRuleInfo(id: 'r1', targetId: 'v1', subPath: 'Meetings'),

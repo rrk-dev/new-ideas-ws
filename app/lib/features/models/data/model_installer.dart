@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:vaultvoice/core/db/database.dart';
+import 'package:vaultvoice/core/db/db_guard.dart';
 import 'package:vaultvoice/core/db/enums.dart' as db;
 import 'package:vaultvoice/core/db/repositories/models_repository.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
+import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/features/models/domain/download_platform.dart';
@@ -66,6 +68,24 @@ class ModelInstaller {
       if (e.path != target.path) await e.delete(recursive: true);
     }
     return await _models.get(model.id);
+  }
+
+  /// Removes an installed model (MDL-03): the `models_installed` row first
+  /// (so nothing picks the model up any more), then `models/<id>/`. A file
+  /// that cannot be deleted is left for the next attempt; the model already
+  /// counts as not installed.
+  Future<Result<void>> uninstall(String modelId) async {
+    final removed = await _models.deleteById(modelId);
+    if (removed case Err(:final failure) when failure != notFound) {
+      return removed;
+    }
+    final dir = Directory(p.join(_paths.modelsDir, segment(modelId)));
+    try {
+      if (dir.existsSync()) await dir.delete(recursive: true);
+    } on FileSystemException {
+      return const Err(StorageFailure('model files not deleted'));
+    }
+    return const Ok(null);
   }
 
   /// [id] as one path segment (catalog ids are already restricted).

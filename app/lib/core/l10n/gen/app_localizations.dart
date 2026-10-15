@@ -460,6 +460,12 @@ abstract class AppLocalizations {
   /// **'Not now'**
   String get commonNotNow;
 
+  /// No description provided for @bytesKilobytes.
+  ///
+  /// In en, this message translates to:
+  /// **'{value} KB'**
+  String bytesKilobytes(String value);
+
   /// No description provided for @bytesMegabytes.
   ///
   /// In en, this message translates to:
@@ -945,6 +951,240 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Explore first'**
   String get onboardingExplore;
+
+  /// No description provided for @modelsCheckUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Check for model updates'**
+  String get modelsCheckUpdates;
+
+  /// No description provided for @modelsCatalogChecked.
+  ///
+  /// In en, this message translates to:
+  /// **'Model list checked.'**
+  String get modelsCatalogChecked;
+
+  /// No description provided for @modelsCatalogFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t check for model updates. Try again later.'**
+  String get modelsCatalogFailed;
+
+  /// No description provided for @modelsLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t load the model list.'**
+  String get modelsLoadFailed;
+
+  /// No description provided for @modelsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No models are available. Check for updates or import model files.'**
+  String get modelsEmpty;
+
+  /// No description provided for @modelsStorageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage used'**
+  String get modelsStorageTitle;
+
+  /// No description provided for @modelsStorageModels.
+  ///
+  /// In en, this message translates to:
+  /// **'Models'**
+  String get modelsStorageModels;
+
+  /// No description provided for @modelsStorageAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Recordings (audio)'**
+  String get modelsStorageAudio;
+
+  /// No description provided for @modelsStorageTranscripts.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcripts'**
+  String get modelsStorageTranscripts;
+
+  /// No description provided for @modelsUpdatesAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{An update is available for 1 model.} other{Updates are available for {count} models.}}'**
+  String modelsUpdatesAvailable(int count);
+
+  /// No description provided for @modelsOfflineNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloads are turned off on this device (offline mode or your organization). Import model files below.'**
+  String get modelsOfflineNotice;
+
+  /// No description provided for @modelsImportSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Import from files'**
+  String get modelsImportSection;
+
+  /// No description provided for @modelsAdvancedCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced: custom models'**
+  String get modelsAdvancedCustom;
+
+  /// No description provided for @modelsAdvancedCustomSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow importing unsigned GGUF files. Only use files you trust.'**
+  String get modelsAdvancedCustomSubtitle;
+
+  /// No description provided for @modelBadgePro.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro'**
+  String get modelBadgePro;
+
+  /// No description provided for @modelBadgeEnterprise.
+  ///
+  /// In en, this message translates to:
+  /// **'Enterprise'**
+  String get modelBadgeEnterprise;
+
+  /// No description provided for @modelBadgeActive.
+  ///
+  /// In en, this message translates to:
+  /// **'In use'**
+  String get modelBadgeActive;
+
+  /// No description provided for @modelBadgeRecommended.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended'**
+  String get modelBadgeRecommended;
+
+  /// No description provided for @modelBadgeUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Update available'**
+  String get modelBadgeUpdate;
+
+  /// No description provided for @modelSizeVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'{size} · version {version}'**
+  String modelSizeVersion(String size, String version);
+
+  /// No description provided for @modelIncompatible.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs {ram} of memory — may not run on this device.'**
+  String modelIncompatible(String ram);
+
+  /// No description provided for @modelNotOnPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available on your current plan. It stays installed but can’t be used.'**
+  String get modelNotOnPlan;
+
+  /// No description provided for @modelRequiresPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Requires Pro'**
+  String get modelRequiresPro;
+
+  /// No description provided for @modelActionDownload.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get modelActionDownload;
+
+  /// No description provided for @modelActionResume.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get modelActionResume;
+
+  /// No description provided for @modelActionUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get modelActionUpdate;
+
+  /// No description provided for @modelActionPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get modelActionPause;
+
+  /// No description provided for @modelActionCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel download'**
+  String get modelActionCancel;
+
+  /// No description provided for @modelActionUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this model'**
+  String get modelActionUse;
+
+  /// No description provided for @modelActionDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get modelActionDelete;
+
+  /// No description provided for @modelActivated.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} will be used for new processing.'**
+  String modelActivated(String name);
+
+  /// No description provided for @modelDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {name}?'**
+  String modelDeleteTitle(String name);
+
+  /// No description provided for @modelDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This frees {size}. You can download it again later.'**
+  String modelDeleteBody(String size);
+
+  /// No description provided for @modelDeleteReplaceBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is used to process recordings. Choose the model to use instead:'**
+  String modelDeleteReplaceBody(String name);
+
+  /// No description provided for @modelDeleteAndSwitch.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch and delete'**
+  String get modelDeleteAndSwitch;
+
+  /// No description provided for @modelDeleteBlockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Can’t delete this model'**
+  String get modelDeleteBlockedTitle;
+
+  /// No description provided for @modelDeleteBlockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It’s the only installed model for {type}, and VaultVoice needs one to process recordings. Download another one first, then delete this one.'**
+  String modelDeleteBlockedBody(String type);
+
+  /// No description provided for @modelDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} deleted.'**
+  String modelDeleted(String name);
+
+  /// No description provided for @modelDeleteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t delete the model.'**
+  String get modelDeleteFailed;
 
   /// No description provided for @recordingDebugTooltip.
   ///
