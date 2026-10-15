@@ -1,7 +1,7 @@
 # LIC-02 — In-App Purchases (Annual + Lifetime) with Offline Entitlement
 
 **Workstream:** Licensing | **Phase:** 3–4 | **Size:** M | **Depends on:** LIC-01 | **Source:** §7 ($29.99/yr, $49.99 lifetime) + Gap (offline validation)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-licensing-iap, vv-privacy-security, vv-decision-records, vv-testing
 
 ## Goal
