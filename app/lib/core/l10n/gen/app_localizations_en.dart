@@ -2585,4 +2585,18 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noteShareHint =>
       'The note leaves the app only through the app you pick.';
+
+  @override
+  String get unsupportedDeviceTitle => 'This device isn’t supported';
+
+  @override
+  String get unsupportedDeviceBody =>
+      'VaultVoice runs speech recognition and AI entirely on your phone. This phone’s processor is too old for that, so the app can’t record or create notes here.';
+
+  @override
+  String get unsupportedDeviceDetail =>
+      'VaultVoice needs a 64-bit ARMv8.2 processor with dot-product support (for example Cortex-A55, A75 or newer). Nothing was recorded, downloaded or sent anywhere.';
+
+  @override
+  String get unsupportedDeviceIconLabel => 'Unsupported processor';
 }

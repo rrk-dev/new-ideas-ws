@@ -377,6 +377,22 @@ void main() {
       }
     });
 
+    test('Hugging Face only (product owner 2026-10-14): one allowlisted '
+        'host, every catalog URL on it, no CDN placeholder', () {
+      expect(kModelHosts, {'huggingface.co'});
+      expect(kModelRedirectHosts, {'us.aws.cdn.hf.co'});
+      final c = ModelCatalog.parse(bytes).valueOrNull!;
+      for (final m in c.models) {
+        for (final u in m.urls) {
+          expect(u.host, 'huggingface.co', reason: '$u');
+          expect(u.path, contains('/resolve/'), reason: '$u');
+        }
+      }
+      expect(utf8.decode(bytes), isNot(contains('vaultvoice.example')));
+      // No catalog repo named yet → bundled catalog only (PRODUCT-DECISION).
+      expect(kCatalogBaseUris, isEmpty);
+    });
+
     test('pinned key ids match the documented ids; at most two keys', () {
       final keys = pinnedCatalogKeys();
       expect(keys, hasLength(inInclusiveRange(1, 2)));

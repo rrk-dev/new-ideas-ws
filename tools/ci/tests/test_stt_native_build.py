@@ -19,7 +19,8 @@ def _ios_block() -> str:
 
 
 def test_STT_01_coreml_option_defaults_off_and_always_allows_fallback():
-    """Core ML is opt-in and can never make whisper init fail when the encoder is absent."""
+    """Core ML is off for host/Android (CMake default), on for the iOS build (build.sh), and can
+    never make whisper init fail when the encoder is absent."""
     m = re.search(r'option\(VV_WHISPER_COREML\s+"[^"]*"\s+(\w+)\)', CMAKE)
     assert m and m.group(1) == "OFF", "VV_WHISPER_COREML must default to OFF (ADR-STT-01)"
     block = CMAKE[CMAKE.index("if(VV_WHISPER_COREML)"):]
@@ -36,7 +37,8 @@ def test_STT_01_ios_build_uses_embedded_metal_and_forwards_coreml_flag():
     for flag in ("-DGGML_METAL=ON", "-DGGML_METAL_EMBED_LIBRARY=ON", "-DGGML_METAL_TARGET_OS=ios",
                  "-DGGML_OPENMP=OFF", "-DGGML_NATIVE=OFF"):
         assert flag in ios, flag
-    assert '-DVV_WHISPER_COREML="${VV_WHISPER_COREML:-OFF}"' in ios
+    # Product owner decision 2026-10-14 (ADR-STT-01 Accepted): iOS ships Core ML.
+    assert '-DVV_WHISPER_COREML="${VV_WHISPER_COREML:-ON}"' in ios
 
 
 def test_STT_01_cpu_fallback_backend_is_always_built():

@@ -66,6 +66,18 @@ class FakeModelDownloader implements ModelDownloader {
   );
 
   @override
+  Future<Result<InstalledModelRow>> downloadCoreMlCompanion({
+    required CatalogModel parent,
+    required CatalogModel companion,
+    bool? allowCellular,
+    bool allowLowPower = false,
+  }) => download(
+    companion,
+    allowCellular: allowCellular,
+    allowLowPower: allowLowPower,
+  );
+
+  @override
   Future<Result<InstalledModelRow>> download(
     CatalogModel model, {
     bool? allowCellular,

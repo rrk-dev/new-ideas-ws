@@ -838,5 +838,11 @@
   "noteCopied": "Note copied.",
   "noteShareFailed": "Could not prepare the note.",
   "noteShareUnavailable": "Sharing is not available on this device.",
-  "noteShareHint": "The note leaves the app only through the app you pick."
+  "noteShareHint": "The note leaves the app only through the app you pick.",
+
+  "unsupportedDeviceTitle": "This device isn’t supported",
+  "@unsupportedDeviceTitle": {"description": "Launch screen when the CPU is below the minimum (ARMv8.2-A + dotprod)."},
+  "unsupportedDeviceBody": "VaultVoice runs speech recognition and AI entirely on your phone. This phone’s processor is too old for that, so the app can’t record or create notes here.",
+  "unsupportedDeviceDetail": "VaultVoice needs a 64-bit ARMv8.2 processor with dot-product support (for example Cortex-A55, A75 or newer). Nothing was recorded, downloaded or sent anywhere.",
+  "unsupportedDeviceIconLabel": "Unsupported processor"
 }

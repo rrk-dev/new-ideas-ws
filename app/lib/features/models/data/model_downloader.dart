@@ -11,13 +11,22 @@ import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/features/models/data/catalog_config.dart';
+import 'package:vaultvoice/features/models/data/coreml_encoder_installer.dart';
 import 'package:vaultvoice/features/models/data/model_installer.dart';
+import 'package:vaultvoice/features/models/domain/coreml_companions.dart';
 import 'package:vaultvoice/features/models/domain/download_platform.dart';
 import 'package:vaultvoice/features/models/domain/download_policy.dart';
 import 'package:vaultvoice/features/models/domain/download_state.dart';
 import 'package:vaultvoice/features/models/domain/download_transport.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
 import 'package:vaultvoice/features/models/domain/model_file_verifier.dart';
+
+/// Unpacks a verified Core ML encoder zip next to its STT model.
+typedef CoreMlUnzip = Future<Result<void>> Function({
+  required String zipPath,
+  required String targetDir,
+  required String dirName,
+});
 
 /// Checks a finished partial file against its catalog entry.
 typedef ModelFileCheck = Future<Result<void>> Function(
@@ -45,6 +54,15 @@ Future<Result<void>> verifyModelFileInIsolate(
 /// Retries: every catalog URL per attempt, then 1 s → 60 s backoff, at most
 /// [kMaxDownloadRetries] retries. A hash mismatch deletes the file and
 /// re-downloads from zero once, then fails.
+///
+/// Core ML companions (iOS, ADR-STT-01): with `coreMlCompanions` set (the
+/// catalog lookup), installing an STT model also downloads each
+/// `coreml-encoder` companion it lists — same resume/verify path, partial
+/// keyed by the companion id — and unzips it into the model's own
+/// directory (`models/<stt-id>/<name>-encoder.mlmodelc`), where whisper.cpp
+/// finds it. A companion is part of its model's install: no
+/// `models_installed` row, removed with the model's directory. Its failure
+/// never fails the model (whisper falls back to the ggml encoder).
 class ModelDownloader {
   ModelDownloader({
     required this._paths,
@@ -58,6 +76,8 @@ class ModelDownloader {
     this._verify = verifyModelFileInIsolate,
     Future<void> Function(Duration)? delay,
     this._headers = kAnonymousRequestHeaders,
+    this._coreMlCompanions,
+    this._coreMlUnzip = installCoreMlEncoderZip,
   }) : _cellularSetting = cellularAllowedSetting ?? _no,
        _networkDisabled = networkDisabled ?? _no,
        _delay = delay ?? Future<void>.delayed;
@@ -75,6 +95,11 @@ class ModelDownloader {
   final ModelFileCheck _verify;
   final Future<void> Function(Duration) _delay;
   final Map<String, String> _headers;
+
+  /// Catalog lookup for Core ML companions; null = never install them
+  /// (Android, host).
+  final CatalogModel? Function(String id)? _coreMlCompanions;
+  final CoreMlUnzip _coreMlUnzip;
 
   static Future<bool> _no() async => false;
 
@@ -152,12 +177,60 @@ class ModelDownloader {
     if (running != null) return running.result;
     final job = _Job();
     _jobs[model.id] = job;
+    return job.result =
+        _run(
+              model,
+              job.control,
+              allowCellular,
+              allowLowPower,
+              () => _install(model),
+            )
+            .then((installed) async {
+              if (installed.isOk) {
+                await _installCompanions(model, allowCellular, allowLowPower);
+              }
+              return installed;
+            })
+            .whenComplete(() => _jobs.remove(model.id));
+  }
+
+  /// Downloads the Core ML encoder [companion] and unpacks it next to the
+  /// installed STT model [parent] (iOS). Returns the parent's row.
+  Future<Result<InstalledModelRow>> downloadCoreMlCompanion({
+    required CatalogModel parent,
+    required CatalogModel companion,
+    bool? allowCellular,
+    bool allowLowPower = false,
+  }) {
+    final running = _jobs[companion.id];
+    if (running != null) return running.result;
+    final job = _Job();
+    _jobs[companion.id] = job;
     return job.result = _run(
-      model,
+      companion,
       job.control,
       allowCellular,
       allowLowPower,
-    ).whenComplete(() => _jobs.remove(model.id));
+      () => _installCoreMl(parent, companion),
+    ).whenComplete(() => _jobs.remove(companion.id));
+  }
+
+  Future<void> _installCompanions(
+    CatalogModel model,
+    bool? allowCellular,
+    bool allowLowPower,
+  ) async {
+    final lookup = _coreMlCompanions;
+    if (lookup == null) return;
+    for (final c in coreMlCompanionsOf(model, lookup)) {
+      // Non-fatal: whisper.cpp falls back to the ggml encoder without it.
+      await downloadCoreMlCompanion(
+        parent: model,
+        companion: c,
+        allowCellular: allowCellular,
+        allowLowPower: allowLowPower,
+      );
+    }
   }
 
   /// Stops [modelId] and keeps the partial file for a later resume.
@@ -196,10 +269,35 @@ class ModelDownloader {
         await _deletePartial(id);
         continue;
       }
+      if (model.type == ModelType.coremlEncoder) {
+        // A companion resumes for an installed model that lists it.
+        final parent = await _installedParentOf(model, catalog);
+        if (parent == null || _coreMlCompanions == null) {
+          await _deletePartial(id);
+          continue;
+        }
+        started.add(id);
+        unawaited(downloadCoreMlCompanion(parent: parent, companion: model));
+        continue;
+      }
       started.add(id);
       unawaited(download(model));
     }
     return started;
+  }
+
+  Future<CatalogModel?> _installedParentOf(
+    CatalogModel companion,
+    ModelCatalog catalog,
+  ) async {
+    for (final m in catalog.models) {
+      if (m.type == ModelType.stt &&
+          m.companions.contains(companion.id) &&
+          (await _models.get(m.id)).isOk) {
+        return m;
+      }
+    }
+    return null;
   }
 
   Future<Result<InstalledModelRow>> _run(
@@ -207,6 +305,7 @@ class ModelDownloader {
     DownloadControl control,
     bool? allowCellularArg,
     bool allowLowPower,
+    Future<Result<InstalledModelRow>> Function() install,
   ) async {
     final id = model.id;
     _emit(model, DownloadPhase.checking, 0);
@@ -304,7 +403,7 @@ class ModelDownloader {
         if (completed) {
           _emit(model, DownloadPhase.verifying, model.size);
           final verified = await _verify(_partial(id).path, model);
-          if (verified.isOk) return await _install(model);
+          if (verified.isOk) return await install();
           // Corrupt (hash or size mismatch): delete and re-download from
           // zero once; a second mismatch is an error.
           await _partial(id).delete();
@@ -376,6 +475,28 @@ class ModelDownloader {
     await _deleteIfExists(_meta(model.id));
     _emit(model, DownloadPhase.installed, model.size);
     return installed;
+  }
+
+  Future<Result<InstalledModelRow>> _installCoreMl(
+    CatalogModel parent,
+    CatalogModel companion,
+  ) async {
+    _emit(companion, DownloadPhase.installing, companion.size);
+    final row = await _models.get(parent.id);
+    if (!row.isOk) {
+      // The model was removed meanwhile: nothing to attach the encoder to.
+      await _deletePartial(companion.id);
+      return _fail(companion, row.failureOrNull!, 0);
+    }
+    final unzipped = await _coreMlUnzip(
+      zipPath: _partial(companion.id).path,
+      targetDir: p.join(_paths.modelsDir, _segment(parent.id)),
+      dirName: coreMlEncoderDirName(parent.file),
+    );
+    await _deletePartial(companion.id);
+    if (!unzipped.isOk) return _fail(companion, unzipped.failureOrNull!, 0);
+    _emit(companion, DownloadPhase.installed, companion.size);
+    return row;
   }
 
   Future<Result<InstalledModelRow>> _stopped(

@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.author           = { 'VaultVoice' => 'noreply@example.invalid' }
   s.source           = { :path => '.' }
   s.dependency 'Flutter'
-  s.platform = :ios, '16.0'
+  s.platform = :ios, '16.4'
   s.vendored_frameworks = 'Frameworks/vv_native.xcframework'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.swift_version = '5.0'

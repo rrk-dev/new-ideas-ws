@@ -5,7 +5,7 @@
 #   native/build.sh android   libvv_native.so for arm64-v8a (needs Android NDK r28+)
 #   native/build.sh ios       vv_native.xcframework: device + simulator (needs Xcode)
 #   native/build.sh all       android + ios + host (whatever the OS supports)
-#   VV_WHISPER_COREML=ON native/build.sh ios   adds the whisper Core ML encoder (STT-01)
+#   VV_WHISPER_COREML=OFF native/build.sh ios  drops the whisper Core ML encoder (on by default, ADR-STT-01)
 #
 # From a clean checkout:
 #   git submodule update --init --recursive && native/build.sh <target>
@@ -16,7 +16,7 @@ set -euo pipefail
 NATIVE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 OUT="$NATIVE/build"
 JOBS="${JOBS:-$(getconf _NPROCESSORS_ONLN 2>/dev/null || echo 4)}"
-IOS_MIN_OS="${IOS_MIN_OS:-16.0}"          # app minimum; llama.cpp script uses 16.4 (ADR-FND-06)
+IOS_MIN_OS="${IOS_MIN_OS:-16.4}"          # app minimum = llama.cpp script (ADR-FND-06, product owner 2026-10-14)
 ANDROID_API="${ANDROID_API:-26}"
 ANDROID_NDK_MIN_MAJOR=28
 
@@ -97,7 +97,7 @@ build_ios() {
     -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_DEPLOYMENT_TARGET="$IOS_MIN_OS"
     -DGGML_METAL=ON -DGGML_METAL_EMBED_LIBRARY=ON -DGGML_METAL_TARGET_OS=ios
     -DGGML_OPENMP=OFF -DGGML_NATIVE=OFF -DGGML_BLAS_DEFAULT=ON
-    -DVV_WHISPER_COREML="${VV_WHISPER_COREML:-OFF}"   # STT-01: Core ML encoder (ADR-STT-01)
+    -DVV_WHISPER_COREML="${VV_WHISPER_COREML:-ON}"    # Core ML encoder + ggml fallback (ADR-STT-01, Accepted 2026-10-14)
     -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED=NO
     -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED=NO
     -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY=""

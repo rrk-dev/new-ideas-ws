@@ -3,7 +3,8 @@
 - **Status:** Proposed (no NDK, no Android device available; host-verified parts only)
 - **Date:** 2026-10-13
 - **Task:** LLM-03
-- **Deciders:** Claude Code (implementer); pending verifier, device matrix (QA-05) and the user (minimum supported CPU)
+- **Deciders:** Claude Code (implementer); product owner (minimum supported CPU: ARMv8.2-A +
+  dotprod, no Cortex-A53/A35 — decided 2026-10-14); pending verifier and device matrix (QA-05)
 - **Supersedes:** — (refines ADR-FND-06 §3, which deferred the CPU-variant decision to STT-02/LLM-03)
 - **Superseded in part by:** [ADR-STT-02](ADR-STT-02-android-backends.md) — see the note below and
   [ADR-INT-W2](ADR-INT-W2-integration.md)
@@ -19,6 +20,14 @@
 > `LlmBackendChoice`). Decisions 1, 2, 4 and 5 (dotprod guard, quant benchmarks, perf-core
 > threads, mmap) still apply; in a DL build the CPU variant is picked at runtime instead of
 > `VV_ANDROID_CPU_ARCH` (mutually exclusive).
+
+> **Product decision 2026-10-14:** the minimum supported CPU is **ARMv8.2-A + dotprod**;
+> Cortex-A53/A35-only phones are not supported. Decision 1 below is therefore no longer gated on
+> the QA-05 "Dotprod" cells: the static Android build defaults to `armv8.2-a+dotprod`
+> (`VV_ANDROID_CPU_MIN_ARCH`), the DL build drops the armv8.0 variant (ADR-STT-02), the bridge's
+> `vv_cpu_supported()` requires NEON + dotprod on every Android build, and the app shows a
+> "This device isn't supported" screen at launch below it
+> (`app/lib/features/device_support/`). LLM-10 (A53 support via runtime dispatch) is not needed.
 
 ## Context
 ADR-FND-06 ships one static `libvv_native.so` (ggml + whisper + llama) with a plain **armv8-a**
@@ -67,15 +76,14 @@ and **no** Q4_0 repacking — the main Android CPU speed-ups are compiled out.
   Q4_K_M, CPU vs Vulkan/OpenCL).
 
 ## Decision
-1. **CPU: Option 2** — the Android release build sets `VV_ANDROID_CPU_ARCH=armv8.2-a+dotprod`
-   **once the QA-05 "Dotprod" cells and the LLM-03 device rows confirm it**; until then the
-   FND-06 default (armv8-a) stays and the device rows compare both builds. The bridge exports
+1. **CPU: Option 2** — the Android release build sets `VV_ANDROID_CPU_ARCH=armv8.2-a+dotprod` — **now the default (product decision 2026-10-14)**;
+   the device rows still compare it against an `armv8-a` comparison build for the speed numbers. The bridge exports
    `vv_cpu_features()` / `vv_cpu_supported()` (runtime HWCAP vs compiled-in ggml features; calling
    them executes no optional instruction) and Dart (`DeviceCapabilities.cpuSupported`,
    `chooseAndroidBackend`) refuses to start STT/LLM on an unsupported CPU — a clear
    "device not supported" instead of SIGILL. `+i8mm` is **not** in the baseline (Option 4
-   rejected). Option 3 is the fallback if the product must support A53-only phones
-   (**PRODUCT-DECISION**: minimum supported CPU class) — follow-up LLM-10.
+   rejected). Option 3 was the fallback if the product had to support A53-only phones — the product owner
+   decided it does not (2026-10-14), so LLM-10 is dropped.
 2. **Quant for CPU-only Android**: benchmark Q4_0 (repacked to interleaved layouts at load on
    dotprod/i8mm) against Q4_K_M on VV-AND-FLG / VV-AND-7; LLM-08 picks per tier from those rows.
 3. **GPU backends optional and off by default**: `VV_ANDROID_VULKAN` / `VV_ANDROID_OPENCL` CMake
@@ -95,9 +103,8 @@ and **no** Q4_0 repacking — the main Android CPU speed-ups are compiled out.
 ## Consequences
 - Positive: the speed-critical kernels become available without changing the FND-06 single-`.so`
   layout; no SIGILL path; GPU backends cannot crash users repeatedly; threads stay on big cores.
-- Negative / risks: Cortex-A53/A35-only phones (API 26+ budget devices) would be refused by the
-  dotprod build → product decision; GPU backends unmeasured; Linux/Android code paths compiled only
+- Negative / risks: Cortex-A53/A35-only phones (API 26+ budget devices) are refused by the
+  dotprod build — accepted by the product owner 2026-10-14 (launch screen explains it); GPU backends unmeasured; Linux/Android code paths compiled only
   for x86_64 on the host. `native/build.sh android` does not forward `VV_ANDROID_VULKAN/OPENCL`
   yet (build.sh is owned by the CI/FND agent) — pass them via Gradle `arguments` or extend build.sh.
-- Follow-up tasks: LLM-10 (proposed) GGML_BACKEND_DL + CPU_ALL_VARIANTS if A53 support is
-  required; CI: forward the GPU options in `native/build.sh android` and add a Vulkan build job.
+- Follow-up tasks: ~~LLM-10 (A53 support)~~ not needed (2026-10-14); CI: forward the GPU options in `native/build.sh android` and add a Vulkan build job.

@@ -249,6 +249,7 @@ CatalogModel testCatalogModel(
   String id = 'whisper-tiny.en',
   String file = 'ggml-tiny.en.bin',
   ModelType type = ModelType.stt,
+  List<String> companions = const [],
 }) => CatalogModel(
   id: id,
   type: type,
@@ -263,7 +264,7 @@ CatalogModel testCatalogModel(
   license: 'MIT',
   licenseUrl: Uri.parse('https://example.com/license'),
   urls: [for (final u in urls) Uri.parse(u)],
-  companions: const [],
+  companions: companions,
 );
 
 /// Scriptable [DownloadDeviceInfo].

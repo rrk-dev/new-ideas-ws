@@ -126,14 +126,16 @@ List<ModelEntry> buildModelEntries({
   final byId = {for (final i in installed) i.id: i};
   final base = [
     for (final m in catalog.models)
-      ModelEntry(
-        model: m,
-        installed: byId[m.id],
-        access: access(m.tier, installed: byId.containsKey(m.id)),
-        compatible: deviceRamMb == null || m.minRamMb <= deviceRamMb,
-        recommended: recommendedIds.contains(m.id),
-        active: false,
-      ),
+      // Core ML encoders install with their STT model (iOS companions).
+      if (m.type != ModelType.coremlEncoder)
+        ModelEntry(
+          model: m,
+          installed: byId[m.id],
+          access: access(m.tier, installed: byId.containsKey(m.id)),
+          compatible: deviceRamMb == null || m.minRamMb <= deviceRamMb,
+          recommended: recommendedIds.contains(m.id),
+          active: false,
+        ),
   ];
   final active = {
     for (final type in kPipelineModelTypes)

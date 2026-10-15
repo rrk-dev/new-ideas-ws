@@ -20,6 +20,12 @@ extern "C" {
 #define VV_CPU_FEAT_I8MM 4
 #define VV_CPU_FEAT_SVE 8
 
+/* Product minimum on Android (product owner decision 2026-10-14, ADR-LLM-03 /
+ * ADR-STT-02): ARMv8.2-A with dotprod. Cortex-A53/A35-only phones lack
+ * dotprod and are refused at launch ("This device isn't supported") even in a
+ * runtime-variant (GGML_BACKEND_DL) build, whose own baseline would run. */
+#define VV_CPU_ANDROID_MIN (VV_CPU_FEAT_NEON | VV_CPU_FEAT_DOTPROD)
+
 /* Features the running CPU reports (never executes optional instructions). */
 int32_t vv_internal_runtime_features(void);
 

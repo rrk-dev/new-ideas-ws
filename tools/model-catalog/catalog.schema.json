@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://models.vaultvoice.example/catalog/v1/catalog.schema.json",
+  "$id": "urn:vaultvoice:model-catalog:v1",
   "title": "VaultVoice model catalog, schema 1 (MDL-01)",
   "description": "Normative rules are enforced by tools/model-catalog/catalog.py (validate_catalog) and app/lib/features/models/domain/model_catalog.dart; this file documents them. Extra rules not expressible here: model ids are unique, companions reference other ids in the same catalog, the signature (catalog.json.sig) covers the exact file bytes, file is at most 1 MiB.",
   "type": "object",

@@ -7,7 +7,7 @@
 | ggml | llama.cpp's copy (`ggml_version()` 0.26.0) | 2026-10-12 | whisper.cpp's tree is **identical** at these pins (`diff -rq native/llama.cpp/ggml native/whisper.cpp/ggml` → only `.gitignore` differs) |
 | Android NDK | `28.2.13676358` (r28c) | 2026-10-12 | r28+ = 16 KB page alignment by default; pinned in `app/android/app/build.gradle.kts` and `packages/vv_native/android/build.gradle` |
 | CMake (Android) | `3.22.1` | 2026-10-12 | superproject needs ≥ 3.22 |
-| iOS min OS (native) | `16.0` (`IOS_MIN_OS`) | 2026-10-12 | matches the app; llama.cpp's own script uses 16.4 — see ADR-FND-06 |
+| iOS min OS (native) | `16.4` (`IOS_MIN_OS`) | 2026-10-14 | app minimum (product owner decision 2026-10-14); same as llama.cpp's own `build-xcframework.sh` — see ADR-FND-06 |
 
 Both projects are MIT licensed. Submodules are shallow clones of the tags above; the commit in
 `git submodule status` is authoritative.

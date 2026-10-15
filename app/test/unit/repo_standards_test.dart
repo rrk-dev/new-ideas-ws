@@ -23,12 +23,32 @@ void main() {
       '## Folder layout',
       'lib/features/<feature>/',
       '--flavor dev',
-      'iOS 16.0+',
+      'iOS 16.4+',
+      'ARMv8.2-A + dotprod',
       'API 26+',
       'arm64-v8a',
       'lefthook install',
     ]) {
       expect(doc, contains(needle));
     }
+  });
+
+  // Product owner decision 2026-10-14: iOS 16.4 minimum (ADR-FND-06 §4).
+  test('iOS 16.4 minimum is pinned in Xcode, the podspec and build.sh', () {
+    final pbx = File('ios/Runner.xcodeproj/project.pbxproj').readAsStringSync();
+    final targets = RegExp('IPHONEOS_DEPLOYMENT_TARGET = ([0-9.]+);')
+        .allMatches(pbx)
+        .map((m) => m.group(1))
+        .toList();
+    expect(targets, isNotEmpty);
+    expect(targets.toSet(), {'16.4'});
+    expect(
+      File('../packages/vv_native/ios/vv_native.podspec').readAsStringSync(),
+      contains("s.platform = :ios, '16.4'"),
+    );
+    expect(
+      File('../native/build.sh').readAsStringSync(),
+      contains(r'IOS_MIN_OS="${IOS_MIN_OS:-16.4}"'),
+    );
   });
 }

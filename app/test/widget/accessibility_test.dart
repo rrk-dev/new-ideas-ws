@@ -20,6 +20,8 @@ import 'package:vaultvoice/core/theme/app_theme.dart';
 import 'package:vaultvoice/features/app_lock/domain/app_lock.dart';
 import 'package:vaultvoice/features/app_lock/presentation/app_lock_gate.dart';
 import 'package:vaultvoice/features/app_lock/presentation/app_lock_providers.dart';
+import 'package:vaultvoice/features/device_support/data/device_support_providers.dart';
+import 'package:vaultvoice/features/device_support/presentation/unsupported_device_screen.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/export/domain/pending_export.dart';
 import 'package:vaultvoice/features/export/domain/routing_rule.dart';
@@ -398,6 +400,41 @@ void main() {
     expect(find.byType(LockScreen), findsOneWidget);
     expect(t.takeException(), isNull);
   });
+
+  // Minimum-CPU launch screen (product owner decision 2026-10-14).
+  for (final mode in [ThemeMode.light, ThemeMode.dark]) {
+    for (final scale in [1.0, 2.0]) {
+      testWidgets('[APP-06/AC1] Unsupported device (${mode.name}, '
+          '${(scale * 100).round()} %): labelled controls, tap targets, '
+          'contrast, no overflow', (t) async {
+        final handle = t.ensureSemantics();
+        t.view
+          ..physicalSize = const Size(390, 844)
+          ..devicePixelRatio = 1;
+        addTearDown(t.view.reset);
+        t.platformDispatcher
+          ..platformBrightnessTestValue = mode == ThemeMode.dark
+              ? Brightness.dark
+              : Brightness.light
+          ..textScaleFactorTestValue = scale;
+        addTearDown(t.platformDispatcher.clearAllTestValues);
+        await t.pumpWidget(
+          ProviderScope(
+            overrides: [deviceSupportedProvider.overrideWithValue(false)],
+            child: const App(),
+          ),
+        );
+        await t.pumpAndSettle();
+        expect(find.byType(UnsupportedDeviceScreen), findsOneWidget);
+        expect(t.takeException(), isNull);
+        await expectLater(t, meetsGuideline(labeledTapTargetGuideline));
+        await expectLater(t, meetsGuideline(androidTapTargetGuideline));
+        await expectLater(t, meetsGuideline(iOSTapTargetGuideline));
+        await expectLater(t, meetsGuideline(textContrastGuideline));
+        handle.dispose();
+      });
+    }
+  }
 
   for (final mode in [ThemeMode.light, ThemeMode.dark]) {
     for (final scale in [1.0, 2.0]) {

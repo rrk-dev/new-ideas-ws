@@ -47,12 +47,16 @@ fvm dart run flutter_launcher_icons -f flutter_launcher_icons-prod.yaml
 ```
 
 ## Platform targets and rationale
-- **iOS 16.0+** and **Android API 26+ (Android 8.0), arm64-v8a only** for v1.
+- **iOS 16.4+** and **Android API 26+ (Android 8.0), arm64-v8a only, ARMv8.2-A + dotprod CPU** for v1
+  (product owner decision 2026-10-14; see ADR-FND-06).
 - Why: on-device Whisper/LLM inference relies on Metal 3-era GPUs (iOS 16 baseline: A12+ devices)
   and Vulkan 1.1 / modern audio and background-execution APIs on Android 8+. Restricting to arm64
   drops 32-bit ARM and x86 NEON/SIMD code paths, halves native binary size and keeps whisper.cpp /
   llama.cpp builds to one ABI. Devices that cannot run the models adequately are out of scope.
-- Enforced in `ios/Runner.xcodeproj` (`IPHONEOS_DEPLOYMENT_TARGET = 16.0`) and
+- Android CPU: ARMv8.2-A with the dotprod extension (Cortex-A55/A75 or newer). Cortex-A53/A35-only
+  phones are not supported: the app checks `vv_cpu_supported()` at launch and shows a
+  "This device isn't supported" screen instead of crashing (ADR-LLM-03, ADR-STT-02).
+- Enforced in `ios/Runner.xcodeproj` (`IPHONEOS_DEPLOYMENT_TARGET = 16.4`, all build configurations), `packages/vv_native/ios/vv_native.podspec`, `native/build.sh` (`IOS_MIN_OS`) and
   `android/app/build.gradle.kts` (`minSdk = 26`, `abiFilters += arm64-v8a`).
 - An arm64 Android *emulator* image is required (x86_64 images will not install the app).
 

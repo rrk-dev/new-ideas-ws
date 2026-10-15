@@ -54,15 +54,15 @@ if(VV_WHISPER_COREML)
   set(WHISPER_COREML_ALLOW_FALLBACK ON)
 endif()
 
-# Android CPU baseline. Empty = plain armv8-a NEON (runs on every arm64
-# device). A device matrix-approved value such as "armv8.2-a+dotprod" or
-# "armv8.2-a+dotprod+i8mm" is forwarded to GGML_CPU_ARM_ARCH — never ship an
-# instruction set that can SIGILL on a supported device (ADR-FND-06).
-set(VV_ANDROID_CPU_ARCH "" CACHE STRING "ggml CPU arch for Android arm64")
+# Android CPU baseline (static, non-DL builds). Product minimum since
+# 2026-10-14 is ARMv8.2-A + dotprod (no Cortex-A53/A35-only phones; ADR-LLM-03,
+# ADR-FND-06): empty = that minimum. "armv8-a" (plain NEON) is only for
+# non-shipped comparison builds; "+i8mm" would SIGILL on supported A55/A76
+# devices — never ship it. The runtime guard vv_cpu_supported() refuses CPUs
+# below the minimum, so the app shows "This device isn't supported" instead.
+set(VV_ANDROID_CPU_MIN_ARCH "armv8.2-a+dotprod")
+set(VV_ANDROID_CPU_ARCH "" CACHE STRING "ggml CPU arch for Android arm64 (empty = armv8.2-a+dotprod)")
 set(GGML_NATIVE OFF)
-if(ANDROID AND VV_ANDROID_CPU_ARCH)
-  set(GGML_CPU_ARM_ARCH "${VV_ANDROID_CPU_ARCH}")
-endif()
 
 # The single ggml. Both projects skip their own copy when a `ggml` target
 # exists (`if (NOT TARGET ggml ...)` in llama.cpp/CMakeLists.txt:220 and
@@ -127,7 +127,24 @@ if(VV_GGML_OPENCL)
   set(GGML_OPENCL_USE_ADRENO_KERNELS ON)
 endif()
 
+if(ANDROID AND NOT VV_GGML_BACKEND_DL)
+  if(VV_ANDROID_CPU_ARCH)
+    set(GGML_CPU_ARM_ARCH "${VV_ANDROID_CPU_ARCH}")
+  else()
+    set(GGML_CPU_ARM_ARCH "${VV_ANDROID_CPU_MIN_ARCH}")
+  endif()
+endif()
+
 add_subdirectory(llama.cpp/ggml ggml)
+if(ANDROID AND VV_GGML_BACKEND_DL AND TARGET ggml-cpu-android_armv8.0_1)
+  # The armv8.0 (no dotprod) variant only matches CPUs below the product
+  # minimum, which vv_cpu_supported() refuses anyway: keep it out of the
+  # default build/APK and out of the loader's probe list (2026-10-14).
+  set_target_properties(ggml-cpu-android_armv8.0_1 PROPERTIES EXCLUDE_FROM_ALL ON)
+  set(_vv_shipped_backends ${GGML_AVAILABLE_BACKENDS})
+  list(REMOVE_ITEM _vv_shipped_backends ggml-cpu-android_armv8.0_1)
+  set(GGML_AVAILABLE_BACKENDS "${_vv_shipped_backends}" CACHE INTERNAL "List of backends for cmake package" FORCE)
+endif()
 set(BUILD_SHARED_LIBS OFF)             # whisper + llama stay static inside vv_native
 add_subdirectory(llama.cpp llama)
 add_subdirectory(whisper.cpp whisper)

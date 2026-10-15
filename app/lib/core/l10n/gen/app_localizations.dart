@@ -4437,6 +4437,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The note leaves the app only through the app you pick.'**
   String get noteShareHint;
+
+  /// Launch screen when the CPU is below the minimum (ARMv8.2-A + dotprod).
+  ///
+  /// In en, this message translates to:
+  /// **'This device isn’t supported'**
+  String get unsupportedDeviceTitle;
+
+  /// No description provided for @unsupportedDeviceBody.
+  ///
+  /// In en, this message translates to:
+  /// **'VaultVoice runs speech recognition and AI entirely on your phone. This phone’s processor is too old for that, so the app can’t record or create notes here.'**
+  String get unsupportedDeviceBody;
+
+  /// No description provided for @unsupportedDeviceDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'VaultVoice needs a 64-bit ARMv8.2 processor with dot-product support (for example Cortex-A55, A75 or newer). Nothing was recorded, downloaded or sent anywhere.'**
+  String get unsupportedDeviceDetail;
+
+  /// No description provided for @unsupportedDeviceIconLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported processor'**
+  String get unsupportedDeviceIconLabel;
 }
 
 class _AppLocalizationsDelegate

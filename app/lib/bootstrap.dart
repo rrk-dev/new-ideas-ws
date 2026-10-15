@@ -24,6 +24,9 @@ import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/core/security/key_vault.dart';
 import 'package:vaultvoice/core/security/security_providers.dart';
 import 'package:vaultvoice/core/security/storage_protection.dart';
+import 'package:vaultvoice/features/device_support/data/device_support_providers.dart';
+import 'package:vaultvoice/features/device_support/domain/device_support.dart';
+import 'package:vaultvoice/features/extraction/data/native_device_capabilities.dart';
 import 'package:vaultvoice/features/extraction/data/preview_llm_engine.dart';
 import 'package:vaultvoice/features/pipeline/data/flutter_local_notifier.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
@@ -67,6 +70,23 @@ Future<void> bootstrap(
     onCrash: crash.recordDart,
   );
   logger.info('app', 'app start', fields: {'flavor': flavor});
+  // Minimum CPU (product owner 2026-10-14): refuse Cortex-A53/A35-class CPUs
+  // with a clear screen before anything opens the DB or starts a service.
+  if (!isDeviceSupported(_launchCapabilities())) {
+    logger.warning('app', 'device below minimum CPU; unsupported screen');
+    runApp(
+      ProviderScope(
+        overrides: [
+          flavorProvider.overrideWithValue(flavor),
+          appPathsProvider.overrideWithValue(paths),
+          loggerProvider.overrideWithValue(logger),
+          deviceSupportedProvider.overrideWithValue(false),
+        ],
+        child: const App(),
+      ),
+    );
+    return;
+  }
   // SEC-01: OS file protection + sqlite3mc key before anything opens the DB.
   final security = (Platform.isAndroid || Platform.isIOS)
       ? await prepareEncryptionAtRest(
@@ -126,6 +146,16 @@ Future<AppPaths> _resolvePaths() async {
       root: Directory('$tmp${Platform.pathSeparator}vv'),
       temp: Directory('$tmp${Platform.pathSeparator}vv-tmp'),
     );
+  }
+}
+
+/// CPU facts from `vv_native` at launch; null when the library cannot be
+/// loaded (the launch check then fails open, see `isDeviceSupported`).
+NativeDeviceCapabilities? _launchCapabilities() {
+  try {
+    return NativeDeviceCapabilities(VvNative.open());
+  } on Object {
+    return null;
   }
 }
 

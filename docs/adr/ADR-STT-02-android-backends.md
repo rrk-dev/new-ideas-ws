@@ -6,9 +6,13 @@
 - **Task:** STT-02 (decides the item ADR-FND-06 §3 deferred to "STT-02 / LLM-03 measurements")
 - **Deciders:** Claude Code (implementer); pending independent verifier + device run
 - **Supersedes:** — (refines ADR-FND-06 §3; that ADR stays valid for the default build)
+- **Amended 2026-10-14 (product owner):** minimum CPU is **ARMv8.2-A + dotprod** — no
+  Cortex-A53/A35-only phones. The runtime-variant design below stays; the `android_armv8.0_1`
+  (no-dotprod) variant is no longer shipped (see Decision 1).
 
 ## Context
-Android arm64 devices range from Cortex-A53/A55-only phones (armv8.0/8.2, some without dotprod)
+Android arm64 devices range from Cortex-A53/A55-only phones (armv8.0/8.2, some without dotprod —
+the A53/A35 ones are out of scope since 2026-10-14)
 to Snapdragon 8 Gen 3 / Dimensity 9300 (armv9, i8mm, SVE2). FND-06 ships one static
 `libvv_native.so` compiled for plain **armv8-a NEON** so it can never SIGILL — but that leaves
 dotprod/i8mm kernels unused on every modern phone. GPUs: Adreno (Qualcomm) and Mali (Arm,
@@ -80,6 +84,12 @@ Host DL layout sizes: `libvv_native` 140 KB, `libggml-base` 736 KB, `libggml` 59
    directory-scanning `ggml_backend_load_all_from_path()` does not. Static builds (iOS, current
    Android default) keep working unchanged (`vv_backends_load` is a no-op there).
    `VV_ANDROID_CPU_ARCH` and DL are mutually exclusive (CMake error).
+   **Shipped variant set (2026-10-14):** `android_armv8.2_1` (dotprod), `8.2_2` (+fp16), `8.6_1`
+   (+i8mm), `9.0_1` (+SVE2), `9.2_x` (+SME). `android_armv8.0_1` is built by ggml but marked
+   `EXCLUDE_FROM_ALL` and removed from `VV_GGML_BACKENDS` (`native/CMakeLists.txt`), so it is
+   neither packaged nor probed: it only matches CPUs below the product minimum, which
+   `vv_cpu_supported()` refuses at launch anyway ("This device isn't supported"). Build it
+   explicitly (`cmake --build … --target ggml-cpu-android_armv8.0_1`) only for comparison runs.
 2. **GPU: built only as runtime modules, gated by a Dart allowlist** — `VV_GGML_VULKAN` /
    `VV_GGML_OPENCL` refuse to configure without DL, so a GPU driver is never touched unless
    `BackendPolicy` (`app/lib/core/platform/backend_policy.dart`) sets its bit in the

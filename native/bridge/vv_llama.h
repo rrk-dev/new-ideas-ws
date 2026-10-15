@@ -80,7 +80,10 @@ VV_API int32_t vv_cpu_perf_cores(void);
 VV_API int32_t vv_cpu_features(int32_t* runtime, int32_t* build);
 
 /* 1 when every `build` feature is present at runtime, else 0: Dart must not
- * start whisper/llama on an unsupported CPU (SIGILL), ADR-LLM-03. */
+ * start whisper/llama on an unsupported CPU (SIGILL), ADR-LLM-03. On Android
+ * `build` always includes the product minimum NEON + DOTPROD (ARMv8.2-A,
+ * no Cortex-A53/A35; decided 2026-10-14) — the app shows "This device isn't
+ * supported" at launch when this returns 0. */
 VV_API int32_t vv_cpu_supported(void);
 
 /* GPU / integrated-GPU devices registered in ggml (Metal, Vulkan, OpenCL). */

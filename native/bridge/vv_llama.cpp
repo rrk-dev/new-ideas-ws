@@ -414,6 +414,11 @@ int32_t vv_cpu_features(int32_t* runtime, int32_t* build) {
     if (ggml_cpu_has_matmul_int8()) b |= VV_CPU_FEATURE_I8MM;
     if (ggml_cpu_has_sve()) b |= VV_CPU_FEATURE_SVE;
 #endif
+#if defined(__ANDROID__)
+    // Product minimum (ARMv8.2-A + dotprod, 2026-10-14): required on every
+    // Android build, static or DL, so A53/A35-only CPUs are refused.
+    b |= VV_CPU_ANDROID_MIN;
+#endif
     *build = b;
   }
   return VV_OK;

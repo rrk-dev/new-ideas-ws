@@ -30,6 +30,7 @@ import '../pipeline/pipeline_test_utils.dart';
 const _secret = 'quarterly merger with initech';
 const _hfPath = '/ggerganov/whisper.cpp/resolve/abc/ggml-tiny.en.bin';
 const _cdnPath = '/xet-bridge-us/whisper/abc';
+const _catalogBase = '/vv-test/catalog/resolve/main/v1/';
 
 /// SEC-02 host egress capture: the production allowlist + gateway behind a
 /// recording "proxy" (a local server that sees every request, standing in
@@ -84,8 +85,11 @@ void main() {
   });
 
   Future<void> session() async {
-    // 1. Catalog refresh (production endpoints; CDN not provisioned → 404).
+    // 1. Catalog refresh. Production has no catalog endpoint until the
+    // Hugging Face catalog repo is named (ADR-MDL-01, HF only), so an HF
+    // test base stands in (not served by the proxy → 404).
     final catalog = CatalogRepository(
+      baseUris: [Uri.parse('https://huggingface.co$_catalogBase')],
       gateway: gateway,
       verifier: CatalogVerifier(trustedKeys: pinnedCatalogKeys()),
       stateStore: InMemoryCatalogStateStore(),
@@ -145,12 +149,12 @@ void main() {
       expect(all, isNot(contains(_secret)));
       expect(all, isNot(contains('r1')));
     }
-    // What was actually seen: catalog (+sig) on our CDN, the model on the
-    // mirror and its redirect target — nothing from the pipeline.
+    // What was actually seen: the catalog on Hugging Face, the model on
+    // Hugging Face and its redirect target — nothing from the pipeline.
     expect(
       {for (final r in proxy.requests) '${r.host}${r.uri.path}'},
       containsAll(<String>[
-        '$kModelCdnHost/catalog/v1/catalog.json',
+        'huggingface.co${_catalogBase}catalog.json',
         'huggingface.co$_hfPath',
         'us.aws.cdn.hf.co$_cdnPath',
       ]),

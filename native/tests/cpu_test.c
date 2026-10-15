@@ -106,6 +106,13 @@ int main(int argc, char** argv) {
   CHECK(vv_internal_cpu_supported(neon, neon) == 1);
   CHECK(vv_internal_cpu_supported(0, 0) == 1);
 
+  /* Product minimum (2026-10-14): ARMv8.2-A + dotprod on Android. A53/A35
+   * (NEON only) is refused; A55 and newer (dotprod) pass. */
+  CHECK(VV_CPU_ANDROID_MIN == (neon | dp));
+  CHECK(vv_internal_cpu_supported(neon, VV_CPU_ANDROID_MIN) == 0);
+  CHECK(vv_internal_cpu_supported(neon | dp, VV_CPU_ANDROID_MIN) == 1);
+  CHECK(vv_internal_cpu_supported(neon | dp | mm, VV_CPU_ANDROID_MIN) == 1);
+
   /* Guard: this very host runs the library, so it must report supported
    * (build features are a subset of runtime features). */
   int32_t rt = -1, b = -1;

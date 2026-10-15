@@ -1,19 +1,18 @@
 /// Hosts the `NetworkGateway` may contact: model catalog + model files only
-/// (MDL-01). Every URL in the signed catalog and in `CatalogEndpoints` must
+/// (MDL-01). Every URL in the signed catalog and in `kCatalogBaseUris` must
 /// use one of these hosts (enforced by tests).
 ///
-/// PRODUCT-DECISION: `models.vaultvoice.example` is a placeholder for our own
-/// object storage + CDN (ADR-MDL-01). `.example` never resolves, so until the
-/// owner provisions the CDN the app falls back to the bundled catalog and the
-/// Hugging Face mirror URLs.
+/// Product owner decision 2026-10-14 (ADR-MDL-01, Accepted): models are
+/// hosted on **Hugging Face only** — pinned-revision `resolve/<rev>/<file>`
+/// URLs. There is no own CDN; integrity comes from the Ed25519-signed
+/// catalog, not from the host.
 library;
 
-const kModelCdnHost = 'models.vaultvoice.example';
+/// The only host the gateway contacts directly.
+const kModelHuggingFaceHost = 'huggingface.co';
 
-/// Mirror for model files (pinned-revision URLs in the catalog).
-const kModelMirrorHosts = {'huggingface.co'};
-
-const Set<String> kModelHosts = {kModelCdnHost, ...kModelMirrorHosts};
+/// Every directly contacted host (Hugging Face only).
+const Set<String> kModelHosts = {kModelHuggingFaceHost};
 
 /// Hugging Face file CDN hosts that `huggingface.co/<repo>/resolve/<rev>/…`
 /// URLs redirect to (MDL-02). Redirect targets only: the gateway never

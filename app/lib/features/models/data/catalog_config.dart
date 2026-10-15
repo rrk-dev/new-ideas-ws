@@ -5,14 +5,16 @@ import 'package:vaultvoice/features/models/domain/model_catalog.dart';
 /// `version:` in pubspec.yaml by a test (no package_info dependency needed).
 const kCatalogAppVersion = SemVer(1, 0, 0);
 
-/// Where `catalog.json` + `catalog.json.sig` are fetched from, in order
-/// (primary, then mirrors). Each base must end with `/`.
+/// Where `catalog.json` + `catalog.json.sig` are fetched from, in order.
+/// Each base must end with `/` and use a host in [kModelHosts] (Hugging
+/// Face only, ADR-MDL-01).
 ///
-/// PRODUCT-DECISION: CDN provider + domain (ADR-MDL-01). Add a mirror base
-/// here once one is provisioned; its host must be in [kModelHosts].
-final List<Uri> kCatalogBaseUris = [
-  Uri.parse('https://$kModelCdnHost/catalog/v1/'),
-];
+/// PRODUCT-DECISION: the Hugging Face repository that will publish the signed
+/// catalog (e.g. `https://huggingface.co/<org>/<repo>/resolve/main/catalog/v1/`)
+/// has not been named yet. Until it is, the app uses the signed bundled
+/// catalog only and makes no catalog request (an unclaimed placeholder repo
+/// name could be registered by anyone). Add the base here once it exists.
+final List<Uri> kCatalogBaseUris = [];
 
 const kBundledCatalogAsset = 'assets/catalog/catalog.json';
 const kBundledCatalogSigAsset = 'assets/catalog/catalog.json.sig';

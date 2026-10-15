@@ -1,5 +1,5 @@
 {
-  "_comment": "Source for app/assets/catalog/catalog.json (MDL-01). Edit here, then build + sign (tools/model-catalog/README.md). Fields starting with '_' are provenance notes and are not copied into the catalog. Primary URLs use the placeholder host models.vaultvoice.example until the CDN is provisioned (PRODUCT-DECISION, ADR-MDL-01); the Hugging Face URLs are mirrors pinned to a repo revision.",
+  "_comment": "Source for app/assets/catalog/catalog.json (MDL-01). Edit here, then build + sign (tools/model-catalog/README.md). Fields starting with '_' are provenance notes and are not copied into the catalog. Hosting is Hugging Face only (product owner decision 2026-10-14, ADR-MDL-01): every URL is a pinned-revision huggingface.co resolve URL.",
   "schema": 1,
   "min_app_version": "1.0.0",
   "models": [
@@ -18,10 +18,11 @@
       "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
       "attribution": null,
       "urls": [
-        "https://models.vaultvoice.example/stt/ggml-tiny.en.bin",
         "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-tiny.en.bin"
       ],
-      "companions": [],
+      "companions": [
+        "whisper-tiny.en-coreml-encoder"
+      ],
       "_provenance": "2026-10-12: downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS oid."
     },
     {
@@ -39,10 +40,11 @@
       "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
       "attribution": null,
       "urls": [
-        "https://models.vaultvoice.example/stt/ggml-tiny.en-q5_1.bin",
         "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-tiny.en-q5_1.bin"
       ],
-      "companions": [],
+      "companions": [
+        "whisper-tiny.en-coreml-encoder"
+      ],
       "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
     },
     {
@@ -60,10 +62,11 @@
       "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
       "attribution": null,
       "urls": [
-        "https://models.vaultvoice.example/stt/ggml-base.en-q5_1.bin",
         "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-base.en-q5_1.bin"
       ],
-      "companions": [],
+      "companions": [
+        "whisper-base.en-coreml-encoder"
+      ],
       "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
     },
     {
@@ -81,10 +84,11 @@
       "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
       "attribution": null,
       "urls": [
-        "https://models.vaultvoice.example/stt/ggml-base.en.bin",
         "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-base.en.bin"
       ],
-      "companions": [],
+      "companions": [
+        "whisper-base.en-coreml-encoder"
+      ],
       "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
     },
     {
@@ -102,10 +106,11 @@
       "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
       "attribution": null,
       "urls": [
-        "https://models.vaultvoice.example/stt/ggml-small.en-q5_1.bin",
         "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-small.en-q5_1.bin"
       ],
-      "companions": [],
+      "companions": [
+        "whisper-small.en-coreml-encoder"
+      ],
       "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
     },
     {
@@ -123,10 +128,11 @@
       "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
       "attribution": null,
       "urls": [
-        "https://models.vaultvoice.example/stt/ggml-small.en-q8_0.bin",
         "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-small.en-q8_0.bin"
       ],
-      "companions": [],
+      "companions": [
+        "whisper-small.en-coreml-encoder"
+      ],
       "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
     },
     {
@@ -144,10 +150,11 @@
       "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
       "attribution": null,
       "urls": [
-        "https://models.vaultvoice.example/stt/ggml-base-q5_1.bin",
         "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-base-q5_1.bin"
       ],
-      "companions": [],
+      "companions": [
+        "whisper-base-coreml-encoder"
+      ],
       "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
     },
     {
@@ -165,10 +172,11 @@
       "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
       "attribution": null,
       "urls": [
-        "https://models.vaultvoice.example/stt/ggml-small-q5_1.bin",
         "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-small-q5_1.bin"
       ],
-      "companions": [],
+      "companions": [
+        "whisper-small-coreml-encoder"
+      ],
       "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
     },
     {
@@ -186,11 +194,132 @@
       "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
       "attribution": null,
       "urls": [
-        "https://models.vaultvoice.example/stt/ggml-large-v3-turbo-q5_0.bin",
         "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-large-v3-turbo-q5_0.bin"
       ],
-      "companions": [],
+      "companions": [
+        "whisper-large-v3-turbo-coreml-encoder"
+      ],
       "_provenance": "2026-10-14 (STT-07): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-ETag."
+    },
+    {
+      "id": "whisper-tiny.en-coreml-encoder",
+      "type": "coreml-encoder",
+      "version": "1",
+      "display_name": "Whisper Tiny (English) — Core ML encoder (iOS)",
+      "tier": "free",
+      "file": "ggml-tiny.en-encoder.mlmodelc.zip",
+      "size": 15034655,
+      "sha256": "82b32eef73c94bb0c432a776a047b757d9525c26d84038a15d8798d7c8d1ee58",
+      "min_ram_mb": 2048,
+      "recommended_device_tiers": ["low", "mid", "high"],
+      "license": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": null,
+      "urls": [
+        "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-tiny.en-encoder.mlmodelc.zip"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (product decision: ship Core ML encoder, ADR-STT-01): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-Size / X-Linked-ETag. iOS only: unzipped next to the STT model on install; tier follows the cheapest parent model so a Free model never lacks it."
+    },
+    {
+      "id": "whisper-base.en-coreml-encoder",
+      "type": "coreml-encoder",
+      "version": "1",
+      "display_name": "Whisper Base (English) — Core ML encoder (iOS)",
+      "tier": "free",
+      "file": "ggml-base.en-encoder.mlmodelc.zip",
+      "size": 37950917,
+      "sha256": "8cf860309e2449e2bdc8be834cf838ab2565747ecc8c0ef914ef5975115e192b",
+      "min_ram_mb": 2048,
+      "recommended_device_tiers": ["low", "mid", "high"],
+      "license": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": null,
+      "urls": [
+        "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-base.en-encoder.mlmodelc.zip"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (product decision: ship Core ML encoder, ADR-STT-01): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-Size / X-Linked-ETag. iOS only: unzipped next to the STT model on install; tier follows the cheapest parent model so a Free model never lacks it."
+    },
+    {
+      "id": "whisper-small.en-coreml-encoder",
+      "type": "coreml-encoder",
+      "version": "1",
+      "display_name": "Whisper Small (English) — Core ML encoder (iOS)",
+      "tier": "pro",
+      "file": "ggml-small.en-encoder.mlmodelc.zip",
+      "size": 162952446,
+      "sha256": "b2ef1c506378b825b4b4341979a93e1656b5d6c129f17114cfb8fb78aabc2f89",
+      "min_ram_mb": 3072,
+      "recommended_device_tiers": ["low", "mid", "high"],
+      "license": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": null,
+      "urls": [
+        "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-small.en-encoder.mlmodelc.zip"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (product decision: ship Core ML encoder, ADR-STT-01): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-Size / X-Linked-ETag. iOS only: unzipped next to the STT model on install; tier follows the cheapest parent model so a Free model never lacks it."
+    },
+    {
+      "id": "whisper-base-coreml-encoder",
+      "type": "coreml-encoder",
+      "version": "1",
+      "display_name": "Whisper Base (multilingual) — Core ML encoder (iOS)",
+      "tier": "free",
+      "file": "ggml-base-encoder.mlmodelc.zip",
+      "size": 37922638,
+      "sha256": "7e6ab77041942572f239b5b602f8aaa1c3ed29d73e3d8f20abea03a773541089",
+      "min_ram_mb": 2048,
+      "recommended_device_tiers": ["low", "mid", "high"],
+      "license": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": null,
+      "urls": [
+        "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-base-encoder.mlmodelc.zip"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (product decision: ship Core ML encoder, ADR-STT-01): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-Size / X-Linked-ETag. iOS only: unzipped next to the STT model on install; tier follows the cheapest parent model so a Free model never lacks it."
+    },
+    {
+      "id": "whisper-small-coreml-encoder",
+      "type": "coreml-encoder",
+      "version": "1",
+      "display_name": "Whisper Small (multilingual) — Core ML encoder (iOS)",
+      "tier": "pro",
+      "file": "ggml-small-encoder.mlmodelc.zip",
+      "size": 163083239,
+      "sha256": "de43fb9fed471e95c19e60ae67575c2bf09e8fb607016da171b06ddad313988b",
+      "min_ram_mb": 3072,
+      "recommended_device_tiers": ["low", "mid", "high"],
+      "license": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": null,
+      "urls": [
+        "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-small-encoder.mlmodelc.zip"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (product decision: ship Core ML encoder, ADR-STT-01): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-Size / X-Linked-ETag. iOS only: unzipped next to the STT model on install; tier follows the cheapest parent model so a Free model never lacks it."
+    },
+    {
+      "id": "whisper-large-v3-turbo-coreml-encoder",
+      "type": "coreml-encoder",
+      "version": "1",
+      "display_name": "Whisper Large v3 Turbo — Core ML encoder (iOS)",
+      "tier": "pro",
+      "file": "ggml-large-v3-turbo-encoder.mlmodelc.zip",
+      "size": 1173393014,
+      "sha256": "84bedfe895bd7b5de6e8e89a0803dfc5addf8c0c5bc4c937451716bf7cf7988a",
+      "min_ram_mb": 6144,
+      "recommended_device_tiers": ["high"],
+      "license": "MIT",
+      "license_url": "https://github.com/openai/whisper/blob/main/LICENSE",
+      "attribution": null,
+      "urls": [
+        "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-large-v3-turbo-encoder.mlmodelc.zip"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-14 (product decision: ship Core ML encoder, ADR-STT-01): downloaded from the pinned HF revision with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS X-Linked-Size / X-Linked-ETag. iOS only: unzipped next to the STT model on install; tier follows the cheapest parent model so a Free model never lacks it."
     },
     {
       "id": "qwen2.5-0.5b-instruct-q4_k_m",
@@ -207,7 +336,6 @@
       "license_url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/blob/9217f5db79a29953eb74d5343926648285ec7e67/LICENSE",
       "attribution": null,
       "urls": [
-        "https://models.vaultvoice.example/llm/qwen2.5-0.5b-instruct-q4_k_m.gguf",
         "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/9217f5db79a29953eb74d5343926648285ec7e67/qwen2.5-0.5b-instruct-q4_k_m.gguf"
       ],
       "companions": [],
@@ -228,7 +356,6 @@
       "license_url": "https://github.com/snakers4/silero-vad/blob/master/LICENSE",
       "attribution": "Silero VAD by Silero Team (MIT), ggml conversion by ggml-org",
       "urls": [
-        "https://models.vaultvoice.example/vad/ggml-silero-v6.2.0.bin",
         "https://huggingface.co/ggml-org/whisper-vad/resolve/9ffd54a1e1ee413ddf265af9913beaf518d1639b/ggml-silero-v6.2.0.bin"
       ],
       "companions": [],

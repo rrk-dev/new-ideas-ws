@@ -1,16 +1,19 @@
 # ADR-FND-06 — Native build: one ggml, one `vv_native`, FFI plugin packaging
 
-- **Status:** Proposed (host verified; Android/iOS not built or measured on a device yet)
-- **Date:** 2026-10-12
+- **Status:** Accepted — product owner decisions 2026-10-14: **iOS 16.4 minimum** (§4) and
+  **ARMv8.2-A + dotprod Android CPU minimum, no Cortex-A53/A35** (§3). Host verified; the
+  Android/iOS builds themselves are still unverified until the CI jobs / device rows run.
+- **Date:** 2026-10-12 (amended 2026-10-14)
 - **Task:** FND-06
-- **Deciders:** Claude Code (implementer); pending independent verifier and the user (iOS minimum)
+- **Deciders:** Claude Code (implementer); product owner (iOS minimum, CPU minimum, 2026-10-14)
 - **Supersedes:** —
 
 ## Context
 whisper.cpp and llama.cpp each embed ggml. Linking both naively gives duplicate symbols / ODR
 crashes. Dart may only talk to a small C ABI (`native/bridge`). Constraints: offline/private (no
 network code from llama-common), iOS 16+, Android API 26+ arm64, 16 KB pages, memory-conscious,
-reproducible from a clean checkout.
+reproducible from a clean checkout. (Minimums as decided 2026-10-14: iOS 16.4, Android arm64
+ARMv8.2-A + dotprod.)
 
 ## Decisions
 1. **One ggml, static, one shared library.** `native/CMakeLists.txt` builds llama.cpp's `ggml/` once;
@@ -22,17 +25,25 @@ reproducible from a clean checkout.
 2. **Pins:** whisper.cpp v1.9.5, llama.cpp v0.6.0 as shallow submodules (`native/VERSIONS.md`).
    `LLAMA_BUILD_COMMON=OFF` and `LLAMA_OPENSSL=OFF` keep download/HTTP code out (egress policy).
 3. **Android:** CMake through Gradle `externalNativeBuild` (`packages/vv_native/android`), NDK r28c
-   pinned, arm64-v8a only, `-O3`, `GGML_NATIVE/OPENMP/LLAMAFILE=OFF`, 16 KB link flags. CPU baseline
-   is **plain armv8-a NEON**; `VV_ANDROID_CPU_ARCH` forwards a value like `armv8.2-a+dotprod[+i8mm]`
-   to `GGML_CPU_ARM_ARCH`. Raising it needs the device matrix (QA-05) — a SIGILL on a supported
-   device is unacceptable. Runtime dispatch (`GGML_CPU_ALL_VARIANTS` + `GGML_BACKEND_DL`, shared
-   libs) is the better long-term answer but changes the "one `.so`" layout; to be decided from STT-02 /
-   LLM-03 measurements. GPU backends (Vulkan/OpenCL) are not enabled yet (those tasks).
+   pinned, arm64-v8a only, `-O3`, `GGML_NATIVE/OPENMP/LLAMAFILE=OFF`, 16 KB link flags.
+   **CPU minimum (product owner, 2026-10-14): ARMv8.2-A + dotprod — Cortex-A53/A35-only phones are
+   not supported.** The static build's baseline is therefore `armv8.2-a+dotprod`
+   (`VV_ANDROID_CPU_MIN_ARCH`; `VV_ANDROID_CPU_ARCH` empty = that minimum, `armv8-a` only for
+   non-shipped comparison builds, never `+i8mm` — A55/A76-class devices lack it). The runtime-variant
+   build (ADR-STT-02, `VV_GGML_BACKEND_DL`) keeps the dotprod/fp16/i8mm/SVE variants but excludes
+   the `android_armv8.0_1` variant from the default build and the loader's probe list. Every Android
+   build makes `vv_cpu_supported()` require NEON + dotprod, and the app shows
+   "This device isn't supported" at launch below it (ADR-LLM-03 §1) instead of risking SIGILL.
+   *Superseded text (2026-10-12):* "CPU baseline is plain armv8-a NEON; raising it needs the device
+   matrix" — the product decision replaces that gate. GPU backends: ADR-STT-02.
 4. **iOS:** CMake Xcode generator → dynamic `vv_native.framework` per SDK → `xcodebuild
-   -create-xcframework`; Metal with embedded library (`GGML_METAL_EMBED_LIBRARY=ON`). The native
-   minimum defaults to **16.0** (matches the app and AGENTS.md). llama.cpp's own script uses **16.4**.
-   Unresolved: either verify 16.0 on a real iOS 16.0–16.3 device, or raise the app minimum to 16.4
-   (a product-visible change → the user decides).
+   -create-xcframework`; Metal with embedded library (`GGML_METAL_EMBED_LIBRARY=ON`).
+   **Minimum iOS 16.4 (product owner decision 2026-10-14)** — the same as llama.cpp's own
+   `build-xcframework.sh` at the pin, so the 16.0–16.3 Metal question is moot. Applied to
+   `IOS_MIN_OS` (`native/build.sh`), every `IPHONEOS_DEPLOYMENT_TARGET` in
+   `app/ios/Runner.xcodeproj`, the `vv_native` podspec, AGENTS.md and CONTRIBUTING.md (pinned by
+   `tools/ci/tests/test_product_decisions.py` and `app/test/unit/repo_standards_test.dart`).
+   The Whisper Core ML encoder is on in the iOS build (ADR-STT-01, Accepted 2026-10-14).
 5. **Packaging:** Flutter FFI plugin `packages/vv_native` (Android: Gradle→CMake; iOS: podspec vending
    the prebuilt xcframework), bindings by `ffigen` from `vv_bridge.h` and an ABI-version handshake
    (`VV_ABI_VERSION` ↔ `expectedAbiVersion`). Flutter native-assets build hooks were **not**
@@ -53,6 +64,6 @@ reproducible from a clean checkout.
 - Negative / risks: Android/iOS paths are unverified until CI/devices run; CocoaPods plugin needs
   `native/build.sh ios` before `pod install`; the static single-`.so` layout cannot do runtime CPU
   dispatch.
-- Follow-up tasks: iOS minimum decision (user); CPU-variant/dispatch spike and GPU backends
+- Follow-up tasks: ~~iOS minimum decision (user)~~ decided 16.4 (2026-10-14); CPU-variant/dispatch spike and GPU backends
   (STT-02, LLM-03); JSON-schema→GBNF helper lib `vv_jsg` (LLM-05); real engine entry points
   (STT-xx/LLM-xx) behind `vv_bridge.h`.

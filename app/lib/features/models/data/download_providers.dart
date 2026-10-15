@@ -48,6 +48,11 @@ Future<ModelDownloader> modelDownloader(Ref ref) async {
       final v = await settings.get(kNetworkDisabledKey);
       return !v.isOk || v.valueOrNull == true;
     },
+    // iOS ships the whisper Core ML encoder (ADR-STT-01, Accepted
+    // 2026-10-14): STT installs fetch their `coreml-encoder` companions.
+    coreMlCompanions: Platform.isIOS
+        ? (id) => ref.read(catalogRepositoryProvider).current?.byId(id)
+        : null,
   );
 }
 
