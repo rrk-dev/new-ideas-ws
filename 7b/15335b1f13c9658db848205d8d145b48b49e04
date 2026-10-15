@@ -1,0 +1,29 @@
+app/test/unit/models/model_downloader_test.dart
+  s_5568385315e53b::t_ecb267cb9de015 442-443
+native/build.sh
+  s_91cce0d4a43314::t_bdf42be131aafc 114-115
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7b15335b1f13c9658db848205d8d145b48b49e04",
+  "prompts": {},
+  "sessions": {
+    "s_5568385315e53b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f2a8133d-d95c-4ea9-afeb-d867f5d4c63f",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_91cce0d4a43314": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "98190d73-b703-4c9e-8a70-ef8c1482391d",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
