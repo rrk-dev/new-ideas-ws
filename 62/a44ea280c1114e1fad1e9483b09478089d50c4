@@ -1,0 +1,21 @@
+app/test/unit/logging_test.dart
+  s_9f6fcf8c1840a0::t_2bb9aaa68c08e4 124-127
+tasks/01-foundation/FND-07-local-logging-diagnostics.md
+  s_9f6fcf8c1840a0::t_6772d172ffc987 73-93
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "62a44ea280c1114e1fad1e9483b09478089d50c4",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}

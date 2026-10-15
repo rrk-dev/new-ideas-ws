@@ -1,0 +1,29 @@
+tools/ci/check_egress.sh
+  s_8203843ced3acd::t_27e7bea30dc8d1 49-57
+tools/ci/tests/test_egress_guard.py
+  s_9f6fcf8c1840a0::t_602f059a63a623 66-85
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7e88576a8764d350eb71f55e5565b92142b6ae3b",
+  "prompts": {},
+  "sessions": {
+    "s_8203843ced3acd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "01a13da6-4aed-7483-be05-a4cdcd6209b9",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
