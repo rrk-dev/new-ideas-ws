@@ -1,0 +1,25 @@
+app/lib/features/app_lock/presentation/app_lock_providers.g.dart
+  s_5a534bed398a49::t_19a53420076aa5 142
+app/lib/features/models/data/download_providers.g.dart
+  s_5a534bed398a49::t_0d55c9d70d9837 158
+app/lib/features/models/data/model_management_providers.g.dart
+  s_5a534bed398a49::t_51eface2d4cd70 56
+app/lib/features/models/data/model_state_providers.g.dart
+  s_5a534bed398a49::t_6c64501b186b5f 209
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3d3c4b5ba052e5c41adcc060436c8e75e6a94628",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
