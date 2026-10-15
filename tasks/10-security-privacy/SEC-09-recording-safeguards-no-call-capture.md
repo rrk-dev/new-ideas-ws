@@ -39,6 +39,10 @@ standard, permission-gated OS microphone APIs — and it never captures telephon
 - Consequence: the app cannot be used to record speakerphone/VoIP calls on the same phone. This is intentional.
 - This is engineering guidance, not legal advice; recording-consent laws vary (one-party vs all-party consent jurisdictions). Product/legal must approve copy and defaults.
 
+## CI demonstration evidence (rework 2026-10-15)
+AC1: draft PR [#29](https://github.com/rrk-dev/new-ideas-ws/pull/29) (branch `task/SEC-09-demo-forbidden-permission`, not merged) added `android.permission.READ_PHONE_STATE`. CI run [38749900470](https://github.com/rrk-dev/new-ideas-ws/actions/runs/38749900470): `static` ❌ (`check_recording_policy: FAILED — forbidden permission android.permission.READ_PHONE_STATE`) and `android` ❌ (`--require-merged-manifest` flags it in the source and the merged manifest).
+- AC6 (product/legal confirmation) is still open and needs a human; device rows AC2/AC5 stay ⏳.
+
 ## Completion Notes
 - **Agent:** Claude Code · **Branch:** task/SEC-09-recording-safeguards · **Date:** 2026-10-12
 - **Summary:** Recording policy ADR (`docs/adr/ADR-SEC-09-recording-policy.md`, incl. review checklist and legal-review request).
