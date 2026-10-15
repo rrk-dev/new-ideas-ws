@@ -97,6 +97,79 @@ void main() {
       );
     });
 
+    test('[FND-07/AC1] an oversized record never exceeds the per-file or '
+        'total cap (regression: Codex FAIL 2026-10-14)', () async {
+      const config = LogRotationConfig(maxFileBytes: 256, maxFiles: 2);
+      final sink = RotatingFileSink(dir, config: config);
+      final logger = Logger(sinks: [sink]);
+      // 100 numeric fields: one INFO line of ~1.3 kB.
+      final fields = {for (var i = 0; i < 100; i++) 'count_$i': i * 1000};
+      expect(
+        utf8
+            .encode(
+              LogRecord(
+                time: DateTime.utc(2026),
+                level: LogLevel.info,
+                tag: 'test',
+                message: 'big',
+                fields: fields,
+              ).toJsonLine(),
+            )
+            .length,
+        greaterThan(256),
+        reason: 'the probe record must really be oversized',
+      );
+
+      // On an empty file, after a normal line, and right after a rotation.
+      logger.info('test', 'big', fields: fields);
+      logger.info('test', 'small');
+      logger.info('test', 'big', fields: fields);
+      for (var i = 0; i < 20; i++) {
+        logger.info('test', 'small', fields: {'i': i});
+      }
+      logger.info('test', 'big', fields: fields);
+      // A huge message alone (no fields) must be bounded too.
+      logger.info('test', 'm' * 2000);
+      await sink.close();
+
+      var total = 0;
+      for (final f in sink.files) {
+        final len = f.lengthSync();
+        expect(len, lessThanOrEqualTo(256), reason: f.path);
+        total += len;
+        // Every line stays parseable JSON-lines.
+        for (final line in f.readAsLinesSync()) {
+          expect(LogRecord.tryParse(line), isNotNull, reason: line);
+        }
+      }
+      expect(total, lessThanOrEqualTo(256 * 2));
+      expect(sink.files.length, lessThanOrEqualTo(2));
+
+      // The oversized record is replaced by a content-free marker that keeps
+      // the event name, level and original size.
+      final last = sink.currentFile
+          .readAsLinesSync()
+          .map(LogRecord.tryParse)
+          .whereType<LogRecord>()
+          .toList();
+      final marker = last.lastWhere((r) => r.fields['truncated'] == true);
+      expect(marker.level, LogLevel.info);
+      expect(marker.fields['bytes'], isA<int>());
+      expect(marker.fields['bytes']! as int, greaterThan(256));
+    });
+
+    test('[FND-07/AC1] a cap too small for even the marker drops the record',
+        () async {
+      const config = LogRotationConfig(maxFileBytes: 16, maxFiles: 1);
+      final sink = RotatingFileSink(dir, config: config)
+        ..write(record('x' * 100));
+      await sink.close();
+      expect(
+        sink.currentFile.existsSync() ? sink.currentFile.lengthSync() : 0,
+        lessThanOrEqualTo(16),
+      );
+    });
+
     test('[FND-07/AC1] default cap is 5 files x 2 MB', () {
       const config = LogRotationConfig();
       expect(config.maxFileBytes, 2 * 1024 * 1024);
