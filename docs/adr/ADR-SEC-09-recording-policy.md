@@ -87,7 +87,16 @@ Interface `CallGuard` (`app/lib/core/platform/call_guard.dart`): `isInCall()` + 
   `MODE_COMMUNICATION_REDIRECT`} ⇒ in call; `addOnModeChangedListener` on API 31+, 500 ms polling
   on API 26–30 while Dart listens; `AudioRecordingCallback` → `isClientSilenced()` (API 29+) ⇒
   `captureSilenced`. No phone-state permission. The plugin only reads the mode.
-- **Fail closed:** if the call state cannot be determined (`Err`), start and resume are refused.
+- **macOS** (`app/macos/Runner/MacHostChannels.swift`, `CallGuardHost`): a Mac has no cellular
+  call, and this policy forbids CallKit, VoIP modes, Continuity/FaceTime attachment and every
+  call permission. The host therefore answers `isInCall` → `false` (honest: it cannot see calls and
+  does not try) and its event stream never emits; it uses no call API at all.
+  `check_recording_policy.py` fails any CallKit/CXCall*/CoreTelephony/FaceTime reference under
+  `app/macos` and `packages/*/macos`. The user is still protected by the mic-only entitlement,
+  the explicit start tap, the system menu-bar mic indicator and AUD-09's input-device checks.
+  The channel exists so the Dart guard gets a definite answer instead of a
+  `MissingPluginException` (FND-09 bug: Record screen said "the call state could not be checked").
+- **Fail closed:** on iOS and Android, if the call state cannot be determined (`Err`), start and resume are refused.
 
 ### 4. `RecordingController.start(StartSource)` — the only way to open the mic
 `app/lib/features/recording/domain/recording_controller.dart`:

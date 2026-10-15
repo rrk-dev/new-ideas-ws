@@ -5,7 +5,8 @@ import 'package:vaultvoice/core/platform/call_guard.dart';
 
 /// [CallGuard] backed by the app's own platform code:
 /// `ios/Runner/CallGuardPlugin.swift` and
-/// `android/.../CallGuardPlugin.kt` (ADR-SEC-09).
+/// `android/.../CallGuardPlugin.kt` (ADR-SEC-09). macOS answers `false`
+/// without any call API (`macos/Runner/MacHostChannels.swift`).
 ///
 /// Plain method/event channels rather than Pigeon: two calls, no generated
 /// code, no new dependency (ADR-SEC-09 → "Channel").

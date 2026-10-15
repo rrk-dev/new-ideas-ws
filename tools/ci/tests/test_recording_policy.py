@@ -255,6 +255,33 @@ def test_AUD_09_AC3_macos_capture_sources_fail(tmp_path, tag, rel, body):
 
 
 @MAC
+@pytest.mark.parametrize("rel,body", [
+    ("app/macos/Runner/C.swift", "import CallKit\n"),
+    ("app/macos/Runner/C.swift", "let o = CXCallObserver()\n"),
+    ("packages/vv_native/macos/C.swift", "let c = CTCallCenter()\n"),
+])
+def test_AUD_09_AC3_macos_call_apis_fail(tmp_path, tag, rel, body):
+    """[AUD-09/AC3] the macOS call guard may not use any call API (it answers inCall=false)."""
+    assert_fails(run(tree(tmp_path, {rel: body})), rel)
+
+
+def test_AUD_09_AC3_call_observer_stays_allowed_on_ios(tmp_path):
+    """[AUD-09/AC3] the iOS CXCallObserver guard is unaffected by the macOS-only rule."""
+    ok = tree(tmp_path, {"app/ios/Runner/C.swift": "let o = CXCallObserver()\n"})
+    assert run(ok).returncode == 0
+
+
+def test_FND_09_AC4_macos_call_guard_is_permissionless_and_registered():
+    """[FND-09/AC2] macOS CallGuardHost answers false with no call API and is registered at startup."""
+    host = (ROOT / "app/macos/Runner/MacHostChannels.swift").read_text()
+    assert 'case "isInCall":\n      result(false)' in host
+    window = (ROOT / "app/macos/Runner/MainFlutterWindow.swift").read_text()
+    assert "MacHostChannels.register" in window
+    pbx = (ROOT / "app/macos/Runner.xcodeproj/project.pbxproj").read_text()
+    assert "MacHostChannels.swift in Sources" in pbx
+
+
+@MAC
 def test_AUD_09_AC3_repository_macos_files_are_scanned(tag):
     """[AUD-09/AC3] the real macOS runner and plugin files are in scope and pass."""
     r = run(ROOT)

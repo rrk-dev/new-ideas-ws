@@ -230,7 +230,13 @@ void main() {
           .map((m) => m.group(1)!)
           .toSet();
       expect(keys, contains('com.apple.security.device.audio-input'));
-      for (final key in keys) {
+      // Folder access for the vault (FND-09): user-selected folders and
+      // app-scoped bookmarks only, never broad file access.
+      const vaultFolderKeys = {
+        'com.apple.security.files.user-selected.read-write',
+        'com.apple.security.files.bookmarks.app-scope',
+      };
+      for (final key in keys.difference(vaultFolderKeys)) {
         expect(
           key,
           isNot(
@@ -239,6 +245,7 @@ void main() {
           reason: '$name has $key',
         );
       }
+      expect(keys, containsAll(vaultFolderKeys));
     }
     final all = [
       plist,

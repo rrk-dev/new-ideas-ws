@@ -58,8 +58,9 @@ SharedAudioInbox sharedAudioInbox(Ref ref) {
 
 /// The platform whose decoder table applies.
 @Riverpod(keepAlive: true)
-ImportPlatform importPlatform(Ref ref) =>
-    Platform.isIOS ? ImportPlatform.ios : ImportPlatform.android;
+ImportPlatform importPlatform(Ref ref) => Platform.isIOS || Platform.isMacOS
+    ? ImportPlatform.ios
+    : ImportPlatform.android;
 
 @Riverpod(keepAlive: true)
 Future<AudioImportService> audioImportService(Ref ref) async {

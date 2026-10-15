@@ -116,6 +116,14 @@ SOURCE_RULES: list[tuple[str, re.Pattern[str], set[str] | None]] = [
     ("Android audio mode write (VoIP/call mode)",
      re.compile(r"\.setMode\s*\(|\.mode\s*=(?!=)"), {".kt", ".java"}),
 ]
+# macOS-only (ADR-SEC-09 "CallGuard → macOS"): a Mac has no cellular call and
+# the policy forbids CallKit, Continuity/FaceTime attachment and any call
+# observer there; the macOS call guard answers `false` without call APIs.
+MACOS_SOURCE_RULES: list[tuple[str, re.Pattern[str], set[str] | None]] = [
+    ("macOS call API (CallKit / observer / FaceTime / Telephony)",
+     re.compile(r"\b(import\s+CallKit|CXCall\w*|CXProvider\w*|CTCall\w*|CoreTelephony|FaceTime|facetime(-audio)?:|"
+                r"NSUserActivity\w*Call\w*)\b"), _ALL),
+]
 SOURCE_SUFFIXES = {".dart", ".kt", ".java", ".swift", ".m", ".mm", ".h"}
 SKIP_PARTS = {"build", ".dart_tool", ".gradle", "Pods", ".symlinks", "test", "androidTest",
               "Frameworks", "ephemeral", "__pycache__"}
@@ -247,7 +255,8 @@ def check_sources(root: Path) -> list[str]:
                 continue
             rel = f.relative_to(root).as_posix()
             for n, line in enumerate(f.read_text(encoding="utf-8", errors="ignore").splitlines(), 1):
-                for rule, rx, suffixes in SOURCE_RULES:
+                rules = SOURCE_RULES + (MACOS_SOURCE_RULES if "/macos/" in f"/{rel}" else [])
+                for rule, rx, suffixes in rules:
                     if suffixes is not None and f.suffix not in suffixes:
                         continue
                     if m := rx.search(line):
