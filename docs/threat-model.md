@@ -99,7 +99,7 @@ No high or critical finding is open.
 
 ## Dependency findings
 
-`tools/ci/osv_scan.sh` runs OSV-Scanner over the pub lockfiles, Gradle/Podfile
+`tools/ci/osv_scan.sh` runs OSV-Scanner over the pub lockfiles, Gradle
 lockfiles and the native submodules (workflow `.github/workflows/osv.yml`, weekly and
 on dependency changes). Ignores live in `osv-scanner.toml` with an expiry and a link
 to an entry here. No entries yet because the first CI run is pending.
