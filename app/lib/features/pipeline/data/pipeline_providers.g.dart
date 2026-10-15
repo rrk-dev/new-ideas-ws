@@ -153,7 +153,7 @@ final class PipelineClientProvider
   }
 }
 
-String _$pipelineClientHash() => r'7f870c1e4e83987fcd1c879c9819236715f98c98';
+String _$pipelineClientHash() => r'f55b7a7b24a9e3de2896320bb9c7abe96d7c5ac8';
 
 /// Every job in queue order (global queue indicator, APP-04).
 
