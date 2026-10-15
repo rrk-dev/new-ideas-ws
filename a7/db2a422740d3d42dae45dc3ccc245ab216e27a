@@ -1,0 +1,51 @@
+.agents/skills/vv-task-workflow/scripts/tasks.py
+  s_5a534bed398a49::t_89e37e52197ea8 34
+  s_5a534bed398a49::t_134e07fd6dad38 315,380
+app/test/unit/macos_desktop_target_test.dart
+  s_5a534bed398a49::t_69f067f66ef1fd 89
+  s_5a534bed398a49::t_23057d28e89750 167
+app/macos/Flutter/Flutter-Debug.xcconfig
+  s_e569db543a6da9::t_5e09a3f0b25ef8 1
+app/macos/Flutter/Flutter-Release.xcconfig
+  s_e569db543a6da9::t_7624f92f6f67a5 1
+app/macos/Podfile
+  s_5a534bed398a49::t_79d6493faaae4d 1-42
+app/macos/Podfile.lock
+  s_5a534bed398a49::t_860b94262f7d80 1-22
+app/macos/Runner.xcodeproj/project.pbxproj
+  s_5a534bed398a49::t_3169ccb8b6582c 30,32,66-69,74,83,87-90,94-98,106,115,149,198-217,221-222,234,253,259,315,348-369,408-446,496,498,500-516,519,521,523,526,552,554,556,558,560-564,571-572,574-575,577,579,581,584,610,612,614,616,618-622,629-630,632-633,635,637,640-641,643,645,649,651,653,655,657-661,663-664,666,668,670,672-676,678-679,681,683,685,688,714-715,718,726-753,755-759,761-765,767-807,809,811,813,815-854,857,883-884,887,896,898-899,901,903,908,938,952,954-962,967,997,1011,1013,1015,1017-1022,1024,1026,1028,1032,1039,1045-1046,1050,1052,1055-1056,1058,1064,1071,1077-1078,1082,1084,1090,1092,1095,1098,1158
+app/macos/Runner.xcworkspace/contents.xcworkspacedata
+  s_5a534bed398a49::t_b07331903a9991 7-9
+docs/test-plans/device/FND-10.md
+  s_5a534bed398a49::t_05f26a20da6548 8
+native/VERSIONS.md
+  s_5a534bed398a49::t_c3d3a813874f6d 37
+native/build.sh
+  s_5a534bed398a49::t_78d1eb52bb1615 41
+tasks/01-foundation/FND-10-macos-native-bundle.md
+  s_5a534bed398a49::t_244faaab43ec2f 4,11-12,15,27-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a7db2a422740d3d42dae45dc3ccc245ab216e27a",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_e569db543a6da9": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "09dbfa80-ad07-491f-94a7-644f39874107",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
