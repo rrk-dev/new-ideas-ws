@@ -17,7 +17,7 @@ abstract final class AppTheme {
       colorScheme: scheme,
       // Default helper colour measured 4.33:1 on Linux CI (WCAG AA needs 4.5).
       inputDecorationTheme: InputDecorationTheme(
-        helperStyle: TextStyle(color: scheme.onSurface),
+        helperStyle: TextStyle(color: scheme.onSurface, fontSize: 14),
       ),
       cardTheme: CardThemeData(
         shape: RoundedRectangleBorder(
