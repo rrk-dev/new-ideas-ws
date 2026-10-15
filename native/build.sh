@@ -120,9 +120,17 @@ build_ios() {
     -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_XCODE_ATTRIBUTE_SUPPORTED_PLATFORMS=iphonesimulator
   cmake --build "$sim" --config Release -j "$JOBS" --target vv_native
   rm -rf "$OUT/ios/vv_native.xcframework"
+  # REL-02: package the native dSYMs inside the xcframework (-debug-symbols
+  # needs absolute paths) so the stripped framework stays symbolicatable.
+  local d
+  for d in "$dev/Release-iphoneos" "$sim/Release-iphonesimulator"; do
+    [ -d "$d/vv_native.framework.dSYM" ] || { echo "ios: missing $d/vv_native.framework.dSYM" >&2; return 1; }
+  done
   xcodebuild -create-xcframework \
     -framework "$dev/Release-iphoneos/vv_native.framework" \
+    -debug-symbols "$(cd "$dev/Release-iphoneos" && pwd)/vv_native.framework.dSYM" \
     -framework "$sim/Release-iphonesimulator/vv_native.framework" \
+    -debug-symbols "$(cd "$sim/Release-iphonesimulator" && pwd)/vv_native.framework.dSYM" \
     -output "$OUT/ios/vv_native.xcframework"
   # The CocoaPods plugin vends the xcframework from packages/vv_native/ios/Frameworks.
   local pod="$NATIVE/../packages/vv_native/ios/Frameworks"
@@ -213,11 +221,22 @@ case "$1" in
   macos) build_macos ;;
   all)
     build_host
-    (find_ndk) >/dev/null 2>&1 && build_android || echo "skip android: no NDK"
-    have_xcode && build_ios || echo "skip ios: no Xcode"
+    # Toolchain detection is separate from the build, and each build runs as
+    # its own invocation so a failure (with set -e active inside) fails `all`
+    # instead of being reported as a skip.
+    if (find_ndk) >/dev/null 2>&1; then
+      bash "$0" android
+    else
+      echo "skip android: no NDK"
+    fi
+    if have_xcode; then
+      bash "$0" ios
+    else
+      echo "skip ios: no Xcode"
+    fi
     if [ "$(uname -s)" = Darwin ]; then
       if xcrun --show-sdk-path --sdk macosx >/dev/null 2>&1; then
-        build_macos
+        bash "$0" macos
       else
         echo "skip macos: Xcode license not accepted or macOS SDK unavailable"
       fi

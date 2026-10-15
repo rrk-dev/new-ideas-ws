@@ -65,6 +65,10 @@ final class LlmService implements LlmEngine, LlmTokenizer {
   bool _forceCpu = false;
   bool _internalCancel = false;
   bool _pressureCancel = false;
+  // Bumped by unload / memory pressure so a load already in flight is
+  // disposed instead of installed.
+  int _epoch = 0;
+  Failure _invalidation = const CancelledFailure();
 
   /// Context the next load uses (reduced after memory pressure).
   int get effectiveContextSize => _contextSize;
@@ -81,6 +85,8 @@ final class LlmService implements LlmEngine, LlmTokenizer {
 
   /// Frees the model; a running generation is cancelled first.
   void unload() {
+    _epoch++;
+    _invalidation = const CancelledFailure();
     _active?.cancel();
     _session?.dispose();
     _session = null;
@@ -120,6 +126,7 @@ final class LlmService implements LlmEngine, LlmTokenizer {
     } else {
       unload();
     }
+    if (_loading != null) _invalidation = const OutOfMemoryFailure();
   }
 
   /// A session that may run work now: never a GPU session while
@@ -160,8 +167,14 @@ final class LlmService implements LlmEngine, LlmTokenizer {
     // joins this load instead of starting a second one.
     final loading = _load(want, ctx);
     _loading = loading;
+    final epoch = _epoch;
     try {
-      return _session = await loading;
+      final loaded = await loading;
+      if (epoch != _epoch) {
+        loaded.dispose();
+        throw _GateRefused(_invalidation);
+      }
+      return _session = loaded;
     } finally {
       _loading = null;
     }

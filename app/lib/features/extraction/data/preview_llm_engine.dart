@@ -17,6 +17,7 @@ import 'package:vaultvoice/features/extraction/domain/memory_planner.dart';
 import 'package:vaultvoice/features/pipeline/data/active_engines.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
+import 'package:vaultvoice/features/pipeline/domain/preview_lease.dart';
 import 'package:vv_native/vv_native.dart';
 
 part 'preview_llm_engine.g.dart';
@@ -36,7 +37,13 @@ final class PreviewLlmEngine implements LlmEngine {
     required this.resolve,
     required this.create,
     required this.pipelineBusy,
+    this.lease,
   });
+
+  /// Cross-isolate claim on the heavy-model slot, taken before the
+  /// [pipelineBusy] check (the worker's gate checks it after marking its job
+  /// active, so one of the two always sees the other).
+  final PreviewLease? lease;
 
   final Future<ActiveModel?> Function() resolve;
   final LlmService Function(ActiveModel model) create;
@@ -44,20 +51,47 @@ final class PreviewLlmEngine implements LlmEngine {
   /// True while a pipeline job is in an active (model-using) state.
   final Future<bool> Function() pipelineBusy;
 
+  LlmService? _service;
+
+  /// App lifecycle (LLM-04): iOS forbids GPU work in the background, so a
+  /// running preview moves to the CPU (the service cancels a GPU generation
+  /// and discards a GPU load finishing in the background).
+  void setForeground({required bool foreground}) {
+    _foreground = foreground;
+    if (foreground) {
+      _service?.onForegrounded();
+    } else {
+      _service?.onBackgrounded();
+    }
+  }
+
+  bool _foreground = true;
+
   @override
   Future<Result<String>> generate(
     LlmRequest request, {
     CancelToken? cancel,
     void Function(String token)? onToken,
   }) async {
-    if (await pipelineBusy()) return const Err(OutOfMemoryFailure());
-    final model = await resolve();
-    if (model == null) return const Err(ModelMissingFailure('llm'));
-    final service = create(model);
+    await lease?.acquire();
     try {
-      return await service.generate(request, cancel: cancel, onToken: onToken);
+      if (await pipelineBusy()) return const Err(OutOfMemoryFailure());
+      final model = await resolve();
+      if (model == null) return const Err(ModelMissingFailure('llm'));
+      final service = _service = create(model);
+      if (!_foreground) service.onBackgrounded();
+      try {
+        return await service.generate(
+          request,
+          cancel: cancel,
+          onToken: onToken,
+        );
+      } finally {
+        _service = null;
+        service.unload();
+      }
     } finally {
-      service.unload();
+      await lease?.release();
     }
   }
 }
@@ -80,6 +114,7 @@ LlmEngine previewLlmEngine(Ref ref) {
   VvNative? native;
   VvNative open() => native ??= VvNative.open(hostPath: hostPath);
   return PreviewLlmEngine(
+    lease: PreviewLease(db.settingsRepository),
     pipelineBusy: () => pipelineHasActiveJob(db),
     resolve: () async {
       final paths = await ref.read(storagePathsProvider.future);

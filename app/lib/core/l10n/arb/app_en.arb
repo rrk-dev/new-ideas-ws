@@ -298,6 +298,7 @@
   "reviewFailed": "Couldn’t save your changes. Try again.",
   "reviewInvalid": "{count, plural, =1{1 field doesn’t match the profile (too long, missing or wrong type).} other{{count} fields don’t match the profile (too long, missing or wrong type).}}",
   "@reviewInvalid": {"placeholders": {"count": {"type": "int"}}},
+  "reviewNumberInvalid": "Enter a valid number.",
   "reviewPreviewFailed": "The preview couldn’t be rendered.",
   "reviewProfileMissing": "The profile of this result no longer exists, so it can’t be edited.",
   "reviewFieldNone": "None",
@@ -838,5 +839,17 @@
   "noteCopied": "Note copied.",
   "noteShareFailed": "Could not prepare the note.",
   "noteShareUnavailable": "Sharing is not available on this device.",
-  "noteShareHint": "The note leaves the app only through the app you pick."
+  "noteShareHint": "The note leaves the app only through the app you pick.",
+  "indicatorRecordingTitle": "Recording",
+  "indicatorRecordingText": "VaultVoice is recording. Tap to open.",
+  "indicatorPausedTitle": "Recording paused",
+  "indicatorPausedCallTitle": "Recording paused because a call started",
+  "indicatorPausedCallText": "Audio from the call was not recorded. Tap Resume to continue.",
+  "indicatorPausedMicText": "Another app or the system took the microphone. Tap Resume to continue.",
+  "indicatorPausedSilenceTitle": "Recording paused after silence",
+  "indicatorResumeHint": "Tap Resume to continue.",
+  "indicatorStillRecording": "Still recording ({hours}h {minutes}m)",
+  "@indicatorStillRecording": {
+    "placeholders": {"hours": {"type": "int"}, "minutes": {"type": "String"}}
+  }
 }

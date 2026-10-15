@@ -775,7 +775,7 @@ final class PlatformRecordingIndicatorProvider
 }
 
 String _$platformRecordingIndicatorHash() =>
-    r'5a697646e5d38dc809a765ec8e89f9844424a615';
+    r'ca775aeea35f0039197fea6b2a7207af2201e7d3';
 
 /// The always-visible OS recording indicator; tests override it.
 

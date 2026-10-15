@@ -92,6 +92,7 @@ and a vault write — using the models the user installed, and waits (instead of
 - **Follow-ups:** see below.
 
 ## Follow-ups
+- Codex review 2026-10-15 (fixed, regression-tested): Profile preview LLM load is not serialized through the worker's model gate; a job can start STT after the preview's pipeline-activity check (preview_llm_engine.dart:53); add overlap test.
 - **LLM-06 integration (branch task/LLM-06-long-transcript-map-reduce, not merged here):** drop LLM-06's
   `ExtractStep.longTranscript` parameter in favour of `PipelineEngines.extraction` (`ExtractionStrategy`): wrap
   `LongTranscriptExtraction` (extractor + `inputFor` + `_StepCheckpoints(ctx)`) in an adapter implementing

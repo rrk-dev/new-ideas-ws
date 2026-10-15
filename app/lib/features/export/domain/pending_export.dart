@@ -94,7 +94,10 @@ List<PendingExport> buildPendingExports({
   final withRows = <String>{};
 
   for (final row in exports) {
-    if (row.status == ExportStatus.written) continue;
+    if (row.status == ExportStatus.written ||
+        row.status == ExportStatus.skipped) {
+      continue;
+    }
     final job = latest[row.recordingId];
     if (job != null &&
         job.step != PipelineStepId.write &&

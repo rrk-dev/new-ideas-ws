@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/features/recording/domain/recording_indicator.dart';
 
@@ -9,6 +10,9 @@ class FakeRecordingIndicator implements RecordingIndicator {
   final reminders = <Duration>[];
   int hides = 0;
   bool visible = false;
+
+  /// When set, [show] fails (foreground service refused).
+  Failure? showFailure;
   final _actions = StreamController<IndicatorAction>.broadcast();
 
   IndicatorContent? get current => visible ? shown.last : null;
@@ -17,6 +21,7 @@ class FakeRecordingIndicator implements RecordingIndicator {
 
   @override
   Future<Result<void>> show(IndicatorContent content) async {
+    if (showFailure case final f?) return Err(f);
     shown.add(content);
     visible = true;
     return const Ok<void>(null);

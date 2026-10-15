@@ -72,10 +72,15 @@ class RecordCaptureBackend
        _resolveProcessing = processing,
        _log = logger;
 
-  /// Extra audio dropped before a call event to cover delivery latency.
-  // PRODUCT-DECISION: 250 ms (conservative: losing a quarter second of the
-  // user's own speech is preferred over keeping any call audio).
-  static const defaultDiscardMargin = Duration(milliseconds: 250);
+  /// Extra audio dropped before a call event: Android API 26-30 detects calls
+  /// by polling every 500 ms (the call may have begun right after the previous
+  /// poll) plus delivery latency.
+  // PRODUCT-DECISION: 1 s (losing a second of the user's own speech is
+  // preferred over keeping any call audio).
+  static const defaultDiscardMargin = Duration(milliseconds: 1000);
+
+  /// CallGuardPlugin.kt POLL_INTERVAL_MS.
+  static const androidCallPollInterval = Duration(milliseconds: 500);
 
   final PcmMicSource _mic;
   final RecordingsRepository _repo;
@@ -156,7 +161,7 @@ class RecordCaptureBackend
   Stream<Uint8List> get pcm => _pcm.stream;
 
   @override
-  Future<Result<void>> openMicrophone() async {
+  Future<Result<void>> openMicrophone({bool Function()? mayOpen}) async {
     if (_session != null) {
       return const Err(UnexpectedFailure('capture already open'));
     }
@@ -182,6 +187,7 @@ class RecordCaptureBackend
     if (!await _mic.hasPermission()) {
       return const Err(PermissionFailure('microphone'));
     }
+    if (mayOpen != null && !mayOpen()) return _openRefused();
     final id = _ids.next();
     final created = await _repo.create(
       RecordingsCompanion.insert(
@@ -204,6 +210,11 @@ class RecordCaptureBackend
       paths,
     );
     _session = session;
+    if (mayOpen != null && !mayOpen()) {
+      _session = null;
+      await _repo.deleteById(id);
+      return _openRefused();
+    }
     final opened = await _openMic(session);
     if (opened case Err(:final failure)) {
       _session = null;
@@ -215,6 +226,9 @@ class RecordCaptureBackend
     if (warn) _notices.add(CaptureNotice.lowStorageWarning);
     return const Ok<void>(null);
   }
+
+  Err<void> _openRefused() =>
+      Err(RecordingBlockedFailure(RecordingBlockReason.inCall));
 
   @override
   Future<Result<void>> suspend({
@@ -253,7 +267,7 @@ class RecordCaptureBackend
   }
 
   @override
-  Future<Result<void>> resumeCapture() async {
+  Future<Result<void>> resumeCapture({bool Function()? mayOpen}) async {
     final session = _session;
     if (session == null) {
       return const Err(UnexpectedFailure('no capture open'));
@@ -264,6 +278,7 @@ class RecordCaptureBackend
         when _storage.beforeStart(value) == StorageVerdict.refuse) {
       return const Err(StorageFailure('low storage'));
     }
+    if (mayOpen != null && !mayOpen()) return _openRefused();
     final opened = await _openMic(session);
     if (opened case Err()) return opened;
     await _updateRow(session, RecordingStatus.recording);

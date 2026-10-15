@@ -1,4 +1,5 @@
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
 import 'package:vaultvoice/features/recording/domain/recording_limits.dart';
 
@@ -41,36 +42,39 @@ final class IndicatorContent {
 
 /// Indicator content for [state] (SEC-09 copy drafts, pending legal review).
 /// Null when nothing should be shown (idle/stopped).
-IndicatorContent? indicatorContentFor(RecordingState state, DateTime now) {
+IndicatorContent? indicatorContentFor(
+  RecordingState state,
+  DateTime now,
+  AppLocalizations l10n,
+) {
   switch (state.phase) {
     case RecordingPhase.idle || RecordingPhase.stopped:
       return null;
     case RecordingPhase.recording:
       return IndicatorContent(
         recording: true,
-        title: 'Recording',
-        text: 'VaultVoice is recording. Tap to open.',
+        title: l10n.indicatorRecordingTitle,
+        text: l10n.indicatorRecordingText,
         chronometerBase: now.subtract(state.elapsed),
         actions: const [IndicatorAction.pause, IndicatorAction.stop],
       );
     case RecordingPhase.paused:
       final (title, text) = switch (state.pauseCause) {
         PauseCause.call => (
-          'Recording paused because a call started',
-          'Audio from the call was not recorded. Tap Resume to continue.',
+          l10n.indicatorPausedCallTitle,
+          l10n.indicatorPausedCallText,
         ),
         PauseCause.audioInterruption ||
         PauseCause.captureSilenced ||
         PauseCause.captureError => (
-          'Recording paused',
-          'Another app or the system took the microphone. '
-              'Tap Resume to continue.',
+          l10n.indicatorPausedTitle,
+          l10n.indicatorPausedMicText,
         ),
         PauseCause.silence => (
-          'Recording paused after silence',
-          'Tap Resume to continue.',
+          l10n.indicatorPausedSilenceTitle,
+          l10n.indicatorResumeHint,
         ),
-        _ => ('Recording paused', 'Tap Resume to continue.'),
+        _ => (l10n.indicatorPausedTitle, l10n.indicatorResumeHint),
       };
       return IndicatorContent(
         recording: false,

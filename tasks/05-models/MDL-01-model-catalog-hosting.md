@@ -48,6 +48,7 @@ A trustworthy source of model files that keeps the privacy promise: the only net
   new stored files; no recording code touched.
 
 ## Follow-ups
+- Codex review 2026-10-15 (open): Catalog endpoint uses non-resolving models.vaultvoice.example (catalog_config.dart:13); configure hosted signed catalog and reachable mirror (needs hosting decision).
 - **MDL-05 (proposed) — Catalog state persistence & production key:** persist last accepted
   `issued_at` + the last verified remote catalog bytes (FND-04 DB / app support dir) behind
   `catalogStateStoreProvider`; owner generates the production Ed25519 key offline, replaces

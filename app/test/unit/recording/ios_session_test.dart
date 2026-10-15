@@ -77,7 +77,7 @@ void main() {
     expect(rig.mic.micOpen, isFalse);
     expect(
       await rig.recordedSamples(id),
-      hasLength(AudioFormat.samplesFor(const Duration(milliseconds: 1750))),
+      hasLength(AudioFormat.samplesFor(const Duration(milliseconds: 1000))),
     );
     final marker = (await rig.markers(id)).single;
     expect(marker.kind, MarkerKind.callInterruption);

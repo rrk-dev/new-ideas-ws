@@ -312,6 +312,57 @@ void main() {
     },
   );
 
+  test('[EXP-05] a transcript sidecar never overwrites a foreign file at its '
+      'path', () async {
+    await f.target('v');
+    await f.options({'v': const VaultTargetOptions(transcriptSidecar: true)});
+    final w = f.writers['v']!;
+    const sidecar = '2026-10-14-meeting-planning.transcript.md';
+    w.notes[sidecar] = "another recording's note";
+    final out = await f.exporter.export(request(transcript: '# T\n'));
+    expect(out, isA<ExportFailed>());
+    expect(w.notes[sidecar], "another recording's note");
+  });
+
+  test('[EXP-06] an unreadable existing note is never overwritten', () async {
+    await f.target('v');
+    await f.options({
+      'v': const VaultTargetOptions(collision: CollisionMode.overwrite),
+    });
+    final w = f.writers['v']!;
+    await f.exporter.export(request());
+    w.notes[_notePath] = 'user edit';
+    w.readFailure = const StorageFailure('io');
+    final out = await f.exporter.export(request(markdown: '# v2\n'));
+    expect(out, isA<ExportFailed>());
+    expect(w.notes[_notePath], 'user edit');
+    expect((await f.rows()).single.status, ExportStatus.failed);
+  });
+
+  test('[EXP-06] a skipped collision settles an earlier failed row', () async {
+    await f.target('v');
+    final w = f.writers['v']!;
+    expectOk(
+      await db.vaultRepository.upsertExport(
+        ExportsCompanion.insert(
+          id: exportId('r1', 'v'),
+          recordingId: 'r1',
+          targetId: 'v',
+          relPath: _notePath,
+          contentHash: '',
+          status: ExportStatus.failed,
+          updatedAt: t0,
+        ),
+      ),
+    );
+    w.notes[_notePath] = 'the user wrote this';
+    await f.options({
+      'v': const VaultTargetOptions(collision: CollisionMode.skip),
+    });
+    expect(await f.exporter.export(request()), isA<ExportDone>());
+    expect((await f.rows()).single.status, ExportStatus.skipped);
+  });
+
   test('revoked access → needs destination; re-grant writes exactly one '
       'note and keeps the done target untouched', () async {
     await f.target('a');

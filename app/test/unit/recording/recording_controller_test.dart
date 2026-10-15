@@ -7,6 +7,7 @@ import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/platform/call_guard.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
@@ -81,6 +82,46 @@ RecordingBlockReason? _reason(Result<Object?> r) => switch (r.failureOrNull) {
 };
 
 void main() {
+  group('stop ordering', () {
+    test('[AUD-01/AC1] stopped is announced only after capture finalized, so '
+        'transcription never reads incomplete chunks', () {
+      fakeAsync((async) {
+        final h = _Harness(async);
+        expect(h.start().isOk, isTrue);
+        final seen = <RecordingPhase>[];
+        h.controller.states.listen((s) => seen.add(s.phase));
+        h.capture.closeGate = Completer<void>();
+        unawaited(h.controller.stop());
+        async.flushMicrotasks();
+        expect(seen, isNot(contains(RecordingPhase.stopped)));
+        h.capture.closeGate!.complete();
+        async.flushMicrotasks();
+        expect(seen, contains(RecordingPhase.stopped));
+      });
+    });
+  });
+
+  group('open recheck', () {
+    test('[SEC-09/AC2] a call that starts during the asynchronous open work '
+        'is seen right before the mic opens: the mic never opens', () {
+      fakeAsync((async) {
+        final h = _Harness(async);
+        h.capture.openGate = Completer<void>();
+        Result<void>? r;
+        unawaited(
+          h.controller.start(StartSource.inAppButton).then((v) => r = v),
+        );
+        async.flushMicrotasks();
+        h.guard.emit(CallGuardSignal.callActive, h.clock.now());
+        h.capture.openGate!.complete();
+        async.flushMicrotasks();
+        expect(r?.isOk, isFalse);
+        expect(h.capture.micOpen, isFalse);
+        expect(h.phase, RecordingPhase.idle);
+      });
+    });
+  });
+
   group('start refused during calls', () {
     test('[SEC-09/AC2] start is refused while a call rings or is active; '
         'the microphone is never opened', () {
@@ -358,7 +399,10 @@ void main() {
         async.elapse(const Duration(minutes: 1, seconds: 1));
         expect(h.reminders.shown, hasLength(1));
         expect(
-          stillRecordingText(h.reminders.shown.single),
+          stillRecordingText(
+            l10nFor(kFallbackLocale),
+            h.reminders.shown.single,
+          ),
           'Still recording (1h 00m)',
         );
 
@@ -370,7 +414,7 @@ void main() {
         async.elapse(const Duration(hours: 1));
         expect(h.reminders.shown, hasLength(2));
         expect(
-          stillRecordingText(h.reminders.shown.last),
+          stillRecordingText(l10nFor(kFallbackLocale), h.reminders.shown.last),
           startsWith('Still recording (3h 00m'),
         );
       });

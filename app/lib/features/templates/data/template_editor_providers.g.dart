@@ -236,12 +236,14 @@ final class EditorProfilesProvider
 
 String _$editorProfilesHash() => r'19d134727aeee2991e1c61dc2e55b10727487b1a';
 
-/// The latest valid extractions of [profileId] (newest first, ≤ 10).
+/// The latest valid extractions of [profileId] (newest first, one per
+/// recording, ≤ 10).
 
 @ProviderFor(templatePreviewRecordings)
 final templatePreviewRecordingsProvider = TemplatePreviewRecordingsFamily._();
 
-/// The latest valid extractions of [profileId] (newest first, ≤ 10).
+/// The latest valid extractions of [profileId] (newest first, one per
+/// recording, ≤ 10).
 
 final class TemplatePreviewRecordingsProvider
     extends
@@ -253,7 +255,8 @@ final class TemplatePreviewRecordingsProvider
     with
         $FutureModifier<List<PreviewRecording>>,
         $FutureProvider<List<PreviewRecording>> {
-  /// The latest valid extractions of [profileId] (newest first, ≤ 10).
+  /// The latest valid extractions of [profileId] (newest first, one per
+  /// recording, ≤ 10).
   TemplatePreviewRecordingsProvider._({
     required TemplatePreviewRecordingsFamily super.from,
     required String super.argument,
@@ -300,9 +303,10 @@ final class TemplatePreviewRecordingsProvider
 }
 
 String _$templatePreviewRecordingsHash() =>
-    r'89460fc17652aad5c8e6811008d21811436b95b5';
+    r'e51eb571202562fc089e5fb51d7c76ee0344277f';
 
-/// The latest valid extractions of [profileId] (newest first, ≤ 10).
+/// The latest valid extractions of [profileId] (newest first, one per
+/// recording, ≤ 10).
 
 final class TemplatePreviewRecordingsFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<PreviewRecording>>, String> {
@@ -315,7 +319,8 @@ final class TemplatePreviewRecordingsFamily extends $Family
         isAutoDispose: true,
       );
 
-  /// The latest valid extractions of [profileId] (newest first, ≤ 10).
+  /// The latest valid extractions of [profileId] (newest first, one per
+  /// recording, ≤ 10).
 
   TemplatePreviewRecordingsProvider call(String profileId) =>
       TemplatePreviewRecordingsProvider._(argument: profileId, from: this);

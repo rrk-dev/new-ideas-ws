@@ -32,13 +32,14 @@ CatalogModel _model(
   ModelTier tier = ModelTier.free,
   int minRamMb = 1024,
   List<DeviceTier> tiers = const [DeviceTier.low, DeviceTier.mid],
+  String? file,
 }) => CatalogModel(
   id: id,
   type: type,
   version: '1',
   displayName: id,
   tier: tier,
-  file: '$id.bin',
+  file: file ?? '$id.bin',
   size: size,
   sha256: '0' * 64,
   minRamMb: minRamMb,
@@ -56,8 +57,12 @@ DeviceProfile _device(int ramGib) => DeviceProfile(
   availableRamBytes: ramGib * _gib ~/ 2,
 );
 
-InstalledModelInfo _installed(String id, EngineModelKind kind, int size) =>
-    InstalledModelInfo(id: id, kind: kind, sizeBytes: size);
+InstalledModelInfo _installed(
+  String id,
+  EngineModelKind kind,
+  int size, {
+  String? file,
+}) => InstalledModelInfo(id: id, kind: kind, sizeBytes: size, file: file);
 
 void main() {
   final catalog = ModelCatalog(
@@ -91,6 +96,77 @@ void main() {
   ];
 
   group('[FND-11/AC1] active model selection (tier × plan × installed)', () {
+    test('[STT-07/AC1] a preferred or default English-only STT model is not '
+        'kept for a non-English language', () {
+      final cat = ModelCatalog(
+        schema: 1,
+        issuedAt: _now,
+        minAppVersion: const SemVer(1, 0, 0),
+        models: [
+          _model('stt-en', ModelType.stt, file: 'ggml-base.en.bin'),
+          _model('stt-multi', ModelType.stt, file: 'ggml-base.bin'),
+        ],
+      );
+      final inst = [
+        _installed('stt-en', EngineModelKind.stt, 60 * 1000 * 1000),
+        _installed('stt-multi', EngineModelKind.stt, 70 * 1000 * 1000),
+      ];
+      final de = selectActiveModels(
+        installed: inst,
+        access: _free(),
+        catalog: cat,
+        device: _device(6),
+        preferredStt: 'stt-en',
+        sttLanguage: 'de',
+      );
+      expect(de.stt, 'stt-multi');
+      final en = selectActiveModels(
+        installed: inst,
+        access: _free(),
+        catalog: cat,
+        device: _device(6),
+        preferredStt: 'stt-en',
+      );
+      expect(en.stt, 'stt-en');
+    });
+
+    test('[STT-07/AC1] sideloaded STT models are gated by size class: a '
+        'small / large file is Pro-only on Free; an opaque big file too', () {
+      final inst = [
+        _installed('base', EngineModelKind.stt, 60 * 1000 * 1000),
+        _installed(
+          'side-small',
+          EngineModelKind.stt,
+          190 * 1000 * 1000,
+          file: 'ggml-small-q5_1.bin',
+        ),
+        _installed(
+          'side-opaque',
+          EngineModelKind.stt,
+          1500 * 1000 * 1000,
+          file: 'my-model.bin',
+        ),
+      ];
+      final free = selectActiveModels(
+        installed: inst,
+        access: _free(),
+        preferredStt: 'side-small',
+      );
+      expect(free.stt, 'base');
+      final onlyBig = selectActiveModels(
+        installed: inst.sublist(1),
+        access: _free(),
+        preferredStt: 'side-opaque',
+      );
+      expect(onlyBig.stt, isNull);
+      final pro = selectActiveModels(
+        installed: inst,
+        access: _pro(),
+        preferredStt: 'side-small',
+      );
+      expect(pro.stt, 'side-small');
+    });
+
     test('nothing installed selects nothing', () {
       final s = selectActiveModels(installed: const [], access: _pro());
       expect(s.stt, isNull);

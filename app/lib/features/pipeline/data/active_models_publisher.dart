@@ -78,6 +78,7 @@ final class ActiveModelsPublisher {
                 ? EngineModelKind.stt
                 : EngineModelKind.llm,
             sizeBytes: r.size,
+            file: r.path.split(RegExp(r'[\\/]')).last,
           ),
     ];
     String? pref(Object? v) => v is String && v.isNotEmpty ? v : null;

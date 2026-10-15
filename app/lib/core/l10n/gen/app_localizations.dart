@@ -1612,6 +1612,12 @@ abstract class AppLocalizations {
   /// **'{count, plural, =1{1 field doesn’t match the profile (too long, missing or wrong type).} other{{count} fields don’t match the profile (too long, missing or wrong type).}}'**
   String reviewInvalid(int count);
 
+  /// No description provided for @reviewNumberInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid number.'**
+  String get reviewNumberInvalid;
+
   /// No description provided for @reviewPreviewFailed.
   ///
   /// In en, this message translates to:
@@ -4437,6 +4443,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The note leaves the app only through the app you pick.'**
   String get noteShareHint;
+
+  /// No description provided for @indicatorRecordingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording'**
+  String get indicatorRecordingTitle;
+
+  /// No description provided for @indicatorRecordingText.
+  ///
+  /// In en, this message translates to:
+  /// **'VaultVoice is recording. Tap to open.'**
+  String get indicatorRecordingText;
+
+  /// No description provided for @indicatorPausedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording paused'**
+  String get indicatorPausedTitle;
+
+  /// No description provided for @indicatorPausedCallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording paused because a call started'**
+  String get indicatorPausedCallTitle;
+
+  /// No description provided for @indicatorPausedCallText.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio from the call was not recorded. Tap Resume to continue.'**
+  String get indicatorPausedCallText;
+
+  /// No description provided for @indicatorPausedMicText.
+  ///
+  /// In en, this message translates to:
+  /// **'Another app or the system took the microphone. Tap Resume to continue.'**
+  String get indicatorPausedMicText;
+
+  /// No description provided for @indicatorPausedSilenceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording paused after silence'**
+  String get indicatorPausedSilenceTitle;
+
+  /// No description provided for @indicatorResumeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap Resume to continue.'**
+  String get indicatorResumeHint;
+
+  /// No description provided for @indicatorStillRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Still recording ({hours}h {minutes}m)'**
+  String indicatorStillRecording(int hours, String minutes);
 }
 
 class _AppLocalizationsDelegate

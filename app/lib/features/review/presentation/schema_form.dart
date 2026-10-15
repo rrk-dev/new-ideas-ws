@@ -47,6 +47,7 @@ class SchemaForm extends StatefulWidget {
     required this.value,
     required this.onChanged,
     this.onSourceTap,
+    this.onInputValidityChanged,
     super.key,
   });
 
@@ -57,6 +58,10 @@ class SchemaForm extends StatefulWidget {
   /// Called with the recording position (ms) of an evidence timestamp.
   final ValueChanged<int>? onSourceTap;
 
+  /// Reports whether every number field currently holds a valid number;
+  /// invalid text is kept in the field and never written to the value.
+  final ValueChanged<bool>? onInputValidityChanged;
+
   @override
   State<SchemaForm> createState() => _SchemaFormState();
 }
@@ -65,6 +70,9 @@ class _SchemaFormState extends State<SchemaForm> {
   /// Bumped on every add/remove so fields re-read their initial values
   /// (list indices shift).
   int _generation = 0;
+
+  /// Paths of number fields whose text is not a valid number.
+  final _invalidNumbers = <String>{};
 
   void _set(List<Object> path, Object? value, {bool structural = false}) {
     if (structural) setState(() => _generation++);
@@ -146,9 +154,28 @@ class _SchemaFormState extends State<SchemaForm> {
         helper: node.description,
         value: value is num ? '$value' : '',
         number: true,
+        errorText: _invalidNumbers.contains(path.join('.'))
+            ? context.l10n.reviewNumberInvalid
+            : null,
         onChanged: (v) {
-          final n = integer ? int.tryParse(v) : num.tryParse(v);
-          _set(path, n ?? (node.nullable ? null : 0));
+          final id = path.join('.');
+          final blankOk = v.isEmpty && node.nullable;
+          final n = blankOk
+              ? null
+              : (integer ? int.tryParse(v) : num.tryParse(v));
+          final wasValid = _invalidNumbers.isEmpty;
+          final valid = blankOk || n != null;
+          setState(() {
+            if (valid) {
+              _invalidNumbers.remove(id);
+            } else {
+              _invalidNumbers.add(id);
+            }
+          });
+          if (wasValid != _invalidNumbers.isEmpty) {
+            widget.onInputValidityChanged?.call(_invalidNumbers.isEmpty);
+          }
+          if (valid) _set(path, n);
         },
       ),
       BooleanSchema() => SwitchListTile(
@@ -168,6 +195,7 @@ class _SchemaFormState extends State<SchemaForm> {
     required String value,
     required ValueChanged<String> onChanged,
     String? helper,
+    String? errorText,
     int? maxLength,
     bool multiline = false,
     bool number = false,
@@ -189,6 +217,7 @@ class _SchemaFormState extends State<SchemaForm> {
         decoration: InputDecoration(
           labelText: label,
           helperText: helper,
+          errorText: errorText,
           helperMaxLines: 2,
           counterText: '',
           suffixIcon: source == null || tap == null

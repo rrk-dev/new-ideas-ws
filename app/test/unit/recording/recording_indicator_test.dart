@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:vaultvoice/core/errors/failure.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/platform/call_guard.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_recording_indicator.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
@@ -23,6 +25,7 @@ class _Background {
       controller: rig.controller,
       indicator: indicator,
       clock: rig.clock,
+      l10n: () => l10n,
     );
     addTearDown(binding.dispose);
   }
@@ -44,6 +47,8 @@ class _Background {
   }
 }
 
+final AppLocalizations l10n = l10nFor(kFallbackLocale);
+
 void main() {
   group('notification content', () {
     final now = DateTime.utc(2026, 10, 13, 10);
@@ -55,6 +60,7 @@ void main() {
           elapsed: Duration(minutes: 2),
         ),
         now,
+        l10n,
       )!;
       expect(c.recording, isTrue);
       expect(c.chronometerBase, now.subtract(const Duration(minutes: 2)));
@@ -69,6 +75,7 @@ void main() {
           pauseCause: PauseCause.call,
         ),
         now,
+        l10n,
       )!;
       expect(c.recording, isFalse);
       expect(c.title, 'Recording paused because a call started');
@@ -79,7 +86,10 @@ void main() {
 
     test('idle / stopped: no indicator', () {
       for (final p in [RecordingPhase.idle, RecordingPhase.stopped]) {
-        expect(indicatorContentFor(RecordingState(phase: p), now), isNull);
+        expect(
+          indicatorContentFor(RecordingState(phase: p), now, l10n),
+          isNull,
+        );
       }
     });
   });
@@ -128,15 +138,16 @@ void main() {
 
       await b.tap(IndicatorAction.stop);
       expect(b.rig.controller.state.phase, RecordingPhase.stopped);
-      expect(b.indicator.visible, isFalse);
-      expect(b.indicator.hides, 1);
-      // The tap's stop() finalizes asynchronously.
+      // The tap's stop() finalizes asynchronously; the indicator hides (and
+      // `stopped` is announced) only after the capture is closed.
       var rows = await b.rig.db.recordingsRepository.watchAll().first;
       for (var i = 0; i < 100 && rows.single.status.name != 'recorded'; i++) {
         await Future<void>.delayed(const Duration(milliseconds: 10));
         rows = await b.rig.db.recordingsRepository.watchAll().first;
       }
       expect(rows.single.status.name, 'recorded');
+      expect(b.indicator.visible, isFalse);
+      expect(b.indicator.hides, 1);
       expect(rows.single.durationMs, 3000);
     });
 
@@ -154,10 +165,11 @@ void main() {
         await pumpEventQueue();
         expect(b.rig.controller.state.pauseCause, PauseCause.call);
         expect(b.indicator.current!.title, contains('call started'));
-        // 3000 − 250 ms safety margin; nothing from after the event.
+        // 3000 − 1000 ms safety margin (covers the 500 ms call poll).
+        // Nothing from after the event is kept.
         expect(
           await b.rig.recordedSamples(id),
-          hasLength(16000 * 2750 ~/ 1000),
+          hasLength(16000 * 2000 ~/ 1000),
         );
 
         // Resume tapped while the call is still active: refused, stays paused.
@@ -175,6 +187,18 @@ void main() {
         await b.rig.controller.stop();
       },
     );
+
+    test('[AUD-05/AC1] a refused indicator / foreground service suspends '
+        'capture: no invisible recording', () async {
+      final b = _Background();
+      b.indicator.showFailure = const UnexpectedFailure('fgs_refused');
+      expectOk(await b.rig.controller.start(StartSource.inAppButton));
+      await pumpEventQueue();
+      await b.rig.settle();
+      expect(b.rig.controller.state.phase, RecordingPhase.paused);
+      expect(b.rig.mic.micOpen, isFalse);
+      await b.rig.controller.stop();
+    });
 
     test('the "Still recording" reminder goes to the indicator', () {
       final indicator = FakeRecordingIndicator()

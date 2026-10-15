@@ -1,3 +1,5 @@
+import 'package:vaultvoice/core/l10n/l10n.dart';
+
 /// Long-session safeguards (SEC-09).
 final class RecordingLimits {
   /// [maxDuration] is clamped to [1 min, [maxDurationCeiling]].
@@ -38,8 +40,7 @@ abstract interface class RecordingReminderSink {
 }
 
 /// Formats the reminder text, e.g. `Still recording (1h 00m)`.
-String stillRecordingText(Duration elapsed) {
-  final h = elapsed.inHours;
+String stillRecordingText(AppLocalizations l10n, Duration elapsed) {
   final m = (elapsed.inMinutes % 60).toString().padLeft(2, '0');
-  return 'Still recording (${h}h ${m}m)';
+  return l10n.indicatorStillRecording(elapsed.inHours, m);
 }

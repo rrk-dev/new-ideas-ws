@@ -59,4 +59,4 @@ final class RecordingIndicatorBindingProvider
 }
 
 String _$recordingIndicatorBindingHash() =>
-    r'e0ce22ba117bd19efe933feba337085754c97c66';
+    r'a5e74085573a83500e9437831c9b80fcf599ab3d';

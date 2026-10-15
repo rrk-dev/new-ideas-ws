@@ -59,7 +59,7 @@ The cost (≈ 1.5 M MAC/s for 48→16 kHz) is negligible on the UI isolate.
   `recording` while the mic is open, `inProgress` while paused, `recorded` on stop (AUD-07 repairs
   rows left in the first two states).
 - **Calls:** `suspend` stops accepting audio synchronously, then truncates audio received after
-  `discardFrom − 250 ms` (PRODUCT-DECISION margin for delivery latency; may reach back across a
+  `discardFrom − 1 s` (PRODUCT-DECISION margin for delivery latency; may reach back across a
   chunk rollover, never into the previous segment), fades and finalizes the chunk. Resampler tail
   after a call event is dropped.
 - **Storage:** refuse start/resume < 200 MB free, warn < 500 MB, stop + finalize < 100 MB (checked

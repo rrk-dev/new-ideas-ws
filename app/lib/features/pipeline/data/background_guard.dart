@@ -184,9 +184,9 @@ class BackgroundProcessingGuard {
     if (running.isNotEmpty) {
       await w(); // make sure the worker runs (recovery after a kill)
       if (!_keepAlive) {
-        _keepAlive = true;
         _lastPercent = null;
         await platform.beginProcessing(title: texts.title, text: texts.text);
+        _keepAlive = true;
       }
       final active = running.where((j) => j.state.isActive).toList();
       final percent = active.isEmpty

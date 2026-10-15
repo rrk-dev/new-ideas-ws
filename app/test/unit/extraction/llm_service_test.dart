@@ -229,5 +229,37 @@ void main() {
       await s.generate(const LlmRequest(prompt: 'p'));
       expect(rt.loads, hasLength(2));
     });
+
+    test('[LLM-04/AC1] unload during an in-flight load disposes that load; '
+        'nothing stays installed', () async {
+      final gate = Completer<void>();
+      final rt = FakeLlmRuntime()..loadDelay = gate.future;
+      final s = service(rt);
+      final pending = s.generate(const LlmRequest(prompt: 'p'));
+      await pumpEventQueue();
+      s.unload();
+      gate.complete();
+      final r = await pending;
+      expect(r.isOk, isFalse);
+      expect(s.isLoaded, isFalse);
+      expect(rt.sessions.single.disposed, isTrue);
+      expect(rt.sessions.single.prompts, isEmpty);
+    });
+
+    test('[LLM-07/AC1] memory pressure during a load discards it and returns '
+        'OutOfMemoryFailure; no generation on the old context', () async {
+      final gate = Completer<void>();
+      final rt = FakeLlmRuntime()..loadDelay = gate.future;
+      final s = service(rt);
+      final pending = s.generate(const LlmRequest(prompt: 'p'));
+      await pumpEventQueue();
+      s.onMemoryPressure();
+      gate.complete();
+      final r = await pending;
+      expect(r.failureOrNull, isA<OutOfMemoryFailure>());
+      expect(s.isLoaded, isFalse);
+      expect(rt.sessions.single.disposed, isTrue);
+      expect(rt.sessions.single.prompts, isEmpty);
+    });
   });
 }

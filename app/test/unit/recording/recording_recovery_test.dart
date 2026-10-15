@@ -84,6 +84,57 @@ void main() {
     }
   });
 
+  group('[AUD-07/AC1] durability bound', () {
+    // Power loss: only what the periodic flush made durable (the chunk row's
+    // byte count is written by the flush) survives; later appends vanish.
+    Future<Duration> loseUnflushed(CaptureRig rig, Duration spoken) async {
+      await _kill(rig);
+      final id = rig.backend.recordingId!;
+      for (final c in await rig.chunks(id)) {
+        final f = rig.file(c);
+        if (c.bytes < 44) {
+          f.deleteSync();
+          continue;
+        }
+        f.openSync(mode: FileMode.append)
+          ..truncateSync(c.bytes)
+          ..closeSync();
+      }
+      expectOk(await _recovery(rig).recoverOrphans());
+      final kept = AudioFormat.durationOf(
+        (await rig.recordedSamples(id)).length,
+      );
+      return spoken - kept;
+    }
+
+    test('unflushed audio is lost, but the periodic flush keeps the loss '
+        'within 1 s', () async {
+      final rig = CaptureRig(
+        chunkDuration: const Duration(seconds: 10),
+        flushInterval: const Duration(milliseconds: 50),
+      );
+      expectOk(await rig.controller.start(StartSource.inAppButton));
+      rig.speak(const Duration(seconds: 3));
+      await rig.settle();
+      // Let the periodic flush make the first 3 s durable.
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+      await rig.settle();
+      rig.speak(const Duration(milliseconds: 600));
+      final lost = await loseUnflushed(rig, const Duration(milliseconds: 3600));
+      expect(lost, greaterThan(Duration.zero), reason: 'pending writes lost');
+      expect(lost, lessThanOrEqualTo(const Duration(seconds: 1)));
+    });
+
+    test('without any flush the same crash loses more than 1 s (the bound '
+        'depends on the flush cadence)', () async {
+      final rig = CaptureRig(chunkDuration: const Duration(seconds: 10));
+      expectOk(await rig.controller.start(StartSource.inAppButton));
+      rig.speak(const Duration(seconds: 3));
+      final lost = await loseUnflushed(rig, const Duration(seconds: 3));
+      expect(lost, greaterThan(const Duration(seconds: 1)));
+    });
+  });
+
   group('RecordingRecovery', () {
     late CaptureRig rig;
     setUp(() => rig = CaptureRig());

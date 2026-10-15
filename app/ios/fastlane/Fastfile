@@ -67,14 +67,20 @@ platform :ios do
     sh("bash", File.join(ROOT, "tools/release/build_release.sh"), "ios", plist)
   end
 
-  desc "Build and upload to TestFlight (internal testers)"
+  desc "Build and upload to TestFlight (internal testers; local use)"
   lane :beta do
     build
+    upload
+  end
+
+  desc "Upload the already built (and gated) IPA to TestFlight"
+  lane :upload do
+    key = api_key
     ipa = Dir[File.join(ROOT, "app/build/release/ios/*.ipa")].first
     UI.user_error!("no IPA produced") if ipa.nil?
     notes = ENV["VV_RELEASE_NOTES_PATH"]
     upload_to_testflight(
-      api_key: lane_context[SharedValues::APP_STORE_CONNECT_API_KEY],
+      api_key: key,
       ipa: ipa,
       changelog: notes && File.exist?(notes) ? File.read(notes) : nil,
       skip_waiting_for_build_processing: true,

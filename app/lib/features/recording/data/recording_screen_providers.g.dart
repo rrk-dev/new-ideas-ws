@@ -113,7 +113,7 @@ final class RecordingSessionServiceProvider
 }
 
 String _$recordingSessionServiceHash() =>
-    r'f5933b97496afb793d2bdad9c023b42c1bd385f8';
+    r'a1686aa778d2d77ac3ccb6b45feea0982bfdb5f3';
 
 /// Profiles to pre-select (Auto is implicit). Empty when the registry is
 /// unavailable — the screen then offers Auto only.

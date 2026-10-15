@@ -75,7 +75,12 @@ enum CaptureNotice {
 abstract interface class CaptureBackend {
   /// Opens the microphone input and starts capturing. Called only after the
   /// user's tap passed every policy check — never earlier (no pre-capture).
-  Future<Result<void>> openMicrophone();
+  ///
+  /// [mayOpen] is asked again right before the input is actually opened
+  /// (after the asynchronous storage / permission / settings work): when it
+  /// returns false the open is abandoned with a `RecordingBlockedFailure`
+  /// and the microphone is never touched (a call may have started meanwhile).
+  Future<Result<void>> openMicrophone({bool Function()? mayOpen});
 
   /// Stops capture **now**, drops every sample captured at or after
   /// [discardFrom] (the call-start time; null = keep everything captured so
@@ -83,7 +88,8 @@ abstract interface class CaptureBackend {
   Future<Result<void>> suspend({required GapKind gap, DateTime? discardFrom});
 
   /// Reopens the microphone after [suspend]. Called only on a user tap.
-  Future<Result<void>> resumeCapture();
+  /// [mayOpen] works as for [openMicrophone].
+  Future<Result<void>> resumeCapture({bool Function()? mayOpen});
 
   /// Stops capture, finalizes the last chunk and returns the recording.
   /// [cause] is persisted as the recording's stop reason.

@@ -6,7 +6,11 @@ typedef ModelRelease = Future<void> Function(HeavyModel model);
 /// Ensures STT and LLM are never resident together: acquiring one releases
 /// the other first. LLM-07 supplies the real release (engine unload).
 class HeavyModelGate {
-  HeavyModelGate({this.release});
+  HeavyModelGate({this.release, this.isBlocked});
+
+  /// True while another isolate (the profile preview) holds a heavy model;
+  /// [use] then refuses so two models are never resident together.
+  final Future<bool> Function()? isBlocked;
 
   /// Called with the model being unloaded.
   final ModelRelease? release;
@@ -18,7 +22,9 @@ class HeavyModelGate {
   /// Makes [model] the only loaded model (no-op for null or the same one).
   /// Throws (leaving the previous model loaded) when its release fails.
   Future<void> use(HeavyModel? model) async {
-    if (model == null || model == _loaded) return;
+    if (model == null) return;
+    if (await isBlocked?.call() ?? false) throw const HeavyModelBusyException();
+    if (model == _loaded) return;
     await releaseAll();
     _loaded = model;
   }
@@ -40,4 +46,13 @@ class HeavyModelGate {
       rethrow;
     }
   }
+}
+
+/// A heavy model is in use outside the worker (profile preview); the step is
+/// retried later.
+class HeavyModelBusyException implements Exception {
+  const HeavyModelBusyException();
+
+  @override
+  String toString() => 'HeavyModelBusyException';
 }

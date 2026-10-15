@@ -145,7 +145,9 @@ final class WindowPlan {
 ///   silences between spans, never mid-word.
 /// - Inside a window, pauses up to [WindowPlanConfig.skipSilenceMs] are kept
 ///   (natural speech rhythm); longer silences are removed.
-/// - Without VAD data ([speech] empty) every chunk is one span and spans
+/// - [vadRan] with empty [speech] means silence only: no windows.
+/// - Without VAD data ([speech] empty, not [vadRan]) every chunk is one
+///   span and spans
 ///   are not merged, so windows cut at chunk boundaries (the recorder's own
 ///   cut points) — the pre-VAD behaviour.
 /// - [horizonMs] (near-real-time): only windows whose last span ended at
@@ -158,13 +160,15 @@ WindowPlan planWindows({
   required List<SpeechSpan> speech,
   WindowPlanConfig config = const WindowPlanConfig(),
   int? horizonMs,
+  bool vadRan = false,
 }) {
   final sortedChunks = [...chunks]
     ..sort((a, b) => a.startMs.compareTo(b.startMs));
   if (sortedChunks.isEmpty) {
     return WindowPlan(const [], complete: horizonMs == null);
   }
-  final fallback = speech.isEmpty;
+  // VAD that ran and found nothing is silence, not missing VAD data.
+  final fallback = speech.isEmpty && !vadRan;
   final spans = fallback
       ? [
           for (final c in sortedChunks)

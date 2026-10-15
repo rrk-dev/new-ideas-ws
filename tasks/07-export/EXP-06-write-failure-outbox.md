@@ -36,4 +36,3 @@ No generated note is ever lost because a destination was temporarily unavailable
 - **Decisions:** PRODUCT-DECISION: with no vault folder the note waits (pending list offers
   "Choose a folder" / "Save on this device") instead of silently going to the app folder.
 - **Follow-ups:** FND-11 wiring (engines `vaultResolver`, Pigeon from the worker isolate).
-

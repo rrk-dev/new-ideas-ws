@@ -28,12 +28,21 @@ final class InstalledModelInfo {
     required this.id,
     required this.kind,
     required this.sizeBytes,
+    this.file,
   });
 
   final String id;
   final EngineModelKind kind;
   final int sizeBytes;
+
+  /// File name of an installed model (used to classify sideloads that the
+  /// catalog does not know).
+  final String? file;
 }
+
+// Whisper tiny/base files are up to ~150 MB (f16), small up to ~490 MB.
+const int _kBaselineSttMaxBytes = 160 * 1000 * 1000;
+const int _kSmallSttMaxBytes = 500 * 1000 * 1000;
 
 /// The models the pipeline uses now (null = none usable ⇒ the step waits
 /// with `model_missing`) and the LLM context for this device tier.
@@ -133,6 +142,22 @@ ActiveModelSelection selectActiveModels({
       if (large) return false;
     }
     if (c != null && ramMb != null && c.minRamMb > ramMb) return false;
+    if (m.kind == EngineModelKind.stt) {
+      final v = SttVariant.fromFile(c?.file ?? m.file ?? '');
+      if (v != null && v.englishOnly && needsMultilingual(sttLanguage)) {
+        return false;
+      }
+      // Size-class entitlement (also for sideloads the catalog does not
+      // know); an unparseable file is classified by its size.
+      final feature = v != null
+          ? sttFeatureFor(v.size)
+          : m.sizeBytes <= _kBaselineSttMaxBytes
+          ? null
+          : m.sizeBytes <= _kSmallSttMaxBytes
+          ? Feature.smallStt
+          : Feature.highAccuracyStt;
+      if (feature != null && !access.has(feature)) return false;
+    }
     return true;
   }
 

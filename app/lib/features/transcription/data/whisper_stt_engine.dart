@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/native_failures.dart';
 import 'package:vaultvoice/core/errors/result.dart';
@@ -10,6 +11,13 @@ import 'package:vv_native/vv_native.dart';
 
 /// Resolves the installed model file (MDL-02), or null when not installed.
 typedef ModelPathResolver = Future<String?> Function();
+
+/// Loads a whisper context (seam for tests).
+typedef WhisperLoader = Future<VvWhisper> Function(
+  String modelPath, {
+  bool useGpu,
+  String? hostPath,
+});
 
 /// [SttEngine] backed by whisper.cpp through `vv_stt_*` (STT-03).
 ///
@@ -30,7 +38,9 @@ class WhisperSttEngine implements WindowedSttEngine {
     this.idleUnload = const Duration(seconds: 5),
     this.cancelPoll = const Duration(milliseconds: 50),
     this.hostLibPath,
-  }) : useGpu = useGpu ?? _always;
+    @visibleForTesting WhisperLoader? loader,
+  }) : useGpu = useGpu ?? _always,
+       _load = loader ?? VvWhisper.load;
 
   static bool _always() => true;
 
@@ -46,8 +56,11 @@ class WhisperSttEngine implements WindowedSttEngine {
   /// Host tests/tools only: path of `libvv_native` outside an app bundle.
   final String? hostLibPath;
 
+  final WhisperLoader _load;
   VvWhisper? _whisper;
   bool? _loadedWithGpu;
+  bool _decodingOnGpu = false;
+  bool _restartOnCpu = false;
   Timer? _idle;
   Future<void> _queue = Future<void>.value();
 
@@ -112,6 +125,28 @@ class WhisperSttEngine implements WindowedSttEngine {
     SegmentCallback? onSegment,
     SttOptions options,
   ) async {
+    while (true) {
+      _restartOnCpu = false;
+      final r = await _transcribeOnce(
+        ranges,
+        offsets,
+        cancel,
+        onProgress,
+        onSegment,
+        options,
+      );
+      if (!_restartOnCpu || (cancel?.isCancelled ?? false)) return r;
+    }
+  }
+
+  Future<Result<Transcript>> _transcribeOnce(
+    List<VvAudioRange> ranges,
+    List<int> offsets,
+    CancelToken? cancel,
+    ProgressCallback? onProgress,
+    SegmentCallback? onSegment,
+    SttOptions options,
+  ) async {
     _idle?.cancel();
     if (cancel?.isCancelled ?? false) return const Err(CancelledFailure());
     final VvWhisper whisper;
@@ -121,6 +156,7 @@ class WhisperSttEngine implements WindowedSttEngine {
       case Err(:final failure):
         return Err(failure);
     }
+    _decodingOnGpu = _loadedWithGpu ?? false;
     final segments = <TranscriptSegment>[];
     VvSttDone? done;
     final poll = Timer.periodic(cancelPoll, (_) {
@@ -143,6 +179,7 @@ class WhisperSttEngine implements WindowedSttEngine {
     } on VvSttException catch (e) {
       return Err(failureFromVvCode(e.code, operation: 'stt'));
     } finally {
+      _decodingOnGpu = false;
       poll.cancel();
       _scheduleIdleUnload();
     }
@@ -152,6 +189,16 @@ class WhisperSttEngine implements WindowedSttEngine {
       return Err(failureFromVvCode(status, operation: 'stt'));
     }
     return Ok(Transcript(segments));
+  }
+
+  /// The app left the foreground (iOS forbids GPU work): a decode running on
+  /// the GPU is cancelled and restarted on the CPU from the start of this
+  /// call (the pipeline checkpoints per call/window, so no work is lost
+  /// beyond the current call).
+  void onBackgrounded() {
+    if (!_decodingOnGpu) return;
+    _restartOnCpu = true;
+    _whisper?.cancel();
   }
 
   /// Frees the model now (idempotent). Waits for a running job to cancel.
@@ -173,7 +220,7 @@ class WhisperSttEngine implements WindowedSttEngine {
       return Err(ModelMissingFailure(modelId));
     }
     try {
-      final w = await VvWhisper.load(path, useGpu: gpu, hostPath: hostLibPath);
+      final w = await _load(path, useGpu: gpu, hostPath: hostLibPath);
       _whisper = w;
       _loadedWithGpu = gpu;
       return Ok(w);

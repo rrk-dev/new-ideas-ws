@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
+import 'package:vaultvoice/features/extraction/data/preview_llm_engine.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
 import 'package:vaultvoice/features/models/data/model_install_waker.dart';
 import 'package:vaultvoice/features/pipeline/data/background_providers.dart';
@@ -82,6 +83,13 @@ class _ProcessingServicesHostState extends ConsumerState<ProcessingServicesHost>
       ref.read(entitlementServiceProvider).refresh();
     }
     _toWorker((w) => w.setForeground(foreground: foreground));
+    if (ref.exists(previewLlmEngineProvider)) {
+      // LLM-04: a profile preview's GPU work stops with the foreground too.
+      final preview = ref.read(previewLlmEngineProvider);
+      if (preview is PreviewLlmEngine) {
+        preview.setForeground(foreground: foreground);
+      }
+    }
     if (ref.exists(backgroundProcessingGuardProvider)) {
       ref
           .read(backgroundProcessingGuardProvider)

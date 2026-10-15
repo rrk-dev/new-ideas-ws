@@ -245,13 +245,19 @@ class VaultExporter {
     }
 
     final hash = fnv1a32(request.markdown);
-    Future<String?> diskHash(String path) async =>
-        switch (await writer.read(path)) {
-          Ok(value: final Uint8List bytes) => fnv1a32(
-            utf8.decode(bytes, allowMalformed: true),
-          ),
-          _ => null,
-        };
+    // A failed read is not "no file": retry once, then fail the export so an
+    // unreadable (possibly user-edited) note is never overwritten.
+    Future<String?> diskHash(String path) async {
+      var read = await writer.read(path);
+      if (read is Err<Uint8List?>) read = await writer.read(path);
+      return switch (read) {
+        Ok(value: final Uint8List bytes) => fnv1a32(
+          utf8.decode(bytes, allowMalformed: true),
+        ),
+        Ok() => null,
+        Err(:final failure) => throw _ReadFailure(failure),
+      };
+    }
 
     // Stable identity (EXP-02). A row without a hash was never confirmed
     // written: it pins its path only while that path is free or already
@@ -261,9 +267,14 @@ class VaultExporter {
       if (own.contentHash.isNotEmpty) {
         prior = PriorExport(relPath: own.relPath, contentHash: own.contentHash);
       } else {
-        final onDisk = await diskHash(own.relPath);
-        if (onDisk == null || onDisk == hash) {
-          prior = PriorExport(relPath: own.relPath, contentHash: '');
+        try {
+          final onDisk = await diskHash(own.relPath);
+          if (onDisk == null || onDisk == hash) {
+            prior = PriorExport(relPath: own.relPath, contentHash: '');
+          }
+        } on _ReadFailure catch (e) {
+          await _markFailed(request.recordingId, target.id, own, desired.path);
+          return fail(e.failure, desired.path);
         }
       }
     }
@@ -273,19 +284,25 @@ class VaultExporter {
           r.relPath,
     };
 
-    final planned = await planExport(
-      desired: desired,
-      contentHash: hash,
-      mode: mode,
-      exists: writer.exists,
-      prior: prior,
-      claimedByOthers: claimed,
-      // Our own new content on disk is not a user edit (crash after write).
-      currentHash: (path) async {
-        final onDisk = await diskHash(path);
-        return onDisk == hash ? prior?.contentHash : onDisk;
-      },
-    );
+    final Result<ExportPlan> planned;
+    try {
+      planned = await planExport(
+        desired: desired,
+        contentHash: hash,
+        mode: mode,
+        exists: writer.exists,
+        prior: prior,
+        claimedByOthers: claimed,
+        // Our own new content on disk is not a user edit (crash after write).
+        currentHash: (path) async {
+          final onDisk = await diskHash(path);
+          return onDisk == hash ? prior?.contentHash : onDisk;
+        },
+      );
+    } on _ReadFailure catch (e) {
+      await _markFailed(request.recordingId, target.id, own, desired.path);
+      return fail(e.failure, desired.path);
+    }
     final ExportPlan plan;
     switch (planned) {
       case Err(:final failure):
@@ -319,7 +336,14 @@ class VaultExporter {
       }
     }
     if (ownsNote) {
-      final sidecar = await _sidecars(request, writer, plan.relPath, opts);
+      final sidecar = await _sidecars(
+        request,
+        writer,
+        plan.relPath,
+        opts,
+        refreshable: own != null && own.contentHash.isNotEmpty,
+        claimed: claimed,
+      );
       if (sidecar != null) {
         if (plan is WritePlan) {
           await _upsert(
@@ -336,7 +360,18 @@ class VaultExporter {
         return fail(sidecar, plan.relPath);
       }
     }
-    // A skipped collision (CollisionMode.skip) leaves the row as it was.
+    // A skipped collision leaves a confirmed row alone but settles an
+    // unconfirmed (failed/pending) one so it does not stay in the outbox.
+    if (!ownsNote && own != null && own.status != ExportStatus.written) {
+      await _upsert(
+        request.recordingId,
+        target.id,
+        relPath: own.relPath,
+        hash: own.contentHash,
+        status: ExportStatus.skipped,
+        attempts: own.attempts,
+      );
+    }
     if (ownsNote) {
       await _upsert(
         request.recordingId,
@@ -360,16 +395,18 @@ class VaultExporter {
     ExportRequest request,
     VaultWriter writer,
     String notePath,
-    VaultTargetOptions opts,
-  ) async {
+    VaultTargetOptions opts, {
+    required bool refreshable,
+    required Set<String> claimed,
+  }) async {
     if (opts.transcriptSidecar && request.transcriptMarkdown != null) {
+      final path = SidecarPaths.transcript(notePath);
+      // Overwritten only when this recording already exported here and no
+      // other recording's note lives at that path; otherwise a pre-existing
+      // file is foreign and never replaced.
       final r = await writer.write(
-        NoteDraft(
-          relativePath: SidecarPaths.transcript(notePath),
-          markdown: request.transcriptMarkdown!,
-        ),
-        // Derived from our own note's name: always ours.
-        overwrite: true,
+        NoteDraft(relativePath: path, markdown: request.transcriptMarkdown!),
+        overwrite: refreshable && !claimed.contains(path),
       );
       if (r case Err(:final failure)) return failure;
     }
@@ -473,6 +510,11 @@ String sanitizeSubPath(String raw) => [
     if (s.trim() case final t when t.isNotEmpty && t != '.' && t != '..')
       sanitizeSegment(t),
 ].join('/');
+
+class _ReadFailure implements Exception {
+  const _ReadFailure(this.failure);
+  final Failure failure;
+}
 
 class _DbFailure implements Exception {
   const _DbFailure(this.failure);

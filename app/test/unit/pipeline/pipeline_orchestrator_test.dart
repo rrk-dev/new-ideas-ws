@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:drift/drift.dart' hide isNotNull, isNull;
@@ -386,6 +387,28 @@ void main() {
     expectOk(await o.retry(id));
     await o.whenIdle();
     expect((await loadJob(db, id)).state, JobState.done);
+  });
+
+  test('[FND-05/AC3] a job enqueued while the idle model unload is awaited '
+      'is not lost: the worker does not go to sleep', () async {
+    await seedRecordingWithChunks(db, 'r2', chunks: 1);
+    final unloading = Completer<void>();
+    final entered = Completer<void>();
+    h.onRelease = (m) async {
+      if (m == HeavyModel.llm && !entered.isCompleted) {
+        entered.complete();
+        await unloading.future;
+      }
+    };
+    final o = await h.start();
+    final id1 = expectOk(await o.enqueue('r1'));
+    await entered.future.timeout(const Duration(seconds: 5));
+    final id2 = expectOk(await o.enqueue('r2'));
+    unloading.complete();
+    await pumpEventQueue(times: 50);
+    await o.whenIdle().timeout(const Duration(seconds: 5));
+    expect((await loadJob(db, id1)).state, JobState.done);
+    expect((await loadJob(db, id2)).state, JobState.done);
   });
 
   test('[FND-05/AC3] a failing model release (STT→LLM switch) is retried '
