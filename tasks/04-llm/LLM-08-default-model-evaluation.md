@@ -1,7 +1,7 @@
 # LLM-08 — Default LLM Model Evaluation & Selection
 
 **Workstream:** LLM | **Phase:** 2–3 | **Size:** M | **Depends on:** LLM-04, PRF-09 | **Source:** §4.2 (Llama-3.2-3B or Gemma-2B — open decision)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-llm-inference, vv-benchmark-eval, vv-decision-records, vv-privacy-security
 
 ## Goal

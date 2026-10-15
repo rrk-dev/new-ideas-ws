@@ -1,7 +1,7 @@
 # STT-05 — On-Device Speaker Diarization
 
 **Workstream:** STT | **Phase:** 2–3 | **Size:** L | **Depends on:** STT-04 | **Source:** Gap (Meeting profile promises "attendees" and task assignment; Whisper has no speaker labels)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-whisper-stt, vv-decision-records, vv-benchmark-eval, vv-native-build, vv-ffi-bridge, vv-pipeline-orchestrator, vv-model-delivery, vv-local-database, vv-flutter-architecture, vv-markdown-vault-export, vv-testing
 
 ## Goal
