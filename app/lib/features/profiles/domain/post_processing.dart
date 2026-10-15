@@ -5,14 +5,13 @@
 /// `post_processors.dart`; this file is pure and has no I/O, no logging.
 library;
 
-import 'package:flutter/foundation.dart';
 import 'package:vaultvoice/features/profiles/domain/post_processors.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
 import 'package:vaultvoice/features/profiles/domain/profile_schema.dart';
 import 'package:vaultvoice/features/profiles/domain/prompt_inputs.dart';
 
 /// What the post-processors may look at besides the extraction JSON.
-@immutable
+/// Immutable; plain Dart (also used by the `dart run` eval tool).
 final class PostProcessContext {
   const PostProcessContext({
     required this.recordedAt,
