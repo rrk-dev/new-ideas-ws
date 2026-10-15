@@ -1,0 +1,38 @@
+{
+  "title": "Nightly report job speed",
+  "context": "The nightly report job takes six hours.",
+  "concepts": [
+    "incremental processing"
+  ],
+  "api_designs": [],
+  "tradeoffs": [
+    {
+      "option": "Incremental processing",
+      "pros": [
+        "cheaper"
+      ],
+      "cons": []
+    },
+    {
+      "option": "Parallelize across workers",
+      "pros": [],
+      "cons": []
+    }
+  ],
+  "decisions": [
+    "Use incremental processing first"
+  ],
+  "todos": [
+    {
+      "task": "Add a last processed timestamp to the job",
+      "owner": "Priya",
+      "t": null
+    },
+    {
+      "task": "Check if the reports can tolerate late rows",
+      "owner": "Kofi",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

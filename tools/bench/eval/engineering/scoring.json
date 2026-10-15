@@ -1,0 +1,33 @@
+{
+  "_doc": "Scoring config for run.py (PRF-09). Targets from vv-extraction-profiles / engineering.yaml (PRF-05 ACs).",
+  "prose": [
+    "title",
+    "context"
+  ],
+  "scalars": {},
+  "lists": {
+    "concepts": {},
+    "api_designs": {
+      "key": "name"
+    },
+    "tradeoffs": {
+      "key": "option"
+    },
+    "decisions": {},
+    "todos": {
+      "key": "task",
+      "fields": {
+        "owner": "name"
+      }
+    },
+    "open_questions": {}
+  },
+  "ignore": [
+    "t"
+  ],
+  "targets": {
+    "lists.todos.recall": 0.8,
+    "lists.tradeoffs.recall": 0.7,
+    "schema_valid": 0.99
+  }
+}

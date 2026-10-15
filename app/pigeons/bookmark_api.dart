@@ -88,6 +88,11 @@ abstract class BookmarkHostApi {
     bool overwrite,
   );
 
+  /// The bytes of the file at [relativePath], or null when it does not
+  /// exist (EXP-05 user-edit detection). Fails with `invalid` for a folder.
+  @asyncCallback
+  Uint8List? readFile(String bookmark, String relativePath);
+
   /// Creates [relativePath] and all missing parent folders.
   @asyncCallback
   void mkdirs(String bookmark, String relativePath);

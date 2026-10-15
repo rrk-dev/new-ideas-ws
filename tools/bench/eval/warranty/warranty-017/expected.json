@@ -1,0 +1,17 @@
+{
+  "product": "fridge",
+  "brand": "Proseware",
+  "model": "Cool 300",
+  "serial_number": "PC3007221",
+  "purchase_date": "last Sunday",
+  "retailer": "Home Hub",
+  "price": "1,299 euros",
+  "warranty_period": {
+    "value": 2,
+    "unit": "years"
+  },
+  "support_contacts": [
+    "030 555 0177"
+  ],
+  "notes": "The compressor has a ten year warranty. Price includes delivery."
+}

@@ -1,0 +1,6 @@
+# meeting: two speakers, customer call notes (fictional company and people).
+Samantha|Thanks for joining. I wanted to follow up on the issues you reported with the monthly invoices.
+Fred|Yes, the main problem is that the totals do not match the purchase orders, and our accounting team spends hours fixing them by hand.
+Samantha|I understand. We found a rounding error in the tax calculation and the fix will ship in the next release, which is planned for the fifteenth.
+Fred|That sounds good. Can you also send us a corrected report for the last three months?
+Samantha|Absolutely. I will send it by the end of the week and copy your finance manager.

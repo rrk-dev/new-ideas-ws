@@ -1,0 +1,16 @@
+[00:00:00] Priya: Welcome everyone to the quarterly planning meeting.
+[00:00:04] Sam: Engineering wants to focus on performance this quarter.
+[00:00:07] Lena: Design needs two weeks for the new settings screen.
+[00:00:11] Omar: Sales is asking for the export feature first.
+[00:00:14] Mei: Support would like better error messages.
+[00:00:17] Diego: Finance needs the budget numbers by the 15th.
+[00:00:21] Priya: Let's decide.
+[00:00:22] Priya: Performance and export are the top two priorities.
+[00:00:25] Sam: Agreed.
+[00:00:26] Sam: I'll write the performance plan by Monday.
+[00:00:28] Omar: I'll collect the export requirements from customers this week.
+[00:00:32] Mei: I'll send a list of the worst error messages to Leena.
+[00:00:36] Diego: Priya, can you send me the budget numbers?
+[00:00:39] Priya: Yes, I'll send the budget numbers before the 15th.
+[00:00:43] Lena: What about the settings screen, does it wait?
+[00:00:46] Priya: We'll come back to that next month.

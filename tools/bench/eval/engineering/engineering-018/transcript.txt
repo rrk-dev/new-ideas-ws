@@ -1,0 +1,5 @@
+[00:00:00] Lena: Our end-to-end tests are flaky.
+[00:00:03] Diego: Most flakes come from fixed sleeps.
+[00:00:05] Diego: We should wait for conditions instead.
+[00:00:07] Lena: Let's ban fixed sleeps in tests.
+[00:00:10] Diego: I'll replace the sleeps in the checkout tests this sprint.

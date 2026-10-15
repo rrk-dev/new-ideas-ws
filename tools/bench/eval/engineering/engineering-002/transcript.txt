@@ -1,0 +1,5 @@
+[00:00:00] Priya: We need an API for user profiles.
+[00:00:03] Sam: I'd propose get/user/ide to read a profile, and patch/user/ide to update it.
+[00:00:10] Priya: Good.
+[00:00:11] Priya: Let's also add get/user/me for the current user.
+[00:00:14] Sam: I'll write the open API spec for those three endpoints by Friday.

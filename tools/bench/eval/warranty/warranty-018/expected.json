@@ -1,0 +1,12 @@
+{
+  "product": "air fryer",
+  "brand": "Contoso",
+  "model": "Crisp 4",
+  "serial_number": null,
+  "purchase_date": "today",
+  "retailer": "Northwind Market",
+  "price": "99 dollars",
+  "warranty_period": null,
+  "support_contacts": [],
+  "notes": null
+}

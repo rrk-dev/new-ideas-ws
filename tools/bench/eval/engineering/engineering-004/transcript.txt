@@ -1,0 +1,4 @@
+[00:00:00] Tomas: Should the mobile app use a local database or just files?
+[00:00:04] Nadia: A database gives us queries and migrations.
+[00:00:07] Tomas: Files are simpler and easier to back up.
+[00:00:10] Nadia: Let's think about it more and decide next week.

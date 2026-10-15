@@ -1,0 +1,7 @@
+[00:00:00] Aisha: Offline mode needs conflict resolution.
+[00:00:03] Kofi: Last right wins is easy but can lose data.
+[00:00:06] Priya: Merging field by field keeps more data but is complex.
+[00:00:10] Aisha: Let's do field level merge only for nodes.
+[00:00:13] Aisha: Last right wins elsewhere.
+[00:00:15] Kofi: I'll write the merge function for nodes.
+[00:00:17] Priya: Who decides what happens when both sides delete?

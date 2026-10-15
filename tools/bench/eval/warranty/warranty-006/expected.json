@@ -1,0 +1,15 @@
+{
+  "product": "phone case",
+  "brand": null,
+  "model": null,
+  "serial_number": null,
+  "purchase_date": "this morning",
+  "retailer": "Fourth Coffee Gadgets",
+  "price": "12 dollars",
+  "warranty_period": {
+    "value": 30,
+    "unit": "days"
+  },
+  "support_contacts": [],
+  "notes": null
+}

@@ -1,0 +1,5 @@
+# engineering: one speaker, technical vocabulary.
+Daniel|I have been thinking about the caching layer for the search service. Right now every query hits the database, which is fine for small teams but it will not scale.
+Daniel|One option is a write through cache with a short expiry, maybe thirty seconds. The other option is to precompute the most common queries every night and store the results.
+Daniel|The risk with the cache is invalidation when somebody edits a document. We could publish an event on every edit and let the cache drop the affected keys.
+Daniel|Next step: measure the query latency for a week and see which queries are actually slow before we build anything.

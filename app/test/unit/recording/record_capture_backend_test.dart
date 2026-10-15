@@ -313,8 +313,20 @@ void main() {
       rig.disk.free = 50 * StoragePolicy.mb;
       await _until(() => rig.controller.state.phase == RecordingPhase.stopped);
       expect(rig.controller.state.stopCause, StopCause.lowStorage);
+      // The low-storage stop is fire-and-forget: the phase flips to `stopped`
+      // synchronously, then close() finalizes the row asynchronously. Wait for
+      // that write instead of racing it (settle() only drains work queued so
+      // far, which is not enough on a slow runner).
+      var rows = await rig.db.recordingsRepository.watchAll().first;
+      for (
+        var i = 0;
+        i < 200 && rows.single.status != RecordingStatus.recorded;
+        i++
+      ) {
+        await Future<void>.delayed(const Duration(milliseconds: 10));
+        rows = await rig.db.recordingsRepository.watchAll().first;
+      }
       await rig.settle();
-      final rows = await rig.db.recordingsRepository.watchAll().first;
       expect(rows.single.status, RecordingStatus.recorded);
       expect(rows.single.stopReason, StopReason.lowStorage);
       expect(rig.mic.micOpen, isFalse);

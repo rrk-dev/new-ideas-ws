@@ -8,6 +8,7 @@ import 'package:vaultvoice/app.dart';
 import 'package:vaultvoice/core/crash/crash_providers.dart';
 import 'package:vaultvoice/core/crash/crash_reporting.dart';
 import 'package:vaultvoice/core/crash/native_crash_capture.dart';
+import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
 import 'package:vaultvoice/core/errors/error_boundary.dart';
 import 'package:vaultvoice/core/flavor.dart';
@@ -17,10 +18,17 @@ import 'package:vaultvoice/core/licenses/bundled_licenses.dart';
 import 'package:vaultvoice/core/logging/logger.dart';
 import 'package:vaultvoice/core/logging/redaction.dart';
 import 'package:vaultvoice/core/logging/rotating_file_sink.dart';
+import 'package:vaultvoice/core/network/network_activity.dart';
 import 'package:vaultvoice/core/platform/app_paths.dart';
+import 'package:vaultvoice/core/platform/providers.dart';
+import 'package:vaultvoice/core/security/key_vault.dart';
+import 'package:vaultvoice/core/security/security_providers.dart';
+import 'package:vaultvoice/core/security/storage_protection.dart';
+import 'package:vaultvoice/features/extraction/data/preview_llm_engine.dart';
 import 'package:vaultvoice/features/pipeline/data/flutter_local_notifier.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_services_host.dart';
+import 'package:vaultvoice/features/retention/presentation/retention_host.dart';
 import 'package:vaultvoice/features/settings/data/share_plus_share_service.dart';
 import 'package:vv_native/vv_native.dart';
 
@@ -28,9 +36,14 @@ import 'package:vv_native/vv_native.dart';
 ///
 /// Real engine implementations are added to [overrides] by the features that
 /// own them.
+///
+/// [productionLlm]: back `llmEngineProvider` with the active installed LLM
+/// (PRF-07 profile preview, integration wave 3); the dev flavor passes false
+/// when `VV_DEV_LLM_MODEL` supplies its own engine in [overrides].
 Future<void> bootstrap(
   Flavor flavor, {
   List<Override> overrides = const [],
+  bool productionLlm = true,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
   registerBundledLicenses();
@@ -54,12 +67,30 @@ Future<void> bootstrap(
     onCrash: crash.recordDart,
   );
   logger.info('app', 'app start', fields: {'flavor': flavor});
+  // SEC-01: OS file protection + sqlite3mc key before anything opens the DB.
+  final security = (Platform.isAndroid || Platform.isIOS)
+      ? await prepareEncryptionAtRest(
+          vault: const MethodChannelKeyVault(),
+          protection: const MethodChannelStorageProtection(),
+          storageRoot: (await StoragePaths.fromPlatform()).root,
+          logger: logger,
+        )
+      : const <Override>[];
   runApp(
     ProviderScope(
       overrides: [
         flavorProvider.overrideWithValue(flavor),
         appPathsProvider.overrideWithValue(paths),
         logFileSinkProvider.overrideWithValue(sink),
+        // SEC-02: every request (host, path, bytes) survives restarts.
+        networkActivityLogProvider.overrideWithValue(
+          NetworkActivityLog(
+            file: File(
+              '${paths.root.path}${Platform.pathSeparator}network'
+              '${Platform.pathSeparator}activity.jsonl',
+            ),
+          ),
+        ),
         loggerProvider.overrideWithValue(logger),
         nativeVersionsProvider.overrideWithValue(_nativeVersions()),
         shareServiceProvider.overrideWithValue(const SharePlusShareService()),
@@ -72,9 +103,14 @@ Future<void> bootstrap(
           ),
         crashReportStoreProvider.overrideWithValue(crash.store),
         nativeCrashCaptureProvider.overrideWithValue(nativeCrash),
+        ...security,
+        if (productionLlm)
+          llmEngineProvider.overrideWith(
+            (ref) => ref.watch(previewLlmEngineProvider),
+          ),
         ...overrides,
       ],
-      child: const ProcessingServicesHost(child: App()),
+      child: const ProcessingServicesHost(child: RetentionHost(child: App())),
     ),
   );
 }

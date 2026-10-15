@@ -1,0 +1,3 @@
+[00:00:00] Router from Contoso, Model Mesh 3.
+[00:00:03] Serial is 4, 4, 7, Dash, A, B, Dash, 9, 1.
+[00:00:10] Bought last Friday at North Wind Market for $129, 2-year warranty.

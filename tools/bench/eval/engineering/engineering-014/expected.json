@@ -1,0 +1,42 @@
+{
+  "title": "Feature flags for the new editor",
+  "context": "The new editor needs feature flags.",
+  "concepts": [
+    "feature flag service",
+    "local flag cache"
+  ],
+  "api_designs": [
+    {
+      "name": "Flag service",
+      "description": "Returns the current feature flags.",
+      "endpoints_or_signatures": [
+        "GET /flags"
+      ]
+    }
+  ],
+  "tradeoffs": [
+    {
+      "option": "Config file shipped with the app",
+      "pros": [],
+      "cons": [
+        "cannot change without a release"
+      ]
+    },
+    {
+      "option": "Small flag service",
+      "pros": [],
+      "cons": []
+    }
+  ],
+  "decisions": [
+    "Build a small flag service with a local cache"
+  ],
+  "todos": [
+    {
+      "task": "Design the flag service API",
+      "owner": "Kofi",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

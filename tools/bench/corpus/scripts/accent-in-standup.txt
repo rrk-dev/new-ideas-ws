@@ -1,0 +1,4 @@
+# accent: Indian English speaker, stand-up update.
+Rishi|Good morning. Yesterday I finished the database migration and wrote the tests for the new payment screen.
+Rishi|Today I will review the pull request from the mobile team and start on the notification settings.
+Rishi|I am blocked on the test account for the payment provider, so if anybody has the credentials, please share them with me after the meeting.

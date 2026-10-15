@@ -1,0 +1,26 @@
+{
+  "title": "Support chatbot quality",
+  "summary": "The support chatbot answers about sixty percent of questions correctly. The team will not launch until it reaches eighty percent, and Kofi will add more training examples by next Friday. How to measure the target is open.",
+  "attendees": [
+    "Aisha",
+    "Kofi",
+    "Mei"
+  ],
+  "decisions": [
+    "Do not launch the chatbot until it reaches eighty percent"
+  ],
+  "action_items": [
+    {
+      "task": "Add more training examples to the chatbot",
+      "owner": "Kofi",
+      "due": "next Friday",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "How do we measure the eighty percent?"
+  ],
+  "topics": [
+    "support chatbot"
+  ]
+}

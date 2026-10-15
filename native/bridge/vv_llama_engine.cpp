@@ -32,6 +32,11 @@ struct vv_llm {
   std::atomic<bool> cancel{false};
   std::mutex mu;  // guards worker (start/join)
   std::thread worker;
+  // Tokens whose K/V are in sequence 0, in position order (LLM-06 prefix
+  // reuse). Only the worker touches it; cleared whenever the KV state is
+  // uncertain (decode error, abort).
+  std::vector<llama_token> kv;
+  std::atomic<int32_t> last_reused{0};
 };
 
 namespace {
@@ -173,19 +178,48 @@ int32_t run(Job& j, int32_t* n_prompt, int32_t* n_gen, double* prefill_ms, doubl
   vv_llm* h = j.h;
   llama_context* ctx = h->L.ctx;
   const llama_vocab* vocab = llama_model_get_vocab(h->L.model);
-  llama_memory_clear(llama_get_memory(ctx), true);
+  llama_memory_t mem = llama_get_memory(ctx);
+  h->last_reused.store(0);
 
   std::vector<llama_token> prompt = tokenize(vocab, j.prompt.data(), j.prompt.size());
   *n_prompt = (int32_t)prompt.size();
-  if (prompt.empty() || (int64_t)prompt.size() + j.g.n_predict > h->n_ctx) return VV_E_INVALID_ARG;
+  if (prompt.empty() || (int64_t)prompt.size() + j.g.n_predict > h->n_ctx) {
+    h->kv.clear();
+    llama_memory_clear(mem, true);
+    return VV_E_INVALID_ARG;
+  }
+
+  // LLM-06: reuse the K/V of the prefix shared with the previous run. At
+  // least the last prompt token is decoded again (its logits start
+  // sampling). llama_batch_get_one positions continue from seq_pos_max + 1
+  // (llama.cpp v0.6.0 batch allocator).
+  size_t keep = 0;
+  if (j.g.reuse_prefix) {
+    size_t n = std::min(h->kv.size(), prompt.size() - 1);
+    while (keep < n && h->kv[keep] == prompt[keep]) keep++;
+    if (keep > 0 && (llama_memory_seq_pos_min(mem, 0) != 0 ||
+                     !llama_memory_seq_rm(mem, 0, (llama_pos)keep, -1))) {
+      keep = 0;  // SWA-pruned or partial removal unsupported: full prefill
+    }
+  }
+  if (keep == 0) llama_memory_clear(mem, true);
+  h->kv.resize(keep);
+  h->last_reused.store((int32_t)keep);
 
   auto t0 = clk::now();
-  for (size_t i = 0; i < prompt.size(); i += (size_t)h->n_batch) {
+  for (size_t i = keep; i < prompt.size(); i += (size_t)h->n_batch) {
     if (h->cancel.load()) return VV_E_CANCELLED;
     int n = (int)std::min<size_t>((size_t)h->n_batch, prompt.size() - i);
     int rc = llama_decode(ctx, llama_batch_get_one(prompt.data() + i, n));
-    if (rc == 2 || h->cancel.load()) return VV_E_CANCELLED;  // aborted
-    if (rc != 0) return VV_E_BACKEND;
+    if (rc == 2 || h->cancel.load()) {  // aborted: partial ubatches may remain
+      h->kv.clear();
+      return VV_E_CANCELLED;
+    }
+    if (rc != 0) {
+      h->kv.clear();
+      return VV_E_BACKEND;
+    }
+    h->kv.insert(h->kv.end(), prompt.begin() + i, prompt.begin() + i + n);
   }
   *prefill_ms = ms_since(t0);
 
@@ -219,11 +253,14 @@ int32_t run(Job& j, int32_t* n_prompt, int32_t* n_gen, double* prefill_ms, doubl
       last_emit = clk::now();
     }
     int rc = llama_decode(ctx, llama_batch_get_one(&tok, 1));
+    if (rc == 0) h->kv.push_back(tok);
     if (rc == 2 || h->cancel.load()) {
+      if (rc != 0) h->kv.clear();
       status = VV_E_CANCELLED;
       break;
     }
     if (rc != 0) {
+      h->kv.clear();
       status = VV_E_BACKEND;
       break;
     }
@@ -274,6 +311,7 @@ vv_gen_params vv_llm_default_gen_params(void) {
   g.repeat_last_n = 64;
   g.grammar = nullptr;
   g.token_batch = 4;
+  g.reuse_prefix = 0;
   return g;
 }
 
@@ -311,6 +349,12 @@ int32_t vv_llm_get_info(vv_llm* h, vv_llm_info* out) {
   out->n_threads = h->L.n_threads;
   out->load_ms = h->L.load_ms;
   out->model_bytes = llama_model_size(h->L.model);
+  return VV_OK;
+}
+
+int32_t vv_llm_last_reused_tokens(vv_llm* h, int32_t* out) {
+  if (!h || !out) return VV_E_INVALID_ARG;
+  *out = h->last_reused.load();
   return VV_OK;
 }
 

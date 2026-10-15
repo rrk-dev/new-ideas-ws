@@ -1,0 +1,20 @@
+{
+  "title": "Logging design review",
+  "context": "Reviewing how the app logs events.",
+  "concepts": [
+    "structured JSON logging"
+  ],
+  "api_designs": [],
+  "tradeoffs": [],
+  "decisions": [
+    "Log structured JSON and never log user content"
+  ],
+  "todos": [
+    {
+      "task": "Add a lint rule that blocks logging of user content",
+      "owner": "Sam",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

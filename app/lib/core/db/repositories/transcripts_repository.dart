@@ -73,21 +73,40 @@ class TranscriptsRepository extends DatabaseAccessor<VaultVoiceDatabase>
 
   /// User edit of a segment: keeps the first pre-edit text in `originalText`
   /// and flags the transcript as edited.
-  Future<Result<void>> editSegment(int segmentId, String newText) => guardDb(
+  Future<Result<void>> editSegment(int segmentId, String newText) =>
+      guardDb(() => transaction(() => _edit(segmentId, newText)));
+
+  /// Several edits of one transcript in one transaction (STT-06 find &
+  /// replace). Every segment must belong to [transcriptId]; otherwise
+  /// nothing is written (replace is scoped to one transcript).
+  Future<Result<void>> editSegments(
+    String transcriptId,
+    Map<int, String> edits,
+  ) => guardDb(
     () => transaction(() async {
-      final row = await (select(
-        transcriptSegments,
-      )..where((s) => s.id.equals(segmentId))).getSingle();
-      await (update(
-        transcriptSegments,
-      )..where((s) => s.id.equals(segmentId))).write(
-        TranscriptSegmentsCompanion(
-          body: Value(newText),
-          originalText: Value(row.originalText ?? row.body),
-        ),
-      );
-      await (update(transcripts)..where((t) => t.id.equals(row.transcriptId)))
-          .write(const TranscriptsCompanion(edited: Value(true)));
+      for (final MapEntry(key: id, value: text) in edits.entries) {
+        final owner = await _edit(id, text);
+        if (owner != transcriptId) {
+          throw StateError('segment outside the transcript');
+        }
+      }
     }),
   );
+
+  Future<String> _edit(int segmentId, String newText) async {
+    final row = await (select(
+      transcriptSegments,
+    )..where((s) => s.id.equals(segmentId))).getSingle();
+    await (update(
+      transcriptSegments,
+    )..where((s) => s.id.equals(segmentId))).write(
+      TranscriptSegmentsCompanion(
+        body: Value(newText),
+        originalText: Value(row.originalText ?? row.body),
+      ),
+    );
+    await (update(transcripts)..where((t) => t.id.equals(row.transcriptId)))
+        .write(const TranscriptsCompanion(edited: Value(true)));
+    return row.transcriptId;
+  }
 }

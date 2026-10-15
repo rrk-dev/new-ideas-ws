@@ -195,17 +195,17 @@ final class LicenseSummaryProvider
 
 String _$licenseSummaryHash() => r'3aa0a98526375b29dc30ef217ddc8e826bf3ccd0';
 
-/// "Delete all data"; SEC-04 overrides it with the secure wipe.
+/// "Delete all data": SEC-04's secure wipe (DB rows, files, key, grants).
 
 @ProviderFor(dataWiper)
 final dataWiperProvider = DataWiperProvider._();
 
-/// "Delete all data"; SEC-04 overrides it with the secure wipe.
+/// "Delete all data": SEC-04's secure wipe (DB rows, files, key, grants).
 
 final class DataWiperProvider
     extends $FunctionalProvider<DataWiper, DataWiper, DataWiper>
     with $Provider<DataWiper> {
-  /// "Delete all data"; SEC-04 overrides it with the secure wipe.
+  /// "Delete all data": SEC-04's secure wipe (DB rows, files, key, grants).
   DataWiperProvider._()
     : super(
         from: null,
@@ -239,7 +239,7 @@ final class DataWiperProvider
   }
 }
 
-String _$dataWiperHash() => r'1df37a3917a6e5cc32db97dba110e2740b83e9b9';
+String _$dataWiperHash() => r'2838b99fdac5f3990a7e4a30b55a1eb4f5bb1f1e';
 
 /// Where user settings live: the FND-04 `settings` table.
 

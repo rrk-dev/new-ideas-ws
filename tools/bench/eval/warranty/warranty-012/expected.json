@@ -1,0 +1,15 @@
+{
+  "product": "blender",
+  "brand": "Proseware",
+  "model": "Mix 500",
+  "serial_number": null,
+  "purchase_date": "May third",
+  "retailer": null,
+  "price": null,
+  "warranty_period": {
+    "value": 1,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": "Gift, no receipt."
+}

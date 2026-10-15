@@ -5,5 +5,6 @@ import 'package:vaultvoice/features/extraction/data/dev_llm_engine.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await bootstrap(Flavor.dev, overrides: await devLlmOverrides());
+  final devLlm = await devLlmOverrides();
+  await bootstrap(Flavor.dev, overrides: devLlm, productionLlm: devLlm.isEmpty);
 }

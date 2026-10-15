@@ -1,0 +1,43 @@
+{
+  "title": "Login token strategy",
+  "context": "Choosing a login session mechanism for web and mobile.",
+  "concepts": [
+    "refresh tokens"
+  ],
+  "api_designs": [
+    {
+      "name": "Token refresh",
+      "description": "Refreshes short lived access tokens.",
+      "endpoints_or_signatures": [
+        "POST /auth/refresh"
+      ]
+    }
+  ],
+  "tradeoffs": [
+    {
+      "option": "Session cookies",
+      "pros": [
+        "easy to revoke"
+      ],
+      "cons": []
+    },
+    {
+      "option": "JSON web tokens",
+      "pros": [
+        "work better for mobile apps"
+      ],
+      "cons": []
+    }
+  ],
+  "decisions": [
+    "Use short lived tokens with refresh tokens"
+  ],
+  "todos": [
+    {
+      "task": "Implement the refresh endpoint",
+      "owner": "Mei",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

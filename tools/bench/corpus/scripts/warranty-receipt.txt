@@ -1,0 +1,4 @@
+# warranty: one speaker, numbers, brands and dates.
+Moira|I just bought a new washing machine from the electronics store on Main Street. It cost six hundred and forty nine dollars, and the receipt number is four four seven two.
+Moira|The warranty is two years from today, and the store offers an extended plan for another three years if I register it within thirty days.
+Moira|The serial number is on the back panel, and the delivery is scheduled for next Tuesday between nine and twelve.

@@ -5,6 +5,7 @@ Do not fill Result until the row has actually been run.
 
 | AC | Steps | Expected | Device | OS | Result | Date | Tester |
 |---|---|---|---|---|---|---|---|
+| [FND-09/AC1] | 1. On an Apple Silicon Mac with Xcode installed and the license accepted, `export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer`. 2. `cd app`. 3. `fvm flutter build macos --flavor dev -t lib/main_dev.dart`. 4. `file build/macos/Build/Products/Debug-dev/vaultvoice.app/Contents/MacOS/vaultvoice`. 5. `plutil -p build/macos/Build/Products/Debug-dev/vaultvoice.app/Contents/Info.plist`. | The build exits 0. `file` reports an arm64 Mach-O executable. Info.plist `CFBundleIdentifier` is `com.vaultvoice.vaultvoice.dev` and `LSMinimumSystemVersion` is `13.0`. | Mac arm64 | macOS 13+ | | | |
 | [FND-09/AC2] | 1. On an Apple Silicon Mac, `export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer`. 2. `cd app`. 3. `fvm flutter run -d macos --flavor dev -t lib/main_dev.dart`. 4. Look at the window title bar and the Record screen. 5. Try the close, minimize, and zoom buttons, and try to shrink the window. | An arm64 window opens on the Record screen. The DEBUG banner is visible. The dev-only CallGuard debug action is in the app bar. The title is VaultVoice Dev (bundle `com.vaultvoice.vaultvoice.dev`). Close, minimize, and zoom work with the pointer. The window content cannot shrink below 800×600. | Mac arm64 | macOS 13+ | | | |
 
 ## Notes / evidence

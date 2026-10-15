@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/core/network/network_activity.dart';
 
 /// Allowlist and switches for [NetworkGateway].
 class NetworkConfig {
@@ -54,7 +55,10 @@ const _redirectStatuses = {301, 302, 303, 307, 308};
 
 /// The only HTTP client in the app. Everything else must go through it.
 ///
-/// Minimal in FND-02; SEC-02 adds the activity log, CI egress guard and audit.
+/// SEC-02: every attempt — sent, refused or failed — is written to the
+/// in-app [activity] log (timestamp, host, path, status, bytes; never
+/// headers, bodies or query strings). `tools/ci/check_egress.sh` keeps all
+/// other network APIs out of the app.
 class NetworkGateway {
   /// `networkDisabled` is consulted before **every** request (user offline
   /// mode / MDM `network_disabled`, MDL-04); true or an error refuses it.
@@ -62,11 +66,34 @@ class NetworkGateway {
     required this.config,
     http.Client? client,
     this._networkDisabled,
-  }) : _client = client ?? http.Client();
+    this.activity,
+    DateTime Function()? now,
+  }) : _client = client ?? http.Client(),
+       _now = now ?? DateTime.now;
 
   final NetworkConfig config;
   final http.Client _client;
   final Future<bool> Function()? _networkDisabled;
+
+  /// In-app "Network activity" log (null = not recorded, tests only).
+  final NetworkActivityLog? activity;
+  final DateTime Function() _now;
+
+  void _log(Uri uri, NetworkOutcome outcome, {int? status, int? bytes}) =>
+      activity?.record(
+        NetworkActivityEntry.request(
+          _now(),
+          uri,
+          outcome,
+          statusCode: status,
+          bytes: bytes,
+        ),
+      );
+
+  EgressDeniedFailure _denied(Uri uri, EgressDeniedFailure f) {
+    _log(uri, NetworkOutcome.denied);
+    return f;
+  }
 
   Future<bool> _disabled() async {
     final check = _networkDisabled;
@@ -84,8 +111,10 @@ class NetworkGateway {
     Map<String, String>? headers,
   }) async {
     final denied = _check(uri, redirect: false);
-    if (denied != null) return Err(denied);
-    if (await _disabled()) return Err(EgressDeniedFailure(uri.host));
+    if (denied != null) return Err(_denied(uri, denied));
+    if (await _disabled()) {
+      return Err(_denied(uri, EgressDeniedFailure(uri.host)));
+    }
     try {
       // Redirects are not followed: a 3xx could point at a non-allowlisted
       // host. Callers see the 3xx response and decide.
@@ -93,8 +122,16 @@ class NetworkGateway {
         ..followRedirects = false
         ..headers.addAll(headers ?? const {});
       final streamed = await _client.send(request);
-      return Ok(await http.Response.fromStream(streamed));
+      final response = await http.Response.fromStream(streamed);
+      _log(
+        uri,
+        NetworkOutcome.completed,
+        status: response.statusCode,
+        bytes: response.bodyBytes.length,
+      );
+      return Ok(response);
     } on http.ClientException catch (e) {
+      _log(uri, NetworkOutcome.failed);
       return Err(NetworkFailure(e.runtimeType.toString()));
     }
   }
@@ -103,8 +140,11 @@ class NetworkGateway {
   /// transports that cannot run through this client, MDL-02).
   Future<Result<void>> authorize(Uri uri) async {
     final denied = _check(uri, redirect: false);
-    if (denied != null) return Err(denied);
-    if (await _disabled()) return Err(EgressDeniedFailure(uri.host));
+    if (denied != null) return Err(_denied(uri, denied));
+    if (await _disabled()) {
+      return Err(_denied(uri, EgressDeniedFailure(uri.host)));
+    }
+    _log(uri, NetworkOutcome.handedToSystem);
     return const Ok(null);
   }
 
@@ -121,8 +161,10 @@ class NetworkGateway {
     int maxRedirects = kMaxGatewayRedirects,
   }) async {
     final first = _check(uri, redirect: false);
-    if (first != null) return Err(first);
-    if (await _disabled()) return Err(EgressDeniedFailure(uri.host));
+    if (first != null) return Err(_denied(uri, first));
+    if (await _disabled()) {
+      return Err(_denied(uri, EgressDeniedFailure(uri.host)));
+    }
     var current = uri;
     final hops = <Uri>[];
     try {
@@ -131,6 +173,12 @@ class NetworkGateway {
           ..followRedirects = false
           ..headers.addAll(headers ?? const {});
         final streamed = await _client.send(request);
+        _log(
+          current,
+          NetworkOutcome.completed,
+          status: streamed.statusCode,
+          bytes: streamed.contentLength,
+        );
         if (!_redirectStatuses.contains(streamed.statusCode)) {
           return Ok(
             GatewayStreamedResponse(
@@ -158,11 +206,12 @@ class NetworkGateway {
           return const Err(NetworkFailure('invalid redirect location'));
         }
         final denied = _check(next, redirect: true);
-        if (denied != null) return Err(denied);
+        if (denied != null) return Err(_denied(next, denied));
         hops.add(next);
         current = next;
       }
     } on http.ClientException catch (e) {
+      _log(current, NetworkOutcome.failed);
       return Err(NetworkFailure(e.runtimeType.toString()));
     }
   }

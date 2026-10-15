@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- AUD-06 / AUD-10: the share extension and Runner share this App Group
+     (register group.<app id> per flavor in the developer portal). AUD-10 adds
+     the user-defined build setting APP_BUNDLE_IDENTIFIER (= Runner's
+     PRODUCT_BUNDLE_IDENTIFIER per flavor) to the extension target and gives
+     Runner the same key. -->
+<plist version="1.0">
+<dict>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.$(APP_BUNDLE_IDENTIFIER)</string>
+	</array>
+</dict>
+</plist>

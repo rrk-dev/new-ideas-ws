@@ -1,0 +1,15 @@
+{
+  "product": "smart watch",
+  "brand": "Litware",
+  "model": "Pulse 3",
+  "serial_number": null,
+  "purchase_date": "yesterday",
+  "retailer": "airport duty free shop",
+  "price": "249 dollars",
+  "warranty_period": {
+    "value": 1,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": "International warranty."
+}

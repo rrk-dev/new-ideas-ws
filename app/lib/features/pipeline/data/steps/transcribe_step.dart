@@ -1,22 +1,50 @@
 import 'dart:convert';
+import 'dart:io';
 
-import 'package:drift/drift.dart' show Value;
+import 'package:drift/drift.dart';
 import 'package:vaultvoice/core/db/database.dart';
+import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/stt_engine.dart';
+import 'package:vaultvoice/core/platform/vad_engine.dart';
 import 'package:vaultvoice/core/utils/ids.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/step_support.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
+import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
+import 'package:vaultvoice/features/transcription/data/window_result_cache.dart';
+import 'package:vaultvoice/features/transcription/domain/hallucination_guards.dart';
+import 'package:vaultvoice/features/transcription/domain/window_planner.dart';
 
-/// Transcribes the recording's audio chunks one by one, checkpointing after
-/// every chunk (`{nextChunk, modelId, paramsHash}`). A resume skips finished
-/// chunks only when the parameters hash matches; otherwise it starts over and
-/// replaces the old segments.
+/// Transcribes a recording.
+///
+/// - **Long-form (STT-04)**, when the engine is a [WindowedSttEngine]: the
+///   audio is planned into 30-120 s VAD-bounded speech windows
+///   ([planWindows]; speech spans from `speech_segments`, computed once by
+///   [vad] when missing), each decoded with one `vv_stt_transcribe_ranges`
+///   call (no temp WAVs), segments mapped to the recording timeline, run
+///   through the hallucination/repetition guards and committed together with
+///   the checkpoint `{nextWindow, modelId, paramsHash}` - a killed job
+///   resumes at the next window. The previous window's tail is carried into
+///   the prompt. Windows already transcribed while recording
+///   (near-real-time mode) are taken from [windowCache].
+/// - **Per chunk** (engines without range support, e.g. test fakes): one
+///   call per chunk with checkpoint `{nextChunk, ...}` (FND-05 behaviour).
+///
+/// AUD-03 silence skipping (integration wave 3: one [VadEngine]): when a VAD
+/// model is installed and `processing.skip_silence` is on (default), the
+/// recording's speech spans come from [vad] (stored as `speech_segments`)
+/// and bound STT-04's windows; on the per-chunk path whisper.cpp's built-in
+/// Silero VAD also skips silence inside each chunk.
+///
+/// The model is the active STT model (FND-11 [activeModel]; none installed
+/// ⇒ `waiting(model_missing)`). A resume skips finished work only when the
+/// parameters hash (model, language, VAD) matches; otherwise it starts over
+/// and replaces the old segments.
 class TranscribeStep implements PipelineStep {
   TranscribeStep({
     required this.db,
@@ -24,6 +52,10 @@ class TranscribeStep implements PipelineStep {
     required this.stt,
     required this.config,
     this.clock = const SystemClock(),
+    this.activeModel,
+    this.vad,
+    this.windowCache = const NoWindowResultCache(),
+    this.windowConfig = const WindowPlanConfig(),
   });
 
   final VaultVoiceDatabase db;
@@ -31,6 +63,17 @@ class TranscribeStep implements PipelineStep {
   final SttEngine stt;
   final PipelineConfig config;
   final Clock clock;
+
+  /// The active STT model (FND-11); null uses [PipelineConfig.sttModelId].
+  final ActiveModelIdLookup? activeModel;
+
+  /// Computes speech spans when a recording has none stored (AUD-03).
+  final VadEngine? vad;
+  final WindowResultCache windowCache;
+  final WindowPlanConfig windowConfig;
+
+  /// Dropped segments per guard reason in the last run (diagnostics only).
+  final Map<GuardReason, int> guardDrops = {};
 
   @override
   PipelineStepId get id => PipelineStepId.transcribe;
@@ -41,12 +84,48 @@ class TranscribeStep implements PipelineStep {
   @override
   bool canRun(JobSnapshot job) => true;
 
-  String get _paramsHash =>
-      fnv1a32('${config.sttModelId}|${config.sttLanguage}');
+  String _paramsHash(String modelId, String? vadModel) => fnv1a32(
+    '$modelId|${config.sttLanguage}'
+    '${vadModel == null ? '' : '|vad'}',
+  );
+
+  /// The installed VAD model when silence skipping is on, else null.
+  Future<String?> _vadModel() async {
+    final skip = await db.settingsRepository.get(
+      SettingKeys.processingSkipSilence,
+    );
+    final on = switch (skip) {
+      Ok(:final value) => value is! bool || value,
+      Err() => true,
+    };
+    if (!on) return null;
+    final models = await db.modelsRepository
+        .watchAll(type: ModelType.vad)
+        .first;
+    for (final m in models) {
+      try {
+        final path = paths.resolve(m.path);
+        if (File(path).existsSync()) return path;
+      } on Object {
+        continue; // corrupt row (absolute / escaping path): ignore
+      }
+    }
+    return null;
+  }
 
   @override
   Future<StepResult> run(StepContext ctx) async {
     final job = ctx.job;
+    final String modelId;
+    if (activeModel case final lookup?) {
+      final id = await lookup(HeavyModel.stt);
+      // No usable STT model installed: wait instead of failing (MDL-02
+      // install / MDL-03 selection resumes the job).
+      if (id == null) return const StepWaiting(WaitingReason.modelMissing);
+      modelId = id;
+    } else {
+      modelId = config.sttModelId;
+    }
     final chunks = await db.recordingsRepository
         .watchChunks(job.recordingId)
         .first;
@@ -56,16 +135,21 @@ class TranscribeStep implements PipelineStep {
         kind: FailureKind.permanent,
       );
     }
+    final vadModel = await _vadModel();
+    if (stt case final WindowedSttEngine windowed) {
+      return await _runWindows(ctx, chunks, windowed, modelId, vadModel);
+    }
     final transcriptId = transcriptIdFor(job.id);
+    final paramsHash = _paramsHash(modelId, vadModel);
     final cp = job.checkpoint;
     final resumable =
-        cp['paramsHash'] == _paramsHash && cp['modelId'] == config.sttModelId;
+        cp['paramsHash'] == paramsHash && cp['modelId'] == modelId;
     var next = resumable ? (cp['nextChunk'] as int? ?? 0) : 0;
 
     Map<String, Object?> checkpoint(int nextChunk) => {
       'nextChunk': nextChunk,
-      'modelId': config.sttModelId,
-      'paramsHash': _paramsHash,
+      'modelId': modelId,
+      'paramsHash': paramsHash,
     };
 
     if (next == 0) {
@@ -80,7 +164,7 @@ class TranscribeStep implements PipelineStep {
                 TranscriptsCompanion.insert(
                   id: transcriptId,
                   recordingId: job.recordingId,
-                  modelId: config.sttModelId,
+                  modelId: modelId,
                   language: config.sttLanguage,
                   createdAt: clock.now(),
                 ),
@@ -88,6 +172,9 @@ class TranscribeStep implements PipelineStep {
           await (db.delete(
             db.transcriptSegments,
           )..where((s) => s.transcriptId.equals(transcriptId))).go();
+          await (db.delete(
+            db.speechSegments,
+          )..where((s) => s.recordingId.equals(job.recordingId))).go();
         },
       );
     }
@@ -97,11 +184,16 @@ class TranscribeStep implements PipelineStep {
       if (ctx.cancel.isCancelled) return const StepFailed(CancelledFailure());
       final chunk = chunks[next];
       final done = next;
+      final file = paths.resolve(chunk.path);
+      final speech = await _chunkSpeech(vadModel, file, chunk, job, ctx);
       final result = await stt.transcribe(
-        paths.resolve(chunk.path),
+        file,
         cancel: ctx.cancel,
         onProgress: (f) => ctx.reportProgress((done + f) / total),
-        options: SttOptions(language: config.sttLanguage),
+        options: SttOptions(
+          language: config.sttLanguage,
+          vadModelPath: vadModel,
+        ),
       );
       switch (result) {
         case Err(:final failure):
@@ -125,11 +217,251 @@ class TranscribeStep implements PipelineStep {
             progress: (next + 1) / total,
             writes: () async {
               unwrap(await db.transcriptsRepository.upsertSegments(rows));
+              if (speech.isNotEmpty) {
+                await db.batch((b) => b.insertAll(db.speechSegments, speech));
+              }
             },
           );
       }
     }
     return const StepSucceeded();
+  }
+
+  /// Speech spans of one chunk on the recording timeline (per-chunk path).
+  /// A VAD failure only loses the timeline, never the transcript.
+  Future<List<SpeechSegmentsCompanion>> _chunkSpeech(
+    String? vadModel,
+    String file,
+    AudioChunkRow chunk,
+    JobSnapshot job,
+    StepContext ctx,
+  ) async {
+    final engine = vad;
+    if (vadModel == null || engine == null) return const [];
+    final r = await engine.detect(
+      [(path: file, startMs: chunk.startMs, endMs: chunk.endMs)],
+      modelPath: vadModel,
+      cancel: ctx.cancel,
+    );
+    return switch (r) {
+      Ok(:final value) => [
+        for (final s in value)
+          SpeechSegmentsCompanion.insert(
+            recordingId: job.recordingId,
+            startMs: s.startMs,
+            endMs: s.endMs,
+          ),
+      ],
+      Err() => const [],
+    };
+  }
+
+  Future<StepResult> _runWindows(
+    StepContext ctx,
+    List<AudioChunkRow> chunks,
+    WindowedSttEngine engine,
+    String modelId,
+    String? vadModel,
+  ) async {
+    final job = ctx.job;
+    final speech = await _speechSpans(job.recordingId, chunks, ctx, vadModel);
+    if (speech case Err(:final failure)) return StepFailed(failure);
+    final plan = planWindows(
+      chunks: [
+        for (final c in chunks)
+          PlanChunk(
+            seq: c.seq,
+            path: paths.resolve(c.path),
+            startMs: c.startMs,
+            endMs: c.endMs,
+          ),
+      ],
+      speech: speech.valueOrNull!,
+      config: windowConfig,
+    );
+    final windows = plan.windows;
+    final transcriptId = transcriptIdFor(job.id);
+    final paramsKey = sttParamsKey(modelId, config.sttLanguage);
+    final paramsHash = fnv1a32(
+      '$paramsKey|${vadModel == null ? '' : 'vad|'}'
+      '${windows.map((w) => w.key).join(',')}',
+    );
+    final cp = job.checkpoint;
+    final resumable =
+        cp['paramsHash'] == paramsHash &&
+        cp['modelId'] == modelId &&
+        cp.containsKey('nextWindow');
+    var next = resumable ? (cp['nextWindow'] as int? ?? 0) : 0;
+
+    Map<String, Object?> checkpoint(int nextWindow) => {
+      'nextWindow': nextWindow,
+      'modelId': modelId,
+      'paramsHash': paramsHash,
+    };
+
+    if (next == 0) {
+      await ctx.saveCheckpoint(
+        checkpoint(0),
+        progress: 0,
+        writes: () async {
+          await db
+              .into(db.transcripts)
+              .insertOnConflictUpdate(
+                TranscriptsCompanion.insert(
+                  id: transcriptId,
+                  recordingId: job.recordingId,
+                  modelId: modelId,
+                  language: config.sttLanguage,
+                  createdAt: clock.now(),
+                ),
+              );
+          await (db.delete(
+            db.transcriptSegments,
+          )..where((s) => s.transcriptId.equals(transcriptId))).go();
+        },
+      );
+    }
+    if (windows.isEmpty) return const StepSucceeded(); // silence only
+
+    final totalMs = windows.fold<int>(0, (a, w) => a + w.audioMs);
+    var doneMs = windows.take(next).fold<int>(0, (a, w) => a + w.audioMs);
+    // Prompt continuity across a resume: the last kept text before [next].
+    var previous = next == 0 ? null : await _lastText(transcriptId, next);
+    guardDrops.clear();
+
+    for (; next < windows.length; next++) {
+      if (ctx.cancel.isCancelled) return const StepFailed(CancelledFailure());
+      final w = windows[next];
+      final before = doneMs;
+      var segments = await windowCache.lookup(
+        job.recordingId,
+        w.key,
+        paramsKey,
+      );
+      if (segments == null) {
+        final result = await engine.transcribeRanges(
+          [
+            for (final r in w.ranges)
+              SttAudioRange(
+                path: r.path,
+                startMs: r.fileStartMs,
+                endMs: r.fileEndMs,
+                recordingOffsetMs: r.recordingOffsetMs,
+              ),
+          ],
+          cancel: ctx.cancel,
+          onProgress: (f) =>
+              ctx.reportProgress((before + f * w.audioMs) / totalMs),
+          options: SttOptions(
+            language: config.sttLanguage,
+            initialPrompt: carryPrompt(previousText: previous),
+          ),
+        );
+        switch (result) {
+          case Err(:final failure):
+            return StepFailed(failure);
+          case Ok(value: final transcript):
+            segments = transcript.segments;
+        }
+      }
+      final guarded = applyGuards(segments, previous: previous);
+      guarded.dropped.forEach(
+        (k, v) => guardDrops[k] = (guardDrops[k] ?? 0) + v,
+      );
+      final rows = [
+        for (final (i, s) in guarded.kept.indexed)
+          TranscriptSegmentsCompanion.insert(
+            transcriptId: transcriptId,
+            seq: segmentSeq(w.index, i),
+            startMs: s.start.inMilliseconds,
+            endMs: s.end.inMilliseconds,
+            body: s.text,
+            avgLogprob: Value(s.avgLogprob),
+            tokensJson: Value(segmentTokensJson(s)),
+          ),
+      ];
+      doneMs += w.audioMs;
+      final windowIndex = w.index;
+      await ctx.saveCheckpoint(
+        checkpoint(next + 1),
+        progress: doneMs / totalMs,
+        writes: () async {
+          // Idempotent per window: replace whatever this window wrote.
+          await (db.delete(db.transcriptSegments)..where(
+                (s) =>
+                    s.transcriptId.equals(transcriptId) &
+                    s.seq.isBetweenValues(
+                      segmentSeq(windowIndex, 0),
+                      segmentSeq(windowIndex + 1, 0) - 1,
+                    ),
+              ))
+              .go();
+          unwrap(await db.transcriptsRepository.upsertSegments(rows));
+        },
+      );
+      if (guarded.kept.isNotEmpty) {
+        previous = guarded.kept.map((s) => s.text).join(' ');
+      }
+    }
+    await windowCache.clear(job.recordingId);
+    return const StepSucceeded();
+  }
+
+  /// Stored speech spans, or VAD's (stored for next time), or none (chunk
+  /// boundaries are then the cut points: no VAD model, or silence skipping
+  /// off).
+  Future<Result<List<SpeechSpan>>> _speechSpans(
+    String recordingId,
+    List<AudioChunkRow> chunks,
+    StepContext ctx,
+    String? vadModel,
+  ) async {
+    final stored = await db.recordingsRepository
+        .watchSpeechSegments(recordingId)
+        .first;
+    if (stored.isNotEmpty) {
+      return Ok([for (final s in stored) SpeechSpan(s.startMs, s.endMs)]);
+    }
+    final engine = vad;
+    if (engine == null || vadModel == null) return const Ok([]);
+    final detected = await engine.detect(
+      [
+        for (final c in chunks)
+          (path: paths.resolve(c.path), startMs: c.startMs, endMs: c.endMs),
+      ],
+      modelPath: vadModel,
+      cancel: ctx.cancel,
+    );
+    if (detected case Ok(:final value) when value.isNotEmpty) {
+      final saved = await db.recordingsRepository.replaceSpeechSegments(
+        recordingId,
+        [
+          for (final s in value)
+            SpeechSegmentsCompanion.insert(
+              recordingId: recordingId,
+              startMs: s.startMs,
+              endMs: s.endMs,
+            ),
+        ],
+      );
+      if (saved case Err(:final failure)) return Err(failure);
+    }
+    return detected;
+  }
+
+  Future<String?> _lastText(String transcriptId, int window) async {
+    final rows =
+        await (db.select(db.transcriptSegments)
+              ..where(
+                (s) =>
+                    s.transcriptId.equals(transcriptId) &
+                    s.seq.isSmallerThanValue(segmentSeq(window, 0)),
+              )
+              ..orderBy([(s) => OrderingTerm.desc(s.seq)])
+              ..limit(3))
+            .get();
+    if (rows.isEmpty) return null;
+    return rows.reversed.map((r) => r.body).join(' ');
   }
 }
 

@@ -19,7 +19,7 @@ import 'package:vaultvoice/features/extraction/domain/llm_runtime.dart';
 ///   from a GPU session (e.g. iOS refused GPU work) does the same once.
 ///   The pipeline's checkpoint is the step boundary, so a restart re-runs
 ///   only this prompt; [onRestart] tells streaming UIs to clear partial text.
-final class LlmService implements LlmEngine {
+final class LlmService implements LlmEngine, LlmTokenizer {
   LlmService({
     required this.runtime,
     required this.modelPath,
@@ -144,6 +144,36 @@ final class LlmService implements LlmEngine {
   }
 
   @override
+  Future<Result<int>> countTokens(String text) =>
+      _withSession((s) => s.countTokens(text));
+
+  @override
+  Future<Result<int>> countPromptTokens(String user, {String? systemPrompt}) =>
+      _withSession(
+        (s) => s.countTokens(
+          s.applyChatTemplate([
+            if (systemPrompt case final sys?) ('system', sys),
+            ('user', user),
+          ]),
+        ),
+      );
+
+  @override
+  Future<Result<int>> contextWindow() => _withSession((s) => s.contextSize);
+
+  Future<Result<int>> _withSession(int Function(LlmSession s) f) async {
+    try {
+      return Ok(f(await _ensureSession()));
+    } on _GateRefused catch (e) {
+      return Err(e.failure);
+    } on LlmRequestException {
+      return const Err(NativeFailure(-1, 'llm: unsupported chat template'));
+    } on Object catch (e) {
+      return Err(_loadFailure(e));
+    }
+  }
+
+  @override
   Future<Result<String>> generate(
     LlmRequest request, {
     CancelToken? cancel,
@@ -177,6 +207,7 @@ final class LlmService implements LlmEngine {
           sampling: request.sampling,
           maxTokens: request.maxTokens,
           grammar: request.grammar,
+          reusePrefix: request.reusePrefix,
         );
       } on LlmRequestException catch (e) {
         return Err(

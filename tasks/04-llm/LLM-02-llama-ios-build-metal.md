@@ -34,3 +34,18 @@ llama.cpp runs on iOS with full Metal offload.
 - LLM-04: build the streaming engine on `vv_llama.cpp`'s fallback chain; a job that starts in the foreground on Metal and is backgrounded mid-generation will get a failed GPU command buffer — checkpoint, reload with `use_gpu = 0` and resume (pipeline, FND-05).
 - CI (owner FND-03/FND-06): run ctest with `VV_TEST_MODELS_DIR` so the `vv_llm_backend` model cases do not SKIP; let `tools/ci/check_bindings.py` scan `vv_llama.h` too (it reads only `vv_bridge.h`, which now includes it).
 - `native/VERSIONS.md` size table (REL-03): host dylib grew from 6.5 MB to 9.6 MB once llama.cpp code became reachable; iOS slice size still ⏳ (Xcode).
+
+
+## Verification Report
+- **Verifier:** Codex · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ (387 files, 0 changed) · analyze ✅ (zero issues) · Flutter tests ✅ (785 passed, 24 skipped; coverage 93.3%, gate 80%) · pytest ✅ (66 passed) · native host ✅ (fresh native/build.sh host; model-backed ctest 21 passed, 2 explicitly skipped) · egress ✅ · recording policy ✅ · tasks validate ✅ (85 tasks, 0 problems) · CI run: local. No Xcode/NDK/mobile SDKs; no mobile/device reruns.
+- **Acceptance criteria:**
+  - AC1: ⏳ device test checks actual GPU use and the ≥15 tok/s threshold when the documented define is supplied; iPhone 15 Pro/11 rows remain unrun. Host backend C/Dart tests exercise GPU, CPU, deterministic output and q8_0→f16 fallback.
+  - AC2: ✅ host config tests assert increased-memory-limit entitlement and six signing configurations. Integration test checks 4096 prompt +1024 generation counts and footprint; 6 GB iPhone jetsam run remains ⏳.
+- **Mutation sanity check:** Changed the increased-memory-limit entitlement from true to false: llm_ios_config_test failed (1 failed); restored with git checkout. This supports the device-only criterion; it does not simulate jetsam.
+- **Adversarial checks:** Invalid arguments, missing model, CPU-only with no GPU attachment and quantized KV fallback passed in native and Dart host tests. Verified load_mode/mmap and flash-attention APIs against pinned llama.h.
+- **Device evidence:** Reviewed every row in `docs/test-plans/device/LLM-02.md`. Result/date/tester cells are unfilled; no physical run is represented as PASS. The user explicitly permits a provisional verifier PASS with these rows pending.
+- **Skill/rule compliance:** Read AGENTS.md, verifier prompt, workflow/verification skills and all task-listed skills; reviewed the merged implementation at main (no unmerged task diff). Pins checked against local headers. RTK.md is referenced by the supplied instructions but absent. Product code/tests unchanged after temporary mutations; no criteria weakened, GitHub API/gh, pushes, git config edits or model commits.
+- **Issues found:** none in the verified host implementation; physical acceptance remains pending.
+- **Pending for done:** LLM-02: FAIL AC1: still pending (⏳) — cannot be done | LLM-02: FAIL AC1: device row in docs/test-plans/device/LLM-02.md has no PASS result with a date | LLM-02: FAIL AC2: still pending (⏳) — cannot be done | LLM-02: FAIL AC2: device row in docs/test-plans/device/LLM-02.md has no PASS result with a date | LLM-02: FAIL dependency LLM-01 is not done | LLM-02: FAIL dependency FND-06 is not done | LLM-02: FAIL FND-03 (CI / test framework) must be done before any non-bootstrap task | LLM-02: FAIL QA-01 (CI / test framework) must be done before any non-bootstrap task | refusing to set LLM-02 to done: 8 problem(s) (see vv-task-verify)

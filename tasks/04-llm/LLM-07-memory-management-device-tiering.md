@@ -1,7 +1,7 @@
 # LLM-07 — Memory Management & Device Capability Tiering
 
 **Workstream:** LLM | **Phase:** 2 | **Size:** M | **Depends on:** LLM-04, STT-03 | **Source:** Gap (3B Q4 ≈ 2–2.5 GB RAM; iPhone 11 has 4 GB, many Android budget devices 4–6 GB)
-**Status:** review
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-llm-inference, vv-background-execution, vv-ffi-bridge, vv-flutter-architecture, vv-whisper-stt, vv-testing
 
 ## Goal
@@ -34,3 +34,18 @@ The app picks models and settings each device can actually run, and never gets O
 - LLM-11 (proposed, not filed): thermal-state source (Pigeon: iOS `ProcessInfo.thermalState` + Android `PowerManager.getCurrentThermalStatus`/listener) feeding `DeviceProfile.thermal` and the pipeline's `DeviceConditions` (vv-background-execution).
 - Production wiring of `llmEngineProvider` with `defaultsFor` + active catalog model (MDL-*), LIC-01 `EntitlementService` as `LlmPlanGate`, and one `ModelResidency` shared with the STT engine (STT-03 / FND-05 owners).
 - Android backend selection will move to STT-02's `vv_backends_*` / `core/platform/backend_policy.dart` (coordinator decision); this task only consumes `LlmBackendChoice`.
+
+
+## Verification Report
+- **Verifier:** Codex · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** FAIL
+- **Gates:** format ✅ (387 files, 0 changed) · analyze ✅ (zero issues) · Flutter tests ✅ (785 passed, 24 skipped; coverage 93.3%, gate 80%) · pytest ✅ (66 passed) · native host ✅ (fresh native/build.sh host; model-backed ctest 21 passed, 2 explicitly skipped) · egress ✅ · recording policy ✅ · tasks validate ✅ (85 tasks, 0 problems) · CI run: local. No Xcode/NDK/mobile SDKs; no mobile/device reruns.
+- **Acceptance criteria:**
+  - AC1: ⏳ iPhone 11/4 GB Android 30-minute full-pipeline/background runs remain documented but unrun. ❌ ModelResidency cannot enforce the no-overlap invariant for the real asynchronous STT unloader.
+  - AC2: ✅ tagged mocked-profile tests assert <5/5–7/≥7 GiB boundaries, tier contexts, Free/Pro defaults and cache corruption recovery. Memory planning/pressure tests also passed.
+- **Mutation sanity check:** Changed the Low-tier boundary from 5 GiB to 3 GiB: `[LLM-07/AC2]` tier/default/cache tests failed; restored with git checkout.
+- **Adversarial checks:** Ran memory estimate/headroom/refusal/halved-context/pressure tests. External Flutter repro registered an async STT unloader delayed 20 ms, acquired STT then LLM: acquire returned with STT still resident. This matches WhisperSttEngine.unload (Future<void>), whereas existing test only increments a synchronous counter.
+- **Device evidence:** Reviewed every row in `docs/test-plans/device/LLM-07.md`. Result/date/tester cells are unfilled; no physical run is represented as PASS. The user explicitly permits a provisional verifier PASS with these rows pending.
+- **Skill/rule compliance:** Read AGENTS.md, verifier prompt, workflow/verification skills and all task-listed skills; reviewed the merged implementation at main (no unmerged task diff). Pins checked against local headers. RTK.md is referenced by the supplied instructions but absent. Product code/tests unchanged after temporary mutations; no criteria weakened, GitHub API/gh, pushes, git config edits or model commits.
+- **Issues found:**
+  1. `ModelResidency.register` takes void Function() and acquire synchronously calls the unloader, drops STT from bookkeeping and marks LLM loaded without awaiting disposal. Dart accepts an async unloader at this boundary and silently discards its Future. The actual WhisperSttEngine.unload is asynchronous; an LLM may load before native STT destruction finishes. Use an awaited asynchronous residency transition and await it before native load; add a delayed-disposal regression test.

@@ -1,0 +1,3 @@
+[00:00:00] Lena: Does the export include archived notes?
+[00:00:03] Sam: Yes, archived notes are included.
+[00:00:06] Lena: Good, then I'll update the health article this week.

@@ -10,6 +10,7 @@ import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/cancel_token.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/utils/ids.dart';
+import 'package:vaultvoice/features/export/data/vault_exporter.dart';
 import 'package:vaultvoice/features/pipeline/data/job_mapper.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/extract_step.dart';
@@ -38,10 +39,45 @@ List<PipelineStep> defaultSteps({
     stt: engines.stt,
     config: config,
     clock: engines.clock,
+    activeModel: engines.activeModel,
+    vad: engines.vad,
+    windowCache: engines.windowCache,
   ),
-  ExtractStep(db: db, llm: engines.llm, config: config, clock: engines.clock),
-  RenderStep(db: db, paths: paths, renderer: engines.renderer),
-  WriteStep(db: db, paths: paths, vault: engines.vault, clock: engines.clock),
+  ExtractStep(
+    db: db,
+    llm: engines.llm,
+    config: config,
+    clock: engines.clock,
+    activeModel: engines.activeModel,
+    profiles: engines.profiles,
+    grammars: engines.grammars,
+    strategy: engines.extraction,
+  ),
+  RenderStep(
+    db: db,
+    paths: paths,
+    renderer: engines.renderer,
+    loader: engines.rendererLoader,
+  ),
+  WriteStep(
+    db: db,
+    paths: paths,
+    vault: engines.vault,
+    clock: engines.clock,
+    vaultFor: engines.vaultFor,
+    profiles: engines.profiles,
+    // EXP-05: routing rules + multi-target export when the engines supply
+    // a target resolver; otherwise the single-target write.
+    exporter: engines.vaultResolver == null
+        ? null
+        : VaultExporter(
+            db: db,
+            writerFor: engines.vaultResolver!,
+            audio: engines.audioAttachments,
+            clock: engines.clock,
+          ),
+    defaultProfileId: config.defaultProfileId,
+  ),
 ];
 
 class _Run {
@@ -70,6 +106,7 @@ class PipelineOrchestrator implements PipelineClient {
     this.clock = const SystemClock(),
     HeavyModelGate? gate,
     this.machine = const JobStateMachine(),
+    this.metrics,
     String Function()? newId,
   }) : _steps = {for (final s in steps) s.id: s},
        gate = gate ?? HeavyModelGate(),
@@ -88,6 +125,7 @@ class PipelineOrchestrator implements PipelineClient {
     steps: defaultSteps(db: db, paths: paths, engines: engines, config: config),
     clock: engines.clock,
     gate: engines.gate,
+    metrics: engines.metrics,
     newId: newId,
   );
 
@@ -95,6 +133,9 @@ class PipelineOrchestrator implements PipelineClient {
   final StoragePaths? paths;
   final HeavyModelGate gate;
   final JobStateMachine machine;
+
+  /// Per-step performance metrics (FND-07/FND-11); null records nothing.
+  final StepMetrics? metrics;
   final Map<PipelineStepId, PipelineStep> _steps;
   final Clock clock;
   final String Function() _newId;
@@ -279,6 +320,10 @@ class PipelineOrchestrator implements PipelineClient {
       final (job, wakeAt) = await _nextRunnable();
       if (_stopped) break;
       if (job == null) {
+        // Queue empty: free the loaded model (vv-llm-inference → unload the
+        // LLM when the queue is empty).
+        await gate.releaseAll();
+        if (_stopped) break;
         await _sleep(wakeAt);
         continue;
       }
@@ -327,6 +372,7 @@ class PipelineOrchestrator implements PipelineClient {
 
     final run = _current = _Run(active.id);
     final ctx = _Context(this, run, active);
+    final measurement = await _beginMetrics(active, step);
     StepResult result;
     try {
       result = await step.run(ctx);
@@ -336,6 +382,10 @@ class PipelineOrchestrator implements PipelineClient {
       result = StepFailed(dbFailure(e));
     }
     _current = null;
+    await _finishMetrics(
+      measurement,
+      succeeded: result is StepSucceeded && !_stopped,
+    );
     // Killed / disposed: leave the persisted active state for recovery.
     if (_stopped) return;
     final current = ctx.job;
@@ -360,6 +410,28 @@ class PipelineOrchestrator implements PipelineClient {
         await _onFailure(current, failure, kind, now);
       case StepWaiting(:final reason):
         await _saveIf(current, machine.wait(current, reason, now));
+    }
+  }
+
+  Future<StepMeasurement?> _beginMetrics(
+    JobSnapshot job,
+    PipelineStep step,
+  ) async {
+    try {
+      return await metrics?.begin(job, step);
+    } on Object {
+      return null; // metrics never fail a job
+    }
+  }
+
+  Future<void> _finishMetrics(
+    StepMeasurement? measurement, {
+    required bool succeeded,
+  }) async {
+    try {
+      await measurement?.finish(succeeded: succeeded);
+    } on Object {
+      // metrics never fail a job
     }
   }
 

@@ -15,7 +15,12 @@
 		5EC09A012F00000100C0FFEE /* CallGuardPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC09A002F00000100C0FFEE /* CallGuardPlugin.swift */; };
 		AD0200000000000000000002 /* ModelDownloadPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0200000000000000000001 /* ModelDownloadPlugin.swift */; };
 		A0D01A012F00000100C0FFEE /* StorageInfoPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D01A002F00000100C0FFEE /* StorageInfoPlugin.swift */; };
+		A0F08A012F00000100C0FFEE /* ProcessingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F08A002F00000100C0FFEE /* ProcessingPlugin.swift */; };
+		5EC01A012F00000100C0FFEE /* SecureStoragePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC01A002F00000100C0FFEE /* SecureStoragePlugin.swift */; };
+		5EC03A012F00000100C0FFEE /* AppLockPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC03A002F00000100C0FFEE /* AppLockPlugin.swift */; };
 		A0D04A012F00000100C0FFEE /* AudioSessionPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D04A002F00000100C0FFEE /* AudioSessionPlugin.swift */; };
+		A0D06A012F00000100C0FFEE /* AudioImportHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D06A002F00000100C0FFEE /* AudioImportHostApiImpl.swift */; };
+		A0D06A032F00000100C0FFEE /* AudioImportApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D06A022F00000100C0FFEE /* AudioImportApi.g.swift */; };
 		A0D04A032F00000100C0FFEE /* RecordingIndicatorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D04A022F00000100C0FFEE /* RecordingIndicatorPlugin.swift */; };
 		E04B00000000000000000A02 /* BookmarkApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04B00000000000000000A01 /* BookmarkApi.g.swift */; };
 		E04B00000000000000000A04 /* BookmarkHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04B00000000000000000A03 /* BookmarkHostApiImpl.swift */; };
@@ -60,7 +65,12 @@
 		5EC09A002F00000100C0FFEE /* CallGuardPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallGuardPlugin.swift; sourceTree = "<group>"; };
 		AD0200000000000000000001 /* ModelDownloadPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDownload/ModelDownloadPlugin.swift; sourceTree = "<group>"; };
 		A0D01A002F00000100C0FFEE /* StorageInfoPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageInfoPlugin.swift; sourceTree = "<group>"; };
+		A0F08A002F00000100C0FFEE /* ProcessingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingPlugin.swift; sourceTree = "<group>"; };
+		5EC01A002F00000100C0FFEE /* SecureStoragePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoragePlugin.swift; sourceTree = "<group>"; };
+		5EC03A002F00000100C0FFEE /* AppLockPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLockPlugin.swift; sourceTree = "<group>"; };
 		A0D04A002F00000100C0FFEE /* AudioSessionPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionPlugin.swift; sourceTree = "<group>"; };
+		A0D06A002F00000100C0FFEE /* AudioImportHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioImportHostApiImpl.swift; sourceTree = "<group>"; };
+		A0D06A022F00000100C0FFEE /* AudioImportApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioImportApi.g.swift; sourceTree = "<group>"; };
 		A0D04A022F00000100C0FFEE /* RecordingIndicatorPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingIndicatorPlugin.swift; sourceTree = "<group>"; };
 		E04B00000000000000000A01 /* BookmarkApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkApi.g.swift; sourceTree = "<group>"; };
 		E04B00000000000000000A03 /* BookmarkHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkHostApiImpl.swift; sourceTree = "<group>"; };
@@ -140,7 +150,12 @@
 				5EC09A002F00000100C0FFEE /* CallGuardPlugin.swift */,
 				AD0200000000000000000001 /* ModelDownloadPlugin.swift */,
 				A0D01A002F00000100C0FFEE /* StorageInfoPlugin.swift */,
+				A0F08A002F00000100C0FFEE /* ProcessingPlugin.swift */,
+				5EC01A002F00000100C0FFEE /* SecureStoragePlugin.swift */,
+				5EC03A002F00000100C0FFEE /* AppLockPlugin.swift */,
 				A0D04A002F00000100C0FFEE /* AudioSessionPlugin.swift */,
+				A0D06A002F00000100C0FFEE /* AudioImportHostApiImpl.swift */,
+				A0D06A022F00000100C0FFEE /* AudioImportApi.g.swift */,
 				A0D04A022F00000100C0FFEE /* RecordingIndicatorPlugin.swift */,
 				E04B00000000000000000A01 /* BookmarkApi.g.swift */,
 				E04B00000000000000000A03 /* BookmarkHostApiImpl.swift */,
@@ -308,7 +323,12 @@
 				5EC09A012F00000100C0FFEE /* CallGuardPlugin.swift in Sources */,
 				AD0200000000000000000002 /* ModelDownloadPlugin.swift in Sources */,
 				A0D01A012F00000100C0FFEE /* StorageInfoPlugin.swift in Sources */,
+				A0F08A012F00000100C0FFEE /* ProcessingPlugin.swift in Sources */,
+				5EC01A012F00000100C0FFEE /* SecureStoragePlugin.swift in Sources */,
+				5EC03A012F00000100C0FFEE /* AppLockPlugin.swift in Sources */,
 				A0D04A012F00000100C0FFEE /* AudioSessionPlugin.swift in Sources */,
+				A0D06A012F00000100C0FFEE /* AudioImportHostApiImpl.swift in Sources */,
+				A0D06A032F00000100C0FFEE /* AudioImportApi.g.swift in Sources */,
 				A0D04A032F00000100C0FFEE /* RecordingIndicatorPlugin.swift in Sources */,
 				E04B00000000000000000A02 /* BookmarkApi.g.swift in Sources */,
 				E04B00000000000000000A04 /* BookmarkHostApiImpl.swift in Sources */,
@@ -376,6 +396,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -394,6 +415,8 @@
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = all;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = "Profile-dev";
@@ -429,6 +452,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -447,6 +471,8 @@
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = all;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = "Profile-prod";
@@ -738,6 +764,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -758,6 +785,8 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = all;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = "Release-dev";
@@ -793,6 +822,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -813,6 +843,8 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = all;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = "Release-prod";

@@ -1,0 +1,33 @@
+{
+  "title": "Editor state management",
+  "context": "The editor state is spread across many widgets.",
+  "concepts": [
+    "single store",
+    "selectors"
+  ],
+  "api_designs": [],
+  "tradeoffs": [
+    {
+      "option": "Single store",
+      "pros": [
+        "predictable"
+      ],
+      "cons": [
+        "re-renders too much without selectors"
+      ]
+    }
+  ],
+  "decisions": [
+    "Single store with selectors"
+  ],
+  "todos": [
+    {
+      "task": "Move the toolbar state into the store",
+      "owner": "Hana",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "Do we keep undo history in the store too?"
+  ]
+}

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/app_info.dart';
-import 'package:vaultvoice/core/db/connection.dart';
-import 'package:vaultvoice/core/db/db_providers.dart';
+import 'package:vaultvoice/core/errors/failure.dart';
+import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
+import 'package:vaultvoice/core/security/security_providers.dart';
 import 'package:vaultvoice/features/extraction/presentation/llm_debug_screen.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/crash_reports.dart';
 import 'package:vaultvoice/features/settings/presentation/diagnostics_export.dart';
+import 'package:vaultvoice/features/settings/presentation/network_activity_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/setting_texts.dart';
 import 'package:vaultvoice/features/settings/presentation/setting_tiles.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
@@ -32,12 +34,16 @@ class SettingsScreen extends ConsumerWidget {
           const SettingTile(AppSettings.inputDevice),
           const SettingTile(AppSettings.agc),
           const SettingTile(AppSettings.noiseSuppression),
+          const SettingTile(AppSettings.softwareAgc),
+          const SettingTile(AppSettings.rawCapture),
           const SettingTile(AppSettings.autoPauseOnSilence),
+          const SettingTile(AppSettings.silenceAutoStop),
           const SettingTile(AppSettings.audioRetention),
           header(SettingSection.processing),
           const SettingTile(AppSettings.autoProcess),
           const SettingTile(AppSettings.chargeOnly),
           const SettingTile(AppSettings.diarizationDefault),
+          const SettingTile(AppSettings.skipSilence),
           ListTile(
             key: const ValueKey('link-models'),
             leading: const Icon(Icons.memory),
@@ -49,6 +55,23 @@ class SettingsScreen extends ConsumerWidget {
           header(SettingSection.export),
           const _VaultFoldersTile(),
           const _RoutingRulesTile(),
+          const _PendingExportsTile(),
+          ListTile(
+            key: const ValueKey('link-templates'),
+            leading: const Icon(Icons.article_outlined),
+            title: Text(l10n.settingsTemplates),
+            subtitle: Text(l10n.settingsTemplatesSubtitle),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => const TemplatesRoute().push<void>(context),
+          ),
+          ListTile(
+            key: const ValueKey('link-review'),
+            leading: const Icon(Icons.rate_review_outlined),
+            title: Text(l10n.reviewSettingsTitle),
+            subtitle: Text(l10n.reviewSettingsSubtitle),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => const ReviewSettingsRoute().push<void>(context),
+          ),
           const SettingTile(AppSettings.filenamePattern),
           const SettingTile(AppSettings.collisionMode),
           header(SettingSection.privacy),
@@ -56,6 +79,9 @@ class SettingsScreen extends ConsumerWidget {
           const SettingTile(AppSettings.lockTimeout),
           const _EncryptionInfoTile(),
           const SettingTile(AppSettings.transcriptRetention),
+          // SEC-02: offline mode + every request the app made.
+          const SettingTile(AppSettings.offlineMode),
+          const NetworkActivityTile(),
           const SettingTile(AppSettings.notificationsEnabled),
           const SettingTile(AppSettings.notificationDetails),
           const DiagnosticsExportTile(),
@@ -109,6 +135,20 @@ class _VaultFoldersTile extends ConsumerWidget {
   }
 }
 
+class _PendingExportsTile extends StatelessWidget {
+  const _PendingExportsTile();
+
+  @override
+  Widget build(BuildContext context) => ListTile(
+    key: const ValueKey('link-pending-exports'),
+    leading: const Icon(Icons.outbox_outlined),
+    title: Text(context.l10n.settingsPendingExports),
+    subtitle: Text(context.l10n.settingsPendingExportsSubtitle),
+    trailing: const Icon(Icons.chevron_right),
+    onTap: () => const PendingExportsRoute().push<void>(context),
+  );
+}
+
 class _RoutingRulesTile extends ConsumerWidget {
   const _RoutingRulesTile();
 
@@ -128,15 +168,20 @@ class _RoutingRulesTile extends ConsumerWidget {
   }
 }
 
-/// Truthful encryption status: on only when SEC-01's cipher is installed.
+/// Truthful encryption status (SEC-01): on only with the sqlite3mc cipher.
 class _EncryptionInfoTile extends ConsumerWidget {
   const _EncryptionInfoTile();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final encrypted = ref.watch(databaseCipherProvider) is! PlaintextCipher;
+    final state = ref.watch(encryptionStatusProvider).state;
+    final encrypted = state == EncryptionState.encrypted;
     final l10n = context.l10n;
-    final status = encrypted ? l10n.encryptionOn : l10n.encryptionOff;
+    final status = switch (state) {
+      EncryptionState.encrypted => l10n.encryptionOn,
+      EncryptionState.unavailable => l10n.encryptionUnavailable,
+      EncryptionState.off => l10n.encryptionOff,
+    };
     return ListTile(
       key: const ValueKey('privacy-encryption'),
       leading: Icon(encrypted ? Icons.lock_outline : Icons.lock_open),
@@ -191,9 +236,12 @@ class _DeleteAllDataTile extends ConsumerWidget {
     final result = await ref.read(dataWiperProvider).deleteAllData();
     messenger.showSnackBar(
       SnackBar(
-        content: Text(
-          result.isOk ? l10n.deleteAllDone : l10n.deleteAllUnavailable,
-        ),
+        content: Text(switch (result) {
+          Ok() => l10n.deleteAllDone,
+          Err(failure: UnsupportedFeatureFailure()) =>
+            l10n.deleteAllUnavailable,
+          Err() => l10n.deleteAllFailed,
+        }),
       ),
     );
   }

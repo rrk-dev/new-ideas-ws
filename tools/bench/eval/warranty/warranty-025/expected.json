@@ -1,0 +1,15 @@
+{
+  "product": "printer",
+  "brand": "Tailspin",
+  "model": "Jet 200",
+  "serial_number": "77319042",
+  "purchase_date": "last month",
+  "retailer": "Wingtip Store",
+  "price": "119 euros",
+  "warranty_period": {
+    "value": 1,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": null
+}

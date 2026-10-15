@@ -1,0 +1,15 @@
+{
+  "product": "router",
+  "brand": "Contoso",
+  "model": "Mesh 3",
+  "serial_number": "447AB91",
+  "purchase_date": "last Friday",
+  "retailer": "Northwind Market",
+  "price": "129 dollars",
+  "warranty_period": {
+    "value": 2,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": null
+}

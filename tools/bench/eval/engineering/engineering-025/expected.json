@@ -1,0 +1,43 @@
+{
+  "title": "Public API versioning",
+  "context": "Choosing how to version the public API.",
+  "concepts": [],
+  "api_designs": [
+    {
+      "name": "Orders v2",
+      "description": null,
+      "endpoints_or_signatures": [
+        "/v2/orders"
+      ]
+    }
+  ],
+  "tradeoffs": [
+    {
+      "option": "Version in the URL",
+      "pros": [
+        "explicit"
+      ],
+      "cons": []
+    },
+    {
+      "option": "Version in a header",
+      "pros": [
+        "cleaner"
+      ],
+      "cons": [
+        "harder to test in a browser"
+      ]
+    }
+  ],
+  "decisions": [
+    "Use URL versioning"
+  ],
+  "todos": [
+    {
+      "task": "Add the v2 prefix to the router",
+      "owner": "Sam",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

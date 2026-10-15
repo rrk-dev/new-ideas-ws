@@ -1,0 +1,6 @@
+[00:00:00] Kofi: The Editor state is spread across many widgets.
+[00:00:03] Hana: A single store makes it predictable.
+[00:00:06] Lena: But a single store rerenders too much unless we use Selectors.
+[00:00:10] Kofi: Single store with Selectors.
+[00:00:12] Hana: I'll move the toolbar state into the store.
+[00:00:15] Lena: Do we keep undo history in the store too?

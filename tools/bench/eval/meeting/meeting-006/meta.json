@@ -1,0 +1,50 @@
+{
+  "id": "meeting-006",
+  "profile": "meeting",
+  "date": "2026-03-02T10:00:00",
+  "diarization": true,
+  "synthetic": true,
+  "tags": [
+    "6-speakers",
+    "long"
+  ],
+  "speakers": [
+    {
+      "label": "S1",
+      "name": "Priya",
+      "voice": "Samantha"
+    },
+    {
+      "label": "S2",
+      "name": "Sam",
+      "voice": "Daniel"
+    },
+    {
+      "label": "S3",
+      "name": "Lena",
+      "voice": "Karen"
+    },
+    {
+      "label": "S4",
+      "name": "Omar",
+      "voice": "Moira"
+    },
+    {
+      "label": "S5",
+      "name": "Mei",
+      "voice": "Rishi"
+    },
+    {
+      "label": "S6",
+      "name": "Diego",
+      "voice": "Tessa"
+    }
+  ],
+  "duration_s": 49.81,
+  "asr": {
+    "engine": "whisper.cpp d1be6fde",
+    "model": "ggml-base.en-q8_0.bin",
+    "model_sha256": "a4d4a0768075e13c",
+    "tts": "say"
+  }
+}

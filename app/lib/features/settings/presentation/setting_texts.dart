@@ -17,7 +17,11 @@ abstract final class SettingTexts {
     SettingKeys.audioInputDevice => l.settingInputDevice,
     SettingKeys.audioAgc => l.settingAgc,
     SettingKeys.audioNoiseSuppression => l.settingNoiseSuppression,
+    SettingKeys.audioSoftwareAgc => l.settingSoftwareAgc,
+    SettingKeys.audioRawCapture => l.settingRawCapture,
     SettingKeys.audioAutoPause => l.settingAutoPause,
+    SettingKeys.audioSilenceAutoStop => l.settingSilenceAutoStop,
+    SettingKeys.processingSkipSilence => l.settingSkipSilence,
     SettingKeys.audioRetention => l.settingAudioRetention,
     SettingKeys.processingAutoProcess => l.settingAutoProcess,
     SettingKeys.processingChargeOnly => l.settingChargeOnly,
@@ -27,6 +31,7 @@ abstract final class SettingTexts {
     SettingKeys.securityAppLock => l.settingAppLock,
     SettingKeys.securityLockTimeout => l.settingLockTimeout,
     SettingKeys.privacyTranscriptRetention => l.settingTranscriptRetention,
+    SettingKeys.networkOffline => l.settingOfflineMode,
     SettingKeys.notificationsEnabled => l.settingNotifications,
     SettingKeys.notificationsShowDetails => l.settingNotificationDetails,
     _ => key,
@@ -34,11 +39,16 @@ abstract final class SettingTexts {
 
   static String? description(AppLocalizations l, String key) => switch (key) {
     SettingKeys.audioAgc => l.settingAgcDescription,
+    SettingKeys.audioSoftwareAgc => l.settingSoftwareAgcDescription,
+    SettingKeys.audioRawCapture => l.settingRawCaptureDescription,
     SettingKeys.audioAutoPause => l.settingAutoPauseDescription,
+    SettingKeys.audioSilenceAutoStop => l.settingSilenceAutoStopDescription,
+    SettingKeys.processingSkipSilence => l.settingSkipSilenceDescription,
     SettingKeys.processingAutoProcess => l.settingAutoProcessDescription,
     SettingKeys.processingChargeOnly => l.settingChargeOnlyDescription,
     SettingKeys.processingDiarization => l.settingDiarizationDescription,
     SettingKeys.securityAppLock => l.settingAppLockDescription,
+    SettingKeys.networkOffline => l.settingOfflineModeDescription,
     SettingKeys.notificationsEnabled => l.settingNotificationsDescription,
     SettingKeys.notificationsShowDetails =>
       l.settingNotificationDetailsDescription,
@@ -62,6 +72,9 @@ abstract final class SettingTexts {
     'minutes_1' => l.optionMinutes(1),
     'minutes_5' => l.optionMinutes(5),
     'minutes_15' => l.optionMinutes(15),
+    'minutes_10' => l.optionMinutes(10),
+    'minutes_30' => l.optionMinutes(30),
+    'off' => l.optionOff,
     _ => option,
   };
 

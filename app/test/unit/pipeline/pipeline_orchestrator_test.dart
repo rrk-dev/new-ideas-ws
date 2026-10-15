@@ -15,6 +15,7 @@ import 'package:vaultvoice/features/pipeline/domain/heavy_model_gate.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_client.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
+import 'package:vaultvoice/features/recording/domain/recording_session.dart';
 
 import '../../db/db_test_utils.dart';
 import '../../fakes/fake_clock.dart';
@@ -67,6 +68,14 @@ class _Harness {
               events[events.indexOf(e) - 1].state != e.state))
         e.state,
   ];
+}
+
+/// The note path of the default filename pattern (EXP-02, FND-11) for a
+/// recording created at [t0] without a title.
+String noteName(String profile) {
+  final d = t0.toLocal();
+  String two(int v) => v.toString().padLeft(2, '0');
+  return '${d.year}-${two(d.month)}-${two(d.day)}-$profile.md';
 }
 
 void main() {
@@ -124,17 +133,31 @@ void main() {
     final items = await db.select(db.actionItems).get();
     expect([for (final i in items) i.body], ['Send notes']);
     expect(File(paths.renderedFile('r1')).existsSync(), isTrue);
-    expect(h.vault.notes.keys, ['r1.md']);
-    expect(h.vault.notes['r1.md'], contains('chunk_1'));
+    expect(h.vault.notes.keys, [noteName('meeting')]);
+    expect(h.vault.notes[noteName('meeting')], contains('chunk_1'));
     final export = (await db.select(db.exports).get()).single;
     expect(export.status, ExportStatus.written);
     expect(export.attempts, 1);
 
-    // STT was released before the LLM was loaded.
-    expect(h.released, [HeavyModel.stt]);
-    expect(o.gate.loaded, HeavyModel.llm);
+    // STT was released before the LLM was loaded; the LLM is released once
+    // the queue is empty (FND-11).
+    expect(h.released, [HeavyModel.stt, HeavyModel.llm]);
+    expect(o.gate.loaded, isNull);
     expect(h.stt.calls, hasLength(3));
     expect(h.llm.requests, hasLength(1));
+  });
+
+  test('[AUD-08] the destination picked on the Record screen is used by '
+      'the write step', () async {
+    await seedVaultTarget(db, 'v2');
+    expectOk(
+      await db.settingsRepository.set(recordingDestinationKey('r1'), 'v2'),
+    );
+    final o = await h.start();
+    expectOk(await o.enqueue('r1'));
+    await o.whenIdle();
+    final export = (await db.select(db.exports).get()).single;
+    expect(export.targetId, 'v2');
   });
 
   test('[FND-05/AC3] user-initiated jobs jump the queue; enqueue is '
@@ -209,7 +232,7 @@ void main() {
     );
     expect(run2.statesOf(id).first, JobState.queued); // recovered
     expect(await db2.select(db2.exports).get(), hasLength(1));
-    expect(run2.vault.notes.keys, ['r1.md']);
+    expect(run2.vault.notes.keys, [noteName('meeting')]);
   });
 
   test('[FND-05/AC1] a resume with changed STT parameters restarts '
@@ -281,13 +304,17 @@ void main() {
     // Re-rendering the same note: the vault is written again only if the
     // content changed; the export row is updated, never duplicated.
     expect(await db.select(db.exports).get(), hasLength(1));
-    expect(h.vault.notes['r1.md'], contains('eng'));
+    // Stable identity (EXP-02): the re-export updates the same file even
+    // though the profile in the filename pattern changed.
+    expect(h.vault.notes.keys, [noteName('meeting')]);
+    expect(h.vault.notes[noteName('meeting')], contains('eng'));
 
-    // Re-render only: unchanged content is not written to the vault again.
-    h.vault.notes.clear();
+    // Re-write only: unchanged content is not written to the vault again
+    // (a sentinel in the existing file survives).
+    h.vault.notes[noteName('meeting')] = 'sentinel';
     expectOk(await o.rerun(id, PipelineStepId.write));
     await o.whenIdle();
-    expect(h.vault.notes, isEmpty);
+    expect(h.vault.notes, {noteName('meeting'): 'sentinel'});
     expect((await loadJob(db, id)).state, JobState.done);
   });
 

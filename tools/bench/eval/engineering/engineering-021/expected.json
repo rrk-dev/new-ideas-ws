@@ -1,0 +1,30 @@
+{
+  "title": "Faster app startup",
+  "context": "App startup takes four seconds because all plugins load at startup.",
+  "concepts": [
+    "lazy plugin loading"
+  ],
+  "api_designs": [],
+  "tradeoffs": [
+    {
+      "option": "Lazy loading plugins",
+      "pros": [
+        "faster startup"
+      ],
+      "cons": [
+        "first use of a plugin is slower"
+      ]
+    }
+  ],
+  "decisions": [
+    "Lazy load plugins"
+  ],
+  "todos": [
+    {
+      "task": "Measure startup before and after",
+      "owner": "Tomas",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

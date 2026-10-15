@@ -1,0 +1,4 @@
+[00:00:00] Nadia: We can't see where requests spend time.
+[00:00:03] Ravi: Let's add distributed tracing with a trace ID in every log line.
+[00:00:07] Nadia: Tracing adds a little overhead, but it's worth it.
+[00:00:10] Ravi: I'll instrument the checkout service first.

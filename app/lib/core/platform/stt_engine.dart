@@ -62,6 +62,7 @@ class SttOptions {
     this.temperatureFallback = true,
     this.tokenTimestamps = false,
     this.threads = 0,
+    this.vadModelPath,
   });
 
   /// `en`, `de`, … or `auto` (multilingual models only).
@@ -79,6 +80,11 @@ class SttOptions {
 
   /// 0 = performance cores capped at 4.
   final int threads;
+
+  /// AUD-03: ggml Silero VAD model. When set, silence is skipped before
+  /// decoding (less compute, no hallucinated text on silence) and segment
+  /// times stay on the original audio timeline. Null = no VAD.
+  final String? vadModelPath;
 }
 
 /// Called for every segment as soon as it is decoded.
@@ -88,6 +94,36 @@ typedef SegmentCallback = void Function(TranscriptSegment segment);
 abstract interface class SttEngine {
   Future<Result<Transcript>> transcribe(
     String audioPath, {
+    CancelToken? cancel,
+    ProgressCallback? onProgress,
+    SegmentCallback? onSegment,
+    SttOptions options = const SttOptions(),
+  });
+}
+
+/// One file range of a transcription window (`vv_audio_range`, STT-04):
+/// `[startMs, endMs)` of [path]; file time 0 is at [recordingOffsetMs] on
+/// the recording timeline.
+class SttAudioRange {
+  const SttAudioRange({
+    required this.path,
+    required this.startMs,
+    required this.endMs,
+    this.recordingOffsetMs = 0,
+  });
+
+  final String path;
+  final int startMs;
+  final int endMs;
+  final int recordingOffsetMs;
+}
+
+/// An engine that decodes a window of several file ranges in one
+/// `whisper_full` (native concatenation, no temp WAVs — STT-04). Segment
+/// times are on the **recording** timeline (range offset + file time).
+abstract interface class WindowedSttEngine implements SttEngine {
+  Future<Result<Transcript>> transcribeRanges(
+    List<SttAudioRange> ranges, {
     CancelToken? cancel,
     ProgressCallback? onProgress,
     SegmentCallback? onSegment,

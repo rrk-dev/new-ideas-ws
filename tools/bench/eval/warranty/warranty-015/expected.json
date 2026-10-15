@@ -1,0 +1,15 @@
+{
+  "product": "bicycle",
+  "brand": "Wingtip Cycles",
+  "model": "Commuter 7",
+  "serial_number": "WC773008",
+  "purchase_date": "April second",
+  "retailer": "Wingtip Cycles",
+  "price": "740 dollars",
+  "warranty_period": {
+    "value": 5,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": "Warranty covers the frame."
+}

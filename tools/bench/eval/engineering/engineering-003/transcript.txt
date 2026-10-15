@@ -1,0 +1,7 @@
+[00:00:00] Mei: The search page is slow because every request hits the database.
+[00:00:04] Diego: We could add or a disk cache in front of the search queries.
+[00:00:07] Aisha: A cache is fast but invalidation gets tricky when documents change.
+[00:00:12] Mei: Alternatively we build a search index with incremental updates.
+[00:00:17] Diego: The index is more work but stays consistent.
+[00:00:20] Aisha: Let's prototype the cache first and measure.
+[00:00:23] Mei: I'll set up the cache prototype this week.

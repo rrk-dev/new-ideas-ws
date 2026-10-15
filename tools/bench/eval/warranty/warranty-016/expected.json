@@ -1,0 +1,17 @@
+{
+  "product": "camera body",
+  "brand": "Litware",
+  "model": "Shot X 2",
+  "serial_number": "LX200491",
+  "purchase_date": "the twelfth of March",
+  "retailer": "Adventure Photo",
+  "price": "1,150 pounds",
+  "warranty_period": {
+    "value": 1,
+    "unit": "years"
+  },
+  "support_contacts": [
+    "support.litware.example"
+  ],
+  "notes": null
+}

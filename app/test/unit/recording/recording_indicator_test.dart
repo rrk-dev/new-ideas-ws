@@ -284,8 +284,17 @@ void main() {
       ).allMatches(manifest).map((m) => m.group(0)!).toList();
       // Integration wave 2: MDL-02 adds ModelDownloadService (type dataSync,
       // no microphone access). The recording FGS stays the only microphone
-      // service; no other FGS type may appear.
-      expect(services, hasLength(2));
+      // service; no other FGS type may appear. FND-08 adds ProcessingService
+      // (dataSync|mediaProcessing, no microphone access).
+      expect(services, hasLength(3));
+      final processing = services.singleWhere(
+        (s) => s.contains('android:name=".ProcessingService"'),
+      );
+      expect(
+        processing,
+        contains('android:foregroundServiceType="dataSync|mediaProcessing"'),
+      );
+      expect(processing, contains('android:exported="false"'));
       final recording = services.singleWhere(
         (s) => s.contains('android:name=".RecordingService"'),
       );
@@ -311,6 +320,7 @@ void main() {
       expect(fgsPermissions, {
         'FOREGROUND_SERVICE_MICROPHONE',
         'FOREGROUND_SERVICE_DATA_SYNC', // MDL-02 model downloads
+        'FOREGROUND_SERVICE_MEDIA_PROCESSING', // FND-08 processing (API 35+)
       });
       expect(manifest, isNot(contains('REQUEST_IGNORE_BATTERY_OPTIMIZATIONS')));
       expect(service, contains('FOREGROUND_SERVICE_TYPE_MICROPHONE'));

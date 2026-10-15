@@ -1,0 +1,17 @@
+{
+  "product": "headphones",
+  "brand": "Litware",
+  "model": "Studio Pro",
+  "serial_number": null,
+  "purchase_date": "today",
+  "retailer": "Adventure Audio",
+  "price": "199 dollars",
+  "warranty_period": {
+    "value": 2,
+    "unit": "years"
+  },
+  "support_contacts": [
+    "help@litware.example"
+  ],
+  "notes": null
+}

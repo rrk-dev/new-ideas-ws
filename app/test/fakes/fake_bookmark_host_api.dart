@@ -95,6 +95,19 @@ class FakeBookmarkHostApi extends Fake implements BookmarkHostApi {
   }
 
   @override
+  Future<Uint8List?> readFile(String bookmark, String relativePath) async {
+    calls++;
+    final id = _folder(bookmark);
+    if (notDownloaded.contains('$id/$relativePath')) {
+      throw PlatformException(code: 'unavailable', message: 'not downloaded');
+    }
+    if (dirs[id]!.contains(relativePath)) {
+      throw PlatformException(code: 'invalid', message: 'is a folder');
+    }
+    return files[id]![relativePath];
+  }
+
+  @override
   Future<String> writeFile(
     String bookmark,
     String relativePath,

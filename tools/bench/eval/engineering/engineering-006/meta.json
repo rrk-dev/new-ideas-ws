@@ -1,0 +1,40 @@
+{
+  "id": "engineering-006",
+  "profile": "engineering",
+  "date": "2026-03-02T14:00:00",
+  "diarization": true,
+  "synthetic": true,
+  "tags": [
+    "microservices",
+    "4-speakers"
+  ],
+  "speakers": [
+    {
+      "label": "S1",
+      "name": "Hana",
+      "voice": "Samantha"
+    },
+    {
+      "label": "S2",
+      "name": "Ravi",
+      "voice": "Daniel"
+    },
+    {
+      "label": "S3",
+      "name": "Lena",
+      "voice": "Karen"
+    },
+    {
+      "label": "S4",
+      "name": "Omar",
+      "voice": "Moira"
+    }
+  ],
+  "duration_s": 25.74,
+  "asr": {
+    "engine": "whisper.cpp d1be6fde",
+    "model": "ggml-base.en-q8_0.bin",
+    "model_sha256": "a4d4a0768075e13c",
+    "tts": "say"
+  }
+}
