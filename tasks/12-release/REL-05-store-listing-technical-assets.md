@@ -1,7 +1,7 @@
 # REL-05 — Store Listing Technical Assets & Submission
 
 **Workstream:** Release | **Phase:** 4 | **Size:** S | **Depends on:** REL-01, SEC-06 | **Source:** §5 Phase 4 (app store media assets)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-ci-release, vv-privacy-security, vv-licensing-iap
 
 ## Goal
