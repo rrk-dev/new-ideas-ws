@@ -10,6 +10,13 @@ _vv_stt_cancel
 _vv_stt_destroy
 _vv_stt_free_segment
 _vv_stt_last_error
+_vv_vad_default_params
+_vv_vad_create
+_vv_vad_segments
+_vv_vad_feed
+_vv_vad_reset
+_vv_vad_destroy
+_vv_vad_last_error
 _vv_abi_version
 _vv_version
 _vv_whisper_version
@@ -35,4 +42,5 @@ _vv_llm_cancel
 _vv_llm_destroy
 _vv_json_schema_to_gbnf
 _vv_device_memory
+_vv_llm_last_reused_tokens
 _vv_crash_*

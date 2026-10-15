@@ -1,0 +1,2 @@
+[00:00:00] New Coffee Grinder from Contoso, Model Bur 3. Got it on March 1 at Northwind Market for $89.
+[00:00:09] One year warranty, no serial number on the box.

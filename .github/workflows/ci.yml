@@ -40,6 +40,12 @@ jobs:
       - run: bash tools/ci/analyze.sh
       - run: bash tools/ci/check_codegen.sh
       - run: bash tools/ci/check_egress.sh
+      # SEC-02: every runtime package with network/telemetry code is reviewed
+      # in tools/ci/package_audit.json (needs the pub get from setup.sh).
+      - run: bash tools/ci/check_packages.sh
+      # EXP-01/EXP-08: rendered Markdown goldens pass markdownlint
+      # (docs/markdownlint.json; markdownlint-cli2 pinned in the script).
+      - run: bash tools/ci/markdownlint.sh
       # Recording policy (SEC-09) on source manifests, plists, entitlements and
       # sources; the android job re-runs it on the merged manifest.
       - run: bash tools/ci/run_slot.sh check_recording_policy.sh SEC-09
@@ -165,11 +171,13 @@ jobs:
   native-host:
     name: native-host
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v7.0.1
         with:
           submodules: recursive
+          # PRF-09 eval change detection diffs against the base branch.
+          fetch-depth: 0
       - id: pins
         run: echo "pins=$(git ls-tree HEAD native/whisper.cpp native/llama.cpp | awk '{print $3}' | tr '\n' '-')" >> "$GITHUB_OUTPUT"
       - run: sudo apt-get update && sudo apt-get install -y cmake ninja-build ccache
@@ -189,3 +197,22 @@ jobs:
       - run: bash tools/ci/setup.sh
       # native/build.sh host (ctest: smoke + exports) + Dart FFI test on the host library.
       - run: bash tools/ci/native_host.sh
+      # REL-03: host native library within budget (tools/ci/size-budget.json).
+      - run: bash tools/ci/size_check.sh
+      # PRF-09: extraction eval with --gate, only when profiles, the prompt
+      # builder, the eval or llama.cpp changed (tools/ci/eval.sh skips otherwise).
+      - uses: actions/cache@v6.1.0
+        with:
+          path: ~/.cache/vaultvoice/test-models
+          key: test-models-${{ hashFiles('tools/ci/test-models.lock') }}
+      - name: Fetch test models (PRF-09 eval)
+        run: bash tools/ci/fetch_test_models.sh | tail -1 >> "$GITHUB_ENV"
+      - name: Extraction eval (PRF-09, prompt/profile changes only)
+        run: bash tools/ci/eval.sh --base origin/${{ github.base_ref || 'main' }}
+      - uses: actions/upload-artifact@v7.0.2
+        if: always()
+        with:
+          name: extraction-eval
+          path: build/eval
+          retention-days: 14
+          if-no-files-found: ignore

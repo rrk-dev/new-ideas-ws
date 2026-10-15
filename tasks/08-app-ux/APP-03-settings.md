@@ -55,3 +55,13 @@ Central place for all configuration.
   `security.app_lock` / `security.lock_timeout`; SEC-01: encryption tile turns "On" automatically.
 - AUD-xx / FND-05 scheduling / EXP-02 / EXP-05: read the audio, processing and export settings
   (keys in `SettingKeys`); EXP-05 owns the routing-rule editor; MDL-03 replaces the Models placeholder.
+## Verification Report
+- **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ · analyze ✅ · tests ✅ (780 passed, 29 skipped; coverage not re-measured locally, CI test job gates ≥80% and is green) · native smoke n/a (no native/bridge change) · egress ✅ · recording policy ✅ · CI run: https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858 (run 51 of ci, commit 67b6fcf, completed successfully; run 50 also succeeded)
+- **Acceptance criteria:**
+  - AC1: ✅ re-ran `[APP-03/AC1]`. The widget test walks every entry of `AppSettings.all` (15: audio input/AGC/noise/auto-pause/retention, auto-process, charge-only, diarization, filename pattern, collision mode, app lock, lock timeout, transcript retention, both notification toggles), changes each, and reads it back from the store after a fresh pump. A second test locks every tile (lock icon, "Managed by your organization", switch `onChanged` null / tile disabled, tap opens no dialog, store unchanged). Store tests round-trip the same keys and check managed override. Mutation: `SettingsWriter.set` returned `Ok` without writing; the persist test failed; restored
+- **Adversarial checks:** invalid collision mode and `../escape.md` filename are refused; managed keys are refused; empty filename pattern does not save (dialog test in the same file, passed in the full suite). Sections for vault folders, routing rules, license restore/enterprise entry, encryption status, delete-all, and licenses are covered by sibling widget tests that passed. No content logging of vault handles beyond the screen that must display them.
+- **Skill/rule compliance:** values live in the FND-04 `settings` table (`vv-local-database`). Managed read-only matches LIC-04's port (`vv-licensing-iap`); real MDM mapping is a follow-up, and the default source refuses rather than pretending. No credentials, certificates, or banned crypto.
+- **Issues found:** none
+- **Pending for done:** dependency FND-04 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task

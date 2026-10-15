@@ -1,0 +1,15 @@
+{
+  "product": "winter tires",
+  "brand": "Wingtip Tires",
+  "model": "Snow Grip",
+  "serial_number": null,
+  "purchase_date": "yesterday",
+  "retailer": "Northwind Auto",
+  "price": "480 euros",
+  "warranty_period": {
+    "value": 4,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": "Four tires, price includes fitting. Warranty limited to fifty thousand kilometers."
+}

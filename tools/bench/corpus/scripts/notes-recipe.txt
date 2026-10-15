@@ -1,0 +1,5 @@
+# voice-memo: one speaker, slow dictation with pauses between steps.
+Daniel|Recipe for the lentil soup. First, chop one onion, two carrots and two sticks of celery.
+Daniel|Fry them in olive oil for about ten minutes until they are soft.
+Daniel|Add two hundred grams of red lentils, a tin of tomatoes and one litre of vegetable stock.
+Daniel|Simmer for twenty five minutes, then season with salt, pepper and a little lemon juice.

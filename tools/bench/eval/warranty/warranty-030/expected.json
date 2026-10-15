@@ -1,0 +1,15 @@
+{
+  "product": "bluetooth speaker",
+  "brand": "Contoso",
+  "model": "Boom Mini",
+  "serial_number": null,
+  "purchase_date": "today",
+  "retailer": "Adventure Audio",
+  "price": null,
+  "warranty_period": {
+    "value": 6,
+    "unit": "months"
+  },
+  "support_contacts": [],
+  "notes": "Part of a bundle with headphones."
+}

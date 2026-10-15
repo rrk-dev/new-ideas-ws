@@ -56,7 +56,8 @@ def test_roundtrip_build_sign_verify(signed):
     c, s, pub = signed
     r = verify(c, s, pub)
     assert r.returncode == 0, r.stderr
-    assert "models=2" in r.stdout
+    n = len(json.loads((HERE.parent / "models.json").read_text())["models"])
+    assert f"models={n}" in r.stdout
     env = json.loads(s.read_text())
     assert env["alg"] == "ed25519" and len(base64.b64decode(env["sig"])) == 64
 

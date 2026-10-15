@@ -1,0 +1,28 @@
+{
+  "title": "Security fixes",
+  "summary": "An outdated library with a known vulnerability will be upgraded and patched by Kofi today. Tomas will rotate the API secrets tomorrow.",
+  "attendees": [
+    "Tomas",
+    "Kofi"
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "task": "Upgrade the vulnerable library and ship a patch",
+      "owner": "Kofi",
+      "due": "today",
+      "t": null
+    },
+    {
+      "task": "Rotate the API secrets",
+      "owner": "Tomas",
+      "due": "tomorrow",
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "security",
+    "vulnerability"
+  ]
+}

@@ -1,0 +1,2330 @@
+{
+ "env": {
+  "date": "2026-10-14",
+  "host": "Darwin arm64",
+  "backend": "cpu",
+  "model": "SmolLM2-135M-Instruct-Q8_0.gguf",
+  "model_sha256": "5a1395716f7913741cc51d98581b9b1228d80987a9f7d3664106742eb06bba83",
+  "n_ctx": 4096,
+  "max_tokens": 1024,
+  "commit": "279469c",
+  "llama": "d81235049",
+  "profile_version": 1
+ },
+ "perf": {
+  "wall_s": 51.99646275000123,
+  "peak_rss": 709902336,
+  "prefill_tps": 948.6643581152073,
+  "decode_tps": 155.90232823298697,
+  "latency_med_s": 1.6495,
+  "latency_max_s": 2.788,
+  "prompt_tokens_med": 960,
+  "prompt_tokens_max": 1073
+ },
+ "aggregate": {
+  "cases": 30,
+  "schema_valid": 1.0,
+  "scalars": {
+   "product": {
+    "exact": 0.4,
+    "fuzzy": 0.6
+   },
+   "brand": {
+    "exact": 0.23333333333333334,
+    "fuzzy": 0.4
+   },
+   "model": {
+    "exact": 0.13333333333333333,
+    "fuzzy": 0.3333333333333333
+   },
+   "serial_number": {
+    "exact": 0.03333333333333333,
+    "fuzzy": 0.03333333333333333
+   },
+   "purchase_date": {
+    "exact": 0.16666666666666666,
+    "fuzzy": 0.2
+   },
+   "retailer": {
+    "exact": 0.5,
+    "fuzzy": 0.5333333333333333
+   },
+   "price": {
+    "exact": 0.2,
+    "fuzzy": 0.6
+   },
+   "warranty_period": {
+    "exact": 0.43333333333333335,
+    "fuzzy": 0.43333333333333335
+   },
+   "accuracy": 0.39166666666666666,
+   "exact_accuracy": 0.2625
+  },
+  "lists": {
+   "support_contacts": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "tp": 0,
+    "expected": 9,
+    "predicted": 0
+   }
+  },
+  "prose": {
+   "notes": 0.6333333333333333
+  },
+  "hallucination_rate": 0.3904761904761905
+ },
+ "cases": [
+  {
+   "id": "warranty-001",
+   "valid": true,
+   "prompt_tokens": 982,
+   "latency_ms": 1541,
+   "n_prompt": 982,
+   "n_gen": 85,
+   "prefill_ms": 969.22125,
+   "decode_ms": 564.564458,
+   "output": {
+    "product": "dishes",
+    "brand": "Fabrikum",
+    "model": "6",
+    "serial_number": "ESSES",
+    "purchase_date": "2026-03-02",
+    "retailer": "Fabrikum",
+    "price": "649",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": true,
+      "fuzzy": true
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-002",
+   "valid": true,
+   "prompt_tokens": 941,
+   "latency_ms": 1354,
+   "n_prompt": 941,
+   "n_gen": 83,
+   "prefill_ms": 931.154291,
+   "decode_ms": 417.961417,
+   "output": {
+    "product": "air purifier",
+    "brand": "Contoso",
+    "model": "AP 200",
+    "serial_number": "X74B29",
+    "purchase_date": "last Saturday",
+    "retailer": "Northwind Electronics",
+    "price": "149 euros",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 4
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-003",
+   "valid": true,
+   "prompt_tokens": 986,
+   "latency_ms": 1452,
+   "n_prompt": 986,
+   "n_gen": 99,
+   "prefill_ms": 968.772625,
+   "decode_ms": 481.324583,
+   "output": {
+    "product": "laptop charger",
+    "brand": "tail spin",
+    "model": "PD-65",
+    "serial_number": "T-6-5-9-9-0-1",
+    "purchase_date": "2026-03-02",
+    "retailer": "Wingtip Store",
+    "price": "18 months",
+    "warranty_period": {
+     "value": 18,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-004",
+   "valid": true,
+   "prompt_tokens": 954,
+   "latency_ms": 1384,
+   "n_prompt": 954,
+   "n_gen": 92,
+   "prefill_ms": 897.04975,
+   "decode_ms": 484.373625,
+   "output": {
+    "product": "headphones",
+    "brand": "Litware Studio Pro",
+    "model": "LP 200",
+    "serial_number": "X74B29",
+    "purchase_date": "2026-03-02",
+    "retailer": "Adventure Audio",
+    "price": "199",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": true,
+      "fuzzy": true
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-005",
+   "valid": true,
+   "prompt_tokens": 972,
+   "latency_ms": 1396,
+   "n_prompt": 972,
+   "n_gen": 85,
+   "prefill_ms": 992.330625,
+   "decode_ms": 401.132916,
+   "output": {
+    "product": "Wash 8",
+    "brand": "Contoso",
+    "model": "AP 200",
+    "serial_number": "300800",
+    "purchase_date": "February 10th",
+    "retailer": "Home Hub",
+    "price": "520 euros",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-006",
+   "valid": true,
+   "prompt_tokens": 943,
+   "latency_ms": 1321,
+   "n_prompt": 943,
+   "n_gen": 91,
+   "prefill_ms": 864.047917,
+   "decode_ms": 454.623042,
+   "output": {
+    "product": "phone case",
+    "brand": "Fourth Coffee Gadgets",
+    "model": "AP 200",
+    "serial_number": "X74B29",
+    "purchase_date": "2026-03-02",
+    "retailer": "Fourth Coffee Gadgets",
+    "price": "12",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-007",
+   "valid": true,
+   "prompt_tokens": 960,
+   "latency_ms": 1290,
+   "n_prompt": 960,
+   "n_gen": 90,
+   "prefill_ms": 841.704,
+   "decode_ms": 446.14825,
+   "output": {
+    "product": "electric kettle",
+    "brand": "contazzo boil max",
+    "model": "contazzo boil max",
+    "serial_number": "353229",
+    "purchase_date": "2026-03-02",
+    "retailer": "northwind markets",
+    "price": "35 euros",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-008",
+   "valid": true,
+   "prompt_tokens": 991,
+   "latency_ms": 1370,
+   "n_prompt": 991,
+   "n_gen": 79,
+   "prefill_ms": 972.218334,
+   "decode_ms": 395.677834,
+   "output": {
+    "product": "robotvac",
+    "brand": "robotvac",
+    "model": "bored",
+    "serial_number": "275777",
+    "purchase_date": "Saturday",
+    "retailer": "fabricam.example",
+    "price": "299",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": true,
+      "fuzzy": true
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 7,
+    "ungrounded": 3
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-009",
+   "valid": true,
+   "prompt_tokens": 896,
+   "latency_ms": 1285,
+   "n_prompt": 896,
+   "n_gen": 93,
+   "prefill_ms": 872.228958,
+   "decode_ms": 410.494458,
+   "output": {
+    "product": "bedside lamp",
+    "brand": "Bedside Lamp",
+    "model": "Lumina 100",
+    "serial_number": "100123",
+    "purchase_date": "2026-03-02",
+    "retailer": "Bedside Lamp",
+    "price": "149 euros",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 3
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-010",
+   "valid": true,
+   "prompt_tokens": 960,
+   "latency_ms": 1402,
+   "n_prompt": 960,
+   "n_gen": 85,
+   "prefill_ms": 947.365416,
+   "decode_ms": 452.363333,
+   "output": {
+    "product": "air purifier",
+    "brand": "Contoso",
+    "model": "AP 200",
+    "serial_number": "X74B29",
+    "purchase_date": "January 5",
+    "retailer": "Adventure Electronics",
+    "price": "899 euros",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": true,
+      "fuzzy": true
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 7,
+    "ungrounded": 3
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-011",
+   "valid": true,
+   "prompt_tokens": 942,
+   "latency_ms": 1623,
+   "n_prompt": 942,
+   "n_gen": 83,
+   "prefill_ms": 970.707208,
+   "decode_ms": 650.322916,
+   "output": {
+    "product": "air purifier",
+    "brand": "Contoso",
+    "model": "AP 200",
+    "serial_number": "X74B29",
+    "purchase_date": "last Saturday",
+    "retailer": "Northwind Electronics",
+    "price": "149 euros",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 7,
+    "ungrounded": 6
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-012",
+   "valid": true,
+   "prompt_tokens": 957,
+   "latency_ms": 1575,
+   "n_prompt": 957,
+   "n_gen": 85,
+   "prefill_ms": 1066.464833,
+   "decode_ms": 505.508625,
+   "output": {
+    "product": "blender",
+    "brand": "Contoso",
+    "model": "500",
+    "serial_number": "500",
+    "purchase_date": "2026-03-02",
+    "retailer": "Northwind Electronics",
+    "price": "149 euros",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 7,
+    "ungrounded": 4
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-013",
+   "valid": true,
+   "prompt_tokens": 969,
+   "latency_ms": 1909,
+   "n_prompt": 969,
+   "n_gen": 87,
+   "prefill_ms": 1366.900458,
+   "decode_ms": 539.547875,
+   "output": {
+    "product": "router",
+    "brand": "Contoso",
+    "model": "Mesh 3",
+    "serial_number": "4759999",
+    "purchase_date": "2026-03-02",
+    "retailer": "Northwind Electronics",
+    "price": "129",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": true,
+      "fuzzy": true
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 3
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-014",
+   "valid": true,
+   "prompt_tokens": 951,
+   "latency_ms": 1540,
+   "n_prompt": 951,
+   "n_gen": 98,
+   "prefill_ms": 1048.676708,
+   "decode_ms": 488.977375,
+   "output": {
+    "product": "electric toothbrush",
+    "brand": "Electric toothbrush",
+    "model": "Fabrikum Smile 9",
+    "serial_number": "79-0005-0142",
+    "purchase_date": "2026-03-02",
+    "retailer": "Fabrikum",
+    "price": "79 euros",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": true,
+      "fuzzy": true
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-015",
+   "valid": true,
+   "prompt_tokens": 988,
+   "latency_ms": 1676,
+   "n_prompt": 988,
+   "n_gen": 117,
+   "prefill_ms": 970.274333,
+   "decode_ms": 703.380792,
+   "output": {
+    "product": "bicycle",
+    "brand": "Wingtip Cycles",
+    "model": "7",
+    "serial_number": "7777777777777777777777777777777777777777",
+    "purchase_date": "April 2",
+    "retailer": "Wingtip Cycles",
+    "price": "740",
+    "warranty_period": {
+     "value": 5,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": true,
+      "fuzzy": true
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 7,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-016",
+   "valid": true,
+   "prompt_tokens": 988,
+   "latency_ms": 1453,
+   "n_prompt": 988,
+   "n_gen": 115,
+   "prefill_ms": 932.737125,
+   "decode_ms": 518.290458,
+   "output": {
+    "product": "camera body",
+    "brand": "Lumina",
+    "model": "Lumina LX",
+    "serial_number": "00000000000000000000000000000000",
+    "purchase_date": "2026-03-02",
+    "retailer": "Lumina Photography",
+    "price": "1150",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 5
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-017",
+   "valid": true,
+   "prompt_tokens": 1073,
+   "latency_ms": 1564,
+   "n_prompt": 1073,
+   "n_gen": 91,
+   "prefill_ms": 1104.494209,
+   "decode_ms": 457.50225,
+   "output": {
+    "product": "fridge",
+    "brand": "Proseo",
+    "model": "AP 300",
+    "serial_number": "X74B29",
+    "purchase_date": "2026-03-02",
+    "retailer": "Home Hub",
+    "price": "1,299",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": true,
+      "fuzzy": true
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 7,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-018",
+   "valid": true,
+   "prompt_tokens": 939,
+   "latency_ms": 1961,
+   "n_prompt": 939,
+   "n_gen": 103,
+   "prefill_ms": 1204.961833,
+   "decode_ms": 753.035875,
+   "output": {
+    "product": "air fryer",
+    "brand": "Contoso",
+    "model": "AP 4",
+    "serial_number": "X74B29",
+    "purchase_date": "2026-03-02",
+    "retailer": "Northwind Market",
+    "price": "99.999999999999999",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-019",
+   "valid": true,
+   "prompt_tokens": 963,
+   "latency_ms": 1969,
+   "n_prompt": 963,
+   "n_gen": 91,
+   "prefill_ms": 1241.528125,
+   "decode_ms": 721.611584,
+   "output": {
+    "product": "air purifier",
+    "brand": "Contoso",
+    "model": "AP 200",
+    "serial_number": "X74B29",
+    "purchase_date": "2026-03-02",
+    "retailer": "Northwind Electronics",
+    "price": "149 euros",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 7,
+    "ungrounded": 5
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-020",
+   "valid": true,
+   "prompt_tokens": 958,
+   "latency_ms": 2057,
+   "n_prompt": 958,
+   "n_gen": 83,
+   "prefill_ms": 1390.104084,
+   "decode_ms": 662.41575,
+   "output": {
+    "product": "air purifier",
+    "brand": "Contoso",
+    "model": "AP 200",
+    "serial_number": "X74B29",
+    "purchase_date": "last Saturday",
+    "retailer": "Northwind Electronics",
+    "price": "149 euros",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 6
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-021",
+   "valid": true,
+   "prompt_tokens": 932,
+   "latency_ms": 1972,
+   "n_prompt": 932,
+   "n_gen": 86,
+   "prefill_ms": 1300.991792,
+   "decode_ms": 668.032791,
+   "output": {
+    "product": "smartwatch",
+    "brand": "litwa",
+    "model": "pals3",
+    "serial_number": "249",
+    "purchase_date": "2026-03-02",
+    "retailer": "airport duty free shop",
+    "price": "249",
+    "warranty_period": {
+     "value": 1,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": true,
+      "fuzzy": true
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 7,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-022",
+   "valid": true,
+   "prompt_tokens": 997,
+   "latency_ms": 1842,
+   "n_prompt": 997,
+   "n_gen": 92,
+   "prefill_ms": 1181.929792,
+   "decode_ms": 656.862625,
+   "output": {
+    "product": "air purifier",
+    "brand": "Contoso",
+    "model": "AP 200",
+    "serial_number": "X74B29",
+    "purchase_date": "2026-03-02",
+    "retailer": "Kitchen Depot",
+    "price": "149 euros",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": true,
+      "fuzzy": true
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 4
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-023",
+   "valid": true,
+   "prompt_tokens": 958,
+   "latency_ms": 2788,
+   "n_prompt": 958,
+   "n_gen": 127,
+   "prefill_ms": 1442.350666,
+   "decode_ms": 1342.275125,
+   "output": {
+    "product": "fabricum hair dryer",
+    "brand": "Fabricum",
+    "model": "Bloom 2",
+    "serial_number": "4922222222222222222222222222222222222222",
+    "purchase_date": "2026-03-02",
+    "retailer": "Home Hub",
+    "price": "49.99",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": true,
+      "fuzzy": true
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 3
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-024",
+   "valid": true,
+   "prompt_tokens": 936,
+   "latency_ms": 1731,
+   "n_prompt": 936,
+   "n_gen": 88,
+   "prefill_ms": 1003.488417,
+   "decode_ms": 724.778208,
+   "output": {
+    "product": "proseo_asleep",
+    "brand": "proseo",
+    "model": "asleep",
+    "serial_number": "80010",
+    "purchase_date": "5th",
+    "retailer": "northwind_furniture",
+    "price": "800.10",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-025",
+   "valid": true,
+   "prompt_tokens": 944,
+   "latency_ms": 1732,
+   "n_prompt": 944,
+   "n_gen": 89,
+   "prefill_ms": 1014.744542,
+   "decode_ms": 713.998042,
+   "output": {
+    "product": "printer",
+    "brand": "printer",
+    "model": "tailspinjet200",
+    "serial_number": "713990",
+    "purchase_date": "2026-03-02",
+    "retailer": "wingtip store",
+    "price": "119 euros",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-026",
+   "valid": true,
+   "prompt_tokens": 993,
+   "latency_ms": 2068,
+   "n_prompt": 993,
+   "n_gen": 79,
+   "prefill_ms": 1393.915166,
+   "decode_ms": 671.169958,
+   "output": {
+    "product": "new phone",
+    "brand": "Litware",
+    "model": "15",
+    "serial_number": "5267",
+    "purchase_date": "March 3rd",
+    "retailer": "Adventure Mobile",
+    "price": "699",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 7,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-027",
+   "valid": true,
+   "prompt_tokens": 962,
+   "latency_ms": 1687,
+   "n_prompt": 962,
+   "n_gen": 85,
+   "prefill_ms": 1090.553458,
+   "decode_ms": 594.182042,
+   "output": {
+    "product": "winter tyres",
+    "brand": "wingtip",
+    "model": "snow grip",
+    "serial_number": "480",
+    "purchase_date": "2026-03-02",
+    "retailer": "Northwind Auto",
+    "price": "480 euros",
+    "warranty_period": {
+     "value": 4,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": true,
+      "fuzzy": true
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 7,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-028",
+   "valid": true,
+   "prompt_tokens": 964,
+   "latency_ms": 1812,
+   "n_prompt": 964,
+   "n_gen": 88,
+   "prefill_ms": 1210.752083,
+   "decode_ms": 597.364625,
+   "output": {
+    "product": "keyboard",
+    "brand": "Fabrikum",
+    "model": "Type 87",
+    "serial_number": "109",
+    "purchase_date": "2026-03-02",
+    "retailer": "Contoso Online",
+    "price": "109 euros",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": true,
+      "fuzzy": true
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-029",
+   "valid": true,
+   "prompt_tokens": 994,
+   "latency_ms": 1680,
+   "n_prompt": 994,
+   "n_gen": 89,
+   "prefill_ms": 1030.497625,
+   "decode_ms": 647.598834,
+   "output": {
+    "product": "air purifier",
+    "brand": "Contoso",
+    "model": "AP 200",
+    "serial_number": "X74B29",
+    "purchase_date": "2 February, 750 euros",
+    "retailer": "Northwind Electronics",
+    "price": "149 euros",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 7,
+    "ungrounded": 4
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-030",
+   "valid": true,
+   "prompt_tokens": 941,
+   "latency_ms": 1894,
+   "n_prompt": 941,
+   "n_gen": 83,
+   "prefill_ms": 1333.8115,
+   "decode_ms": 555.66725,
+   "output": {
+    "product": "air purifier",
+    "brand": "Contoso",
+    "model": "AP 200",
+    "serial_number": "X74B29",
+    "purchase_date": "last Saturday",
+    "retailer": "Northwind Electronics",
+    "price": "149 euros",
+    "warranty_period": {
+     "value": 2,
+     "unit": "years"
+    },
+    "support_contacts": [],
+    "notes": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 7,
+    "ungrounded": 5
+   },
+   "issues": []
+  }
+ ]
+}

@@ -18,6 +18,7 @@ export 'package:vv_native/src/llm_backend.dart'
     show LlmBackendParams, LlmBenchResult, VvLlmException;
 export 'package:vv_native/src/llm_engine.dart'
     show LlmGenParams, LlmGenResult, LlmGeneration, LlmInfo, VvLlm;
+export 'package:vv_native/src/vad.dart';
 export 'package:vv_native/src/vv_bindings.g.dart'
     show
         VV_E_BACKEND,

@@ -1,0 +1,5 @@
+[00:00:00] Priya: Morning Sam, let's agree on the beta date for the sync client.
+[00:00:04] Sam: I think we can ship the beta on the 9th.
+[00:00:07] Priya: Okay, decided, beta ships on the 9th.
+[00:00:11] Sam: I'll finish the installer by Thursday.
+[00:00:13] Priya: Great, who signs off on the release notes?

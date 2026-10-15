@@ -1,0 +1,27 @@
+{
+  "title": "Newsletter",
+  "summary": "The newsletter is late again. Nadia will draft it tonight and Kofi will add the product photos tomorrow.",
+  "attendees": [
+    "Kofi",
+    "Nadia"
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "task": "Draft the newsletter",
+      "owner": "Nadia",
+      "due": "tonight",
+      "t": null
+    },
+    {
+      "task": "Add the product photos to the newsletter",
+      "owner": "Kofi",
+      "due": "tomorrow",
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "newsletter"
+  ]
+}

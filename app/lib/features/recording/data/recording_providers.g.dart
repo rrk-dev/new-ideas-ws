@@ -249,6 +249,114 @@ final class AudioSessionMonitorProvider
 String _$audioSessionMonitorHash() =>
     r'4f507bc4d2d641013bdbe8582588cdb91ff7a66e';
 
+/// Platform voice-processing effects of this device (AUD-02).
+
+@ProviderFor(platformAudioEffects)
+final platformAudioEffectsProvider = PlatformAudioEffectsProvider._();
+
+/// Platform voice-processing effects of this device (AUD-02).
+
+final class PlatformAudioEffectsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<PlatformAudioEffects>,
+          PlatformAudioEffects,
+          FutureOr<PlatformAudioEffects>
+        >
+    with
+        $FutureModifier<PlatformAudioEffects>,
+        $FutureProvider<PlatformAudioEffects> {
+  /// Platform voice-processing effects of this device (AUD-02).
+  PlatformAudioEffectsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'platformAudioEffectsProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$platformAudioEffectsHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<PlatformAudioEffects> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<PlatformAudioEffects> create(Ref ref) {
+    return platformAudioEffects(ref);
+  }
+}
+
+String _$platformAudioEffectsHash() =>
+    r'53be40be201f824fe8ff9e2b04085458954e2c45';
+
+/// Reads the user's audio-processing settings (Settings → Audio) — managed
+/// value › user value › default, like `settingStateProvider`, but straight
+/// from the sources so it works from a keep-alive provider.
+
+@ProviderFor(audioProcessingSettingsReader)
+final audioProcessingSettingsReaderProvider =
+    AudioProcessingSettingsReaderProvider._();
+
+/// Reads the user's audio-processing settings (Settings → Audio) — managed
+/// value › user value › default, like `settingStateProvider`, but straight
+/// from the sources so it works from a keep-alive provider.
+
+final class AudioProcessingSettingsReaderProvider
+    extends
+        $FunctionalProvider<
+          Future<AudioProcessingSettings> Function(),
+          Future<AudioProcessingSettings> Function(),
+          Future<AudioProcessingSettings> Function()
+        >
+    with $Provider<Future<AudioProcessingSettings> Function()> {
+  /// Reads the user's audio-processing settings (Settings → Audio) — managed
+  /// value › user value › default, like `settingStateProvider`, but straight
+  /// from the sources so it works from a keep-alive provider.
+  AudioProcessingSettingsReaderProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'audioProcessingSettingsReaderProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$audioProcessingSettingsReaderHash();
+
+  @$internal
+  @override
+  $ProviderElement<Future<AudioProcessingSettings> Function()> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  Future<AudioProcessingSettings> Function() create(Ref ref) {
+    return audioProcessingSettingsReader(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Future<AudioProcessingSettings> Function() value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride:
+          $SyncValueProvider<Future<AudioProcessingSettings> Function()>(value),
+    );
+  }
+}
+
+String _$audioProcessingSettingsReaderHash() =>
+    r'f25a670c42b012e5df24c1638ec6c94e8ae77e11';
+
 /// The real microphone capture (AUD-01).
 
 @ProviderFor(recordCaptureBackend)
@@ -300,7 +408,53 @@ final class RecordCaptureBackendProvider
 }
 
 String _$recordCaptureBackendHash() =>
-    r'a73c0be59d7e8f36c9e57a7a79d09e810c0e68aa';
+    r'02f4bc106f124f78ce905bb5ead34028a4b58c0f';
+
+/// Live input level of the open recording (AUD-02 meter). Empty when the
+/// capture backend does not meter (test fakes).
+
+@ProviderFor(recordingLevels)
+final recordingLevelsProvider = RecordingLevelsProvider._();
+
+/// Live input level of the open recording (AUD-02 meter). Empty when the
+/// capture backend does not meter (test fakes).
+
+final class RecordingLevelsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<AudioLevel>,
+          AudioLevel,
+          Stream<AudioLevel>
+        >
+    with $FutureModifier<AudioLevel>, $StreamProvider<AudioLevel> {
+  /// Live input level of the open recording (AUD-02 meter). Empty when the
+  /// capture backend does not meter (test fakes).
+  RecordingLevelsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'recordingLevelsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$recordingLevelsHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<AudioLevel> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<AudioLevel> create(Ref ref) {
+    return recordingLevels(ref);
+  }
+}
+
+String _$recordingLevelsHash() => r'42db6fa578f30428258dc75557524cbb6d3ed0f4';
 
 /// Selectable inputs (built-in, wired, Bluetooth HFP, USB). Querying never
 /// opens the microphone.
@@ -722,6 +876,55 @@ final class BatteryStatusProvider
 }
 
 String _$batteryStatusHash() => r'18cdbd4405a471c412986f24b3571ffce57d91fe';
+
+/// Auto-pause / auto-stop after silence (AUD-03). Watching it (Record tab)
+/// attaches it to the controller; it can only pause or stop (SEC-09).
+
+@ProviderFor(silenceWatcher)
+final silenceWatcherProvider = SilenceWatcherProvider._();
+
+/// Auto-pause / auto-stop after silence (AUD-03). Watching it (Record tab)
+/// attaches it to the controller; it can only pause or stop (SEC-09).
+
+final class SilenceWatcherProvider
+    extends $FunctionalProvider<SilenceWatcher, SilenceWatcher, SilenceWatcher>
+    with $Provider<SilenceWatcher> {
+  /// Auto-pause / auto-stop after silence (AUD-03). Watching it (Record tab)
+  /// attaches it to the controller; it can only pause or stop (SEC-09).
+  SilenceWatcherProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'silenceWatcherProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$silenceWatcherHash();
+
+  @$internal
+  @override
+  $ProviderElement<SilenceWatcher> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  SilenceWatcher create(Ref ref) {
+    return silenceWatcher(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SilenceWatcher value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SilenceWatcher>(value),
+    );
+  }
+}
+
+String _$silenceWatcherHash() => r'7605de25c9c4ac4a619e9c94d6894bea4a4f4fcf';
 
 /// The single recording entry point (SEC-09).
 

@@ -31,7 +31,7 @@ SOURCE_EXT = {".dart", ".py", ".c", ".cc", ".cpp", ".h", ".kt", ".swift", ".sh",
 SKIP_DIRS = {".git", "build", ".dart_tool", "node_modules", "Pods", ".gradle", "__pycache__"}
 EVIDENCE_RE = re.compile(
     r"^\s*-\s*AC(?P<n>\d+)(?:\s+\"[^\"]*\")?\s*:\s*(?P<mark>✅|⏳|❌)\s*(?P<rest>.*)$")
-TOOLS = ("claude code", "codex", "cursor", "human")
+TOOLS = ("claude code", "codex", "cursor", "copilot cli", "human")
 ID_RE = re.compile(r"\b([A-Z]{2,4}-\d{2})\b")
 META_RE = re.compile(
     r"^\*\*Workstream:\*\*\s*(?P<ws>[^|]+)\|\s*\*\*Phase:\*\*\s*(?P<phase>[^|]+)\|\s*"
@@ -246,8 +246,10 @@ def cmd_set(tasks, args, root):
 
 # ---------------------------------------------------------------- verification
 def section(text: str, title: str) -> str | None:
-    m = re.search(rf"^## {re.escape(title)}\s*$(.*?)(?=^## |\Z)", text, re.M | re.S)
-    return m.group(1) if m else None
+    """Body of the LAST `## <title>` section (a task can collect several Verification Reports
+    over rework rounds; the most recent one is authoritative)."""
+    ms = list(re.finditer(rf"^## {re.escape(title)}\s*$(.*?)(?=^## |\Z)", text, re.M | re.S))
+    return ms[-1].group(1) if ms else None
 
 
 def acceptance_criteria(text: str) -> list[str]:
@@ -310,7 +312,7 @@ def check_evidence(t: Task, tasks, root: Path, level: str) -> tuple[list[str], l
         notes = ""
     agent_line = next((ln for ln in notes.splitlines() if "**Agent:**" in ln), "")
     if notes and not tool_of(agent_line, "Agent"):
-        errs.append("Completion Notes: '**Agent:**' must name Claude Code, Codex, Cursor or Human")
+        errs.append("Completion Notes: '**Agent:**' must name Claude Code, Codex, Cursor, Copilot CLI or Human")
     evidence: dict[int, tuple[str, str]] = {}
     for ln in notes.splitlines():
         if m := EVIDENCE_RE.match(ln):
@@ -375,7 +377,7 @@ def check_evidence(t: Task, tasks, root: Path, level: str) -> tuple[list[str], l
             ver_line = next((ln for ln in rep_.splitlines() if "**Verifier:**" in ln), "")
             vtool, atool = tool_of(ver_line, "Verifier"), tool_of(agent_line, "Agent")
             if not vtool:
-                errs.append("Verification Report: '**Verifier:**' must name Claude Code, Codex, Cursor or Human")
+                errs.append("Verification Report: '**Verifier:**' must name Claude Code, Codex, Cursor, Copilot CLI or Human")
             elif vtool == atool and vtool != "human" and "**Verifier override:**" not in rep_:
                 errs.append(f"verifier tool ({vtool}) is the same as the implementer — use a different tool or a human "
                             "(or add '**Verifier override:** <human name + reason>')")

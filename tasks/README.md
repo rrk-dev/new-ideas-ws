@@ -24,7 +24,7 @@ review | done`) and a `**Skills:**` line listing the skills to load. Find unbloc
 5. **Phase gates** — GATE-01…04 re-test each phase end to end on real devices.
 6. **Bootstrap first** — FND-01 → FND-02 → FND-03 → QA-01 (+ QA-05): nothing else can be `done` before CI and the test framework exist.
 
-## Task Index (85 tasks)
+## Task Index (89 tasks)
 
 ### 01 — Foundation
 | ID | Task | Phase | Size | Source |
@@ -37,6 +37,9 @@ review | done`) and a `**Skills:**` line listing the skills to load. Find unbloc
 | [FND-06](01-foundation/FND-06-native-build-infrastructure.md) | Native C/C++ build infrastructure | 1 | M | Plan |
 | [FND-07](01-foundation/FND-07-local-logging-diagnostics.md) | Local-only logging & diagnostics | 1 | S | Gap |
 | [FND-08](01-foundation/FND-08-background-processing-guardrails.md) | Background processing guardrails | 4 | L | Plan |
+| [FND-09](01-foundation/FND-09-macos-desktop-target.md) | macOS desktop target | 1 | M | User decision 2026-10-14 |
+| [FND-10](01-foundation/FND-10-macos-native-bundle.md) | macOS native library in the app bundle | 1 | M | User decision 2026-10-14 |
+| [FND-11](01-foundation/FND-11-production-engine-wiring.md) | Production engine wiring | 2–3 | L | Gap |
 
 ### 02 — Audio
 | ID | Task | Phase | Size | Source |
@@ -49,6 +52,7 @@ review | done`) and a `**Skills:**` line listing the skills to load. Find unbloc
 | [AUD-06](02-audio/AUD-06-audio-import-conversion.md) | Audio file import & conversion | 2 | M | Gap |
 | [AUD-07](02-audio/AUD-07-recording-crash-recovery.md) | In-progress recording crash recovery | 1 | S | Gap |
 | [AUD-08](02-audio/AUD-08-recording-ui.md) | Recording screen UI | 1 | M | Plan |
+| [AUD-09](02-audio/AUD-09-macos-microphone.md) | macOS microphone capture | 1 | M | User decision 2026-10-14 |
 
 ### 03 — Speech-to-Text
 | ID | Task | Phase | Size | Source |
@@ -105,6 +109,7 @@ review | done`) and a `**Skills:**` line listing the skills to load. Find unbloc
 | [EXP-06](07-export/EXP-06-write-failure-outbox.md) | Write failure handling & outbox | 3 | S | Gap |
 | [EXP-07](07-export/EXP-07-template-editor-preview.md) | Template editor with preview (Pro) | 3 | M | Plan |
 | [EXP-08](07-export/EXP-08-share-and-alternate-outputs.md) | Share sheet & Logseq/plain outputs | 3–4 | S | Gap |
+| [EXP-09](07-export/EXP-09-macos-folder-bookmarks.md) | macOS vault folder (security-scoped bookmarks) | 1 | M | User decision 2026-10-14 |
 
 ### 08 — App UX
 | ID | Task | Phase | Size | Source |
@@ -191,13 +196,14 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 | Free vs Pro for Warranty / Engineering profiles | LIC-01 | Product decision (§7 is ambiguous) |
 | Final product name (OmniScribe vs VaultVoice) | FND-01 | Keep behind a constant until decided |
 | Native packaging & Android CPU variants (static vs `GGML_BACKEND_DL`) | FND-06 | Static single `vv_native` + dotprod build if all matrix devices support it |
-| VAD engine | AUD-03 | whisper.cpp built-in Silero VAD (no new runtime) |
-| File encryption: OS-only vs app-level `vvenc` | SEC-01 (Phase-1 ADR) | OS file encryption + encrypted DB for v1; `vvenc` if threat model requires |
+| VAD engine | AUD-03 | Decided: ADR-AUD-03 (Proposed) — whisper.cpp built-in Silero VAD via `vv_vad_*` (no new runtime); speed numbers from QA-02 |
+| File encryption: OS-only vs app-level `vvenc` | SEC-01 (Phase-1 ADR) | Decided: ADR-SEC-01 (Proposed) — OS file encryption (iOS `completeUntilFirstUserAuthentication`, Android CE storage) + sqlite3mc-encrypted DB for v1; `vvenc` → SEC-10 if the strict audio reading is required |
 | Crash capture library | REL-02 | Decided: ADR-REL-02 (Proposed) — own async-signal-safe handler in the bridge (`vv_crash.c`), OS/store reports as baseline, no upload endpoint |
 | Can users disable per-recording consent confirmation? | SEC-07 | Product/legal decision |
 | Recording policy (call capture forbidden, user-tap start) | SEC-09 | Fixed requirement — ADR documents enforcement |
 | Cloud device farm (Firebase Test Lab / BrowserStack) | QA-05 | Proposed: physical lab only, no cloud farm (ADR-QA-05). Human accepts or rejects |
+| Ship a macOS desktop app | FND-09, FND-10, AUD-09, EXP-09 | Decided by the user on 2026-10-14: yes, arm64 macOS desktop alongside iOS and Android. Web, Linux, and Windows stay off. |
 | `small.en` Whisper in Free tier? | LIC-01 | Product decision (§7 says Free gets small/tiny) |
 
 ## Schedule Risk
-The master plan targets 12 weeks. This breakdown (85 tasks incl. 4 phase gates, several L-sized gaps: pipeline orchestrator, diarization, map-reduce extraction, eval harness, enterprise licensing) sums to roughly **56–61 engineer-weeks** (27 S ≈ 1.5 d, 45 M ≈ 4 d, 9 L ≈ 7.5 d). Hitting 12 calendar weeks needs a team of ~5 engineers working in parallel (native/AI, audio/platform, Flutter UI, export/licensing, QA). With a smaller team, keep the 12-week target for a Free + Pro MVP and move diarization (STT-05), the custom profile editor (PRF-07) and Enterprise (LIC-03/04, PRF-08 signing) to v1.1.
+The master plan targets 12 weeks. This breakdown (89 tasks incl. 4 phase gates, several L-sized gaps: pipeline orchestrator, diarization, map-reduce extraction, eval harness, enterprise licensing) sums to roughly **59–64 engineer-weeks** (27 S ≈ 1.5 d, 49 M ≈ 4 d, 9 L ≈ 7.5 d). Hitting 12 calendar weeks needs a team of ~5 engineers working in parallel (native/AI, audio/platform, Flutter UI, export/licensing, QA). With a smaller team, keep the 12-week target for a Free + Pro MVP and move diarization (STT-05), the custom profile editor (PRF-07) and Enterprise (LIC-03/04, PRF-08 signing) to v1.1.

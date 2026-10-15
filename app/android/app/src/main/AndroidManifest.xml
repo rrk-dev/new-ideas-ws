@@ -13,13 +13,20 @@
          (Android 14+ requires the typed permission) + its ongoing notification.
          FOREGROUND_SERVICE and POST_NOTIFICATIONS are declared once above (MDL-02). -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <!-- FND-08: long transcription/extraction keeps running in a foreground service of type
+         dataSync (API <= 34) / mediaProcessing (API 35+), started only while the app is visible. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROCESSING" />
+    <!-- SEC-03: app lock via the platform BiometricPrompt (biometrics or device PIN). -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <application
         android:label="@string/app_name"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="false"
         android:fullBackupContent="@xml/backup_rules"
-        android:dataExtractionRules="@xml/data_extraction_rules">
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="false">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -41,11 +48,50 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            <!-- PRF-08: open .vvprofile bundles (profile import). Files only;
+                 no scheme handlers beyond content/file. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="content"/>
+                <data android:mimeType="application/vnd.vaultvoice.profile+zip"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="content"/>
+                <data android:scheme="file"/>
+                <data android:host="*"/>
+                <data android:mimeType="application/octet-stream"/>
+                <data android:pathPattern=".*\\.vvprofile"/>
+                <data android:pathPattern=".*\\..*\\.vvprofile"/>
+            </intent-filter>
+            <!-- AUD-06: import audio the user recorded elsewhere (share sheet /
+                 "Open with"). The file is copied into app storage at once and only
+                 processed after the user's rights/consent attestation. -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="audio/*" />
+                <data android:mimeType="application/ogg" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" />
+                <data android:mimeType="audio/*" />
+            </intent-filter>
         </activity>
         <service
             android:name=".modeldownload.ModelDownloadService"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
+        <!-- FND-08: keeps the pipeline worker alive while processing (6 h / 24 h budget, onTimeout). -->
+        <service
+            android:name=".ProcessingService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync|mediaProcessing" />
         <!-- AUD-05: keeps a user-started recording alive in the background; started only
              while the activity is visible, never restarted by the system (START_NOT_STICKY). -->
         <service

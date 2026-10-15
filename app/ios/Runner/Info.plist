@@ -27,9 +27,51 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
+		<string>processing</string>
 	</array>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.vaultvoice.processing</string>
+	</array>
+	<!-- SEC-02: App Transport Security stays at its default (HTTPS with
+	     forward secrecy only); no arbitrary-load or insecure-HTTP exceptions.
+	     tools/ci/check_egress.sh fails on any other NSAllows* / exception key. -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+	</dict>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Face ID unlocks your recordings and notes when the app lock is on.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>VaultVoice uses the microphone only to record notes you start. Audio is processed on this device and never uploaded.</string>
+	<!-- AUD-06: "Open in" / "Copy to VaultVoice" for audio files (copied, never
+	     opened in place). Ogg/Opus are listed so the app can say they are not
+	     supported on iPhone instead of not appearing at all. -->
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Audio</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.audio</string>
+				<string>public.mpeg-4-audio</string>
+				<string>com.apple.m4a-audio</string>
+				<string>public.mp3</string>
+				<string>com.microsoft.waveform-audio</string>
+				<string>public.aiff-audio</string>
+				<string>com.apple.coreaudio-format</string>
+				<string>org.xiph.flac</string>
+				<string>org.xiph.ogg</string>
+				<string>org.xiph.opus</string>
+			</array>
+		</dict>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
@@ -76,5 +118,54 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>VaultVoice Profile</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.vaultvoice.profile</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<false/>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>com.vaultvoice.profile</string>
+			<key>UTTypeDescription</key>
+			<string>VaultVoice Profile</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.zip-archive</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>vvprofile</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/vnd.vaultvoice.profile+zip</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+	<!-- STT-06: just_audio streams transcript playback through a loopback-only
+	     (127.0.0.1) proxy; local networking only, no arbitrary loads. -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

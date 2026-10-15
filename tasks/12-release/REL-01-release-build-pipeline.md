@@ -57,3 +57,14 @@ Reproducible, signed release builds shipped to stores from CI.
     avoid conflicts with the Gradle owner; fold it into `build.gradle.kts` later if preferred.
   - REL-04 (external beta groups / closed testing) promotes these builds; REL-03 adds `size_check.sh`
     to the release job.
+
+## Verification Report
+- **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ (0 changed) · analyze ✅ (no issues) · tests ✅ (785 passed, 24 skipped, coverage 93.2% of 4708 gated lines, min 80%) · native smoke ✅ (host ctest 9 passed / 14 skipped / 0 failed, includes `vv_crash`) · egress ✅ · recording policy ✅ · CI run: https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858 (run 51, success, `67b6fcf`) and https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638136574 (run 50, success)
+- **Acceptance criteria:**
+  - AC1: ✅ re-ran `[REL-01/AC1]` (`tools/release/tests`, inside the 35 pytest passes). Tag push `v*.*.*` is the only trigger; `prepare` checks pubspec; android and ios need `prepare` and the `release` environment; lanes are `fastlane android internal` (Play `track: "internal"`) and `fastlane ios beta` (`upload_to_testflight`, `match` readonly, `uploadSymbols` false); build flags include `--obfuscate` and `--split-debug-info`; secrets are only step env and are documented; no keystore/`.p8`/`key.properties`/private key is tracked. Checked the Play-track test fails when `track` is changed to `alpha`. Device/CI rows for a real tag are blank — no tagged release workflow run exists yet, and Xcode/Android SDK are not installed here.
+- **Adversarial checks:** Workflow text rejects `workflow_dispatch`, branch triggers, Crashlytics/Sentry/Firebase, and public GitHub Release uploads. Secret decode steps require `set +x` and `umask 077`. Checklist mentions SEC-06, licence screen, version bump, and smoke test. `tasks.py verify REL-01 --run` short-circuits on the pending row; pytest of the tagged file passed before the mutation.
+- **Skill/rule compliance:** Symbols are private workflow artifacts, not a third-party crash service. No credentials committed. Fastlane was syntax-level only (author note matches this machine: no Xcode, no Android SDK). `app/ios/Gemfile.lock` is an acknowledged follow-up, not a missing acceptance test.
+- **Issues found:** none
+- **Pending for done:** AC1: still pending (⏳) — cannot be done; AC1: device row in docs/test-plans/device/REL-01.md has no PASS result with a date; dependency FND-03 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task

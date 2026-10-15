@@ -1,0 +1,31 @@
+{
+  "title": "Secrets management",
+  "context": "Secrets are stored in environment files on the servers.",
+  "concepts": [
+    "secrets manager"
+  ],
+  "api_designs": [],
+  "tradeoffs": [
+    {
+      "option": "Secrets manager",
+      "pros": [
+        "rotation",
+        "audit logs"
+      ],
+      "cons": [
+        "costs a bit"
+      ]
+    }
+  ],
+  "decisions": [
+    "Adopt a secrets manager"
+  ],
+  "todos": [
+    {
+      "task": "Migrate the database password to the secrets manager",
+      "owner": "Omar",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

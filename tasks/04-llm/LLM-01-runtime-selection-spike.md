@@ -28,3 +28,17 @@ Choose one inference runtime for v1 based on measured data, not assumption.
 ## Follow-ups
 - LLM-09 (proposed, not filed): ExecuTorch (v1.5.x, XNNPACK/Core ML) device prototype with Llama-3.2-3B 4-bit — only if LLM-02 or LLM-03 misses its decode target by > 1.5× (ADR-LLM-01 re-open trigger).
 - Re-run `tools/spikes/LLM-01-runtime/run.py` on an idle host: the CPU rows were measured while parallel agents saturated all cores.
+
+
+## Verification Report
+- **Verifier:** Codex · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ (387 files, 0 changed) · analyze ✅ (zero issues) · Flutter tests ✅ (785 passed, 24 skipped; coverage 93.3%, gate 80%) · pytest ✅ (66 passed) · native host ✅ (fresh native/build.sh host; model-backed ctest 21 passed, 2 explicitly skipped) · egress ✅ · recording policy ✅ · tasks validate ✅ (85 tasks, 0 problems) · CI run: local. No Xcode/NDK/mobile SDKs; no mobile/device reruns.
+- **Acceptance criteria:**
+  - AC1: ✅ ADR-LLM-01, host benchmark table/raw JSON and spike source exist; later LLM task Notes reference llama.cpp. Recomputed all 16 raw decode medians, verified three runs and matching output hashes per row against the table. Target-device comparisons remain explicitly Proposed/⏳.
+- **Mutation sanity check:** Temporarily removed ADR-LLM-01-runtime.md: tasks.py verify detected the missing AC1 artifact; restored with git checkout. This is an artifact criterion with no tagged runtime test, not a claim that the spike was benchmarked anew.
+- **Adversarial checks:** Read runtime spike, weighted decision, comparator limitations and re-open triggers. Host table is internally consistent; competitor device prototypes were explicitly deferred. No competitor performance win is established.
+- **Device evidence:** Reviewed every row in `docs/test-plans/device/LLM-01.md`. Result/date/tester cells are unfilled; no physical run is represented as PASS. The user explicitly permits a provisional verifier PASS with these rows pending.
+- **Skill/rule compliance:** Read AGENTS.md, verifier prompt, workflow/verification skills and all task-listed skills; reviewed the merged implementation at main (no unmerged task diff). Pins checked against local headers. RTK.md is referenced by the supplied instructions but absent. Product code/tests unchanged after temporary mutations; no criteria weakened, GitHub API/gh, pushes, git config edits or model commits.
+- **Issues found:** none in the verified host implementation; physical acceptance remains pending.
+- **Pending for done:** LLM-01: FAIL AC1: still pending (⏳) — cannot be done | LLM-01: FAIL AC1: device row in docs/test-plans/device/LLM-01.md has no PASS result with a date | LLM-01: FAIL dependency FND-06 is not done | LLM-01: FAIL FND-03 (CI / test framework) must be done before any non-bootstrap task | LLM-01: FAIL QA-01 (CI / test framework) must be done before any non-bootstrap task | refusing to set LLM-01 to done: 5 problem(s) (see vv-task-verify)

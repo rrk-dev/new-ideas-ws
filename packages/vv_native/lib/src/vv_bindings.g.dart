@@ -324,6 +324,151 @@ class VvBindings {
   late final _vv_stt_last_error = _vv_stt_last_errorPtr
       .asFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<vv_stt>)>();
 
+  vv_vad_params vv_vad_default_params() {
+    return _vv_vad_default_params();
+  }
+
+  late final _vv_vad_default_paramsPtr =
+      _lookup<ffi.NativeFunction<vv_vad_params Function()>>(
+        'vv_vad_default_params',
+      );
+  late final _vv_vad_default_params = _vv_vad_default_paramsPtr
+      .asFunction<vv_vad_params Function()>();
+
+  /// Loads the ggml Silero model (CPU; ~1 MB). Blocking.
+  /// VV_E_INVALID_ARG (NULL args / struct_size), VV_E_MODEL_LOAD, VV_E_OOM.
+  int vv_vad_create(
+    ffi.Pointer<ffi.Char> model_path,
+    ffi.Pointer<vv_vad_params> params,
+    ffi.Pointer<ffi.Pointer<vv_vad>> out,
+  ) {
+    return _vv_vad_create(model_path, params, out);
+  }
+
+  late final _vv_vad_createPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Pointer<vv_vad_params>,
+            ffi.Pointer<ffi.Pointer<vv_vad>>,
+          )
+        >
+      >('vv_vad_create');
+  late final _vv_vad_create = _vv_vad_createPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<vv_vad_params>,
+          ffi.Pointer<ffi.Pointer<vv_vad>>,
+        )
+      >();
+
+  /// Speech segments of the concatenation of n ranges, as a JSON array on that
+  /// concatenated timeline in ms: [{"start_ms":0,"end_ms":1234},...].
+  /// *out_json is malloc'd: free with vv_free_string. Resets the streaming
+  /// state. VV_E_INVALID_ARG (bad args / not 16 kHz PCM16 WAV), VV_E_IO,
+  /// VV_E_OOM, VV_E_INTERNAL.
+  int vv_vad_segments(
+    ffi.Pointer<vv_vad> h,
+    ffi.Pointer<vv_audio_range> ranges,
+    int n,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> out_json,
+  ) {
+    return _vv_vad_segments(h, ranges, n, out_json);
+  }
+
+  late final _vv_vad_segmentsPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<vv_vad>,
+            ffi.Pointer<vv_audio_range>,
+            ffi.Size,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          )
+        >
+      >('vv_vad_segments');
+  late final _vv_vad_segments = _vv_vad_segmentsPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<vv_vad>,
+          ffi.Pointer<vv_audio_range>,
+          int,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+        )
+      >();
+
+  /// Streaming: appends n mono 16 kHz PCM16 samples and runs the model on every
+  /// complete 32 ms window (model state carries across calls; a partial window
+  /// waits for the next call). n == 0 is allowed.
+  int vv_vad_feed(
+    ffi.Pointer<vv_vad> h,
+    ffi.Pointer<ffi.Int16> pcm,
+    int n,
+    ffi.Pointer<vv_vad_feed_result> out,
+  ) {
+    return _vv_vad_feed(h, pcm, n, out);
+  }
+
+  late final _vv_vad_feedPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<vv_vad>,
+            ffi.Pointer<ffi.Int16>,
+            ffi.Size,
+            ffi.Pointer<vv_vad_feed_result>,
+          )
+        >
+      >('vv_vad_feed');
+  late final _vv_vad_feed = _vv_vad_feedPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<vv_vad>,
+          ffi.Pointer<ffi.Int16>,
+          int,
+          ffi.Pointer<vv_vad_feed_result>,
+        )
+      >();
+
+  /// Clears the streaming state and any buffered partial window.
+  void vv_vad_reset(ffi.Pointer<vv_vad> h) {
+    return _vv_vad_reset(h);
+  }
+
+  late final _vv_vad_resetPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<vv_vad>)>>(
+        'vv_vad_reset',
+      );
+  late final _vv_vad_reset = _vv_vad_resetPtr
+      .asFunction<void Function(ffi.Pointer<vv_vad>)>();
+
+  /// Frees the model. Safe on NULL.
+  void vv_vad_destroy(ffi.Pointer<vv_vad> h) {
+    return _vv_vad_destroy(h);
+  }
+
+  late final _vv_vad_destroyPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<vv_vad>)>>(
+        'vv_vad_destroy',
+      );
+  late final _vv_vad_destroy = _vv_vad_destroyPtr
+      .asFunction<void Function(ffi.Pointer<vv_vad>)>();
+
+  /// Content-free message for the last failure on h (or of the last
+  /// vv_vad_create when h is NULL). Valid until the next call on h.
+  ffi.Pointer<ffi.Char> vv_vad_last_error(ffi.Pointer<vv_vad> h) {
+    return _vv_vad_last_error(h);
+  }
+
+  late final _vv_vad_last_errorPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<vv_vad>)>
+      >('vv_vad_last_error');
+  late final _vv_vad_last_error = _vv_vad_last_errorPtr
+      .asFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<vv_vad>)>();
+
   /// Defaults: GPU on, default device, q8_0 KV, flash attention auto, n_ctx
   /// 4096, n_batch 512, perf-core threads, mmap on.
   vv_llm_backend_params vv_llm_default_backend_params() {
@@ -650,10 +795,28 @@ class VvBindings {
   late final _vv_llm_default_gen_params = _vv_llm_default_gen_paramsPtr
       .asFunction<vv_gen_params Function()>();
 
+  /// LLM-06: prompt tokens the last generation on `h` took from the KV cache
+  /// instead of prefilling (0 without reuse_prefix). Call after on_done.
+  int vv_llm_last_reused_tokens(
+    ffi.Pointer<vv_llm> h,
+    ffi.Pointer<ffi.Int32> out,
+  ) {
+    return _vv_llm_last_reused_tokens(h, out);
+  }
+
+  late final _vv_llm_last_reused_tokensPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Pointer<vv_llm>, ffi.Pointer<ffi.Int32>)
+        >
+      >('vv_llm_last_reused_tokens');
+  late final _vv_llm_last_reused_tokens = _vv_llm_last_reused_tokensPtr
+      .asFunction<int Function(ffi.Pointer<vv_llm>, ffi.Pointer<ffi.Int32>)>();
+
   /// Starts generation of `prompt` (already chat-templated) on a native
   /// worker thread and returns immediately: VV_OK, VV_E_BUSY,
   /// VV_E_INVALID_ARG (bad args / grammar does not parse). The KV cache is
-  /// cleared first.
+  /// cleared first unless params->reuse_prefix is set.
   int vv_llm_generate_async(
     ffi.Pointer<vv_llm> h,
     ffi.Pointer<ffi.Char> prompt,
@@ -904,6 +1067,25 @@ final class vv_stt_params extends ffi.Struct {
   /// 0.6
   @ffi.Float()
   external double no_speech_thold;
+
+  /// ggml Silero model; NULL/"" = no VAD
+  external ffi.Pointer<ffi.Char> vad_model_path;
+
+  /// 0.5 speech probability
+  @ffi.Float()
+  external double vad_threshold;
+
+  /// 250
+  @ffi.Int32()
+  external int vad_min_speech_ms;
+
+  /// 500
+  @ffi.Int32()
+  external int vad_min_silence_ms;
+
+  /// 200
+  @ffi.Int32()
+  external int vad_speech_pad_ms;
 }
 
 final class vv_stt_token extends ffi.Struct {
@@ -1020,6 +1202,53 @@ final class vv_stt_callbacks extends ffi.Struct {
 
   /// required
   external vv_stt_done_cb on_done;
+}
+
+final class vv_vad extends ffi.Opaque {}
+
+final class vv_vad_params extends ffi.Struct {
+  /// = sizeof(vv_vad_params)
+  @ffi.Uint32()
+  external int struct_size;
+
+  /// speech probability threshold, 0.5
+  @ffi.Float()
+  external double threshold;
+
+  /// shorter speech is dropped, 250
+  @ffi.Int32()
+  external int min_speech_ms;
+
+  /// silence that ends a segment, 500
+  @ffi.Int32()
+  external int min_silence_ms;
+
+  /// padding around segments, 200
+  @ffi.Int32()
+  external int speech_pad_ms;
+
+  /// split longer segments; <= 0 = no limit
+  @ffi.Float()
+  external double max_speech_s;
+
+  /// <= 0: 1
+  @ffi.Int32()
+  external int n_threads;
+}
+
+/// Result of one vv_vad_feed call.
+final class vv_vad_feed_result extends ffi.Struct {
+  /// 32 ms windows completed by this call
+  @ffi.Int32()
+  external int windows;
+
+  /// of those, probability >= threshold
+  @ffi.Int32()
+  external int speech_windows;
+
+  /// highest probability, -1 when windows == 0
+  @ffi.Float()
+  external double max_prob;
 }
 
 /// How to run llama.cpp. Get defaults from vv_llm_default_backend_params().
@@ -1200,6 +1429,16 @@ final class vv_gen_params extends ffi.Struct {
   /// VV_LLM_GRAMMAR_FULL: mask every candidate every step (reference).
   @ffi.Int32()
   external int grammar_mode;
+
+  /// LLM-06 KV prefix reuse: 1 = keep the KV cache entries of the longest
+  /// token prefix this prompt shares with the previous run on this handle
+  /// (llama_memory_seq_rm from that position) and prefill only the rest;
+  /// 0 (default) = clear the KV cache first. Falls back to a full clear when
+  /// the memory cannot drop a partial sequence (recurrent models) or has
+  /// pruned early positions (SWA caches). Map-reduce chunks share the system
+  /// prompt + instructions prefix.
+  @ffi.Int32()
+  external int reuse_prefix;
 }
 
 typedef vv_llm_text_cbFunction = ffi.Void Function(
@@ -1279,6 +1518,8 @@ const int VV_GPU_METAL = 1;
 const int VV_GPU_VULKAN = 2;
 
 const int VV_GPU_OPENCL = 4;
+
+const int VV_STT_PARAMS_V1_SIZE = 80;
 
 const int VV_LLM_FLASH_ATTN_AUTO = -1;
 

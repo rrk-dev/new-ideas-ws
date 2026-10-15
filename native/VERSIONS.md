@@ -30,6 +30,8 @@ Both projects are MIT licensed. Submodules are shallow clones of the tags above;
 | macOS host (arm64, Metal + Accelerate, Release, unstripped) | `libvv_native.dylib` | 6,507,968 B (6.2 MiB) | 2026-10-12, Apple clang 21, CMake 4.4.4 — informational only |
 | macOS host + `VV_WHISPER_COREML=ON` (STT-01) | `libvv_native.dylib` | 6,515,568 B (+7.6 KB vs Metal-only) | 2026-10-13, same toolchain — Core ML support itself is tiny; the cost is the per-model `-encoder.mlmodelc` download (ADR-STT-01) |
 | macOS host + `VV_GGML_BACKEND_DL=ON` (STT-02) | `libvv_native.dylib` + `libggml-base` + `libggml` + 3 CPU variant modules + `libggml-metal.so` + `libggml-blas.so` | 140 KB + 736 KB + 59 KB + 3 × 889 KB + 5.3 MB + 57 KB | 2026-10-13 — informational; Android DL sizes ⏳ |
+| macOS host (arm64, whisper + llama, Release) — REL-03 | `libvv_native.dylib` | 10,280,272 B unstripped; 9,357,864 B `strip -x`; 2.57 MiB gzip -9 (51 % is the embedded Metal library) | 2026-10-14 — `tools/bench/results/2026-10-14-rel03-size.md` |
 | Android arm64-v8a (Release, stripped) | `libvv_native.so` | ⏳ not measured | needs NDK r28+ (`native/build.sh android` prints it) |
 | iOS device slice | `vv_native.framework/vv_native` | ⏳ not measured | needs Xcode (`native/build.sh ios` prints it) |
 | iOS simulator slice | `vv_native.framework/vv_native` | ⏳ not measured | needs Xcode |
+| macOS app arm64 (Metal + Accelerate, embedded metallib, `VV_MACOS_FRAMEWORK=ON`, deployment target 13.0) | `vv_native.framework/vv_native` | 10282600 B (9.8 MiB) unstripped | 2026-10-15: `native/build.sh macos` exits 0 (Xcode 27.0), prints the path and size |

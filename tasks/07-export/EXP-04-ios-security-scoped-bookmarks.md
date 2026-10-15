@@ -45,3 +45,14 @@ User picks a folder in Files (On My iPhone, iCloud Drive, third-party providers)
   default: a placeholder iCloud note is never overwritten before it is downloaded (avoids conflict copies).
 - **Follow-ups:** none new — persisting refreshed bookmarks into `vault_targets` is EXP-05 (needs FND-04); the re-grant
   prompt UI is APP-03 / EXP-06.
+## Verification Report
+- **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ · analyze ✅ · tests ✅ (780 passed, 29 skipped; coverage not re-measured locally, CI test job gates ≥80% and is green) · native smoke n/a (no native/bridge change) · egress ✅ · recording policy ✅ · CI run: https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858 (run 51 of ci, commit 67b6fcf, completed successfully; run 50 also succeeded)
+- **Acceptance criteria:**
+  - AC1: ✅ host re-ran `[EXP-04/AC1]`. Tests assert a stored bookmark writes after a Dart restart with no second picker, a stale bookmark is refreshed and adopted by the writer, and an unresolvable bookmark is `revoked` and re-granted via the picker. Device rows in `docs/test-plans/device/EXP-04.md` (restart, reboot, app update, revocation, Files default target) are blank (⏳). Mutation: stopped adopting the refreshed bookmark; the stale-bookmark test failed (`Expected: bm-local+fresh`); restored
+  - AC2: ✅ host re-ran `[EXP-04/AC2]`; local and iCloud folders receive the exact path and bytes; an iCloud placeholder starts a download, returns `unavailable`, writes nothing, and a retry after download leaves exactly one file. Obsidian local/iCloud rows are blank (⏳). No Xcode or iOS simulator on this machine (doctor). `Info.plist` has `UIFileSharingEnabled` and `LSSupportsOpeningDocumentsInPlace`. Swift uses `UIDocumentPicker` folder mode, security-scoped access, and `NSFileCoordinator`. CI run 51 built iOS on this sha
+- **Adversarial checks:** offline provider is `unavailable` not `revoked`; host errors never report ok; cancelling the picker is not a failure; a SAF folder is not treated as a bookmark. Placeholder notes are not overwritten before download.
+- **Skill/rule compliance:** Pigeon + bookmarks/`NSFileCoordinator` as prescribed. Obsidian vault locations are `[~] deferred` to the device checklist. No credentials or certificates.
+- **Issues found:** none
+- **Pending for done:** AC1: still pending (⏳) — cannot be done; AC1: device row in docs/test-plans/device/EXP-04.md has no PASS result with a date; AC2: still pending (⏳) — cannot be done; AC2: device row in docs/test-plans/device/EXP-04.md has no PASS result with a date; dependency FND-02 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task

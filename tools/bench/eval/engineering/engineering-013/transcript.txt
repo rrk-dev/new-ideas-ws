@@ -1,0 +1,6 @@
+[00:00:00] Aisha: The migration to the new schema needs downtime.
+[00:00:03] Diego: We can avoid downtime with expand and contract, add the new column, backfill, then drop the
+[00:00:09] Diego: old one.
+[00:00:11] Aisha: Expand and contract takes three releases though.
+[00:00:14] Diego: Still worth it, let's do expand and contract.
+[00:00:18] Aisha: I'll write the backfill script.

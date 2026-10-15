@@ -1,0 +1,6 @@
+[00:00:00] Diego: The nightly report job takes six hours.
+[00:00:03] Priya: We could switch to incremental processing of only new rows.
+[00:00:07] Kofi: Or parallelize the job across workers.
+[00:00:10] Diego: Incremental first, it's cheaper.
+[00:00:12] Priya: I'll add a last processed timestamp to the job.
+[00:00:16] Kofi: I'll check if the reports can tolerate late rows.

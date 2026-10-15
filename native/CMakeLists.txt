@@ -118,6 +118,19 @@ endforeach()
 if((VV_GGML_VULKAN OR VV_GGML_OPENCL) AND NOT VV_GGML_BACKEND_DL)
   message(FATAL_ERROR "GPU backends must be runtime-optional: set VV_GGML_BACKEND_DL=ON")
 endif()
+
+# FND-10: macOS app bundle. One static ggml (backend DL stays off) inside a
+# dynamic framework. Dart opens vv_native.framework/vv_native, same as iOS.
+# Host builds leave this OFF and keep libvv_native.dylib for ctest.
+option(VV_MACOS_FRAMEWORK "macOS app: vv_native.framework (FND-10)" OFF)
+if(VV_MACOS_FRAMEWORK)
+  if(NOT APPLE OR IOS OR ANDROID)
+    message(FATAL_ERROR "VV_MACOS_FRAMEWORK is for macOS only")
+  endif()
+  if(VV_GGML_BACKEND_DL)
+    message(FATAL_ERROR "VV_MACOS_FRAMEWORK keeps a single static ggml; do not set VV_GGML_BACKEND_DL")
+  endif()
+endif()
 if(VV_GGML_VULKAN)
   set(GGML_VULKAN ON)                  # needs glslc + Vulkan headers matching the pin
 endif()
@@ -159,7 +172,7 @@ target_link_libraries(vv_native PRIVATE whisper llama ggml)
 target_compile_definitions(vv_native PRIVATE VV_BUILDING_LIBRARY=1)
 # STT-02 backend loader + STT-03 whisper bridge (own line: other tasks add
 # sources too).
-target_sources(vv_native PRIVATE bridge/vv_backend.cpp bridge/vv_whisper.cpp)
+target_sources(vv_native PRIVATE bridge/vv_backend.cpp bridge/vv_whisper.cpp bridge/vv_vad.cpp)
 if(VV_GGML_BACKEND_DL)
   # Module names the loader probes, e.g. "ggml-cpu-android_armv8.2_1,ggml-vulkan"
   # (GGML_AVAILABLE_BACKENDS is filled by ggml_add_backend_library()).
@@ -202,6 +215,21 @@ if(IOS)
     XCODE_ATTRIBUTE_SKIP_INSTALL NO)
 endif()
 
+if(VV_MACOS_FRAMEWORK)
+  # Same open path as iOS. Ninja (not the Xcode generator) is enough on a
+  # native arm64 Mac; INSTALL_NAME_DIR @rpath is set above for non-iOS Apple.
+  set_target_properties(vv_native PROPERTIES
+    FRAMEWORK TRUE
+    FRAMEWORK_VERSION A
+    PUBLIC_HEADER bridge/vv_bridge.h
+    MACOSX_FRAMEWORK_IDENTIFIER com.vaultvoice.vvnative
+    MACOSX_FRAMEWORK_BUNDLE_VERSION 1
+    MACOSX_FRAMEWORK_SHORT_VERSION_STRING 0.1.0
+    XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED "NO"
+    XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED "NO"
+    XCODE_ATTRIBUTE_SKIP_INSTALL "NO")
+endif()
+
 if(ANDROID)
   # Google Play 16 KB page-size requirement (also the default on NDK r28+).
   target_link_options(vv_native PRIVATE
@@ -232,6 +260,11 @@ if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
   target_link_libraries(vv_grammar_test PRIVATE vv_native)
   add_test(NAME vv_grammar COMMAND vv_grammar_test)
   set_tests_properties(vv_grammar PROPERTIES SKIP_RETURN_CODE 77)
+  # [LLM-06] KV prefix reuse across map-reduce chunk prompts (+ timing).
+  add_executable(vv_llm_prefix_test tests/llm_prefix_test.c)
+  target_link_libraries(vv_llm_prefix_test PRIVATE vv_native)
+  add_test(NAME vv_llm_prefix COMMAND vv_llm_prefix_test)
+  set_tests_properties(vv_llm_prefix PROPERTIES SKIP_RETURN_CODE 77)
   # [LLM-03] big.LITTLE perf-core detection (fake sysfs) + CPU feature guard.
   add_executable(vv_cpu_test tests/cpu_test.c bridge/vv_cpu.c)
   target_include_directories(vv_cpu_test PRIVATE bridge)
@@ -258,6 +291,16 @@ if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
   foreach(mode args jfk ranges busy cancel destroy audio churn)
     add_test(NAME vv_stt_${mode} COMMAND stt_bridge_test ${mode})
     set_tests_properties(vv_stt_${mode} PROPERTIES SKIP_RETURN_CODE 77)
+  endforeach()
+
+  # AUD-03: vv_vad_* + VAD in vv_stt_params (Silero ggml model from
+  # $VV_TEST_MODELS_DIR; exit 77 = skipped when not fetched).
+  add_executable(vad_test tests/vad_test.cpp)
+  target_include_directories(vad_test PRIVATE bridge)
+  target_link_libraries(vad_test PRIVATE vv_native)
+  foreach(mode args segments stream stt_silence stt_mapped stt_v1)
+    add_test(NAME vv_vad_${mode} COMMAND vad_test ${mode})
+    set_tests_properties(vv_vad_${mode} PROPERTIES SKIP_RETURN_CODE 77)
   endforeach()
 
   # STT-02: vv_backends_* loader + perf-core detection.

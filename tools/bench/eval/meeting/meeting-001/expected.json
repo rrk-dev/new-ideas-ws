@@ -1,0 +1,25 @@
+{
+  "title": "Sync client beta date",
+  "summary": "The team agreed to ship the sync client beta on the ninth. Sam will finish the installer by Thursday. Sign-off for the release notes is still open.",
+  "attendees": [
+    "Priya",
+    "Sam"
+  ],
+  "decisions": [
+    "Beta ships on the ninth"
+  ],
+  "action_items": [
+    {
+      "task": "Finish the installer",
+      "owner": "Sam",
+      "due": "Thursday",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "Who signs off on the release notes?"
+  ],
+  "topics": [
+    "beta release"
+  ]
+}

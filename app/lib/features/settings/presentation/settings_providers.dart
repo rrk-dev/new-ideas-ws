@@ -5,6 +5,7 @@ import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/features/licensing/data/entitlement_license_port.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
+import 'package:vaultvoice/features/retention/data/retention_providers.dart';
 import 'package:vaultvoice/features/settings/data/drift_settings_store.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
@@ -30,9 +31,9 @@ LicenseSettingsPort licenseSettingsPort(Ref ref) =>
 Stream<LicenseSummary> licenseSummary(Ref ref) =>
     ref.watch(licenseSettingsPortProvider).watch();
 
-/// "Delete all data"; SEC-04 overrides it with the secure wipe.
+/// "Delete all data": SEC-04's secure wipe (DB rows, files, key, grants).
 @Riverpod(keepAlive: true)
-DataWiper dataWiper(Ref ref) => const UnavailableDataWiper();
+DataWiper dataWiper(Ref ref) => ref.watch(secureDataWiperProvider);
 
 /// The effective value of a setting and whether the user may change it.
 class SettingState {

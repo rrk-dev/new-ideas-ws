@@ -1,0 +1,5623 @@
+{
+ "env": {
+  "date": "2026-10-14",
+  "host": "Darwin arm64",
+  "backend": "gpu",
+  "model": "Llama-3.2-1B-Instruct-Q4_K_M.gguf",
+  "model_sha256": "6f85a640a97cf2bf5b8e764087b1e83da0fdb51d7c9fab7d0fece9385611df83",
+  "n_ctx": 4096,
+  "max_tokens": 1024,
+  "commit": "279469c",
+  "llama": "d81235049",
+  "profile_version": 1
+ },
+ "perf": {
+  "wall_s": 183.56214824999915,
+  "peak_rss": 1210236928,
+  "prefill_tps": 4444.700169217662,
+  "decode_tps": 93.04290242396134,
+  "latency_med_s": 5.1065,
+  "latency_max_s": 11.591,
+  "prompt_tokens_med": 1022,
+  "prompt_tokens_max": 1116
+ },
+ "aggregate": {
+  "cases": 30,
+  "schema_valid": 0.9333333333333333,
+  "scalars": {},
+  "lists": {
+   "concepts": {
+    "precision": 0.1780821917808219,
+    "recall": 0.7222222222222222,
+    "f1": 0.2857142857142857,
+    "tp": 26,
+    "expected": 36,
+    "predicted": 146
+   },
+   "api_designs": {
+    "precision": 0.015384615384615385,
+    "recall": 0.2222222222222222,
+    "f1": 0.02877697841726619,
+    "tp": 2,
+    "expected": 9,
+    "predicted": 130
+   },
+   "tradeoffs": {
+    "precision": 0.1554054054054054,
+    "recall": 0.71875,
+    "f1": 0.25555555555555554,
+    "tp": 23,
+    "expected": 32,
+    "predicted": 148
+   },
+   "decisions": {
+    "precision": 0.08280254777070063,
+    "recall": 0.5,
+    "f1": 0.14207650273224043,
+    "tp": 13,
+    "expected": 26,
+    "predicted": 157
+   },
+   "todos": {
+    "precision": 0.4074074074074074,
+    "recall": 0.34375,
+    "f1": 0.37288135593220334,
+    "tp": 11,
+    "expected": 32,
+    "predicted": 27,
+    "owner_accuracy": 0.7272727272727273
+   },
+   "open_questions": {
+    "precision": 0.015,
+    "recall": 0.3333333333333333,
+    "f1": 0.028708133971291863,
+    "tp": 3,
+    "expected": 9,
+    "predicted": 200
+   }
+  },
+  "prose": {
+   "title": 0.7387052373644589,
+   "context": 0.5229749907721304
+  },
+  "hallucination_rate": 0.19306930693069307
+ },
+ "cases": [
+  {
+   "id": "engineering-001",
+   "valid": true,
+   "prompt_tokens": 1026,
+   "latency_ms": 10611,
+   "n_prompt": 1026,
+   "n_gen": 946,
+   "prefill_ms": 478.976958,
+   "decode_ms": 10121.818041,
+   "output": {
+    "title": "Image thumbnail generation",
+    "context": "Choosing how to generate thumbnails on upload or on demand.",
+    "concepts": [
+     "on upload",
+     "on demand",
+     "resize worker",
+     "storage savings",
+     "first view",
+     "size",
+     "upload speed",
+     "storage usage",
+     "on demand",
+     "upload speed",
+     "storage usage",
+     "on demand",
+     "upload speed",
+     "storage usage",
+     "on demand",
+     "upload speed",
+     "storage usage",
+     "on demand",
+     "upload speed",
+     "storage usage"
+    ],
+    "api_designs": [
+     {
+      "name": "Resize worker",
+      "description": "Generates thumbnails on upload.",
+      "endpoints_or_signatures": [
+       "POST /thumbnails",
+       "GET /thumbnails?size="
+      ]
+     },
+     {
+      "name": "on demand",
+      "description": "Generates thumbnails on demand.",
+      "endpoints_or_signatures": [
+       "GET /thumbnails"
+      ]
+     },
+     {
+      "name": "on upload",
+      "description": "Generates thumbnails on upload.",
+      "endpoints_or_signatures": [
+       "POST /thumbnails"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "on demand",
+      "pros": [
+       "saves storage",
+       "first view",
+       "on demand",
+       "upload speed",
+       "storage usage",
+       "on demand"
+      ],
+      "cons": [
+       "wastes storage",
+       "first view",
+       "on demand",
+       "upload speed",
+       "storage usage",
+       "on demand"
+      ]
+     },
+     {
+      "option": "on upload",
+      "pros": [
+       "fast to serve",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage savings",
+       "first view"
+      ],
+      "cons": [
+       "wastes storage",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage usage",
+       "on demand"
+      ]
+     },
+     {
+      "option": "on upload",
+      "pros": [
+       "fast to serve",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage savings",
+       "first view"
+      ],
+      "cons": [
+       "wastes storage",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage usage",
+       "on demand"
+      ]
+     },
+     {
+      "option": "on upload",
+      "pros": [
+       "fast to serve",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage savings",
+       "first view"
+      ],
+      "cons": [
+       "wastes storage",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage usage",
+       "on demand"
+      ]
+     },
+     {
+      "option": "on upload",
+      "pros": [
+       "fast to serve",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage savings",
+       "first view"
+      ],
+      "cons": [
+       "wastes storage",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage usage",
+       "on demand"
+      ]
+     },
+     {
+      "option": "on upload",
+      "pros": [
+       "fast to serve",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage savings",
+       "first view"
+      ],
+      "cons": [
+       "wastes storage",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage usage",
+       "on demand"
+      ]
+     },
+     {
+      "option": "on upload",
+      "pros": [
+       "fast to serve",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage savings",
+       "first view"
+      ],
+      "cons": [
+       "wastes storage",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage usage",
+       "on demand"
+      ]
+     },
+     {
+      "option": "on upload",
+      "pros": [
+       "fast to serve",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage savings",
+       "first view"
+      ],
+      "cons": [
+       "wastes storage",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage usage",
+       "on demand"
+      ]
+     },
+     {
+      "option": "on upload",
+      "pros": [
+       "fast to serve",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage savings",
+       "first view"
+      ],
+      "cons": [
+       "wastes storage",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage usage",
+       "on demand"
+      ]
+     },
+     {
+      "option": "on upload",
+      "pros": [
+       "fast to serve",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage savings",
+       "first view"
+      ],
+      "cons": [
+       "wastes storage",
+       "on upload",
+       "on demand",
+       "resize worker",
+       "storage usage",
+       "on demand"
+      ]
+     }
+    ],
+    "decisions": [
+     "Start with on upload",
+     "on demand",
+     "on upload",
+     "on upload",
+     "on upload",
+     "on upload",
+     "on upload",
+     "on upload",
+     "on upload",
+     "on upload",
+     "on upload",
+     "on upload",
+     "on upload",
+     "on upload",
+     "on upload",
+     "on upload",
+     "on upload",
+     "on upload",
+     "on upload",
+     "on upload"
+    ],
+    "todos": [
+     {
+      "task": "Generate resize worker for on upload",
+      "owner": "Lena",
+      "t": "00:00:19"
+     }
+    ],
+    "open_questions": [
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?",
+     "How long is the change log kept?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 20,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 10,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 20,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 20,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.6262626262626263
+    },
+    "extracted": 74,
+    "ungrounded": 20
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-002",
+   "valid": true,
+   "prompt_tokens": 1026,
+   "latency_ms": 3795,
+   "n_prompt": 1026,
+   "n_gen": 325,
+   "prefill_ms": 441.179959,
+   "decode_ms": 3351.721709,
+   "output": {
+    "title": "User profile API",
+    "context": "Designing a RESTful API for user profiles.",
+    "concepts": [
+     "get/user/ide",
+     "get/user/me",
+     "patch/user/ide",
+     "patch/user/me"
+    ],
+    "api_designs": [
+     {
+      "name": "get/user/ide",
+      "description": "Returns a user's profile info.",
+      "endpoints_or_signatures": [
+       "GET /user/ide",
+       "GET /user/me"
+      ]
+     },
+     {
+      "name": "get/user/me",
+      "description": "Returns the current user's profile.",
+      "endpoints_or_signatures": [
+       "GET /user/me"
+      ]
+     },
+     {
+      "name": "patch/user/ide",
+      "description": "Updates a user's profile info.",
+      "endpoints_or_signatures": [
+       "PATCH /user/ide",
+       "PATCH /user/me"
+      ]
+     },
+     {
+      "name": "patch/user/me",
+      "description": "Updates the current user's profile.",
+      "endpoints_or_signatures": [
+       "PATCH /user/me"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "get/user/ide",
+      "pros": [
+       "simple",
+       "easy to implement"
+      ],
+      "cons": [
+       "limited data scope"
+      ]
+     },
+     {
+      "option": "get/user/me",
+      "pros": [
+       "easy to implement",
+       "simple data scope"
+      ],
+      "cons": [
+       "limited data scope"
+      ]
+     },
+     {
+      "option": "patch/user/ide",
+      "pros": [
+       "easy to implement",
+       "simple data scope"
+      ],
+      "cons": [
+       "limited data scope"
+      ]
+     },
+     {
+      "option": "patch/user/me",
+      "pros": [
+       "easy to implement",
+       "simple data scope"
+      ],
+      "cons": [
+       "limited data scope"
+      ]
+     }
+    ],
+    "decisions": [
+     "Design the API by Friday"
+    ],
+    "todos": [
+     {
+      "task": "Write the open API spec for get/user/ide and get/user/me",
+      "owner": "Sam",
+      "t": "00:00:11"
+     }
+    ],
+    "open_questions": [
+     "What is the best data structure to use for storing user profiles?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 4,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 4,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 4,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.71875
+    },
+    "extracted": 15,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-003",
+   "valid": true,
+   "prompt_tokens": 1065,
+   "latency_ms": 9640,
+   "n_prompt": 1065,
+   "n_gen": 870,
+   "prefill_ms": 440.771667,
+   "decode_ms": 9197.326292,
+   "output": {
+    "title": "Search optimization",
+    "context": "Improving database performance by reducing the number of requests.",
+    "concepts": [
+     "search page",
+     "database",
+     "cache",
+     "index",
+     "incremental updates",
+     "validation",
+     "workload",
+     "prototype",
+     "measure",
+     "optimization",
+     "prototype",
+     "measure",
+     "optimization",
+     "prototype",
+     "measure",
+     "optimization",
+     "prototype",
+     "measure",
+     "optimization",
+     "prototype"
+    ],
+    "api_designs": [
+     {
+      "name": "Cache prototype",
+      "description": "A cache in front of search queries.",
+      "endpoints_or_signatures": [
+       "Cache prototype"
+      ]
+     },
+     {
+      "name": "Search index prototype",
+      "description": "An incremental search index.",
+      "endpoints_or_signatures": [
+       "Search index prototype"
+      ]
+     },
+     {
+      "name": "Database optimization",
+      "description": "Building a search index with incremental updates.",
+      "endpoints_or_signatures": [
+       "Database optimization"
+      ]
+     },
+     {
+      "name": "Prototype implementation",
+      "description": "Prototype implementation of the cache and search index.",
+      "endpoints_or_signatures": [
+       "Prototype implementation"
+      ]
+     },
+     {
+      "name": "Measure performance",
+      "description": "Measuring the performance of the cache prototype.",
+      "endpoints_or_signatures": [
+       "Measure performance"
+      ]
+     },
+     {
+      "name": "Prototype validation",
+      "description": "Validating the prototype implementation.",
+      "endpoints_or_signatures": [
+       "Prototype validation"
+      ]
+     },
+     {
+      "name": "Prototype deployment",
+      "description": "Deploying the prototype implementation.",
+      "endpoints_or_signatures": [
+       "Prototype deployment"
+      ]
+     },
+     {
+      "name": "Prototype maintenance",
+      "description": "Maintaining the prototype implementation.",
+      "endpoints_or_signatures": [
+       "Prototype maintenance"
+      ]
+     },
+     {
+      "name": "Prototype testing",
+      "description": "Testing the prototype implementation.",
+      "endpoints_or_signatures": [
+       "Prototype testing"
+      ]
+     },
+     {
+      "name": "Prototype iteration",
+      "description": "Iterating on the prototype implementation.",
+      "endpoints_or_signatures": [
+       "Prototype iteration"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Cache prototype",
+      "pros": [
+       "fast",
+       "initially simple",
+       "easy to implement",
+       "easy to prototype",
+       "easy to measure",
+       "easy to prototype"
+      ],
+      "cons": [
+       "initially simple",
+       "easy to prototype",
+       "easy to measure",
+       "easy to prototype"
+      ]
+     },
+     {
+      "option": "Search index prototype",
+      "pros": [
+       "incremental updates",
+       "easy to prototype",
+       "easy to measure",
+       "easy to prototype",
+       "easy to prototype",
+       "easy to prototype"
+      ],
+      "cons": [
+       "initially simple",
+       "easy to prototype",
+       "easy to measure",
+       "easy to prototype",
+       "easy to prototype",
+       "easy to prototype"
+      ]
+     },
+     {
+      "option": "Database optimization",
+      "pros": [
+       "easy to prototype",
+       "easy to measure",
+       "easy to prototype",
+       "easy to prototype",
+       "easy to prototype",
+       "easy to prototype"
+      ],
+      "cons": [
+       "initially simple",
+       "easy to prototype",
+       "easy to measure",
+       "easy to prototype",
+       "easy to prototype",
+       "easy to prototype"
+      ]
+     },
+     {
+      "option": "Prototype implementation",
+      "pros": [
+       "easy to prototype",
+       "easy to measure",
+       "easy to prototype",
+       "easy to prototype",
+       "easy to prototype",
+       "easy to prototype"
+      ],
+      "cons": [
+       "initially simple",
+       "easy to prototype",
+       "easy to measure",
+       "easy to prototype",
+       "easy to prototype",
+       "easy to prototype"
+      ]
+     }
+    ],
+    "decisions": [
+     "Prototype the cache prototype first",
+     "Prototype the search index prototype first",
+     "Prototype the database optimization first",
+     "Prototype the prototype implementation first",
+     "Prototype the prototype validation first",
+     "Prototype the prototype deployment first",
+     "Prototype the prototype maintenance first",
+     "Prototype the prototype testing first",
+     "Prototype the prototype iteration first"
+    ],
+    "todos": [
+     {
+      "task": "Prototype the cache prototype",
+      "owner": "Mei",
+      "t": "00:00:23"
+     }
+    ],
+    "open_questions": [
+     "How will the prototype be validated?",
+     "What are the initial pros and cons of the prototype?",
+     "How will the prototype be deployed?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?",
+     "What are the initial pros and cons of the prototype?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 20,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 10,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 4,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 9,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 20,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.5405405405405406,
+     "context": 0.4838709677419355
+    },
+    "extracted": 64,
+    "ungrounded": 25
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-004",
+   "valid": true,
+   "prompt_tokens": 999,
+   "latency_ms": 10486,
+   "n_prompt": 999,
+   "n_gen": 959,
+   "prefill_ms": 215.230459,
+   "decode_ms": 10267.587459,
+   "output": {
+    "title": "Database vs Files for Mobile App",
+    "context": "Choosing between local database and files for mobile app data storage.",
+    "concepts": [
+     "database",
+     "files",
+     "local database",
+     "migrations",
+     "queries",
+     "migrations",
+     "backups"
+    ],
+    "api_designs": [
+     {
+      "name": "Database",
+      "description": "Stores data in a structured format.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Files",
+      "description": "Stores data in a file-based format.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Local Database",
+      "description": "Stores data in a database format.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Migration Tool",
+      "description": "Manages database migrations.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Query Tool",
+      "description": "Manages database queries.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Backup Tool",
+      "description": "Manages database backups.",
+      "endpoints_or_signatures": []
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Local Database",
+      "pros": [
+       "structured",
+       "easy to back up",
+       "easy to query"
+      ],
+      "cons": [
+       "limited storage space",
+       "limited scalability",
+       "limited data consistency issues"
+      ]
+     },
+     {
+      "option": "Files",
+      "pros": [
+       "simple",
+       "easy to back up",
+       "easy to query"
+      ],
+      "cons": [
+       "limited storage space",
+       "limited scalability",
+       "limited data consistency issues"
+      ]
+     },
+     {
+      "option": "Database",
+      "pros": [
+       "scalable",
+       "supports multiple queries",
+       "supports data consistency issues"
+      ],
+      "cons": [
+       "complex to back up",
+       "complex to query",
+       "complex to migrate"
+      ]
+     },
+     {
+      "option": "Migration Tool",
+      "pros": [
+       "easy to use",
+       "easy to configure",
+       "easy to migrate"
+      ],
+      "cons": [
+       "limited features",
+       "limited support"
+      ]
+     },
+     {
+      "option": "Query Tool",
+      "pros": [
+       "easy to use",
+       "easy to configure",
+       "easy to migrate"
+      ],
+      "cons": [
+       "limited features",
+       "limited support"
+      ]
+     },
+     {
+      "option": "Backup Tool",
+      "pros": [
+       "easy to use",
+       "easy to configure",
+       "easy to migrate"
+      ],
+      "cons": [
+       "limited features",
+       "limited support"
+      ]
+     }
+    ],
+    "decisions": [
+     "Use a local database for simplicity and scalability.",
+     "Use files for simplicity and ease of back up.",
+     "Use a database for data consistency and scalability.",
+     "Use migration tools for ease of migration.",
+     "Use query tools for ease of query.",
+     "Use backup tools for ease of backup.",
+     "Use a database for data consistency and scalability.",
+     "Use files for simplicity and ease of back up.",
+     "Use a database for data consistency and scalability.",
+     "Use migration tools for ease of migration.",
+     "Use query tools for ease of query.",
+     "Use backup tools for ease of backup.",
+     "Use a database for data consistency and scalability.",
+     "Use files for simplicity and ease of back up.",
+     "Use a database for data consistency and scalability.",
+     "Use migration tools for ease of migration.",
+     "Use query tools for ease of query.",
+     "Use backup tools for ease of backup.",
+     "Use a database for data consistency and scalability.",
+     "Use files for simplicity and ease of back up."
+    ],
+    "todos": [
+     {
+      "task": "Research local databases for simplicity and scalability.",
+      "owner": "Tomas",
+      "t": "00:00:14"
+     }
+    ],
+    "open_questions": [
+     "How does a database impact data consistency?",
+     "What are the pros and cons of using files for data storage?",
+     "What are the tradeoffs between using a local database and files?",
+     "What are the pros and cons of using a database for data consistency and scalability?",
+     "What are the tradeoffs between using migration tools and query tools?",
+     "What are the pros and cons of using a database for data consistency and scalability?",
+     "What are the tradeoffs between using files for data storage and a database for data consistency and scalability?",
+     "What are the pros and cons of using migration tools for data migration?",
+     "What are the tradeoffs between using query tools for data query and a database for data consistency and scalability?",
+     "What are the pros and cons of using backup tools for data backup?",
+     "What are the tradeoffs between using a database for data consistency and scalability and a local database for simplicity and scalability?",
+     "What are the pros and cons of using files for data storage and a database for data consistency and scalability?",
+     "What are the tradeoffs between using migration tools for data migration and query tools for data query?",
+     "What are the pros and cons of using a database for data consistency and scalability and a local database for simplicity and scalability?",
+     "What are the tradeoffs between using files for data storage and a database for data consistency and scalability?",
+     "What are the pros and cons of using migration tools for data migration and query tools for data query?",
+     "What are the tradeoffs between using a database for data consistency and scalability and a local database for simplicity and scalability?",
+     "What are the pros and cons of using files for data storage and a database for data consistency and scalability?",
+     "What are the tradeoffs between using migration tools for data migration and query tools for data query?",
+     "What are the pros and cons of using a database for data consistency and scalability and a local database for simplicity and scalability?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 7,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 6,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 6,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 20,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 20,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.4528301886792453,
+     "context": 0.9032258064516129
+    },
+    "extracted": 60,
+    "ungrounded": 33
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-005",
+   "valid": true,
+   "prompt_tokens": 987,
+   "latency_ms": 4300,
+   "n_prompt": 987,
+   "n_gen": 380,
+   "prefill_ms": 221.535083,
+   "decode_ms": 4074.894208,
+   "output": {
+    "title": "Importer idea",
+    "context": "Improving performance by streaming large files",
+    "concepts": [
+     "importer",
+     "streaming",
+     "large file handling"
+    ],
+    "api_designs": [
+     {
+      "name": "Streaming CSV importer",
+      "description": "Streams CSV file instead of loading into memory.",
+      "endpoints_or_signatures": [
+       "GET /importer/stream?file_size=1000000"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Loading into memory",
+      "pros": [
+       "faster",
+       "less memory usage"
+      ],
+      "cons": [
+       "crashes app on large files"
+      ]
+     },
+     {
+      "option": "Streaming CSV importer",
+      "pros": [
+       "improved performance",
+       "less memory usage"
+      ],
+      "cons": [
+       "less efficient for small files"
+      ]
+     },
+     {
+      "option": "Benchmarking",
+      "pros": [
+       "helps identify performance issues",
+       "less memory usage"
+      ],
+      "cons": [
+       "takes time to run"
+      ]
+     },
+     {
+      "option": "Importer",
+      "pros": [
+       "improved performance",
+       "less memory usage"
+      ],
+      "cons": [
+       "less efficient for small files"
+      ]
+     },
+     {
+      "option": "Streaming CSV importer",
+      "pros": [
+       "improved performance",
+       "less memory usage"
+      ],
+      "cons": [
+       "less efficient for small files"
+      ]
+     },
+     {
+      "option": "Benchmarking",
+      "pros": [
+       "helps identify performance issues",
+       "less memory usage"
+      ],
+      "cons": [
+       "takes time to run"
+      ]
+     },
+     {
+      "option": "Importer",
+      "pros": [
+       "improved performance",
+       "less memory usage"
+      ],
+      "cons": [
+       "less efficient for small files"
+      ]
+     },
+     {
+      "option": "Streaming CSV importer",
+      "pros": [
+       "improved performance",
+       "less memory usage"
+      ],
+      "cons": [
+       "less efficient for small files"
+      ]
+     },
+     {
+      "option": "Benchmarking",
+      "pros": [
+       "helps identify performance issues",
+       "less memory usage"
+      ],
+      "cons": [
+       "takes time to run"
+      ]
+     },
+     {
+      "option": "Importer",
+      "pros": [
+       "improved performance",
+       "less memory usage"
+      ],
+      "cons": [
+       "less efficient for small files"
+      ]
+     }
+    ],
+    "decisions": [
+     "Start with streaming CSV importer"
+    ],
+    "todos": [
+     {
+      "task": "Benchmark streaming with 1 GB file",
+      "owner": "Kofi",
+      "t": "00:00:05"
+     }
+    ],
+    "open_questions": [
+     "How does streaming affect performance for small files?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 10,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.7619047619047619,
+     "context": 0.46464646464646464
+    },
+    "extracted": 17,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-006",
+   "valid": true,
+   "prompt_tokens": 1064,
+   "latency_ms": 5445,
+   "n_prompt": 1064,
+   "n_gen": 478,
+   "prefill_ms": 439.660875,
+   "decode_ms": 5001.243916,
+   "output": {
+    "title": "Monolith architecture",
+    "context": "Designing a modular monolith.",
+    "concepts": [
+     "monolith",
+     "modular monolith",
+     "microservices",
+     "module boundaries"
+    ],
+    "api_designs": [
+     {
+      "name": "Module boundaries",
+      "description": "Define the boundaries of each module.",
+      "endpoints_or_signatures": [
+       "Draw module boundaries by next Tuesday"
+      ]
+     },
+     {
+      "name": "Monolith",
+      "description": "A single, unified monolith.",
+      "endpoints_or_signatures": [
+       "Decision, we go with a modular monolith for now"
+      ]
+     },
+     {
+      "name": "Microservices",
+      "description": "A collection of independent services.",
+      "endpoints_or_signatures": [
+       "I'll draw the module boundaries by next Tuesday"
+      ]
+     },
+     {
+      "name": "Modular monolith",
+      "description": "A modular design with clear boundaries.",
+      "endpoints_or_signatures": [
+       "Which module do we extract first if we ever split?"
+      ]
+     },
+     {
+      "name": "Microservices",
+      "description": "A collection of independent services.",
+      "endpoints_or_signatures": [
+       "A modular monolith gives us clear boundaries without the overhead"
+      ]
+     },
+     {
+      "name": "Module boundaries",
+      "description": "Define the boundaries of each module.",
+      "endpoints_or_signatures": [
+       "Decision, we go with a modular monolith for now"
+      ]
+     },
+     {
+      "name": "Monolith",
+      "description": "A single, unified monolith.",
+      "endpoints_or_signatures": [
+       "I'll draw the module boundaries by next Tuesday"
+      ]
+     },
+     {
+      "name": "Microservices",
+      "description": "A collection of independent services.",
+      "endpoints_or_signatures": [
+       "A modular monolith gives us clear boundaries without the overhead"
+      ]
+     },
+     {
+      "name": "Module boundaries",
+      "description": "Define the boundaries of each module.",
+      "endpoints_or_signatures": [
+       "Decision, we go with a modular monolith for now"
+      ]
+     },
+     {
+      "name": "Monolith",
+      "description": "A single, unified monolith.",
+      "endpoints_or_signatures": [
+       "Decision, we go with a modular monolith for now"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Microservices",
+      "pros": [
+       "independent teams",
+       "decentralized architecture"
+      ],
+      "cons": [
+       "complex architecture",
+       "high overhead"
+      ]
+     },
+     {
+      "option": "Monolith",
+      "pros": [
+       "clear boundaries",
+       "single source of truth"
+      ],
+      "cons": [
+       "single point of failure",
+       "high maintenance"
+      ]
+     }
+    ],
+    "decisions": [],
+    "todos": [],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 4,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 10,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.5517241379310345,
+     "context": 0.4444444444444444
+    },
+    "extracted": 16,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-007",
+   "valid": true,
+   "prompt_tokens": 1007,
+   "latency_ms": 7375,
+   "n_prompt": 1007,
+   "n_gen": 691,
+   "prefill_ms": 216.587417,
+   "decode_ms": 7156.174875,
+   "output": {
+    "title": "Login authentication",
+    "context": "Choosing between session cookies and JSON web tokens.",
+    "concepts": [
+     "session cookies",
+     "JSON web tokens",
+     "refresh tokens",
+     "refresh endpoint",
+     "post slash auth",
+     "refresh token endpoint"
+    ],
+    "api_designs": [
+     {
+      "name": "Session cookies",
+      "description": "Stores user data in local files.",
+      "endpoints_or_signatures": [
+       "GET /login?session=cookie"
+      ]
+     },
+     {
+      "name": "JSON web tokens",
+      "description": "Stores user data in local files.",
+      "endpoints_or_signatures": [
+       "GET /login?token=jwt"
+      ]
+     },
+     {
+      "name": "Refresh tokens",
+      "description": "Stores user data in local files.",
+      "endpoints_or_signatures": [
+       "GET /login?refresh=token"
+      ]
+     },
+     {
+      "name": "Refresh endpoint",
+      "description": "Returns a refresh token.",
+      "endpoints_or_signatures": [
+       "POST /login/refresh"
+      ]
+     },
+     {
+      "name": "Post slash auth",
+      "description": "Authenticates users with a token.",
+      "endpoints_or_signatures": [
+       "POST /login"
+      ]
+     },
+     {
+      "name": "Post slash refresh",
+      "description": "Refreshes a token.",
+      "endpoints_or_signatures": [
+       "POST /login/refresh"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Session cookies",
+      "pros": [
+       "easy to revoke"
+      ],
+      "cons": [
+       "limited functionality"
+      ]
+     },
+     {
+      "option": "JSON web tokens",
+      "pros": [
+       "better for mobile apps"
+      ],
+      "cons": [
+       "more complex"
+      ]
+     },
+     {
+      "option": "Refresh tokens",
+      "pros": [
+       "better for server-side authentication"
+      ],
+      "cons": [
+       "more complex"
+      ]
+     },
+     {
+      "option": "Refresh endpoint",
+      "pros": [
+       "easy to implement"
+      ],
+      "cons": [
+       "limited functionality"
+      ]
+     },
+     {
+      "option": "Post slash auth",
+      "pros": [
+       "easy to implement"
+      ],
+      "cons": [
+       "limited functionality"
+      ]
+     },
+     {
+      "option": "Post slash refresh",
+      "pros": [
+       "easy to implement"
+      ],
+      "cons": [
+       "limited functionality"
+      ]
+     },
+     {
+      "option": "Refresh tokens",
+      "pros": [
+       "better for server-side authentication"
+      ],
+      "cons": [
+       "more complex"
+      ]
+     },
+     {
+      "option": "Refresh endpoint",
+      "pros": [
+       "easy to implement"
+      ],
+      "cons": [
+       "limited functionality"
+      ]
+     },
+     {
+      "option": "Post slash auth",
+      "pros": [
+       "easy to implement"
+      ],
+      "cons": [
+       "limited functionality"
+      ]
+     },
+     {
+      "option": "Post slash refresh",
+      "pros": [
+       "easy to implement"
+      ],
+      "cons": [
+       "limited functionality"
+      ]
+     }
+    ],
+    "decisions": [
+     "Choose session cookies",
+     "Choose JSON web tokens",
+     "Choose refresh tokens",
+     "Choose post slash auth",
+     "Choose post slash refresh"
+    ],
+    "todos": [
+     {
+      "task": "Implement session cookies",
+      "owner": "Sam",
+      "t": "00:00:05"
+     }
+    ],
+    "open_questions": [
+     "How do session cookies handle revocation?",
+     "How do JSON web tokens handle revocation?",
+     "What is the difference between post slash auth and post slash refresh?",
+     "How do refresh tokens handle refresh?",
+     "What is the tradeoff between post slash auth and post slash refresh?",
+     "How do refresh tokens handle refresh?",
+     "What is the difference between post slash refresh and post slash auth?",
+     "How do refresh tokens handle refresh?",
+     "What is the tradeoff between post slash refresh and post slash auth?",
+     "What is the difference between post slash refresh and post slash auth?",
+     "How do refresh tokens handle refresh?",
+     "What is the tradeoff between post slash refresh and post slash auth?",
+     "What is the difference between post slash refresh and post slash auth?",
+     "How do refresh tokens handle refresh?",
+     "What is the tradeoff between post slash refresh and post slash auth?",
+     "What is the difference between post slash refresh and post slash auth?",
+     "How do refresh tokens handle refresh?",
+     "What is the tradeoff between post slash refresh and post slash auth?",
+     "What is the difference between post slash refresh and post slash auth?",
+     "How do refresh tokens handle refresh?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 6,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 6,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 10,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 5,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 20,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.55,
+     "context": 0.631578947368421
+    },
+    "extracted": 48,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-008",
+   "valid": true,
+   "prompt_tokens": 992,
+   "latency_ms": 3859,
+   "n_prompt": 992,
+   "n_gen": 346,
+   "prefill_ms": 218.752708,
+   "decode_ms": 3636.530208,
+   "output": {
+    "title": "Build system maintenance",
+    "context": "Keeping the build system up-to-date and efficient.",
+    "concepts": [
+     "build system maintenance",
+     "compiler version",
+     "dependencies",
+     "unused build scripts"
+    ],
+    "api_designs": [
+     {
+      "name": "Build script cleanup",
+      "description": "Removes unused build scripts.",
+      "endpoints_or_signatures": [
+       "GET /build_scripts"
+      ]
+     },
+     {
+      "name": "Compiler version upgrade",
+      "description": "Upgrades the compiler version.",
+      "endpoints_or_signatures": [
+       "GET /compiler_versions"
+      ]
+     },
+     {
+      "name": "Dependencies caching",
+      "description": "Caches dependencies in CI.",
+      "endpoints_or_signatures": [
+       "GET /dependencies_cache"
+      ]
+     },
+     {
+      "name": "Build script optimization",
+      "description": "Optimizes build scripts.",
+      "endpoints_or_signatures": [
+       "GET /build_scripts/optimizations"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Build script cleanup",
+      "pros": [
+       "reduces memory usage",
+       "reduces compilation time"
+      ],
+      "cons": [
+       "may break build scripts that rely on certain dependencies"
+      ]
+     },
+     {
+      "option": "Compiler version upgrade",
+      "pros": [
+       "increases code quality",
+       "increases performance"
+      ],
+      "cons": [
+       "may require additional testing"
+      ]
+     },
+     {
+      "option": "Dependencies caching",
+      "pros": [
+       "increases code size",
+       "increases compilation time"
+      ],
+      "cons": [
+       "may break build scripts that rely on certain dependencies"
+      ]
+     },
+     {
+      "option": "Build script optimization",
+      "pros": [
+       "increases code quality",
+       "increases performance"
+      ],
+      "cons": [
+       "may require additional testing"
+      ]
+     }
+    ],
+    "decisions": [
+     "Clean up build scripts",
+     "Upgrade compiler version",
+     "Cache dependencies in CI",
+     "Optimize build scripts"
+    ],
+    "todos": [
+     {
+      "task": "Clean up unused build scripts",
+      "owner": "Diego",
+      "t": "00:00:03"
+     }
+    ],
+    "open_questions": [
+     "How to optimize build scripts?",
+     "What are the best practices for compiler version upgrades?",
+     "What are the best practices for dependencies caching?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 4,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 4,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 4,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 4,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 3,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.7741935483870968,
+     "context": 0.0
+    },
+    "extracted": 20,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-009",
+   "valid": true,
+   "prompt_tokens": 1051,
+   "latency_ms": 4254,
+   "n_prompt": 1051,
+   "n_gen": 348,
+   "prefill_ms": 757.191791,
+   "decode_ms": 3494.658208,
+   "output": {
+    "title": "Email sending strategy",
+    "context": "Choosing how to handle email sending requests.",
+    "concepts": [
+     "background job queue",
+     "dead letter queue",
+     "retries",
+     "monitoring"
+    ],
+    "api_designs": [
+     {
+      "name": "Job queue",
+      "description": "Executes email sending in the background.",
+      "endpoints_or_signatures": [
+       "GET /email/send"
+      ]
+     },
+     {
+      "name": "Dead letter queue",
+      "description": "Stores failed jobs for retry.",
+      "endpoints_or_signatures": [
+       "GET /email/failed"
+      ]
+     },
+     {
+      "name": "Retries",
+      "description": "Number of times a job is retried before moving to the dead letter queue.",
+      "endpoints_or_signatures": [
+       "GET /email/retries"
+      ]
+     },
+     {
+      "name": "Monitoring",
+      "description": "Keeps track of job status.",
+      "endpoints_or_signatures": [
+       "GET /email/status"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Background job queue",
+      "pros": [
+       "executes in background",
+       "reduces memory usage"
+      ],
+      "cons": [
+       "adds complexity",
+       "requires monitoring"
+      ]
+     },
+     {
+      "option": "Dead letter queue",
+      "pros": [
+       "keeps track of jobs",
+       "reduces memory usage"
+      ],
+      "cons": [
+       "adds overhead",
+       "requires configuration"
+      ]
+     },
+     {
+      "option": "Retries",
+      "pros": [
+       "reduces memory usage",
+       "reduces overhead",
+       "keeps track of jobs"
+      ],
+      "cons": [
+       "adds complexity",
+       "requires configuration"
+      ]
+     },
+     {
+      "option": "Monitoring",
+      "pros": [
+       "keeps track of jobs",
+       "reduces overhead",
+       "reduces memory usage"
+      ],
+      "cons": [
+       "adds complexity",
+       "requires configuration"
+      ]
+     }
+    ],
+    "decisions": [
+     "Move email sending to a job queue"
+    ],
+    "todos": [
+     {
+      "task": "Add dead letter queue for failed jobs",
+      "owner": "Kofi",
+      "t": "00:00:17"
+     }
+    ],
+    "open_questions": [
+     "How many retries before a job goes to the dead letter queue?",
+     "What is the monitoring strategy for email sending?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 4,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 4,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 4,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.7428571428571429,
+     "context": 0.6190476190476191
+    },
+    "extracted": 16,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-010",
+   "valid": true,
+   "prompt_tokens": 1010,
+   "latency_ms": 5527,
+   "n_prompt": 1010,
+   "n_gen": 517,
+   "prefill_ms": 216.109958,
+   "decode_ms": 5307.28075,
+   "output": {
+    "title": "Logging design",
+    "context": "Reviewing the logging configuration.",
+    "concepts": [
+     "logging JSON",
+     "structure JSON",
+     "user content",
+     "lint rule"
+    ],
+    "api_designs": [
+     {
+      "name": "Logging configuration",
+      "description": "Defines how logs are generated.",
+      "endpoints_or_signatures": [
+       ""
+      ]
+     },
+     {
+      "name": "Lint rule",
+      "description": "Blocks logging of user content.",
+      "endpoints_or_signatures": [
+       ""
+      ]
+     },
+     {
+      "name": "Logging format",
+      "description": "Defines the structure of the logs.",
+      "endpoints_or_signatures": [
+       ""
+      ]
+     },
+     {
+      "name": "Logging frequency",
+      "description": "Defines how often logs are generated.",
+      "endpoints_or_signatures": [
+       ""
+      ]
+     },
+     {
+      "name": "Logging retention",
+      "description": "Defines how long logs are kept.",
+      "endpoints_or_signatures": [
+       ""
+      ]
+     },
+     {
+      "name": "Logging format",
+      "description": "Defines the structure of the logs.",
+      "endpoints_or_signatures": [
+       ""
+      ]
+     },
+     {
+      "name": "Logging frequency",
+      "description": "Defines how often logs are generated.",
+      "endpoints_or_signatures": [
+       ""
+      ]
+     },
+     {
+      "name": "Logging retention",
+      "description": "Defines how long logs are kept.",
+      "endpoints_or_signatures": [
+       ""
+      ]
+     },
+     {
+      "name": "Logging format",
+      "description": "Defines the structure of the logs.",
+      "endpoints_or_signatures": [
+       ""
+      ]
+     },
+     {
+      "name": "Logging frequency",
+      "description": "Defines how often logs are generated.",
+      "endpoints_or_signatures": [
+       ""
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Logging JSON",
+      "pros": [
+       "more informative",
+       "less cluttered"
+      ],
+      "cons": [
+       "less efficient",
+       "less flexible"
+      ]
+     },
+     {
+      "option": "Structure JSON",
+      "pros": [
+       "more structured",
+       "less cluttered"
+      ],
+      "cons": [
+       "less informative",
+       "less flexible"
+      ]
+     },
+     {
+      "option": "User content",
+      "pros": [
+       "more informative",
+       "less cluttered"
+      ],
+      "cons": [
+       "less structured",
+       "less flexible"
+      ]
+     },
+     {
+      "option": "Lint rule",
+      "pros": [
+       "more secure",
+       "less cluttered"
+      ],
+      "cons": [
+       "less efficient",
+       "less flexible"
+      ]
+     },
+     {
+      "option": "Logging frequency",
+      "pros": [
+       "more frequent",
+       "less cluttered"
+      ],
+      "cons": [
+       "less efficient",
+       "less flexible"
+      ]
+     },
+     {
+      "option": "Logging retention",
+      "pros": [
+       "more reliable",
+       "less cluttered"
+      ],
+      "cons": [
+       "less efficient",
+       "less flexible"
+      ]
+     },
+     {
+      "option": "Logging format",
+      "pros": [
+       "more structured",
+       "less cluttered"
+      ],
+      "cons": [
+       "less informative",
+       "less flexible"
+      ]
+     },
+     {
+      "option": "Logging frequency",
+      "pros": [
+       "more frequent",
+       "less cluttered"
+      ],
+      "cons": [
+       "less efficient",
+       "less flexible"
+      ]
+     },
+     {
+      "option": "Logging retention",
+      "pros": [
+       "more reliable",
+       "less cluttered"
+      ],
+      "cons": [
+       "less efficient",
+       "less flexible"
+      ]
+     }
+    ],
+    "decisions": [
+     "Review the logging configuration"
+    ],
+    "todos": [
+     {
+      "task": "Review the logging configuration",
+      "owner": "Lena",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": [
+     "How should we handle user content in logs?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 4,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 10,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 9,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.5882352941176471
+    },
+    "extracted": 26,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-011",
+   "valid": true,
+   "prompt_tokens": 1024,
+   "latency_ms": 2346,
+   "n_prompt": 1024,
+   "n_gen": 194,
+   "prefill_ms": 215.249542,
+   "decode_ms": 2127.093875,
+   "output": {
+    "title": "Pagination strategy",
+    "context": "Choosing how to handle large datasets.",
+    "concepts": [
+     "cursor-based pagination",
+     "offset pagination"
+    ],
+    "api_designs": [
+     {
+      "name": "Cursor-based pagination",
+      "description": "Returns items with a cursor and a limit.",
+      "endpoints_or_signatures": [
+       "GET /items?cursor={cursor}&limit={limit}"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Cursor-based pagination",
+      "pros": [
+       "stable",
+       "easy to implement"
+      ],
+      "cons": [
+       "may break when items are inserted"
+      ]
+     },
+     {
+      "option": "Offset pagination",
+      "pros": [
+       "simple",
+       "easy to implement"
+      ],
+      "cons": [
+       "may break when items are inserted"
+      ]
+     },
+     {
+      "option": "List endpoint",
+      "pros": [
+       "returns everything at once",
+       "easy to implement"
+      ],
+      "cons": [
+       "may be slow"
+      ]
+     }
+    ],
+    "decisions": [
+     "Use cursor-based pagination",
+     "Update client SDK to follow cursor"
+    ],
+    "todos": [
+     {
+      "task": "Update client SDK to follow cursor",
+      "owner": "Omar",
+      "t": "00:00:09"
+     }
+    ],
+    "open_questions": [
+     "How stable is cursor-based pagination?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 3,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.6896551724137931,
+     "context": 0.3300970873786408
+    },
+    "extracted": 10,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-012",
+   "valid": false,
+   "prompt_tokens": 1022,
+   "latency_ms": 10826,
+   "n_prompt": 1022,
+   "n_gen": 1024,
+   "prefill_ms": 215.754417,
+   "decode_ms": 10607.319834,
+   "output": null,
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 3,
+      "predicted": 0,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.0,
+     "context": 0.0
+    },
+    "extracted": 0,
+    "ungrounded": 0
+   },
+   "issues": [
+    "$: not valid JSON"
+   ]
+  },
+  {
+   "id": "engineering-013",
+   "valid": false,
+   "prompt_tokens": 1038,
+   "latency_ms": 11591,
+   "n_prompt": 1038,
+   "n_gen": 1024,
+   "prefill_ms": 441.728791,
+   "decode_ms": 11146.078167,
+   "output": null,
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 0,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.0,
+     "context": 0.0
+    },
+    "extracted": 0,
+    "ungrounded": 0
+   },
+   "issues": [
+    "$: not valid JSON"
+   ]
+  },
+  {
+   "id": "engineering-014",
+   "valid": true,
+   "prompt_tokens": 1031,
+   "latency_ms": 4299,
+   "n_prompt": 1031,
+   "n_gen": 367,
+   "prefill_ms": 444.091334,
+   "decode_ms": 3851.916,
+   "output": {
+    "title": "Feature flags",
+    "context": "Implementing feature flags for new features",
+    "concepts": [
+     "feature flags",
+     "config file",
+     "small flag service",
+     "config file",
+     "local cache"
+    ],
+    "api_designs": [
+     {
+      "name": "Feature flag API",
+      "description": "Returns feature flags for the current release.",
+      "endpoints_or_signatures": [
+       "GET /get/flags"
+      ]
+     },
+     {
+      "name": "Flag service API",
+      "description": "Returns feature flags for the current release, with a local cache.",
+      "endpoints_or_signatures": [
+       "GET /get/flags",
+       "GET /set/flag"
+      ]
+     },
+     {
+      "name": "Config file API",
+      "description": "Returns the current config file.",
+      "endpoints_or_signatures": [
+       "GET /config"
+      ]
+     },
+     {
+      "name": "Local cache API",
+      "description": "Returns the current local cache.",
+      "endpoints_or_signatures": [
+       "GET /cache"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Config file API",
+      "pros": [
+       "simple",
+       "release-blocking",
+       "no-cache"
+      ],
+      "cons": [
+       "known issues",
+       "complexity"
+      ]
+     },
+     {
+      "option": "Flag service API",
+      "pros": [
+       "local cache",
+       "simple",
+       "release-blocking"
+      ],
+      "cons": [
+       "known issues",
+       "complexity"
+      ]
+     },
+     {
+      "option": "Feature flag API",
+      "pros": [
+       "simple",
+       "release-blocking",
+       "known issues"
+      ],
+      "cons": [
+       "complexity",
+       "known issues"
+      ]
+     },
+     {
+      "option": "Local cache API",
+      "pros": [
+       "simple",
+       "release-blocking",
+       "known issues"
+      ],
+      "cons": [
+       "complexity",
+       "known issues"
+      ]
+     },
+     {
+      "option": "Config file API",
+      "pros": [
+       "simple",
+       "release-blocking",
+       "known issues"
+      ],
+      "cons": [
+       "complexity",
+       "known issues"
+      ]
+     }
+    ],
+    "decisions": [
+     "Use config file API for new features",
+     "Use flag service API for small features",
+     "Use feature flag API for large features"
+    ],
+    "todos": [
+     {
+      "task": "Design the feature flag API",
+      "owner": "Kofi",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": [
+     "What is the best approach for new features?",
+     "What are the known issues with feature flags?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 5,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 4,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 5,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.6666666666666666
+    },
+    "extracted": 20,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-015",
+   "valid": true,
+   "prompt_tokens": 994,
+   "latency_ms": 2806,
+   "n_prompt": 994,
+   "n_gen": 226,
+   "prefill_ms": 218.330041,
+   "decode_ms": 2584.933292,
+   "output": {
+    "title": "Database maintenance",
+    "context": "Ensuring database server health and maintenance",
+    "concepts": [
+     "database server",
+     "disk usage",
+     "log rotation"
+    ],
+    "api_designs": [
+     {
+      "name": "Log rotation",
+      "description": "Automatically rotates logs to free up space.",
+      "endpoints_or_signatures": [
+       "GET /log/rotate"
+      ]
+     },
+     {
+      "name": "Disk usage monitoring",
+      "description": "Monitors disk usage to prevent full disks.",
+      "endpoints_or_signatures": [
+       "GET /disk/usage"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Automatic log rotation",
+      "pros": [
+       "automatically rotates logs",
+       "free up space"
+      ],
+      "cons": [
+       "may require additional monitoring"
+      ]
+     },
+     {
+      "option": "Disk usage monitoring",
+      "pros": [
+       "prevents full disks"
+      ],
+      "cons": [
+       "may require additional monitoring"
+      ]
+     },
+     {
+      "option": "Database server monitoring",
+      "pros": [
+       "ensures server health"
+      ],
+      "cons": [
+       "may require additional monitoring"
+      ]
+     }
+    ],
+    "decisions": [
+     "Add log rotation to database server incident report"
+    ],
+    "todos": [
+     {
+      "task": "Add log rotation to database server incident report",
+      "owner": "Tomas",
+      "t": "00:00:11"
+     }
+    ],
+    "open_questions": [
+     "Do we also need automatic log rotation?",
+     "How often should log rotation be performed?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.5714285714285714,
+     "context": 0.5178571428571429
+    },
+    "extracted": 12,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-016",
+   "valid": true,
+   "prompt_tokens": 1015,
+   "latency_ms": 6415,
+   "n_prompt": 1015,
+   "n_gen": 559,
+   "prefill_ms": 216.324125,
+   "decode_ms": 6196.243,
+   "output": {
+    "title": "API design for token bucket",
+    "context": "Designing a fair and efficient token bucket for API requests.",
+    "concepts": [
+     "token bucket",
+     "API key",
+     "burst limiting",
+     "spike protection"
+    ],
+    "api_designs": [
+     {
+      "name": "Token Bucket",
+      "description": "A token bucket algorithm that limits bursts.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Middle Way",
+      "description": "A fixed window algorithm that limits bursts.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Fixed Window",
+      "description": "A fixed window algorithm that limits bursts.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Token Bucket with Middle Way",
+      "description": "A token bucket algorithm with a middle way.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Fixed Window with Middle Way",
+      "description": "A fixed window algorithm with a middle way.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Token Bucket with Fixed Window",
+      "description": "A token bucket algorithm with a fixed window.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Middle Way with Fixed Window",
+      "description": "A fixed window algorithm with a middle way.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Token Bucket with Middle Way and Fixed Window",
+      "description": "A token bucket algorithm with a fixed window and middle way.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Fixed Window with Middle Way and Token Bucket",
+      "description": "A fixed window algorithm with a middle way and token bucket.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Token Bucket with Fixed Window and Middle Way",
+      "description": "A token bucket algorithm with a fixed window and middle way.",
+      "endpoints_or_signatures": []
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Token Bucket",
+      "pros": [
+       "fair",
+       "efficient",
+       "simple",
+       "scalable"
+      ],
+      "cons": [
+       "complex",
+       "difficult to implement",
+       "requires knowledge of token bucket theory"
+      ]
+     },
+     {
+      "option": "Middle Way",
+      "pros": [
+       "easier to implement",
+       "less complex",
+       "better spike protection"
+      ],
+      "cons": [
+       "less fair",
+       "less efficient",
+       "more complex"
+      ]
+     },
+     {
+      "option": "Fixed Window",
+      "pros": [
+       "simple",
+       "easy to implement",
+       "less complex"
+      ],
+      "cons": [
+       "less fair",
+       "less efficient",
+       "more complex"
+      ]
+     }
+    ],
+    "decisions": [
+     "Implement the token bucket algorithm",
+     "Implement the middle way algorithm",
+     "Implement the fixed window algorithm"
+    ],
+    "todos": [
+     {
+      "task": "Implement the token bucket algorithm",
+      "owner": "Sam",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": [
+     "How does the token bucket algorithm compare to the middle way algorithm?",
+     "What are the tradeoffs between the token bucket and middle way algorithms?",
+     "What are the pros and cons of each algorithm?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 4,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 10,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 3,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.3181818181818182,
+     "context": 0.4421052631578947
+    },
+    "extracted": 24,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-017",
+   "valid": true,
+   "prompt_tokens": 1116,
+   "latency_ms": 5437,
+   "n_prompt": 1116,
+   "n_gen": 461,
+   "prefill_ms": 447.155791,
+   "decode_ms": 4985.92775,
+   "output": {
+    "title": "Notification system design",
+    "context": "Designing the notification system.",
+    "concepts": [
+     "notification service",
+     "channels",
+     "retry policy",
+     "email channel",
+     "in-app messages",
+     "user preferences",
+     "quiet hours"
+    ],
+    "api_designs": [
+     {
+      "name": "Notification Service",
+      "description": "A single service that handles all notifications.",
+      "endpoints_or_signatures": []
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Plugin-based design",
+      "pros": [
+       "separate channels",
+       "common retry policy"
+      ],
+      "cons": [
+       "common service may be slower",
+       "plugin complexity"
+      ]
+     },
+     {
+      "option": "Channel-based design",
+      "pros": [
+       "common service",
+       "retry policy can be optimized",
+       "separate channels can be more complex"
+      ],
+      "cons": [
+       "separate channels may be more complex",
+       "common service may be slower"
+      ]
+     },
+     {
+      "option": "Email channel design",
+      "pros": [
+       "simple design",
+       "easy to implement",
+       "separate channels can be more complex"
+      ],
+      "cons": [
+       "separate channels may be more complex",
+       "common service may be slower"
+      ]
+     },
+     {
+      "option": "In-app messages design",
+      "pros": [
+       "simple design",
+       "easy to implement",
+       "separate channels can be more complex"
+      ],
+      "cons": [
+       "separate channels may be more complex",
+       "common service may be slower"
+      ]
+     },
+     {
+      "option": "User preferences design",
+      "pros": [
+       "simple design",
+       "easy to implement",
+       "separate channels can be more complex"
+      ],
+      "cons": [
+       "separate channels may be more complex",
+       "common service may be slower"
+      ]
+     },
+     {
+      "option": "Quiet hours design",
+      "pros": [
+       "simple design",
+       "easy to implement",
+       "separate channels can be more complex"
+      ],
+      "cons": [
+       "separate channels may be more complex",
+       "common service may be slower"
+      ]
+     }
+    ],
+    "decisions": [
+     "Design the notification service",
+     "Design the email channel",
+     "Design the in-app messages channel",
+     "Design the user preferences system",
+     "Design the quiet hours system"
+    ],
+    "todos": [
+     {
+      "task": "Design the notification service",
+      "owner": "Mei",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": [
+     "What is the best approach for the plugin design?",
+     "What is the best approach for the channel design?",
+     "What is the best approach for the user preferences design?",
+     "What is the best approach for the quiet hours design?",
+     "What is the best approach for the email channel design?",
+     "What is the best approach for the in-app messages design?",
+     "What is the best approach for the user preferences design?",
+     "What is the best approach for the quiet hours design?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 3,
+      "predicted": 7,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 6,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 5,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 8,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.6410256410256411
+    },
+    "extracted": 28,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-018",
+   "valid": true,
+   "prompt_tokens": 1008,
+   "latency_ms": 8818,
+   "n_prompt": 1008,
+   "n_gen": 792,
+   "prefill_ms": 215.59,
+   "decode_ms": 8599.815917,
+   "output": {
+    "title": "End-to-end testing",
+    "context": "Improving test reliability and stability.",
+    "concepts": [
+     "flaky tests",
+     "fixed sleeps",
+     "conditions",
+     "checkout tests"
+    ],
+    "api_designs": [
+     {
+      "name": "Wait for conditions",
+      "description": "Instead of relying on fixed sleeps, wait for conditions.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Ban fixed sleeps",
+      "description": "Replace sleeps in checkout tests with a condition-based approach.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Replace sleeps in checkout tests",
+      "description": "Replace sleeps in checkout tests with a condition-based approach.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Checkout tests",
+      "description": "Tests that run on the client-side, not on the server.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Conditions-based testing",
+      "description": "Wait for conditions to pass before proceeding.",
+      "endpoints_or_signatures": []
+     },
+     {
+      "name": "Checkout tests",
+      "description": "Tests that run on the client-side, not on the server.",
+      "endpoints_or_signatures": []
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Waiting for conditions",
+      "pros": [
+       "reliable",
+       "stable"
+      ],
+      "cons": [
+       "initial setup required"
+      ]
+     },
+     {
+      "option": "Ban fixed sleeps",
+      "pros": [
+       "reduces flaky tests",
+       "reduces sleep-related issues"
+      ],
+      "cons": [
+       "initial setup required",
+       "may require additional testing"
+      ]
+     },
+     {
+      "option": "Replacing sleeps in checkout tests",
+      "pros": [
+       "reduces sleep-related issues",
+       "reduces flaky tests"
+      ],
+      "cons": [
+       "may require additional testing",
+       "may require changes to checkout tests"
+      ]
+     },
+     {
+      "option": "Replacing sleeps in checkout tests",
+      "pros": [
+       "reduces sleep-related issues",
+       "reduces flaky tests"
+      ],
+      "cons": [
+       "may require changes to checkout tests"
+      ]
+     },
+     {
+      "option": "Checkout tests",
+      "pros": [
+       "reduces sleep-related issues",
+       "reduces flaky tests"
+      ],
+      "cons": [
+       "may require changes to checkout tests"
+      ]
+     },
+     {
+      "option": "Conditions-based testing",
+      "pros": [
+       "reduces sleep-related issues",
+       "reduces flaky tests"
+      ],
+      "cons": [
+       "initial setup required",
+       "may require additional testing"
+      ]
+     },
+     {
+      "option": "Ban fixed sleeps",
+      "pros": [
+       "reduces flaky tests",
+       "reduces sleep-related issues"
+      ],
+      "cons": [
+       "initial setup required",
+       "may require additional testing"
+      ]
+     },
+     {
+      "option": "Replacing sleeps in checkout tests",
+      "pros": [
+       "reduces sleep-related issues",
+       "reduces flaky tests"
+      ],
+      "cons": [
+       "may require changes to checkout tests"
+      ]
+     },
+     {
+      "option": "Replacing sleeps in checkout tests",
+      "pros": [
+       "reduces sleep-related issues",
+       "reduces flaky tests"
+      ],
+      "cons": [
+       "may require changes to checkout tests"
+      ]
+     },
+     {
+      "option": "Checkout tests",
+      "pros": [
+       "reduces sleep-related issues",
+       "reduces flaky tests"
+      ],
+      "cons": [
+       "may require changes to checkout tests"
+      ]
+     }
+    ],
+    "decisions": [
+     "Ban fixed sleeps in tests",
+     "Replace sleeps in checkout tests",
+     "Wait for conditions in tests"
+    ],
+    "todos": [
+     {
+      "task": "Ban fixed sleeps in tests",
+      "owner": "Diego",
+      "t": "00:00:03"
+     }
+    ],
+    "open_questions": [
+     "How do we handle flaky tests?",
+     "What are the implications of waiting for conditions?",
+     "What are the implications of replacing sleeps in checkout tests?",
+     "How do we reduce sleep-related issues?",
+     "What are the implications of conditions-based testing?",
+     "What are the implications of replacing sleeps in checkout tests?",
+     "How do we reduce sleep-related issues?",
+     "What are the implications of conditions-based testing?",
+     "What are the implications of replacing sleeps in checkout tests?",
+     "How do we reduce sleep-related issues?",
+     "What are the implications of conditions-based testing?",
+     "What are the implications of replacing sleeps in checkout tests?",
+     "How do we reduce sleep-related issues?",
+     "What are the implications of conditions-based testing?",
+     "What are the implications of replacing sleeps in checkout tests?",
+     "How do we reduce sleep-related issues?",
+     "What are the implications of conditions-based testing?",
+     "What are the implications of replacing sleeps in checkout tests?",
+     "How do we reduce sleep-related issues?",
+     "What are the implications of conditions-based testing?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 4,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 6,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 10,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 20,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.6875,
+     "context": 0.40860215053763443
+    },
+    "extracted": 44,
+    "ungrounded": 15
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-019",
+   "valid": true,
+   "prompt_tokens": 1056,
+   "latency_ms": 2437,
+   "n_prompt": 1056,
+   "n_gen": 185,
+   "prefill_ms": 444.170458,
+   "decode_ms": 1990.517209,
+   "output": {
+    "title": "Offline mode conflict resolution",
+    "context": "Choosing how to handle conflicts in offline mode.",
+    "concepts": [
+     "conflict resolution",
+     "last right wins",
+     "field level merge"
+    ],
+    "api_designs": [
+     {
+      "name": "Conflict resolution",
+      "description": "Determines how to handle conflicts in offline mode.",
+      "endpoints_or_signatures": []
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Last right wins",
+      "pros": [
+       "easy"
+      ],
+      "cons": [
+       "can lose data"
+      ]
+     },
+     {
+      "option": "Field level merge",
+      "pros": [
+       "keeps more data"
+      ],
+      "cons": [
+       "complex"
+      ]
+     },
+     {
+      "option": "Last right wins elsewhere",
+      "pros": [
+       "simple"
+      ],
+      "cons": [
+       "unknown decision"
+      ]
+     }
+    ],
+    "decisions": [
+     "Use field level merge for nodes",
+     "Use Last right wins elsewhere"
+    ],
+    "todos": [
+     {
+      "task": "Decide on conflict resolution strategy",
+      "owner": "Aisha",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": [
+     "Who decides what happens when both sides delete?",
+     "How to handle conflicts in offline mode?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 3,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.627906976744186
+    },
+    "extracted": 12,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-020",
+   "valid": true,
+   "prompt_tokens": 1022,
+   "latency_ms": 7862,
+   "n_prompt": 1022,
+   "n_gen": 715,
+   "prefill_ms": 215.799041,
+   "decode_ms": 7643.148542,
+   "output": {
+    "title": "Webhooks",
+    "context": "Implementing webhooks for partner registration",
+    "concepts": [
+     "post/webhook",
+     "webhooks",
+     "register a URL",
+     "delete/webhook",
+     "ide",
+     "shared secret",
+     "signature format"
+    ],
+    "api_designs": [
+     {
+      "name": "Webhook endpoint",
+      "description": "Returns a webhook endpoint URL",
+      "endpoints_or_signatures": [
+       "GET /webhooks/{id}",
+       "POST /webhooks/{id}"
+      ]
+     },
+     {
+      "name": "Webhook signature",
+      "description": "Signs a payload with a shared secret",
+      "endpoints_or_signatures": [
+       "GET /signatures/{id}"
+      ]
+     },
+     {
+      "name": "Webhook deletion",
+      "description": "Removes a webhook endpoint",
+      "endpoints_or_signatures": [
+       "GET /deletions/{id}"
+      ]
+     },
+     {
+      "name": "Webhook registration",
+      "description": "Registers a URL for a webhook",
+      "endpoints_or_signatures": [
+       "GET /register/{id}"
+      ]
+     },
+     {
+      "name": "Webhook deletion",
+      "description": "Removes a webhook endpoint",
+      "endpoints_or_signatures": [
+       "GET /deletions/{id}"
+      ]
+     },
+     {
+      "name": "Webhook signature",
+      "description": "Signs a payload with a shared secret",
+      "endpoints_or_signatures": [
+       "GET /signatures/{id}"
+      ]
+     },
+     {
+      "name": "Webhook deletion",
+      "description": "Removes a webhook endpoint",
+      "endpoints_or_signatures": [
+       "GET /deletions/{id}"
+      ]
+     },
+     {
+      "name": "Webhook registration",
+      "description": "Registers a URL for a webhook",
+      "endpoints_or_signatures": [
+       "GET /register/{id}"
+      ]
+     },
+     {
+      "name": "Webhook signature",
+      "description": "Signs a payload with a shared secret",
+      "endpoints_or_signatures": [
+       "GET /signatures/{id}"
+      ]
+     },
+     {
+      "name": "Webhook deletion",
+      "description": "Removes a webhook endpoint",
+      "endpoints_or_signatures": [
+       "GET /deletions/{id}"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Webhooks",
+      "pros": [
+       "register a URL",
+       "delete/webhook",
+       "ide",
+       "shared secret",
+       "signature format"
+      ],
+      "cons": [
+       "complex implementation",
+       "shared secret required"
+      ]
+     },
+     {
+      "option": "Webhook signature",
+      "pros": [
+       "shared secret required",
+       "signature format"
+      ],
+      "cons": [
+       "complex implementation",
+       "shared secret required"
+      ]
+     },
+     {
+      "option": "Webhook deletion",
+      "pros": [
+       "shared secret required",
+       "signature format"
+      ],
+      "cons": [
+       "complex implementation",
+       "shared secret required"
+      ]
+     },
+     {
+      "option": "Webhook registration",
+      "pros": [
+       "register a URL",
+       "delete/webhook",
+       "ide",
+       "shared secret",
+       "signature format"
+      ],
+      "cons": [
+       "complex implementation",
+       "shared secret required"
+      ]
+     },
+     {
+      "option": "Webhook signature",
+      "pros": [
+       "shared secret required",
+       "signature format"
+      ],
+      "cons": [
+       "complex implementation",
+       "shared secret required"
+      ]
+     },
+     {
+      "option": "Webhook deletion",
+      "pros": [
+       "shared secret required",
+       "signature format"
+      ],
+      "cons": [
+       "complex implementation",
+       "shared secret required"
+      ]
+     }
+    ],
+    "decisions": [
+     "Register a webhook for partner registration",
+     "Delete a webhook for partner registration",
+     "Register a URL for a webhook",
+     "Delete a webhook for a webhook",
+     "Register a webhook for a webhook",
+     "Delete a webhook for a webhook",
+     "Register a URL for a webhook",
+     "Delete a webhook for a webhook",
+     "Register a webhook for a webhook",
+     "Delete a webhook for a webhook",
+     "Register a webhook for a webhook",
+     "Delete a webhook for a webhook",
+     "Register a webhook for a webhook",
+     "Delete a webhook for a webhook",
+     "Register a webhook for a webhook",
+     "Delete a webhook for a webhook",
+     "Register a webhook for a webhook",
+     "Delete a webhook for a webhook",
+     "Register a webhook for a webhook",
+     "Delete a webhook for a webhook"
+    ],
+    "todos": [
+     {
+      "task": "Register a webhook for partner registration",
+      "owner": "Nadia",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": [
+     "How do we handle shared secrets?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 7,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 10,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 6,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 20,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.5227272727272727
+    },
+    "extracted": 45,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-021",
+   "valid": true,
+   "prompt_tokens": 1017,
+   "latency_ms": 2526,
+   "n_prompt": 1017,
+   "n_gen": 197,
+   "prefill_ms": 217.771209,
+   "decode_ms": 2304.680542,
+   "output": {
+    "title": "App startup optimization",
+    "context": "Improving startup time by optimizing plugin loading.",
+    "concepts": [
+     "plugin loading",
+     "startup time",
+     "lazy loading"
+    ],
+    "api_designs": [
+     {
+      "name": "Lazy plugin loading",
+      "description": "Loads plugins only when needed.",
+      "endpoints_or_signatures": []
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Lazy plugin loading",
+      "pros": [
+       "less startup time"
+      ],
+      "cons": [
+       "slower first use of plugins"
+      ]
+     },
+     {
+      "option": "Plugin loading",
+      "pros": [
+       "faster startup time"
+      ],
+      "cons": [
+       "more startup time"
+      ]
+     },
+     {
+      "option": "Plugin loading",
+      "pros": [
+       "less startup time"
+      ],
+      "cons": [
+       "more startup time"
+      ]
+     },
+     {
+      "option": "Startup time",
+      "pros": [
+       "less startup time"
+      ],
+      "cons": [
+       "slower first use of plugins"
+      ]
+     }
+    ],
+    "decisions": [
+     "Measure startup time before and after",
+     "Start with lazy loading"
+    ],
+    "todos": [
+     {
+      "task": "Measure startup time before app startup",
+      "owner": "Tomas",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": [
+     "How much of a difference can lazy loading make?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 4,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.7586206896551724,
+     "context": 0.4716981132075472
+    },
+    "extracted": 12,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-022",
+   "valid": true,
+   "prompt_tokens": 957,
+   "latency_ms": 4498,
+   "n_prompt": 957,
+   "n_gen": 386,
+   "prefill_ms": 215.826167,
+   "decode_ms": 4279.661791,
+   "output": {
+    "title": "Architecture discussion",
+    "context": "Discussing the overall architecture of the system.",
+    "concepts": [
+     "cleaner architecture",
+     "architecture design"
+    ],
+    "api_designs": [
+     {
+      "name": "Clean architecture",
+      "description": "Follows the SOLID principles.",
+      "endpoints_or_signatures": [
+       ""
+      ]
+     },
+     {
+      "name": "Architecture design",
+      "description": "Decentralized data storage.",
+      "endpoints_or_signatures": [
+       ""
+      ]
+     },
+     {
+      "name": "Separation of Concerns",
+      "description": "Separates concerns into different layers.",
+      "endpoints_or_signatures": [
+       ""
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Cleaner architecture",
+      "pros": [
+       "Follows SOLID principles"
+      ],
+      "cons": [
+       "Hard to say without specifics"
+      ]
+     },
+     {
+      "option": "Architecture design",
+      "pros": [
+       "Decentralized data storage"
+      ],
+      "cons": [
+       "Separation of Concerns"
+      ]
+     },
+     {
+      "option": "Separation of Concerns",
+      "pros": [
+       "Separates concerns into different layers"
+      ],
+      "cons": [
+       "Separation of Concerns"
+      ]
+     },
+     {
+      "option": "Architecture design",
+      "pros": [
+       "Follows SOLID principles"
+      ],
+      "cons": [
+       "Separation of Concerns"
+      ]
+     },
+     {
+      "option": "Cleaner architecture",
+      "pros": [
+       "Follows SOLID principles"
+      ],
+      "cons": [
+       "Hard to say without specifics"
+      ]
+     },
+     {
+      "option": "Architecture design",
+      "pros": [
+       "Decentralized data storage"
+      ],
+      "cons": [
+       "Separation of Concerns"
+      ]
+     },
+     {
+      "option": "Separation of Concerns",
+      "pros": [
+       "Separates concerns into different layers"
+      ],
+      "cons": [
+       "Separation of Concerns"
+      ]
+     },
+     {
+      "option": "Architecture design",
+      "pros": [
+       "Follows SOLID principles"
+      ],
+      "cons": [
+       "Separation of Concerns"
+      ]
+     },
+     {
+      "option": "Cleaner architecture",
+      "pros": [
+       "Follows SOLID principles"
+      ],
+      "cons": [
+       "Hard to say without specifics"
+      ]
+     },
+     {
+      "option": "Architecture design",
+      "pros": [
+       "Decentralized data storage"
+      ],
+      "cons": [
+       "Separation of Concerns"
+      ]
+     }
+    ],
+    "decisions": [
+     "Discuss the architecture design"
+    ],
+    "todos": [
+     {
+      "task": "Discuss the architecture design",
+      "owner": "Hana",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": [
+     "What is the architecture design?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 10,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.7272727272727273,
+     "context": 0.0
+    },
+    "extracted": 18,
+    "ungrounded": 6
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-023",
+   "valid": true,
+   "prompt_tokens": 1013,
+   "latency_ms": 2407,
+   "n_prompt": 1013,
+   "n_gen": 192,
+   "prefill_ms": 218.042208,
+   "decode_ms": 2186.936791,
+   "output": {
+    "title": "Secrets management",
+    "context": "Choosing how to store sensitive data on servers.",
+    "concepts": [
+     "Secrets Manager",
+     "rotation",
+     "audit logs"
+    ],
+    "api_designs": [
+     {
+      "name": "Secrets Manager",
+      "description": "Stores sensitive data in environment files.",
+      "endpoints_or_signatures": [
+       "Migrate database password",
+       "Get rotation plan"
+      ]
+     },
+     {
+      "name": "Environment files",
+      "description": "Store sensitive data in environment files.",
+      "endpoints_or_signatures": [
+       "Store passwords in environment files"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Secrets Manager",
+      "pros": [
+       "gives rotation and audit logs"
+      ],
+      "cons": [
+       "costs a bit"
+      ]
+     },
+     {
+      "option": "Environment files",
+      "pros": [
+       "simple"
+      ],
+      "cons": [
+       "not suitable for sensitive data"
+      ]
+     }
+    ],
+    "decisions": [
+     "Adopt Secrets Manager"
+    ],
+    "todos": [
+     {
+      "task": "Migrate database password",
+      "owner": "Omar",
+      "t": "00:00:13"
+     }
+    ],
+    "open_questions": [
+     "How to store sensitive data securely?",
+     "What are the costs of different storage options?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.5346534653465347
+    },
+    "extracted": 11,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-024",
+   "valid": true,
+   "prompt_tokens": 1039,
+   "latency_ms": 9841,
+   "n_prompt": 1039,
+   "n_gen": 863,
+   "prefill_ms": 439.166833,
+   "decode_ms": 9399.588667,
+   "output": {
+    "title": "Nightly report job optimization",
+    "context": "Improving the performance of the nightly report job.",
+    "concepts": [
+     "incremental processing",
+     "parallelization",
+     "report tolerance"
+    ],
+    "api_designs": [
+     {
+      "name": "Incremental processing",
+      "description": "Only new rows are processed.",
+      "endpoints_or_signatures": [
+       "GET /reports?since=0"
+      ]
+     },
+     {
+      "name": "Parallelization",
+      "description": "Job is split across workers.",
+      "endpoints_or_signatures": [
+       "GET /reports?since=0"
+      ]
+     },
+     {
+      "name": "Report tolerance",
+      "description": "Late reports are tolerated.",
+      "endpoints_or_signatures": [
+       "GET /reports?since=0"
+      ]
+     },
+     {
+      "name": "Last processed timestamp",
+      "description": "Timestamp of the last processed report.",
+      "endpoints_or_signatures": [
+       "GET /reports?since=0"
+      ]
+     },
+     {
+      "name": "Late row tolerance",
+      "description": "Late reports are tolerated.",
+      "endpoints_or_signatures": [
+       "GET /reports?since=0"
+      ]
+     },
+     {
+      "name": "Worker parallelization",
+      "description": "Job is split across workers.",
+      "endpoints_or_signatures": [
+       "GET /reports?since=0"
+      ]
+     },
+     {
+      "name": "Incremental processing",
+      "description": "Only new rows are processed.",
+      "endpoints_or_signatures": [
+       "GET /reports?since=0"
+      ]
+     },
+     {
+      "name": "Parallelization",
+      "description": "Job is split across workers.",
+      "endpoints_or_signatures": [
+       "GET /reports?since=0"
+      ]
+     },
+     {
+      "name": "Report tolerance",
+      "description": "Late reports are tolerated.",
+      "endpoints_or_signatures": [
+       "GET /reports?since=0"
+      ]
+     },
+     {
+      "name": "Worker parallelization",
+      "description": "Job is split across workers.",
+      "endpoints_or_signatures": [
+       "GET /reports?since=0"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Incremental processing",
+      "pros": [
+       "cheaper",
+       "only new rows are processed"
+      ],
+      "cons": [
+       "only new rows are processed"
+      ]
+     },
+     {
+      "option": "Parallelization",
+      "pros": [
+       "split across workers",
+       "job is split across workers"
+      ],
+      "cons": [
+       "job is split across workers"
+      ]
+     },
+     {
+      "option": "Report tolerance",
+      "pros": [
+       "late reports are tolerated",
+       "reports are tolerated"
+      ],
+      "cons": [
+       "late reports are tolerated"
+      ]
+     },
+     {
+      "option": "Worker parallelization",
+      "pros": [
+       "split across workers",
+       "job is split across workers",
+       "job is split across workers",
+       "job is split across workers",
+       "job is split across workers",
+       "job is split across workers"
+      ],
+      "cons": [
+       "job is split across workers",
+       "job is split across workers",
+       "job is split across workers",
+       "job is split across workers",
+       "job is split across workers",
+       "job is split across workers"
+      ]
+     }
+    ],
+    "decisions": [
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts",
+     "Split job into incremental and parallel parts"
+    ],
+    "todos": [
+     {
+      "task": "Split job into incremental and parallel parts",
+      "owner": "Diego",
+      "t": "00:00:19"
+     }
+    ],
+    "open_questions": [
+     "How is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?",
+     "Is the job split across workers?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 10,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 4,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 20,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 20,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.8571428571428571,
+     "context": 0.7586206896551724
+    },
+    "extracted": 58,
+    "ungrounded": 4
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-025",
+   "valid": true,
+   "prompt_tokens": 1018,
+   "latency_ms": 7800,
+   "n_prompt": 1018,
+   "n_gen": 677,
+   "prefill_ms": 219.184583,
+   "decode_ms": 7577.2245,
+   "output": {
+    "title": "API versioning",
+    "context": "Choosing a versioning strategy for the public API",
+    "concepts": [
+     "versioning",
+     "public API",
+     "URL versioning"
+    ],
+    "api_designs": [
+     {
+      "name": "URL versioning",
+      "description": "Uses a version number in the URL.",
+      "endpoints_or_signatures": [
+       "GET /v2/orders"
+      ]
+     },
+     {
+      "name": "Header versioning",
+      "description": "Uses a header to specify the version.",
+      "endpoints_or_signatures": [
+       "GET /v2/orders"
+      ]
+     },
+     {
+      "name": "Prefix versioning",
+      "description": "Adds a prefix to the router to specify the version.",
+      "endpoints_or_signatures": [
+       "GET /v2/orders"
+      ]
+     },
+     {
+      "name": "Implicit versioning",
+      "description": "Uses a URL pattern to specify the version.",
+      "endpoints_or_signatures": [
+       "GET /v2/orders"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "URL versioning",
+      "pros": [
+       "cleaner",
+       "easier to test in browsers"
+      ],
+      "cons": [
+       "harder to test in browsers",
+       "less flexible"
+      ]
+     },
+     {
+      "option": "Header versioning",
+      "pros": [
+       "cleaner",
+       "easier to test in browsers"
+      ],
+      "cons": [
+       "harder to test in browsers",
+       "less flexible"
+      ]
+     },
+     {
+      "option": "Prefix versioning",
+      "pros": [
+       "cleaner",
+       "easier to test in browsers"
+      ],
+      "cons": [
+       "harder to test in browsers",
+       "less flexible"
+      ]
+     },
+     {
+      "option": "Implicit versioning",
+      "pros": [
+       "cleaner",
+       "easier to test in browsers"
+      ],
+      "cons": [
+       "harder to test in browsers",
+       "less flexible"
+      ]
+     },
+     {
+      "option": "Implicit versioning",
+      "pros": [
+       "cleaner",
+       "easier to test in browsers"
+      ],
+      "cons": [
+       "harder to test in browsers",
+       "less flexible"
+      ]
+     }
+    ],
+    "decisions": [
+     "Use URL versioning",
+     "Use header versioning",
+     "Use prefix versioning",
+     "Use implicit versioning"
+    ],
+    "todos": [
+     {
+      "task": "Implement URL versioning",
+      "owner": "Sam",
+      "t": "00:00:08"
+     }
+    ],
+    "open_questions": [
+     "What is the best approach for versioning the public API?",
+     "What are the tradeoffs of each approach?",
+     "What are the pros and cons of each approach?",
+     "What should we do if we can't choose one approach?",
+     "What are the implications of each approach for the API's stability and security?",
+     "What are the implications of each approach for the API's maintainability and scalability?",
+     "What are the implications of each approach for the API's performance and scalability?",
+     "What are the implications of each approach for the API's compatibility and interoperability?",
+     "What are the implications of each approach for the API's documentation and testing?",
+     "What are the implications of each approach for the API's deployment and management?",
+     "What are the implications of each approach for the API's monitoring and logging?",
+     "What are the implications of each approach for the API's security and compliance?",
+     "What are the implications of each approach for the API's scalability and performance?",
+     "What are the implications of each approach for the API's stability and security?",
+     "What are the implications of each approach for the API's maintainability and scalability?",
+     "What are the implications of each approach for the API's performance and scalability?",
+     "What are the implications of each approach for the API's compatibility and interoperability?",
+     "What are the implications of each approach for the API's documentation and testing?",
+     "What are the implications of each approach for the API's deployment and management?",
+     "What are the implications of each approach for the API's monitoring and logging?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 4,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 5,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 4,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 20,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.8045977011494253
+    },
+    "extracted": 37,
+    "ungrounded": 20
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-026",
+   "valid": true,
+   "prompt_tokens": 1006,
+   "latency_ms": 2867,
+   "n_prompt": 1006,
+   "n_gen": 234,
+   "prefill_ms": 219.977208,
+   "decode_ms": 2642.217125,
+   "output": {
+    "title": "Distributed tracing",
+    "context": "Implementing tracing to see where requests spend time",
+    "concepts": [
+     "tracing",
+     "trace ID",
+     "instrumentation",
+     "log line",
+     "overhead"
+    ],
+    "api_designs": [
+     {
+      "name": "Instrumentation",
+      "description": "Adds tracing to every log line.",
+      "endpoints_or_signatures": [
+       "Instrument the checkout service",
+       "Instrument the checkout service"
+      ]
+     },
+     {
+      "name": "Tracing service",
+      "description": "Provides the tracing API.",
+      "endpoints_or_signatures": [
+       "Get tracing metadata",
+       "Get tracing metrics"
+      ]
+     },
+     {
+      "name": "Logging service",
+      "description": "Manages log files and provides tracing metadata.",
+      "endpoints_or_signatures": [
+       "Log tracing metadata",
+       "Log tracing metrics"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Instrumentation",
+      "pros": [
+       "adds overhead"
+      ],
+      "cons": [
+       "instrumentation complexity"
+      ]
+     },
+     {
+      "option": "Tracing service",
+      "pros": [
+       "easy to implement"
+      ],
+      "cons": [
+       "tracing complexity"
+      ]
+     },
+     {
+      "option": "Logging service",
+      "pros": [
+       "easy to implement"
+      ],
+      "cons": [
+       "logging complexity"
+      ]
+     }
+    ],
+    "decisions": [
+     "Instrument the checkout service first"
+    ],
+    "todos": [
+     {
+      "task": "Instrument the checkout service",
+      "owner": "Nadia",
+      "t": "00:00:03"
+     }
+    ],
+    "open_questions": [
+     "How does tracing impact performance?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 5,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.7837837837837838
+    },
+    "extracted": 14,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-027",
+   "valid": true,
+   "prompt_tokens": 1038,
+   "latency_ms": 9923,
+   "n_prompt": 1038,
+   "n_gen": 883,
+   "prefill_ms": 439.827584,
+   "decode_ms": 9479.829375,
+   "output": {
+    "title": "Editor state management",
+    "context": "Managing the Editor state across many widgets.",
+    "concepts": [
+     "Editor state",
+     "Store",
+     "Selectors",
+     "Toolbar state",
+     "Undo history"
+    ],
+    "api_designs": [
+     {
+      "name": "Editor state store",
+      "description": "Stores the Editor state in a single location.",
+      "endpoints_or_signatures": [
+       "GET /editor-state",
+       "POST /editor-state/insert"
+      ]
+     },
+     {
+      "name": "Selectors",
+      "description": "Use Selectors to rerender only necessary parts of the Editor.",
+      "endpoints_or_signatures": [
+       "GET /editor-state/selectors",
+       "POST /editor-state/selectors/insert"
+      ]
+     },
+     {
+      "name": "Toolbar state",
+      "description": "Move the toolbar state into the store.",
+      "endpoints_or_signatures": [
+       "GET /editor-state/toolbar-state",
+       "POST /editor-state/toolbar-state/insert"
+      ]
+     },
+     {
+      "name": "Undo history",
+      "description": "Keep undo history in the store.",
+      "endpoints_or_signatures": [
+       "GET /editor-state/undo-history",
+       "POST /editor-state/undo-history/insert"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Single store with Selectors",
+      "pros": [
+       "predictable",
+       "redundant data",
+       "less memory usage"
+      ],
+      "cons": [
+       "complex to implement",
+       "limited scalability"
+      ]
+     },
+     {
+      "option": "Editor state store",
+      "pros": [
+       "single location",
+       "easy to implement",
+       "less memory usage"
+      ],
+      "cons": [
+       "less predictable",
+       "more complex to implement",
+       "more memory usage"
+      ]
+     },
+     {
+      "option": "Selectors",
+      "pros": [
+       "redundant data",
+       "less memory usage",
+       "easier to implement",
+       "less complex to implement"
+      ],
+      "cons": [
+       "more complex to implement",
+       "more memory usage",
+       "more data to manage"
+      ]
+     },
+     {
+      "option": "Toolbar state",
+      "pros": [
+       "redundant data",
+       "less memory usage",
+       "easier to implement",
+       "less complex to implement"
+      ],
+      "cons": [
+       "more complex to implement",
+       "more memory usage",
+       "more data to manage"
+      ]
+     },
+     {
+      "option": "Undo history",
+      "pros": [
+       "easy to implement",
+       "less complex to implement",
+       "less memory usage"
+      ],
+      "cons": [
+       "less predictable",
+       "more complex to implement",
+       "more memory usage"
+      ]
+     }
+    ],
+    "decisions": [
+     "Use a single store with Selectors",
+     "Use an Editor state store",
+     "Use a single store with Selectors",
+     "Use an Editor state store",
+     "Use a single store with Selectors",
+     "Use a single store with Selectors",
+     "Use a single store with Selectors",
+     "Use a single store with Selectors",
+     "Use a single store with Selectors",
+     "Use a single store with Selectors",
+     "Use a single store with Selectors",
+     "Use a single store with Selectors",
+     "Use a single store with Selectors",
+     "Use a single store with Selectors",
+     "Use a single store with Selectors",
+     "Use a single store with Selectors",
+     "Use a single store with Selectors",
+     "Use a single store with Selectors",
+     "Use a single store with Selectors",
+     "Use a single store with Selectors"
+    ],
+    "todos": [
+     {
+      "task": "Implement Single store with Selectors",
+      "owner": "Kofi",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": [
+     "How to implement a single store with Selectors?",
+     "What are the tradeoffs of using a single store with Selectors?",
+     "What are the pros and cons of using a single store with Selectors?",
+     "What are the tradeoffs of using an Editor state store?",
+     "What are the pros and cons of using an Editor state store?",
+     "What are the tradeoffs of using a single store with Selectors?",
+     "What are the pros and cons of using a single store with Selectors?",
+     "What are the tradeoffs of using a single store with Selectors?",
+     "What are the pros and cons of using a single store with Selectors?",
+     "What are the tradeoffs of using a single store with Selectors?",
+     "What are the pros and cons of using a single store with Selectors?",
+     "What are the tradeoffs of using a single store with Selectors?",
+     "What are the pros and cons of using a single store with Selectors?",
+     "What are the tradeoffs of using a single store with Selectors?",
+     "What are the pros and cons of using a single store with Selectors?",
+     "What are the tradeoffs of using a single store with Selectors?",
+     "What are the pros and cons of using a single store with Selectors?",
+     "What are the tradeoffs of using a single store with Selectors?",
+     "What are the pros and cons of using a single store with Selectors?",
+     "What are the tradeoffs of using a single store with Selectors?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 5,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 4,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 5,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 20,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 20,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.8888888888888888
+    },
+    "extracted": 55,
+    "ungrounded": 9
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-028",
+   "valid": true,
+   "prompt_tokens": 996,
+   "latency_ms": 3641,
+   "n_prompt": 996,
+   "n_gen": 288,
+   "prefill_ms": 239.241,
+   "decode_ms": 3397.519792,
+   "output": {
+    "title": "Maintaining libraries",
+    "context": "Choosing a new library when one is no longer maintained.",
+    "concepts": [
+     "forking",
+     "switching",
+     "bugs",
+     "alternatives"
+    ],
+    "api_designs": [
+     {
+      "name": "Forking library",
+      "description": "Forking the existing library.",
+      "endpoints_or_signatures": [
+       "Forking library"
+      ]
+     },
+     {
+      "name": "Switching to another library",
+      "description": "Switching to a new library.",
+      "endpoints_or_signatures": [
+       "Switching to another library"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Forking library",
+      "pros": [
+       "own the bugs"
+      ],
+      "cons": [
+       "requires effort"
+      ]
+     },
+     {
+      "option": "Switching to another library",
+      "pros": [
+       "no bugs"
+      ],
+      "cons": [
+       "requires effort",
+       "comparison time"
+      ]
+     },
+     {
+      "option": "Maintaining library",
+      "pros": [
+       "no bugs"
+      ],
+      "cons": [
+       "no maintenance"
+      ]
+     },
+     {
+      "option": "No maintenance",
+      "pros": [
+       "no bugs"
+      ],
+      "cons": [
+       "no bugs"
+      ]
+     },
+     {
+      "option": "No bugs",
+      "pros": [
+       "no bugs"
+      ],
+      "cons": [
+       "no bugs"
+      ]
+     },
+     {
+      "option": "No bugs",
+      "pros": [
+       "no bugs"
+      ],
+      "cons": [
+       "no bugs"
+      ]
+     }
+    ],
+    "decisions": [
+     "Fork the existing library",
+     "Switch to another library",
+     "Maintain the existing library"
+    ],
+    "todos": [
+     {
+      "task": "Fork the existing library",
+      "owner": "Mei",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": [
+     "What is the current state of the PDF library?",
+     "How do we compare alternatives?",
+     "What is the deadline for switching to another library?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 4,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 6,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.6666666666666666,
+     "context": 0.8857142857142857
+    },
+    "extracted": 19,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-029",
+   "valid": true,
+   "prompt_tokens": 1025,
+   "latency_ms": 4776,
+   "n_prompt": 1025,
+   "n_gen": 411,
+   "prefill_ms": 440.498625,
+   "decode_ms": 4331.6135,
+   "output": {
+    "title": "Service communication",
+    "context": "Choosing how services communicate with each other.",
+    "concepts": [
+     "JSON over HTTP",
+     "GRPC",
+     "protobuf",
+     "protobuf2",
+     "protobuf3"
+    ],
+    "api_designs": [
+     {
+      "name": "JSON over HTTP",
+      "description": "Returns data in JSON format.",
+      "endpoints_or_signatures": [
+       "get",
+       "call"
+      ]
+     },
+     {
+      "name": "GRPC",
+      "description": "Returns data in tight contracts and faster serialization.",
+      "endpoints_or_signatures": [
+       "get",
+       "call"
+      ]
+     },
+     {
+      "name": "protobuf",
+      "description": "Returns data in binary format.",
+      "endpoints_or_signatures": [
+       "get",
+       "call"
+      ]
+     },
+     {
+      "name": "protobuf2",
+      "description": "Returns data in binary format.",
+      "endpoints_or_signatures": [
+       "get",
+       "call"
+      ]
+     },
+     {
+      "name": "protobuf3",
+      "description": "Returns data in binary format.",
+      "endpoints_or_signatures": [
+       "get",
+       "call"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "JSON over HTTP",
+      "pros": [
+       "easy to implement",
+       "fast",
+       "low latency"
+      ],
+      "cons": [
+       "less efficient than GRPC or protobuf"
+      ]
+     },
+     {
+      "option": "GRPC",
+      "pros": [
+       "tight contracts",
+       "faster serialization",
+       "less overhead"
+      ],
+      "cons": [
+       "harder to debug",
+       "more complex"
+      ]
+     },
+     {
+      "option": "protobuf",
+      "pros": [
+       "easy to implement",
+       "fast",
+       "low latency"
+      ],
+      "cons": [
+       "less efficient than GRPC or protobuf"
+      ]
+     },
+     {
+      "option": "protobuf2",
+      "pros": [
+       "easy to implement",
+       "fast",
+       "low latency"
+      ],
+      "cons": [
+       "less efficient than protobuf or protobuf3"
+      ]
+     },
+     {
+      "option": "protobuf3",
+      "pros": [
+       "easy to implement",
+       "fast",
+       "low latency"
+      ],
+      "cons": [
+       "less efficient than protobuf or protobuf2"
+      ]
+     }
+    ],
+    "decisions": [
+     "Use JSON over HTTP for internal services",
+     "Use GRPC for inventory service only"
+    ],
+    "todos": [
+     {
+      "task": "Define the inventory proto with JSON over HTTP",
+      "owner": "Priya",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": [
+     "How does JSON over HTTP compare to GRPC?",
+     "What are the tradeoffs of using JSON over HTTP?",
+     "What are the pros and cons of using GRPC for the inventory service?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 5,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 5,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 5,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.5106382978723404,
+     "context": 0.5
+    },
+    "extracted": 21,
+    "ungrounded": 10
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-030",
+   "valid": true,
+   "prompt_tokens": 1029,
+   "latency_ms": 3340,
+   "n_prompt": 1029,
+   "n_gen": 264,
+   "prefill_ms": 440.211,
+   "decode_ms": 2896.917709,
+   "output": {
+    "title": "Resumable chunk uploads",
+    "context": "Improving performance on large files",
+    "concepts": [
+     "chunked uploads",
+     "resumable uploads"
+    ],
+    "api_designs": [
+     {
+      "name": "Resumable chunk endpoint",
+      "description": "Returns a list of chunks for a given upload ID.",
+      "endpoints_or_signatures": [
+       "GET /upload/{id}/chunks"
+      ]
+     },
+     {
+      "name": "Write chunk endpoint",
+      "description": "Writes a chunk to the upload.",
+      "endpoints_or_signatures": [
+       "POST /upload/{id}/chunks"
+      ]
+     },
+     {
+      "name": "Write upload endpoint",
+      "description": "Writes the entire upload to disk.",
+      "endpoints_or_signatures": [
+       "POST /upload/{id}"
+      ]
+     }
+    ],
+    "tradeoffs": [
+     {
+      "option": "Chunked uploads",
+      "pros": [
+       "improves performance on large files"
+      ],
+      "cons": [
+       "may introduce latency"
+      ]
+     },
+     {
+      "option": "Resumable uploads",
+      "pros": [
+       "enables efficient use of bandwidth",
+       "enables efficient use of disk space"
+      ],
+      "cons": [
+       "may require additional infrastructure to handle resumable uploads"
+      ]
+     }
+    ],
+    "decisions": [
+     "Use resumable chunk uploads",
+     "start with chunked uploads"
+    ],
+    "todos": [
+     {
+      "task": "Implement resumable chunk endpoint",
+      "owner": "Ravi",
+      "t": "00:00:11"
+     }
+    ],
+    "open_questions": [
+     "How does chunked uploads impact performance on large files?",
+     "What is the latency of resumable uploads?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.42424242424242425
+    },
+    "extracted": 12,
+    "ungrounded": 1
+   },
+   "issues": []
+  }
+ ]
+}

@@ -14,4 +14,7 @@ abstract interface class ShareService {
     String? subject,
     Rect? origin,
   });
+
+  /// Shares plain [text] (e.g. a rendered note, EXP-08) through the sheet.
+  Future<ShareOutcome> shareText(String text, {String? subject, Rect? origin});
 }

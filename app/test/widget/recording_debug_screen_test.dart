@@ -10,6 +10,7 @@ import 'package:vaultvoice/features/recording/presentation/recording_screen.dart
 
 import '../fakes/fake_call_guard.dart';
 import '../fakes/fake_capture_backend.dart';
+import '../helpers/record_screen_overrides.dart';
 
 final selected = <AudioInputDevice?>[];
 
@@ -23,6 +24,7 @@ void main() {
     await t.pumpWidget(
       ProviderScope(
         overrides: [
+          ...recordScreenPickerOverrides(),
           captureBackendProvider.overrideWithValue(capture),
           callGuardProvider.overrideWithValue(guard),
           flavorProvider.overrideWithValue(flavor),

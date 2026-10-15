@@ -1,0 +1,45 @@
+{
+  "title": "Pagination for the items list",
+  "context": "The items list endpoint returns everything at once and is too slow.",
+  "concepts": [
+    "cursor pagination"
+  ],
+  "api_designs": [
+    {
+      "name": "Items list",
+      "description": "Lists items page by page.",
+      "endpoints_or_signatures": [
+        "GET /items?cursor=…&limit=…"
+      ]
+    }
+  ],
+  "tradeoffs": [
+    {
+      "option": "Offset pagination",
+      "pros": [
+        "simple"
+      ],
+      "cons": [
+        "breaks when items are inserted"
+      ]
+    },
+    {
+      "option": "Cursor pagination",
+      "pros": [
+        "stable"
+      ],
+      "cons": []
+    }
+  ],
+  "decisions": [
+    "Use cursor pagination"
+  ],
+  "todos": [
+    {
+      "task": "Update the client SDK to follow the cursor",
+      "owner": "Omar",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

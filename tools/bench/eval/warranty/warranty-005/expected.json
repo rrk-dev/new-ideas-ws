@@ -1,0 +1,15 @@
+{
+  "product": "washing machine",
+  "brand": "Proseware",
+  "model": "Wash 8",
+  "serial_number": "PW800K3",
+  "purchase_date": "February tenth",
+  "retailer": "Home Hub",
+  "price": "520 euros",
+  "warranty_period": {
+    "value": 3,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": null
+}

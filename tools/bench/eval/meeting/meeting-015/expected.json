@@ -1,0 +1,21 @@
+{
+  "title": "New office move",
+  "summary": "The new office opens on the first of May. Nadia will email Hana, who could not join, the move schedule this afternoon.",
+  "attendees": [
+    "Nadia",
+    "Omar"
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "task": "Email Hana the move schedule",
+      "owner": "Nadia",
+      "due": "this afternoon",
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "office move"
+  ]
+}

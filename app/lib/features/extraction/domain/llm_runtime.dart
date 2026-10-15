@@ -16,6 +16,7 @@ final class LlmRunStats {
     required this.prefill,
     required this.decode,
     required this.usedGpu,
+    this.reusedPromptTokens = 0,
   });
 
   final LlmRunStatus status;
@@ -25,6 +26,9 @@ final class LlmRunStats {
   final Duration prefill;
   final Duration decode;
   final bool usedGpu;
+
+  /// Prompt tokens served from the KV cache (LLM-06 prefix reuse).
+  final int reusedPromptTokens;
 
   double get decodeTokensPerSecond => decode.inMicroseconds == 0
       ? 0
@@ -66,6 +70,7 @@ abstract interface class LlmSession {
     required LlmSampling sampling,
     required int maxTokens,
     String? grammar,
+    bool reusePrefix = false,
   });
 
   /// Frees the model; idempotent.

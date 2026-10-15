@@ -172,6 +172,55 @@ final class ClockProvider extends $FunctionalProvider<Clock, Clock, Clock>
 
 String _$clockHash() => r'55214d6539f7396a3ae1aa23b06eea79fdac0ebe';
 
+/// `libvv_native` outside an app bundle (host tests and tools); null on
+/// devices, where the library is bundled with the app.
+
+@ProviderFor(nativeLibraryPath)
+final nativeLibraryPathProvider = NativeLibraryPathProvider._();
+
+/// `libvv_native` outside an app bundle (host tests and tools); null on
+/// devices, where the library is bundled with the app.
+
+final class NativeLibraryPathProvider
+    extends $FunctionalProvider<String?, String?, String?>
+    with $Provider<String?> {
+  /// `libvv_native` outside an app bundle (host tests and tools); null on
+  /// devices, where the library is bundled with the app.
+  NativeLibraryPathProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'nativeLibraryPathProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$nativeLibraryPathHash();
+
+  @$internal
+  @override
+  $ProviderElement<String?> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  String? create(Ref ref) {
+    return nativeLibraryPath(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(String? value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<String?>(value),
+    );
+  }
+}
+
+String _$nativeLibraryPathHash() => r'1fbf8c594a50e3bab3c25ce2aefb56388f563af1';
+
 /// Allowlist config: model catalog/CDN hosts only (MDL-01).
 
 @ProviderFor(networkConfig)
@@ -218,6 +267,62 @@ final class NetworkConfigProvider
 
 String _$networkConfigHash() => r'1467334b9f04701cb710320ab4a80f1a53b51933';
 
+/// In-app "Network activity" log (SEC-02). In memory by default;
+/// `bootstrap` overrides it with the file-backed log `vv/network/`.
+
+@ProviderFor(networkActivityLog)
+final networkActivityLogProvider = NetworkActivityLogProvider._();
+
+/// In-app "Network activity" log (SEC-02). In memory by default;
+/// `bootstrap` overrides it with the file-backed log `vv/network/`.
+
+final class NetworkActivityLogProvider
+    extends
+        $FunctionalProvider<
+          NetworkActivityLog,
+          NetworkActivityLog,
+          NetworkActivityLog
+        >
+    with $Provider<NetworkActivityLog> {
+  /// In-app "Network activity" log (SEC-02). In memory by default;
+  /// `bootstrap` overrides it with the file-backed log `vv/network/`.
+  NetworkActivityLogProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'networkActivityLogProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$networkActivityLogHash();
+
+  @$internal
+  @override
+  $ProviderElement<NetworkActivityLog> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  NetworkActivityLog create(Ref ref) {
+    return networkActivityLog(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(NetworkActivityLog value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<NetworkActivityLog>(value),
+    );
+  }
+}
+
+String _$networkActivityLogHash() =>
+    r'8e0bd3fb441a36394a42bac11d5f0ad77edaf10e';
+
 @ProviderFor(networkGateway)
 final networkGatewayProvider = NetworkGatewayProvider._();
 
@@ -257,4 +362,4 @@ final class NetworkGatewayProvider
   }
 }
 
-String _$networkGatewayHash() => r'500c71f7df68376d2b76590ec3cfaadad23cbdc9';
+String _$networkGatewayHash() => r'1d0fa9bc7acc074aaa41144b14ed1b5a51230423';

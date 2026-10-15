@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/features/recording/domain/audio_format.dart';
+import 'package:vaultvoice/features/recording/domain/audio_processing.dart';
 
 /// Android audio source. **Only** these two are allowed (SEC-09,
 /// ADR-SEC-09 §1); there is deliberately no way to express another.
@@ -28,11 +29,29 @@ final class MicRequest {
   final AudioInputDevice? device;
   final MicAudioSource androidSource;
 
-  /// Platform voice-processing flags. Off by default: AUD-02 decides from
-  /// QA-02 corpus data (voice processing can hurt far-field audio).
+  /// Platform voice-processing flags, resolved from the user's settings by
+  /// `resolveAudioProcessing` (AUD-02) before every open.
   final bool autoGain;
   final bool echoCancel;
   final bool noiseSuppress;
+
+  /// This request with the input replaced (null = platform default).
+  MicRequest withDevice(AudioInputDevice? device) => MicRequest(
+    device: device,
+    androidSource: androidSource,
+    autoGain: autoGain,
+    echoCancel: echoCancel,
+    noiseSuppress: noiseSuppress,
+  );
+
+  /// This request with the platform voice-processing flags of [p].
+  MicRequest withProcessing(ResolvedAudioProcessing p) => MicRequest(
+    device: device,
+    androidSource: androidSource,
+    autoGain: p.autoGain,
+    echoCancel: p.echoCancel,
+    noiseSuppress: p.noiseSuppress,
+  );
 }
 
 /// The format the platform actually delivers (may differ from 16 kHz mono,

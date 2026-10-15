@@ -5,6 +5,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:vaultvoice/app.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
+import 'package:vaultvoice/features/onboarding/data/onboarding_providers.dart';
 
 /// Directory holding the files from `tools/ci/fetch_test_models.sh`, already
 /// copied onto the device (`--dart-define=VV_TEST_MODELS_DIR=<device path>`).
@@ -21,7 +22,11 @@ void main() {
   testWidgets('app boots into the tab shell on device', (tester) async {
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [flavorProvider.overrideWithValue(Flavor.dev)],
+        overrides: [
+          flavorProvider.overrideWithValue(Flavor.dev),
+          // Skip the first-launch flow (APP-01; covered by widget tests).
+          onboardingRequiredProvider.overrideWith((ref) => Stream.value(false)),
+        ],
         child: const App(),
       ),
     );

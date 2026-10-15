@@ -1,0 +1,15 @@
+{
+  "product": "coffee grinder",
+  "brand": "Contoso",
+  "model": "Burr 3",
+  "serial_number": null,
+  "purchase_date": "March first",
+  "retailer": "Northwind Market",
+  "price": "89 dollars",
+  "warranty_period": {
+    "value": 1,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": null
+}

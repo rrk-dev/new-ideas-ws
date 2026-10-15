@@ -1,0 +1,21 @@
+{
+  "title": "Help center sync",
+  "summary": "Aisha will fix the broken search on the help center by Friday.",
+  "attendees": [
+    "Aisha",
+    "Tomas"
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "task": "Fix the broken search on the help center",
+      "owner": "Aisha",
+      "due": "Friday",
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "help center"
+  ]
+}

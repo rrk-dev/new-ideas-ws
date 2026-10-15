@@ -1,0 +1,3 @@
+[00:00:00] Kofi: Idea for the importer, stream the CSV file instead of loading it into memory.
+[00:00:05] Kofi: That way large files don't crash the app.
+[00:00:08] Kofi: To do, benchmark streaming with a 1 GB file.

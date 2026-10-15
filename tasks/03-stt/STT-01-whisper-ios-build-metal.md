@@ -40,3 +40,18 @@ whisper.cpp runs on iOS with GPU acceleration.
 - **Follow-ups:** CI native-host job should run `tools/ci/fetch_test_models.sh ggml-tiny.en.bin jfk.wav`
   and export `VV_TEST_MODELS_DIR` so the `stt_backend_*` ctests run instead of skipping (CI owner);
   iOS 16.0 vs 16.4 minimum (ADR-FND-06, user).
+
+
+## Verification Report
+- **Verifier:** Codex · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ (387 files, 0 changed) · analyze ✅ (zero issues) · Flutter tests ✅ (785 passed, 24 skipped; coverage 93.3%, gate 80%) · pytest ✅ (66 passed) · native host ✅ (fresh native/build.sh host; model-backed ctest 21 passed, 2 explicitly skipped) · egress ✅ · recording policy ✅ · tasks validate ✅ (85 tasks, 0 problems) · CI run: local. No Xcode/NDK/mobile SDKs; no mobile/device reruns.
+- **Acceptance criteria:**
+  - AC1: ⏳ iPhone 13 <6 s for 60 s base.en Q8, iPhone 11 numbers and background CPU rows have explicit steps but no results. Host CPU/Metal keyword ctests passed; they do not establish iPhone performance.
+  - AC2: ✅ tagged pytest checks the Proposed ADR and measured Metal/Core ML raw labels/numbers. Read ADR, raw benchmark artifact and Core ML build flags against whisper v1.9.5; device warm/cold/companion fallback rows remain ⏳.
+- **Mutation sanity check:** Disabled WHISPER_COREML_ALLOW_FALLBACK in native/CMakeLists.txt: the Core ML configuration test failed (1 failed); restored with git checkout.
+- **Adversarial checks:** CPU-only and Metal host transcription passed. Missing Core ML companion cannot be tested in the default non-Core-ML build (ctest explicitly skipped). iPhone measurements were not inferred from Mac numbers.
+- **Device evidence:** Reviewed every row in `docs/test-plans/device/STT-01.md`. Result/date/tester cells are unfilled; no physical run is represented as PASS. The user explicitly permits a provisional verifier PASS with these rows pending.
+- **Skill/rule compliance:** Read AGENTS.md, verifier prompt, workflow/verification skills and all task-listed skills; reviewed the merged implementation at main (no unmerged task diff). Pins checked against local headers. RTK.md is referenced by the supplied instructions but absent. Product code/tests unchanged after temporary mutations; no criteria weakened, GitHub API/gh, pushes, git config edits or model commits.
+- **Issues found:** none in the verified host implementation; physical acceptance remains pending.
+- **Pending for done:** STT-01: FAIL AC1: still pending (⏳) — cannot be done | STT-01: FAIL AC1: device row in docs/test-plans/device/STT-01.md has no PASS result with a date | STT-01: FAIL AC2: still pending (⏳) — cannot be done | STT-01: FAIL AC2: device row in docs/test-plans/device/STT-01.md has no PASS result with a date | STT-01: FAIL dependency FND-06 is not done | STT-01: FAIL FND-03 (CI / test framework) must be done before any non-bootstrap task | STT-01: FAIL QA-01 (CI / test framework) must be done before any non-bootstrap task | refusing to set STT-01 to done: 7 problem(s) (see vv-task-verify)
