@@ -1,0 +1,23 @@
+tasks/01-foundation/FND-03-ci-pipeline.md
+  s_5a534bed398a49::t_3af8bd81ec12ec 4
+  s_5a534bed398a49::t_826acd851eb64c 46-49,54
+  s_5a534bed398a49::t_451ad69a457d46 55
+tasks/10-security-privacy/SEC-09-recording-safeguards-no-call-capture.md
+  s_5a534bed398a49::t_a7f5c4a9d37430 4,65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4b35ea827392d0ce9df91c74ca0fa8d1fca34cd3",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
