@@ -1,0 +1,25 @@
+app/lib/features/recording/presentation/recording_indicator_binding.dart
+  s_ef737ddb7fda7e::t_ae548931bb3412 4
+app/lib/features/recording/presentation/recording_screen.dart
+  s_ef737ddb7fda7e::t_0c5e68041b1270 9,47-48,50,81-85,90-94,106-107,115,118-125
+app/test/unit/recording/recording_indicator_test.dart
+  s_ef737ddb7fda7e::t_1f35b3aa372f07 5
+app/test/widget/record_screen_test.dart
+  s_ef737ddb7fda7e::t_94a3db78a7b59f 218-228,402-403,406
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d6bd81e569d3936141a552dc09657b6108d9f78b",
+  "prompts": {},
+  "sessions": {
+    "s_ef737ddb7fda7e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "cbbe9237-ba5d-41e1-b0c2-4afbc11e83ad",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
