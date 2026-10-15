@@ -45,3 +45,5 @@ Users (and enterprises) control how long raw audio and transcripts are kept.
   retention runs at app start + hourly while open (no background task).
 - **Follow-ups:** APP-02 should call `recordingPurgerProvider` for per-recording delete in the
   library; SEC-10 (per-file crypto-shredding with `vvenc`).
+- Codex review 2026-10-15 (open): after Delete all data the open DB stays encrypted with db.next and the hourly sweep deletes that key; finish rotation only after confirmed rekey to db.v1 and test wipe, same-session sweep, restart.
+- Codex review 2026-10-15 (open): recording_purger orphan cleanup keeps audio/rendered files while the recording row survives; persist pending deletions or reconcile files against remaining content rows.

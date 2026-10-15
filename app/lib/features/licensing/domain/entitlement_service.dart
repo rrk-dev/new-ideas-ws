@@ -19,5 +19,9 @@ abstract interface class EntitlementService {
   /// Replaces the stored entitlement (called by verification sources).
   void update(Entitlement entitlement);
 
+  /// Re-evaluates the entitlement against the clock (e.g. on app resume, in
+  /// case the wall clock jumped past an expiry).
+  void refresh();
+
   Future<void> dispose();
 }

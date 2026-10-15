@@ -285,6 +285,49 @@ void main() {
   });
 
   test(
+    '[PRF-08/AC1] a non-string created_by is a bad manifest, not a crash',
+    () async {
+      final a = _Device();
+      expectOk(await a.profiles.save(_draft));
+      final files = _unzip(
+        expectOk(await a.transfer.export('sprint', createdBy: 'A')),
+      );
+      final manifest = jsonDecode(
+        utf8.decode(files['manifest.json']!),
+      ) as Map<String, Object?>;
+      final bytes = _zip({
+        ...files,
+        'manifest.json': utf8.encode(
+          jsonEncode({...manifest, 'created_by': 7}),
+        ),
+      });
+      expect(await _rejection(bytes), BundleRejection.badManifest);
+    },
+  );
+
+  test("[PRF-08/AC1] a new profile cannot overwrite another profile's "
+      'template', () async {
+    final a = _Device();
+    expectOk(await a.profiles.save(_draft));
+    final v1 = expectOk(await a.transfer.export('sprint', createdBy: 'A'));
+    final b = _Device();
+    expectOk(
+      await b.transfer.install((await b.transfer.inspect(v1)) as ImportReady),
+    );
+    final files = _unzip(v1);
+    final def = jsonDecode(utf8.decode(files['profile.yaml']!)) as Map;
+    final clash = await const ProfileBundleCodec().encode(
+      Profile.fromJson({...def.cast<String, Object?>(), 'id': 'sprint-two'}),
+      'overwritten',
+      createdBy: 'x',
+    );
+    expect(
+      ((await b.transfer.inspect(clash)) as ImportRefused).reason,
+      ImportRefusal.idTaken,
+    );
+  });
+
+  test(
     'zip slip, oversize, unexpected files and unknown formats are refused',
     () async {
       final a = _Device();

@@ -26,6 +26,24 @@ const _fields = [
 ];
 
 void main() {
+  test('[PRF-07/AC1] reopening and re-saving does not stack the fixed '
+      'instruction lines', () {
+    var draft = const ProfileDraft(
+      id: 'idem',
+      name: 'Idem',
+      instructions: '- Be brief.',
+      fields: _fields,
+    );
+    final first = validateDraft(draft).profile!;
+    for (var i = 0; i < 3; i++) {
+      draft = ProfileDraft.fromProfile(validateDraft(draft).profile!)
+          .copyWith(id: 'idem');
+    }
+    final again = validateDraft(draft).profile!;
+    expect(again.instructions, first.instructions);
+    expect(draft.instructions, '- Be brief.');
+  });
+
   test('[PRF-07/AC1] every field kind generates a valid, bounded schema and '
       'a template that passes the strict variable check', () {
     const draft = ProfileDraft(

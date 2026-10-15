@@ -53,3 +53,5 @@ Make the privacy promise verifiable: user content never leaves the device, and a
   log keeps the last 500 requests.
 - **Follow-ups:** add `check_packages.sh` to CI (above); SEC-06 uses the capture report for the
   store "Data not collected" answers.
+- Codex review 2026-10-15 (open): iOS ModelDownloadPlugin.swift:272 host validation happens after redirected requests receive data; authorize every redirect before sending (native, device).
+- Codex review 2026-10-15 (open): egress_capture_test full pipeline uses fake engines and only intercepts the injected client; add production-engine coverage with process-wide egress interception and a deliberate forbidden-request check (device/native).

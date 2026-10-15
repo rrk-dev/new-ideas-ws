@@ -107,12 +107,12 @@ class AppLockPlugin : FlutterPlugin, ActivityAware, MethodChannel.MethodCallHand
         if (!keyguard.isDeviceSecure) return result.success("unavailable")
         pending = result
         when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.P -> prompt(activity, reason)
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> prompt(activity, reason)
             else -> confirmCredential(activity, keyguard, reason)
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.P)
+    @TargetApi(Build.VERSION_CODES.Q)
     private fun prompt(activity: Activity, reason: String) {
         val builder = BiometricPrompt.Builder(activity).setTitle(reason)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -121,6 +121,7 @@ class AppLockPlugin : FlutterPlugin, ActivityAware, MethodChannel.MethodCallHand
                     BiometricManager.Authenticators.DEVICE_CREDENTIAL,
             )
         } else {
+            // API 29 only: setDeviceCredentialAllowed does not exist on API 28.
             @Suppress("DEPRECATION")
             builder.setDeviceCredentialAllowed(true)
         }

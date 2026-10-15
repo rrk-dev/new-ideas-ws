@@ -62,3 +62,4 @@ Install models from a local file (USB, AirDrop, MDM-pushed file) with zero netwo
 - **Skill/rule compliance:** Signature and hash path is the MDL-01 verifier plus the MDL-02 installer. No network code outside the gateway. `file_selector` is the system picker. ADR-MDL-04 Proposed. The pipeline half of the criterion is device-only and still ⏳.
 - **Issues found:** none
 - **Pending for done:** AC1: still pending (⏳) — cannot be done; AC1: device row in docs/test-plans/device/MDL-04.md has no PASS result with a date; dependency MDL-01 is not done; dependency MDL-02 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task
+- Codex review 2026-10-15 (open): enabling network_disabled leaves active transfers running and native background tasks uncancelled; observe the setting and stop all transports.

@@ -305,11 +305,16 @@ final class ProfileBundleCodec {
         for (final i in templateIssues) '$i',
       ]);
     }
+    final rawCreatedBy = manifest['created_by'];
+    if (rawCreatedBy != null && rawCreatedBy is! String) {
+      throw const BundleException(BundleRejection.badManifest);
+    }
+    final createdBy = (rawCreatedBy as String?) ?? '';
     return ProfileBundle(
       profile: profile,
       template: template,
       managed: isManaged,
-      createdBy: (manifest['created_by'] as String?) ?? '',
+      createdBy: createdBy,
     );
   }
 

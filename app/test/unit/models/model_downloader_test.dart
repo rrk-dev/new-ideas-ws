@@ -252,6 +252,24 @@ void main() {
       await expectInstalled();
     });
 
+    test('[MDL-02/AC2] cancel during verification does not install', () async {
+      server.routes['$_cdn/stt/ggml-tiny.en.bin'] = FileRoute(bytes);
+      late final ModelDownloader d;
+      d = downloader(
+        verify: (path, m) async {
+          unawaited(d.cancel('whisper-tiny.en'));
+          return await verifyModelFileInIsolate(path, m);
+        },
+      );
+      final r = await d.download(model());
+      expect(r.failureOrNull, isA<CancelledFailure>());
+      expect(installedFile().existsSync(), isFalse);
+      expect(
+        (await database.modelsRepository.get('whisper-tiny.en')).valueOrNull,
+        isNull,
+      );
+    });
+
     test('cancel deletes the partial file', () async {
       server.routes['$_cdn/stt/ggml-tiny.en.bin'] = FileRoute(bytes);
       final d = downloader();

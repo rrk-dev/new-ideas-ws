@@ -1,11 +1,28 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/features/app_lock/data/platform_app_lock.dart';
 import 'package:vaultvoice/features/app_lock/domain/app_lock.dart';
+import 'package:vaultvoice/features/app_lock/presentation/app_lock_providers.dart';
+import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 
 void main() {
+  test('[SEC-03/AC1] a failed settings read keeps the app locked', () async {
+    final c = ProviderContainer(
+      overrides: [
+        settingStateProvider.overrideWith(
+          (ref, key) => throw StateError('settings unreadable'),
+        ),
+      ],
+    );
+    addTearDown(c.dispose);
+    c.listen(appLockProvider, (_, _) {});
+    await Future<void>.delayed(Duration.zero);
+    expect(c.read(appLockProvider).locked, isTrue);
+  });
+
   final t0 = DateTime.utc(2026, 10, 14, 9);
 
   group('[SEC-03/AC1] lock timeout', () {

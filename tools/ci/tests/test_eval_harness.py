@@ -107,6 +107,7 @@ def test_PRF_09_AC1_ci_eval_runs_on_prompt_or_profile_changes_only():
     assert decide(["app/assets/profiles/meeting.yaml"]) == "run"
     assert decide(["app/lib/features/profiles/domain/prompt_builder.dart"]) == "run"
     assert decide(["tools/bench/eval/meeting/meeting-001/expected.json"]) == "run"
+    assert decide(["app/lib/features/profiles/domain/extraction_prompts.dart"]) == "run"
     assert decide(["native/llama.cpp"]) == "run"
     assert decide(["app/lib/features/recording/domain/wav_header.dart", "README.md"]) == "skip"
     assert decide([]) == "skip"

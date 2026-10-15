@@ -304,7 +304,10 @@ class ModelDownloader {
         if (completed) {
           _emit(model, DownloadPhase.verifying, model.size);
           final verified = await _verify(_partial(id).path, model);
-          if (verified.isOk) return await _install(model);
+          if (verified.isOk) {
+            if (control.isStopped) return await _stopped(model, control);
+            return await _install(model);
+          }
           // Corrupt (hash or size mismatch): delete and re-download from
           // zero once; a second mismatch is an error.
           await _partial(id).delete();
