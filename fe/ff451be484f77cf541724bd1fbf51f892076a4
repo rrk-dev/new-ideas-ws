@@ -1,0 +1,19 @@
+tasks/01-foundation/FND-09-macos-desktop-target.md
+  s_e569db543a6da9::t_11a905b39f6e3b 4,13,28,30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "feff451be484f77cf541724bd1fbf51f892076a4",
+  "prompts": {},
+  "sessions": {
+    "s_e569db543a6da9": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "09dbfa80-ad07-491f-94a7-644f39874107",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
