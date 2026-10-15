@@ -170,6 +170,140 @@ void main() {
       expect(const OutputSchemaValidator().validate(o.data, schema), isEmpty);
     });
 
+    group('[LLM-05/AC1] cleanup is revalidated (rework-1)', () {
+      ExtractionRequest req(Map<String, Object?> schema) => ExtractionRequest(
+        systemPrompt: 's',
+        userPrompt: 'u',
+        schema: schema,
+        grammar: 'g',
+        transcriptTimestamps: const {'00:00:05'},
+      );
+      const rootT = <String, Object?>{
+        'type': 'object',
+        'required': ['t'],
+        'properties': {
+          't': {'type': 'string', 'maxLength': 8},
+        },
+      };
+
+      test('[LLM-05/AC1] required root evidence that cannot be verified is '
+          'never reported as valid; repair then summary fallback', () async {
+        final engine = ScriptedLlmEngine([
+          '{"t":"00:00:09"}',
+          '{"t":"00:00:07"}',
+          'Title\nSummary.',
+        ]);
+        final o = (await StructuredExtractor(engine).extract(req(rootT)))
+            .valueOrNull!;
+        expect(o.valid, isFalse);
+        expect(o.data, isNull);
+        expect(o.repairUsed, isTrue);
+        expect(o.fallbackSummary, startsWith('Title'));
+        expect(engine.requests, hasLength(3));
+        // The repair prompt names the rule, never the invented value.
+        expect(
+          engine.requests[1].prompt,
+          contains(r'$.t: evidence timestamp not found in transcript'),
+        );
+        expect(o.issues.join(), isNot(contains('00:00:07')));
+      });
+
+      test(
+        '[LLM-05/AC1] repair with verifiable evidence is accepted',
+        () async {
+          final engine = ScriptedLlmEngine([
+            '{"t":"00:00:09"}',
+            '{"t":"00:00:05"}',
+          ]);
+          final o = (await StructuredExtractor(engine).extract(req(rootT)))
+              .valueOrNull!;
+          expect(o.valid, isTrue);
+          expect(o.repairUsed, isTrue);
+          expect(o.data, {'t': '00:00:05'});
+        },
+      );
+
+      test('[LLM-05/AC1] dropping items below minItems is not valid', () async {
+        const schema = <String, Object?>{
+          'type': 'object',
+          'required': ['items'],
+          'properties': {
+            'items': {
+              'type': 'array',
+              'minItems': 1,
+              'items': {
+                'type': 'object',
+                'required': ['text', 't'],
+                'properties': {
+                  'text': {'type': 'string'},
+                  't': {'type': 'string'},
+                },
+              },
+            },
+          },
+        };
+        final engine = ScriptedLlmEngine([
+          '{"items":[{"text":"a","t":"00:00:09"}]}',
+          '{"items":[{"text":"a","t":"00:00:08"}]}',
+        ]);
+        final o = (await StructuredExtractor(engine).extract(
+          const ExtractionRequest(
+            systemPrompt: 's',
+            userPrompt: 'u',
+            schema: schema,
+            grammar: 'g',
+            transcriptTimestamps: {'00:00:05'},
+            summaryFallback: false,
+          ),
+        )).valueOrNull!;
+        expect(o.valid, isFalse);
+        expect(o.data, isNull);
+        expect(o.issues, contains(r'$.items: fewer than minItems 1'));
+      });
+
+      test('[LLM-05/AC1] nested objects: required one invalidates, optional '
+          'one is removed; accepted data always revalidates', () async {
+        const inner = <String, Object?>{
+          'type': 'object',
+          'required': ['t'],
+          'properties': {
+            't': {'type': 'string'},
+          },
+        };
+        const requiredNested = <String, Object?>{
+          'type': 'object',
+          'required': ['obj'],
+          'properties': {'obj': inner},
+        };
+        const optionalNested = <String, Object?>{
+          'type': 'object',
+          'properties': {
+            'obj': inner,
+            'n': {'type': 'integer'},
+          },
+        };
+        final bad = ScriptedLlmEngine([
+          '{"obj":{"t":"00:00:09"}}',
+          '{"obj":{"t":"00:00:09"}}',
+          'T\nS.',
+        ]);
+        final o1 = (await StructuredExtractor(bad).extract(req(requiredNested)))
+            .valueOrNull!;
+        expect(o1.valid, isFalse);
+        expect(o1.data, isNull);
+
+        final ok = ScriptedLlmEngine(['{"obj":{"t":"00:00:09"},"n":1}']);
+        final o2 = (await StructuredExtractor(ok).extract(req(optionalNested)))
+            .valueOrNull!;
+        expect(o2.valid, isTrue);
+        expect(o2.data, {'n': 1});
+        expect(
+          const OutputSchemaValidator().validate(o2.data, optionalNested),
+          isEmpty,
+        );
+      });
+    });
+
     test('invalid answer -> one repair with the issues, then valid', () async {
       final engine = ScriptedLlmEngine([
         '{"title":"Sync"}',

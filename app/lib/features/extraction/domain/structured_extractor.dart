@@ -112,8 +112,8 @@ final class StructuredExtractor {
     );
     if (first case Err(:final failure)) return Err(failure);
     var output = first.valueOrNull!;
-    var (data, issues) = _parse(output, req.schema);
-    if (data != null) return Ok(_accept(data, req, repairUsed: false));
+    var (accepted, issues) = _attempt(output, req, repairUsed: false);
+    if (accepted != null) return Ok(accepted);
 
     // One repair attempt: the error list + previous output, greedy.
     final repair = await _engine.generate(
@@ -137,8 +137,8 @@ final class StructuredExtractor {
       }
     } else {
       output = repair.valueOrNull!;
-      (data, issues) = _parse(output, req.schema);
-      if (data != null) return Ok(_accept(data, req, repairUsed: true));
+      (accepted, issues) = _attempt(output, req, repairUsed: true);
+      if (accepted != null) return Ok(accepted);
     }
 
     if (!req.summaryFallback) {
@@ -188,30 +188,67 @@ final class StructuredExtractor {
     return (decoded, const []);
   }
 
-  ExtractionOutcome _accept(
-    Map<String, Object?> data,
+  /// Parse + validate + evidence cleanup + **revalidation** of one model
+  /// answer. Returns the accepted outcome, or null with the (content-free)
+  /// issues that send the answer to repair / fallback. An outcome is only
+  /// ever `valid = true` when the cleaned data passes the full schema
+  /// (LLM-05 rework-1: cleanup can remove required keys or list items).
+  (ExtractionOutcome?, List<String>) _attempt(
+    String output,
     ExtractionRequest req, {
     required bool repairUsed,
   }) {
+    final (data, issues) = _parse(output, req.schema);
+    if (data == null) return (null, issues);
+    final (cleaned, dropped, evidenceIssues) = _clean(data, req);
+    final after = cleaned == null
+        ? const <String>[]
+        : validator.validate(cleaned, req.schema);
+    if (cleaned == null || after.isNotEmpty) {
+      return (null, {...after, ...evidenceIssues}.toList());
+    }
+    return (
+      ExtractionOutcome(
+        valid: true,
+        repairUsed: repairUsed,
+        data: cleaned,
+        droppedEvidence: dropped,
+      ),
+      const <String>[],
+    );
+  }
+
+  /// Schema-aware cleanup of unverifiable evidence (`t` not in the
+  /// transcript): optional key -> removed; nullable -> null; required and
+  /// non-nullable -> the enclosing object is dropped (an item whose only
+  /// evidence is invented is most likely invented too). A dropped list item
+  /// is removed from the list; a dropped object under an optional key is
+  /// removed; under a required key the drop propagates upwards. Returns
+  /// null data when the root itself was dropped. The caller revalidates
+  /// (e.g. a list may fall below `minItems`).
+  (Map<String, Object?>?, int, List<String>) _clean(
+    Map<String, Object?> data,
+    ExtractionRequest req,
+  ) {
     var dropped = 0;
-    // Schema-aware cleanup of unverifiable evidence (`t` not in the
-    // transcript): optional key -> removed; nullable -> null; required and
-    // non-nullable -> the whole list item is dropped (an item whose only
-    // evidence is invented is most likely invented too). The result stays
-    // schema-valid.
+    final evidenceIssues = <String>[];
     const drop = Object();
-    Object? clean(Object? v, Map<String, Object?>? s) {
+    Object? clean(Object? v, Map<String, Object?>? s, String path) {
       if (v is Map<String, Object?>) {
         final props = (s?['properties'] as Map<String, Object?>?) ?? const {};
         final required = (s?['required'] as List<Object?>?) ?? const [];
         final out = <String, Object?>{};
         for (final e in v.entries) {
           final sub = props[e.key] as Map<String, Object?>?;
+          final at = '$path.${e.key}';
           if (e.key == evidenceKey && e.value is String) {
             final ts = e.value! as String;
             if (!_timestamp.hasMatch(ts) ||
                 !req.transcriptTimestamps.contains(ts)) {
               dropped++;
+              evidenceIssues.add(
+                '$at: evidence timestamp not found in transcript',
+              );
               final type = sub?['type'];
               final nullable =
                   type == 'null' || (type is List && type.contains('null'));
@@ -223,28 +260,32 @@ final class StructuredExtractor {
               continue;
             }
           }
-          out[e.key] = clean(e.value, sub);
+          final c = clean(e.value, sub, at);
+          if (identical(c, drop)) {
+            if (required.contains(e.key)) return drop;
+            continue;
+          }
+          out[e.key] = c;
         }
         return out;
       }
       if (v is List) {
         final item = s?['items'] as Map<String, Object?>?;
         return [
-          for (final x in v)
-            if (clean(x, item) case final c when !identical(c, drop)) c,
+          for (var i = 0; i < v.length; i++)
+            if (clean(v[i], item, '$path[$i]') case final c
+                when !identical(c, drop))
+              c,
         ];
       }
       return v;
     }
 
-    final cleaned = clean(data, req.schema);
-    return ExtractionOutcome(
-      valid: true,
-      repairUsed: repairUsed,
-      data: identical(cleaned, drop)
-          ? const <String, Object?>{}
-          : cleaned! as Map<String, Object?>,
-      droppedEvidence: dropped,
+    final cleaned = clean(data, req.schema, r'$');
+    return (
+      identical(cleaned, drop) ? null : cleaned! as Map<String, Object?>,
+      dropped,
+      evidenceIssues,
     );
   }
 }
