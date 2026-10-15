@@ -1,0 +1,20 @@
+tasks/01-foundation/FND-03-ci-pipeline.md
+  s_9f6fcf8c1840a0::t_390d2bac05c7ec 75-76
+  s_9f6fcf8c1840a0::t_903020f96b9bec 4,65-74,77-78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d9200a393bb00bbe38acf8c05ca5b3222ba31977",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
