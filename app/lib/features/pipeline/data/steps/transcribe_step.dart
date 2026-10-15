@@ -15,6 +15,7 @@ import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/step_support.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
+import 'package:vaultvoice/features/profiles/domain/vocabulary_hints.dart';
 import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 import 'package:vaultvoice/features/transcription/data/window_result_cache.dart';
 import 'package:vaultvoice/features/transcription/domain/hallucination_guards.dart';
@@ -54,6 +55,7 @@ class TranscribeStep implements PipelineStep {
     this.clock = const SystemClock(),
     this.activeModel,
     this.vad,
+    this.profiles,
     this.windowCache = const NoWindowResultCache(),
     this.windowConfig = const WindowPlanConfig(),
   });
@@ -69,6 +71,9 @@ class TranscribeStep implements PipelineStep {
 
   /// Computes speech spans when a recording has none stored (AUD-03).
   final VadEngine? vad;
+
+  /// Profile lookup for the STT vocabulary hints (PRF-05); null = none.
+  final ProfileLookup? profiles;
   final WindowResultCache windowCache;
   final WindowPlanConfig windowConfig;
 
@@ -84,10 +89,32 @@ class TranscribeStep implements PipelineStep {
   @override
   bool canRun(JobSnapshot job) => true;
 
-  String _paramsHash(String modelId, String? vadModel) => fnv1a32(
-    '$modelId|${config.sttLanguage}'
-    '${vadModel == null ? '' : '|vad'}',
-  );
+  String _paramsHash(String modelId, String? vadModel, String? vocabulary) =>
+      fnv1a32(
+        '$modelId|${config.sttLanguage}'
+        '${vadModel == null ? '' : '|vad'}'
+        '${vocabulary == null ? '' : '|v:$vocabulary'}',
+      );
+
+  /// Vocabulary prompt of the recording's profile (its `stt.vocabulary` plus
+  /// the user's additions); null for Auto / unknown profiles or no terms.
+  Future<String?> _vocabulary(String recordingId) async {
+    final lookup = profiles;
+    if (lookup == null) return null;
+    final rec = (await db.recordingsRepository.get(recordingId)).valueOrNull;
+    final profileId = rec?.profileId;
+    if (profileId == null) return null;
+    final profile = await lookup(profileId);
+    if (profile == null) return null;
+    final stored = (await db.settingsRepository.get(
+      SettingKeys.vocabularyFor(profileId),
+    )).valueOrNull;
+    return VocabularyHints.prompt(
+      VocabularyHints.merge(profile.stt.vocabulary, [
+        if (stored is List) ...stored.whereType<String>(),
+      ]),
+    );
+  }
 
   /// The installed VAD model when silence skipping is on, else null.
   Future<bool> _skipSilenceOn() async {
@@ -139,11 +166,19 @@ class TranscribeStep implements PipelineStep {
       );
     }
     final vadModel = await _vadModel();
+    final vocabulary = await _vocabulary(job.recordingId);
     if (stt case final WindowedSttEngine windowed) {
-      return await _runWindows(ctx, chunks, windowed, modelId, vadModel);
+      return await _runWindows(
+        ctx,
+        chunks,
+        windowed,
+        modelId,
+        vadModel,
+        vocabulary,
+      );
     }
     final transcriptId = transcriptIdFor(job.id);
-    final paramsHash = _paramsHash(modelId, vadModel);
+    final paramsHash = _paramsHash(modelId, vadModel, vocabulary);
     final cp = job.checkpoint;
     final resumable =
         cp['paramsHash'] == paramsHash && cp['modelId'] == modelId;
@@ -195,6 +230,7 @@ class TranscribeStep implements PipelineStep {
         onProgress: (f) => ctx.reportProgress((done + f) / total),
         options: SttOptions(
           language: config.sttLanguage,
+          initialPrompt: vocabulary,
           vadModelPath: vadModel,
         ),
       );
@@ -265,6 +301,7 @@ class TranscribeStep implements PipelineStep {
     WindowedSttEngine engine,
     String modelId,
     String? vadModel,
+    String? vocabulary,
   ) async {
     final job = ctx.job;
     final speech = await _speechSpans(job.recordingId, chunks, ctx, vadModel);
@@ -285,6 +322,8 @@ class TranscribeStep implements PipelineStep {
     );
     final windows = plan.windows;
     final transcriptId = transcriptIdFor(job.id);
+    // The vocabulary is only a hint: it stays out of the key so windows
+    // transcribed while recording (no profile terms yet) remain reusable.
     final paramsKey = sttParamsKey(modelId, config.sttLanguage);
     final paramsHash = fnv1a32(
       '$paramsKey|${vadModel == null ? '' : 'vad|'}'
@@ -358,7 +397,10 @@ class TranscribeStep implements PipelineStep {
               ctx.reportProgress((before + f * w.audioMs) / totalMs),
           options: SttOptions(
             language: config.sttLanguage,
-            initialPrompt: carryPrompt(previousText: previous),
+            initialPrompt: carryPrompt(
+              vocabulary: vocabulary,
+              previousText: previous,
+            ),
           ),
         );
         switch (result) {

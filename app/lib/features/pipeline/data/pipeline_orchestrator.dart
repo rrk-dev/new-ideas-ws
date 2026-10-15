@@ -13,6 +13,7 @@ import 'package:vaultvoice/core/utils/ids.dart';
 import 'package:vaultvoice/features/export/data/vault_exporter.dart';
 import 'package:vaultvoice/features/pipeline/data/job_mapper.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
+import 'package:vaultvoice/features/pipeline/data/steps/classify_step.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/diarize_step.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/extract_step.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/render_write_steps.dart';
@@ -28,7 +29,8 @@ import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
 const userPriority = 10;
 
 /// The standard steps (`diarize` only with a [PipelineEngines.diarization]
-/// engine, STT-05; classify is added by PRF-06).
+/// engine, STT-05; classify runs only when the engines supply a profile
+/// list).
 List<PipelineStep> defaultSteps({
   required VaultVoiceDatabase db,
   required StoragePaths paths,
@@ -43,6 +45,7 @@ List<PipelineStep> defaultSteps({
     clock: engines.clock,
     activeModel: engines.activeModel,
     vad: engines.vad,
+    profiles: engines.profiles,
     windowCache: engines.windowCache,
   ),
   if (engines.diarization case final diarization?)
@@ -53,6 +56,13 @@ List<PipelineStep> defaultSteps({
       config: config,
       profiles: engines.profiles,
     ),
+  ClassifyStep(
+    db: db,
+    llm: engines.llm,
+    config: config,
+    activeModel: engines.activeModel,
+    profileList: engines.profileList,
+  ),
   ExtractStep(
     db: db,
     llm: engines.llm,

@@ -46,6 +46,15 @@ for d in "${SCAN[@]}"; do
     if [[ "$line" =~ ^[[:space:]]*(//|\*|/\*|#) ]]; then continue; fi
     allowed=0
     for a in "${ALLOW[@]}"; do [[ "$rel" == "$a"* ]] && allowed=1; done
+    # LIC-02: passive OS reachability prevents offline cached ownership from
+    # masquerading as a verified revocation. These exact declarations cannot
+    # send traffic; all connection/HTTP APIs in the same file remain forbidden.
+    if [ "$rel" = "app/ios/Runner/PurchaseHostApiImpl.swift" ]; then
+      if [[ "$line" =~ ^[[:space:]]*import[[:space:]]Network[[:space:]]*$ ]] ||
+         [[ "$line" =~ ^[[:space:]]*private[[:space:]]let[[:space:]]monitor[[:space:]]=[[:space:]]NWPathMonitor\(\)[[:space:]]*$ ]]; then
+        allowed=1
+      fi
+    fi
     if [ "$allowed" -eq 0 ]; then
       echo "EGRESS: $hit" >&2
       fail=1

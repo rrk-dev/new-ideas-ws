@@ -3,12 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart'
     show ProviderListenableSelect;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
+import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/features/licensing/data/local_entitlement_service.dart';
 import 'package:vaultvoice/features/licensing/domain/entitlement.dart';
 import 'package:vaultvoice/features/licensing/domain/entitlement_service.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_access.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_matrix.dart';
 import 'package:vaultvoice/features/licensing/domain/paywall.dart';
+import 'package:vaultvoice/features/licensing/presentation/router_paywall_presenter.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
 
 part 'licensing_providers.g.dart';
@@ -105,6 +107,7 @@ EntitlementSummary entitlementSummary(Ref ref) {
   );
 }
 
-/// Paywall entry point; LIC-02 overrides it with the store-backed screen.
+/// Paywall entry point opens the typed store-backed screen.
 @Riverpod(keepAlive: true)
-PaywallPresenter paywallPresenter(Ref ref) => const NoPaywallPresenter();
+PaywallPresenter paywallPresenter(Ref ref) =>
+    RouterPaywallPresenter(ref.watch(appRouterProvider));

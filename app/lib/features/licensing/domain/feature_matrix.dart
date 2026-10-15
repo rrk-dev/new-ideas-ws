@@ -3,12 +3,9 @@ import 'package:vaultvoice/features/models/domain/model_catalog.dart';
 
 /// Whether this build sells tiers at all.
 ///
-/// PRODUCT-DECISION: the user has not decided whether VaultVoice is a
-/// personal-only app or a commercial product (prompts/09-licensing.md). The
-/// build-time flag `--dart-define=VV_COMMERCIAL=true` switches the tier
-/// columns below on; the default build is [DistributionMode.personal], where
-/// every non-managed feature is enabled on every plan and no paywall is
-/// shown. Flipping the decision is a one-flag change, no code change.
+/// Store releases pass `--dart-define=VV_COMMERCIAL=true` (LIC-02).
+/// Development builds default to personal access; explicit commercial dev
+/// builds exercise the store paywall. The product uses annual/lifetime Pro.
 enum DistributionMode {
   /// Personal / self-use build (default): everything except organisation
   /// management is unlocked; no paywall.

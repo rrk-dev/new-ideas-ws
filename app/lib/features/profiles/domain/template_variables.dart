@@ -26,7 +26,12 @@ const Set<String> kTextArgLambdas = {'date', 'duration'};
 /// Lambdas whose section text is a variable path that must name a list
 /// (`{{#yaml_list}}data.attendees{{/yaml_list}}`), optionally followed by
 /// `|arguments` (`{{#md_table}}data.tradeoffs|option,pros{{/md_table}}`).
-const Set<String> kPathArgLambdas = {'yaml_list', 'bullets', 'md_table'};
+const Set<String> kPathArgLambdas = {
+  'yaml_list',
+  'bullets',
+  'md_table',
+  'code_lines',
+};
 
 /// Lambdas used as plain variables (`{{transcript_block}}`).
 const Set<String> kVariableLambdas = {'transcript_block', 'audio_link'};

@@ -4557,6 +4557,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Still recording ({hours}h {minutes}m)'**
   String indicatorStillRecording(int hours, String minutes);
+
+  /// No description provided for @paywallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Get VaultVoice Pro'**
+  String get paywallTitle;
+
+  /// No description provided for @paywallBenefits.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock larger models, custom profiles and templates, and multiple vault folders.'**
+  String get paywallBenefits;
+
+  /// No description provided for @purchaseLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading store prices'**
+  String get purchaseLoading;
+
+  /// No description provided for @purchaseAnnual.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual subscription · {price} per year'**
+  String purchaseAnnual(String price);
+
+  /// No description provided for @purchaseLifetime.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifetime purchase · {price}'**
+  String purchaseLifetime(String price);
+
+  /// No description provided for @purchaseAnnualTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual subscriptions renew automatically unless cancelled in your store account settings. Lifetime is a one-time purchase.'**
+  String get purchaseAnnualTerms;
+
+  /// No description provided for @purchaseRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get purchaseRestore;
+
+  /// No description provided for @purchaseRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh store prices'**
+  String get purchaseRetry;
+
+  /// No description provided for @purchaseComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase verified. Your feature access has been updated.'**
+  String get purchaseComplete;
+
+  /// No description provided for @purchasePending.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment is pending. Pro will unlock after the store confirms it.'**
+  String get purchasePending;
+
+  /// No description provided for @purchaseCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase cancelled.'**
+  String get purchaseCancelled;
+
+  /// No description provided for @purchaseUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The store could not complete this request. Check your connection and try again.'**
+  String get purchaseUnavailable;
+
+  /// No description provided for @purchaseRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchases checked. Your feature access has been updated.'**
+  String get purchaseRestored;
 }
 
 class _AppLocalizationsDelegate
