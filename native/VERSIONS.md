@@ -34,3 +34,4 @@ Both projects are MIT licensed. Submodules are shallow clones of the tags above;
 | Android arm64-v8a (Release, stripped) | `libvv_native.so` | ⏳ not measured | needs NDK r28+ (`native/build.sh android` prints it) |
 | iOS device slice | `vv_native.framework/vv_native` | ⏳ not measured | needs Xcode (`native/build.sh ios` prints it) |
 | iOS simulator slice | `vv_native.framework/vv_native` | ⏳ not measured | needs Xcode |
+| macOS app arm64 (Metal + Accelerate, embedded metallib, `VV_MACOS_FRAMEWORK=ON`, deployment target 13.0) | `vv_native.framework/vv_native` | 10282600 B (9.8 MiB) unstripped | 2026-10-15: `native/build.sh macos` exits 0 (Xcode 27.0), prints the path and size |

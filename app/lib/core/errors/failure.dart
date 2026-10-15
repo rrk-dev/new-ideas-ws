@@ -166,6 +166,25 @@ final class CatalogFailure extends Failure {
   final CatalogRejection reason;
 }
 
+/// Why an enterprise licence file was rejected (LIC-03).
+enum LicenseRejection {
+  tooLarge,
+  malformed,
+  unsupportedFormat,
+  unknownKey,
+  badSignature,
+  invalidField,
+  notYetValid,
+  expired,
+}
+
+/// An enterprise licence failed verification; the entitlement is unchanged.
+final class LicenseFailure extends Failure {
+  LicenseFailure(this.reason) : super('licence rejected: ${reason.name}');
+
+  final LicenseRejection reason;
+}
+
 /// A model file does not match its catalog entry (MDL-01; used by MDL-02).
 final class ModelIntegrityFailure extends Failure {
   const ModelIntegrityFailure(this.modelId, {required this.sizeMismatch})
