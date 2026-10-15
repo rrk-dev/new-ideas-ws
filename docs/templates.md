@@ -58,6 +58,7 @@ lambda's argument form; the two lists are kept equal by a test.
 | `transcript_block` | `{{transcript_block}}` | Collapsible Obsidian callout `> [!note]- Transcript` with `> [hh:mm:ss] Speaker: text` lines. No segments → nothing. |
 | `audio_link` | `{{audio_link}}` | `![[attachments/<file>]]` when an audio sidecar was exported for this note (render option), else nothing. |
 | `code_block` | `{{#code_block}}{{data.x}}{{/code_block}}` | Fenced block of the raw text; the fence is longer than any backtick run inside. |
+| `code_lines` | `{{#code_lines}}data.signatures{{/code_lines}}` | Fenced block with one line per item of a list of strings (e.g. API signatures); same fence rule as `code_block`. Empty list → nothing. |
 
 Argument checks at save time: `yaml_list` / `bullets` / `md_table` paths must name a list,
 `md_table` columns must be item fields, `date` / `duration` `path|…` must name a scalar.

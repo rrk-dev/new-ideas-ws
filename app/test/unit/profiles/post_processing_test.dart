@@ -256,7 +256,7 @@ void main() {
         'open_questions': <String>[],
         'topics': <String>[],
       }, ctx);
-      final items = (out['action_items']! as List).cast<Map>();
+      final items = (out['action_items']! as List).cast<Map<String, Object?>>();
       expect([for (final i in items) i['task']], ['a', 'b', 'c']);
       expect(items[0]['owner'], 'Sam Lee');
       expect(items[0]['due_iso'], '2026-03-06');

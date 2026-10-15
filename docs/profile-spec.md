@@ -125,7 +125,7 @@ validates cannot hit a missing key at export time:
 - Lambdas (`vv-markdown-vault-export`; EXP-01 implements them): content lambdas
   (`yaml`, `wikilink`, `slug`, `upper`, `lower`, `trim`, `checkbox`, `code_block` — inner tags
   are checked), text-argument lambdas (`date`, `duration`; an optional `path|FORMAT` path must
-  be a scalar), path-argument lambdas (`yaml_list`, `bullets`, `md_table` — the text before an
+  be a scalar), path-argument lambdas (`yaml_list`, `bullets`, `md_table`, `code_lines` — the text before an
   optional `|args` must name a list; `md_table` columns must be item fields), and variable
   lambdas (`transcript_block`, `audio_link`). Reference: `docs/templates.md`.
 

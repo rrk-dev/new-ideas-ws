@@ -57,6 +57,10 @@ Map<String, Object> buildLambdas([
       return target.isEmpty ? '' : '![[attachments/$target]]';
     },
     'code_block': (LambdaContext ctx) => codeFence(_renderRaw(ctx)),
+    'code_lines': (LambdaContext ctx) {
+      final lines = _texts(_list(ctx)).where((l) => l.trim().isNotEmpty);
+      return lines.isEmpty ? '' : codeFence(lines.join('\n'));
+    },
   };
   assert(
     lambdas.keys.toSet().containsAll(kTemplateLambdas) &&

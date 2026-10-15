@@ -23,9 +23,8 @@ class PipelineConfig {
     this.sttModelId = 'ggml-base',
     this.sttLanguage = 'auto',
     this.llmModelId = 'default-llm',
-    // PRODUCT-DECISION: recordings without a chosen profile are extracted with
-    // the built-in Meeting profile (conservative default until PRF-06 auto
-    // classification lands). Confirm with the product owner.
+    // Fallback when a recording has no profile and automatic classification
+    // is off (no `PipelineEngines.profileList`, PRF-06).
     this.defaultProfileId = 'meeting',
     this.maxLlmTokens = 1024,
   });
@@ -43,6 +42,9 @@ typedef ActiveModelIdLookup = Future<String?> Function(HeavyModel model);
 
 /// A profile by id (built-in or user/enterprise), or null when unknown.
 typedef ProfileLookup = Future<Profile?> Function(String profileId);
+
+/// Every profile an "Auto" recording may be classified into (PRF-06).
+typedef ProfileListLookup = Future<List<Profile>> Function();
 
 /// The GBNF grammar of [profile]'s output schema, or null when it cannot be
 /// built (extraction then runs unconstrained).
@@ -117,6 +119,7 @@ class PipelineEngines {
     this.rendererLoader,
     this.activeModel,
     this.profiles,
+    this.profileList,
     this.grammars,
     this.extraction,
     this.vaultFor,
@@ -150,6 +153,10 @@ class PipelineEngines {
 
   /// Profile resolution for extraction and filename patterns.
   final ProfileLookup? profiles;
+
+  /// Candidates of the automatic classification (PRF-06); null disables the
+  /// classify step (recordings without a profile use the default profile).
+  final ProfileListLookup? profileList;
 
   /// Grammar for a profile (structured extraction, LLM-05).
   final ProfileGrammarLookup? grammars;

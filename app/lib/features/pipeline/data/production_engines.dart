@@ -208,6 +208,7 @@ final class ProductionEngineSpec {
       gate: gate,
       activeModel: models.activeId,
       profiles: profile,
+      profileList: () async => (await registry.watchAll().first).toList(),
       grammars: (p) async =>
           (await registry.grammarsFor(p)).valueOrNull?.schema,
       extraction: longTranscript,
