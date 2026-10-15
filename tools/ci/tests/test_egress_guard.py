@@ -63,6 +63,26 @@ def test_SEC_02_AC1_minimal_clean_tree_passes(tmp_path):
     assert r.returncode == 0, r.stderr
 
 
+def test_LIC_02_AC1_store_reachability_exception_cannot_send_traffic(tmp_path):
+    """[LIC-02/AC1] Passive reachability passes; billing HTTP stays forbidden."""
+    path = "app/ios/Runner/PurchaseHostApiImpl.swift"
+    passive = "import Network\n  private let monitor = NWPathMonitor()\n"
+    result = _run(_repo(tmp_path / "passive", {path: passive}))
+    assert result.returncode == 0, result.stderr
+    for index, traffic in enumerate([
+        "let task = URLSession.shared.dataTask(with: url)\n",
+        "let connection = NWConnection(host: host, port: port, using: .tcp)\n",
+        "import Network; let task = URLSession.shared.dataTask(with: url)\n",
+        "private let monitor = NWPathMonitor(); let connection = NWConnection()\n",
+    ]):
+        result = _run(_repo(tmp_path / str(index), {path: passive + traffic}))
+        assert result.returncode == 1 and "EGRESS" in result.stderr
+    result = _run(_repo(tmp_path / "other", {
+        "app/ios/Runner/Other.swift": passive,
+    }))
+    assert result.returncode == 1 and "EGRESS" in result.stderr
+
+
 def test_SEC_02_AC1_network_apis_outside_gateway_fail(tmp_path):
     """[SEC-02/AC1] every network API family is caught outside the gateway."""
     cases = {

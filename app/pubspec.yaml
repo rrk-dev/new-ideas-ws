@@ -71,6 +71,8 @@ flutter:
     - assets/profiles/
     # Built-in Markdown templates (EXP-01) — read-only, never stored as rows.
     - assets/templates/
+    # Full pub / native / model licence notices (SEC-05, tools/licenses/).
+    - assets/licenses/
     # In-app privacy policy (SEC-06) — shown offline, never fetched.
     - assets/legal/
 

@@ -6,6 +6,7 @@ import UserNotifications
 @objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
   // Security-scoped bookmark vault folders (EXP-04).
   private let bookmarkApi = BookmarkHostApiImpl()
+  private let purchaseApi = PurchaseHostApiImpl()
 
   override func application(
     _ application: UIApplication,
@@ -56,6 +57,9 @@ import UserNotifications
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "AudioImportPlugin") {
       AudioImportPlugin.register(with: registrar)
     }
+    let purchaseMessenger = engineBridge.applicationRegistrar.messenger()
+    purchaseApi.updates = PurchaseFlutterApi(binaryMessenger: purchaseMessenger)
+    PurchaseHostApiSetup.setUp(binaryMessenger: purchaseMessenger, api: purchaseApi)
     BookmarkHostApiSetup.setUp(
       binaryMessenger: engineBridge.applicationRegistrar.messenger(), api: bookmarkApi)
     // APP-01: "Open settings" recovery after a denied permission. Opens this

@@ -5,6 +5,7 @@ import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/features/licensing/data/entitlement_license_port.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
+import 'package:vaultvoice/features/licensing/data/purchase_providers.dart';
 import 'package:vaultvoice/features/licensing/domain/enterprise_license.dart';
 import 'package:vaultvoice/features/retention/data/retention_providers.dart';
 import 'package:vaultvoice/features/settings/data/drift_settings_store.dart';
@@ -28,6 +29,7 @@ Stream<ManagedSettings> managedSettings(Ref ref) =>
 LicenseSettingsPort licenseSettingsPort(Ref ref) => EntitlementLicensePort(
   ref.watch(entitlementServiceProvider),
   verifier: EnterpriseLicenseVerifier(trustedKeys: kEnterpriseLicenseKeys),
+  restore: () => ref.read(purchaseServiceProvider).restore(),
 );
 
 @riverpod

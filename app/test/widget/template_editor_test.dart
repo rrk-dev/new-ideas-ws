@@ -11,6 +11,7 @@ import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_matrix.dart';
+import 'package:vaultvoice/features/licensing/domain/paywall.dart';
 import 'package:vaultvoice/features/templates/data/template_editor_providers.dart';
 import 'package:vaultvoice/features/templates/data/template_store.dart';
 import 'package:vaultvoice/features/templates/domain/builtin_templates.dart';
@@ -111,6 +112,9 @@ void main() {
         overrides: [
           clockProvider.overrideWithValue(FakeClock(DateTime.utc(2026, 10))),
           distributionModeProvider.overrideWithValue(mode),
+          paywallPresenterProvider.overrideWithValue(
+            const NoPaywallPresenter(),
+          ),
           templateStoreProvider.overrideWithValue(store),
           builtinTemplateSourcesProvider.overrideWith(
             (ref) async => {

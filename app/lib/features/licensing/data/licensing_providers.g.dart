@@ -401,12 +401,12 @@ final class EntitlementSummaryProvider
 String _$entitlementSummaryHash() =>
     r'e2318e6523ebe1ad27330500f942cb1ea9a39a3f';
 
-/// Paywall entry point; LIC-02 overrides it with the store-backed screen.
+/// Paywall entry point opens the typed store-backed screen.
 
 @ProviderFor(paywallPresenter)
 final paywallPresenterProvider = PaywallPresenterProvider._();
 
-/// Paywall entry point; LIC-02 overrides it with the store-backed screen.
+/// Paywall entry point opens the typed store-backed screen.
 
 final class PaywallPresenterProvider
     extends
@@ -416,7 +416,7 @@ final class PaywallPresenterProvider
           PaywallPresenter
         >
     with $Provider<PaywallPresenter> {
-  /// Paywall entry point; LIC-02 overrides it with the store-backed screen.
+  /// Paywall entry point opens the typed store-backed screen.
   PaywallPresenterProvider._()
     : super(
         from: null,
@@ -450,4 +450,4 @@ final class PaywallPresenterProvider
   }
 }
 
-String _$paywallPresenterHash() => r'698a07d2bbf51d3a5ba5f3aed437c02ba99df438';
+String _$paywallPresenterHash() => r'0c0825478f5324b3aca3189ce5b7c07de2e59b4b';
