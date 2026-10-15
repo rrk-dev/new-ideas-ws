@@ -1,0 +1,51 @@
+app/lib/features/templates/data/template_editor_providers.dart
+  s_caacb79062955e::t_a819612581287d 78-79
+  s_c1515c206a4fe2::t_811c6c7dca29b2 97-98,101-108
+app/test/unit/templates/template_preview_recordings_test.dart
+  s_caacb79062955e::t_b7c634b266d3d5 1
+  s_c1515c206a4fe2::t_d72c90ab1486c1 2-42
+app/lib/features/export/data/app_local_vault_writer.dart
+  s_caacb79062955e::t_388757c76cefb6 15,63-64
+app/lib/features/library/data/search_repository.dart
+  s_caacb79062955e::t_d4418a69405c5f 36
+app/test/db/search_index_test.dart
+  s_caacb79062955e::t_5704ad0d656203 168-179
+app/test/unit/export/app_local_vault_writer_test.dart
+  s_caacb79062955e::t_eee93cd5382ac7 60-69
+tasks/07-export/EXP-03-android-saf-folder-access.md
+  s_caacb79062955e::t_4bf1b2e832419e 59
+tasks/07-export/EXP-05-vault-writer-routing-rules.md
+  s_caacb79062955e::t_66585419bf3338 56-58
+tasks/07-export/EXP-06-write-failure-outbox.md
+  s_caacb79062955e::t_91d3c07d60c888 39-40
+tasks/07-export/EXP-07-template-editor-preview.md
+  s_caacb79062955e::t_4ca8e414fdd0f8 46
+tasks/07-export/EXP-08-share-and-alternate-outputs.md
+  s_caacb79062955e::t_64adc3cac2ff89 35
+tasks/08-app-ux/APP-05-result-review-before-export.md
+  s_caacb79062955e::t_2401e12c6260f3 53-54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e67264bdb46d680b29d0a32713f1606b5d99c774",
+  "prompts": {},
+  "sessions": {
+    "s_c1515c206a4fe2": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "5ded3ed9-1ed5-495a-bc36-4f8e1b98b7a3",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_caacb79062955e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "a4c673c6-579b-47bb-bdd0-b8c526a47b26",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
