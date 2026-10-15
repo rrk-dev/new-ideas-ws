@@ -247,12 +247,12 @@ void main() {
           '{"items":[{"text":"a","t":"00:00:08"}]}',
         ]);
         final o = (await StructuredExtractor(engine).extract(
-          ExtractionRequest(
+          const ExtractionRequest(
             systemPrompt: 's',
             userPrompt: 'u',
             schema: schema,
             grammar: 'g',
-            transcriptTimestamps: const {'00:00:05'},
+            transcriptTimestamps: {'00:00:05'},
             summaryFallback: false,
           ),
         )).valueOrNull!;

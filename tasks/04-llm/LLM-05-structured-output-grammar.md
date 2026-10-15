@@ -50,3 +50,26 @@ The LLM produces JSON matching each profile's output schema; Markdown is rendere
 - **Issues found:**
   1. `StructuredExtractor._accept` cleans after validation and never revalidates. If a required root t is unverifiable, clean returns the drop sentinel and _accept replaces it with {} while returning valid=true. Nested required objects/minItems can similarly be broken by removal. Revalidate cleaned output and route invalid results through the repair/fallback policy; never report invalid JSON as schema-valid.
   2. AC1 specifically requires ≥99% on the PRF-09 evaluation set. The tagged host test synthesizes only 25 transcripts with one schema; PRF-09 remains todo and tools/bench/eval/run.py is absent at this SHA. This is outstanding host evaluation work, not merely a pending physical-device row.
+
+## Rework
+- **Agent:** Claude Code · **Branch:** task/LLM-05-rework-1 (from origin/integration/wave-4) · **Date:** 2026-10-14 — answers the Codex FAIL report above (report left unchanged).
+- **Issue 1 (cleanup not revalidated → `valid=true` for schema-invalid data):** reproduced first with four new
+  `[LLM-05/AC1]` tests in `app/test/unit/extraction/structured_extractor_test.dart` (group
+  "cleanup is revalidated (rework-1)"; red at commit `acb8c09`): the verifier's exact case (root required `t`,
+  `maxLength 8`, answer `{"t":"00:00:09"}`, transcript `{00:00:05}`), a list dropping below `minItems`, a required
+  nested object (previously the internal drop sentinel was even stored as a map value), and an optional nested
+  object. Fix in `app/lib/features/extraction/domain/structured_extractor.dart`: each answer now goes
+  parse → validate → evidence cleanup → **full revalidation** (`_attempt`). Only data that passes the schema after
+  cleanup is returned with `valid = true`. Otherwise the answer counts as a failed attempt: first answer → the one
+  greedy repair (prompt lists content-free issues such as `$.t: evidence timestamp not found in transcript` plus
+  validator rules like `$.items: fewer than minItems 1`; never the invented value), repair answer →
+  summary-only fallback / `valid = false` (`summaryFallback: false` for LLM-06 map chunks). Cleanup drop rules are
+  now total: a dropped object under a required key propagates upward, under an optional key it is removed, in a
+  list the item is removed; a dropped root yields no data. The existing nullable/optional cleanup behaviour and the
+  25/25 synthetic host case are unchanged.
+- **Issue 2 (AC1 needs ≥ 99% on the PRF-09 eval set):** not resolvable in this task — PRF-09 (eval corpus +
+  `tools/bench/eval/run.py`) is still `todo` and is a declared dependency. AC1 stays **⏳ pending PRF-09**; the
+  host tests prove the validity contract (no schema-invalid output is ever reported as valid), not the ≥ 99% rate.
+  The last row of `docs/test-plans/device/LLM-05.md` holds the exact run to perform once PRF-09 lands
+  (summary-only fallbacks count as invalid). Nothing here claims that run happened.
+- **Gates (2026-10-14):** format ✅ · `flutter analyze` ✅ no issues · `flutter test test/unit/extraction` ✅ 68 passed · `tasks.py validate` ✅. Full suite runs in the wave-4 integration.
