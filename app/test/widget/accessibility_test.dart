@@ -15,6 +15,7 @@ import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/theme/app_theme.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
+import 'package:vaultvoice/features/export/domain/pending_export.dart';
 import 'package:vaultvoice/features/export/domain/routing_rule.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/profiles/data/custom_profile_providers.dart';
@@ -53,6 +54,7 @@ const _screens = {
   'Routing rule editor': '/settings/routing-rules/r1',
   'New routing rule': '/settings/routing-rules/new',
   'Vault folder options': '/settings/vault-folders/v1',
+  'Pending exports': '/settings/pending-exports',
   'Models': '/settings/models',
   'Transcript': '/library/recordings/rec-a/transcript',
 };
@@ -117,6 +119,24 @@ List<Override> _overrides() => [
           File('assets/profiles/$id.yaml').readAsStringSync(),
           profileSource: ProfileSource.builtin,
         ).profile!,
+    ]),
+  ),
+  pendingExportsProvider.overrideWith(
+    (ref) => Stream.value(const [
+      PendingExport(
+        recordingId: 'rec-a',
+        title: 'Standup',
+        reason: PendingReason.accessRevoked,
+        jobId: 'j1',
+        targetId: 'v1',
+        targetName: 'Obsidian vault',
+      ),
+      PendingExport(
+        recordingId: 'rec-b',
+        title: '',
+        reason: PendingReason.noDestination,
+        jobId: 'j2',
+      ),
     ]),
   ),
   routingRuleListProvider.overrideWith(

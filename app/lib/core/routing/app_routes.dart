@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_shell.dart';
+import 'package:vaultvoice/features/export/presentation/pending_exports_screen.dart';
 import 'package:vaultvoice/features/export/presentation/routing_rule_editor_screen.dart';
 import 'package:vaultvoice/features/export/presentation/vault_target_options_screen.dart';
 import 'package:vaultvoice/features/library/presentation/library_screen.dart';
@@ -60,6 +61,7 @@ part 'app_routes.g.dart';
                 TypedGoRoute<VaultTargetOptionsRoute>(path: ':targetId'),
               ],
             ),
+            TypedGoRoute<PendingExportsRoute>(path: 'pending-exports'),
             TypedGoRoute<RoutingRulesRoute>(
               path: 'routing-rules',
               routes: [TypedGoRoute<RoutingRuleEditorRoute>(path: ':ruleId')],
@@ -247,4 +249,13 @@ class RoutingRuleEditorRoute extends GoRouteData with $RoutingRuleEditorRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       RoutingRuleEditorScreen(ruleId: ruleId);
+}
+
+/// Settings → Pending exports: the export outbox (EXP-06).
+class PendingExportsRoute extends GoRouteData with $PendingExportsRoute {
+  const PendingExportsRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const PendingExportsScreen();
 }

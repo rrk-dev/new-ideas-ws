@@ -25,6 +25,8 @@ class ProcessingServicesHost extends ConsumerStatefulWidget {
 
 class _ProcessingServicesHostState extends ConsumerState<ProcessingServicesHost>
     with WidgetsBindingObserver {
+  AppLifecycleState? _lifecycle;
+
   @override
   void initState() {
     super.initState();
@@ -65,6 +67,13 @@ class _ProcessingServicesHostState extends ConsumerState<ProcessingServicesHost>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     final foreground = state == AppLifecycleState.resumed;
+    final wasForeground = _lifecycle == AppLifecycleState.resumed;
+    _lifecycle = state;
+    // EXP-06: a folder that came back (SD card, iCloud, re-granted in the
+    // system settings) unblocks its pending exports on resume.
+    if (foreground && !wasForeground) {
+      ref.read(exportOutboxProvider).recheck().ignore();
+    }
     _toWorker((w) => w.setForeground(foreground: foreground));
     if (ref.exists(backgroundProcessingGuardProvider)) {
       ref

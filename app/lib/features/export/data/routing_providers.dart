@@ -1,14 +1,21 @@
 import 'package:drift/drift.dart' show Value;
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/db/repositories/vault_repository.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/core/platform/providers.dart';
+import 'package:vaultvoice/features/export/data/export_outbox.dart';
+import 'package:vaultvoice/features/export/data/export_providers.dart';
+import 'package:vaultvoice/features/export/data/vault_writer_resolver.dart';
+import 'package:vaultvoice/features/export/domain/pending_export.dart';
 import 'package:vaultvoice/features/export/domain/routing_engine.dart';
 import 'package:vaultvoice/features/export/domain/routing_rule.dart';
 import 'package:vaultvoice/features/export/domain/vault_target_options.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_access.dart';
+import 'package:vaultvoice/features/pipeline/data/pipeline_providers.dart';
 import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
@@ -123,3 +130,31 @@ void routingPolicyMirror(Ref ref) {
         .ignore();
   }, fireImmediately: true);
 }
+
+/// The export outbox (EXP-06).
+@Riverpod(keepAlive: true)
+ExportOutbox exportOutbox(Ref ref) {
+  // Host / desktop builds have no platform folder access (tests override).
+  final mobile =
+      defaultTargetPlatform == TargetPlatform.android ||
+      defaultTargetPlatform == TargetPlatform.iOS;
+  final folders = mobile ? ref.watch(vaultFolderAccessProvider) : null;
+  final resolver = mobile
+      ? platformVaultWriterResolver(
+          appLocal: ref.watch(appLocalVaultWriterProvider),
+          repo: ref.watch(vaultRepositoryProvider),
+        )
+      : null;
+  return ExportOutbox(
+    db: ref.watch(vaultVoiceDatabaseProvider),
+    client: () => ref.read(pipelineClientProvider.future),
+    folders: folders,
+    writerFor: resolver,
+    clock: ref.watch(clockProvider),
+  );
+}
+
+/// Notes that have not reached their vault folder yet (EXP-06).
+@riverpod
+Stream<List<PendingExport>> pendingExports(Ref ref) =>
+    ref.watch(exportOutboxProvider).watch();

@@ -1501,4 +1501,64 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get vaultTargetNotFound => 'This folder no longer exists.';
+
+  @override
+  String get settingsPendingExports => 'Pending exports';
+
+  @override
+  String get settingsPendingExportsSubtitle =>
+      'Notes still waiting for a vault folder';
+
+  @override
+  String get pendingExportsEmpty => 'Every note has reached its vault folder.';
+
+  @override
+  String get pendingExportsLoadFailed => 'Could not load pending exports.';
+
+  @override
+  String get pendingExportsSafe =>
+      'Waiting notes are kept safely in the app until they can be written.';
+
+  @override
+  String get pendingUntitled => 'Untitled recording';
+
+  @override
+  String get pendingReasonNoDestination => 'No vault folder chosen yet';
+
+  @override
+  String pendingReasonRevoked(String folder) {
+    return 'Access to $folder was removed';
+  }
+
+  @override
+  String get pendingReasonRevokedAny =>
+      'Access to the vault folder was removed';
+
+  @override
+  String pendingReasonRetrying(String folder) {
+    return '$folder is not reachable right now. Retrying automatically.';
+  }
+
+  @override
+  String pendingReasonFailed(String folder) {
+    return 'Could not write to $folder';
+  }
+
+  @override
+  String get pendingActionRegrant => 'Re-grant access';
+
+  @override
+  String get pendingActionChange => 'Choose another folder';
+
+  @override
+  String get pendingActionRetry => 'Retry now';
+
+  @override
+  String get pendingActionChooseFolder => 'Choose a folder';
+
+  @override
+  String get pendingActionSaveOnDevice => 'Save on this device';
+
+  @override
+  String get pendingActionFailed => 'That did not work. Please try again.';
 }

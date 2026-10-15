@@ -2631,6 +2631,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This folder no longer exists.'**
   String get vaultTargetNotFound;
+
+  /// No description provided for @settingsPendingExports.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending exports'**
+  String get settingsPendingExports;
+
+  /// No description provided for @settingsPendingExportsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes still waiting for a vault folder'**
+  String get settingsPendingExportsSubtitle;
+
+  /// No description provided for @pendingExportsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Every note has reached its vault folder.'**
+  String get pendingExportsEmpty;
+
+  /// No description provided for @pendingExportsLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load pending exports.'**
+  String get pendingExportsLoadFailed;
+
+  /// No description provided for @pendingExportsSafe.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting notes are kept safely in the app until they can be written.'**
+  String get pendingExportsSafe;
+
+  /// No description provided for @pendingUntitled.
+  ///
+  /// In en, this message translates to:
+  /// **'Untitled recording'**
+  String get pendingUntitled;
+
+  /// No description provided for @pendingReasonNoDestination.
+  ///
+  /// In en, this message translates to:
+  /// **'No vault folder chosen yet'**
+  String get pendingReasonNoDestination;
+
+  /// No description provided for @pendingReasonRevoked.
+  ///
+  /// In en, this message translates to:
+  /// **'Access to {folder} was removed'**
+  String pendingReasonRevoked(String folder);
+
+  /// No description provided for @pendingReasonRevokedAny.
+  ///
+  /// In en, this message translates to:
+  /// **'Access to the vault folder was removed'**
+  String get pendingReasonRevokedAny;
+
+  /// No description provided for @pendingReasonRetrying.
+  ///
+  /// In en, this message translates to:
+  /// **'{folder} is not reachable right now. Retrying automatically.'**
+  String pendingReasonRetrying(String folder);
+
+  /// No description provided for @pendingReasonFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not write to {folder}'**
+  String pendingReasonFailed(String folder);
+
+  /// No description provided for @pendingActionRegrant.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-grant access'**
+  String get pendingActionRegrant;
+
+  /// No description provided for @pendingActionChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose another folder'**
+  String get pendingActionChange;
+
+  /// No description provided for @pendingActionRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry now'**
+  String get pendingActionRetry;
+
+  /// No description provided for @pendingActionChooseFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a folder'**
+  String get pendingActionChooseFolder;
+
+  /// No description provided for @pendingActionSaveOnDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Save on this device'**
+  String get pendingActionSaveOnDevice;
+
+  /// No description provided for @pendingActionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'That did not work. Please try again.'**
+  String get pendingActionFailed;
 }
 
 class _AppLocalizationsDelegate

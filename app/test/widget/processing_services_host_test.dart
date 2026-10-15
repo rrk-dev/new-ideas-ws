@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/features/export/data/export_outbox.dart';
+import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/pipeline/data/background_guard.dart';
 import 'package:vaultvoice/features/pipeline/data/background_providers.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_isolate.dart';
@@ -13,6 +15,17 @@ import 'package:vaultvoice/features/pipeline/domain/pipeline_client.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_services_host.dart';
 
 import '../db/db_test_utils.dart';
+
+/// EXP-06 outbox: counts resume rechecks (no DB / platform access).
+class _Outbox implements ExportOutbox {
+  int rechecks = 0;
+
+  @override
+  Future<int> recheck() async => ++rechecks;
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
 
 /// Records the device conditions forwarded to the worker.
 class _Worker implements PipelineClient, PipelineConditions {
@@ -72,11 +85,13 @@ void main() {
     var started = false;
     final db = memoryDb();
     final guard = _Guard(db);
+    final outbox = _Outbox();
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           vaultVoiceDatabaseProvider.overrideWithValue(db),
           backgroundProcessingGuardProvider.overrideWithValue(guard),
+          exportOutboxProvider.overrideWithValue(outbox),
           pipelineClientProvider.overrideWith((ref) async {
             started = true;
             return worker;
@@ -104,6 +119,8 @@ void main() {
     // FND-08: the guard was started and follows the lifecycle too.
     expect(guard.started, isTrue);
     expect(guard.foreground, containsAllInOrder([false, true, false]));
+    // EXP-06 (integration W3): back in the foreground ⇒ one outbox recheck.
+    expect(outbox.rechecks, 1);
     await tester.pumpWidget(const SizedBox());
     await tester.pump(Duration.zero); // drift stream close timers
   });
