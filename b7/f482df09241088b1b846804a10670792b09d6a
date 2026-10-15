@@ -1,0 +1,68 @@
+app/test/fakes/fake_diarization_engine.dart
+  s_91cce0d4a43314::t_e04312cbdd77af 1-54
+app/lib/features/transcription/domain/speaker_alignment.dart
+  s_91cce0d4a43314::t_6ea4de0e1879f6 1-210
+  s_91cce0d4a43314::t_996bf207824583 211-221
+app/test/unit/transcription/diarization_test.dart
+  s_91cce0d4a43314::t_bd45f0692b4d0c 1-428
+  s_91cce0d4a43314::t_3106ac44820c56 429-432
+app/lib/features/pipeline/data/steps/diarize_step.dart
+  s_91cce0d4a43314::t_2b1c9f598b7a39 1-182
+docs/adr/ADR-STT-05-diarization.md
+  s_91cce0d4a43314::t_0ffe63e4d5a1c5 1-69
+tools/ci/tests/test_stt05_der.py
+  s_91cce0d4a43314::t_51afe9b2fae5d7 1-40
+app/lib/features/transcription/presentation/speaker_names_dialog.dart
+  s_91cce0d4a43314::t_f7b039e2ba0568 1-90
+app/lib/core/platform/diarization_engine.dart
+  s_91cce0d4a43314::t_e56a8432552943 1-56
+  s_91cce0d4a43314::t_b3c5dce8cea1a4 57-59
+docs/test-plans/device/STT-05.md
+  s_91cce0d4a43314::t_2651b3e9954d15 1-17
+tools/bench/diarization/README.md
+  s_91cce0d4a43314::t_9a324fe62d35f6 1-23
+app/lib/core/db/repositories/recordings_repository.dart
+  s_91cce0d4a43314::t_18b41acb0f84d2 137-184
+app/lib/core/db/repositories/transcripts_repository.dart
+  s_91cce0d4a43314::t_12cdbddc76fbab 96-190
+app/lib/core/l10n/arb/app_en.arb
+  s_91cce0d4a43314::t_6b4ec5956ca61b 693-696
+app/lib/core/l10n/gen/app_localizations.dart
+  s_91cce0d4a43314::t_eeec3fe631c6c9 3637-3654
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_91cce0d4a43314::t_7c0588b478d2c8 2113-2124
+app/lib/features/export/data/note_sharing.dart
+  s_91cce0d4a43314::t_0dcea5def2d331 160-168
+app/lib/features/pipeline/data/pipeline_engines.dart
+  s_91cce0d4a43314::t_07c67c3ff9bce4 5,132,191-194
+app/lib/features/pipeline/data/pipeline_orchestrator.dart
+  s_91cce0d4a43314::t_d5a1c547718972 16,30-31,48-55
+app/lib/features/pipeline/data/steps/render_write_steps.dart
+  s_91cce0d4a43314::t_8febdaee000b09 32,38-41,167-174
+app/lib/features/review/data/review_providers.dart
+  s_91cce0d4a43314::t_a1c49c4a9d1eb7 122-125
+app/lib/features/templates/data/template_note_renderer.dart
+  s_91cce0d4a43314::t_071eb41e0ad92c 66-72,144-146
+app/lib/features/transcription/presentation/transcript_screen.dart
+  s_91cce0d4a43314::t_fba88dce451568 10,53-62
+app/test/widget/speaker_names_dialog_test.dart
+  s_91cce0d4a43314::t_a9156f414cd469 1-54
+tasks/03-stt/STT-05-speaker-diarization.md
+  s_91cce0d4a43314::t_beeee8ce42a3ec 4,11-16,23-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b7f482df09241088b1b846804a10670792b09d6a",
+  "prompts": {},
+  "sessions": {
+    "s_91cce0d4a43314": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "98190d73-b703-4c9e-8a70-ef8c1482391d",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
