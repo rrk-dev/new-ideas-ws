@@ -54,6 +54,16 @@ class _License implements LicenseSettingsPort {
   }
 }
 
+class _Wiper implements DataWiper {
+  int calls = 0;
+
+  @override
+  Future<Result<void>> deleteAllData() async {
+    calls++;
+    return const Ok(null);
+  }
+}
+
 final AppLocalizations en = lookupAppLocalizations(kFallbackLocale);
 
 void main() {
@@ -237,9 +247,13 @@ void main() {
     t,
   ) async {
     final license = _License();
+    final wiper = _Wiper();
     await pump(
       t,
-      overrides: [licenseSettingsPortProvider.overrideWithValue(license)],
+      overrides: [
+        licenseSettingsPortProvider.overrideWithValue(license),
+        dataWiperProvider.overrideWithValue(wiper),
+      ],
     );
     await t.pumpAndSettle();
     for (final s in SettingSection.values) {
@@ -261,10 +275,8 @@ void main() {
     await t.pumpAndSettle();
     await t.tap(find.text('Delete everything'));
     await t.pumpAndSettle();
-    expect(
-      find.text('Deleting all data is not available in this build yet.'),
-      findsOneWidget,
-    );
+    expect(find.text('All data deleted.'), findsOneWidget);
+    expect(wiper.calls, 1);
 
     await show(t, find.byKey(const ValueKey('license-status')));
     expect(find.text('Enterprise · Acme · until 2027-03-31'), findsOneWidget);

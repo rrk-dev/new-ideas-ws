@@ -25,6 +25,7 @@ import 'package:vaultvoice/core/security/storage_protection.dart';
 import 'package:vaultvoice/features/pipeline/data/flutter_local_notifier.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_services_host.dart';
+import 'package:vaultvoice/features/retention/presentation/retention_host.dart';
 import 'package:vaultvoice/features/settings/data/share_plus_share_service.dart';
 import 'package:vv_native/vv_native.dart';
 
@@ -88,7 +89,7 @@ Future<void> bootstrap(
         ...security,
         ...overrides,
       ],
-      child: const ProcessingServicesHost(child: App()),
+      child: const ProcessingServicesHost(child: RetentionHost(child: App())),
     ),
   );
 }
