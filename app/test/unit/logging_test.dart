@@ -128,8 +128,11 @@ void main() {
         logger.info('test', 'small', fields: {'i': i});
       }
       logger.info('test', 'big', fields: fields);
-      // A huge message alone (no fields) must be bounded too.
-      logger.info('test', 'm' * 2000);
+      // A sink-level record whose message alone is too long (the Logger caps
+      // messages at 160 chars, but other writers may not) is bounded too.
+      sink
+        ..write(record('m' * 2000))
+        ..write(record('big'));
       await sink.close();
 
       var total = 0;
@@ -145,30 +148,44 @@ void main() {
       expect(total, lessThanOrEqualTo(256 * 2));
       expect(sink.files.length, lessThanOrEqualTo(2));
 
-      // The oversized record is replaced by a content-free marker that keeps
-      // the event name, level and original size.
-      final last = sink.currentFile
-          .readAsLinesSync()
-          .map(LogRecord.tryParse)
-          .whereType<LogRecord>()
+      // Oversized records are replaced by content-free markers that keep the
+      // level, tag, original size and — when it fits — the event name.
+      final records = [
+        for (final f in sink.files)
+          ...f.readAsLinesSync().map(LogRecord.tryParse).whereType<LogRecord>(),
+      ];
+      final markers = records
+          .where((r) => r.fields['truncated'] == true)
           .toList();
-      final marker = last.lastWhere((r) => r.fields['truncated'] == true);
-      expect(marker.level, LogLevel.info);
-      expect(marker.fields['bytes'], isA<int>());
-      expect(marker.fields['bytes']! as int, greaterThan(256));
+      expect(markers, hasLength(2), reason: 'last big INFO + long message');
+      final big = markers.first;
+      expect(big.level, LogLevel.info);
+      expect(big.tag, 'test');
+      expect(big.message, 'big');
+      expect(big.fields['dropped_fields'], 100);
+      expect(big.fields['bytes']! as int, greaterThan(256));
+      final long = markers.last;
+      expect(long.message, 'record truncated');
+      expect(long.fields.containsKey('dropped_fields'), isFalse);
+      expect(long.fields['bytes']! as int, greaterThan(2000));
+      // Logging continues normally after a marker.
+      expect(records.last.message, 'big 0');
+      expect(records.last.fields, isEmpty);
     });
 
-    test('[FND-07/AC1] a cap too small for even the marker drops the record',
-        () async {
-      const config = LogRotationConfig(maxFileBytes: 16, maxFiles: 1);
-      final sink = RotatingFileSink(dir, config: config)
-        ..write(record('x' * 100));
-      await sink.close();
-      expect(
-        sink.currentFile.existsSync() ? sink.currentFile.lengthSync() : 0,
-        lessThanOrEqualTo(16),
-      );
-    });
+    test(
+      '[FND-07/AC1] a cap too small for even the marker drops the record',
+      () async {
+        const config = LogRotationConfig(maxFileBytes: 16, maxFiles: 1);
+        final sink = RotatingFileSink(dir, config: config)
+          ..write(record('x' * 100));
+        await sink.close();
+        expect(
+          sink.currentFile.existsSync() ? sink.currentFile.lengthSync() : 0,
+          lessThanOrEqualTo(16),
+        );
+      },
+    );
 
     test('[FND-07/AC1] default cap is 5 files x 2 MB', () {
       const config = LogRotationConfig();
