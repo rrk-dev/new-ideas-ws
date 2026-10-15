@@ -275,10 +275,11 @@ void main() {
       installed: [_installed(_tiny), _installed(_base), _installed(_llm)],
     );
     await rig.pump(t);
-    await _tap(t, find.byKey(ValueKey('model-delete-${_base.id}')));
+    // The pipeline's selector (largest recommended-tier / default) uses base.
+    await _tap(t, find.byKey(ValueKey('model-delete-${_tiny.id}')));
     await t.tap(find.byKey(const ValueKey('model-delete-confirm')));
     await t.pumpAndSettle();
-    expect(rig.installer.removed, [_base.id]);
+    expect(rig.installer.removed, [_tiny.id]);
   });
 
   testWidgets('[MDL-03] set as default, update notice, download asks for '
@@ -294,8 +295,8 @@ void main() {
     expect(find.text(_l.modelsUpdatesAvailable(1)), findsOneWidget);
     expect(_inCard(_base, find.text(_l.modelBadgeUpdate)), findsOneWidget);
 
-    await _tap(t, find.byKey(ValueKey('model-use-${_base.id}')));
-    expect(rig.store.values[ActiveModelKeys.stt], _base.id);
+    await _tap(t, find.byKey(ValueKey('model-use-${_tiny.id}')));
+    expect(rig.store.values[ActiveModelKeys.stt], _tiny.id);
 
     await _tap(t, find.byKey(ValueKey('model-download-${_base.id}')));
     expect(rig.downloader.started.single.id, _base.id);

@@ -73,6 +73,39 @@ void main() {
     expect(ActiveModelKeys.forType(ModelType.vad), isNull);
   });
 
+  group('[MDL-03] shared selector and sideloads', () {
+    test('activeIds from the pipeline selector decide the active flag', () {
+      final all = buildModelEntries(
+        catalog: catalogOf([_tiny, _base, _llm]),
+        installed: [_installed(_tiny), _installed(_base)],
+        access: (_, {required installed}) => AccessLevel.full,
+        deviceRamMb: 4096,
+        recommendedIds: {_tiny.id},
+        chosen: const {},
+        activeIds: {_base.id},
+      );
+      expect(_entry(all, _base).active, isTrue);
+      expect(_entry(all, _tiny).active, isFalse);
+    });
+
+    test('installed models the catalog does not list are managed too', () {
+      final side = InstalledModel(
+        id: 'my-sideload',
+        version: '1',
+        size: 42,
+        relativePath: 'models/my-sideload/m.gguf',
+        installedAt: DateTime.utc(2026),
+        type: ModelType.llm,
+      );
+      final all = _entries(installed: [side]);
+      final e = all.firstWhere((e) => e.model.id == 'my-sideload');
+      expect(e.isInstalled, isTrue);
+      expect(e.model.type, ModelType.llm);
+      expect(e.updateAvailable, isFalse);
+      expect(e.usable, isTrue);
+    });
+  });
+
   group('active model resolution', () {
     test('the user choice wins while usable; otherwise recommended, then '
         'first usable; nothing installed → none', () {

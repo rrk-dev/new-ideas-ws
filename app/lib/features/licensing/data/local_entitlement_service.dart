@@ -45,7 +45,7 @@ class LocalEntitlementService implements EntitlementService {
     _publish();
   }
 
-  /// Re-evaluates the current entitlement against the clock.
+  @override
   void refresh() => _publish();
 
   FeatureAccess _resolve() =>

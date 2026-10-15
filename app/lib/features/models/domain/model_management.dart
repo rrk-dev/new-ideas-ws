@@ -111,9 +111,12 @@ String? resolveActiveModel({
   return usable.first.model.id;
 }
 
-/// Builds the management list: every catalog model in catalog order.
-/// Installed models the catalog no longer lists are not shown (they cannot
-/// be verified or updated).
+/// Builds the management list: every catalog model in catalog order, then
+/// installed models the catalog does not list (offline sideloads). Those
+/// are Free-tier, never "updatable", and can be selected or deleted.
+///
+/// [activeIds] is the pipeline's own selection (`selectActiveModels`); when
+/// given it decides `active`, so management and pipeline cannot disagree.
 List<ModelEntry> buildModelEntries({
   required ModelCatalog catalog,
   required List<InstalledModel> installed,
@@ -122,8 +125,10 @@ List<ModelEntry> buildModelEntries({
   required int? deviceRamMb,
   required Set<String> recommendedIds,
   required Map<ModelType, String?> chosen,
+  Set<String>? activeIds,
 }) {
   final byId = {for (final i in installed) i.id: i};
+  final catalogIds = {for (final m in catalog.models) m.id};
   final base = [
     for (final m in catalog.models)
       ModelEntry(
@@ -134,11 +139,23 @@ List<ModelEntry> buildModelEntries({
         recommended: recommendedIds.contains(m.id),
         active: false,
       ),
+    for (final i in installed)
+      if (!catalogIds.contains(i.id) && i.type != null)
+        ModelEntry(
+          model: _sideloadedModel(i),
+          installed: i,
+          access: access(ModelTier.free, installed: true),
+          compatible: true,
+          recommended: false,
+          active: false,
+        ),
   ];
-  final active = {
-    for (final type in kPipelineModelTypes)
-      ?resolveActiveModel(type: type, chosen: chosen[type], entries: base),
-  };
+  final active =
+      activeIds ??
+      {
+        for (final type in kPipelineModelTypes)
+          ?resolveActiveModel(type: type, chosen: chosen[type], entries: base),
+      };
   return [
     for (final e in base)
       ModelEntry(
@@ -151,6 +168,23 @@ List<ModelEntry> buildModelEntries({
       ),
   ];
 }
+
+CatalogModel _sideloadedModel(InstalledModel i) => CatalogModel(
+  id: i.id,
+  type: i.type!,
+  version: i.version,
+  displayName: i.id,
+  tier: ModelTier.free,
+  file: i.relativePath.split('/').last,
+  size: i.size,
+  sha256: '',
+  minRamMb: 0,
+  recommendedDeviceTiers: const [],
+  license: 'custom',
+  licenseUrl: Uri(),
+  urls: const [],
+  companions: const [],
+);
 
 /// What deleting a model requires so the pipeline never loses its model.
 sealed class DeletionPlan {

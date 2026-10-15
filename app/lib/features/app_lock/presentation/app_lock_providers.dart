@@ -49,10 +49,9 @@ class AppLock extends _$AppLock {
     final on = enabled.value?.value;
     final option = timeout.value?.value;
     if (on is! bool || option is! String) {
-      // Still loading, or the settings store failed: fail closed only while
-      // loading; an error falls back to the default (lock off).
-      final failed = enabled.hasError || timeout.hasError;
-      return AppLockView(enabled: false, locked: !failed);
+      // Still loading or the settings store failed: stay locked either way so
+      // a read error never exposes content; the gate offers a retry.
+      return const AppLockView(enabled: false, locked: true);
     }
     (_machine ??= AppLockMachine(enabled: on, timeout: lockTimeoutFor(option)))
       ..enabled = on
@@ -79,7 +78,14 @@ class AppLock extends _$AppLock {
   /// Shows the OS prompt; [reason] is the localised prompt text.
   Future<void> unlock(String reason) async {
     final machine = _machine;
-    if (machine == null || !machine.locked || state.authenticating) return;
+    if (machine == null) {
+      // Settings failed to load: the unlock button retries the read.
+      ref
+        ..invalidate(settingStateProvider(AppSettings.appLock.key))
+        ..invalidate(settingStateProvider(AppSettings.lockTimeout.key));
+      return;
+    }
+    if (!machine.locked || state.authenticating) return;
     state = _view(authenticating: true);
     final outcome = await ref
         .read(deviceAuthenticatorProvider)

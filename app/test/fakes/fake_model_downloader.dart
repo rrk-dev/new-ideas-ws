@@ -37,6 +37,9 @@ class FakeModelDownloader implements ModelDownloader {
       _results.remove(id)?.complete(result);
 
   @override
+  void pauseAll() => paused.addAll(_results.keys);
+
+  @override
   Stream<DownloadProgress> get progress => _progress.stream;
 
   @override

@@ -172,6 +172,19 @@ void main() {
     },
   );
 
+  test('[MDL-02/AC3] [SEC-02/AC1] iOS authorises every redirect before it is '
+      'sent (willPerformHTTPRedirection)', () {
+    final swift = File('ios/Runner/ModelDownload/ModelDownloadPlugin.swift')
+        .readAsStringSync();
+    final start = swift.indexOf('willPerformHTTPRedirection');
+    expect(start, isNonNegative);
+    final body = swift.substring(start, swift.indexOf('didWriteData'));
+    expect(body, contains('info.allowedHosts.contains(host)'));
+    expect(body, contains('scheme == "https"'));
+    expect(body, contains('completionHandler(nil)'));
+    expect(body, contains('redirectDenied'));
+  });
+
   test('pause asks the session to keep resume data', () async {
     final control = DownloadControl();
     mockNative(null);

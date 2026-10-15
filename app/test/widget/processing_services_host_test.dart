@@ -4,8 +4,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/features/export/data/export_outbox.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
+import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
+import 'package:vaultvoice/features/licensing/data/local_entitlement_service.dart';
+import 'package:vaultvoice/features/licensing/domain/feature_matrix.dart';
 import 'package:vaultvoice/features/pipeline/data/background_guard.dart';
 import 'package:vaultvoice/features/pipeline/data/background_providers.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_isolate.dart';
@@ -78,7 +82,46 @@ class _Guard extends BackgroundProcessingGuard {
   Future<void> dispose() async {}
 }
 
+class _Entitlements extends LocalEntitlementService {
+  _Entitlements()
+    : super(clock: const SystemClock(), mode: DistributionMode.commercial);
+
+  int refreshes = 0;
+
+  @override
+  void refresh() {
+    refreshes++;
+    super.refresh();
+  }
+}
+
 void main() {
+  testWidgets('[LIC-01/AC1] resuming refreshes the entitlement', (
+    tester,
+  ) async {
+    final db = memoryDb();
+    final entitlements = _Entitlements();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          vaultVoiceDatabaseProvider.overrideWithValue(db),
+          backgroundProcessingGuardProvider.overrideWithValue(_Guard(db)),
+          exportOutboxProvider.overrideWithValue(_Outbox()),
+          entitlementServiceProvider.overrideWithValue(entitlements),
+          pipelineClientProvider.overrideWith((ref) async => _Worker()),
+        ],
+        child: const ProcessingServicesHost(child: SizedBox()),
+      ),
+    );
+    tester.binding
+      ..handleAppLifecycleStateChanged(AppLifecycleState.paused)
+      ..handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    await tester.pump();
+    expect(entitlements.refreshes, 1);
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(Duration.zero);
+  });
+
   testWidgets('[FND-11/AC1] the app host forwards lifecycle and memory '
       'pressure to a running worker, never starting one', (tester) async {
     final worker = _Worker();

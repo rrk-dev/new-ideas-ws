@@ -118,6 +118,11 @@ class ProfileTransferService {
     if (registry.builtins[p.id] != null) {
       return const ImportRefused(ImportRefusal.idTaken);
     }
+    // A new profile must not take over another profile's template row.
+    final template = (await dao.getTemplate(p.templateId)).valueOrNull;
+    if (template != null && template.profileId != p.id) {
+      return const ImportRefused(ImportRefusal.idTaken);
+    }
     final row = (await dao.getProfile(p.id)).valueOrNull;
     if (row == null) return ImportReady(bundle);
     if (row.source != p.source) {

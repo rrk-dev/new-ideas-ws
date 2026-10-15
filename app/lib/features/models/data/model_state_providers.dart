@@ -2,6 +2,7 @@ import 'dart:ui' show PlatformDispatcher;
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
+import 'package:vaultvoice/core/db/enums.dart' as db show ModelType;
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/features/extraction/data/device_profile_probe.dart';
 import 'package:vaultvoice/features/extraction/data/native_device_capabilities.dart';
@@ -87,6 +88,11 @@ Stream<List<InstalledModel>> installedModels(Ref ref) => ref
             size: r.size,
             relativePath: r.path,
             installedAt: r.installedAt,
+            type: switch (r.type) {
+              db.ModelType.stt => ModelType.stt,
+              db.ModelType.llm => ModelType.llm,
+              _ => null,
+            },
           ),
       ],
     );

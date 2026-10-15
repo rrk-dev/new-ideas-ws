@@ -31,7 +31,7 @@ done
 [ ${#PROFILES[@]} -eq 0 ] && PROFILES=(meeting warranty engineering)
 
 # Files whose change can move extraction quality.
-RELEVANT='^(app/assets/profiles/|app/lib/features/profiles/domain/(prompt_builder|prompt_inputs|schema_prompt_text|profile_schema)\.dart|app/lib/features/extraction/domain/output_schema_validator\.dart|app/tool/render_prompt\.dart|app/tool/src/|tools/bench/eval/|tools/ci/eval\.sh|native/llama\.cpp$|native/bridge/vv_llama)'
+RELEVANT='^(app/assets/profiles/|app/lib/features/profiles/domain/(prompt_builder|prompt_inputs|extraction_prompts|schema_prompt_text|profile_schema)\.dart|app/lib/features/extraction/domain/output_schema_validator\.dart|app/tool/render_prompt\.dart|app/tool/src/|tools/bench/eval/|tools/ci/eval\.sh|native/llama\.cpp$|native/bridge/vv_llama)'
 
 if [ -n "${EVAL_CHANGED_FILES+x}" ]; then
   changed="$EVAL_CHANGED_FILES"

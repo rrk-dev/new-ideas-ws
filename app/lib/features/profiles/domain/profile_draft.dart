@@ -355,7 +355,7 @@ final class ProfileDraft {
       id: profile.id,
       name: profile.name,
       description: profile.description,
-      instructions: profile.instructions.trim(),
+      instructions: _unwrapInstructions(profile.instructions),
       fields: fields,
       examples: [
         for (final e in profile.examples) ExampleDraft.fromExample(e, fields),
@@ -446,7 +446,6 @@ final class ProfileDraft {
   /// Format-1 definition (tier `pro`; custom profiles are a Pro feature).
   Map<String, Object?> toDefinition() {
     final userInstructions = instructions.trim();
-    const always = '- If a field has nothing, return an empty list or null.';
     return {
       'format': kProfileFormat,
       'id': id,
@@ -460,7 +459,7 @@ final class ProfileDraft {
       'instructions': [
         _kLeadInstruction,
         if (userInstructions.isNotEmpty) userInstructions,
-        always,
+        _kAlwaysInstruction,
       ].join('\n'),
       'schema': {
         'type': 'object',
@@ -479,6 +478,22 @@ final class ProfileDraft {
       'consent_confirmation': diarization ? 'required' : 'optional',
     };
   }
+}
+
+const String _kAlwaysInstruction =
+    '- If a field has nothing, return an empty list or null.';
+
+/// Removes the fixed lead/trailing lines [ProfileDraft.toDefinition] adds, so
+/// reopening and re-saving a profile does not stack them.
+String _unwrapInstructions(String saved) {
+  var text = saved.trim();
+  if (text.startsWith(_kLeadInstruction)) {
+    text = text.substring(_kLeadInstruction.length).trim();
+  }
+  if (text.endsWith(_kAlwaysInstruction)) {
+    text = text.substring(0, text.length - _kAlwaysInstruction.length).trim();
+  }
+  return text;
 }
 
 const String _kLeadInstruction =

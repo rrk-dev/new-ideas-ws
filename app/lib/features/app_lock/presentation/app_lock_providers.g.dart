@@ -139,7 +139,7 @@ final class AppLockProvider extends $NotifierProvider<AppLock, AppLockView> {
   }
 }
 
-String _$appLockHash() => r'499e2395992292de9d9569c96e519f11bda86062';
+String _$appLockHash() => r'd08d5cc9fdd848a3b1d681509c3656909340de0d';
 
 /// App lock state (SEC-03). Starts **locked** until the settings are known
 /// so content never flashes before the lock decision; unlocks immediately

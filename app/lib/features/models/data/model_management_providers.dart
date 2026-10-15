@@ -1,3 +1,5 @@
+import 'dart:ui' show PlatformDispatcher;
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
@@ -10,7 +12,9 @@ import 'package:vaultvoice/features/models/data/model_installer.dart';
 import 'package:vaultvoice/features/models/data/model_state_providers.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
 import 'package:vaultvoice/features/models/domain/model_management.dart';
+import 'package:vaultvoice/features/pipeline/domain/active_models.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
+import 'package:vaultvoice/features/transcription/domain/stt_model_policy.dart';
 
 part 'model_management_providers.g.dart';
 
@@ -33,11 +37,36 @@ Future<List<ModelEntry>> modelEntries(Ref ref) async {
         _ => null,
       },
   };
+  final deviceRamMb = device == null ? null : device.totalRamBytes ~/ (1 << 20);
+  // The pipeline's own selector decides which models are active.
+  final selection = selectActiveModels(
+    installed: [
+      for (final i in installed)
+        if (catalog.byId(i.id)?.type ?? i.type case final type?
+            when type == ModelType.stt || type == ModelType.llm)
+          InstalledModelInfo(
+            id: i.id,
+            kind: type == ModelType.stt
+                ? EngineModelKind.stt
+                : EngineModelKind.llm,
+            sizeBytes: i.size,
+          ),
+    ],
+    access: ref.watch(featureAccessStateProvider),
+    catalog: catalog,
+    device: device,
+    preferredStt: chosen[ModelType.stt],
+    preferredLlm: chosen[ModelType.llm],
+    sttLanguage: defaultSttLanguage(
+      PlatformDispatcher.instance.locale.languageCode,
+    ),
+  );
   return buildModelEntries(
+    activeIds: {?selection.stt, ?selection.llm},
     catalog: catalog,
     installed: installed,
     access: access.model,
-    deviceRamMb: device == null ? null : device.totalRamBytes ~/ (1 << 20),
+    deviceRamMb: deviceRamMb,
     recommendedIds: {
       for (final m in bundle?.models ?? const <CatalogModel>[]) m.id,
     },

@@ -206,7 +206,7 @@ final class InstalledModelsProvider
   }
 }
 
-String _$installedModelsHash() => r'c77a576a646b9b74d2064262d50d2bc8e5420fca';
+String _$installedModelsHash() => r'a5b3d45a68abe4f03a32c45b047e0328a8e7900f';
 
 /// Latest progress of every download started in this process, by model id.
 

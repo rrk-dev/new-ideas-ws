@@ -51,3 +51,4 @@ Audio, transcripts and the database are encrypted on device, beyond default OS p
   root on an unlocked device (ADR-SEC-01 → "What the acceptance criteria mean").
 - SEC-11 (proposed, stretch): opt-in encrypted backup/export of app data.
 - Optional: sqlite3mc raw-key configuration to skip the per-open PBKDF2 (~30–85 ms on host).
+- Codex review 2026-10-15 (open): production still writes plaintext WAV and rendered notes; AC1 needs app-level file encryption (large feature).

@@ -220,6 +220,30 @@ void main() {
     expect(expectOk(await purger.sweepOrphans()), 0);
   });
 
+  test(
+    'sweepOrphans finishes a partial deletion of a surviving recording',
+    () async {
+      await seedFullRecording(db, paths, 'r1');
+      expectOk(await purger.purge('r1', scope: PurgeScope.audio));
+      expectOk(await purger.purge('r1', scope: PurgeScope.transcripts));
+      // A crash left the files behind although their rows are gone.
+      for (final f in [
+        p.join(paths.audioDir('r1'), 'chunk_0.wav'),
+        paths.renderedFile('r1'),
+      ]) {
+        File(f)
+          ..createSync(recursive: true)
+          ..writeAsStringSync('x');
+      }
+      expect(expectOk(await purger.sweepOrphans()), 2);
+      expect(
+        filesUnder(paths.root)
+            .where((f) => f.startsWith('audio') || f.startsWith('rendered')),
+        isEmpty,
+      );
+    },
+  );
+
   test('a deleted recording with in-progress status is still removable '
       'when no step runs', () async {
     await seedFullRecording(

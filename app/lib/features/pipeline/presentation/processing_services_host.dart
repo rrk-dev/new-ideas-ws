@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/extraction/data/preview_llm_engine.dart';
+import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
 import 'package:vaultvoice/features/models/data/model_install_waker.dart';
 import 'package:vaultvoice/features/pipeline/data/background_providers.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_isolate.dart';
@@ -78,6 +79,8 @@ class _ProcessingServicesHostState extends ConsumerState<ProcessingServicesHost>
     // system settings) unblocks its pending exports on resume.
     if (foreground && !wasForeground) {
       ref.read(exportOutboxProvider).recheck().ignore();
+      // LIC-01: catch a clock jump past an entitlement expiry.
+      ref.read(entitlementServiceProvider).refresh();
     }
     _toWorker((w) => w.setForeground(foreground: foreground));
     if (ref.exists(previewLlmEngineProvider)) {

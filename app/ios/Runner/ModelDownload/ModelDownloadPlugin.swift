@@ -264,6 +264,27 @@ final class ModelDownloadSession: NSObject, URLSessionDownloadDelegate {
 
   // MARK: URLSessionDownloadDelegate
 
+  // Authorises every redirect before the request is sent: a disallowed host
+  // is never contacted (returning nil completes the task with the 3xx).
+  func urlSession(
+    _ session: URLSession, task: URLSessionTask,
+    willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest,
+    completionHandler: @escaping (URLRequest?) -> Void
+  ) {
+    guard let key = task.taskDescription, let info = info(for: key) else {
+      completionHandler(nil)
+      return
+    }
+    let url = request.url
+    guard let host = url?.host, url?.scheme == "https", info.allowedHosts.contains(host) else {
+      completionHandler(nil)
+      task.cancel()
+      finish(key: key, ["result": "redirectDenied", "host": url?.host ?? ""])
+      return
+    }
+    completionHandler(request)
+  }
+
   func urlSession(
     _ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64,
     totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64

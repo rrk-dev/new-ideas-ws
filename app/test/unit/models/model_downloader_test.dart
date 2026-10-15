@@ -99,6 +99,7 @@ void main() {
     NetworkGateway? via,
     Future<bool> Function()? cellular,
     ModelFileCheck? verify,
+    Future<bool> Function()? networkDisabled,
   }) => ModelDownloader(
     paths: paths,
     models: database.modelsRepository,
@@ -108,6 +109,7 @@ void main() {
     ),
     device: device,
     cellularAllowedSetting: cellular,
+    networkDisabled: networkDisabled,
     verify: verify ?? verifyModelFileInIsolate,
     delay: (d) async => delays.add(d),
   );
@@ -250,6 +252,24 @@ void main() {
       expect((await d.download(model())).isOk, isTrue);
       expect(server.to(_cdn).last.range, isNotNull);
       await expectInstalled();
+    });
+
+    test('[MDL-02/AC2] cancel during verification does not install', () async {
+      server.routes['$_cdn/stt/ggml-tiny.en.bin'] = FileRoute(bytes);
+      late final ModelDownloader d;
+      d = downloader(
+        verify: (path, m) async {
+          unawaited(d.cancel('whisper-tiny.en'));
+          return await verifyModelFileInIsolate(path, m);
+        },
+      );
+      final r = await d.download(model());
+      expect(r.failureOrNull, isA<CancelledFailure>());
+      expect(installedFile().existsSync(), isFalse);
+      expect(
+        (await database.modelsRepository.get('whisper-tiny.en')).valueOrNull,
+        isNull,
+      );
     });
 
     test('cancel deletes the partial file', () async {
@@ -414,6 +434,35 @@ void main() {
       expect(have, greaterThan(0));
       expect(have, lessThan(bytes.length));
       expect(await d.pendingModelIds(), ['whisper-tiny.en']);
+    });
+
+    test('[MDL-04/AC1] enabling network_disabled mid-download pauses and '
+        'keeps the partial', () async {
+      server.routes['$_cdn/stt/ggml-tiny.en.bin'] = FileRoute(bytes);
+      var disabled = false;
+      final d = downloader(networkDisabled: () async => disabled);
+      final sub = d.progress.listen((e) {
+        if (e.receivedBytes >= _mib) disabled = true;
+      });
+      final r = await d.download(model());
+      await sub.cancel();
+      expect(r.isOk, isFalse);
+      expect(d.latest('whisper-tiny.en')!.phase, DownloadPhase.paused);
+      expect(partialFile().existsSync(), isTrue);
+      expect(installedFile().existsSync(), isFalse);
+    });
+
+    test('[MDL-04/AC1] pauseAll stops every running transfer', () async {
+      server.routes['$_cdn/stt/ggml-tiny.en.bin'] = FileRoute(bytes);
+      final d = downloader();
+      final sub = d.progress.listen((e) {
+        if (e.phase == DownloadPhase.downloading && e.receivedBytes >= _mib) {
+          d.pauseAll();
+        }
+      });
+      await d.download(model());
+      await sub.cancel();
+      expect(d.latest('whisper-tiny.en')!.phase, DownloadPhase.paused);
     });
 
     test('low-power mode needs an explicit OK', () async {

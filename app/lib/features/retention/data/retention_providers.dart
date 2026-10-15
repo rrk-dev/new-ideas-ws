@@ -136,11 +136,9 @@ class RetentionScheduler {
       if (_ref.read(databaseCipherProvider) is Sqlite3mcCipher) {
         final rotation = await _ref.read(databaseKeyRotationProvider.future);
         // Any query proves the file opened (and was rekeyed to db.v1).
-        await _ref
-            .read(vaultVoiceDatabaseProvider)
-            .customSelect('SELECT 1')
-            .get();
-        final done = await rotation.finishPendingRotation();
+        final db = _ref.read(vaultVoiceDatabaseProvider);
+        await db.customSelect('SELECT 1').get();
+        final done = await rotation.finishPendingRotation(db);
         if (done case Err(:final failure)) log.failure('retention', failure);
       }
       final sweeper = await _ref.read(retentionSweeperProvider.future);
