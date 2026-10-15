@@ -15,4 +15,28 @@ command -v osv-scanner >/dev/null 2>&1 || {
 }
 [ -f osv-scanner.toml ] || { echo "osv_scan: osv-scanner.toml missing" >&2; exit 1; }
 [ "${1:-}" = "--offline-check" ] && { echo "osv_scan: tool and config present"; exit 0; }
-osv-scanner scan source --config osv-scanner.toml --recursive .
+# Shipped dependencies only: the submodules also carry Python/Node dev tooling
+# (model conversion, examples) that is never built into the app.
+LOCKS=()
+while IFS= read -r f; do LOCKS+=(--lockfile "$f"); done < <(
+  find app packages -name pubspec.lock -not -path '*/.dart_tool/*' -o \
+    -name Podfile.lock -not -path '*/Pods/*' -o -name gradle.lockfile 2>/dev/null | sort)
+[ ${#LOCKS[@]} -gt 0 ] || { echo "osv_scan: no lockfiles found" >&2; exit 1; }
+osv-scanner scan source --config osv-scanner.toml "${LOCKS[@]}"
+
+# Vendored native code (ggml/llama.cpp, whisper.cpp) is checked by pinned commit.
+python3 - <<'PY'
+import json, subprocess, sys, urllib.request
+bad = 0
+for line in subprocess.check_output(["git", "submodule", "status"], text=True).splitlines():
+    sha, path = line.strip("-+ U").split()[:2]
+    req = urllib.request.Request(
+        "https://api.osv.dev/v1/query",
+        data=json.dumps({"commit": sha}).encode(),
+        headers={"Content-Type": "application/json"})
+    vulns = json.load(urllib.request.urlopen(req, timeout=60)).get("vulns", [])
+    ids = [v["id"] for v in vulns]
+    print(f"{path} @ {sha[:10]}: {len(ids)} advisories {ids[:5]}")
+    bad += len(ids)
+sys.exit(1 if bad else 0)
+PY

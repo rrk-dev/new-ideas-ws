@@ -28,9 +28,9 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     gdir = OUT.parent / "gguf"
     gdir.mkdir(parents=True, exist_ok=True)
-    (gdir / "minimal.gguf").write_bytes(gguf())
-    (gdir / "no_kv.gguf").write_bytes(gguf(0))
-    (gdir / "huge_count.gguf").write_bytes(b"GGUF" + struct.pack("<IQQ", 3, 1 << 62, 1 << 62))
+    (gdir / "minimal.seed").write_bytes(gguf())
+    (gdir / "no_kv.seed").write_bytes(gguf(0))
+    (gdir / "huge_count.seed").write_bytes(b"GGUF" + struct.pack("<IQQ", 3, 1 << 62, 1 << 62))
     seeds = {
         "mono16k.wav": wav(),
         "stereo16k.wav": wav(channels=2),

@@ -59,7 +59,7 @@ def test_SEC_08_AC1_fuzz_targets_and_seeds_exist():
     for f in ("fuzz_wav.cpp", "fuzz_gguf.cpp", "fuzz_driver.cpp", "build_fuzz.sh"):
         assert (ROOT / "native" / "fuzz" / f).exists()
     assert list((ROOT / "native" / "fuzz" / "corpus" / "wav").glob("*.wav"))
-    assert list((ROOT / "native" / "fuzz" / "corpus" / "gguf").glob("*.gguf"))
+    assert list((ROOT / "native" / "fuzz" / "corpus" / "gguf").glob("*.seed"))
 
 
 @pytest.mark.skipif(shutil.which("c++") is None, reason="needs a C++ compiler")
