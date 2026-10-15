@@ -1,7 +1,7 @@
 # FND-05 — Processing Pipeline Orchestrator (Job Queue / State Machine)
 
 **Workstream:** Foundation | **Phase:** 1–2 | **Size:** L | **Depends on:** FND-04 | **Source:** Gap (§4.2 diagram implies a pipeline but none is specified)
-**Status:** review
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-pipeline-orchestrator, vv-local-database, vv-testing
 
 ## Goal
@@ -62,3 +62,19 @@ A persistent, resumable pipeline that moves each recording through the canonical
   RTF / tok/s in `settings`, notifications — consume `JobEvent`s / `pipelineJobsProvider`); AUD-07 (recover
   `in_progress` recordings before job recovery); EXP-05/06 (routing rules, outbox); BG tasks (auto-process,
   charge-only, OS background scheduling); on-device kill/resume run on the device matrix (QA-05).
+
+
+## Verification Report
+- **Verifier:** Codex · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** FAIL
+- **Gates:** format ✅ (387 files, 0 changed) · flutter analyze ✅ (0 issues) · flutter test --coverage ✅ (785 passed, 24 skipped on this host; Linux goldens/platform/model-dependent checks are not all executed locally) · coverage check_coverage: 93.2% of 4708 lines in 126 gated files (min 80%) · pytest tools/ci/tests ✅ (66 passed) · native/build.sh host + ctest ✅ (23 registered: 9 executed/pass, 14 explicitly skipped without configured model/backend fixtures) · egress ✅ · recording policy ✅ (source manifests; no local merged Android build) · tasks.py validate ✅ (85 tasks, 0 problems) · CI: [main run 51](https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858), same verified SHA, six jobs green; [PR run 50](https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638136574) also green. Shared gates were run once before mutations, as requested; logs under /tmp/vv-verify-a/.
+- **Fresh state / review:** Fresh clone of origin/main; local branch `verify/codex-a`. Reviewed task scope, Completion Notes, implementation history/diffs, current source, listed skills and tagged tests. No product/test fixes retained.
+- **Acceptance criteria:**
+  - AC1: ✅ Host file-DB kill/reopen test asserts persisted chunk-0/checkpoint, resumes chunks 1–2 only and ends with three segments and one export; changed-parameter test restarts all chunks. This is a cooperative worker-dispose simulation, not an actual OS kill/device run.
+  - AC2: ✅ Re-extraction with another profile preserves the transcript and STT call count, replaces extraction/profile and keeps one export; invalid/no-transcript reruns fail.
+  - AC3: ❌ Tagged state-machine/isolate/orchestrator tests cover normal transitions, failure/backoff, retry/cancel/pause/waiting and late result rollback, but the external model-release-failure probe exposes an unhandled worker failure.
+- **Adversarial checks:** Changed the first retry delay from 30 s to 31 s; tagged AC3 transition test failed and passed after git checkout restored job_state_machine.dart. Separately, an unchanged-source probe created a one-chunk job with HeavyModelGate(release: (_) async => throw StateError("release failed")); switching STT→LLM emitted an uncaught StateError and left the job at extracting. Probe is /tmp/vv-verify-a/adversarial_pipeline_test.dart; output in pipeline-adversarial.log. No repository test/source fixes made.
+- **Skill/rule compliance:** Persist-before-act, chunk checkpoint transactions, shared DB isolate and late-cancel compare-and-set paths inspected. Model-release failures bypass the specified failure/retry machinery; actual device kill/background scenarios remain unexecuted. AGENTS.md, vv-task-workflow and vv-task-verify followed; no push, PR, GitHub API, tool installation or git-config changes.
+- **Issues found:** 
+  1. PipelineOrchestrator._process persists the active state, then awaits gate.use(step.model) outside its try/catch. A throwing unload callback terminates _workLoop, strands the active job and prevents later queue work until restart; PipelineIsolateClient drops post-start errors and pending commands can hang. Handle model switching failures through job failure/retry and keep the worker alive; add regression coverage.
+- **Acceptance runner:** `python3 .agents/skills/vv-task-workflow/scripts/tasks.py verify FND-05 --run` was invoked; its evidence/dependency checks refused before launching tagged tests. All referenced tagged tests were instead executed in the shared full Dart/pytest suites, then the mutation target was re-run red and green after restoration (QA-05 is artifact-only). Pre-report diagnostic output: `/tmp/vv-verify-a/FND-05-verify.log`.

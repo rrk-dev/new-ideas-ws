@@ -1,7 +1,7 @@
 # FND-07 — Local-Only Logging & Diagnostics
 
 **Workstream:** Foundation | **Phase:** 1 | **Size:** S | **Depends on:** FND-02 | **Source:** Gap (privacy promise rules out cloud telemetry)
-**Status:** review
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-privacy-security, vv-flutter-architecture, vv-benchmark-eval, vv-testing
 
 ## Goal
@@ -55,3 +55,18 @@ Developers and users can diagnose problems without any data leaving the device u
 - l10n: Settings/diagnostics strings are literals like the other FND-02 screens; move to ARB when
   l10n lands.
 
+
+
+## Verification Report
+- **Verifier:** Codex · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** FAIL
+- **Gates:** format ✅ (387 files, 0 changed) · flutter analyze ✅ (0 issues) · flutter test --coverage ✅ (785 passed, 24 skipped on this host; Linux goldens/platform/model-dependent checks are not all executed locally) · coverage check_coverage: 93.2% of 4708 lines in 126 gated files (min 80%) · pytest tools/ci/tests ✅ (66 passed) · native/build.sh host + ctest ✅ (23 registered: 9 executed/pass, 14 explicitly skipped without configured model/backend fixtures) · egress ✅ · recording policy ✅ (source manifests; no local merged Android build) · tasks.py validate ✅ (85 tasks, 0 problems) · CI: [main run 51](https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858), same verified SHA, six jobs green; [PR run 50](https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638136574) also green. Shared gates were run once before mutations, as requested; logs under /tmp/vv-verify-a/.
+- **Fresh state / review:** Fresh clone of origin/main; local branch `verify/codex-a`. Reviewed task scope, Completion Notes, implementation history/diffs, current source, listed skills and tagged tests. No product/test fixes retained.
+- **Acceptance criteria:**
+  - AC1: ❌ Tagged tests pass for ordinary rotation/restart and INFO+ redaction (paths, quotes/JSON, filenames, sensitive fields), but oversized-record adversarial test exceeds the configured per-file cap.
+  - AC2: ✅ Host tests check zip entries, INFO+ filtering, malformed/DEBUG-line dropping, redaction sentinels, device info/metrics, preview-before-share and cancellation. Real iOS/iPad/Android share-sheet/private-path rows remain blank and require device runs.
+- **Adversarial checks:** Changed plain-string field redaction to return the original string; [FND-07/AC1] redaction tests failed and passed after git checkout restored redaction.dart. Unchanged-source probe wrote 100 numeric INFO fields through Logger into RotatingFileSink(maxFileBytes: 256, maxFiles: 2): vv.log was 1,363 bytes, violating the cap. Probe: /tmp/vv-verify-a/adversarial_logging_test.dart; output: logging-adversarial.log. Reviewed zip filtering, no pre-confirm share and filesystem-error swallowing.
+- **Skill/rule compliance:** Local-only sinks, private paths and share-preview flow inspected against privacy/architecture/testing/benchmark and software-security guidance. No runtime network/SDK was added. Export metrics still use documented injectable probes; actual platform battery probe is a follow-up. AGENTS.md, vv-task-workflow and vv-task-verify followed; no push, PR, GitHub API, tool installation or git-config changes.
+- **Issues found:** 
+  1. RotatingFileSink.write only rotates when _size > 0 and does not reject/truncate/split a record larger than maxFileBytes. A large record is written whole into an empty file (also immediately after rotation), exceeding the configured per-file and total storage caps. Add oversized-record handling and a regression asserting the cap for large records.
+- **Acceptance runner:** `python3 .agents/skills/vv-task-workflow/scripts/tasks.py verify FND-07 --run` was invoked; its evidence/dependency checks refused before launching tagged tests. All referenced tagged tests were instead executed in the shared full Dart/pytest suites, then the mutation target was re-run red and green after restoration (QA-05 is artifact-only). Pre-report diagnostic output: `/tmp/vv-verify-a/FND-07-verify.log`.
