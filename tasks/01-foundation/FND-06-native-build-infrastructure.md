@@ -42,7 +42,7 @@ Reproducible builds of `whisper.cpp` and `llama.cpp` (shared `ggml`) for both pl
 - **Follow-ups:** user decision on iOS minimum (16.0 vs 16.4); CPU-variant dispatch + GPU backends (STT-02/LLM-03); `vv_jsg` (LLM-05); apply `native-host`/`android`/`ios` as required checks
 
 
-## Verification Report
+## Verification Report — historical Cursor report (2026-10-13)
 - **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-13 · **Commit:** 87963175263cf3aba56fc55cca584d490ce26a6d
 - **Verdict:** FAIL
 - **Gates:** format ✅ · analyze ✅ (no issues) · flutter tests ✅ (21 passed, coverage 94.4%) · native host smoke ✅ (`native/build.sh host`, ctest `vv_smoke` and `vv_exports` passed, `libvv_native.dylib` 6507968 bytes) after `git submodule update --init` · egress ✅ · recording policy n/a · CI run: local fresh worktree. Android and iOS builds not run (no NDK, no Xcode).
@@ -88,3 +88,20 @@ Reproducible builds of `whisper.cpp` and `llama.cpp` (shared `ggml`) for both pl
   (CI files, not FND-06 code).
 - **AC2 / AC3 (⏳ in the report):** unchanged — need the on-device `vv_version()` rows and the Android/iOS
   sizes from a machine with the NDK and Xcode (`docs/test-plans/device/FND-06.md`).
+
+
+## Verification Report
+- **Verifier:** Codex · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ (387 files, 0 changed) · analyze ✅ (zero issues) · Flutter tests ✅ (785 passed, 24 skipped; coverage 93.3%, gate 80%) · pytest ✅ (66 passed) · native host ✅ (fresh native/build.sh host; model-backed ctest 21 passed, 2 explicitly skipped) · egress ✅ · recording policy ✅ · tasks validate ✅ (85 tasks, 0 problems) · CI run: local. No Xcode/NDK/mobile SDKs; no mobile/device reruns.
+- **Acceptance criteria:**
+  - AC1: ✅ host build from this fresh clone, shared ggml/export ctests and all three native-build pytest checks passed. Invalid target and missing NDK/Xcode return the documented errors. Mobile builds remain ⏳.
+  - AC2: ✅ host Dart `[FND-06/AC2]` asserts version 0.1.0, ABI and nonempty runtime versions; device test read, not run. Both phone rows remain ⏳.
+  - AC3: ⏳ versions/size artifact reviewed; this host dylib is 10,263,760 bytes. Android stripped and iOS slice sizes still require their toolchains.
+- **Mutation sanity check:** Changed the invalid-target exit from 64 to 65: `test_FND_06_AC1_one_command_per_target_and_clear_toolchain_errors` failed (1 failed). Restored native/build.sh with git checkout; original three checks passed.
+- **Adversarial checks:** Invalid target, missing toolchains, missing library/model, ABI handshake, symbol export isolation and ggml tree parity checked. The earlier Cursor issue is resolved at this SHA.
+- **Device evidence:** Reviewed every row in `docs/test-plans/device/FND-06.md`. Result/date/tester cells are unfilled; no physical run is represented as PASS. The user explicitly permits a provisional verifier PASS with these rows pending.
+- **Skill/rule compliance:** Read AGENTS.md, verifier prompt, workflow/verification skills and all task-listed skills; reviewed the merged implementation at main (no unmerged task diff). Pins checked against local headers. RTK.md is referenced by the supplied instructions but absent. Product code/tests unchanged after temporary mutations; no criteria weakened, GitHub API/gh, pushes, git config edits or model commits.
+  The previous Cursor report body is preserved; its heading is marked historical so tasks.py parses this current report.
+- **Issues found:** none in the verified host implementation; physical acceptance remains pending.
+- **Pending for done:** FND-06: FAIL AC1: still pending (⏳) — cannot be done | FND-06: FAIL AC1: device row in docs/test-plans/device/FND-06.md has no PASS result with a date | FND-06: FAIL AC2: still pending (⏳) — cannot be done | FND-06: FAIL AC2: device row in docs/test-plans/device/FND-06.md has no PASS result with a date | FND-06: FAIL AC3: still pending (⏳) — cannot be done | FND-06: FAIL AC3: device row in docs/test-plans/device/FND-06.md has no PASS result with a date | FND-06: FAIL dependency FND-01 is not done | FND-06: FAIL FND-03 (CI / test framework) must be done before any non-bootstrap task | FND-06: FAIL QA-01 (CI / test framework) must be done before any non-bootstrap task | refusing to set FND-06 to done: 9 problem(s) (see vv-task-verify)
