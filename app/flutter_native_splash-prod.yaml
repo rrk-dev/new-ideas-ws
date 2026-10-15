@@ -1,0 +1,13 @@
+# REL-05. Prod launch splash. Brand seed AppColors.seed (#3F51B5).
+# Generate with: cd app && fvm dart run flutter_native_splash:create --flavor prod
+# Do not run the generator unless this file or the source PNG changes.
+flutter_native_splash:
+  color: "#3F51B5"
+  color_dark: "#3F51B5"
+  android_12:
+    color: "#3F51B5"
+    color_dark: "#3F51B5"
+  android: true
+  ios: true
+  web: false
+  fullscreen: true

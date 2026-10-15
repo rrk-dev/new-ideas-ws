@@ -1,0 +1,13 @@
+# REL-05. Dev launch splash (lighter indigo so flavors are distinguishable).
+# Generate with: cd app && fvm dart run flutter_native_splash:create --flavor dev
+# Do not run the generator unless this file or the source PNG changes.
+flutter_native_splash:
+  color: "#5C6BC0"
+  color_dark: "#5C6BC0"
+  android_12:
+    color: "#5C6BC0"
+    color_dark: "#5C6BC0"
+  android: true
+  ios: true
+  web: false
+  fullscreen: true

@@ -1,0 +1,15 @@
+{
+  "products": [
+    {
+      "id": "vv_pro_annual",
+      "type": "auto_renewable_subscription",
+      "period": "1_year",
+      "stores": ["app_store", "play"]
+    },
+    {
+      "id": "vv_pro_lifetime",
+      "type": "non_consumable",
+      "stores": ["app_store", "play"]
+    }
+  ]
+}
