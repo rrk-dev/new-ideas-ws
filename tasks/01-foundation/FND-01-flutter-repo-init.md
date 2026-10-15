@@ -1,7 +1,7 @@
 # FND-01 — Initialize Flutter Repository & Code Standards
 
 **Workstream:** Foundation | **Phase:** 1 (Weeks 1–3) | **Size:** S | **Depends on:** — | **Source:** §5 Phase 1
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-testing
 
 ## Goal
@@ -92,3 +92,12 @@ Create the Flutter monorepo with strict, enforced code style so every later task
 - **Issues found:** 
   1. AC2 lacks the required successful dev-flavor launch on an arm64 iOS simulator and arm64-v8a Android emulator. Run and date both rows in docs/test-plans/device/FND-01.md; this is an evidence gap, not a demonstrated launch defect.
 - **Acceptance runner:** `python3 .agents/skills/vv-task-workflow/scripts/tasks.py verify FND-01 --run` was invoked; its evidence/dependency checks refused before launching tagged tests. All referenced tagged tests were instead executed in the shared full Dart/pytest suites, then the mutation target was re-run red and green after restoration (QA-05 is artifact-only). Pre-report diagnostic output: `/tmp/vv-verify-a/FND-01-verify.log`.
+
+## Rework
+- **Agent:** Claude Code · **Branch:** task/FND-01-rework-1 (from origin/integration/wave-4) · **Date:** 2026-10-14 — answers the Codex FAIL report above (report left unchanged). Notes only, no code change.
+- **Issue 1 (AC2 simulator/emulator launches not run):** still open — an evidence gap, not a known launch defect. The authoring machine has no Xcode, CocoaPods, iOS simulator, Android SDK, JDK 17, NDK or emulator (`tools/setup/doctor.sh` ios/android sections fail) and system tools are not installed without the user's approval, so AC2 stays ⏳ in `docs/test-plans/device/FND-01.md` (the rows already match the criterion). Exact steps for whoever has the toolchain (Apple Silicon Mac):
+  1. `tools/setup/doctor.sh` — core, ios and android sections pass (Xcode + CocoaPods + iOS 16.4+ arm64 simulator runtime; Android SDK, NDK r28, JDK 17, an arm64-v8a system image API 26+).
+  2. Repo root: `git submodule update --init --recursive`; `native/build.sh ios` (the iOS build needs `vv_native.xcframework` before `pod install`; Android builds `libvv_native.so` through Gradle `externalNativeBuild`); `cd app && fvm flutter pub get`.
+  3. iOS: `xcrun simctl boot "iPhone 16"` → `fvm flutter devices` (note the id) → `cd app && fvm flutter run --flavor dev -t lib/main_dev.dart -d <simulator-id>`.
+  4. Android: `avdmanager create avd -n vv-arm64 -k "system-images;android-34;google_apis;arm64-v8a"` → `emulator -avd vv-arm64` → `fvm flutter devices` → `cd app && fvm flutter run --flavor dev -t lib/main_dev.dart -d <emulator-id>`.
+  5. Expected on both: build succeeds, app installs as "VaultVoice Dev" (`com.vaultvoice.vaultvoice.dev`), launches without a crash to the Record screen with the DEBUG banner and the dev-only "CallGuard debug" action. Fill Device/OS/Result/Date/Tester in both rows and save screenshots under `docs/test-plans/device/evidence/FND-01/`.
