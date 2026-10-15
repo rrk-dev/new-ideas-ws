@@ -133,7 +133,9 @@ can only make recording stricter (LIC-04).
 - [ ] No setting, flavor or managed-config key disables CallGuard, indicators or consent.
 
 ## Legal review
-**Status: requested — awaiting product/legal (owner: product). SEC-09 stays in `review` until confirmed.**
+**Status: confirmed by the product owner on 2026-10-14** (relayed to the implementer by the coordinator; recorded in SEC-09 → Rework). The user accepted the SEC-09 consent wording below and its shipped form in `app/lib/core/l10n/arb/app_en.arb` (`consent*`, `importAttestationCheckbox`, `recordPausedCall`, `recordUnavailableDuringCalls`). Related product decision already made: per-recording consent confirmation is user-controlled (setting, default on). Any later wording change needs a new confirmation.
+
+_Original request (kept for history): requested — awaiting product/legal (owner: product)._
 Wording to approve (drafts; English only, l10n later):
 1. Start refused: "Recording is unavailable during calls."
 2. Paused by a call: "Recording paused because a call started. Audio from the call was not recorded. Tap Resume to continue."

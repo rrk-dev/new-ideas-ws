@@ -1,7 +1,7 @@
 # SEC-09 — Recording Safeguards: User-Started Only, Never Record Calls
 
 **Workstream:** Security & Privacy | **Phase:** 1 | **Size:** M | **Depends on:** FND-02 | **Source:** Product/legal requirement (user directive): use only the standard OS microphone APIs, never record phone/VoIP calls, never record without the user's explicit action
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-audio-capture, vv-privacy-security, vv-ci-release, vv-testing
 
 ## Goal
@@ -63,7 +63,7 @@ standard, permission-gated OS microphone APIs — and it never captures telephon
   - AC3: ✅ test: [SEC-09/AC3]; artifact: docs/adr/ADR-SEC-09-recording-policy.md
   - AC4: ✅ test: [SEC-09/AC4]; artifact: docs/adr/ADR-SEC-09-recording-policy.md
   - AC5: ⏳ test: [SEC-09/AC5]; device: docs/test-plans/device/SEC-09.md
-  - AC6: ⏳ artifact: docs/adr/ADR-SEC-09-recording-policy.md#legal-review
+  - AC6: ✅ artifact: docs/adr/ADR-SEC-09-recording-policy.md#legal-review
 - **Decisions:** ADR-SEC-09-recording-policy (method/event channel instead of Pigeon; permissionless call detection; Python checker). PRODUCT-DECISIONs listed at the end of the ADR (fail closed, pauses excluded from max duration, reminder only while backgrounded, `mixWithOthers` banned everywhere, notification Resume allowed in background).
 - **Follow-ups:** AUD-01 implements `CaptureBackend` (reconcile with `core/platform/AudioRecorder`); AUD-04/AUD-05 keep CallGuard active in background and render the reminder notification; AUD-08 recording UI strings; REL-01 runs the guard in the release pipeline; legal/product sign-off on the wording in the ADR; `tasks.py` runs pytest with `-k <ID>_ACn`, which never matches `test_<ID_with_underscores>_ACn` names (SEC-09 tests carry the tag as a parametrize id as a workaround — FND-03 owner to fix).
 
@@ -93,3 +93,14 @@ standard, permission-gated OS microphone APIs — and it never captures telephon
   1. AC1 requires a CI test-branch demonstration for forbidden permission and call-source additions. The checklist has neither result nor run URLs; local fixture rejection alone does not meet that explicit criterion. Record failing static/merged-manifest job evidence.
   2. AC6 remains awaiting product/legal confirmation. This is a non-device acceptance hold, so the physical-device-only exception cannot make SEC-09 done. Obtain and record product/legal confirmation; keep device AC2/AC5 runs pending until actually executed.
 - **Acceptance runner:** `python3 .agents/skills/vv-task-workflow/scripts/tasks.py verify SEC-09 --run` was invoked; its evidence/dependency checks refused before launching tagged tests. All referenced tagged tests were instead executed in the shared full Dart/pytest suites, then the mutation target was re-run red and green after restoration (QA-05 is artifact-only). Pre-report diagnostic output: `/tmp/vv-verify-a/SEC-09-verify.log`.
+
+## Rework
+- **Agent:** Claude Code · **Branch:** task/SEC-09-rework-1 (from origin/integration/wave-4) · **Date:** 2026-10-14 — answers the Codex FAIL report above (report left unchanged). Notes/docs only, no code change.
+- **Issue 2 (AC6 — product/legal confirmation):** resolved. The user (product owner) accepted the SEC-09 consent wording on **2026-10-14**; recorded as the product/legal confirmation in `docs/adr/ADR-SEC-09-recording-policy.md` → "Legal review" (covers the ADR drafts and the shipped strings `consent*`, `importAttestationCheckbox`, `recordPausedCall`, `recordUnavailableDuringCalls` in `app_en.arb`). AC6 evidence changed ⏳ → ✅ (artifact). The confirmation came from the user via the coordinator, not from counsel engaged by the implementer; the ADR note that this is engineering guidance, not legal advice, still applies.
+- **Issue 1 (AC1 — CI test-branch demonstration):** still open, needs the **repo owner (rrk-dev)**: `ci.yml` runs only on `pull_request` and on pushes to `main`, and implementers must not open PRs in this batch. Steps (also the AC1 row in `docs/test-plans/device/SEC-09.md`):
+  1. Create branch `ci-demo/recording-policy` from `origin/main`; add `<uses-permission android:name="android.permission.READ_PHONE_STATE"/>` to `app/android/app/src/main/AndroidManifest.xml`; commit, push, open a **draft** PR to `main`.
+  2. Expected: `static` fails at `check_recording_policy.sh` with `RECORDING-POLICY: … READ_PHONE_STATE`, and `android` fails on the merged manifest (`--require-merged-manifest`). Copy the run URL.
+  3. Second commit: revert the manifest line and add `MediaRecorder.AudioSource.VOICE_CALL` in any Kotlin file under `app/android/app/src/main/kotlin/`; push. Expected: `static` fails with `… call audio source: VOICE_CALL`. Copy the run URL.
+  4. Paste both URLs into the AC1 row (Result/Date/Tester), close the PR unmerged and delete the branch.
+  Local proof is unchanged: the `[SEC-09/AC1]` fixture tests in `tools/ci/tests/`.
+- **Device rows (AC2, AC5):** remain ⏳ — iPhone (oldest + newest in the matrix), Android API 31+ and API 26–30 phones, and a second phone as caller; steps in `docs/test-plans/device/SEC-09.md`.
