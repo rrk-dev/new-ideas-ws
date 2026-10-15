@@ -1,0 +1,158 @@
+app/lib/features/licensing/data/licensing_providers.dart
+  s_4b08e2248c7e63::t_cb7b4ffac59d2f 6,13
+  s_4b08e2248c7e63::t_dd01abfe43c8f7 110,112-113
+app/android/app/proguard-rules.pro
+  s_4b08e2248c7e63::t_dd01abfe43c8f7 1-4
+app/lib/features/licensing/presentation/purchase_host.dart
+  s_4b08e2248c7e63::t_dd01abfe43c8f7 27-43
+  s_4b08e2248c7e63::t_dbb8c038cbeeb9 1-26,44-46
+docs/privacy-audit.md
+  s_4b08e2248c7e63::t_dd01abfe43c8f7 294-307
+app/pigeons/purchase_api.dart
+  s_4b08e2248c7e63::t_fe3998a5ee1eab 30,32,34,36,42
+  s_4b08e2248c7e63::t_be2236a08eccb5 1-29,31,33,35,37-41,43-44
+app/test/unit/licensing/purchase_service_test.dart
+  s_4b08e2248c7e63::t_d14b21d7cf5ecb 33,39-40,44,92-129,131-137,139-141,160,175,181,183
+  s_9f6fcf8c1840a0::t_89a9c6d24116a4 1-32,34-38,41-43,45-91,130,138,142-159,161-174,176-180,182,184-246
+app/lib/features/licensing/presentation/paywall_screen.dart
+  s_4b08e2248c7e63::t_dd01abfe43c8f7 19-111
+  s_4b08e2248c7e63::t_db661432e42ef4 1-18,112-114
+app/lib/bootstrap.dart
+  s_4b08e2248c7e63::t_cb7b4ffac59d2f 28
+  s_4b08e2248c7e63::t_83f1bb34fcbd07 114-116
+app/android/app/build.gradle.kts
+  s_4b08e2248c7e63::t_dd01abfe43c8f7 78
+  s_4b08e2248c7e63::t_335fd0b4599838 22-25,53,103-109
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/billing/PurchasePlugin.kt
+  s_4b08e2248c7e63::t_dd01abfe43c8f7 154
+  s_4b08e2248c7e63::t_d7833cf0133452 37-38
+  s_4b08e2248c7e63::t_9a5d1bbea4ae32 1-36,39-153,155-213
+app/lib/features/settings/presentation/settings_screen.dart
+  s_4b08e2248c7e63::t_cb7b4ffac59d2f 10-11
+  s_4b08e2248c7e63::t_a1e6cc299d79b9 301-307
+app/test/golden/paywall_golden_test.dart
+  s_4b08e2248c7e63::t_cb7b4ffac59d2f 14-15
+  s_9f6fcf8c1840a0::t_0adb078eabbce1 1-13,16-23
+docs/test-plans/device/LIC-02.md
+  s_4b08e2248c7e63::t_d9760dbabff47c 1-10,12-20
+  s_4b08e2248c7e63::t_d7833cf0133452 11
+app/lib/features/licensing/data/entitlement_license_port.dart
+  s_4b08e2248c7e63::t_4e59ca30d23237 11-13
+  s_4b08e2248c7e63::t_dd01abfe43c8f7 37-38
+  s_4b08e2248c7e63::t_cb7b4ffac59d2f 39
+  s_4b08e2248c7e63::t_01f49085693291 15-17
+app/lib/features/licensing/domain/feature_matrix.dart
+  s_4b08e2248c7e63::t_dd01abfe43c8f7 6-8
+app/lib/features/licensing/data/platform_purchase_store.dart
+  s_4b08e2248c7e63::t_dd01abfe43c8f7 14,23-70,77
+  s_4b08e2248c7e63::t_fe3998a5ee1eab 22
+  s_4b08e2248c7e63::t_531d0df401401a 1-13,15-21,71-76,78
+tasks/README.md
+  s_4b08e2248c7e63::t_4e59ca30d23237 190
+app/lib/core/routing/app_routes.dart
+  s_4b08e2248c7e63::t_dd01abfe43c8f7 359-360
+  s_4b08e2248c7e63::t_cb7b4ffac59d2f 11
+  s_4b08e2248c7e63::t_bb5792edaec578 98,355-358,361
+app/lib/features/licensing/data/purchase_service.dart
+  s_4b08e2248c7e63::t_cb7b4ffac59d2f 98-122
+  s_4b08e2248c7e63::t_dd01abfe43c8f7 16-86,123
+  s_4b08e2248c7e63::t_e4a7d3c1ec477a 1-15,87-97,124-130
+app/lib/features/licensing/domain/store_purchase.dart
+  s_4b08e2248c7e63::t_dd01abfe43c8f7 46-118
+  s_4b08e2248c7e63::t_ab67466318d794 1-45,119-120
+app/lib/features/licensing/data/purchase_api.g.dart
+  s_4b08e2248c7e63::t_dd01abfe43c8f7 13-39,41-63,65-66,88,95,102,106,110,125,128-129,136-137,149,158,170,173-308,310-356,358-369,371,376
+  s_9f6fcf8c1840a0::t_48f084ac1b08cd 1-12,40,64,67-87,89-94,96-101,103-105,107-109,111-124,126-127,130-135,138-148,150-157,159-169,171-172,309,357,370,372-375,377
+app/lib/features/settings/presentation/settings_providers.dart
+  s_4b08e2248c7e63::t_cb7b4ffac59d2f 8
+  s_4b08e2248c7e63::t_82ef4a31e8e398 28-31
+app/lib/features/licensing/presentation/router_paywall_presenter.dart
+  s_4b08e2248c7e63::t_d14b21d7cf5ecb 2-11
+  s_4b08e2248c7e63::t_d9b94cff1c08f5 1,12-13
+app/test/widget/accessibility_test.dart
+  s_4b08e2248c7e63::t_cb7b4ffac59d2f 27,29
+  s_4b08e2248c7e63::t_f5efe5a1cb4d94 93,161-166
+app/test/widget/paywall_test.dart
+  s_4b08e2248c7e63::t_d14b21d7cf5ecb 49
+  s_4b08e2248c7e63::t_931fd6f90a22de 21-45,47-48,50-60,64-108
+  s_4b08e2248c7e63::t_cb7b4ffac59d2f 46,61-63
+  s_4b08e2248c7e63::t_ce442fe57b0e89 1-20,109
+docs/adr/ADR-LIC-02-store-verification.md
+  s_4b08e2248c7e63::t_c6225d076d65f3 1-24,27-80
+  s_4b08e2248c7e63::t_368691a796ec97 25-26
+app/lib/features/licensing/data/purchase_providers.dart
+  s_4b08e2248c7e63::t_dd01abfe43c8f7 16-18
+  s_4b08e2248c7e63::t_feaf17b6c4e0fb 1-15,19-35
+.github/workflows/release.yml
+  s_9f6fcf8c1840a0::t_829f307b785183 110
+app/android/app/src/main/AndroidManifest.xml
+  s_9f6fcf8c1840a0::t_f83edaad9ad2fd 2
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/MainActivity.kt
+  s_9f6fcf8c1840a0::t_c46b1a9048ec0e 3,43
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/billing/PurchaseApi.g.kt
+  s_9f6fcf8c1840a0::t_416de017e13483 1-449
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_9f6fcf8c1840a0::t_f21907fbeeb5df 31-32,88-89,164-165,339-340,420,476,677,735,788,846
+app/ios/Runner/AppDelegate.swift
+  s_9f6fcf8c1840a0::t_0f0dd5edac9097 9,60-62
+app/ios/Runner/PurchaseApi.g.swift
+  s_9f6fcf8c1840a0::t_87a175dde987ab 1-439
+app/ios/Runner/PurchaseHostApiImpl.swift
+  s_9f6fcf8c1840a0::t_2d100320caaad0 1-113
+app/ios/Runner/VaultVoice.storekit
+  s_9f6fcf8c1840a0::t_3c18eea433e57b 1-64
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_fd76d04ecd5c1c 841-868
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_e8e57b373e2337 4440-4517
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_5174e66994bec6 2588-2636
+app/lib/core/routing/app_routes.g.dart
+  s_9f6fcf8c1840a0::t_6d4d474baeb681 172-176,665-684
+app/lib/features/licensing/data/licensing_providers.g.dart
+  s_9f6fcf8c1840a0::t_604957b071ad7b 404,409,419,453
+app/lib/features/licensing/data/purchase_providers.g.dart
+  s_9f6fcf8c1840a0::t_2c640554685d59 1-134
+app/lib/features/settings/presentation/settings_providers.g.dart
+  s_9f6fcf8c1840a0::t_8a105411d2a694 157
+app/test/fakes/fake_purchase_store.dart
+  s_9f6fcf8c1840a0::t_8707ea89f2c748 1-45
+app/test/unit/licensing/README.md
+  s_9f6fcf8c1840a0::t_037e1697f3ae6e 1-4
+app/test/unit/licensing/platform_purchase_store_test.dart
+  s_9f6fcf8c1840a0::t_77c69d9837329c 1-109
+docs/billing-sdk-audit.md
+  s_9f6fcf8c1840a0::t_33c6d4bddac909 1-53
+docs/in-app-purchases.md
+  s_9f6fcf8c1840a0::t_29363299c514cb 1-72
+docs/release-secrets.md
+  s_9f6fcf8c1840a0::t_13efdf96c212a9 51-56
+tools/release/build_release.sh
+  s_9f6fcf8c1840a0::t_5f9708505fe550 35,44
+tools/release/tests/test_purchase_build.py
+  s_4b08e2248c7e63::t_4b0a5dffd168b6 1-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1d682515cacb7084fccc899c0d953ac1824cf734",
+  "prompts": {},
+  "sessions": {
+    "s_4b08e2248c7e63": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "01a13d7a-ddd8-7e40-92c1-cef6c08a8477",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
