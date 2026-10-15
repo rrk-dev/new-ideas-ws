@@ -30,8 +30,7 @@ class _NoManaged implements ManagedSettingsSource {
   const _NoManaged();
 
   @override
-  Stream<ManagedSettings> watch() =>
-      Stream.value(const ManagedSettings(values: {}));
+  Stream<ManagedSettings> watch() => Stream.value(ManagedSettings.none);
 }
 
 List<Override> _overrides(VaultVoiceDatabase db, {required bool pro}) => [
@@ -75,21 +74,19 @@ Future<ProviderContainer> _pump(
 
 /// Drift streams complete on real async; let them run, then settle frames.
 Future<void> _settle(WidgetTester t) async {
-  for (var i = 0; i < 5; i++) {
-    await t.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 20)));
-    await t.pump();
+  for (var i = 0; i < 30; i++) {
+    await t.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 10)),
+    );
+    await t.pump(const Duration(milliseconds: 20));
   }
   await t.pumpAndSettle();
 }
 
-Finder _fieldLabelled(String label) => find.ancestor(
-  of: find.text(label),
-  matching: find.byType(TextField),
-);
+Finder _fieldLabelled(String label) =>
+    find.ancestor(of: find.text(label), matching: find.byType(TextField));
 
 Future<void> _pickKind(WidgetTester t, int fieldIndex, String kind) async {
-  final dropdown = find.byType(DropdownButtonFormField<FieldKindProxy>);
-  expect(dropdown, findsNothing); // sanity: proxy type unused
   final types = find.text('Text');
   await t.ensureVisible(types.at(fieldIndex));
   await t.tap(types.at(fieldIndex));
@@ -97,9 +94,6 @@ Future<void> _pickKind(WidgetTester t, int fieldIndex, String kind) async {
   await t.tap(find.text(kind).last);
   await t.pumpAndSettle();
 }
-
-/// Marker type used only by the sanity check above.
-class FieldKindProxy {}
 
 void main() {
   testWidgets('[PRF-07/AC1] a user builds a 5-field profile in the editor '
@@ -131,11 +125,10 @@ void main() {
 
     await t.tap(find.byTooltip('Save profile'));
     await _settle(t);
-
     final row = expectOk(
-      await t.runAsync(
+      (await t.runAsync(
         () => db.profilesRepository.getProfile('sprint-planning'),
-      ),
+      ))!,
     );
     final profile = Profile.fromJson(row.definition);
     expect(profile.schema.properties.keys, [
@@ -152,9 +145,9 @@ void main() {
       }),
     );
     final tpl = expectOk(
-      await t.runAsync(
+      (await t.runAsync(
         () => db.profilesRepository.getTemplate('sprint-planning-default'),
-      ),
+      ))!,
     );
     expect(tpl.body, contains('{{#checkbox}}'));
     // Navigated to the saved profile.

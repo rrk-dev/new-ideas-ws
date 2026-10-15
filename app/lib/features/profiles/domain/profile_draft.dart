@@ -534,7 +534,9 @@ String profileIdFrom(String name, Set<String> taken) {
   var base = fieldNameFrom(name).replaceAll('_', '-');
   if (base.length > 32) base = base.substring(0, 32);
   base = base.replaceAll(RegExp(r'-+$'), '');
-  if (base.length < 2 || base.startsWith('field-')) base = 'profile';
+  if (base.length < 2 || base == 'field' || base.startsWith('field-')) {
+    base = 'profile';
+  }
   if (!taken.contains(base)) return base;
   for (var n = 2; ; n++) {
     final id = '$base-$n';

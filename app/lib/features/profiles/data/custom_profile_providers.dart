@@ -46,20 +46,28 @@ Future<Profile?> profileById(Ref ref, String id) async {
 bool canEditProfiles(Ref ref) =>
     ref.watch(featureProvider(Feature.customProfiles));
 
+/// Every dependency is watched before the first await (the provider may be
+/// disposed once its future completes); an entitlement change rebuilds it.
 @riverpod
-Future<CustomProfileService> customProfileService(Ref ref) async =>
-    CustomProfileService(
-      registry: await ref.watch(profileRegistryProvider.future),
-      dao: ref.watch(profilesRepositoryProvider),
-      canEdit: () => ref.read(canEditProfilesProvider),
-      clock: ref.watch(clockProvider),
-    );
+Future<CustomProfileService> customProfileService(Ref ref) async {
+  final dao = ref.watch(profilesRepositoryProvider);
+  final clock = ref.watch(clockProvider);
+  final canEdit = ref.watch(canEditProfilesProvider);
+  final registry = ref.watch(profileRegistryProvider.future);
+  return CustomProfileService(
+    registry: await registry,
+    dao: dao,
+    canEdit: () => canEdit,
+    clock: clock,
+  );
+}
 
 @riverpod
 Future<ProfilePreview> profilePreview(Ref ref) async {
+  final llm = ref.watch(llmEngineProvider);
   final registry = await ref.watch(profileRegistryProvider.future);
   return ProfilePreview(
-    llm: ref.watch(llmEngineProvider),
+    llm: llm,
     grammarFor: (p) async => switch (await registry.grammarsFor(p)) {
       Ok(:final value) => Ok(value.schema),
       Err(:final failure) => Err(failure),

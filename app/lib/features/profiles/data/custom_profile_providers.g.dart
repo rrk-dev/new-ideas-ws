@@ -183,8 +183,14 @@ final class CanEditProfilesProvider
 
 String _$canEditProfilesHash() => r'd9c20168e1ee970e003fda2fca0fa76ae9cb2e1a';
 
+/// Every dependency is watched before the first await (the provider may be
+/// disposed once its future completes); an entitlement change rebuilds it.
+
 @ProviderFor(customProfileService)
 final customProfileServiceProvider = CustomProfileServiceProvider._();
+
+/// Every dependency is watched before the first await (the provider may be
+/// disposed once its future completes); an entitlement change rebuilds it.
 
 final class CustomProfileServiceProvider
     extends
@@ -196,6 +202,8 @@ final class CustomProfileServiceProvider
     with
         $FutureModifier<CustomProfileService>,
         $FutureProvider<CustomProfileService> {
+  /// Every dependency is watched before the first await (the provider may be
+  /// disposed once its future completes); an entitlement change rebuilds it.
   CustomProfileServiceProvider._()
     : super(
         from: null,
@@ -223,7 +231,7 @@ final class CustomProfileServiceProvider
 }
 
 String _$customProfileServiceHash() =>
-    r'cdfdfd00ed40e36dcb81ae1cc06f2c25e261b4fd';
+    r'4592bd90addae0e3bfa830413c51a3de365f6024';
 
 @ProviderFor(profilePreview)
 final profilePreviewProvider = ProfilePreviewProvider._();
@@ -262,7 +270,7 @@ final class ProfilePreviewProvider
   }
 }
 
-String _$profilePreviewHash() => r'e500f3da0825278bf9006be09e97674d8197b391';
+String _$profilePreviewHash() => r'c7500cb0dc29075946e673cae8d2af8249a6b7f6';
 
 /// Recordings that can be used for "Test on a recording".
 
@@ -370,7 +378,7 @@ final class PreviewInputProvider
   }
 }
 
-String _$previewInputHash() => r'97b6e36d99c0a435821bb70ee8b7a525aff5a3e5';
+String _$previewInputHash() => r'45d4c6d359ac54af5d997fdc4dce5b076c22dd68';
 
 /// The latest transcript of [recordingId] as prompt input (empty when none).
 
