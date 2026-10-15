@@ -1,0 +1,71 @@
+app/macos/Runner/PurchaseHostApiImpl.swift
+  s_a4977af59bca9d::t_0870d2032eddac 1-33
+app/macos/Runner/MainFlutterWindow.swift
+  s_a4977af59bca9d::t_8a5b2909fe55c8 9-12,32-33,36-50
+  s_a4977af59bca9d::t_ad01f6eece2cad 51
+app/macos/Runner/BookmarkHostApiImpl.swift
+  s_a4977af59bca9d::t_ea9e2dc9f071e2 1-5,7-8,10-24,26,35,39-55,59-63,65,68-72,270,279
+  s_a4977af59bca9d::t_5b54269e035ca0 56-58
+  s_a4977af59bca9d::t_74c7a3d7219e16 6,9,25,27-34,36-38,64,66-67,73-269,271-278,280-392
+app/macos/Runner/AppLockPlugin.swift
+  s_a4977af59bca9d::t_bab549e3b3adfb 1-58
+app/macos/Runner/MacHostChannels.swift
+  s_a4977af59bca9d::t_fcbd8285cc78ac 1-132,134-212
+  s_a4977af59bca9d::t_adc7511f84d49a 133
+app/test/unit/macos_desktop_target_test.dart
+  s_a4977af59bca9d::t_070f98147e16f6 157,159-201,203-226
+  s_a4977af59bca9d::t_c838f3f6dcef08 158,202
+docs/test-plans/device/FND-09.md
+  s_a4977af59bca9d::t_f61ca01cb35ea1 10-11,22-32
+app/lib/features/recording/data/method_channel_call_guard.dart
+  s_a4977af59bca9d::t_44675e010be757 8-9
+tasks/01-foundation/FND-09-macos-desktop-target.md
+  s_a4977af59bca9d::t_c838f3f6dcef08 34
+app/macos/Runner/Release.entitlements
+  s_a4977af59bca9d::t_6a390dc35859ab 9-12
+app/macos/Runner/SecureStoragePlugin.swift
+  s_a4977af59bca9d::t_74c7a3d7219e16 2-4,6-7,13,17-29,31-121,123-133,135-141
+  s_a4977af59bca9d::t_4a8247dd13d9f3 1,5,8-12,14-16,30,122,134
+app/integration_test/macos_host_channels_test.dart
+  s_a4977af59bca9d::t_c838f3f6dcef08 28,42,49,61,83
+  s_a4977af59bca9d::t_22b1e4f51e9e53 74-76,79-80
+  s_a4977af59bca9d::t_03adb94cf66571 1-27,29-41,43-48,50-60,62-73,77-78,81-82,84-104
+app/macos/Runner/AudioImportHostApiImpl.swift
+  s_a4977af59bca9d::t_74c7a3d7219e16 1,3-4,6,13-104,106-108,111-112,115-116
+  s_a4977af59bca9d::t_e5945d9c04ecad 2,5,7-12,105,109-110,113-114
+tools/ci/check_recording_policy.py
+  s_a4977af59bca9d::t_1a661bc41d1452 119-126,258-259
+app/test/unit/recording/macos_microphone_test.dart
+  s_a4977af59bca9d::t_57a8aceca7225e 233-239,248
+app/macos/Runner/DebugProfile.entitlements
+  s_a4977af59bca9d::t_6a390dc35859ab 13-16
+app/macos/Runner.xcodeproj/project.pbxproj
+  s_a4977af59bca9d::t_6a390dc35859ab 34-42,110-118,211-219,476-484
+docs/test-plans/device/AUD-09.md
+  s_a4977af59bca9d::t_f61ca01cb35ea1 16
+tools/ci/tests/test_recording_policy.py
+  s_a4977af59bca9d::t_c838f3f6dcef08 275
+  s_a4977af59bca9d::t_1a661bc41d1452 258-274,276-283
+  s_a4977af59bca9d::t_05985db6fdff2b 257
+app/lib/features/recording/data/audio_import_providers.dart
+  s_a4977af59bca9d::t_22b1e4f51e9e53 61
+  s_a4977af59bca9d::t_9dd43c76392273 62-63
+docs/adr/ADR-SEC-09-recording-policy.md
+  s_a4977af59bca9d::t_1a661bc41d1452 90-99
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3d5da4a3a1eee8ad7c3fa5d84453ad4b4b2b4b7a",
+  "prompts": {},
+  "sessions": {
+    "s_a4977af59bca9d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "1f84f357-ba7c-4578-9a7d-75e2459ea3c0",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
