@@ -1,0 +1,19 @@
+tasks/10-security-privacy/SEC-09-recording-safeguards-no-call-capture.md
+  s_bee108b1b39def::t_415b23af75813a 4,76-95
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d1954477caf2576734c820b33f18960e045e3c22",
+  "prompts": {},
+  "sessions": {
+    "s_bee108b1b39def": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "01a13d49-11ed-7d93-a40a-600137f611b4",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
