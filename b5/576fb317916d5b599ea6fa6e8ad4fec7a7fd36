@@ -1,0 +1,22 @@
+app/test/unit/pipeline/pipeline_isolate_test.dart
+  s_9f6fcf8c1840a0::t_28e818df6e01be 43-60,182-238
+app/test/unit/pipeline/pipeline_orchestrator_test.dart
+  s_9f6fcf8c1840a0::t_e3b54a7a199069 37-40,57-62,391-468
+  s_9f6fcf8c1840a0::t_77dc3c539508db 469
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b5576fb317916d5b599ea6fa6e8ad4fec7a7fd36",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
