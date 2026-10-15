@@ -137,7 +137,11 @@ class RecordingChunkWriter {
         remaining -= drop;
         if (remaining > 0) await _closeChunk(); // empty ⇒ deleted
       }
-      final chunk = _chunk;
+      // A pause exactly at a rollover leaves no open chunk: reopen the
+      // segment's last one so its tail is still faded out.
+      final chunk =
+          _chunk ??
+          (_segmentSamples > 0 && _seq >= 0 ? await _reopenChunk() : null);
       if (chunk != null) {
         final keep = _samplesIn(chunk);
         final tail = math.min(fadeSamples, keep);

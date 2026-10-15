@@ -57,8 +57,12 @@ DeviceProfile _device(int ramGib) => DeviceProfile(
   availableRamBytes: ramGib * _gib ~/ 2,
 );
 
-InstalledModelInfo _installed(String id, EngineModelKind kind, int size) =>
-    InstalledModelInfo(id: id, kind: kind, sizeBytes: size);
+InstalledModelInfo _installed(
+  String id,
+  EngineModelKind kind,
+  int size, {
+  String? file,
+}) => InstalledModelInfo(id: id, kind: kind, sizeBytes: size, file: file);
 
 void main() {
   final catalog = ModelCatalog(
@@ -124,6 +128,43 @@ void main() {
         preferredStt: 'stt-en',
       );
       expect(en.stt, 'stt-en');
+    });
+
+    test('[STT-07/AC1] sideloaded STT models are gated by size class: a '
+        'small / large file is Pro-only on Free; an opaque big file too', () {
+      final inst = [
+        _installed('base', EngineModelKind.stt, 60 * 1000 * 1000),
+        _installed(
+          'side-small',
+          EngineModelKind.stt,
+          190 * 1000 * 1000,
+          file: 'ggml-small-q5_1.bin',
+        ),
+        _installed(
+          'side-opaque',
+          EngineModelKind.stt,
+          1500 * 1000 * 1000,
+          file: 'my-model.bin',
+        ),
+      ];
+      final free = selectActiveModels(
+        installed: inst,
+        access: _free(),
+        preferredStt: 'side-small',
+      );
+      expect(free.stt, 'base');
+      final onlyBig = selectActiveModels(
+        installed: inst.sublist(1),
+        access: _free(),
+        preferredStt: 'side-opaque',
+      );
+      expect(onlyBig.stt, isNull);
+      final pro = selectActiveModels(
+        installed: inst,
+        access: _pro(),
+        preferredStt: 'side-small',
+      );
+      expect(pro.stt, 'side-small');
     });
 
     test('nothing installed selects nothing', () {

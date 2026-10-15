@@ -250,6 +250,16 @@ void main() {
       expect(out.map((l) => l.text).join(' ').split(' ').length, 300);
     });
 
+    test('[LLM-06/AC1] splitLongLines also cuts text without whitespace '
+        '(e.g. Chinese) so no piece stays over budget', () {
+      final long = TranscriptLine(startMs: 7000, text: '会议记录' * 200);
+      final out = splitLongLines([long], [800], 100);
+      expect(out.length, greaterThan(8));
+      expect(out.every((l) => l.startMs == 7000), isTrue);
+      expect(out.every((l) => l.text.runes.length <= 120), isTrue);
+      expect(out.map((l) => l.text).join(), '会议记录' * 200);
+    });
+
     test('timestamps', () {
       expect(formatTimestamp(3723000), '01:02:03');
       expect(parseTimestamp('01:02:03'), 3723000);

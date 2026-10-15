@@ -117,4 +117,4 @@ A Dart `SttEngine` implementation that transcribes audio with progress, cancella
 
 ## Follow-ups
 
-- Codex review 2026-10-15 (open): Active Metal STT decode continues after backgrounding; cancel/checkpoint STT on the lifecycle transition and reload on CPU before resuming.
+- Codex review 2026-10-15 (fixed, regression-tested): Active Metal STT decode continues after backgrounding; cancel/checkpoint STT on the lifecycle transition and reload on CPU before resuming.

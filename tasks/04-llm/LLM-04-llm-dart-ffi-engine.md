@@ -34,7 +34,7 @@ A Dart `LlmEngine` that loads a GGUF model and runs prompts with streaming, canc
 - **Follow-ups:** see below
 
 ## Follow-ups
-- Codex review 2026-10-15 (open): Profile previews hardcode foreground:true and get no lifecycle notifications (preview_llm_engine.dart:102); forward lifecycle events to the active preview service and test background during load/generation.
+- Codex review 2026-10-15 (fixed, regression-tested): Profile previews hardcode foreground:true and get no lifecycle notifications (preview_llm_engine.dart:102); forward lifecycle events to the active preview service and test background during load/generation.
 - Metal prefill cancel latency: the llama abort callback only interrupts CPU graphs; if the `[LLM-04/AC1]` prefill row exceeds 500 ms on iPhone 11, decode prompts in smaller slices (e.g. 128 tokens) when a run is cancellable.
 - Production wiring of `llmEngineProvider` (active model from MDL-*, tier/plan defaults, Android GPU guard) — LLM-07.
 - `JobMetrics` writing from `LlmService.onStats` in the pipeline extract step (FND-05 / PRF-02 owner).

@@ -137,7 +137,8 @@ class _CallGuardDebugScreenState extends ConsumerState<CallGuardDebugScreen> {
 /// [CaptureBackend] that never touches the microphone (debug screen only).
 class NoMicrophoneCaptureBackend implements CaptureBackend {
   @override
-  Future<Result<void>> openMicrophone() async => const Ok<void>(null);
+  Future<Result<void>> openMicrophone({bool Function()? mayOpen}) async =>
+      const Ok<void>(null);
 
   @override
   Future<Result<void>> suspend({
@@ -146,7 +147,8 @@ class NoMicrophoneCaptureBackend implements CaptureBackend {
   }) async => const Ok<void>(null);
 
   @override
-  Future<Result<void>> resumeCapture() async => const Ok<void>(null);
+  Future<Result<void>> resumeCapture({bool Function()? mayOpen}) async =>
+      const Ok<void>(null);
 
   @override
   Future<Result<RecordedAudio>> close({

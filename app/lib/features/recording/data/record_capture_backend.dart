@@ -156,7 +156,7 @@ class RecordCaptureBackend
   Stream<Uint8List> get pcm => _pcm.stream;
 
   @override
-  Future<Result<void>> openMicrophone() async {
+  Future<Result<void>> openMicrophone({bool Function()? mayOpen}) async {
     if (_session != null) {
       return const Err(UnexpectedFailure('capture already open'));
     }
@@ -182,6 +182,7 @@ class RecordCaptureBackend
     if (!await _mic.hasPermission()) {
       return const Err(PermissionFailure('microphone'));
     }
+    if (mayOpen != null && !mayOpen()) return _openRefused();
     final id = _ids.next();
     final created = await _repo.create(
       RecordingsCompanion.insert(
@@ -204,6 +205,11 @@ class RecordCaptureBackend
       paths,
     );
     _session = session;
+    if (mayOpen != null && !mayOpen()) {
+      _session = null;
+      await _repo.deleteById(id);
+      return _openRefused();
+    }
     final opened = await _openMic(session);
     if (opened case Err(:final failure)) {
       _session = null;
@@ -215,6 +221,9 @@ class RecordCaptureBackend
     if (warn) _notices.add(CaptureNotice.lowStorageWarning);
     return const Ok<void>(null);
   }
+
+  Err<void> _openRefused() =>
+      Err(RecordingBlockedFailure(RecordingBlockReason.inCall));
 
   @override
   Future<Result<void>> suspend({
@@ -253,7 +262,7 @@ class RecordCaptureBackend
   }
 
   @override
-  Future<Result<void>> resumeCapture() async {
+  Future<Result<void>> resumeCapture({bool Function()? mayOpen}) async {
     final session = _session;
     if (session == null) {
       return const Err(UnexpectedFailure('no capture open'));
@@ -264,6 +273,7 @@ class RecordCaptureBackend
         when _storage.beforeStart(value) == StorageVerdict.refuse) {
       return const Err(StorageFailure('low storage'));
     }
+    if (mayOpen != null && !mayOpen()) return _openRefused();
     final opened = await _openMic(session);
     if (opened case Err()) return opened;
     await _updateRow(session, RecordingStatus.recording);

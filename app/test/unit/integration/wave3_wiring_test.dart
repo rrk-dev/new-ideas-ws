@@ -17,7 +17,10 @@ import 'package:vaultvoice/features/pipeline/data/active_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/production_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/render_write_steps.dart';
 import 'package:vaultvoice/features/pipeline/domain/active_models.dart';
+import 'package:vaultvoice/features/pipeline/domain/heavy_model_gate.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
+import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
+import 'package:vaultvoice/features/pipeline/domain/preview_lease.dart';
 import 'package:vaultvoice/features/templates/data/template_store.dart';
 import 'package:vaultvoice/features/transcription/domain/stt_model_policy.dart';
 
@@ -199,6 +202,36 @@ void main() {
     addTearDown(db.close);
     await seedRecording(db, 'r1');
     expect(await pipelineHasActiveJob(db), isFalse);
+
+    // [FND-11/AC1] the preview claims the shared model lease BEFORE it
+    // checks the pipeline, and holds it while it runs, so the worker's gate
+    // (which refuses while the lease is held) cannot start STT/LLM beside it.
+    final lease = PreviewLease(db.settingsRepository);
+    final order = <String>[];
+    final leased = PreviewLlmEngine(
+      lease: lease,
+      pipelineBusy: () async {
+        order.add('busy-check:held=${await lease.isHeld()}');
+        return false;
+      },
+      resolve: () async {
+        order.add('resolve:held=${await lease.isHeld()}');
+        return null;
+      },
+      create: (_) => throw StateError('not loaded in this test'),
+    );
+    await leased.generate(req);
+    expect(order, ['busy-check:held=true', 'resolve:held=true']);
+    expect(await lease.isHeld(), isFalse, reason: 'released afterwards');
+    final gate = HeavyModelGate(isBlocked: lease.isHeld);
+    await lease.acquire();
+    await expectLater(
+      gate.use(HeavyModel.stt),
+      throwsA(isA<HeavyModelBusyException>()),
+    );
+    await lease.release();
+    await gate.use(HeavyModel.stt);
+    expect(gate.loaded, HeavyModel.stt);
     await db
         .into(db.jobs)
         .insert(

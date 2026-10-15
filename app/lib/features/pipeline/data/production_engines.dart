@@ -27,6 +27,7 @@ import 'package:vaultvoice/features/pipeline/data/steps/render_write_steps.dart'
 import 'package:vaultvoice/features/pipeline/domain/heavy_model_gate.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
+import 'package:vaultvoice/features/pipeline/domain/preview_lease.dart';
 import 'package:vaultvoice/features/profiles/data/profile_registry.dart';
 import 'package:vaultvoice/features/profiles/domain/builtin_profiles.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
@@ -158,6 +159,7 @@ final class ProductionEngineSpec {
       ),
     );
     final gate = HeavyModelGate(
+      isBlocked: PreviewLease(db.settingsRepository).isHeld,
       release: (model) async {
         switch (model) {
           case HeavyModel.stt:
@@ -234,6 +236,7 @@ final class ProductionEngineSpec {
       onForeground: ({required foreground}) {
         inForeground = foreground;
         llm.setForeground(foreground: foreground);
+        if (!foreground) stt.onBackgrounded();
       },
       onMemoryPressure: llm.onMemoryPressure,
       dispose: () async {

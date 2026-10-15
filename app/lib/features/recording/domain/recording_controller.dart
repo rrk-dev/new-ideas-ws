@@ -148,9 +148,12 @@ class RecordingController {
       _opening = false;
       return _blocked(refused);
     }
-    final opened = await _capture.openMicrophone();
+    final opened = await _capture.openMicrophone(
+      mayOpen: () => _pendingBlock == null,
+    );
     _opening = false;
     if (opened case Err(:final failure)) {
+      _pendingBlock = null;
       _endGuardWatch();
       return Err(failure);
     }
@@ -192,9 +195,14 @@ class RecordingController {
       _opening = false;
       return _blocked(refused);
     }
-    final reopened = await _capture.resumeCapture();
+    final reopened = await _capture.resumeCapture(
+      mayOpen: () => _pendingBlock == null,
+    );
     _opening = false;
-    if (reopened case Err(:final failure)) return Err(failure);
+    if (reopened case Err(:final failure)) {
+      _pendingBlock = null;
+      return Err(failure);
+    }
     _enterRecording();
     _applyPendingBlock();
     return const Ok<void>(null);
@@ -322,7 +330,9 @@ class RecordingController {
       );
       return;
     }
-    final reopened = await _capture.resumeCapture();
+    final reopened = await _capture.resumeCapture(
+      mayOpen: () => _pendingBlock == null,
+    );
     _opening = false;
     if (reopened case Err()) {
       _pendingBlock = null;

@@ -100,6 +100,27 @@ void main() {
     });
   });
 
+  group('open recheck', () {
+    test('[SEC-09/AC2] a call that starts during the asynchronous open work '
+        'is seen right before the mic opens: the mic never opens', () {
+      fakeAsync((async) {
+        final h = _Harness(async);
+        h.capture.openGate = Completer<void>();
+        Result<void>? r;
+        unawaited(
+          h.controller.start(StartSource.inAppButton).then((v) => r = v),
+        );
+        async.flushMicrotasks();
+        h.guard.emit(CallGuardSignal.callActive, h.clock.now());
+        h.capture.openGate!.complete();
+        async.flushMicrotasks();
+        expect(r?.isOk, isFalse);
+        expect(h.capture.micOpen, isFalse);
+        expect(h.phase, RecordingPhase.idle);
+      });
+    });
+  });
+
   group('start refused during calls', () {
     test('[SEC-09/AC2] start is refused while a call rings or is active; '
         'the microphone is never opened', () {
