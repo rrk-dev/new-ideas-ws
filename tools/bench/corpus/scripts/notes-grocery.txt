@@ -1,0 +1,4 @@
+# voice-memo: one speaker, everyday note. Format: <voice>|<text> per turn.
+Samantha|Quick note before I forget. We need to pick up milk, eggs, two loaves of bread and a bag of coffee beans on the way home.
+Samantha|Also remind me to call the plumber about the kitchen sink tomorrow morning, and to renew the car insurance before the end of the month.
+Samantha|The library books are due on Friday, so return them when you drop the kids at school.
