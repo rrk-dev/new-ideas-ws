@@ -1,0 +1,56 @@
+app/lib/features/models/data/download_providers.dart
+  s_98284e60985282::t_3679f0961595ab 11
+  s_98284e60985282::t_1856dd493f0d98 39,53-57
+app/ios/Runner/ModelDownload/ModelDownloadPlugin.swift
+  s_98284e60985282::t_df6a91d6837ef7 267-287
+app/lib/core/security/database_key_rotation.dart
+  s_98284e60985282::t_94863009b9aea7 58-63,66-75
+app/lib/features/models/data/model_downloader.dart
+  s_98284e60985282::t_5a5bae268da926 166-173,370-372
+app/lib/features/models/data/model_management_providers.dart
+  s_98284e60985282::t_c4ff13aaa26ffb 1-2,15,17,40-63,65,69
+app/lib/features/models/data/model_state_providers.dart
+  s_98284e60985282::t_4e73bbe0153c1f 5,91-95
+app/lib/features/models/domain/installed_model.dart
+  s_98284e60985282::t_4157ddbbbb1a66 2-3,14,24-27
+app/lib/features/models/domain/model_management.dart
+  s_98284e60985282::t_3fa4cb195cd2ce 114-119,128,131,142-151,153-158,172-188
+app/lib/features/retention/data/recording_purger.dart
+  s_98284e60985282::t_acd67ad0f5358d 7,150-161,167-169,182-187,192
+app/lib/features/retention/data/retention_providers.dart
+  s_98284e60985282::t_b8ca07d5375714 139-141
+app/test/fakes/fake_model_downloader.dart
+  s_98284e60985282::t_a50ffeaf35a4c6 39-41
+app/test/unit/models/model_download_channel_test.dart
+  s_98284e60985282::t_d1544644d447ea 175-187
+app/test/unit/models/model_downloader_test.dart
+  s_98284e60985282::t_341a96e5a6bbbe 102,112,439-467
+app/test/unit/models/model_management_test.dart
+  s_98284e60985282::t_cd0d37ad0e0414 76-108
+app/test/unit/retention/delete_all_data_test.dart
+  s_98284e60985282::t_fd98cd10e4d024 173,189-203
+app/test/unit/retention/secure_deletion_test.dart
+  s_98284e60985282::t_b81c58707c8b0d 223-246
+app/test/widget/models_screen_test.dart
+  s_98284e60985282::t_2c2b22397012bb 278-279,282,298-299
+tasks/05-models/MDL-02-model-downloader.md
+  s_98284e60985282::t_dde17b24ceba87 83
+tasks/10-security-privacy/SEC-02-network-egress-guarantee.md
+  s_98284e60985282::t_2ffbad4c193252 56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "951f289cc5c638a44cd254c22fb3fe3f6c294e66",
+  "prompts": {},
+  "sessions": {
+    "s_98284e60985282": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "8c0bcf5b-010a-4914-b1cc-deab4029b4f6",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
