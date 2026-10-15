@@ -8,10 +8,10 @@
 Validate on real users' devices and vaults before public launch.
 
 ## Scope
-- [ ] TestFlight external group and Play closed testing track.
-- [ ] In-app feedback (local: compose email / share with optional diagnostics from FND-07).
-- [ ] Beta exit criteria: crash-free sessions ≥ 99.5%, zero data-loss reports, extraction satisfaction survey ≥ target.
-- [ ] Triage process for beta feedback.
+- [x] TestFlight external group and Play closed testing track.
+- [x] In-app feedback (local: compose email / share with optional diagnostics from FND-07).
+- [x] Beta exit criteria: crash-free sessions ≥ 99.5%, zero data-loss reports, extraction satisfaction survey ≥ target.
+- [x] Triage process for beta feedback.
 
 ## Acceptance Criteria
 - ≥ 50 beta users across platforms; exit criteria met before production release.
