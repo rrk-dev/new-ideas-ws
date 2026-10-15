@@ -66,3 +66,14 @@ A single, versioned definition format for "skills" that drives prompt, output sc
   `meta` fields from the same `kMetaShape`; snapshot the three built-ins in `app/test/golden_prompts/`; trim
   examples first via `Profile.examples` length; neutralize `</transcript>` in transcript text.
 
+## Verification Report
+- **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ · analyze ✅ · tests ✅ (780 passed, 29 skipped; coverage not re-measured locally, CI test job gates ≥80% and is green) · native smoke n/a (no native/bridge change) · egress ✅ · recording policy ✅ · CI run: https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858 (run 51 of ci, commit 67b6fcf, completed successfully; run 50 also succeeded)
+- **Acceptance criteria:**
+  - AC1: ✅ re-ran `[PRF-01/AC1]` inside the full suite; `profile_spec_doc_test.dart` parses the single YAML example in `docs/profile-spec.md`, requires it to equal the shipped meeting built-in, and requires every definition key, schema keyword, post-processor, reduce strategy and consent value to appear in the doc
+  - AC2: ✅ re-ran `[PRF-01/AC2]`; `profile_validator_test.dart` asserts exact `path: message` failures (missing maxLength/maxItems, unknown keywords, examples, consent/SEC-07, every issue at once, messages that do not echo field values); registry tests refuse a grammar-converter rejection and a multi-issue save with nothing stored. Mutation: changed the maxLength message in `profile_schema.dart` to "can loop"; the tagged test failed (`Expected: …cannot loop`); restored with `git checkout`
+- **Adversarial checks:** empty/whitespace instructions, 2001-char instructions, duplicate ids, unknown keys, enum duplicates, nesting deeper than 6, YAML/JSON syntax errors, and a field value `SECRET-PROJECT-NAME` that must not appear in the issue text. Built-ins stay out of the `profiles` table; user/enterprise rows version on extraction-fingerprint change. No transcript/LLM content logging and no new network host in this feature.
+- **Skill/rule compliance:** profile spec, validator, built-in assets and registry match `vv-extraction-profiles` / `vv-local-database` (existing `profiles` table, no migration). Hand-written model instead of freezed is recorded in Completion Notes. No credentials, certificates, or banned crypto.
+- **Issues found:** none
+- **Pending for done:** dependency FND-04 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task

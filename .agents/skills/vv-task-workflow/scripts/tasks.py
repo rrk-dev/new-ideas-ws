@@ -246,8 +246,10 @@ def cmd_set(tasks, args, root):
 
 # ---------------------------------------------------------------- verification
 def section(text: str, title: str) -> str | None:
-    m = re.search(rf"^## {re.escape(title)}\s*$(.*?)(?=^## |\Z)", text, re.M | re.S)
-    return m.group(1) if m else None
+    """Body of the LAST `## <title>` section (a task can collect several Verification Reports
+    over rework rounds; the most recent one is authoritative)."""
+    ms = list(re.finditer(rf"^## {re.escape(title)}\s*$(.*?)(?=^## |\Z)", text, re.M | re.S))
+    return ms[-1].group(1) if ms else None
 
 
 def acceptance_criteria(text: str) -> list[str]:

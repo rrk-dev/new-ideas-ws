@@ -51,3 +51,14 @@ Install models from a local file (USB, AirDrop, MDM-pushed file) with zero netwo
 - **MDL-03 note:** hide download actions while `networkDisabledProvider` is true, show the
   import tile on the model screen, and add the "Advanced: custom model" toggle
   (`models.advanced_custom_model`) only when the entitlement allows it.
+
+## Verification Report
+- **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ (0 changed) · analyze ✅ (no issues) · tests ✅ (785 passed, 24 skipped, coverage 93.2% of 4708 gated lines, min 80%) · native smoke ✅ (host ctest 9 passed / 14 skipped / 0 failed, includes `vv_crash`) · egress ✅ · recording policy ✅ · CI run: https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858 (run 51, success, `67b6fcf`) and https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638136574 (run 50, success)
+- **Acceptance criteria:**
+  - AC1: ✅ re-ran `[MDL-04/AC1]` (`model_importer_test.dart` and `network_gateway_stream_test.dart`). With `network_disabled`, sideload of a signed STT file and a signed LLM file installs both under `models/<id>/`, records the rows, excludes `models/` from backup, and the mock client sees zero requests; the downloader plan reports `offline` and `download` fails. Checked the importer test fails when `importPicked` returns `missingFiles` immediately. Airplane-mode full-pipeline rows (transcribe → extract → render → write) are blank.
+- **Adversarial checks:** Tampered manifest, unpinned key, and hash mismatch install nothing (same file, untagged but read). Custom GGUF without the entitlement is denied (`DenyCustomModels` default; the provider wires `Feature.sideloadCustomModel`). Picked names are not stored (custom id is `custom-<sha16>/custom.gguf`). Gateway `network_disabled` fails closed before the socket, including when the setting read throws. `tasks.py verify MDL-04 --run` short-circuits on the pending device row; the tagged tests passed in the full suite.
+- **Skill/rule compliance:** Signature and hash path is the MDL-01 verifier plus the MDL-02 installer. No network code outside the gateway. `file_selector` is the system picker. ADR-MDL-04 Proposed. The pipeline half of the criterion is device-only and still ⏳.
+- **Issues found:** none
+- **Pending for done:** AC1: still pending (⏳) — cannot be done; AC1: device row in docs/test-plans/device/MDL-04.md has no PASS result with a date; dependency MDL-01 is not done; dependency MDL-02 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task

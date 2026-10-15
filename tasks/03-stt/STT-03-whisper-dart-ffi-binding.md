@@ -1,7 +1,7 @@
 # STT-03 — Whisper Dart FFI Binding & Engine Service
 
 **Workstream:** STT | **Phase:** 2 | **Size:** M | **Depends on:** STT-01, STT-02 | **Source:** §4.2 (FFI / C++ bridge)
-**Status:** review
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-ffi-bridge, vv-whisper-stt, vv-testing, vv-local-database, vv-pipeline-orchestrator
 
 ## Goal
@@ -49,3 +49,21 @@ A Dart `SttEngine` implementation that transcribes audio with progress, cancella
   installed model path (MDL-02) and `HeavyModelGate(release: … stt.unload())` (owner of pipeline
   bootstrap / APP-04 live job view); per-profile vocabulary from PRF-01; CI native-host job:
   fetch tiny.en + jfk and run `native/tests/sanitize.sh` (CI owner); live segment list UI (STT-06).
+
+
+## Verification Report
+- **Verifier:** Codex · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** FAIL
+- **Gates:** format ✅ (387 files, 0 changed) · analyze ✅ (zero issues) · Flutter tests ✅ (785 passed, 24 skipped; coverage 93.3%, gate 80%) · pytest ✅ (66 passed) · native host ✅ (fresh native/build.sh host; model-backed ctest 21 passed, 2 explicitly skipped) · egress ✅ · recording policy ✅ · tasks validate ✅ (85 tasks, 0 problems) · CI run: local. No Xcode/NDK/mobile SDKs; no mobile/device reruns.
+- **Acceptance criteria:**
+  - AC1: ✅ host C/Dart tests assert live callbacks, transcript keywords/timestamps and cancel <1 s; mutation is detected. ❌ device UI harness never rebuilds after progress/segment callbacks.
+  - AC2: ✅ host event-loop proxy passed; ❌ device frame check accepts an empty frame list as p99=0 and does not establish the requested DevTools/device budget.
+  - AC3: ❌ read integration_test/stt_engine_test.dart and all device rows: integration harness has the defects below; no physical runs are claimed.
+- **Mutation sanity check:** Replaced mapped segment text with an empty string in WhisperSttEngine: `[STT-03/AC1]` failed its keyword assertion; restored with git checkout.
+- **Adversarial checks:** Native args, corrupt/missing audio/model, ranges, busy, cancellation, destroy during work and churn passed. App tests checked model reuse/idle unload/GPU-to-CPU reload and serial calls. Device kill/lock/rotate were unavailable.
+- **Device evidence:** Reviewed every row in `docs/test-plans/device/STT-03.md`. Result/date/tester cells are unfilled; no physical run is represented as PASS. The user explicitly permits a provisional verifier PASS with these rows pending.
+- **Skill/rule compliance:** Read AGENTS.md, verifier prompt, workflow/verification skills and all task-listed skills; reviewed the merged implementation at main (no unmerged task diff). Pins checked against local headers. RTK.md is referenced by the supplied instructions but absent. Product code/tests unchanged after temporary mutations; no criteria weakened, GitHub API/gh, pushes, git config edits or model commits.
+- **Issues found:**
+  1. `app/integration_test/stt_engine_test.dart`: StatefulBuilder receives setState but never calls it. onProgress only assigns progress and onSegment only mutates the list, so the visible progress bar and segment count remain at their initial values. The test checks variables, not displayed values; AC1/AC3 evidence is incomplete.
+  2. The same test maps `timings.isEmpty` to p99=0, so zero measured frames pass AC2. Require nonempty meaningful profile-mode timings and assert the actual frame budget; the host p95 timer proxy cannot replace it.
+  3. Cancellation always waits 30 seconds before cancel, even if the tiny-model run has completed. It then requires CancelledFailure from an already completed run, making the device test unreliable on fast devices. Cancel while a run is demonstrably active.
