@@ -723,6 +723,55 @@ final class BatteryStatusProvider
 
 String _$batteryStatusHash() => r'18cdbd4405a471c412986f24b3571ffce57d91fe';
 
+/// Auto-pause / auto-stop after silence (AUD-03). Watching it (Record tab)
+/// attaches it to the controller; it can only pause or stop (SEC-09).
+
+@ProviderFor(silenceWatcher)
+final silenceWatcherProvider = SilenceWatcherProvider._();
+
+/// Auto-pause / auto-stop after silence (AUD-03). Watching it (Record tab)
+/// attaches it to the controller; it can only pause or stop (SEC-09).
+
+final class SilenceWatcherProvider
+    extends $FunctionalProvider<SilenceWatcher, SilenceWatcher, SilenceWatcher>
+    with $Provider<SilenceWatcher> {
+  /// Auto-pause / auto-stop after silence (AUD-03). Watching it (Record tab)
+  /// attaches it to the controller; it can only pause or stop (SEC-09).
+  SilenceWatcherProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'silenceWatcherProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$silenceWatcherHash();
+
+  @$internal
+  @override
+  $ProviderElement<SilenceWatcher> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  SilenceWatcher create(Ref ref) {
+    return silenceWatcher(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SilenceWatcher value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SilenceWatcher>(value),
+    );
+  }
+}
+
+String _$silenceWatcherHash() => r'7605de25c9c4ac4a619e9c94d6894bea4a4f4fcf';
+
 /// The single recording entry point (SEC-09).
 
 @ProviderFor(recordingController)

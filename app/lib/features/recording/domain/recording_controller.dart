@@ -24,6 +24,9 @@ enum PauseCause {
 
   /// The microphone stream failed (AUD-01); Resume reopens it.
   captureError,
+
+  /// Auto-pause after continuous silence (AUD-03); Resume is a user tap.
+  silence,
 }
 
 /// Immutable snapshot of the controller.
@@ -219,6 +222,18 @@ class RecordingController {
     final limit = limits.silenceAutoStop;
     if (limit == null || _phase != RecordingPhase.recording) return;
     if (silence >= limit) unawaited(stop(cause: StopCause.silence));
+  }
+
+  /// VAD auto-pause (AUD-03 setting): pauses a running recording after
+  /// continuous silence. VAD can only pause or stop — there is deliberately
+  /// no VAD path that starts or resumes (SEC-09 §4): the pause ends only
+  /// through [resume] from a user tap.
+  Future<Result<void>> pauseForSilence() async {
+    if (_phase != RecordingPhase.recording || _opening) {
+      return _blocked(RecordingBlockReason.invalidState);
+    }
+    _enterPaused(PauseCause.silence);
+    return await _capture.suspend(gap: GapKind.silencePause);
   }
 
   /// Releases timers and subscriptions.

@@ -465,7 +465,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingAutoPauseDescription =>
-      'Pauses capture during long silences.';
+      'Pauses after 2 minutes of silence. Tap Resume to continue. Needs the voice detection model.';
+
+  @override
+  String get settingSilenceAutoStop => 'Stop after silence';
+
+  @override
+  String get settingSilenceAutoStopDescription =>
+      'Ends the recording after this much silence. Needs the voice detection model.';
+
+  @override
+  String get settingSkipSilence => 'Skip silence';
+
+  @override
+  String get settingSkipSilenceDescription =>
+      'Transcribes only the parts with speech: faster, and no text invented in silence.';
+
+  @override
+  String get optionOff => 'Off';
 
   @override
   String get settingAudioRetention => 'Keep audio';

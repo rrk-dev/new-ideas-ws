@@ -62,6 +62,7 @@ class SttOptions {
     this.temperatureFallback = true,
     this.tokenTimestamps = false,
     this.threads = 0,
+    this.vadModelPath,
   });
 
   /// `en`, `de`, … or `auto` (multilingual models only).
@@ -79,6 +80,11 @@ class SttOptions {
 
   /// 0 = performance cores capped at 4.
   final int threads;
+
+  /// AUD-03: ggml Silero VAD model. When set, silence is skipped before
+  /// decoding (less compute, no hallucinated text on silence) and segment
+  /// times stay on the original audio timeline. Null = no VAD.
+  final String? vadModelPath;
 }
 
 /// Called for every segment as soon as it is decoded.

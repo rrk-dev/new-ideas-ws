@@ -4,6 +4,7 @@ import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/llm_engine.dart';
 import 'package:vaultvoice/core/platform/stt_engine.dart';
+import 'package:vaultvoice/core/platform/vad_engine.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/render_write_steps.dart';
 import 'package:vaultvoice/features/pipeline/domain/heavy_model_gate.dart';
@@ -121,6 +122,7 @@ class PipelineEngines {
     this.onForeground,
     this.onMemoryPressure,
     this.dispose,
+    this.vad,
   }) : gate = gate ?? HeavyModelGate();
 
   final SttEngine stt;
@@ -161,6 +163,10 @@ class PipelineEngines {
 
   /// Frees models when the worker stops.
   final Future<void> Function()? dispose;
+
+  /// Speech timeline before STT (AUD-03, `FfiVadEngine`); null = whisper's
+  /// built-in VAD still skips silence, but no `speech_segments` are stored.
+  final VadEngine? vad;
 }
 
 /// What the worker isolate gives the engines factory: its database

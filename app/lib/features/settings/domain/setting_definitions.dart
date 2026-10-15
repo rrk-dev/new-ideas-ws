@@ -142,6 +142,15 @@ abstract final class AppSettings {
     defaultValue: false,
   );
 
+  /// AUD-03. PRODUCT-DECISION: off by default (SEC-09 §6 asks for a
+  /// configurable silence stop; the 4 h max-duration stop is always on).
+  static const silenceAutoStop = ChoiceSetting(
+    key: SettingKeys.audioSilenceAutoStop,
+    section: SettingSection.audio,
+    defaultValue: 'off',
+    options: ['off', 'minutes_5', 'minutes_10', 'minutes_30'],
+  );
+
   /// PRODUCT-DECISION: default keeps audio until the user deletes it.
   static const audioRetention = ChoiceSetting(
     key: SettingKeys.audioRetention,
@@ -171,6 +180,14 @@ abstract final class AppSettings {
     key: SettingKeys.processingDiarization,
     section: SettingSection.processing,
     defaultValue: false,
+  );
+
+  /// AUD-03: provisional default on — AC1 (≥ 20 % less STT time, ≤ 1 pt
+  /// WER) is measured on the QA-02 corpus.
+  static const skipSilence = ToggleSetting(
+    key: SettingKeys.processingSkipSilence,
+    section: SettingSection.processing,
+    defaultValue: true,
   );
 
   /// Default per vv-markdown-vault-export (EXP-02).
@@ -227,10 +244,12 @@ abstract final class AppSettings {
     agc,
     noiseSuppression,
     autoPauseOnSilence,
+    silenceAutoStop,
     audioRetention,
     autoProcess,
     chargeOnly,
     diarizationDefault,
+    skipSilence,
     filenamePattern,
     collisionMode,
     appLock,

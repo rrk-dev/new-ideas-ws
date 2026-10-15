@@ -160,6 +160,7 @@ class WhisperSttEngine implements SttEngine {
     temperatureInc: o.temperatureFallback ? 0.2 : 0,
     initialPrompt: o.initialPrompt,
     tokenTimestamps: o.tokenTimestamps,
+    vadModelPath: o.vadModelPath,
   );
 
   static TranscriptSegment _segment(VvSttSegment s) => TranscriptSegment(
