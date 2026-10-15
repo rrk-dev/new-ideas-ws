@@ -1,0 +1,19 @@
+app/test/unit/recording/recording_recovery_test.dart
+  s_ef737ddb7fda7e::t_0f629d9fd3985d 87-137
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "77c3289933eee17c2954da63df28aae8dfe9aab1",
+  "prompts": {},
+  "sessions": {
+    "s_ef737ddb7fda7e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "cbbe9237-ba5d-41e1-b0c2-4afbc11e83ad",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
