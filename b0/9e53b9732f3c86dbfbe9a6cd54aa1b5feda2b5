@@ -1,0 +1,72 @@
+app/test/unit/pipeline/pipeline_orchestrator_test.dart
+  s_c1515c206a4fe2::t_259dccdee3f3c0 1
+  s_c1515c206a4fe2::t_fcc18b5a3c39d1 392-413
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/ProcessingService.kt
+  s_c1515c206a4fe2::t_cdf12b22797c84 40,42-44
+app/ios/Podfile
+  s_c1515c206a4fe2::t_bb83078febcfec 1-43
+app/lib/features/extraction/domain/llm_service.dart
+  s_c1515c206a4fe2::t_999fea502e2450 68-71,88-89,129,170,172-177
+app/lib/features/pipeline/data/background_guard.dart
+  s_c1515c206a4fe2::t_863be2ce28cb25 189
+app/lib/features/pipeline/data/pipeline_orchestrator.dart
+  s_c1515c206a4fe2::t_ca0c8ac238967f 149,174,331,338-340
+app/lib/features/pipeline/data/production_engines.dart
+  s_c1515c206a4fe2::t_11eeecb35a99b7 142-146
+app/lib/features/pipeline/domain/active_models.dart
+  s_c1515c206a4fe2::t_48a66cf8dc493d 136-141
+app/lib/features/recording/domain/recording_controller.dart
+  s_c1515c206a4fe2::t_b5018a3430b9e2 216,218
+app/test/fakes/fake_capture_backend.dart
+  s_c1515c206a4fe2::t_fdafc74860f602 78-80,94
+app/test/unit/extraction/llm_service_test.dart
+  s_c1515c206a4fe2::t_80e9362fab035f 232-263
+app/test/unit/macos_desktop_target_test.dart
+  s_c1515c206a4fe2::t_a919c15f3c2580 132-133
+app/test/unit/pipeline/active_models_test.dart
+  s_c1515c206a4fe2::t_9146fa0843c3ec 35,42,95-128
+app/test/unit/pipeline/background_guard_test.dart
+  s_c1515c206a4fe2::t_0f6fb11d0fb73d 32,44-47,284-294
+app/test/unit/recording/recording_controller_test.dart
+  s_c1515c206a4fe2::t_c6a0ade7206da3 84-102
+app/test/unit/recording/recording_indicator_test.dart
+  s_c1515c206a4fe2::t_360c61d29e9439 131-132,139-140
+native/build.sh
+  s_c1515c206a4fe2::t_f5ea99d1bf0538 216-228,231
+tasks/01-foundation/FND-08-background-processing-guardrails.md
+  s_c1515c206a4fe2::t_4ff717c1645a19 53
+tasks/01-foundation/FND-10-macos-native-bundle.md
+  s_c1515c206a4fe2::t_78fbe4c93d3ca0 36-39
+tasks/01-foundation/FND-11-production-engine-wiring.md
+  s_c1515c206a4fe2::t_31b79a5fe26925 95
+tasks/02-audio/AUD-01-recording-service.md
+  s_c1515c206a4fe2::t_1c867cbdcd1cb6 58
+tasks/03-stt/STT-03-whisper-dart-ffi-binding.md
+  s_c1515c206a4fe2::t_49045f9bfb4e91 117-120
+tasks/03-stt/STT-04-long-form-chunked-transcription.md
+  s_c1515c206a4fe2::t_f13dde364f45c6 72
+tasks/03-stt/STT-07-stt-model-variants-language.md
+  s_c1515c206a4fe2::t_99d5bf13918f6e 64
+tasks/04-llm/LLM-04-llm-dart-ffi-engine.md
+  s_c1515c206a4fe2::t_68b49eef28463f 37
+tasks/04-llm/LLM-06-long-transcript-map-reduce.md
+  s_c1515c206a4fe2::t_a512cde8424151 35
+tasks/05-models/MDL-01-model-catalog-hosting.md
+  s_c1515c206a4fe2::t_216489002a9919 51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b09e53b9732f3c86dbfbe9a6cd54aa1b5feda2b5",
+  "prompts": {},
+  "sessions": {
+    "s_c1515c206a4fe2": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "5ded3ed9-1ed5-495a-bc36-4f8e1b98b7a3",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
