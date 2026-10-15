@@ -17,6 +17,7 @@ import 'package:vaultvoice/features/recording/data/method_channel_audio_session_
 import 'package:vaultvoice/features/recording/data/method_channel_call_guard.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_disk_space_probe.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_recording_indicator.dart';
+import 'package:vaultvoice/features/recording/data/platform_audio_effects_probe.dart';
 import 'package:vaultvoice/features/recording/data/record_capture_backend.dart';
 import 'package:vaultvoice/features/recording/data/record_mic_source.dart';
 import 'package:vaultvoice/features/recording/data/recording_recovery.dart';
@@ -24,8 +25,10 @@ import 'package:vaultvoice/features/recording/data/silence_watcher.dart';
 import 'package:vaultvoice/features/recording/data/wav_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_format.dart';
+import 'package:vaultvoice/features/recording/domain/audio_processing.dart';
 import 'package:vaultvoice/features/recording/domain/audio_session_monitor.dart';
 import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
+import 'package:vaultvoice/features/recording/domain/level_meter.dart';
 import 'package:vaultvoice/features/recording/domain/pcm_mic_source.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
 import 'package:vaultvoice/features/recording/domain/recording_indicator.dart';
@@ -60,9 +63,39 @@ AudioSessionMonitor audioSessionMonitor(Ref ref) => Platform.isIOS
     ? MethodChannelAudioSessionMonitor()
     : const NoAudioSessionMonitor();
 
+/// Platform voice-processing effects of this device (AUD-02).
+@Riverpod(keepAlive: true)
+Future<PlatformAudioEffects> platformAudioEffects(Ref ref) =>
+    const PlatformAudioEffectsProbe().probe();
+
+/// Reads the user's audio-processing settings (Settings → Audio) — managed
+/// value › user value › default, like `settingStateProvider`, but straight
+/// from the sources so it works from a keep-alive provider.
+@Riverpod(keepAlive: true)
+Future<AudioProcessingSettings> Function() audioProcessingSettingsReader(
+  Ref ref,
+) => () async {
+  final managed = await ref.read(managedSettingsSourceProvider).watch().first;
+  final store = ref.read(settingsStoreProvider);
+  Future<bool> read(ToggleSetting def) async {
+    if (managed.values.containsKey(def.key)) {
+      return def.decode(managed.values[def.key]);
+    }
+    return def.decode(await store.watch(def.key).first);
+  }
+
+  return AudioProcessingSettings(
+    platformAgc: await read(AppSettings.agc),
+    noiseSuppression: await read(AppSettings.noiseSuppression),
+    softwareAgc: await read(AppSettings.softwareAgc),
+    rawCapture: await read(AppSettings.rawCapture),
+  );
+};
+
 /// The real microphone capture (AUD-01).
 @Riverpod(keepAlive: true)
 RecordCaptureBackend recordCaptureBackend(Ref ref) {
+  final readSettings = ref.watch(audioProcessingSettingsReaderProvider);
   final backend = RecordCaptureBackend(
     mic: ref.watch(pcmMicSourceProvider),
     recordings: ref.watch(recordingsRepositoryProvider),
@@ -72,10 +105,26 @@ RecordCaptureBackend recordCaptureBackend(Ref ref) {
     ids: ref.watch(idGeneratorProvider),
     codec: ref.watch(audioChunkCodecProvider),
     audioSession: ref.watch(audioSessionMonitorProvider),
+    // Re-read before every open/resume so a settings change applies to the
+    // next segment (AUD-02).
+    processing: () async => resolveAudioProcessing(
+      await readSettings(),
+      await ref.read(platformAudioEffectsProvider.future),
+    ),
     logger: ref.watch(loggerProvider),
   );
   ref.onDispose(backend.dispose);
   return backend;
+}
+
+/// Live input level of the open recording (AUD-02 meter). Empty when the
+/// capture backend does not meter (test fakes).
+@riverpod
+Stream<AudioLevel> recordingLevels(Ref ref) {
+  final capture = ref.watch(captureBackendProvider);
+  return capture is AudioLevelSource
+      ? (capture as AudioLevelSource).levels
+      : const Stream<AudioLevel>.empty();
 }
 
 /// Selectable inputs (built-in, wired, Bluetooth HFP, USB). Querying never

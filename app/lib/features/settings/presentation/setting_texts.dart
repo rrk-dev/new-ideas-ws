@@ -17,6 +17,8 @@ abstract final class SettingTexts {
     SettingKeys.audioInputDevice => l.settingInputDevice,
     SettingKeys.audioAgc => l.settingAgc,
     SettingKeys.audioNoiseSuppression => l.settingNoiseSuppression,
+    SettingKeys.audioSoftwareAgc => l.settingSoftwareAgc,
+    SettingKeys.audioRawCapture => l.settingRawCapture,
     SettingKeys.audioAutoPause => l.settingAutoPause,
     SettingKeys.audioSilenceAutoStop => l.settingSilenceAutoStop,
     SettingKeys.processingSkipSilence => l.settingSkipSilence,
@@ -36,6 +38,8 @@ abstract final class SettingTexts {
 
   static String? description(AppLocalizations l, String key) => switch (key) {
     SettingKeys.audioAgc => l.settingAgcDescription,
+    SettingKeys.audioSoftwareAgc => l.settingSoftwareAgcDescription,
+    SettingKeys.audioRawCapture => l.settingRawCaptureDescription,
     SettingKeys.audioAutoPause => l.settingAutoPauseDescription,
     SettingKeys.audioSilenceAutoStop => l.settingSilenceAutoStopDescription,
     SettingKeys.processingSkipSilence => l.settingSkipSilenceDescription,

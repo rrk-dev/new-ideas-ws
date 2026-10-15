@@ -838,6 +838,42 @@ abstract class AppLocalizations {
   /// **'Noise suppression'**
   String get settingNoiseSuppression;
 
+  /// No description provided for @settingSoftwareAgc.
+  ///
+  /// In en, this message translates to:
+  /// **'App gain control'**
+  String get settingSoftwareAgc;
+
+  /// No description provided for @settingSoftwareAgcDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Use VaultVoice’s own gain control instead of the phone’s. Used automatically when the phone has none.'**
+  String get settingSoftwareAgcDescription;
+
+  /// No description provided for @settingRawCapture.
+  ///
+  /// In en, this message translates to:
+  /// **'Raw capture'**
+  String get settingRawCapture;
+
+  /// No description provided for @settingRawCaptureDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Turns off all audio processing. For external microphones and testing.'**
+  String get settingRawCaptureDescription;
+
+  /// No description provided for @clippingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Too loud — move the phone further away.'**
+  String get clippingHint;
+
+  /// No description provided for @recordingLevelLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Input level'**
+  String get recordingLevelLabel;
+
   /// No description provided for @settingAutoPause.
   ///
   /// In en, this message translates to:

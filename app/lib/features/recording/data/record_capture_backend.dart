@@ -18,10 +18,13 @@ import 'package:vaultvoice/features/recording/data/silence_watcher.dart';
 import 'package:vaultvoice/features/recording/data/wav_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_format.dart';
+import 'package:vaultvoice/features/recording/domain/audio_processing.dart';
 import 'package:vaultvoice/features/recording/domain/audio_session_monitor.dart';
 import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
+import 'package:vaultvoice/features/recording/domain/level_meter.dart';
 import 'package:vaultvoice/features/recording/domain/pcm_converter.dart';
 import 'package:vaultvoice/features/recording/domain/pcm_mic_source.dart';
+import 'package:vaultvoice/features/recording/domain/software_agc.dart';
 import 'package:vaultvoice/features/recording/domain/storage_policy.dart';
 
 /// The real [CaptureBackend] (AUD-01): microphone PCM from a [PcmMicSource]
@@ -38,7 +41,8 @@ import 'package:vaultvoice/features/recording/domain/storage_policy.dart';
 ///   [close] marks it `recorded`.
 /// * Free space: refuse to start below the [StoragePolicy] minimum, warn,
 ///   and raise [CaptureNotice.lowStorageStop] below the stop threshold.
-class RecordCaptureBackend implements CaptureBackend, LivePcmSource {
+class RecordCaptureBackend
+    implements CaptureBackend, LivePcmSource, AudioLevelSource {
   RecordCaptureBackend({
     required this._mic,
     required RecordingsRepository recordings,
@@ -53,12 +57,14 @@ class RecordCaptureBackend implements CaptureBackend, LivePcmSource {
     this.discardMargin = defaultDiscardMargin,
     this._request = const MicRequest(),
     this._audioSession = const NoAudioSessionMonitor(),
+    Future<ResolvedAudioProcessing> Function()? processing,
     Logger? logger,
   }) : assert(
          flushInterval <= const Duration(seconds: 1),
          'AUD-07 needs a flush at least every second',
        ),
        _repo = recordings,
+       _resolveProcessing = processing,
        _log = logger;
 
   /// Extra audio dropped before a call event to cover delivery latency.
@@ -76,6 +82,14 @@ class RecordCaptureBackend implements CaptureBackend, LivePcmSource {
   final StoragePolicy _storage;
   final Logger? _log;
   final AudioSessionMonitor _audioSession;
+
+  /// Resolves the user's AGC/NS/raw settings (AUD-02) before each open;
+  /// null = no processing (AUD-01 behaviour).
+  final Future<ResolvedAudioProcessing> Function()? _resolveProcessing;
+  ResolvedAudioProcessing _processing = ResolvedAudioProcessing.none;
+  SoftwareAgc? _agc;
+  final _meter = LevelMeter();
+  final _levels = StreamController<AudioLevel>.broadcast();
   StreamSubscription<AudioSessionEvent>? _sessionSub;
 
   final Duration chunkDuration;
@@ -114,14 +128,16 @@ class RecordCaptureBackend implements CaptureBackend, LivePcmSource {
   /// Selects the input for the next open/resume (null = platform default).
   /// Never opens the microphone.
   void selectInput(AudioInputDevice? device) {
-    _request = MicRequest(
-      device: device,
-      androidSource: _request.androidSource,
-      autoGain: _request.autoGain,
-      echoCancel: _request.echoCancel,
-      noiseSuppress: _request.noiseSuppress,
-    );
+    _request = _request.withDevice(device);
   }
+
+  /// Live input level of the open capture, one reading per 50 ms of audio
+  /// (≥ 15 Hz meter, AUD-02); [AudioLevel.silent] when capture suspends.
+  @override
+  Stream<AudioLevel> get levels => _levels.stream;
+
+  /// Processing applied to the current capture segment.
+  ResolvedAudioProcessing get processing => _processing;
 
   @override
   Stream<CaptureNotice> get notices => _notices.stream;
@@ -209,7 +225,8 @@ class RecordCaptureBackend implements CaptureBackend, LivePcmSource {
     _stopTimers();
     await _closeMic();
     // The resampler tail belongs to the discarded span after a call event.
-    final tail = _converter.flush();
+    final tail = _dsp(_converter.flush());
+    _silenceMeter();
     final keepTail = discardFrom == null;
     final writer = session.writer;
     final ended = await _serial(() async {
@@ -259,7 +276,8 @@ class RecordCaptureBackend implements CaptureBackend, LivePcmSource {
     session.micOpen = false;
     _stopTimers();
     await _closeMic();
-    final tail = wasOpen ? _converter.flush() : Uint8List(0);
+    final tail = wasOpen ? _dsp(_converter.flush()) : Uint8List(0);
+    _silenceMeter();
     final writer = session.writer;
     final ended = await _serial(() async {
       if (tail.isNotEmpty) {
@@ -306,11 +324,13 @@ class RecordCaptureBackend implements CaptureBackend, LivePcmSource {
     await _closeMic();
     await _notices.close();
     await _pcm.close();
+    await _levels.close();
   }
 
   // --- internals ------------------------------------------------------------
 
   Future<Result<void>> _openMic(_Session session) async {
+    await _applyProcessing();
     final opened = await _mic.open(_request);
     switch (opened) {
       case Err(:final failure):
@@ -318,6 +338,8 @@ class RecordCaptureBackend implements CaptureBackend, LivePcmSource {
       case Ok(value: final events):
         _converter = _contractConverter();
         _lastReceivedAt = null;
+        _meter.reset();
+        _agc = _processing.softwareAgc ? SoftwareAgc() : null;
         session.writer.beginSegment();
         session.micOpen = true;
         _accepting = true;
@@ -334,10 +356,10 @@ class RecordCaptureBackend implements CaptureBackend, LivePcmSource {
     switch (event) {
       case MicData(:final bytes, :final receivedAt):
         _lastReceivedAt = receivedAt;
-        _append(session, _converter.convert(bytes));
+        _append(session, _dsp(_converter.convert(bytes)));
       case MicFormatChanged(:final format):
         final tail = _converter.flush();
-        _append(session, tail);
+        _append(session, _dsp(tail));
         _converter = PcmConverter(
           inRate: format.sampleRate,
           inChannels: format.channels,
@@ -352,6 +374,48 @@ class RecordCaptureBackend implements CaptureBackend, LivePcmSource {
       case MicFailed():
         _notices.add(CaptureNotice.captureFailed);
     }
+  }
+
+  /// Software AGC (when on) + level metering of a contract-format block.
+  Uint8List _dsp(Uint8List pcm) {
+    if (pcm.isEmpty) return pcm;
+    final agc = _agc;
+    final out = agc == null ? pcm : agc.process(pcm);
+    if (_levels.hasListener) {
+      _meter.add(out, input: pcm).forEach(_levels.add);
+    }
+    return out;
+  }
+
+  Future<void> _applyProcessing() async {
+    final resolve = _resolveProcessing;
+    if (resolve == null) return;
+    try {
+      _processing = await resolve();
+    } on Object catch (e) {
+      // Settings unreadable: record without processing rather than not at all.
+      _processing = ResolvedAudioProcessing.none;
+      _log?.warning(
+        _tag,
+        'audio processing settings unavailable',
+        fields: {'error': e.runtimeType},
+      );
+    }
+    _request = _request.withProcessing(_processing);
+    _log?.info(
+      _tag,
+      'audio processing',
+      fields: {
+        'agc': _processing.autoGain,
+        'ns': _processing.noiseSuppress,
+        'vpio': _processing.echoCancel,
+        'sw_agc': _processing.softwareAgc,
+      },
+    );
+  }
+
+  void _silenceMeter() {
+    if (!_levels.isClosed) _levels.add(AudioLevel.silent);
   }
 
   /// iOS audio-session changes (AUD-04): an engine configuration change or a

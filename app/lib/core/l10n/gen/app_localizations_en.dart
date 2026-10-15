@@ -461,6 +461,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingNoiseSuppression => 'Noise suppression';
 
   @override
+  String get settingSoftwareAgc => 'App gain control';
+
+  @override
+  String get settingSoftwareAgcDescription =>
+      'Use VaultVoice’s own gain control instead of the phone’s. Used automatically when the phone has none.';
+
+  @override
+  String get settingRawCapture => 'Raw capture';
+
+  @override
+  String get settingRawCaptureDescription =>
+      'Turns off all audio processing. For external microphones and testing.';
+
+  @override
+  String get clippingHint => 'Too loud — move the phone further away.';
+
+  @override
+  String get recordingLevelLabel => 'Input level';
+
+  @override
   String get settingAutoPause => 'Auto-pause on silence';
 
   @override
