@@ -1619,6 +1619,35 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String appLockTitle(String appName) {
+    return '$appName is locked';
+  }
+
+  @override
+  String get appLockBody =>
+      'Unlock to see your recordings, transcripts and notes.';
+
+  @override
+  String get appLockUnavailable =>
+      'This device has no passcode or biometrics set up, so the app cannot be locked. Set a device passcode to use the app lock.';
+
+  @override
+  String get appLockReason => 'Unlock to see your recordings and notes';
+
+  @override
+  String get appLockUnlock => 'Unlock';
+
+  @override
+  String get appLockRecord => 'Start recording';
+
+  @override
+  String get appLockRecording =>
+      'Recording. Your recordings and notes stay hidden until you unlock.';
+
+  @override
+  String get appLockStop => 'Stop recording';
+
+  @override
   String get deleteAllTitle => 'Delete all data';
 
   @override

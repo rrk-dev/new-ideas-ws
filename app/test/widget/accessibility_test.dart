@@ -15,6 +15,9 @@ import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/theme/app_theme.dart';
+import 'package:vaultvoice/features/app_lock/domain/app_lock.dart';
+import 'package:vaultvoice/features/app_lock/presentation/app_lock_gate.dart';
+import 'package:vaultvoice/features/app_lock/presentation/app_lock_providers.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/export/domain/pending_export.dart';
 import 'package:vaultvoice/features/export/domain/routing_rule.dart';
@@ -53,6 +56,19 @@ class _Managed implements ManagedSettingsSource {
   @override
   Stream<ManagedSettings> watch() =>
       Stream.value(const ManagedSettings(values: {'security.app_lock': true}));
+}
+
+/// The routes below are audited unlocked (the managed settings above force
+/// the app lock on, so the lock is opened here); the lock screen (SEC-03)
+/// has its own rows at the end.
+class _Unlocked extends AppLock {
+  @override
+  AppLockView build() => const AppLockView(enabled: false, locked: false);
+}
+
+class _NoAuth implements DeviceAuthenticator {
+  @override
+  Future<AuthOutcome> authenticate(String reason) async => AuthOutcome.failed;
 }
 
 /// Every screen reachable in the app today, by route location.
@@ -135,7 +151,10 @@ const _transcript = TranscriptViewData(
   markers: [TranscriptMarkerView(id: 1, atMs: 4500, label: 'Decision')],
 );
 
-List<Override> _overrides() => [
+List<Override> _overrides({bool locked = false}) => [
+  // SEC-03: unlocked unless a test asks for the lock screen.
+  if (!locked) appLockProvider.overrideWith(_Unlocked.new),
+  deviceAuthenticatorProvider.overrideWithValue(_NoAuth()),
   templateStoreProvider.overrideWithValue(_Templates()),
   // rootBundle caches futures across tests (fake-async zones): read the
   // asset files directly instead.
@@ -278,8 +297,9 @@ Future<void> _pumpAt(
   String location, {
   required ThemeMode mode,
   required double scale,
+  bool locked = false,
 }) async {
-  final container = ProviderContainer(overrides: _overrides());
+  final container = ProviderContainer(overrides: _overrides(locked: locked));
   addTearDown(container.dispose);
   container.read(appRouterProvider).go(location);
   t.platformDispatcher
@@ -340,6 +360,41 @@ void main() {
       }
     });
   }
+
+  for (final mode in [ThemeMode.light, ThemeMode.dark]) {
+    testWidgets('[APP-06/AC1] App lock screen (${mode.name}): labelled '
+        'controls, tap targets and WCAG AA text contrast', (t) async {
+      final handle = t.ensureSemantics();
+      t.view
+        ..physicalSize = const Size(390, 844)
+        ..devicePixelRatio = 1;
+      addTearDown(t.view.reset);
+      await _pumpAt(t, '/settings', mode: mode, scale: 1, locked: true);
+      expect(find.byType(LockScreen), findsOneWidget);
+      await expectLater(t, meetsGuideline(labeledTapTargetGuideline));
+      await expectLater(t, meetsGuideline(androidTapTargetGuideline));
+      await expectLater(t, meetsGuideline(iOSTapTargetGuideline));
+      await expectLater(t, meetsGuideline(textContrastGuideline));
+      handle.dispose();
+    });
+  }
+
+  testWidgets('[APP-06/AC1] App lock screen renders at 200 % text size '
+      'without overflow', (t) async {
+    t.view
+      ..physicalSize = const Size(390, 844)
+      ..devicePixelRatio = 1;
+    addTearDown(t.view.reset);
+    await _pumpAt(
+      t,
+      '/settings',
+      mode: ThemeMode.light,
+      scale: 2,
+      locked: true,
+    );
+    expect(find.byType(LockScreen), findsOneWidget);
+    expect(t.takeException(), isNull);
+  });
 
   testWidgets('[APP-06/AC1] tab bar and queue indicator announce their '
       'purpose to screen readers', (t) async {

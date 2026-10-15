@@ -37,6 +37,10 @@ import UserNotifications
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "SecureStoragePlugin") {
       SecureStoragePlugin.register(with: registrar)
     }
+    // SEC-03: app lock (LocalAuthentication) + app-switcher privacy cover.
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "AppLockPlugin") {
+      AppLockPlugin.register(with: registrar)
+    }
     // AUD-04: audio route / engine / media-services events; recording reminder.
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "AudioSessionPlugin") {
       AudioSessionPlugin.register(with: registrar)

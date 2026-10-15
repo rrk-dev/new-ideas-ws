@@ -13,6 +13,7 @@ import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/features/library/presentation/recording_detail_screen.dart';
+import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_progress.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
@@ -21,7 +22,9 @@ import 'package:vaultvoice/features/pipeline/presentation/processing_queue_scree
 import 'package:vaultvoice/features/pipeline/presentation/processing_status_card.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_texts.dart';
 import 'package:vaultvoice/features/pipeline/presentation/recording_status_screen.dart';
+import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 
+import '../fakes/fake_settings_store.dart';
 import '../helpers/library_fixtures.dart';
 import '../helpers/processing_fixtures.dart';
 
@@ -35,6 +38,11 @@ List<Override> viewsOverride(
   storagePathsProvider.overrideWith((ref) => Completer<StoragePaths>().future),
   // APP-02: the deep-link target is the recording detail.
   ...libraryOverrides(),
+  // SEC-03: the app lock decides once settings load (no DB here).
+  // APP-01: past onboarding, so deep links are not redirected.
+  settingsStoreProvider.overrideWithValue(
+    FakeSettingsStore({OnboardingKeys.completed: true}),
+  ),
 ];
 
 Future<ProviderContainer> pumpApp(

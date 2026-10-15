@@ -16,6 +16,8 @@
     <!-- FND-08: long transcription/extraction keeps running in a foreground service of type
          dataSync (API <= 34) / mediaProcessing (API 35+), started only while the app is visible. -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROCESSING" />
+    <!-- SEC-03: app lock via the platform BiometricPrompt (biometrics or device PIN). -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <application
         android:label="@string/app_name"
         android:name="${applicationName}"
