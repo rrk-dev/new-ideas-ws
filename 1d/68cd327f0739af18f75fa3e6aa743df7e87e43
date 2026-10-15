@@ -1,0 +1,44 @@
+tasks/02-audio/AUD-09-macos-microphone.md
+  s_a241c786a3b76f::t_ae274949b87d1f 30
+  s_a241c786a3b76f::t_e9419bbd027ec2 27-28,33-34,37
+app/test/unit/recording/macos_microphone_test.dart
+  s_a241c786a3b76f::t_19d732c167d411 43
+  s_a241c786a3b76f::t_41639fe984a105 222-236,238-251
+  s_a241c786a3b76f::t_5352137aa89d4e 237
+app/macos/Runner/MainFlutterWindow.swift
+  s_a241c786a3b76f::t_22b39453cd8594 24-26
+app/macos/Runner/Info.plist
+  s_a241c786a3b76f::t_e56b44f10705b4 32
+app/macos/Runner/MacAudioRouteObserver.swift
+  s_a241c786a3b76f::t_d4a25165c8659e 1-8,11-33,35-99
+  s_a241c786a3b76f::t_d63a75aeaf668d 9-10
+  s_a241c786a3b76f::t_7195e82c2e3e6e 34
+app/macos/Runner.xcodeproj/project.pbxproj
+  s_a241c786a3b76f::t_d4a25165c8659e 192,448
+  s_a241c786a3b76f::t_aeffeedd1936d6 33,95
+tools/ci/tests/test_recording_policy.py
+  s_a241c786a3b76f::t_a3974127596511 197-201,204-270
+  s_a241c786a3b76f::t_3b33f7b39a0637 8
+  s_a241c786a3b76f::t_6b4960260fd7e2 202-203
+tools/ci/check_recording_policy.py
+  s_a241c786a3b76f::t_09d7633b8486f4 10-11,73-89,98-103,125-126,128,191-201,224-225,236-238
+  s_a241c786a3b76f::t_74756f5cf8e9fe 202-205
+docs/test-plans/device/AUD-09.md
+  s_a241c786a3b76f::t_64b48b2271a816 3-5,13-17,20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1d68cd327f0739af18f75fa3e6aa743df7e87e43",
+  "prompts": {},
+  "sessions": {
+    "s_a241c786a3b76f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "10924bfa-4490-4854-867b-a5f460f1ba0a",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
