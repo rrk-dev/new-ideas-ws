@@ -1,0 +1,19 @@
+tasks/08-app-ux/APP-05-result-review-before-export.md
+  s_1b40584b4d7ef5::t_ff27ae3dce3007 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3d2f421ffb1aa7506f7a1141cdc4fade583f9c97",
+  "prompts": {},
+  "sessions": {
+    "s_1b40584b4d7ef5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-ab33bb76f83806f68",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
