@@ -1,7 +1,7 @@
 # PRF-06 — Automatic Profile Classification ("Context Routing")
 
 **Workstream:** Profiles | **Phase:** 3 | **Size:** M | **Depends on:** PRF-03, PRF-04, PRF-05, PRF-09 | **Source:** §3.1.3 (Local LLM Engine & Context Routing)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-extraction-profiles, vv-llm-inference, vv-benchmark-eval, vv-pipeline-orchestrator, vv-testing
 
 ## Goal
