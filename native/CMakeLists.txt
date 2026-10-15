@@ -118,6 +118,19 @@ endforeach()
 if((VV_GGML_VULKAN OR VV_GGML_OPENCL) AND NOT VV_GGML_BACKEND_DL)
   message(FATAL_ERROR "GPU backends must be runtime-optional: set VV_GGML_BACKEND_DL=ON")
 endif()
+
+# FND-10: macOS app bundle. One static ggml (backend DL stays off) inside a
+# dynamic framework. Dart opens vv_native.framework/vv_native, same as iOS.
+# Host builds leave this OFF and keep libvv_native.dylib for ctest.
+option(VV_MACOS_FRAMEWORK "macOS app: vv_native.framework (FND-10)" OFF)
+if(VV_MACOS_FRAMEWORK)
+  if(NOT APPLE OR IOS OR ANDROID)
+    message(FATAL_ERROR "VV_MACOS_FRAMEWORK is for macOS only")
+  endif()
+  if(VV_GGML_BACKEND_DL)
+    message(FATAL_ERROR "VV_MACOS_FRAMEWORK keeps a single static ggml; do not set VV_GGML_BACKEND_DL")
+  endif()
+endif()
 if(VV_GGML_VULKAN)
   set(GGML_VULKAN ON)                  # needs glslc + Vulkan headers matching the pin
 endif()
@@ -200,6 +213,21 @@ if(IOS)
     MACOSX_FRAMEWORK_SHORT_VERSION_STRING 0.1.0
     XCODE_ATTRIBUTE_INSTALL_PATH "@rpath"
     XCODE_ATTRIBUTE_SKIP_INSTALL NO)
+endif()
+
+if(VV_MACOS_FRAMEWORK)
+  # Same open path as iOS. Ninja (not the Xcode generator) is enough on a
+  # native arm64 Mac; INSTALL_NAME_DIR @rpath is set above for non-iOS Apple.
+  set_target_properties(vv_native PROPERTIES
+    FRAMEWORK TRUE
+    FRAMEWORK_VERSION A
+    PUBLIC_HEADER bridge/vv_bridge.h
+    MACOSX_FRAMEWORK_IDENTIFIER com.vaultvoice.vvnative
+    MACOSX_FRAMEWORK_BUNDLE_VERSION 1
+    MACOSX_FRAMEWORK_SHORT_VERSION_STRING 0.1.0
+    XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED "NO"
+    XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED "NO"
+    XCODE_ATTRIBUTE_SKIP_INSTALL "NO")
 endif()
 
 if(ANDROID)
