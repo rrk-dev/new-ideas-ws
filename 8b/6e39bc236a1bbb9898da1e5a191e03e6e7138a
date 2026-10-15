@@ -1,0 +1,95 @@
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/security/AppLockPlugin.kt
+  s_caacb79062955e::t_29eb726d551611 110,115,124
+app/ios/Podfile
+  s_98284e60985282::t_eea8062528124d 1-43
+app/lib/features/app_lock/presentation/app_lock_providers.dart
+  s_c1515c206a4fe2::t_d7737bf77142c3 52-54,81-88
+app/lib/features/licensing/data/local_entitlement_service.dart
+  s_98284e60985282::t_823e3b80f331b7 48
+app/lib/features/licensing/domain/entitlement_service.dart
+  s_98284e60985282::t_aa0f0aa392e3e3 22-25
+app/lib/features/models/data/model_downloader.dart
+  s_ef737ddb7fda7e::t_1734ead13733cb 307-310
+app/lib/features/pipeline/presentation/processing_services_host.dart
+  s_98284e60985282::t_5a4834c4005bde 6,81-82
+app/lib/features/profiles/data/profile_transfer_service.dart
+  s_98284e60985282::t_8045a9b575e174 121-125
+app/lib/features/profiles/domain/profile_bundle.dart
+  s_c1515c206a4fe2::t_2b90ea5e1d966f 308-312,317
+app/lib/features/profiles/domain/profile_draft.dart
+  s_caacb79062955e::t_6403739304fa68 358,462,483-498
+app/test/db/repositories/profile_transfer_test.dart
+  s_98284e60985282::t_4178177f288dff 287-329
+app/test/unit/app_lock/app_lock_test.dart
+  s_c1515c206a4fe2::t_9ac27cdb2e6372 4,8-9,12-25
+app/test/unit/models/model_downloader_test.dart
+  s_98284e60985282::t_24983e7e44e0d9 255-272
+app/test/unit/profiles/profile_draft_test.dart
+  s_d13dd92d2f638b::t_93530ec31e7f69 29-46
+app/test/widget/processing_services_host_test.dart
+  s_c1515c206a4fe2::t_cb2ae788f2a478 7,10-12,85-97,99-124
+tasks/05-models/MDL-02-model-downloader.md
+  s_98284e60985282::t_778ad0d18417c0 83
+tasks/05-models/MDL-03-model-management-ui.md
+  s_98284e60985282::t_4c1dbcc4c88c00 59-60
+tasks/05-models/MDL-04-offline-model-sideload.md
+  s_98284e60985282::t_af110f80527c59 65
+tasks/10-security-privacy/SEC-01-encryption-at-rest.md
+  s_98284e60985282::t_d36498c769e59e 54
+tasks/10-security-privacy/SEC-02-network-egress-guarantee.md
+  s_98284e60985282::t_1a6b8abd52860f 56-57
+tasks/10-security-privacy/SEC-04-data-retention-secure-deletion.md
+  s_98284e60985282::t_290cfa81ad6a09 48-49
+tools/ci/eval.sh
+  s_c1515c206a4fe2::t_8eb0e1e25512b2 34
+tools/ci/tests/test_eval_harness.py
+  s_c1515c206a4fe2::t_9995a4ac3227bf 110
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8b6e39bc236a1bbb9898da1e5a191e03e6e7138a",
+  "prompts": {},
+  "sessions": {
+    "s_98284e60985282": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "8c0bcf5b-010a-4914-b1cc-deab4029b4f6",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_c1515c206a4fe2": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "5ded3ed9-1ed5-495a-bc36-4f8e1b98b7a3",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_caacb79062955e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "a4c673c6-579b-47bb-bdd0-b8c526a47b26",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_d13dd92d2f638b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "ad3158a4-6281-447c-9d02-64d912fccc2e",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_ef737ddb7fda7e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "cbbe9237-ba5d-41e1-b0c2-4afbc11e83ad",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
