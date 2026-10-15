@@ -36,6 +36,13 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
               path: 'recordings/:recordingId',
               hasOverriddenOnExit: false,
               factory: $RecordingStatusRoute._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: 'transcript',
+                  hasOverriddenOnExit: false,
+                  factory: $TranscriptRoute._fromState,
+                ),
+              ],
             ),
           ],
         ),
@@ -166,6 +173,31 @@ mixin $RecordingStatusRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
     '/library/recordings/${Uri.encodeComponent(_self.recordingId)}',
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $TranscriptRoute on GoRouteData {
+  static TranscriptRoute _fromState(GoRouterState state) =>
+      TranscriptRoute(recordingId: state.pathParameters['recordingId']!);
+
+  TranscriptRoute get _self => this as TranscriptRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/library/recordings/${Uri.encodeComponent(_self.recordingId)}/transcript',
   );
 
   @override

@@ -1869,6 +1869,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not export the profile.'**
   String get profileEditorExportFailed;
+
+  /// No description provided for @transcriptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcript'**
+  String get transcriptTitle;
+
+  /// No description provided for @transcriptOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'View and edit transcript'**
+  String get transcriptOpen;
+
+  /// No description provided for @transcriptLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the transcript.'**
+  String get transcriptLoadFailed;
+
+  /// No description provided for @transcriptEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No transcript yet. It appears here when transcription has finished.'**
+  String get transcriptEmpty;
+
+  /// No description provided for @transcriptFindReplace.
+  ///
+  /// In en, this message translates to:
+  /// **'Find and replace'**
+  String get transcriptFindReplace;
+
+  /// No description provided for @transcriptFind.
+  ///
+  /// In en, this message translates to:
+  /// **'Find'**
+  String get transcriptFind;
+
+  /// No description provided for @transcriptReplaceWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace with'**
+  String get transcriptReplaceWith;
+
+  /// No description provided for @transcriptMatchCase.
+  ///
+  /// In en, this message translates to:
+  /// **'Match case'**
+  String get transcriptMatchCase;
+
+  /// No description provided for @transcriptMatchCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No matches} =1{1 match} other{{count} matches}}'**
+  String transcriptMatchCount(int count);
+
+  /// No description provided for @transcriptReplaceAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace all'**
+  String get transcriptReplaceAll;
+
+  /// No description provided for @transcriptReplaced.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Nothing to replace.} =1{1 segment changed.} other{{count} segments changed.}}'**
+  String transcriptReplaced(int count);
+
+  /// No description provided for @transcriptReExtract.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-extract with edits'**
+  String get transcriptReExtract;
+
+  /// No description provided for @transcriptReExtractStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Extraction restarted with your edited transcript.'**
+  String get transcriptReExtractStarted;
+
+  /// No description provided for @transcriptReExtractFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not restart extraction.'**
+  String get transcriptReExtractFailed;
+
+  /// No description provided for @transcriptEditSegment.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit segment at {time}'**
+  String transcriptEditSegment(String time);
+
+  /// No description provided for @transcriptEditFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save your edit.'**
+  String get transcriptEditFailed;
+
+  /// No description provided for @transcriptSegmentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{speaker} at {time}: {text}. Tap to play from here.'**
+  String transcriptSegmentLabel(String speaker, String time, String text);
+
+  /// No description provided for @transcriptNoSpeaker.
+  ///
+  /// In en, this message translates to:
+  /// **'Segment'**
+  String get transcriptNoSpeaker;
+
+  /// No description provided for @transcriptEdited.
+  ///
+  /// In en, this message translates to:
+  /// **'Edited'**
+  String get transcriptEdited;
+
+  /// No description provided for @transcriptLowConfidenceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Underlined words may be misheard.'**
+  String get transcriptLowConfidenceHint;
+
+  /// No description provided for @transcriptPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get transcriptPlay;
+
+  /// No description provided for @transcriptPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get transcriptPause;
+
+  /// No description provided for @transcriptPlaybackUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio playback is not available for this recording.'**
+  String get transcriptPlaybackUnavailable;
+
+  /// No description provided for @transcriptMarkerUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Marker'**
+  String get transcriptMarkerUser;
+
+  /// No description provided for @transcriptMarkerGap.
+  ///
+  /// In en, this message translates to:
+  /// **'Gap in the audio'**
+  String get transcriptMarkerGap;
+
+  /// No description provided for @transcriptMarkerCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording stopped for a call'**
+  String get transcriptMarkerCall;
+
+  /// No description provided for @transcriptMarkerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{kind} at {time}'**
+  String transcriptMarkerLabel(String kind, String time);
 }
 
 class _AppLocalizationsDelegate

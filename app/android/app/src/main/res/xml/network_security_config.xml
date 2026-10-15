@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- STT-06: just_audio serves transcript playback (StreamAudioSource) through an
+     in-process HTTP proxy bound to 127.0.0.1. Cleartext is allowed for that
+     loopback address only; every other host stays HTTPS-only (the model CDN
+     is HTTPS and goes through the Dart NetworkGateway). -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">127.0.0.1</domain>
+    </domain-config>
+</network-security-config>

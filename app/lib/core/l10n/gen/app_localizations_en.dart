@@ -1060,4 +1060,112 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileEditorExportFailed => 'Could not export the profile.';
+
+  @override
+  String get transcriptTitle => 'Transcript';
+
+  @override
+  String get transcriptOpen => 'View and edit transcript';
+
+  @override
+  String get transcriptLoadFailed => 'Could not load the transcript.';
+
+  @override
+  String get transcriptEmpty =>
+      'No transcript yet. It appears here when transcription has finished.';
+
+  @override
+  String get transcriptFindReplace => 'Find and replace';
+
+  @override
+  String get transcriptFind => 'Find';
+
+  @override
+  String get transcriptReplaceWith => 'Replace with';
+
+  @override
+  String get transcriptMatchCase => 'Match case';
+
+  @override
+  String transcriptMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count matches',
+      one: '1 match',
+      zero: 'No matches',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get transcriptReplaceAll => 'Replace all';
+
+  @override
+  String transcriptReplaced(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count segments changed.',
+      one: '1 segment changed.',
+      zero: 'Nothing to replace.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get transcriptReExtract => 'Re-extract with edits';
+
+  @override
+  String get transcriptReExtractStarted =>
+      'Extraction restarted with your edited transcript.';
+
+  @override
+  String get transcriptReExtractFailed => 'Could not restart extraction.';
+
+  @override
+  String transcriptEditSegment(String time) {
+    return 'Edit segment at $time';
+  }
+
+  @override
+  String get transcriptEditFailed => 'Could not save your edit.';
+
+  @override
+  String transcriptSegmentLabel(String speaker, String time, String text) {
+    return '$speaker at $time: $text. Tap to play from here.';
+  }
+
+  @override
+  String get transcriptNoSpeaker => 'Segment';
+
+  @override
+  String get transcriptEdited => 'Edited';
+
+  @override
+  String get transcriptLowConfidenceHint => 'Underlined words may be misheard.';
+
+  @override
+  String get transcriptPlay => 'Play';
+
+  @override
+  String get transcriptPause => 'Pause';
+
+  @override
+  String get transcriptPlaybackUnavailable =>
+      'Audio playback is not available for this recording.';
+
+  @override
+  String get transcriptMarkerUser => 'Marker';
+
+  @override
+  String get transcriptMarkerGap => 'Gap in the audio';
+
+  @override
+  String get transcriptMarkerCall => 'Recording stopped for a call';
+
+  @override
+  String transcriptMarkerLabel(String kind, String time) {
+    return '$kind at $time';
+  }
 }
