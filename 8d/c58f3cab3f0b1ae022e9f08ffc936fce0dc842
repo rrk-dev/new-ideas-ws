@@ -1,0 +1,39 @@
+app/lib/features/pipeline/data/steps/transcribe_step.dart
+  s_ef737ddb7fda7e::t_7e6154fe3582ee 93,97,101-104
+app/lib/features/recording/data/record_capture_backend.dart
+  s_ef737ddb7fda7e::t_f31e9ac1e9b82f 75-83
+app/lib/features/recording/data/recording_screen_providers.dart
+  s_ef737ddb7fda7e::t_7991a0c45a39a7 3,32-36
+app/lib/features/recording/data/recording_session_service.dart
+  s_ef737ddb7fda7e::t_bf9bba87e87085 23,36,47
+app/lib/features/recording/presentation/recording_details_sheet.dart
+  s_ef737ddb7fda7e::t_3ac26b00237011 3,82,91-93,116-124,127,189-195
+app/lib/features/recording/presentation/recording_screen.dart
+  s_ef737ddb7fda7e::t_5a2e1016d3dc6d 210-211,220,223-225
+app/test/unit/recording/ios_session_test.dart
+  s_ef737ddb7fda7e::t_942bbd9af5b4d7 80
+app/test/unit/recording/record_capture_backend_test.dart
+  s_ef737ddb7fda7e::t_838b0e81b19d55 8,188-189,193,210,212,233,240-241,245,247,424-431
+app/test/unit/recording/recording_indicator_test.dart
+  s_ef737ddb7fda7e::t_c2d14578d3c091 157-158,161
+app/test/unit/recording/recording_session_test.dart
+  s_ef737ddb7fda7e::t_e8dd38d76e1172 3-4,91-94,107-118
+docs/adr/ADR-AUD-01-recording-service.md
+  s_ef737ddb7fda7e::t_825710dd0f091c 62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8dc58f3cab3f0b1ae022e9f08ffc936fce0dc842",
+  "prompts": {},
+  "sessions": {
+    "s_ef737ddb7fda7e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "cbbe9237-ba5d-41e1-b0c2-4afbc11e83ad",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
