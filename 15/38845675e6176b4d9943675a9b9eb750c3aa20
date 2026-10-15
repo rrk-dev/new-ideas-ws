@@ -1,0 +1,14 @@
+tasks/12-release/REL-04-beta-program.md
+  h_9c63801c22a53c 4,19-27,30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1538845675e6176b4d9943675a9b9eb750c3aa20",
+  "prompts": {},
+  "humans": {
+    "h_9c63801c22a53c": {
+      "author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
