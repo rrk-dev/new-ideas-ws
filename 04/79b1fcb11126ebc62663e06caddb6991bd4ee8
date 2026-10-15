@@ -1,0 +1,73 @@
+docs/test-plans/stress.md
+  s_c75835e9bfff2d::t_29715a1f92a572 1-100
+docs/threat-model.md
+  s_c75835e9bfff2d::t_891c402c16370a 1-150
+docs/test-plans/device/QA-04.md
+  s_c75835e9bfff2d::t_3648733c3fa130 1-20
+.github/workflows/osv.yml
+  s_c75835e9bfff2d::t_d09aca1907a5ba 1-39
+app/test/fakes/fake_vault_writer.dart
+  s_c75835e9bfff2d::t_cf196b7d4739a2 28-29
+app/test/stress/pipeline_stress_test.dart
+  s_c75835e9bfff2d::t_96d5deba103f26 1-220
+docs/perf-report.md
+  s_c75835e9bfff2d::t_1acb674ce9a7cd 1-36
+docs/perf.md
+  s_c75835e9bfff2d::t_dde2d9c7ca8a72 1-75
+docs/test-plans/device/QA-03.md
+  s_c75835e9bfff2d::t_29d42f5bc1bfa4 1-18
+docs/test-plans/device/SEC-08.md
+  s_c75835e9bfff2d::t_672de49f664b26 1-19
+native/fuzz/build_fuzz.sh
+  s_c75835e9bfff2d::t_cfc69abf109398 1-37
+native/fuzz/fuzz_driver.cpp
+  s_c75835e9bfff2d::t_c8232df806d75b 1-79
+native/fuzz/fuzz_gguf.cpp
+  s_c75835e9bfff2d::t_eaf23a206a8bfb 1-19
+native/fuzz/fuzz_wav.cpp
+  s_c75835e9bfff2d::t_e663b90150c1bb 1-25
+native/fuzz/gen_seeds.py
+  s_c75835e9bfff2d::t_10b2d3292a4a73 1-47
+osv-scanner.toml
+  s_c75835e9bfff2d::t_a8361bb6a6785a 1-8
+tasks/10-security-privacy/SEC-08-threat-model-security-review.md
+  s_c75835e9bfff2d::t_689a8be47b7144 4,11-14,18-28
+tasks/11-quality/QA-03-performance-battery-thermal.md
+  s_c75835e9bfff2d::t_8149d639c14925 4,11-15,19-28
+tasks/11-quality/QA-04-stress-edge-case-testing.md
+  s_c75835e9bfff2d::t_d7046299f1630a 4,11-17,21-30
+tools/bench/perf/android_capture.sh
+  s_c75835e9bfff2d::t_11548fc370f673 1-26
+tools/bench/perf/budgets.json
+  s_c75835e9bfff2d::t_2d51d8de4b915e 1-13
+tools/bench/perf/fixtures/synthetic_high_pass.json
+  s_c75835e9bfff2d::t_06c0844aab4165 1-32
+tools/bench/perf/fixtures/synthetic_low_fail.json
+  s_c75835e9bfff2d::t_68a1b12db8e664 1-34
+tools/bench/perf/perf_report.py
+  s_c75835e9bfff2d::t_5d0eed6d8a294c 1-186
+tools/bench/results/perf-history.md
+  s_c75835e9bfff2d::t_5567b3ab904567 1-9
+tools/ci/osv_scan.sh
+  s_c75835e9bfff2d::t_4b0306633e5f67 1-18
+tools/ci/tests/test_perf_bench.py
+  s_c75835e9bfff2d::t_1ee1888a9dfb7a 1-93
+tools/ci/tests/test_sec08_threat_model.py
+  s_c75835e9bfff2d::t_21a2dfc3b8b7d1 1-94
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0479b1fcb11126ebc62663e06caddb6991bd4ee8",
+  "prompts": {},
+  "sessions": {
+    "s_c75835e9bfff2d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f15764af-6d0c-4490-8300-309d0bfc5fc5",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
