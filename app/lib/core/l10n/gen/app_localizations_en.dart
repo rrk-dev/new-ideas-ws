@@ -219,6 +219,306 @@ class AppLocalizationsEn extends AppLocalizations {
   String get modelImportErrorGeneric => 'Import failed.';
 
   @override
+  String get commonContinue => 'Continue';
+
+  @override
+  String get commonNotNow => 'Not now';
+
+  @override
+  String bytesMegabytes(String value) {
+    return '$value MB';
+  }
+
+  @override
+  String bytesGigabytes(String value) {
+    return '$value GB';
+  }
+
+  @override
+  String get deviceTierLow => 'Standard';
+
+  @override
+  String get deviceTierMid => 'Capable';
+
+  @override
+  String get deviceTierHigh => 'High-end';
+
+  @override
+  String get modelTypeStt => 'Speech to text';
+
+  @override
+  String get modelTypeLlm => 'Note writer (AI)';
+
+  @override
+  String get modelTypeVad => 'Speech detection';
+
+  @override
+  String get modelTypeSpeakers => 'Speaker separation';
+
+  @override
+  String get modelTypeAccelerator => 'Speech accelerator';
+
+  @override
+  String modelSummary(String type, String size) {
+    return '$type · $size';
+  }
+
+  @override
+  String get modelStatusInstalled => 'Installed';
+
+  @override
+  String get modelStatusNotDownloaded => 'Not downloaded';
+
+  @override
+  String get downloadPhaseChecking => 'Preparing download…';
+
+  @override
+  String downloadPhaseDownloading(int percent) {
+    return 'Downloading · $percent%';
+  }
+
+  @override
+  String get downloadPhaseRetrying => 'Connection lost, retrying…';
+
+  @override
+  String get downloadPhasePaused => 'Paused';
+
+  @override
+  String get downloadPhaseVerifying => 'Checking the file…';
+
+  @override
+  String get downloadPhaseInstalling => 'Installing…';
+
+  @override
+  String get downloadPhaseFailed => 'Download failed';
+
+  @override
+  String get downloadUnavailable =>
+      'Model downloads are not available right now.';
+
+  @override
+  String get downloadOffline =>
+      'You’re offline. Connect to the internet to download models.';
+
+  @override
+  String downloadNoSpace(String needed, String free) {
+    return 'Not enough free space: $needed needed, $free available.';
+  }
+
+  @override
+  String get downloadCellularTitle => 'Use mobile data?';
+
+  @override
+  String downloadCellularBody(String size) {
+    return 'You’re not on Wi-Fi. Downloading $size over mobile data may cost money.';
+  }
+
+  @override
+  String get downloadCellularAlways => 'Always allow mobile data for models';
+
+  @override
+  String get downloadWaitForWifi => 'Wait for Wi-Fi';
+
+  @override
+  String get downloadNow => 'Download now';
+
+  @override
+  String get downloadWaitingForWifi =>
+      'Not downloading. Start it again from Settings › Models when you’re on Wi-Fi.';
+
+  @override
+  String get downloadLowPowerTitle => 'Low Power Mode is on';
+
+  @override
+  String get downloadLowPowerBody =>
+      'Downloading large models uses battery. Download anyway?';
+
+  @override
+  String get downloadLater => 'Later';
+
+  @override
+  String get downloadAnyway => 'Download anyway';
+
+  @override
+  String downloadFailed(String name) {
+    return 'Downloading $name failed. Try again from Settings › Models.';
+  }
+
+  @override
+  String onboardingStepOf(int step, int total) {
+    return 'Step $step of $total';
+  }
+
+  @override
+  String get onboardingBack => 'Back';
+
+  @override
+  String get onboardingGetStarted => 'Get started';
+
+  @override
+  String get onboardingPrivacyTitle => 'Your recordings stay on your device';
+
+  @override
+  String get onboardingPrivacyOnDevice =>
+      'Recording, transcription and note writing all happen on this phone. No account, no cloud, no analytics.';
+
+  @override
+  String get onboardingPrivacyNetwork =>
+      'The only thing VaultVoice downloads is its AI models. Nothing you record is ever uploaded.';
+
+  @override
+  String get onboardingPrivacyVault =>
+      'Your notes are saved as Markdown files in a folder you choose, such as your Obsidian or Logseq vault.';
+
+  @override
+  String get consentExplainerTitle => 'Record responsibly';
+
+  @override
+  String get consentExplainerAsk =>
+      'Only record people who know they are being recorded and agree to it.';
+
+  @override
+  String get consentExplainerLaws =>
+      'Recording laws differ between countries and states. In many places everyone in the conversation must agree.';
+
+  @override
+  String get consentExplainerConfirm =>
+      'For conversations with several people, VaultVoice asks you to confirm that everyone agreed before it starts.';
+
+  @override
+  String get consentNeverCalls =>
+      'VaultVoice never records phone or VoIP calls. When a call starts, recording stops and does not resume on its own.';
+
+  @override
+  String get consentExplainerAcknowledge =>
+      'I will only record people with their consent';
+
+  @override
+  String get onboardingPermissionsTitle => 'What VaultVoice will ask for';
+
+  @override
+  String get onboardingPermissionMic =>
+      'Microphone: your phone asks the first time you tap Record — never before, and never in the background.';
+
+  @override
+  String get onboardingPermissionNotifications =>
+      'Notifications: get a message when a note is ready or processing needs your attention. Optional.';
+
+  @override
+  String get onboardingAllowNotifications => 'Allow notifications';
+
+  @override
+  String get notificationsAllowed => 'Notifications are on.';
+
+  @override
+  String get notificationsDeniedBody =>
+      'Notifications are off. Processing still works — check the Library for finished notes. You can turn notifications on in the system settings.';
+
+  @override
+  String get onboardingPermissionFolder =>
+      'Folder: you choose where notes are saved in the next steps. VaultVoice can only see that folder.';
+
+  @override
+  String get permissionOpenSettings => 'Open settings';
+
+  @override
+  String get permissionOpenSettingsFailed =>
+      'Could not open the system settings. Open them from your home screen.';
+
+  @override
+  String get micPrimerTitle => 'Allow microphone access';
+
+  @override
+  String get micPrimerBody =>
+      'VaultVoice needs the microphone to record what you choose to record. The audio stays on this device. Your phone will ask for permission next.';
+
+  @override
+  String get micDeniedBody =>
+      'Microphone access is off, so VaultVoice can’t record. You can still import audio and browse your notes. Allow the microphone in the system settings to record.';
+
+  @override
+  String get onboardingModelsTitle => 'AI models for this device';
+
+  @override
+  String get onboardingModelsChecking => 'Checking this device';
+
+  @override
+  String onboardingModelsDevice(String tier, String ram) {
+    return 'Device class: $tier ($ram memory). Recommended:';
+  }
+
+  @override
+  String get onboardingModelsDeviceUnknown =>
+      'Couldn’t check this device, so the smallest models are recommended:';
+
+  @override
+  String onboardingModelsTotal(String size) {
+    return 'Total download: $size. Wi-Fi recommended.';
+  }
+
+  @override
+  String onboardingModelsDownload(String size) {
+    return 'Download $size';
+  }
+
+  @override
+  String get onboardingModelsExplore =>
+      'You can continue and record while the models download. Recordings are processed as soon as the models are ready.';
+
+  @override
+  String get onboardingModelsReady => 'All recommended models are installed.';
+
+  @override
+  String get onboardingModelsOffline =>
+      'Downloads are turned off on this device (offline mode or your organization). Import the model files instead:';
+
+  @override
+  String get onboardingModelsUnavailable =>
+      'No model recommendation is available right now. You can download models later in Settings › Models.';
+
+  @override
+  String get onboardingFolderTitle => 'Where should notes go?';
+
+  @override
+  String get onboardingFolderBody =>
+      'Pick your Obsidian or Logseq vault, or any folder. VaultVoice only gets access to the folder you pick.';
+
+  @override
+  String get onboardingFolderChoose => 'Choose folder';
+
+  @override
+  String get onboardingFolderChooseAnother => 'Choose another folder';
+
+  @override
+  String onboardingFolderChosen(String name) {
+    return 'Notes will be saved in $name.';
+  }
+
+  @override
+  String get onboardingFolderFailed =>
+      'That folder couldn’t be used. Try another one, or keep notes in the app for now.';
+
+  @override
+  String get onboardingFolderLater =>
+      'You can add or change folders anytime in Settings › Vault folders.';
+
+  @override
+  String get onboardingFolderKeepInApp => 'Keep notes in the app for now';
+
+  @override
+  String get onboardingReadyTitle => 'You’re all set';
+
+  @override
+  String get onboardingReadyBody =>
+      'Tap Record to make your first note. If the models are still downloading, your recording waits and is processed automatically when they’re ready.';
+
+  @override
+  String get onboardingFirstRecording => 'Make my first recording';
+
+  @override
+  String get onboardingExplore => 'Explore first';
+
+  @override
   String get recordingDebugTooltip => 'Recording debug';
 
   @override

@@ -18,6 +18,7 @@ import 'package:vaultvoice/core/theme/app_theme.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/export/domain/pending_export.dart';
 import 'package:vaultvoice/features/export/domain/routing_rule.dart';
+import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/profiles/data/custom_profile_providers.dart';
 import 'package:vaultvoice/features/profiles/data/profile_providers.dart';
@@ -64,6 +65,7 @@ const _screens = {
   'Templates': '/settings/templates',
   'Template (built-in)': '/settings/templates/meeting-default',
   'Template editor': '/settings/templates/mine',
+  'Onboarding': '/onboarding',
 };
 
 class _Templates implements TemplateStore {
@@ -143,7 +145,10 @@ List<Override> _overrides() => [
   // Hermetic: no platform storage dir (path_provider) behind the
   // recording/model providers that joined in integration wave 2.
   storagePathsProvider.overrideWith((ref) => Completer<StoragePaths>().future),
-  settingsStoreProvider.overrideWithValue(FakeSettingsStore()),
+  // APP-01: past onboarding, so the router does not redirect.
+  settingsStoreProvider.overrideWithValue(
+    FakeSettingsStore({OnboardingKeys.completed: true}),
+  ),
   managedSettingsSourceProvider.overrideWithValue(const _Managed()),
   vaultTargetsProvider.overrideWith(
     (ref) => Stream.value(const [

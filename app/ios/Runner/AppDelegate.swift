@@ -50,5 +50,19 @@ import UserNotifications
     }
     BookmarkHostApiSetup.setUp(
       binaryMessenger: engineBridge.applicationRegistrar.messenger(), api: bookmarkApi)
+    // APP-01: "Open settings" recovery after a denied permission. Opens this
+    // app's page in Settings (UIApplication.openSettingsURLString, iOS 8+).
+    let appSettings = FlutterMethodChannel(
+      name: "vaultvoice/app_settings",
+      binaryMessenger: engineBridge.applicationRegistrar.messenger())
+    appSettings.setMethodCallHandler { call, result in
+      guard call.method == "open",
+        let url = URL(string: UIApplication.openSettingsURLString)
+      else {
+        result(FlutterMethodNotImplemented)
+        return
+      }
+      UIApplication.shared.open(url) { opened in result(opened) }
+    }
   }
 }

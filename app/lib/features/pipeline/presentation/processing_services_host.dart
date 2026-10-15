@@ -3,13 +3,15 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
+import 'package:vaultvoice/features/models/data/model_install_waker.dart';
 import 'package:vaultvoice/features/pipeline/data/background_providers.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_isolate.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_providers.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 
 /// Starts the UI-isolate processing monitor (throughput, notifications,
-/// notification deep links) once the app is up, and forwards the app
+/// notification deep links) and the model-install waker (APP-01) once the
+/// app is up, and forwards the app
 /// lifecycle and OS memory warnings to the pipeline worker (FND-11: GPU only
 /// in the foreground; LLM unload on memory pressure). Wraps the app in
 /// `bootstrap`; widget tests of `App` run without it.
@@ -45,6 +47,8 @@ class _ProcessingServicesHostState extends ConsumerState<ProcessingServicesHost>
       guard.start().ignore();
       // EXP-05: mirror the routing entitlement for the pipeline isolate.
       ref.read(routingPolicyMirrorProvider);
+      // APP-01: jobs waiting for a model resume once it is installed.
+      ref.read(modelInstallWakerProvider).start();
     });
   }
 

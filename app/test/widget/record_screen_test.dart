@@ -143,13 +143,21 @@ void main() {
     await pump(t);
     expect(capture.calls, isEmpty, reason: 'no pre-capture');
     expect(status(t), 'Ready to record');
+    // Integration W3: measured tap → microphone open (inside
+    // openMicrophone), not the frame rendered afterwards — the full suite
+    // runs widget tests in parallel and a frame alone can take > 300 ms.
     final sw = Stopwatch()..start();
+    int? openedMs;
+    final onOpen = capture.onOpen;
+    capture.onOpen = () {
+      onOpen?.call();
+      openedMs ??= sw.elapsedMilliseconds;
+    };
     await t.tap(main());
     await t.pump();
-    sw.stop();
     expect(capture.calls.first, isA<OpenCall>());
     expect(capture.micOpen, isTrue);
-    expect(sw.elapsedMilliseconds, lessThan(300));
+    expect(openedMs, lessThan(300));
     expect(status(t), 'Recording');
   });
 

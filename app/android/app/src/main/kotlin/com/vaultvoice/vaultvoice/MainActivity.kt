@@ -47,6 +47,8 @@ class MainActivity : FlutterActivity() {
         if (!flutterEngine.plugins.has(ProcessingPlugin::class.java)) {
             flutterEngine.plugins.add(ProcessingPlugin())
         }
+        // APP-01: "Open settings" recovery after a denied permission.
+        flutterEngine.plugins.add(AppSettingsPlugin())
         // AUD-05: microphone foreground service + ongoing notification.
         if (!flutterEngine.plugins.has(RecordingIndicatorPlugin::class.java)) {
             flutterEngine.plugins.add(RecordingIndicatorPlugin())

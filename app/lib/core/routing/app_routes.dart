@@ -8,6 +8,7 @@ import 'package:vaultvoice/features/export/presentation/routing_rule_editor_scre
 import 'package:vaultvoice/features/export/presentation/vault_target_options_screen.dart';
 import 'package:vaultvoice/features/library/presentation/library_screen.dart';
 import 'package:vaultvoice/features/models/presentation/model_import_tile.dart';
+import 'package:vaultvoice/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_queue_screen.dart';
 import 'package:vaultvoice/features/pipeline/presentation/recording_status_screen.dart';
 import 'package:vaultvoice/features/profiles/presentation/profile_editor_screen.dart';
@@ -20,6 +21,17 @@ import 'package:vaultvoice/features/templates/presentation/templates_screen.dart
 import 'package:vaultvoice/features/transcription/presentation/transcript_screen.dart';
 
 part 'app_routes.g.dart';
+
+/// First-launch flow (APP-01), outside the tab shell. The router redirects
+/// here until onboarding is completed.
+@TypedGoRoute<OnboardingRoute>(path: '/onboarding')
+class OnboardingRoute extends GoRouteData with $OnboardingRoute {
+  const OnboardingRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const OnboardingScreen();
+}
 
 @TypedStatefulShellRoute<AppShellRouteData>(
   branches: [

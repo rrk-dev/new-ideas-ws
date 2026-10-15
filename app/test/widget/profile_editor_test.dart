@@ -12,6 +12,7 @@ import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
+import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/profiles/data/custom_profile_providers.dart';
 import 'package:vaultvoice/features/profiles/data/profile_providers.dart';
@@ -37,7 +38,10 @@ List<Override> _overrides(VaultVoiceDatabase db, {required bool pro}) => [
   flavorProvider.overrideWithValue(Flavor.prod),
   processingViewsProvider.overrideWith((ref) async => sampleQueue()),
   storagePathsProvider.overrideWith((ref) => Completer<StoragePaths>().future),
-  settingsStoreProvider.overrideWithValue(FakeSettingsStore()),
+  // APP-01: past onboarding, so the router does not redirect.
+  settingsStoreProvider.overrideWithValue(
+    FakeSettingsStore({OnboardingKeys.completed: true}),
+  ),
   managedSettingsSourceProvider.overrideWithValue(const _NoManaged()),
   vaultTargetsProvider.overrideWith((ref) => Stream.value(const [])),
   vaultVoiceDatabaseProvider.overrideWithValue(db),
