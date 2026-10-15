@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import os
 import hashlib
 import json
 import subprocess
@@ -148,13 +149,17 @@ def main(argv: list[str] | None = None) -> int:
             out = Path(a.out).expanduser()
             if in_git_worktree(out):
                 raise LicenseError("refusing to write a signing key inside a git work tree")
-            if out.exists():
-                raise LicenseError(f"{out} exists")
             key = Ed25519PrivateKey.generate()
-            out.write_bytes(key.private_bytes(
+            pem = key.private_bytes(
                 serialization.Encoding.PEM, serialization.PrivateFormat.PKCS8,
-                serialization.NoEncryption()))
-            out.chmod(0o600)
+                serialization.NoEncryption())
+            try:
+                # Created 0600 atomically; O_EXCL also refuses an existing file or symlink.
+                fd = os.open(out, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+            except FileExistsError:
+                raise LicenseError(f"{out} exists") from None
+            with os.fdopen(fd, "wb") as fh:
+                fh.write(pem)
             print(f"key_id {key_id(key.public_key())}")
         elif a.cmd == "pubkey":
             pub = load_private(a.key).public_key()

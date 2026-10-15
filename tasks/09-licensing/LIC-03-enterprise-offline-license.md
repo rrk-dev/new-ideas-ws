@@ -23,5 +23,5 @@ Enterprises license N seats without a usage-tracking cloud.
 - **Acceptance evidence:**
   - AC1: ✅ test: [LIC-03/AC1]; artifact: docs/enterprise-licensing.md
 - **Decisions:** ADR-LIC-03-enterprise-seat-model (Proposed)
-- **Follow-ups:** production signing key + pinning (owner); LIC-04 MDM delivery
+- **Follow-ups:** production signing key + pinning (owner); LIC-04 MDM delivery Codex review 2026-10-15 (open): (a) persist the verified licence in protected storage and re-verify at startup (today entitlement is memory-only and resets to Free on restart); (b) show the contractual expiry and expose warning/grace status (summary currently shows expiry + 30 d); (c) add `.vvlicense` file import in Settings (only pasted text today); (d) AC1 design approval is still pending (ADR is Proposed).
 
