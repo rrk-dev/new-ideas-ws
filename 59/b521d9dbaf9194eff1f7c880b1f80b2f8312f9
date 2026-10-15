@@ -1,0 +1,19 @@
+tasks/07-export/EXP-09-macos-folder-bookmarks.md
+  s_4f14fc12f712a1::t_73e692cf083372 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "59b521d9dbaf9194eff1f7c880b1f80b2f8312f9",
+  "prompts": {},
+  "sessions": {
+    "s_4f14fc12f712a1": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "13a781e1-0b76-42b3-9c27-00a60fdcc8ad",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
