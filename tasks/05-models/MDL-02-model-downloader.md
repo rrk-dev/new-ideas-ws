@@ -67,3 +67,16 @@ Download multi-GB models reliably on first launch and on demand.
 - **Note:** DB enum `ModelType` (FND-04) has `diarization` and no `coremlEncoder`; the downloader
   maps `diarization-seg/emb → diarization`, `coreml-encoder → stt`. If MDL-03 needs to
   distinguish them, extend the DB enum with a migration.
+
+## Verification Report
+- **Verifier:** Cursor · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** PASS
+- **Gates:** format ✅ (0 changed) · analyze ✅ (no issues) · tests ✅ (785 passed, 24 skipped, coverage 93.2% of 4708 gated lines, min 80%) · native smoke ✅ (host ctest 9 passed / 14 skipped / 0 failed, includes `vv_crash`) · egress ✅ · recording policy ✅ · CI run: https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638167858 (run 51, success, `67b6fcf`) and https://github.com/rrk-dev/new-ideas-ws/actions/runs/38638136574 (run 50, success)
+- **Acceptance criteria:**
+  - AC1: ✅ re-ran `[MDL-02/AC1]`. An isolate is killed mid-download; relaunch reads the partial length and the next request is `Range: bytes=<have>-` with body length `size - have`, then the model installs. Pause/resume uses the same offset. Device force-kill rows are blank.
+  - AC2: ✅ re-ran `[MDL-02/AC2]`. One corrupted download is deleted and fetched again from byte 0 (no `Range`); the second attempt installs. A second mismatch leaves no file and no `models_installed` row. Checked it fails when the first mismatch returns immediately instead of retrying. Device corrupt-file row is blank.
+  - AC3: ✅ re-ran `[MDL-02/AC3]`. The iOS transport gives the background session only the gateway-resolved final URL, `Range`, `allowCellular: false`, and the allowlist; a redirect to an unlisted host never calls `bgStart`. A real 2 GB background run is the device rows, which are blank. No Xcode or Android SDK here.
+- **Adversarial checks:** Unlisted redirect is a non-retryable denial and the evil host is not contacted. A server that ignores `Range` still installs a file that matches the catalog hash. Cancel deletes the partial. Free-space math is `remaining × 1.1 + 200 MB`. `check_egress.sh` OK (redirect host is allowlisted). No new pub dependency. `tasks.py verify MDL-02 --run` short-circuits on pending device rows; tagged tests passed in the full suite.
+- **Skill/rule compliance:** Downloads use `NetworkGateway.getStream` (≤ 5 hops, https + allowlist) or the iOS background session after that resolution. Models install by rename under `vv/models/` and backup exclusion is recorded. Wi-Fi-only default is in the plan. ADR-MDL-02 Proposed; `background_downloader` rejected because it follows redirects with no hook.
+- **Issues found:** none
+- **Pending for done:** AC1: still pending (⏳) — cannot be done; AC1: device row in docs/test-plans/device/MDL-02.md has no PASS result with a date; AC3: still pending (⏳) — cannot be done; AC3: device row in docs/test-plans/device/MDL-02.md has no PASS result with a date; dependency MDL-01 is not done; dependency FND-04 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task
