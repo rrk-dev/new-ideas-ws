@@ -1,7 +1,7 @@
 # PRF-08 — Profile & Template Import / Export
 
 **Workstream:** Profiles | **Phase:** 3–4 | **Size:** S | **Depends on:** PRF-01, EXP-01, LIC-03 | **Source:** §7 (Enterprise pre-configured extraction templates) + Gap
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-extraction-profiles, vv-privacy-security, vv-licensing-iap, vv-markdown-vault-export, vv-testing
 
 ## Goal
