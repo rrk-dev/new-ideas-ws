@@ -1,0 +1,19 @@
+tasks/09-licensing/LIC-02-in-app-purchases.md
+  s_4b08e2248c7e63::t_6d96a2d596ddfc 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7f7c52592550f06612600e32dd700c871a5913c5",
+  "prompts": {},
+  "sessions": {
+    "s_4b08e2248c7e63": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "01a13d7a-ddd8-7e40-92c1-cef6c08a8477",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
