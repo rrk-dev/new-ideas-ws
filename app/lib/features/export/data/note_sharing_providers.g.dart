@@ -149,7 +149,7 @@ final class RecordingNoteChangesProvider
 }
 
 String _$recordingNoteChangesHash() =>
-    r'd2b074d63fbd3cf8222fa196123e5f8804fa28f7';
+    r'aff545e0f70bbf15e8422f8c65442e6d63b01d6c';
 
 /// Ticks whenever the extractions or jobs of [recordingId] change, so share
 /// availability is recomputed once processing finishes.
