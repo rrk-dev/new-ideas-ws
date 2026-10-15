@@ -1,0 +1,66 @@
+app/lib/bootstrap.dart
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 11,22-24,61-69,88
+docs/adr/ADR-SEC-01-file-encryption.md
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 1-164
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 2746,2749-2754,2758,2764
+app/ios/Runner/AppDelegate.swift
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 36-39
+app/lib/core/security/security_providers.g.dart
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 1-104
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/security/SecureStoragePlugin.kt
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 1-219
+app/test/unit/security/encryption_at_rest_test.dart
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 1-18,20-172,193-415
+  s_9f6fcf8c1840a0::t_d1a273d66de6ed 19,173-192
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 530-533
+docs/test-plans/device/SEC-01.md
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 1-21
+app/lib/core/security/sqlite3mc_cipher.dart
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 1-92
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/MainActivity.kt
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 11,53-54
+app/lib/core/security/storage_protection.dart
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 1-59
+app/test/widget/settings_screen_test.dart
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 254-257
+tasks/10-security-privacy/SEC-01-encryption-at-rest.md
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 4,11-16,21-53
+app/lib/core/security/security_providers.dart
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 1-75
+app/test/widget/encryption_status_tile_test.dart
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 1-53
+app/ios/Runner/SecureStoragePlugin.swift
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 1-147
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 19,68,152,324
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 1607,1610-1614,1618
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 6,165,171-172,174-178
+docs/privacy-audit.md
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 123-124
+app/lib/core/security/key_vault.dart
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 1-135
+app/pubspec.yaml
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 72-79
+tasks/README.md
+  s_9f6fcf8c1840a0::t_f6af4be8d4d4b1 196
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "207e851ff96077c2f8dfe83e775ab4a9425063ae",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
