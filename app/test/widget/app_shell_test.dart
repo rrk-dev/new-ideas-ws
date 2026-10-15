@@ -7,6 +7,7 @@ import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/features/library/presentation/library_screen.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/profiles/presentation/profiles_screen.dart';
+import 'package:vaultvoice/features/recording/data/recording_screen_providers.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_screen.dart';
@@ -23,6 +24,9 @@ void main() {
         settingsStoreProvider.overrideWithValue(FakeSettingsStore()),
         vaultTargetsProvider.overrideWith((ref) => Stream.value(const [])),
         routingRulesProvider.overrideWith((ref) => Stream.value(const [])),
+        // Integration W3: AUD-08's Record screen pickers (DB streams).
+        profileChoicesProvider.overrideWith((ref) => Stream.value(const [])),
+        destinationChoicesProvider.overrideWith((ref) async => const []),
       ],
       child: const App(),
     ),

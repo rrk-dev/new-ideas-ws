@@ -520,6 +520,246 @@ abstract class AppLocalizations {
   /// **'The file could not be imported.'**
   String get importFailed;
 
+  /// No description provided for @recordStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Record'**
+  String get recordStart;
+
+  /// No description provided for @recordPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get recordPause;
+
+  /// No description provided for @recordResume.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get recordResume;
+
+  /// No description provided for @recordStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get recordStop;
+
+  /// No description provided for @recordMarker.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark'**
+  String get recordMarker;
+
+  /// No description provided for @recordMarkerAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Moment marked'**
+  String get recordMarkerAdded;
+
+  /// No description provided for @recordStateIdle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to record'**
+  String get recordStateIdle;
+
+  /// No description provided for @recordStateRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording'**
+  String get recordStateRecording;
+
+  /// No description provided for @recordStatePaused.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get recordStatePaused;
+
+  /// No description provided for @recordPausedCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused because a call started. Audio from the call was not recorded. Tap Resume to continue.'**
+  String get recordPausedCall;
+
+  /// No description provided for @recordPausedInterruption.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused: another app or the system took the microphone. Tap Resume to continue.'**
+  String get recordPausedInterruption;
+
+  /// No description provided for @recordPausedError.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused: the microphone stopped. Tap Resume to continue.'**
+  String get recordPausedError;
+
+  /// No description provided for @recordUnavailableDuringCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording is unavailable during calls'**
+  String get recordUnavailableDuringCalls;
+
+  /// No description provided for @recordCallStateUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording is unavailable: the call state could not be checked.'**
+  String get recordCallStateUnknown;
+
+  /// No description provided for @recordPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone access is off. Allow it in the system settings to record.'**
+  String get recordPermissionDenied;
+
+  /// No description provided for @recordLowStorage.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough free space to record.'**
+  String get recordLowStorage;
+
+  /// No description provided for @recordLowStorageWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage is almost full.'**
+  String get recordLowStorageWarning;
+
+  /// No description provided for @recordStartFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording could not start.'**
+  String get recordStartFailed;
+
+  /// No description provided for @recordProfileLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get recordProfileLabel;
+
+  /// No description provided for @recordDestinationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Destination'**
+  String get recordDestinationLabel;
+
+  /// No description provided for @recordAuto.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto'**
+  String get recordAuto;
+
+  /// No description provided for @recordButtonStartLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Start recording'**
+  String get recordButtonStartLabel;
+
+  /// No description provided for @recordButtonPauseLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause recording'**
+  String get recordButtonPauseLabel;
+
+  /// No description provided for @recordButtonResumeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume recording'**
+  String get recordButtonResumeLabel;
+
+  /// No description provided for @recordButtonStopLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop and save recording'**
+  String get recordButtonStopLabel;
+
+  /// No description provided for @recordTimerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{elapsed} recorded'**
+  String recordTimerLabel(String elapsed);
+
+  /// No description provided for @consentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording consent'**
+  String get consentTitle;
+
+  /// No description provided for @consentBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This profile requires that everyone present agrees to be recorded before recording starts.'**
+  String get consentBody;
+
+  /// No description provided for @consentConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Everyone present agrees'**
+  String get consentConfirm;
+
+  /// No description provided for @detailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording saved'**
+  String get detailsTitle;
+
+  /// No description provided for @detailsTitleField.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get detailsTitleField;
+
+  /// No description provided for @detailsTagsField.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get detailsTagsField;
+
+  /// No description provided for @detailsTagsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Separate tags with commas'**
+  String get detailsTagsHint;
+
+  /// No description provided for @detailsSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get detailsSave;
+
+  /// No description provided for @detailsSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get detailsSkip;
+
+  /// No description provided for @recordStoppedSilence.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped after silence.'**
+  String get recordStoppedSilence;
+
+  /// No description provided for @recordStoppedMax.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped at the maximum recording length.'**
+  String get recordStoppedMax;
+
+  /// No description provided for @recordStoppedStorage.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped because storage is almost full.'**
+  String get recordStoppedStorage;
+
+  /// No description provided for @detailsQueued.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing has been queued.'**
+  String get detailsQueued;
+
+  /// No description provided for @detailsProcessNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Process now'**
+  String get detailsProcessNow;
+
   /// No description provided for @diagnosticsTitle.
   ///
   /// In en, this message translates to:

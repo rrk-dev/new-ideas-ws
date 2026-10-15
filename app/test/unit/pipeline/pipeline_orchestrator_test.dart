@@ -15,6 +15,7 @@ import 'package:vaultvoice/features/pipeline/domain/heavy_model_gate.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_client.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
+import 'package:vaultvoice/features/recording/domain/recording_session.dart';
 
 import '../../db/db_test_utils.dart';
 import '../../fakes/fake_clock.dart';
@@ -144,6 +145,19 @@ void main() {
     expect(o.gate.loaded, isNull);
     expect(h.stt.calls, hasLength(3));
     expect(h.llm.requests, hasLength(1));
+  });
+
+  test('[AUD-08] the destination picked on the Record screen is used by '
+      'the write step', () async {
+    await seedVaultTarget(db, 'v2');
+    expectOk(
+      await db.settingsRepository.set(recordingDestinationKey('r1'), 'v2'),
+    );
+    final o = await h.start();
+    expectOk(await o.enqueue('r1'));
+    await o.whenIdle();
+    final export = (await db.select(db.exports).get()).single;
+    expect(export.targetId, 'v2');
   });
 
   test('[FND-05/AC3] user-initiated jobs jump the queue; enqueue is '

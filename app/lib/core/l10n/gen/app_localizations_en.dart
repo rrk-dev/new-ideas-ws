@@ -260,6 +260,135 @@ class AppLocalizationsEn extends AppLocalizations {
   String get importFailed => 'The file could not be imported.';
 
   @override
+  String get recordStart => 'Record';
+
+  @override
+  String get recordPause => 'Pause';
+
+  @override
+  String get recordResume => 'Resume';
+
+  @override
+  String get recordStop => 'Stop';
+
+  @override
+  String get recordMarker => 'Mark';
+
+  @override
+  String get recordMarkerAdded => 'Moment marked';
+
+  @override
+  String get recordStateIdle => 'Ready to record';
+
+  @override
+  String get recordStateRecording => 'Recording';
+
+  @override
+  String get recordStatePaused => 'Paused';
+
+  @override
+  String get recordPausedCall =>
+      'Paused because a call started. Audio from the call was not recorded. Tap Resume to continue.';
+
+  @override
+  String get recordPausedInterruption =>
+      'Paused: another app or the system took the microphone. Tap Resume to continue.';
+
+  @override
+  String get recordPausedError =>
+      'Paused: the microphone stopped. Tap Resume to continue.';
+
+  @override
+  String get recordUnavailableDuringCalls =>
+      'Recording is unavailable during calls';
+
+  @override
+  String get recordCallStateUnknown =>
+      'Recording is unavailable: the call state could not be checked.';
+
+  @override
+  String get recordPermissionDenied =>
+      'Microphone access is off. Allow it in the system settings to record.';
+
+  @override
+  String get recordLowStorage => 'Not enough free space to record.';
+
+  @override
+  String get recordLowStorageWarning => 'Storage is almost full.';
+
+  @override
+  String get recordStartFailed => 'Recording could not start.';
+
+  @override
+  String get recordProfileLabel => 'Profile';
+
+  @override
+  String get recordDestinationLabel => 'Destination';
+
+  @override
+  String get recordAuto => 'Auto';
+
+  @override
+  String get recordButtonStartLabel => 'Start recording';
+
+  @override
+  String get recordButtonPauseLabel => 'Pause recording';
+
+  @override
+  String get recordButtonResumeLabel => 'Resume recording';
+
+  @override
+  String get recordButtonStopLabel => 'Stop and save recording';
+
+  @override
+  String recordTimerLabel(String elapsed) {
+    return '$elapsed recorded';
+  }
+
+  @override
+  String get consentTitle => 'Recording consent';
+
+  @override
+  String get consentBody =>
+      'This profile requires that everyone present agrees to be recorded before recording starts.';
+
+  @override
+  String get consentConfirm => 'Everyone present agrees';
+
+  @override
+  String get detailsTitle => 'Recording saved';
+
+  @override
+  String get detailsTitleField => 'Title';
+
+  @override
+  String get detailsTagsField => 'Tags';
+
+  @override
+  String get detailsTagsHint => 'Separate tags with commas';
+
+  @override
+  String get detailsSave => 'Save';
+
+  @override
+  String get detailsSkip => 'Later';
+
+  @override
+  String get recordStoppedSilence => 'Stopped after silence.';
+
+  @override
+  String get recordStoppedMax => 'Stopped at the maximum recording length.';
+
+  @override
+  String get recordStoppedStorage => 'Stopped because storage is almost full.';
+
+  @override
+  String get detailsQueued => 'Processing has been queued.';
+
+  @override
+  String get detailsProcessNow => 'Process now';
+
+  @override
   String get diagnosticsTitle => 'Export diagnostics';
 
   @override
