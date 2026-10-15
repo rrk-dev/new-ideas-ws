@@ -1,0 +1,125 @@
+app/lib/core/platform/vad_engine.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 1-26
+app/lib/features/pipeline/data/steps/transcribe_step.dart
+  s_9f6fcf8c1840a0::t_2dd07453ec24bc 62-63,115
+  s_9f6fcf8c1840a0::t_0d896a90a45321 2,6,12,18,24-30,39,50-51,64-89,114,147-149,159-160,162,165-168,192-194,201-224
+app/lib/features/recording/presentation/recording_screen.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 6,22-26
+app/lib/features/transcription/data/whisper_stt_engine.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 163
+native/bridge/vv_vad.cpp
+  s_9f6fcf8c1840a0::t_0d896a90a45321 1-229
+packages/vv_native/ffigen.yaml
+  s_9f6fcf8c1840a0::t_0d896a90a45321 12
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_0d896a90a45321 168-173
+app/test/unit/transcription/transcribe_step_vad_test.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 1-188
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_0d896a90a45321 162,268-275
+  s_9f6fcf8c1840a0::t_9aaf5c9b6fae46 276-277
+app/lib/features/recording/data/ffi_live_vad.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 1-34
+app/lib/features/pipeline/data/pipeline_orchestrator.dart
+  s_9f6fcf8c1840a0::t_2dd07453ec24bc 42
+app/lib/features/recording/domain/recording_controller.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 27-29,227-236
+  s_9f6fcf8c1840a0::t_386ab208d04944 237-238
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 468-485
+app/test/native/ffi_vad_engine_test.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 1-51
+packages/vv_native/lib/src/vad.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 1-259
+tasks/02-audio/AUD-03-silence-detection-vad.md
+  s_9f6fcf8c1840a0::t_0d896a90a45321 4,11-15,20-51
+app/lib/features/recording/data/recording_providers.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 2,7-9,15,23,32,34-35,143-203
+  s_9f6fcf8c1840a0::t_935c277fe896af 204
+app/lib/features/recording/data/recording_providers.g.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 726-774
+app/lib/features/settings/domain/setting_keys.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 23-26,35-37
+  s_9f6fcf8c1840a0::t_7fdb2cf9ddb5b0 38
+tools/model-catalog/models.json
+  s_9f6fcf8c1840a0::t_0d896a90a45321 215-235
+native/bridge/vv_whisper.h
+  s_9f6fcf8c1840a0::t_0d896a90a45321 65-74,77-78
+  s_9f6fcf8c1840a0::t_1a16ca50694094 79
+native/bridge/vv_exports.txt
+  s_9f6fcf8c1840a0::t_0d896a90a45321 13-19
+native/bridge/vv_vad.h
+  s_9f6fcf8c1840a0::t_0d896a90a45321 1-95
+app/lib/features/transcription/data/ffi_vad_engine.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 1-51
+tools/model-catalog/README.md
+  s_9f6fcf8c1840a0::t_0d896a90a45321 19
+  s_9f6fcf8c1840a0::t_190aaabdd9d64d 20-24
+app/lib/features/recording/data/silence_watcher.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 1-207
+native/bridge/vv_bridge.h
+  s_9f6fcf8c1840a0::t_0d896a90a45321 77-79
+native/bridge/vv_whisper.cpp
+  s_9f6fcf8c1840a0::t_0d896a90a45321 68,117-120,214-224,265,286-291,340-344
+docs/adr/ADR-AUD-03-vad.md
+  s_9f6fcf8c1840a0::t_0d896a90a45321 1-83
+app/lib/features/recording/domain/silence_monitor.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 1-90
+packages/vv_native/test/vad_host_test.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 1-151
+native/tests/vad_test.cpp
+  s_9f6fcf8c1840a0::t_0d896a90a45321 1-350
+app/lib/core/platform/stt_engine.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 65,83-87
+tasks/README.md
+  s_9f6fcf8c1840a0::t_0d896a90a45321 195
+app/lib/features/recording/data/record_capture_backend.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 17,41,87,129-134,308,372
+docs/test-plans/device/AUD-03.md
+  s_9f6fcf8c1840a0::t_0d896a90a45321 1-20
+app/test/unit/recording/silence_vad_test.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 1-297
+packages/vv_native/lib/src/vv_bindings.g.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 327-471,1070-1088,1207-1253,1522
+  s_9f6fcf8c1840a0::t_5f9584b57bfffb 1523
+packages/vv_native/lib/vv_native.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 21
+app/lib/features/pipeline/data/pipeline_engines.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 7,125
+  s_9f6fcf8c1840a0::t_1440ba89728e1f 166-169
+app/lib/features/settings/domain/setting_definitions.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 145-153,185-192,247,252
+app/lib/features/settings/presentation/setting_texts.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 21-22,40-41,69-71
+app/lib/features/recording/domain/recording_indicator.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 69-72
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 36,42
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 850,853-881
+  s_9f6fcf8c1840a0::t_c7e6e62dd50e1b 882
+app/lib/features/recording/domain/capture_backend.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 19-22
+packages/vv_native/lib/src/whisper.dart
+  s_9f6fcf8c1840a0::t_0d896a90a45321 35-39,64-71,226-233
+native/bridge/vv_exports.map
+  s_9f6fcf8c1840a0::t_73b1386876381d 15-21
+tools/ci/test-models.lock
+  s_9f6fcf8c1840a0::t_7e27b2d694c4e0 13-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "35d6b81aaddf32b1fb6e3c5240ff026eb782b054",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
