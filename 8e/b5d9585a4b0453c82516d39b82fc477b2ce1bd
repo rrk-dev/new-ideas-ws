@@ -1,0 +1,49 @@
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_d8f363afae10c4 253-329
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_8ccdbfce345457 1320-1739
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_9aff35de4633a6 751-983
+app/lib/core/routing/app_routes.dart
+  s_9f6fcf8c1840a0::t_d0e5c3f0516940 10,35-43,147-166
+app/lib/core/routing/app_routes.g.dart
+  s_9f6fcf8c1840a0::t_09cefd879a5d44 50-61,205-250
+app/lib/features/profiles/data/custom_profile_providers.dart
+  s_9f6fcf8c1840a0::t_192704c0dfe34b 1-115
+app/lib/features/profiles/data/custom_profile_providers.g.dart
+  s_9f6fcf8c1840a0::t_8bdfe897bf999a 1-403
+app/lib/features/profiles/data/custom_profile_service.dart
+  s_9f6fcf8c1840a0::t_5ccb1568285438 1-312
+app/lib/features/profiles/domain/profile_draft.dart
+  s_9f6fcf8c1840a0::t_1135e74e1595bd 1-556
+app/lib/features/profiles/presentation/profile_editor_screen.dart
+  s_9f6fcf8c1840a0::t_b0ea1313bcb5b8 1-706
+app/lib/features/profiles/presentation/profiles_screen.dart
+  s_9f6fcf8c1840a0::t_a8909a75c01962 2-4,6-11,13-16,20-162
+app/test/db/repositories/custom_profile_service_test.dart
+  s_9f6fcf8c1840a0::t_38a11d9c2fa49d 1-322
+app/test/unit/profiles/profile_draft_test.dart
+  s_9f6fcf8c1840a0::t_6177891cca4688 1-147
+app/test/widget/accessibility_test.dart
+  s_9f6fcf8c1840a0::t_f6fbbd97d6af51 2,18-19,41-42,67-75
+app/test/widget/profile_editor_test.dart
+  s_9f6fcf8c1840a0::t_1dcdad19f04844 1-187
+tasks/06-profiles/PRF-07-custom-profile-editor.md
+  s_9f6fcf8c1840a0::t_7d41c097d7492c 4,11-16,21-54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8eb5d9585a4b0453c82516d39b82fc477b2ce1bd",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
