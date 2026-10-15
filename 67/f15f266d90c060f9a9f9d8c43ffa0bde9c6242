@@ -1,0 +1,19 @@
+tools/ci/osv_scan.sh
+  s_c75835e9bfff2d::t_a9f05ba4a6e4de 3,22-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "67f15f266d90c060f9a9f9d8c43ffa0bde9c6242",
+  "prompts": {},
+  "sessions": {
+    "s_c75835e9bfff2d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f15764af-6d0c-4490-8300-309d0bfc5fc5",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
