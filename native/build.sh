@@ -111,6 +111,8 @@ build_ios() {
     -DCMAKE_XCODE_ATTRIBUTE_STRIP_INSTALLED_PRODUCT=YES
     -DCMAKE_XCODE_ATTRIBUTE_STRIP_STYLE=non-global
     -DCMAKE_XCODE_ATTRIBUTE_DEAD_CODE_STRIPPING=YES
+    # Release has no -g by default, so without it Xcode emits no dSYM.
+    -DCMAKE_C_FLAGS=-g -DCMAKE_CXX_FLAGS=-g
     -DCMAKE_XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT=dwarf-with-dsym)
   local dev="$OUT/ios/device" sim="$OUT/ios/simulator"
   cmake -S "$NATIVE" -B "$dev" "${args[@]}" -DCMAKE_OSX_SYSROOT=iphoneos \
