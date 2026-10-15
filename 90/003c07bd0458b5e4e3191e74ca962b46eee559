@@ -1,0 +1,19 @@
+tasks/10-security-privacy/SEC-05-model-and-oss-license-compliance.md
+  s_00f8d1cd7ed3b8::t_8e0ded6bf30b34 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "90003c07bd0458b5e4e3191e74ca962b46eee559",
+  "prompts": {},
+  "sessions": {
+    "s_00f8d1cd7ed3b8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "01a13d7a-ddd8-7eb1-bde4-62d1b5aab2c2",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
