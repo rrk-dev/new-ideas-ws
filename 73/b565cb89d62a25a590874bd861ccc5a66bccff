@@ -1,0 +1,22 @@
+app/integration_test/stt_engine_test.dart
+  s_9f6fcf8c1840a0::t_088e1d2f2cc628 85
+  s_9f6fcf8c1840a0::t_40bb8120430ecb 3,12-13,77-84,86-99,101-102,109-127,129-135,137-140
+app/test/unit/transcription/stt_live_harness_test.dart
+  s_9f6fcf8c1840a0::t_40bb8120430ecb 183-186
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "73b565cb89d62a25a590874bd861ccc5a66bccff",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}

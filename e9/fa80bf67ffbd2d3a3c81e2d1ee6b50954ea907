@@ -1,0 +1,30 @@
+app/lib/features/pipeline/data/pipeline_isolate.dart
+  s_9f6fcf8c1840a0::t_f5a8e0f3c35f34 60-69,80-133,153,156,180-184,190-191,193-196,202,211,219,222,229,232,238-243,248,250-254,256-261,318,320,323
+app/lib/features/pipeline/data/pipeline_orchestrator.dart
+  s_9f6fcf8c1840a0::t_24abc5898d37ff 320-323,325-344,349-377,415-430,501-504
+app/lib/features/pipeline/domain/heavy_model_gate.dart
+  s_9f6fcf8c1840a0::t_24abc5898d37ff 19,27-31,36-41
+app/test/unit/pipeline/pipeline_orchestrator_test.dart
+  s_9f6fcf8c1840a0::t_ae5bdb13b00425 635-649,661-666,671-674,681-687
+app/lib/features/pipeline/data/pipeline_providers.dart
+  s_9f6fcf8c1840a0::t_d1b0b81e9e83de 51,53,57-64
+  s_9f6fcf8c1840a0::t_ff759af742a327 1-2
+app/test/unit/pipeline/pipeline_isolate_test.dart
+  s_9f6fcf8c1840a0::t_178572e86cdc81 55,57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e9fa80bf67ffbd2d3a3c81e2d1ee6b50954ea907",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}

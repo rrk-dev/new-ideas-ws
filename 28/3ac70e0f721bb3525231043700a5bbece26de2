@@ -1,0 +1,30 @@
+app/lib/features/profiles/domain/post_processing.dart
+  s_9f6fcf8c1840a0::t_cb35891e48aced 1-81,83-207,213,215,218,220-221,226,229,238,243-244,247-248,251-256,259,262-263,270-272,274-275,287-328,330-498,501-502,504-648,650-719
+  s_9f6fcf8c1840a0::t_cb8d7033481fe8 82,282,329,499-500,503,649
+  s_9f6fcf8c1840a0::t_dd32bd34dc605c 208-212,214,216-217,219,222-225,227-228,230-237,239-242,245-246,249-250,257-258,260-261,264-269,273,276-281,283-286
+app/tool/render_prompt.dart
+  s_9f6fcf8c1840a0::t_4ded9a72ca0471 20,90-94,168,194-197
+app/test/unit/profiles/post_processing_test.dart
+  s_9f6fcf8c1840a0::t_1b607557fcb20f 1-13,18-97,99-280
+  s_9f6fcf8c1840a0::t_e9dbc9f8d2a105 14-17,98
+app/lib/features/pipeline/data/steps/extract_step.dart
+  s_9f6fcf8c1840a0::t_9691867ecdba09 17,129-141,148,151,158
+tools/bench/eval/run.py
+  s_9f6fcf8c1840a0::t_97f85a227d6cbe 144-145,212-213,245-249,277,295-296
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "283ac70e0f721bb3525231043700a5bbece26de2",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}

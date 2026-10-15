@@ -1,0 +1,23 @@
+docs/test-plans/device/LLM-04.md
+  s_9f6fcf8c1840a0::t_16b108b8174b41 24
+tasks/04-llm/LLM-04-llm-dart-ffi-engine.md
+  s_9f6fcf8c1840a0::t_dacc7b2f4d439a 4,79
+  s_9f6fcf8c1840a0::t_38c1483e5289c4 56-78
+  s_9f6fcf8c1840a0::t_16b108b8174b41 80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7686417ca084364a4a4b4b4a8f807704fc8a8f8e",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
