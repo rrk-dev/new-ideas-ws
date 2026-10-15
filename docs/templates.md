@@ -97,8 +97,17 @@ templates have no row, and a user template written for a built-in profile keeps
 | `meeting-logseq` | meeting | Logseq | page properties (`type::`, `date:: [[YYYY-MM-DD]]` …), outline bullets, `TODO` tasks (EXP-08 exposes it) |
 | `meeting-plain` | meeting | plain | no front-matter / wikilinks / callouts (EXP-08) |
 | `warranty-default` | warranty | Obsidian | details list, expiry reminder task with `📅 warranty_expiry` |
+| `warranty-logseq` | warranty | Logseq | page properties incl. `warranty-expiry:: [[date]]`, details bullets, reminder `TODO … [[date]]` (EXP-08) |
+| `warranty-plain` | warranty | plain | details list, no front-matter / wikilinks (EXP-08) |
 | `engineering-default` | engineering | Obsidian | API designs, trade-off table (`md_table`), TODO checkboxes |
+| `engineering-logseq` | engineering | Logseq | nested outline (API designs, pros/cons per option), `TODO` tasks (EXP-08) |
+| `engineering-plain` | engineering | plain | trade-offs as nested lists instead of a table (EXP-08) |
 | `summary-only` | any | Obsidian | fallback: `extraction: failed`, summary or notice, `transcript_block` |
+
+Alternate outputs (EXP-08): the recording screen's share action renders the note as Obsidian
+(the exported vault note), Logseq or plain via `builtinVariant(profile, flavor)` and hands it to
+the OS share sheet (`.md` file or text) or the clipboard. Custom profiles have no Logseq variant;
+their plain output is the vault note without front-matter.
 
 Goldens: `app/test/fixtures/markdown/golden/<id>.<full|empty|adversarial>.md`, regenerated with
 `(cd app && fvm flutter test --update-goldens test/unit/templates/)` and linted with

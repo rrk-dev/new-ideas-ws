@@ -27,6 +27,7 @@ import 'package:vaultvoice/features/pipeline/domain/active_models.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
 import 'package:vaultvoice/features/profiles/data/profile_providers.dart';
+import 'package:vaultvoice/features/templates/domain/builtin_templates.dart';
 
 import '../../db/db_test_utils.dart';
 import '../../fakes/fake_vault_writer.dart';
@@ -97,7 +98,8 @@ void main() {
     );
     final spec = await container.read(productionEngineSpecProvider.future);
     expect(spec.profileSources.keys, hasLength(3));
-    expect(spec.templateSources.keys, hasLength(6));
+    // Every built-in template (EXP-08 added the Logseq/plain variants).
+    expect(spec.templateSources.keys, hasLength(kBuiltinTemplates.length));
     expect(spec.appLocalVaultRoot, p.join(paths.root, 'vault'));
     expect(spec.metricsFile, endsWith('metrics.jsonl'));
     expect(spec.foreground, isFalse, reason: 'no UI ⇒ never GPU');

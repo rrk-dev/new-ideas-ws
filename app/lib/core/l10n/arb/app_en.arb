@@ -555,5 +555,18 @@
   "templateNotFound": "This template no longer exists.",
   "templateMore": "More actions",
   "templateImageOmitted": "[image: {alt}]",
-  "@templateImageOmitted": {"placeholders": {"alt": {"type": "String"}}}
+  "@templateImageOmitted": {"placeholders": {"alt": {"type": "String"}}},
+  "noteShare": "Share note",
+  "noteShareTitle": "Share or copy this note",
+  "noteShareFormat": "Format",
+  "noteFormatObsidian": "Obsidian",
+  "noteFormatLogseq": "Logseq",
+  "noteFormatPlain": "Plain",
+  "noteShareFile": "Share as .md file",
+  "noteShareText": "Share as text",
+  "noteCopy": "Copy to clipboard",
+  "noteCopied": "Note copied.",
+  "noteShareFailed": "Could not prepare the note.",
+  "noteShareUnavailable": "Sharing is not available on this device.",
+  "noteShareHint": "The note leaves the app only through the app you pick."
 }

@@ -1702,4 +1702,44 @@ class AppLocalizationsEn extends AppLocalizations {
   String templateImageOmitted(String alt) {
     return '[image: $alt]';
   }
+
+  @override
+  String get noteShare => 'Share note';
+
+  @override
+  String get noteShareTitle => 'Share or copy this note';
+
+  @override
+  String get noteShareFormat => 'Format';
+
+  @override
+  String get noteFormatObsidian => 'Obsidian';
+
+  @override
+  String get noteFormatLogseq => 'Logseq';
+
+  @override
+  String get noteFormatPlain => 'Plain';
+
+  @override
+  String get noteShareFile => 'Share as .md file';
+
+  @override
+  String get noteShareText => 'Share as text';
+
+  @override
+  String get noteCopy => 'Copy to clipboard';
+
+  @override
+  String get noteCopied => 'Note copied.';
+
+  @override
+  String get noteShareFailed => 'Could not prepare the note.';
+
+  @override
+  String get noteShareUnavailable => 'Sharing is not available on this device.';
+
+  @override
+  String get noteShareHint =>
+      'The note leaves the app only through the app you pick.';
 }

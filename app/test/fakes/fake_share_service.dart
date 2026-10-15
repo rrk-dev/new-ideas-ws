@@ -19,4 +19,16 @@ class FakeShareService implements ShareService {
     shared.add((path: path, mimeType: mimeType, subject: subject));
     return outcome;
   }
+
+  final texts = <({String text, String? subject})>[];
+
+  @override
+  Future<ShareOutcome> shareText(
+    String text, {
+    String? subject,
+    Rect? origin,
+  }) async {
+    texts.add((text: text, subject: subject));
+    return outcome;
+  }
 }
