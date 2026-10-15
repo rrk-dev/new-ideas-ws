@@ -1,7 +1,7 @@
 # REL-03 — App Binary Size Optimization
 
 **Workstream:** Release | **Phase:** 4 | **Size:** S | **Depends on:** FND-06, MDL-02 | **Source:** §5 Phase 2 (avoid bloated app store binaries)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-ci-release, vv-native-build, vv-testing
 
 ## Goal
