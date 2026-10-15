@@ -1,0 +1,25 @@
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/RecordingService.kt
+  s_ef737ddb7fda7e::t_aeeae70fa0f5ed 144-145
+app/lib/features/recording/presentation/recording_indicator_binding.dart
+  s_ef737ddb7fda7e::t_270f02040155b3 3,55-63
+app/test/fakes/fake_recording_indicator.dart
+  s_ef737ddb7fda7e::t_03d8509b183209 3,13-15,24
+app/test/unit/recording/recording_indicator_test.dart
+  s_ef737ddb7fda7e::t_e4519293104650 1-2,182-193
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "60a23ad9339c2a16fbb2ce1b815db340bcd11359",
+  "prompts": {},
+  "sessions": {
+    "s_ef737ddb7fda7e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "cbbe9237-ba5d-41e1-b0c2-4afbc11e83ad",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
