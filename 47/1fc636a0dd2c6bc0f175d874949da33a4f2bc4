@@ -1,0 +1,36 @@
+tasks/07-export/EXP-07-template-editor-preview.md
+  s_9f6fcf8c1840a0::t_a9d0425742a7a3 45
+docs/ci.md
+  s_9f6fcf8c1840a0::t_0a1091b519ccc4 8,13-19
+tasks/07-export/EXP-05-vault-writer-routing-rules.md
+  s_9f6fcf8c1840a0::t_a9d0425742a7a3 52-53
+.github/workflows/ci.yml
+  s_9f6fcf8c1840a0::t_d23a233d7d1bc1 43-48,174,179-180,200-203,208-218
+  s_9f6fcf8c1840a0::t_51b38e3057cb9a 204-207
+.github/workflows/release.yml
+  s_9f6fcf8c1840a0::t_d23a233d7d1bc1 111-112,172-173
+docs/adr/ADR-AUD-03-vad.md
+  s_9f6fcf8c1840a0::t_eb0ebc5fd670de 84-92
+app/lib/features/export/data/export_request_builder.dart
+  s_9f6fcf8c1840a0::t_a9d0425742a7a3 63
+docs/adr/ADR-AUD-02-agc-level-metering.md
+  s_9f6fcf8c1840a0::t_eb0ebc5fd670de 73-80
+native/bridge/vv_vad.cpp
+  s_9f6fcf8c1840a0::t_a00b82df0f0166 74-82
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "471fc636a0dd2c6bc0f175d874949da33a4f2bc4",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
