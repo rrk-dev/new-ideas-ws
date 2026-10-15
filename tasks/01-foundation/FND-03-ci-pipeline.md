@@ -26,6 +26,11 @@ Every change is formatted, analyzed, tested and built for both platforms, includ
 - A PR that sets a task to `done` without a passing `tasks.py verify` (e.g. missing tagged test or verification report) fails CI (demonstrated on a test branch).
 - Build artifacts downloadable from CI for QA.
 
+## CI demonstration evidence (rework 2026-10-15)
+Draft PR [#28](https://github.com/rrk-dev/new-ideas-ws/pull/28) (branch `task/FND-03-demo-failing-ci`, not merged) carried an unformatted file, a deliberately failing test and FND-02 flipped to `done` without a Verification Report. CI run [38749898895](https://github.com/rrk-dev/new-ideas-ws/actions/runs/38749898895): `static` ❌, `test` ❌, `task-gate` ❌ (refused the unverified `done`); `android`, `ios`, `native-host` ✅.
+- AC3 (task-gate refuses an unverified `done` in CI): demonstrated by the `task-gate` failure above.
+- AC2 (failing lint/test fail the checks): demonstrated by `static` and `test` failing above. **Still open:** `main` has no branch protection, so the failing PR was *mergeable*; a repo admin must mark `static`, `test`, `task-gate` as required checks.
+
 ## Completion Notes
 - **Agent:** Claude Code · **Branch:** task/FND-03-ci-pipeline (stacked on FND-02 → FND-01) · **Date:** 2026-10-12
 - **Summary:** GitHub Actions workflow `.github/workflows/ci.yml` (jobs `static`, `test`, `task-gate`, `android`,
