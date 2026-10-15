@@ -28,13 +28,17 @@ Flavors are mandatory; there is no un-flavored build.
 cd app
 fvm flutter run --flavor dev  -t lib/main_dev.dart     # com.vaultvoice.vaultvoice.dev
 fvm flutter run --flavor prod -t lib/main_prod.dart    # com.vaultvoice.vaultvoice
+# macOS desktop (arm64). Same flavors and entrypoints:
+fvm flutter run -d macos --flavor dev  -t lib/main_dev.dart
+fvm flutter run -d macos --flavor prod -t lib/main_prod.dart
 ```
-| Flavor | Android applicationId | iOS bundle ID | Display name | Icon |
+| Flavor | Android applicationId | iOS / macOS bundle ID | Display name | Icon |
 |---|---|---|---|---|
 | `dev` | `com.vaultvoice.vaultvoice.dev` | `com.vaultvoice.vaultvoice.dev` | VaultVoice Dev | orange (placeholder) |
 | `prod` | `com.vaultvoice.vaultvoice` | `com.vaultvoice.vaultvoice` | VaultVoice | indigo (placeholder) |
 
-iOS build configurations are `Debug|Release|Profile-<flavor>`, with schemes `dev` and `prod`.
+iOS and macOS build configurations are `Debug|Release|Profile-<flavor>`, with schemes
+`dev` and `prod`. macOS schemes live in `app/macos/Runner.xcodeproj`.
 Signing: the committed project has no `DEVELOPMENT_TEAM`; select your team in Xcode (Runner →
 Signing & Capabilities) for device builds. The bundle ID prefix `com.vaultvoice` is a placeholder
 until the product name/identifier is decided.
@@ -47,14 +51,21 @@ fvm dart run flutter_launcher_icons -f flutter_launcher_icons-prod.yaml
 ```
 
 ## Platform targets and rationale
-- **iOS 16.0+** and **Android API 26+ (Android 8.0), arm64-v8a only** for v1.
+- **iOS 16.0+**, **Android API 26+ (Android 8.0), arm64-v8a only**, and **macOS 13+ arm64**
+  for v1.
+- On 2026-10-14 the user decided VaultVoice also ships as an arm64 macOS desktop app, on the
+  same Record screen as iOS. Web, Linux, and Windows are out of scope.
 - Why: on-device Whisper/LLM inference relies on Metal 3-era GPUs (iOS 16 baseline: A12+ devices)
-  and Vulkan 1.1 / modern audio and background-execution APIs on Android 8+. Restricting to arm64
-  drops 32-bit ARM and x86 NEON/SIMD code paths, halves native binary size and keeps whisper.cpp /
-  llama.cpp builds to one ABI. Devices that cannot run the models adequately are out of scope.
-- Enforced in `ios/Runner.xcodeproj` (`IPHONEOS_DEPLOYMENT_TARGET = 16.0`) and
-  `android/app/build.gradle.kts` (`minSdk = 26`, `abiFilters += arm64-v8a`).
+  and Vulkan 1.1 / modern audio and background-execution APIs on Android 8+. macOS 13 is the
+  desktop baseline for the same arm64 Metal path. Restricting to arm64 drops 32-bit ARM and x86
+  NEON/SIMD code paths, halves native binary size and keeps whisper.cpp / llama.cpp builds to
+  one ABI. Devices that cannot run the models adequately are out of scope.
+- Enforced in `ios/Runner.xcodeproj` (`IPHONEOS_DEPLOYMENT_TARGET = 16.0`),
+  `android/app/build.gradle.kts` (`minSdk = 26`, `abiFilters += arm64-v8a`), and
+  `macos/Runner.xcodeproj` (`MACOSX_DEPLOYMENT_TARGET = 13.0`, `ARCHS = arm64`,
+  `EXCLUDED_ARCHS = x86_64`).
 - An arm64 Android *emulator* image is required (x86_64 images will not install the app).
+  The macOS app is arm64 only; it is not a universal binary.
 
 ## Native code (whisper.cpp / llama.cpp)
 Submodules live in `native/` (pins and upgrade procedure: `native/VERSIONS.md`).

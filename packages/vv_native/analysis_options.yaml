@@ -3,3 +3,4 @@ include: ../../app/analysis_options.yaml
 analyzer:
   exclude:
     - lib/src/vv_bindings.g.dart
+    - macos/**
