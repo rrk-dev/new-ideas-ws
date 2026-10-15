@@ -79,6 +79,11 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
                   hasOverriddenOnExit: false,
                   factory: $RecordingLinesRoute._fromState,
                 ),
+                GoRouteData.$route(
+                  path: 'review',
+                  hasOverriddenOnExit: false,
+                  factory: $RecordingReviewRoute._fromState,
+                ),
               ],
             ),
           ],
@@ -158,6 +163,11 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
                   factory: $TemplateEditorRoute._fromState,
                 ),
               ],
+            ),
+            GoRouteData.$route(
+              path: 'review',
+              hasOverriddenOnExit: false,
+              factory: $ReviewSettingsRoute._fromState,
             ),
           ],
         ),
@@ -316,6 +326,31 @@ mixin $RecordingLinesRoute on GoRouteData {
   String get location => GoRouteData.$location(
     '/library/recordings/${Uri.encodeComponent(_self.recordingId)}/text',
     queryParams: {if (_self.t != null) 't': _self.t!.toString()},
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $RecordingReviewRoute on GoRouteData {
+  static RecordingReviewRoute _fromState(GoRouterState state) =>
+      RecordingReviewRoute(recordingId: state.pathParameters['recordingId']!);
+
+  RecordingReviewRoute get _self => this as RecordingReviewRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/library/recordings/${Uri.encodeComponent(_self.recordingId)}/review',
   );
 
   @override
@@ -583,6 +618,27 @@ mixin $TemplateEditorRoute on GoRouteData {
   String get location => GoRouteData.$location(
     '/settings/templates/${Uri.encodeComponent(_self.templateId)}',
   );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $ReviewSettingsRoute on GoRouteData {
+  static ReviewSettingsRoute _fromState(GoRouterState state) =>
+      const ReviewSettingsRoute();
+
+  @override
+  String get location => GoRouteData.$location('/settings/review');
 
   @override
   void go(BuildContext context) => context.go(location);

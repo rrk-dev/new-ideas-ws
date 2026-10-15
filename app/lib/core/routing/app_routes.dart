@@ -14,6 +14,8 @@ import 'package:vaultvoice/features/pipeline/presentation/processing_queue_scree
 import 'package:vaultvoice/features/profiles/presentation/profile_editor_screen.dart';
 import 'package:vaultvoice/features/profiles/presentation/profiles_screen.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_screen.dart';
+import 'package:vaultvoice/features/review/presentation/review_screen.dart';
+import 'package:vaultvoice/features/review/presentation/review_settings_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/vault_settings_screens.dart';
 import 'package:vaultvoice/features/templates/presentation/template_editor_screen.dart';
@@ -51,6 +53,8 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
                 // STT-06 viewer/editor and APP-02's read-only lines view.
                 TypedGoRoute<TranscriptRoute>(path: 'transcript'),
                 TypedGoRoute<RecordingLinesRoute>(path: 'text'),
+                // APP-05 review before export.
+                TypedGoRoute<RecordingReviewRoute>(path: 'review'),
               ],
             ),
           ],
@@ -89,6 +93,7 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
               path: 'templates',
               routes: [TypedGoRoute<TemplateEditorRoute>(path: ':templateId')],
             ),
+            TypedGoRoute<ReviewSettingsRoute>(path: 'review'),
           ],
         ),
       ],
@@ -186,6 +191,26 @@ class RecordingLinesRoute extends GoRouteData with $RecordingLinesRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       TranscriptLinesScreen(recordingId: recordingId, atMs: t);
+}
+
+/// Review & edit a recording's extracted result before export (APP-05).
+class RecordingReviewRoute extends GoRouteData with $RecordingReviewRoute {
+  const RecordingReviewRoute({required this.recordingId});
+
+  final String recordingId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      ReviewScreen(recordingId: recordingId);
+}
+
+/// Settings › Export › Review before export, per profile (APP-05).
+class ReviewSettingsRoute extends GoRouteData with $ReviewSettingsRoute {
+  const ReviewSettingsRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const ReviewSettingsScreen();
 }
 
 /// Open action items across recordings (APP-02).

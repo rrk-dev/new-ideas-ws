@@ -16,6 +16,7 @@ import 'package:vaultvoice/features/export/data/vault_exporter.dart';
 import 'package:vaultvoice/features/export/domain/export_collision.dart';
 import 'package:vaultvoice/features/export/domain/filename_pattern.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
+import 'package:vaultvoice/features/pipeline/data/steps/review_gate.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/step_support.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
@@ -106,7 +107,9 @@ class RenderStep implements PipelineStep {
     required this.paths,
     NoteRenderer? renderer,
     this.loader,
-  }) : renderer = renderer ?? _placeholderRenderer;
+    ReviewGate? review,
+  }) : renderer = renderer ?? _placeholderRenderer,
+       review = review ?? ReviewGate(db);
 
   final VaultVoiceDatabase db;
   final StoragePaths paths;
@@ -115,6 +118,10 @@ class RenderStep implements PipelineStep {
   /// Builds the renderer at job start (FND-11: built-ins + a DB snapshot of
   /// user profiles/templates); [renderer] is used when null.
   final NoteRendererLoader? loader;
+
+  /// APP-05: results of review-first profiles wait for the user's approval
+  /// (`waiting(review)`) before anything is rendered or exported.
+  final ReviewGate review;
 
   @override
   PipelineStepId get id => PipelineStepId.render;
@@ -136,6 +143,9 @@ class RenderStep implements PipelineStep {
         StorageFailure('no extraction'),
         kind: FailureKind.permanent,
       );
+    }
+    if (await review.mustWait(extraction.valueOrNull!)) {
+      return const StepWaiting(WaitingReason.review);
     }
     final recording = unwrap(
       await db.recordingsRepository.get(job.recordingId),

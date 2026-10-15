@@ -1564,6 +1564,150 @@ abstract class AppLocalizations {
   /// **'Open recording'**
   String get actionItemOpenRecording;
 
+  /// No description provided for @reviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review before export'**
+  String get reviewTitle;
+
+  /// No description provided for @reviewTabEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get reviewTabEdit;
+
+  /// No description provided for @reviewTabPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get reviewTabPreview;
+
+  /// No description provided for @reviewIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Check what {profile} extracted. Fix names, tasks, owners and dates, then export the note.'**
+  String reviewIntro(String profile);
+
+  /// No description provided for @reviewExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export note'**
+  String get reviewExport;
+
+  /// No description provided for @reviewExported.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved. The note is being exported.'**
+  String get reviewExported;
+
+  /// No description provided for @reviewFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t save your changes. Try again.'**
+  String get reviewFailed;
+
+  /// No description provided for @reviewInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 field doesn’t match the profile (too long, missing or wrong type).} other{{count} fields don’t match the profile (too long, missing or wrong type).}}'**
+  String reviewInvalid(int count);
+
+  /// No description provided for @reviewPreviewFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The preview couldn’t be rendered.'**
+  String get reviewPreviewFailed;
+
+  /// No description provided for @reviewProfileMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The profile of this result no longer exists, so it can’t be edited.'**
+  String get reviewProfileMissing;
+
+  /// No description provided for @reviewFieldNone.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get reviewFieldNone;
+
+  /// No description provided for @reviewFieldSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Said at (hh:mm:ss)'**
+  String get reviewFieldSource;
+
+  /// No description provided for @reviewPlayFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Show in transcript at {time}'**
+  String reviewPlayFrom(String time);
+
+  /// No description provided for @reviewRemoveItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from {field}'**
+  String reviewRemoveItem(String field);
+
+  /// No description provided for @reviewAddItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to {field}'**
+  String reviewAddItem(String field);
+
+  /// No description provided for @reviewSettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review before export'**
+  String get reviewSettingsTitle;
+
+  /// No description provided for @reviewSettingsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check extracted results before notes are written'**
+  String get reviewSettingsSubtitle;
+
+  /// No description provided for @reviewSettingsIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Small on-device models make mistakes. For profiles set to review, results wait for you to check and edit them before the note is written to your vault.'**
+  String get reviewSettingsIntro;
+
+  /// No description provided for @reviewSettingsLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t load the profiles.'**
+  String get reviewSettingsLoadFailed;
+
+  /// No description provided for @reviewModeReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review first'**
+  String get reviewModeReview;
+
+  /// No description provided for @reviewModeAuto.
+  ///
+  /// In en, this message translates to:
+  /// **'Export automatically'**
+  String get reviewModeAuto;
+
+  /// No description provided for @reviewBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'The result is waiting for your review.'**
+  String get reviewBanner;
+
+  /// No description provided for @reviewOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get reviewOpen;
+
+  /// No description provided for @reviewEditResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Review & edit result'**
+  String get reviewEditResult;
+
   /// No description provided for @recordingDebugTooltip.
   ///
   /// In en, this message translates to:

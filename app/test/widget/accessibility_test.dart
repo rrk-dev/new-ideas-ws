@@ -30,6 +30,7 @@ import 'package:vaultvoice/features/pipeline/presentation/processing_providers.d
 import 'package:vaultvoice/features/profiles/data/custom_profile_providers.dart';
 import 'package:vaultvoice/features/profiles/data/profile_providers.dart';
 import 'package:vaultvoice/features/profiles/domain/profile_codec.dart';
+import 'package:vaultvoice/features/review/data/review_providers.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 import 'package:vaultvoice/features/templates/data/template_editor_providers.dart';
@@ -44,6 +45,7 @@ import '../fakes/fake_transcript_player.dart';
 import '../helpers/library_fixtures.dart';
 import '../helpers/model_fixtures.dart';
 import '../helpers/processing_fixtures.dart';
+import '../unit/templates/template_fixtures.dart' as fixtures;
 
 class _Managed implements ManagedSettingsSource {
   const _Managed();
@@ -61,6 +63,8 @@ const _screens = {
   'Recording detail': '/library/recordings/rec-a',
   'Recording transcript': '/library/recordings/rec-a/text',
   'Action items': '/library/action-items',
+  'Review before export': '/library/recordings/rec-a/review',
+  'Review settings': '/settings/review',
   'Profiles': '/profiles',
   'Profile editor (new)': '/profiles/new',
   'Profile editor (built-in, read-only)': '/profiles/meeting',
@@ -221,6 +225,12 @@ List<Override> _overrides() => [
         owner: 'Sam',
       ),
     ],
+  ),
+  // APP-05 review screen + settings.
+  reviewProfileProvider('meeting')
+      .overrideWith((ref) async => fixtures.builtinProfiles['meeting']),
+  reviewProfilesProvider.overrideWith(
+    (ref) => Stream.value(fixtures.builtinProfiles.all),
   ),
   // MDL-03 model screen: hermetic catalog/install state.
   modelEntriesProvider.overrideWith(
