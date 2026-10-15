@@ -14,6 +14,7 @@ import 'package:vaultvoice/features/export/data/vault_exporter.dart';
 import 'package:vaultvoice/features/pipeline/data/job_mapper.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/classify_step.dart';
+import 'package:vaultvoice/features/pipeline/data/steps/diarize_step.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/extract_step.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/render_write_steps.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/step_support.dart';
@@ -27,8 +28,9 @@ import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
 /// Priority of user-initiated ("Process now") jobs.
 const userPriority = 10;
 
-/// The standard steps (diarize is added by STT-05; classify runs only when
-/// the engines supply a profile list).
+/// The standard steps (`diarize` only with a [PipelineEngines.diarization]
+/// engine, STT-05; classify runs only when the engines supply a profile
+/// list).
 List<PipelineStep> defaultSteps({
   required VaultVoiceDatabase db,
   required StoragePaths paths,
@@ -46,6 +48,14 @@ List<PipelineStep> defaultSteps({
     profiles: engines.profiles,
     windowCache: engines.windowCache,
   ),
+  if (engines.diarization case final diarization?)
+    DiarizeStep(
+      db: db,
+      paths: paths,
+      engine: diarization,
+      config: config,
+      profiles: engines.profiles,
+    ),
   ClassifyStep(
     db: db,
     llm: engines.llm,

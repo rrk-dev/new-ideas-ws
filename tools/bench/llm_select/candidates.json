@@ -1,0 +1,32 @@
+{
+  "_doc": "LLM-08 candidate list. size_mib values are approximate Q4_K_M/Q4_0 GGUF sizes from the model cards (re-hash with tools/model-catalog/catalog.py before shipping). license_status: 'ok' = permissive or commercial redistribution allowed with pass-through terms; 'blocked' = not usable commercially. SEC-05 owns the final legal sign-off.",
+  "tiers": {
+    "free": {"max_size_mib": 1144, "note": "Free plan is capped at the 1B class (kSmallLlmMaxBytes = 1.2 GB)"},
+    "low": {"ram_budget_mib": 1500, "n_ctx": 4096, "note": "< 5 GiB devices"},
+    "mid": {"ram_budget_mib": 2800, "n_ctx": 6144, "note": "5-7 GiB devices"},
+    "high": {"ram_budget_mib": 4200, "n_ctx": 8192, "note": ">= 7 GiB devices"}
+  },
+  "weights": {
+    "quality": 0.40,
+    "schema_validity": 0.15,
+    "hallucination": 0.10,
+    "speed": 0.15,
+    "ram": 0.10,
+    "license": 0.10
+  },
+  "speed_target_decode_tps": 90,
+  "candidates": [
+    {"id": "llama-3.2-1b-instruct-q4_k_m", "file": "Llama-3.2-1B-Instruct-Q4_K_M.gguf", "family": "Llama 3.2", "params_b": 1.2, "quant": "Q4_K_M", "size_mib": 770, "license": "Llama 3.2 Community License", "license_status": "ok", "license_notes": "Commercial OK; 'Built with Llama' attribution, AUP pass-through, 700M MAU clause", "maintenance": 0.9},
+    {"id": "llama-3.2-3b-instruct-q4_k_m", "file": "Llama-3.2-3B-Instruct-Q4_K_M.gguf", "family": "Llama 3.2", "params_b": 3.2, "quant": "Q4_K_M", "size_mib": 1925, "license": "Llama 3.2 Community License", "license_status": "ok", "license_notes": "as above", "maintenance": 0.9},
+    {"id": "gemma-2-2b-it-q4_k_m", "file": "gemma-2-2b-it-Q4_K_M.gguf", "family": "Gemma 2", "params_b": 2.6, "quant": "Q4_K_M", "size_mib": 1629, "license": "Gemma Terms of Use", "license_status": "ok", "license_notes": "Redistribution allowed with ToU + prohibited-use pass-through (SEC-05)", "maintenance": 0.6},
+    {"id": "gemma-3-1b-it-q4_k_m", "file": "gemma-3-1b-it-Q4_K_M.gguf", "family": "Gemma 3", "params_b": 1.0, "quant": "Q4_K_M", "size_mib": 806, "license": "Gemma Terms of Use", "license_status": "ok", "license_notes": "as Gemma 2", "maintenance": 0.8},
+    {"id": "gemma-3-4b-it-q4_k_m", "file": "gemma-3-4b-it-Q4_K_M.gguf", "family": "Gemma 3", "params_b": 4.3, "quant": "Q4_K_M", "size_mib": 2375, "license": "Gemma Terms of Use", "license_status": "ok", "license_notes": "as Gemma 2", "maintenance": 0.8},
+    {"id": "qwen2.5-1.5b-instruct-q4_k_m", "file": "qwen2.5-1.5b-instruct-q4_k_m.gguf", "family": "Qwen2.5", "params_b": 1.5, "quant": "Q4_K_M", "size_mib": 1066, "license": "Apache-2.0", "license_status": "ok", "license_notes": "", "maintenance": 0.8},
+    {"id": "qwen2.5-3b-instruct-q4_k_m", "file": "qwen2.5-3b-instruct-q4_k_m.gguf", "family": "Qwen2.5", "params_b": 3.1, "quant": "Q4_K_M", "size_mib": 1930, "license": "Qwen Research License", "license_status": "blocked", "license_notes": "Research/non-commercial: not redistributable in a commercial app", "maintenance": 0.8},
+    {"id": "qwen3-1.7b-q4_k_m", "file": "Qwen3-1.7B-Q4_K_M.gguf", "family": "Qwen3", "params_b": 1.7, "quant": "Q4_K_M", "size_mib": 1280, "license": "Apache-2.0", "license_status": "ok", "license_notes": "", "maintenance": 0.9},
+    {"id": "qwen3-4b-q4_k_m", "file": "Qwen3-4B-Q4_K_M.gguf", "family": "Qwen3", "params_b": 4.0, "quant": "Q4_K_M", "size_mib": 2382, "license": "Apache-2.0", "license_status": "ok", "license_notes": "", "maintenance": 0.9},
+    {"id": "phi-4-mini-instruct-q4_k_m", "file": "Phi-4-mini-instruct-Q4_K_M.gguf", "family": "Phi-4-mini", "params_b": 3.8, "quant": "Q4_K_M", "size_mib": 2430, "license": "MIT", "license_status": "ok", "license_notes": "", "maintenance": 0.8},
+    {"id": "qwen2.5-0.5b-instruct-q4_k_m", "file": "qwen2.5-0.5b-instruct-q4_k_m.gguf", "family": "Qwen2.5", "params_b": 0.5, "quant": "Q4_K_M", "size_mib": 469, "license": "Apache-2.0", "license_status": "ok", "license_notes": "In the MDL-01 catalog today", "maintenance": 0.8},
+    {"id": "smollm2-135m-instruct-q8_0", "file": "SmolLM2-135M-Instruct-Q8_0.gguf", "family": "SmolLM2", "params_b": 0.135, "quant": "Q8_0", "size_mib": 138, "license": "Apache-2.0", "license_status": "ok", "license_notes": "CI smoke model only (not a product candidate)", "maintenance": 0.7, "ci_only": true}
+  ]
+}

@@ -2,6 +2,7 @@ import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
+import 'package:vaultvoice/core/platform/diarization_engine.dart';
 import 'package:vaultvoice/core/platform/llm_engine.dart';
 import 'package:vaultvoice/core/platform/stt_engine.dart';
 import 'package:vaultvoice/core/platform/vad_engine.dart';
@@ -131,6 +132,7 @@ class PipelineEngines {
     this.windowCache = const NoWindowResultCache(),
     this.vaultResolver,
     this.audioAttachments,
+    this.diarization,
   }) : gate = gate ?? HeavyModelGate();
 
   final SttEngine stt;
@@ -193,6 +195,10 @@ class PipelineEngines {
 
   /// EXP-05 audio sidecar source (null = no audio sidecars).
   final AudioAttachmentSource? audioAttachments;
+
+  /// STT-05 speaker diarization; null = no `diarize` step (transcripts keep
+  /// `speaker = null`).
+  final DiarizationEngine? diarization;
 }
 
 /// What the worker isolate gives the engines factory: its database

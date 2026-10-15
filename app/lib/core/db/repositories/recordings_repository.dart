@@ -134,6 +134,54 @@ class RecordingsRepository extends DatabaseAccessor<VaultVoiceDatabase>
     ),
   );
 
+  /// Replaces a recording's speakers with fresh anonymous [labels]
+  /// (diarization re-run: old display names belong to the old clustering).
+  Future<Result<void>> replaceSpeakers(
+    String recordingId,
+    List<String> labels,
+  ) => guardDb(
+    () => transaction(() async {
+      await (delete(
+        speakers,
+      )..where((s) => s.recordingId.equals(recordingId))).go();
+      for (final l in labels) {
+        await into(
+          speakers,
+        ).insert(SpeakersCompanion.insert(recordingId: recordingId, label: l));
+      }
+    }),
+  );
+
+  /// Display names by label (only speakers the user named).
+  Future<Result<Map<String, String>>> speakerNames(String recordingId) =>
+      guardDb(() async {
+        final rows = await (select(
+          speakers,
+        )..where((s) => s.recordingId.equals(recordingId))).get();
+        return {
+          for (final s in rows)
+            if (s.displayName != null) s.label: s.displayName!,
+        };
+      });
+
+  /// Sets the user's name for [label] ("Speaker 2" → "Priya"); a blank
+  /// [displayName] clears it. Names live per recording only (no voiceprints).
+  Future<Result<void>> renameSpeaker(
+    String recordingId,
+    String label,
+    String? displayName,
+  ) => guardAffected(() {
+    final name = displayName?.trim();
+    return (update(speakers)..where(
+          (s) => s.recordingId.equals(recordingId) & s.label.equals(label),
+        ))
+        .write(
+          SpeakersCompanion(
+            displayName: Value(name == null || name.isEmpty ? null : name),
+          ),
+        );
+  });
+
   Stream<List<SpeakerRow>> watchSpeakers(String recordingId) =>
       (select(speakers)
             ..where((s) => s.recordingId.equals(recordingId))

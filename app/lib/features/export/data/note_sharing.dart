@@ -157,7 +157,15 @@ class NoteSharing {
       templateOverrides: {ext.profileId: ?templateId},
     );
     return renderer(
-      NoteInput(recording: recording, extraction: ext, segments: segments),
+      NoteInput(
+        recording: recording,
+        extraction: ext,
+        segments: segments,
+        speakerNames:
+            (await db.recordingsRepository.speakerNames(recording.id))
+                .valueOrNull ??
+            const {},
+      ),
     );
   }
 

@@ -138,3 +138,21 @@ tools/bench/stt_variants/make_corpus.sh               # macOS: say + afconvert �
 # models in $VV_BENCH_MODELS_DIR (default ~/.cache/vaultvoice/bench), never in the repo
 python3 -I tools/bench/stt_variants/run.py --runs 5 --out tools/bench/results/<date>-stt07-variants
 ```
+
+## LLM defaults (LLM-08)
+Decision record: [ADR-LLM-08](adr/ADR-LLM-08-default-llm.md) (**Proposed** — host numbers for
+Llama-3.2-1B only; the other candidates are `needs-eval`). Ranking harness:
+`make llm-select` (`tools/bench/llm_select/rank.py` + `candidates.json`) over the PRF-09 eval
+results (`make eval-all MODEL=<gguf>` per candidate).
+
+| Tier | Default (today) | Fallback | Status |
+|---|---|---|---|
+| Free (any device) | Llama-3.2-1B-Instruct Q4_K_M | Qwen2.5-0.5B Q4_K_M (in catalog) | provisional |
+| Low (< 5 GiB) | Llama-3.2-1B-Instruct Q4_K_M | Qwen2.5-0.5B | provisional |
+| Mid (5–7 GiB) | Llama-3.2-3B-Instruct Q4_K_M *(unmeasured; expected, see ADR)* | Llama-3.2-1B | needs-eval |
+| High (≥ 7 GiB) | Llama-3.2-3B-Instruct Q4_K_M *(unmeasured)* | Llama-3.2-1B | needs-eval |
+
+Licences (SEC-05 has the final word): Llama 3.2 Community License (attribution "Built with
+Llama", AUP pass-through, 700 M MAU clause), Gemma Terms of Use (prohibited-use pass-through),
+Qwen2.5-3B is **Qwen Research License — not usable commercially** (rejected by the harness);
+Qwen2.5-0.5B/1.5B, Qwen3, SmolLM2 Apache-2.0; Phi-4-mini MIT.

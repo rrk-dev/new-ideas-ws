@@ -29,11 +29,16 @@ class NoteInput {
     required this.recording,
     required this.extraction,
     required this.segments,
+    this.speakerNames = const {},
   });
 
   final RecordingRow recording;
   final ExtractionRow extraction;
   final List<TranscriptSegmentRow> segments;
+
+  /// STT-05: the user's names by speaker label ("Speaker 2" → "Priya");
+  /// unnamed speakers keep their label.
+  final Map<String, String> speakerNames;
 }
 
 /// Renders Markdown. EXP-01/02 replace the placeholder with Mustache
@@ -159,7 +164,14 @@ class RenderStep implements PipelineStep {
     final ext = extraction.valueOrNull!;
     final render = loader == null ? renderer : await loader!();
     final markdown = render(
-      NoteInput(recording: recording, extraction: ext, segments: segments),
+      NoteInput(
+        recording: recording,
+        extraction: ext,
+        segments: segments,
+        speakerNames: unwrap(
+          await db.recordingsRepository.speakerNames(job.recordingId),
+        ),
+      ),
     );
     await writeFileAtomic(paths.renderedFile(job.recordingId), markdown);
     ctx.reportProgress(1);

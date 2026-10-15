@@ -119,6 +119,10 @@ class ReviewService {
             recording: recording,
             extraction: extraction.copyWith(json: edited, valid: true),
             segments: segments,
+            speakerNames:
+                (await _db.recordingsRepository.speakerNames(recordingId))
+                    .valueOrNull ??
+                const {},
           ),
         ),
       );
