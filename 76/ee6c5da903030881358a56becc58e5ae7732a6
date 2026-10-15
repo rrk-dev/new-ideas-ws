@@ -1,0 +1,35 @@
+tools/bench/llm_select/candidates.json
+  s_91cce0d4a43314::t_627410552eb9c8 1-32
+docs/adr/ADR-LLM-08-default-llm.md
+  s_91cce0d4a43314::t_7ca28571d12a23 1-62
+Makefile
+  s_91cce0d4a43314::t_43d7bf5ce4c272 8,18,23-25
+docs/models.md
+  s_91cce0d4a43314::t_0be91b5d39f88e 141-158
+docs/test-plans/device/LLM-08.md
+  s_91cce0d4a43314::t_74d8bc2d90c052 1-11
+tasks/04-llm/LLM-08-default-model-evaluation.md
+  s_91cce0d4a43314::t_c3638cff547269 4,11-14,21-34
+tools/bench/llm_select/rank.py
+  s_91cce0d4a43314::t_da8d7ac3e60100 1-188
+tools/bench/results/2026-10-15-llm08-selection.md
+  s_91cce0d4a43314::t_2b4ff56e7dbc2f 1-52
+tools/ci/tests/test_llm_select.py
+  s_91cce0d4a43314::t_0f8bae5e935fec 1-87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "76ee6c5da903030881358a56becc58e5ae7732a6",
+  "prompts": {},
+  "sessions": {
+    "s_91cce0d4a43314": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "98190d73-b703-4c9e-8a70-ef8c1482391d",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
