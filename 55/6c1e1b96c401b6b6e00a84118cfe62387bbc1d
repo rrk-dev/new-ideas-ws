@@ -1,0 +1,237 @@
+.agents/skills/vv-extraction-profiles/references/profile-spec.md
+  s_91cce0d4a43314::t_ed09951529290c 23
+.github/workflows/release.yml
+  s_91cce0d4a43314::t_1dd4f9bc441d75 111-112
+app/android/app/build.gradle.kts
+  s_91cce0d4a43314::t_e394503ada5013 22-25,53,78,103-109
+app/android/app/proguard-rules.pro
+  s_91cce0d4a43314::t_730b5a9d01560b 1-4
+app/android/app/src/main/AndroidManifest.xml
+  s_91cce0d4a43314::t_88eefb6466f5bd 2
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/MainActivity.kt
+  s_91cce0d4a43314::t_ae67eeef4bc19a 3,43
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/billing/PurchaseApi.g.kt
+  s_91cce0d4a43314::t_f7a2ffed0514eb 1-449
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/billing/PurchasePlugin.kt
+  s_91cce0d4a43314::t_3bb5f046d63888 1-213
+app/assets/licenses/native_models.json
+  s_91cce0d4a43314::t_5fecca842dbaca 1-45
+app/assets/licenses/pub_inventory.json
+  s_91cce0d4a43314::t_1767499808988b 1-1442
+app/assets/templates/engineering-default.mustache
+  s_91cce0d4a43314::t_1ec231da87e5ff 40
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_91cce0d4a43314::t_fba97d5de2d283 31-32,89-90,167-168,343-344
+app/ios/Runner/AppDelegate.swift
+  s_91cce0d4a43314::t_651584d910dab3 9,60-62
+app/ios/Runner/PurchaseApi.g.swift
+  s_91cce0d4a43314::t_34c437707c1d4b 1-439
+app/ios/Runner/PurchaseHostApiImpl.swift
+  s_91cce0d4a43314::t_f50e7616d0cc69 1-113
+app/ios/Runner/VaultVoice.storekit
+  s_91cce0d4a43314::t_71e50d32b8c20b 1-64
+app/lib/bootstrap.dart
+  s_91cce0d4a43314::t_ca3f018376302c 28,114-116
+app/lib/core/l10n/arb/app_en.arb
+  s_c75835e9bfff2d::t_cedfef6df81c73 881-908
+app/lib/core/l10n/gen/app_localizations.dart
+  s_c75835e9bfff2d::t_d9732b20d125fb 4650-4727
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_c75835e9bfff2d::t_8a4174e56b4e6c 2711-2759
+app/lib/core/licenses/bundled_licenses.dart
+  s_91cce0d4a43314::t_d31a54d72af7ea 1,3-4,8-9,13-27
+app/lib/core/routing/app_routes.dart
+  s_c75835e9bfff2d::t_b3adff74fd9825 12,100,366-372
+app/lib/core/routing/app_routes.g.dart
+  s_c75835e9bfff2d::t_424f7299be02c9 177-181,691-710
+app/lib/features/licensing/data/entitlement_license_port.dart
+  s_91cce0d4a43314::t_9421dc5995c21d 13-15,21,24-25,46-48
+app/lib/features/licensing/data/licensing_providers.dart
+  s_91cce0d4a43314::t_20e055065d1160 6,13,110,112-113
+app/lib/features/licensing/data/licensing_providers.g.dart
+  s_91cce0d4a43314::t_76b4a6d60b5ef8 404,409,419,453
+app/lib/features/licensing/data/platform_purchase_store.dart
+  s_91cce0d4a43314::t_fe3b406399b990 1-89
+app/lib/features/licensing/data/purchase_api.g.dart
+  s_91cce0d4a43314::t_16dc3d471ec9c6 1-377
+app/lib/features/licensing/data/purchase_providers.dart
+  s_91cce0d4a43314::t_8d3b216b93e3a3 1-35
+app/lib/features/licensing/data/purchase_providers.g.dart
+  s_91cce0d4a43314::t_d58a4add157b1b 1-134
+app/lib/features/licensing/data/purchase_service.dart
+  s_91cce0d4a43314::t_7e1456228d55df 1-130
+app/lib/features/licensing/domain/feature_matrix.dart
+  s_91cce0d4a43314::t_a5acdf5b831ac4 6-8
+app/lib/features/licensing/domain/store_purchase.dart
+  s_91cce0d4a43314::t_0acac80c5b7387 1-120
+app/lib/features/licensing/presentation/paywall_screen.dart
+  s_91cce0d4a43314::t_29870f5aad526d 1-114
+app/lib/features/licensing/presentation/purchase_host.dart
+  s_91cce0d4a43314::t_c5e13da5ce8c85 1-46
+app/lib/features/licensing/presentation/router_paywall_presenter.dart
+  s_91cce0d4a43314::t_20e68104542162 1-13
+app/lib/features/pipeline/data/pipeline_engines.dart
+  s_91cce0d4a43314::t_c2fbb640d46ebf 26-27,46-48,122,157-160
+app/lib/features/pipeline/data/pipeline_orchestrator.dart
+  s_91cce0d4a43314::t_01c9daa8fbcd89 16,30-31,46,49-55
+app/lib/features/pipeline/data/production_engines.dart
+  s_91cce0d4a43314::t_dc32a07020b2d2 211
+app/lib/features/pipeline/data/steps/classify_step.dart
+  s_91cce0d4a43314::t_23af19f3602842 1-124
+app/lib/features/pipeline/data/steps/extract_step.dart
+  s_91cce0d4a43314::t_a0a0c349434081 17,129-141,148,151,158
+app/lib/features/pipeline/data/steps/transcribe_step.dart
+  s_91cce0d4a43314::t_062177c48e1d43 18,58,74-76,92-117,169,171-178,181,233,304,325-326,400-403
+app/lib/features/profiles/domain/classification_keys.dart
+  s_91cce0d4a43314::t_826c741a51a386 1-7
+app/lib/features/profiles/domain/post_processing.dart
+  s_91cce0d4a43314::t_d0e33be5056691 1-741
+app/lib/features/profiles/domain/post_processors.dart
+  s_91cce0d4a43314::t_df5a6f6caecc92 26-31,108-111
+app/lib/features/profiles/domain/profile_classifier.dart
+  s_91cce0d4a43314::t_e803dea19463c2 1-226
+app/lib/features/profiles/domain/template_variables.dart
+  s_91cce0d4a43314::t_ec5ce464ed9999 29-34
+app/lib/features/profiles/domain/vocabulary_hints.dart
+  s_91cce0d4a43314::t_3a7e78e6844852 1-55
+app/lib/features/settings/domain/setting_keys.dart
+  s_91cce0d4a43314::t_bc39b2a78d1cf8 75-78
+app/lib/features/settings/presentation/settings_providers.dart
+  s_91cce0d4a43314::t_a0e2376d24700f 8,32
+app/lib/features/settings/presentation/settings_providers.g.dart
+  s_91cce0d4a43314::t_f2f763c557ca40 157
+app/lib/features/settings/presentation/settings_screen.dart
+  s_91cce0d4a43314::t_d8ccf62a04ee07 10-11,321-327
+app/lib/features/templates/domain/template_lambdas.dart
+  s_91cce0d4a43314::t_8b91cebf527d14 60-63
+app/pigeons/purchase_api.dart
+  s_91cce0d4a43314::t_2fb745e2661df7 1-44
+app/pubspec.yaml
+  s_91cce0d4a43314::t_af1f6842c5d195 74-75
+app/test/db/search_index_test.dart
+  s_91cce0d4a43314::t_4370672147c44d 265,267
+app/test/fakes/fake_purchase_store.dart
+  s_91cce0d4a43314::t_71718835c38311 1-45
+app/test/fixtures/markdown/golden/engineering-default.adversarial.md
+  s_91cce0d4a43314::t_48d2314da7911c 30-33
+app/test/fixtures/markdown/golden/engineering-default.full.md
+  s_91cce0d4a43314::t_673b435f0f52cc 30-33
+app/test/golden/paywall_golden_test.dart
+  s_91cce0d4a43314::t_4e54fa9ebde0f0 1-23
+app/test/unit/licensing/README.md
+  s_91cce0d4a43314::t_dd9579bf91359a 1-4
+app/test/unit/licensing/platform_purchase_store_test.dart
+  s_91cce0d4a43314::t_36c644f2306657 1-131
+app/test/unit/licensing/purchase_service_test.dart
+  s_91cce0d4a43314::t_225aaee7f027c1 1-246
+app/test/unit/pipeline/classify_step_test.dart
+  s_91cce0d4a43314::t_295bf9df25ac48 1-213
+app/test/unit/profiles/builtin_profile_acceptance_test.dart
+  s_91cce0d4a43314::t_d250ae88cc3427 1-323
+app/test/unit/profiles/post_processing_test.dart
+  s_91cce0d4a43314::t_8b3991fdccbc97 1-298
+app/test/unit/profiles/profile_classifier_test.dart
+  s_91cce0d4a43314::t_85987dcd7e6556 1-191
+app/test/unit/profiles/vocabulary_hints_test.dart
+  s_91cce0d4a43314::t_8049eea8f0b213 1-29
+app/test/unit/security/license_compliance_test.dart
+  s_91cce0d4a43314::t_ca037a14ee5d73 1-83
+app/test/unit/settings/settings_store_test.dart
+  s_91cce0d4a43314::t_c0ff44f484c4a1 126-128
+app/test/widget/accessibility_test.dart
+  s_91cce0d4a43314::t_bad74b68fec95f 27,29,93,162-167
+app/test/widget/paywall_test.dart
+  s_91cce0d4a43314::t_978895574d2488 1-109
+app/test/widget/template_editor_test.dart
+  s_91cce0d4a43314::t_06d29dc898e6a1 14,115-117
+app/tool/render_prompt.dart
+  s_91cce0d4a43314::t_1baaca57b3ae99 20,90-94,168,194-197
+docs/adr/ADR-LIC-02-store-verification.md
+  s_91cce0d4a43314::t_c2fbeee9d2e2f9 1-80
+docs/billing-sdk-audit.md
+  s_91cce0d4a43314::t_3a6bc73c3f8cd6 1-53
+docs/in-app-purchases.md
+  s_91cce0d4a43314::t_4c289cb2afc670 1-72
+docs/licenses.md
+  s_91cce0d4a43314::t_0a98e43e4c29d2 1-218
+docs/privacy-audit.md
+  s_91cce0d4a43314::t_c726173aa130cf 294-307
+docs/profile-spec.md
+  s_91cce0d4a43314::t_53527bd157834d 70-73,83,128
+docs/release-secrets.md
+  s_91cce0d4a43314::t_582c31a4474f0d 51-56
+docs/templates.md
+  s_91cce0d4a43314::t_181579ee364c15 61
+docs/test-plans/device/LIC-02.md
+  s_91cce0d4a43314::t_64170be4d301b6 1-20
+docs/test-plans/device/PRF-03.md
+  s_91cce0d4a43314::t_1b76e7c45a126e 1-8
+docs/test-plans/device/PRF-04.md
+  s_91cce0d4a43314::t_0e64b3d87869c9 1-7
+docs/test-plans/device/PRF-05.md
+  s_91cce0d4a43314::t_c6c1c0a2668139 1-8
+docs/test-plans/device/PRF-06.md
+  s_91cce0d4a43314::t_42ea5fa143eccd 1-8
+tasks/06-profiles/PRF-03-meeting-action-items-profile.md
+  s_91cce0d4a43314::t_ce0b2a7b5c9989 4,11-14,19-31
+tasks/06-profiles/PRF-04-warranty-receipt-profile.md
+  s_91cce0d4a43314::t_2f6a8e9c7dd9a5 4,11-15,20-31
+tasks/06-profiles/PRF-05-engineering-brainstorm-profile.md
+  s_91cce0d4a43314::t_7c65365b908b07 4,11-13,18-31
+tasks/06-profiles/PRF-06-auto-profile-context-routing.md
+  s_91cce0d4a43314::t_97737944e0caf6 4,11-14,19-30
+tasks/09-licensing/LIC-02-in-app-purchases.md
+  s_91cce0d4a43314::t_873738820f6100 4,11-15,20-29
+tasks/10-security-privacy/SEC-05-model-and-oss-license-compliance.md
+  s_91cce0d4a43314::t_773a79d48028ff 4,11-15,19-27
+tasks/README.md
+  s_91cce0d4a43314::t_7fd014d53522f3 194
+tools/bench/eval/meeting/scoring.json
+  s_91cce0d4a43314::t_55be72967e56b4 29
+tools/bench/eval/run.py
+  s_91cce0d4a43314::t_5aa5d9d8403f09 144-145,211-212,214-215,247-251,279,288,297-298
+tools/ci/check_egress.sh
+  s_91cce0d4a43314::t_ed5f3c2475ec18 49-57
+tools/ci/eval.sh
+  s_91cce0d4a43314::t_23bd6fab9ec222 63-67,72
+tools/ci/tests/test_egress_guard.py
+  s_91cce0d4a43314::t_e28c8b9a1c6c31 66-85
+tools/licenses/generate.py
+  s_91cce0d4a43314::t_60ad922880eee2 1-34
+tools/licenses/inventory-header.md
+  s_91cce0d4a43314::t_70573aca990948 1-21
+tools/licenses/native_models.py
+  s_91cce0d4a43314::t_223ff61e99e991 1-74
+tools/licenses/texts/apache-2.0.txt
+  s_91cce0d4a43314::t_1b90c2d9312da6 1-202
+tools/licenses/texts/ggml-mit.txt
+  s_91cce0d4a43314::t_05f97b6d77b588 1-21
+tools/release/build_release.sh
+  s_91cce0d4a43314::t_4b68ddbfd5096c 35,44
+tools/release/tests/test_purchase_build.py
+  s_91cce0d4a43314::t_cff89420d202c1 1-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "556c1e1b96c401b6b6e00a84118cfe62387bbc1d",
+  "prompts": {},
+  "sessions": {
+    "s_91cce0d4a43314": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "98190d73-b703-4c9e-8a70-ef8c1482391d",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_c75835e9bfff2d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f15764af-6d0c-4490-8300-309d0bfc5fc5",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
