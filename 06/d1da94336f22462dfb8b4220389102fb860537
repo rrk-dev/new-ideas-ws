@@ -1,0 +1,35 @@
+app/test/unit/extraction/device_tiering_test.dart
+  s_9f6fcf8c1840a0::t_9fc40617ec5441 209
+  s_9f6fcf8c1840a0::t_fe7537c07aee37 210,222
+app/lib/features/extraction/domain/model_residency.dart
+  s_9f6fcf8c1840a0::t_b15babf9c337c8 1-2,6-21,24-30,32,34,36-38,41-42,44-45,48,53-56,58-62,64-65,68-70,72-83
+  s_9f6fcf8c1840a0::t_63be94b23bb029 71
+app/test/unit/pipeline/active_engines_test.dart
+  s_9f6fcf8c1840a0::t_9fc40617ec5441 168-169,213
+  s_9f6fcf8c1840a0::t_a7e76a8ca6504d 214
+app/test/unit/extraction/model_residency_test.dart
+  s_9f6fcf8c1840a0::t_69b693911def49 1-115,117-128,131-136,138,140-158
+  s_9f6fcf8c1840a0::t_debb4ae131cc77 116,129-130,137,139
+app/lib/features/extraction/domain/llm_service.dart
+  s_9f6fcf8c1840a0::t_cf17d42ca3772c 9,51-54,138-140,149-152,158-159,292-294
+  s_9f6fcf8c1840a0::t_ddcbefb324f825 153-156
+  s_9f6fcf8c1840a0::t_8b296c5e831a6c 157
+app/lib/features/pipeline/data/active_engines.dart
+  s_9f6fcf8c1840a0::t_61069c0f6791ea 88-90,111-117,136-142,159-161,170
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "06d1da94336f22462dfb8b4220389102fb860537",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
