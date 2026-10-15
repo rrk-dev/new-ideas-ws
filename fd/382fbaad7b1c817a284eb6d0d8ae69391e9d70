@@ -1,0 +1,39 @@
+native/fuzz/gen_seeds.py
+  s_64781eb60f7b87::t_2cf7af4c5a871a 31-33
+tools/ci/osv_scan.sh
+  s_c75835e9bfff2d::t_49ca43ef3faa95 18-42
+tools/ci/tests/test_sec08_threat_model.py
+  s_5568385315e53b::t_48c68eececc98a 62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fd382fbaad7b1c817a284eb6d0d8ae69391e9d70",
+  "prompts": {},
+  "sessions": {
+    "s_5568385315e53b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f2a8133d-d95c-4ea9-afeb-d867f5d4c63f",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_64781eb60f7b87": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "6c497edc-f7a9-431a-88c5-4dfc614958b7",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_c75835e9bfff2d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f15764af-6d0c-4490-8300-309d0bfc5fc5",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
