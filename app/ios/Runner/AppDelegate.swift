@@ -14,6 +14,8 @@ import UserNotifications
     // APP-04: local notifications (flutter_local_notifications 22.3.1 README)
     // — taps and foreground presentation go through FlutterAppDelegate.
     UNUserNotificationCenter.current().delegate = self
+    // FND-08: BGProcessingTask handler must be registered before launch ends.
+    ProcessingPlugin.registerBackgroundTask()
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
@@ -34,6 +36,10 @@ import UserNotifications
     // AUD-04: audio route / engine / media-services events; recording reminder.
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "AudioSessionPlugin") {
       AudioSessionPlugin.register(with: registrar)
+    }
+    // FND-08: background processing (background task, BGProcessingTask, power/thermal).
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "ProcessingPlugin") {
+      ProcessingPlugin.register(with: registrar)
     }
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "RecordingIndicatorPlugin") {
       RecordingIndicatorPlugin.register(with: registrar)
