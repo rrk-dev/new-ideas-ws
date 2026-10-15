@@ -76,8 +76,9 @@ final class InstalledModelResolver {
 
 /// [SttEngine] over the active STT model: one [WhisperSttEngine] per model,
 /// replaced (old one unloaded) when the active model changes. Registers with
-/// the shared [ModelResidency] so loading STT unloads the LLM first.
-final class ActiveSttEngine implements SttEngine {
+/// the shared [ModelResidency] so loading STT unloads the LLM first. Also
+/// windowed (STT-04 long-form ranges), like [WhisperSttEngine].
+final class ActiveSttEngine implements WindowedSttEngine {
   ActiveSttEngine({
     required this.resolve,
     required this.create,
@@ -104,21 +105,48 @@ final class ActiveSttEngine implements SttEngine {
     SegmentCallback? onSegment,
     SttOptions options = const SttOptions(),
   }) async {
-    final model = await resolve();
-    if (model == null) return const Err(ModelMissingFailure('stt'));
-    if (_model?.id != model.id || _model?.path != model.path) {
-      await _engine?.unload();
-      _engine = create(model);
-      _model = model;
-    }
-    residency.acquire(ResidentModel.stt);
-    return await _engine!.transcribe(
+    final engine = await _current();
+    if (engine == null) return const Err(ModelMissingFailure('stt'));
+    return await engine.transcribe(
       audioPath,
       cancel: cancel,
       onProgress: onProgress,
       onSegment: onSegment,
       options: options,
     );
+  }
+
+  @override
+  Future<Result<Transcript>> transcribeRanges(
+    List<SttAudioRange> ranges, {
+    CancelToken? cancel,
+    ProgressCallback? onProgress,
+    SegmentCallback? onSegment,
+    SttOptions options = const SttOptions(),
+  }) async {
+    final engine = await _current();
+    if (engine == null) return const Err(ModelMissingFailure('stt'));
+    return await engine.transcribeRanges(
+      ranges,
+      cancel: cancel,
+      onProgress: onProgress,
+      onSegment: onSegment,
+      options: options,
+    );
+  }
+
+  /// The engine of the active model (rebuilt when the selection changed),
+  /// marked resident; null when no usable STT model is installed.
+  Future<WhisperSttEngine?> _current() async {
+    final model = await resolve();
+    if (model == null) return null;
+    if (_model?.id != model.id || _model?.path != model.path) {
+      await _engine?.unload();
+      _engine = create(model);
+      _model = model;
+    }
+    residency.acquire(ResidentModel.stt);
+    return _engine;
   }
 
   /// Frees the whisper model (idempotent).

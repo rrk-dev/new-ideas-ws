@@ -40,6 +40,7 @@ List<PipelineStep> defaultSteps({
     clock: engines.clock,
     activeModel: engines.activeModel,
     vad: engines.vad,
+    windowCache: engines.windowCache,
   ),
   ExtractStep(
     db: db,

@@ -1,6 +1,7 @@
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/native_failures.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/core/platform/cancel_token.dart';
 import 'package:vaultvoice/core/platform/vad_engine.dart';
 import 'package:vv_native/vv_native.dart';
 
@@ -19,6 +20,33 @@ class FfiVadEngine implements VadEngine {
   String? _modelPath;
 
   @override
+  Future<Result<List<SpeechSpan>>> detect(
+    List<VadChunk> chunks, {
+    required String modelPath,
+    CancelToken? cancel,
+  }) async {
+    final out = <SpeechSpan>[];
+    // One file at a time: `vv_vad_segments` reports times on the
+    // concatenation of its ranges, and chunks may have gaps between them.
+    for (final c in chunks) {
+      if (cancel?.isCancelled ?? false) return const Err(CancelledFailure());
+      final r = await speechSegments(modelPath, c.path);
+      switch (r) {
+        case Err(:final failure):
+          return Err(failure);
+        case Ok(:final value):
+          for (final s in value) {
+            final start = c.startMs + s.startMs;
+            final end = c.startMs + s.endMs;
+            if (end > start) out.add(SpeechSpan(start, end));
+          }
+      }
+    }
+    out.sort((a, b) => a.startMs.compareTo(b.startMs));
+    return Ok(out);
+  }
+
+  /// Speech spans of one 16 kHz mono WAV, in ms of that file.
   Future<Result<List<SpeechSpan>>> speechSegments(
     String modelPath,
     String wavPath,

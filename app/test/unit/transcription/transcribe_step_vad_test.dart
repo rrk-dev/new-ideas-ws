@@ -50,13 +50,21 @@ class _Vad implements VadEngine {
   final calls = <(String, String)>[];
 
   @override
-  Future<Result<List<SpeechSpan>>> speechSegments(
-    String modelPath,
-    String wavPath,
-  ) async {
-    calls.add((modelPath, wavPath));
+  Future<Result<List<SpeechSpan>>> detect(
+    List<VadChunk> chunks, {
+    required String modelPath,
+    CancelToken? cancel,
+  }) async {
+    for (final c in chunks) {
+      calls.add((modelPath, c.path));
+    }
     if (fail) return const Err(UnexpectedFailure('vad'));
-    return const Ok([SpeechSpan(500, 4000), SpeechSpan(9000, 12000)]);
+    return Ok([
+      for (final c in chunks) ...[
+        SpeechSpan(c.startMs + 500, c.startMs + 4000),
+        SpeechSpan(c.startMs + 9000, c.startMs + 12000),
+      ],
+    ]);
   }
 
   @override

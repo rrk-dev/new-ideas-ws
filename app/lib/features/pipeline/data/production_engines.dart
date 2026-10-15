@@ -37,7 +37,9 @@ import 'package:vaultvoice/features/profiles/domain/profile.dart';
 import 'package:vaultvoice/features/profiles/domain/profile_validator.dart';
 import 'package:vaultvoice/features/templates/data/template_note_renderer.dart';
 import 'package:vaultvoice/features/templates/domain/builtin_templates.dart';
+import 'package:vaultvoice/features/transcription/data/ffi_vad_engine.dart';
 import 'package:vaultvoice/features/transcription/data/whisper_stt_engine.dart';
+import 'package:vaultvoice/features/transcription/data/window_result_cache.dart';
 import 'package:vv_native/vv_native.dart';
 
 /// Sendable inputs of the production engine factory (FND-11), prepared on
@@ -166,6 +168,7 @@ final class ProductionEngineSpec {
       },
     );
     final appLocal = AppLocalVaultWriter.at(Directory(appLocalVaultRoot));
+    final vad = FfiVadEngine(hostLibPath: nativeLibPath);
 
     Future<Profile?> profile(String id) async =>
         (await registry.get(id)).valueOrNull;
@@ -202,6 +205,9 @@ final class ProductionEngineSpec {
       grammars: (p) async =>
           (await registry.grammarsFor(p)).valueOrNull?.schema,
       extraction: longTranscript,
+      // AUD-03 VAD (Silero, CPU) → speech_segments → STT-04 windows.
+      vad: vad,
+      windowCache: FileWindowResultCache(context.paths.root),
       rendererLoader: () => loadNoteRenderer(
         db,
         builtins: builtins,
@@ -222,6 +228,7 @@ final class ProductionEngineSpec {
       },
       onMemoryPressure: llm.onMemoryPressure,
       dispose: () async {
+        await vad.dispose();
         await stt.unload();
         llm.unload();
       },

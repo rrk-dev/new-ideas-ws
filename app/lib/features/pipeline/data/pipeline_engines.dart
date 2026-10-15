@@ -12,6 +12,7 @@ import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
 import 'package:vaultvoice/features/profiles/domain/prompt_inputs.dart';
+import 'package:vaultvoice/features/transcription/data/window_result_cache.dart';
 
 /// Engine configuration the pipeline uses until the owning tasks provide
 /// richer settings (STT-07 model variants, PRF-01 profiles, EXP-03/04
@@ -123,6 +124,7 @@ class PipelineEngines {
     this.onMemoryPressure,
     this.dispose,
     this.vad,
+    this.windowCache = const NoWindowResultCache(),
   }) : gate = gate ?? HeavyModelGate();
 
   final SttEngine stt;
@@ -164,9 +166,14 @@ class PipelineEngines {
   /// Frees models when the worker stops.
   final Future<void> Function()? dispose;
 
-  /// Speech timeline before STT (AUD-03, `FfiVadEngine`); null = whisper's
-  /// built-in VAD still skips silence, but no `speech_segments` are stored.
+  /// Speech timeline before STT (AUD-03, `FfiVadEngine`): spans of
+  /// recordings without stored `speech_segments`, which bound STT-04's
+  /// windows. Null = whisper's built-in VAD still skips silence, windows are
+  /// planned from chunk boundaries and no `speech_segments` are stored.
   final VadEngine? vad;
+
+  /// Windows transcribed while recording (STT-04 near-real-time mode).
+  final WindowResultCache windowCache;
 }
 
 /// What the worker isolate gives the engines factory: its database
