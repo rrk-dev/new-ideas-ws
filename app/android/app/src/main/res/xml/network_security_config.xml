@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- STT-06: just_audio serves transcript playback (StreamAudioSource) through an
-     in-process HTTP proxy bound to 127.0.0.1. Cleartext is allowed for that
-     loopback address only; every other host stays HTTPS-only (the model CDN
-     is HTTPS and goes through the Dart NetworkGateway). -->
+<!-- SEC-02: HTTPS only, system CAs only. The Dart NetworkGateway already refuses
+     anything but https to allowlisted model hosts; this blocks cleartext for any
+     native/plugin code as well. Debug builds additionally trust user-installed CAs so
+     the egress capture (mitmproxy, docs/test-plans/device/SEC-02.md) can see traffic;
+     debug-overrides never apply to release builds.
+     STT-06 (integration wave 3): just_audio serves transcript playback
+     (StreamAudioSource) through an in-process HTTP proxy bound to 127.0.0.1, so
+     cleartext is allowed for that loopback address only (no subdomains, no other
+     host). tools/ci/check_egress.sh accepts exactly this exception. -->
 <network-security-config>
-    <base-config cleartextTrafficPermitted="false" />
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="false">127.0.0.1</domain>
     </domain-config>
+    <debug-overrides>
+        <trust-anchors>
+            <certificates src="user" />
+        </trust-anchors>
+    </debug-overrides>
 </network-security-config>

@@ -33,6 +33,14 @@
 	<array>
 		<string>com.vaultvoice.processing</string>
 	</array>
+	<!-- SEC-02: App Transport Security stays at its default (HTTPS with
+	     forward secrecy only); no arbitrary-load or insecure-HTTP exceptions.
+	     tools/ci/check_egress.sh fails on any other NSAllows* / exception key. -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+	</dict>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Face ID unlocks your recordings and notes when the app lock is on.</string>
 	<key>NSMicrophoneUsageDescription</key>

@@ -31,6 +31,7 @@ abstract final class SettingTexts {
     SettingKeys.securityAppLock => l.settingAppLock,
     SettingKeys.securityLockTimeout => l.settingLockTimeout,
     SettingKeys.privacyTranscriptRetention => l.settingTranscriptRetention,
+    SettingKeys.networkOffline => l.settingOfflineMode,
     SettingKeys.notificationsEnabled => l.settingNotifications,
     SettingKeys.notificationsShowDetails => l.settingNotificationDetails,
     _ => key,
@@ -47,6 +48,7 @@ abstract final class SettingTexts {
     SettingKeys.processingChargeOnly => l.settingChargeOnlyDescription,
     SettingKeys.processingDiarization => l.settingDiarizationDescription,
     SettingKeys.securityAppLock => l.settingAppLockDescription,
+    SettingKeys.networkOffline => l.settingOfflineModeDescription,
     SettingKeys.notificationsEnabled => l.settingNotificationsDescription,
     SettingKeys.notificationsShowDetails =>
       l.settingNotificationDetailsDescription,

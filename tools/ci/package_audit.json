@@ -1,0 +1,50 @@
+{
+  "http": {
+    "reason": "Our HTTP client — imported only by lib/core/network/network_gateway.dart (allowlisted hosts, check_egress.sh). Accepted — FND-02/SEC-02",
+    "telemetry": false
+  },
+  "sqlite3": {
+    "reason": "Network only in the build hook (lib/src/hook/): downloads the prebuilt SQLite3MC library at build time and verifies its sha256; no network code in the runtime library. Accepted — ADR-SEC-01",
+    "telemetry": false
+  },
+  "native_toolchain_c": {
+    "reason": "Build-hook toolchain (host only, not compiled into the app); the hit is the string 'Firebase Studio' in an NDK search path comment. Accepted — SEC-02",
+    "telemetry": "false-positive (comment text)"
+  },
+  "package_config": {
+    "reason": "Build/tooling helper; util_io.dart can read a package config over HTTP when given an http URI — never imported by the app, not compiled for mobile. Accepted — SEC-02",
+    "telemetry": false
+  },
+  "vm_service": {
+    "reason": "Dart VM service client used by tooling/integration_test; vm_service_io.dart (WebSocket to a local VM) is never imported by app code and tree-shaken from release builds. Accepted — SEC-02",
+    "telemetry": false
+  },
+  "web": {
+    "reason": "Browser DOM bindings (WebSocket/XHR typedefs) used only on the web platform; tree-shaken on iOS/Android (we ship no web build). Accepted — SEC-02",
+    "telemetry": false
+  },
+  "timezone": {
+    "reason": "Transitive (flutter_local_notifications). browser.dart / standalone.dart can fetch tz data over HTTP; neither is imported by the plugin or us (they use timezone.dart), tree-shaken. Accepted — APP-04",
+    "telemetry": false
+  },
+  "dbus": {
+    "reason": "Linux-only D-Bus client (flutter_local_notifications_linux); local Unix socket, not registered or compiled on iOS/Android. Accepted — APP-04",
+    "telemetry": false
+  },
+  "just_audio": {
+    "reason": "Transcript playback (STT-06). Network code is the in-process proxy HttpServer bound to InternetAddress.loopbackIPv4 (random port) that serves our StreamAudioSource, plus HttpClient for remote URL sources we never use (our sources are local chunk readers). Android cleartext only for 127.0.0.1 (network_security_config.xml), iOS NSAllowsLocalNetworking only; check_egress.sh enforces exactly that. Accepted — STT-06, integration wave 3",
+    "telemetry": false
+  },
+  "re_highlight": {
+    "reason": "Highlighting rule tables for re_editor (EXP-07). Hits are keyword lists of other languages (e.g. 'HttpClient' in arduino.dart), not code. Accepted — EXP-07, integration wave 3",
+    "telemetry": "false-positive (keyword tables)"
+  },
+  "re_editor": {
+    "reason": "Template code editor (EXP-07); no network/telemetry code (scan clean). Listed for the wave-3 dependency review. Accepted — EXP-07",
+    "telemetry": false
+  },
+  "flutter_markdown_plus": {
+    "reason": "Markdown preview in the template editor (EXP-07). The default image builder can fetch http(s) images; we always pass an imageBuilder rendering only the alt text and no onTapLink, so the preview never touches the network (docs/privacy-audit.md). Accepted — EXP-07",
+    "telemetry": false
+  }
+}

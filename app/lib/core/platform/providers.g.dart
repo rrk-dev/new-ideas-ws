@@ -267,6 +267,62 @@ final class NetworkConfigProvider
 
 String _$networkConfigHash() => r'1467334b9f04701cb710320ab4a80f1a53b51933';
 
+/// In-app "Network activity" log (SEC-02). In memory by default;
+/// `bootstrap` overrides it with the file-backed log `vv/network/`.
+
+@ProviderFor(networkActivityLog)
+final networkActivityLogProvider = NetworkActivityLogProvider._();
+
+/// In-app "Network activity" log (SEC-02). In memory by default;
+/// `bootstrap` overrides it with the file-backed log `vv/network/`.
+
+final class NetworkActivityLogProvider
+    extends
+        $FunctionalProvider<
+          NetworkActivityLog,
+          NetworkActivityLog,
+          NetworkActivityLog
+        >
+    with $Provider<NetworkActivityLog> {
+  /// In-app "Network activity" log (SEC-02). In memory by default;
+  /// `bootstrap` overrides it with the file-backed log `vv/network/`.
+  NetworkActivityLogProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'networkActivityLogProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$networkActivityLogHash();
+
+  @$internal
+  @override
+  $ProviderElement<NetworkActivityLog> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  NetworkActivityLog create(Ref ref) {
+    return networkActivityLog(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(NetworkActivityLog value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<NetworkActivityLog>(value),
+    );
+  }
+}
+
+String _$networkActivityLogHash() =>
+    r'8e0bd3fb441a36394a42bac11d5f0ad77edaf10e';
+
 @ProviderFor(networkGateway)
 final networkGatewayProvider = NetworkGatewayProvider._();
 
@@ -306,4 +362,4 @@ final class NetworkGatewayProvider
   }
 }
 
-String _$networkGatewayHash() => r'500c71f7df68376d2b76590ec3cfaadad23cbdc9';
+String _$networkGatewayHash() => r'1d0fa9bc7acc074aaa41144b14ed1b5a51230423';

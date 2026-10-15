@@ -67,4 +67,9 @@ abstract final class SettingKeys {
   static const securityAppLock = 'security.app_lock';
   static const securityLockTimeout = 'security.lock_timeout';
   static const privacyTranscriptRetention = 'privacy.transcript_retention';
+
+  /// bool, default `false`: offline mode — the network gateway refuses
+  /// every request (SEC-02). Same key as MDM `network_disabled`
+  /// (`kNetworkDisabledKey`, MDL-04 / LIC-04).
+  static const networkOffline = 'network_disabled';
 }
