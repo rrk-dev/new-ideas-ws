@@ -1,0 +1,43 @@
+tasks/08-app-ux/APP-05-result-review-before-export.md
+  s_9f6fcf8c1840a0::t_c71aa65670b95b 11-14,18-52
+app/lib/features/review/data/review_providers.dart
+  s_9f6fcf8c1840a0::t_f44f63320811e1 51,62
+app/lib/features/review/data/review_providers.g.dart
+  s_9f6fcf8c1840a0::t_f44f63320811e1 214-215,219,228,233,240,250,254,301
+app/test/unit/pipeline/review_before_export_test.dart
+  s_9f6fcf8c1840a0::t_20698bf8154a1c 1-25,27-104,108-135,139-148,153-202
+  s_9f6fcf8c1840a0::t_5f56727726d4ce 26,105-107,136-138,149-152
+app/test/helpers/library_fixtures.dart
+  s_9f6fcf8c1840a0::t_1134630089f58d 132,165
+app/test/unit/review/review_policy_test.dart
+  s_9f6fcf8c1840a0::t_c71aa65670b95b 36,52-56,68
+  s_9f6fcf8c1840a0::t_2f3529db98f1b7 1-35,37-51,57-67,69-74
+app/test/widget/accessibility_test.dart
+  s_9f6fcf8c1840a0::t_e095c4a5f841bb 25,33,51-52,95-99
+  s_9f6fcf8c1840a0::t_23df518215540b 100
+docs/test-plans/device/APP-05.md
+  s_9f6fcf8c1840a0::t_c71aa65670b95b 7,17
+  s_9f6fcf8c1840a0::t_24bca58bd1e01b 1-6,8-16,18-21
+app/test/widget/review_screen_test.dart
+  s_9f6fcf8c1840a0::t_bf7e6c96ceaf12 1-17,19-124,127-157,173,175-178,180-183,185-187,189-210,212-216,218-277
+  s_9f6fcf8c1840a0::t_7e4d7825c73e8c 125-126,172,179,188,211,217
+  s_9f6fcf8c1840a0::t_f253285e9f9919 158-171
+  s_9f6fcf8c1840a0::t_c71aa65670b95b 174,184
+  s_9f6fcf8c1840a0::t_5f56727726d4ce 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2d883b2f47de20e4af0fc772983b82e7b50c3788",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
