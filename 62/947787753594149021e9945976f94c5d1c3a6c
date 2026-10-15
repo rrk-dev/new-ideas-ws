@@ -1,0 +1,57 @@
+app/integration_test/gate_02_pipeline_test.dart
+  s_a0f957ce3586ee::t_e29aeaffcfdc0e 164-165,175-190
+  s_a0f957ce3586ee::t_d5e5522fc83b8f 15
+  s_a0f957ce3586ee::t_007ff4215a1a2e 1-14,16-163,166-174,191-194
+docs/test-plans/device/GATE-02.md
+  s_a0f957ce3586ee::t_96450fefef82ae 1-21
+docs/test-plans/device/GATE-04.md
+  s_a0f957ce3586ee::t_96450fefef82ae 1-17
+docs/test-plans/device/GATE-01.md
+  s_a0f957ce3586ee::t_96450fefef82ae 1-26
+docs/test-plans/device/GATE-03.md
+  s_a0f957ce3586ee::t_96450fefef82ae 1-20
+docs/test-plans/gates/GATE-01.md
+  s_a0f957ce3586ee::t_4b7b940061370e 1-82
+app/integration_test/gate_01_recording_test.dart
+  s_a0f957ce3586ee::t_2bd46a54658a0d 1-62,64-74,77-78,80-139
+  s_a0f957ce3586ee::t_c87dd615d328c9 75-76,79
+  s_a0f957ce3586ee::t_5979538535af9a 63
+app/integration_test/gate_04_release_test.dart
+  s_a0f957ce3586ee::t_e29aeaffcfdc0e 44-46
+  s_a0f957ce3586ee::t_312e4bae558514 1-27,35-37,39-43,47-99
+  s_a0f957ce3586ee::t_8cde9aebb50036 28-34,38
+tasks/13-milestones/GATE-02-phase2-on-device-ai.md
+  s_a0f957ce3586ee::t_5c5e6a966f8994 4,11-13,21-33
+tasks/13-milestones/GATE-01-phase1-foundation-recording.md
+  s_a0f957ce3586ee::t_5c5e6a966f8994 4,11-13,24-36
+tasks/13-milestones/GATE-03-phase3-notes-in-vault.md
+  s_a0f957ce3586ee::t_5c5e6a966f8994 4,11-13,21-33
+docs/test-plans/gates/GATE-04.md
+  s_a0f957ce3586ee::t_fe661eb166ed12 1-69
+docs/test-plans/gates/GATE-03.md
+  s_a0f957ce3586ee::t_d824fe6de541ca 1-77
+tasks/13-milestones/GATE-04-release-candidate.md
+  s_a0f957ce3586ee::t_5c5e6a966f8994 4,11-13,21-33
+docs/test-plans/gates/GATE-02.md
+  s_a0f957ce3586ee::t_e911b15143f6bd 1-71
+app/integration_test/gate_03_vault_test.dart
+  s_a0f957ce3586ee::t_e29aeaffcfdc0e 152-154
+  s_a0f957ce3586ee::t_2239f68078d64f 62
+  s_a0f957ce3586ee::t_9130949e2b64d7 1-61,63-151,155-170
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "62947787753594149021e9945976f94c5d1c3a6c",
+  "prompts": {},
+  "sessions": {
+    "s_a0f957ce3586ee": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "cc825135-0862-40a4-aafb-c3ebc5a67374",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
