@@ -44,3 +44,4 @@ Pro users edit Markdown templates and filename patterns with immediate feedback.
   templates' `filenamePattern` is stored but not yet used by the exporter (EXP-05 uses rule /
   folder / global patterns) — proposed EXP-12 (renumbered in integration wave 3).
 - Codex review 2026-10-15 (open): selecting a past recording only supplies extraction JSON; pass full recording metadata/transcript rendering context
+- Codex review 2026-10-15 (open): previewTemplate takes only extraction JSON; past-recording preview should pass full recording metadata/transcript context (API change)

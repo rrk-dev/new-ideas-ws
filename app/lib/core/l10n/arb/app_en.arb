@@ -298,6 +298,7 @@
   "reviewFailed": "Couldn’t save your changes. Try again.",
   "reviewInvalid": "{count, plural, =1{1 field doesn’t match the profile (too long, missing or wrong type).} other{{count} fields don’t match the profile (too long, missing or wrong type).}}",
   "@reviewInvalid": {"placeholders": {"count": {"type": "int"}}},
+  "reviewNumberInvalid": "Enter a valid number.",
   "reviewPreviewFailed": "The preview couldn’t be rendered.",
   "reviewProfileMissing": "The profile of this result no longer exists, so it can’t be edited.",
   "reviewFieldNone": "None",

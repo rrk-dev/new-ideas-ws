@@ -71,6 +71,9 @@ void main() {
       ProviderScope(
         overrides: [
           noteSharingProvider.overrideWith((ref) async => sharing),
+          recordingNoteChangesProvider.overrideWith(
+            (ref, id) => const Stream<int>.empty(),
+          ),
           shareServiceProvider.overrideWithValue(share),
           appPathsProvider.overrideWithValue(
             AppPaths(root: tmp, temp: Directory('${tmp.path}/tmp')),

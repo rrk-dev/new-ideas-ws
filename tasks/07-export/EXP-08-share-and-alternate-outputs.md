@@ -32,4 +32,3 @@ Get notes out even without a configured vault, and support non-Obsidian formats 
   - AC1: ⏳ test: [EXP-08/AC1]; device: docs/test-plans/device/EXP-08.md
 - **Decisions:** none beyond the conservative defaults above (Obsidian format preselected).
 - **Follow-ups:** none.
-- Codex review 2026-10-15 (open): share availability cached (note_sharing_providers.dart:34); invalidate when extraction/render completes

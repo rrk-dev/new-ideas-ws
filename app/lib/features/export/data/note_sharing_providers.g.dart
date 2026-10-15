@@ -91,6 +91,90 @@ final class NoteSharingProvider
 
 String _$noteSharingHash() => r'7bc8f402e0643e2f237211b13d389ab2c456f00f';
 
+/// Ticks whenever the extractions or jobs of [recordingId] change, so share
+/// availability is recomputed once processing finishes.
+
+@ProviderFor(recordingNoteChanges)
+final recordingNoteChangesProvider = RecordingNoteChangesFamily._();
+
+/// Ticks whenever the extractions or jobs of [recordingId] change, so share
+/// availability is recomputed once processing finishes.
+
+final class RecordingNoteChangesProvider
+    extends $FunctionalProvider<AsyncValue<int>, int, Stream<int>>
+    with $FutureModifier<int>, $StreamProvider<int> {
+  /// Ticks whenever the extractions or jobs of [recordingId] change, so share
+  /// availability is recomputed once processing finishes.
+  RecordingNoteChangesProvider._({
+    required RecordingNoteChangesFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'recordingNoteChangesProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$recordingNoteChangesHash();
+
+  @override
+  String toString() {
+    return r'recordingNoteChangesProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $StreamProviderElement<int> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<int> create(Ref ref) {
+    final argument = this.argument as String;
+    return recordingNoteChanges(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is RecordingNoteChangesProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$recordingNoteChangesHash() =>
+    r'd2b074d63fbd3cf8222fa196123e5f8804fa28f7';
+
+/// Ticks whenever the extractions or jobs of [recordingId] change, so share
+/// availability is recomputed once processing finishes.
+
+final class RecordingNoteChangesFamily extends $Family
+    with $FunctionalFamilyOverride<Stream<int>, String> {
+  RecordingNoteChangesFamily._()
+    : super(
+        retry: null,
+        name: r'recordingNoteChangesProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  /// Ticks whenever the extractions or jobs of [recordingId] change, so share
+  /// availability is recomputed once processing finishes.
+
+  RecordingNoteChangesProvider call(String recordingId) =>
+      RecordingNoteChangesProvider._(argument: recordingId, from: this);
+
+  @override
+  String toString() => r'recordingNoteChangesProvider';
+}
+
 /// Formats the note of [recordingId] can be shared in (empty: no note).
 
 @ProviderFor(shareableFormats)
@@ -153,7 +237,7 @@ final class ShareableFormatsProvider
   }
 }
 
-String _$shareableFormatsHash() => r'141964324320025bb69c18180c95b8cab5992606';
+String _$shareableFormatsHash() => r'0716cafe5f2f725b27416ce2f7b8be0898dc5c3f';
 
 /// Formats the note of [recordingId] can be shared in (empty: no note).
 

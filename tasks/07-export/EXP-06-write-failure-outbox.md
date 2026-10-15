@@ -36,5 +36,3 @@ No generated note is ever lost because a destination was temporarily unavailable
 - **Decisions:** PRODUCT-DECISION: with no vault folder the note waits (pending list offers
   "Choose a folder" / "Save on this device") instead of silently going to the app folder.
 - **Follow-ups:** FND-11 wiring (engines `vaultResolver`, Pigeon from the worker isolate).
-- Codex review 2026-10-15 (open): read failures become null hashes so collision planning may overwrite an unreadable edited note (vault_exporter.dart:253); propagate and retry
-- Codex review 2026-10-15 (open): skipped collision leaves earlier failed export row in Pending exports; add terminal skipped outcome (schema/product)
