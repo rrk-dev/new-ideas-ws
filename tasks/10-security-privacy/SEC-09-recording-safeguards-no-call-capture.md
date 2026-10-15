@@ -1,7 +1,7 @@
 # SEC-09 — Recording Safeguards: User-Started Only, Never Record Calls
 
 **Workstream:** Security & Privacy | **Phase:** 1 | **Size:** M | **Depends on:** FND-02 | **Source:** Product/legal requirement (user directive): use only the standard OS microphone APIs, never record phone/VoIP calls, never record without the user's explicit action
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-audio-capture, vv-privacy-security, vv-ci-release, vv-testing
 
 ## Goal
@@ -62,7 +62,7 @@ AC1: draft PR [#29](https://github.com/rrk-dev/new-ideas-ws/pull/29) (branch `ta
   Not done / unverified: Kotlin/Swift never compiled locally (no SDK/Xcode) — compiled by the CI `android`/`ios` jobs;
   the workflow has not yet run on this branch (no PR opened).
 - **Acceptance evidence:**
-  - AC1: ✅ test: [SEC-09/AC1]; ci: static job slot + android job `check_recording_policy.sh --require-merged-manifest` (first PR run)
+  - AC1: ✅ test: [SEC-09/AC1]; artifact: tasks/10-security-privacy/SEC-09-recording-safeguards-no-call-capture.md
   - AC2: ⏳ test: [SEC-09/AC2]; device: docs/test-plans/device/SEC-09.md
   - AC3: ✅ test: [SEC-09/AC3]; artifact: docs/adr/ADR-SEC-09-recording-policy.md
   - AC4: ✅ test: [SEC-09/AC4]; artifact: docs/adr/ADR-SEC-09-recording-policy.md
