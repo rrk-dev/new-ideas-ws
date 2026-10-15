@@ -7,6 +7,8 @@ import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/core/security/security_providers.dart';
 import 'package:vaultvoice/features/extraction/presentation/llm_debug_screen.dart';
+import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
+import 'package:vaultvoice/features/licensing/domain/feature_matrix.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/crash_reports.dart';
@@ -296,6 +298,13 @@ class _LicenseTiles extends ConsumerWidget {
           title: Text(l10n.licenseStatus),
           subtitle: Text(summary == null ? ' ' : describe(l10n, summary)),
         ),
+        if (ref.watch(distributionModeProvider) == DistributionMode.commercial)
+          ListTile(
+            key: const ValueKey('license-upgrade'),
+            leading: const Icon(Icons.workspace_premium),
+            title: Text(l10n.paywallTitle),
+            onTap: () => const ProRoute().push<void>(context),
+          ),
         ListTile(
           key: const ValueKey('license-restore'),
           leading: const Icon(Icons.restore),

@@ -32,6 +32,7 @@ mkdir -p "$OUT" "$SYM/native"
 # Shared flags. --obfuscate requires --split-debug-info (flutter refuses otherwise).
 RELEASE_FLAGS=(
   --release --flavor prod -t lib/main_prod.dart
+  --dart-define=VV_COMMERCIAL=true
   --obfuscate --split-debug-info="$SYM"
   --extra-gen-snapshot-options=--save-obfuscation-map="$SYM/obfuscation_map.json"
   --build-name="$VV_BUILD_NAME" --build-number="$VV_BUILD_NUMBER"
@@ -40,6 +41,7 @@ RELEASE_FLAGS=(
 cd "$APP"
 if [ "$PLATFORM" = android ]; then
   # Gradle refuses to fall back to debug signing (app/android/signing.gradle).
+  : "${VV_PLAY_PUBLIC_KEY:?set VV_PLAY_PUBLIC_KEY from the Play Console licensing key}"
   export VV_REQUIRE_RELEASE_SIGNING=true
   "${FLUTTER[@]}" build appbundle "${RELEASE_FLAGS[@]}" --target-platform android-arm64
   cp build/app/outputs/bundle/prodRelease/app-prod-release.aab "$OUT/"

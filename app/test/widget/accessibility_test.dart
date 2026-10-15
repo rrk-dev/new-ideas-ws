@@ -24,7 +24,9 @@ import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/export/domain/pending_export.dart';
 import 'package:vaultvoice/features/export/domain/routing_rule.dart';
 import 'package:vaultvoice/features/library/domain/recording_detail.dart';
+import 'package:vaultvoice/features/licensing/data/purchase_providers.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_access.dart';
+import 'package:vaultvoice/features/licensing/domain/store_purchase.dart';
 import 'package:vaultvoice/features/models/data/model_import_providers.dart';
 import 'package:vaultvoice/features/models/data/model_management_providers.dart';
 import 'package:vaultvoice/features/models/data/model_state_providers.dart';
@@ -88,6 +90,7 @@ const _screens = {
   'Profile editor (new)': '/profiles/new',
   'Profile editor (built-in, read-only)': '/profiles/meeting',
   'Settings': '/settings',
+  'Pro paywall': '/settings/pro',
   'Vault folders': '/settings/vault-folders',
   'Routing rules': '/settings/routing-rules',
   'Routing rule editor': '/settings/routing-rules/r1',
@@ -155,6 +158,12 @@ const _transcript = TranscriptViewData(
 );
 
 List<Override> _overrides({bool locked = false}) => [
+  storeProductsProvider.overrideWith(
+    (ref) async => const [
+      StoreProduct(id: annualProductId, price: 'TEST 12.00'),
+      StoreProduct(id: lifetimeProductId, price: 'TEST 34.00'),
+    ],
+  ),
   // SEC-03: unlocked unless a test asks for the lock screen.
   if (!locked) appLockProvider.overrideWith(_Unlocked.new),
   deviceAuthenticatorProvider.overrideWithValue(_NoAuth()),
