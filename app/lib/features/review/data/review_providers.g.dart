@@ -211,12 +211,12 @@ final class ReviewModeFamily extends $Family
 
 /// Built-in Markdown templates (EXP-01 assets) for the preview.
 
-@ProviderFor(builtinTemplates)
-final builtinTemplatesProvider = BuiltinTemplatesProvider._();
+@ProviderFor(previewTemplates)
+final previewTemplatesProvider = PreviewTemplatesProvider._();
 
 /// Built-in Markdown templates (EXP-01 assets) for the preview.
 
-final class BuiltinTemplatesProvider
+final class PreviewTemplatesProvider
     extends
         $FunctionalProvider<
           AsyncValue<BuiltinTemplates>,
@@ -225,19 +225,19 @@ final class BuiltinTemplatesProvider
         >
     with $FutureModifier<BuiltinTemplates>, $FutureProvider<BuiltinTemplates> {
   /// Built-in Markdown templates (EXP-01 assets) for the preview.
-  BuiltinTemplatesProvider._()
+  PreviewTemplatesProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'builtinTemplatesProvider',
+        name: r'previewTemplatesProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$builtinTemplatesHash();
+  String debugGetCreateSourceHash() => _$previewTemplatesHash();
 
   @$internal
   @override
@@ -247,11 +247,11 @@ final class BuiltinTemplatesProvider
 
   @override
   FutureOr<BuiltinTemplates> create(Ref ref) {
-    return builtinTemplates(ref);
+    return previewTemplates(ref);
   }
 }
 
-String _$builtinTemplatesHash() => r'5a66e775f45f16ab2a61bb38cc65e8abbb6ecba5';
+String _$previewTemplatesHash() => r'202b048d3ca32ab5b127594caa885df6d680f093';
 
 /// The note renderer used for the review preview — the same EXP-01
 /// renderer the pipeline's RenderStep uses.
@@ -298,7 +298,7 @@ final class PreviewRendererProvider
   }
 }
 
-String _$previewRendererHash() => r'12d517af1127eb1f499f4f807aba42abacf3afa2';
+String _$previewRendererHash() => r'26e3c81327408b9c2ea3e85658c8bab16e315ccb';
 
 @ProviderFor(reviewService)
 final reviewServiceProvider = ReviewServiceProvider._();

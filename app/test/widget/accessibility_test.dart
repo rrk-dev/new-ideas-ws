@@ -22,6 +22,7 @@ import 'package:vaultvoice/features/models/domain/installed_model.dart';
 import 'package:vaultvoice/features/models/domain/model_management.dart';
 import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
+import 'package:vaultvoice/features/review/data/review_providers.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 
@@ -29,6 +30,7 @@ import '../fakes/fake_settings_store.dart';
 import '../helpers/library_fixtures.dart';
 import '../helpers/model_fixtures.dart';
 import '../helpers/processing_fixtures.dart';
+import '../unit/templates/template_fixtures.dart';
 
 class _Managed implements ManagedSettingsSource {
   const _Managed();
@@ -46,6 +48,8 @@ const _screens = {
   'Recording detail': '/library/recordings/rec-a',
   'Recording transcript': '/library/recordings/rec-a/text',
   'Action items': '/library/action-items',
+  'Review before export': '/library/recordings/rec-a/review',
+  'Review settings': '/settings/review',
   'Profiles': '/profiles',
   'Settings': '/settings',
   'Vault folders': '/settings/vault-folders',
@@ -87,6 +91,12 @@ List<Override> _overrides() => [
         owner: 'Sam',
       ),
     ],
+  ),
+  // APP-05 review screen + settings.
+  reviewProfileProvider('meeting')
+      .overrideWith((ref) async => builtinProfiles['meeting']),
+  reviewProfilesProvider.overrideWith(
+    (ref) => Stream.value(builtinProfiles.all),
   ),
   // MDL-03 model screen: hermetic catalog/install state.
   modelEntriesProvider.overrideWith(

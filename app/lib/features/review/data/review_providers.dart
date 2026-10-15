@@ -48,7 +48,7 @@ Future<bool> reviewMode(Ref ref, String profileId) async {
 
 /// Built-in Markdown templates (EXP-01 assets) for the preview.
 @Riverpod(keepAlive: true)
-Future<BuiltinTemplates> builtinTemplates(Ref ref) async =>
+Future<BuiltinTemplates> previewTemplates(Ref ref) async =>
     BuiltinTemplates.parse({
       for (final t in kBuiltinTemplates)
         t.assetPath: await rootBundle.loadString(t.assetPath),
@@ -59,7 +59,7 @@ Future<BuiltinTemplates> builtinTemplates(Ref ref) async =>
 @riverpod
 Future<NoteRenderer> previewRenderer(Ref ref) async {
   final profiles = await ref.watch(builtinProfilesProvider.future);
-  final templates = await ref.watch(builtinTemplatesProvider.future);
+  final templates = await ref.watch(previewTemplatesProvider.future);
   final user = await ref.watch(reviewProfilesProvider.future);
   return TemplateNoteRenderer(
     profiles: profiles,

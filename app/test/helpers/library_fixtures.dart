@@ -129,6 +129,7 @@ List<Override> libraryOverrides({
   FakeRecordingDeleter? deleter,
   String detailId = 'rec-a',
   List<ActionItemView> actionItems = const [],
+  ExtractionView? extraction,
 }) {
   final all = items ?? sampleLibrary();
   final detail = all.where((i) => i.id == detailId).firstOrNull;
@@ -161,7 +162,7 @@ List<Override> libraryOverrides({
     recordingTranscriptProvider(detailId)
         .overrideWith((ref) => Stream.value(sampleLines)),
     recordingExtractionProvider(detailId)
-        .overrideWith((ref) => Stream.value(sampleExtraction)),
+        .overrideWith((ref) => Stream.value(extraction ?? sampleExtraction)),
     recordingExportsProvider(detailId)
         .overrideWith((ref) => Stream.value(detail?.exports ?? const [])),
     recordingDeleterProvider.overrideWith(
