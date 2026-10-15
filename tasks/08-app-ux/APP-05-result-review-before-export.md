@@ -1,7 +1,7 @@
 # APP-05 — Extraction Result Review & Edit Before Export
 
 **Workstream:** App UX | **Phase:** 3 | **Size:** M | **Depends on:** LLM-05, EXP-01 | **Source:** Gap (small local models make mistakes; users need a check step)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-extraction-profiles, vv-markdown-vault-export, vv-pipeline-orchestrator, vv-whisper-stt, vv-testing
 
 ## Goal
