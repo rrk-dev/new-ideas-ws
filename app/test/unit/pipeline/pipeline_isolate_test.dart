@@ -40,6 +40,24 @@ PipelineEngines conditionEngines(PipelineWorkerContext ctx) => PipelineEngines(
   dispose: () => ctx.db.settingsRepository.set('test.disposed', true),
 );
 
+/// Engines whose hooks fail in different ways after the worker started.
+PipelineEngines faultyEngines(PipelineWorkerContext ctx) => PipelineEngines(
+  stt: ScriptedStt(),
+  llm: ScriptedLlm(),
+  vault: FakeVaultWriter(),
+  // Synchronous throw inside a command handler.
+  onMemoryPressure: () => throw StateError('hook failed'),
+  // Uncaught asynchronous error (fatal for the isolate), or an abrupt
+  // isolate exit while a command is pending.
+  onForeground: ({required foreground}) {
+    if (foreground) {
+      Isolate.current.kill(priority: Isolate.immediate);
+      return;
+    }
+    unawaited(Future<void>.error(StateError('async hook failed')));
+  },
+);
+
 void main() {
   test('[FND-05/AC3] the worker runs on its own isolate; commands and events '
       'cross the boundary', () async {
@@ -160,5 +178,62 @@ void main() {
     await client.setForeground(foreground: false);
     await client.memoryPressure();
     expect(await setting('test.foreground'), isTrue);
+  });
+
+  test('[FND-05/AC3] a command that throws in the worker is answered and '
+      'the worker keeps serving commands', () async {
+    final db = memoryDb();
+    await seedRecordingWithChunks(db, 'r1', chunks: 1);
+    await seedVaultTarget(db);
+    final client = await PipelineIsolateClient.spawn(
+      database: await db.serializableConnection(),
+      storageRoot: tempPaths().root,
+      engines: faultyEngines,
+    );
+    addTearDown(client.dispose);
+    await client.memoryPressure().timeout(const Duration(seconds: 5));
+    final id = await client.enqueue('r1').timeout(const Duration(seconds: 5));
+    expect(id.isOk, isTrue, reason: 'worker still alive');
+  });
+
+  test('[FND-05/AC3] a worker crash after startup fails pending and later '
+      'commands instead of hanging, and is reported', () async {
+    final db = memoryDb();
+    final client = await PipelineIsolateClient.spawn(
+      database: await db.serializableConnection(),
+      storageRoot: tempPaths().root,
+      engines: faultyEngines,
+    );
+    addTearDown(client.dispose);
+    // Uncaught async error in the worker (fatal for the isolate).
+    await client.setForeground(foreground: false);
+    await client.terminated.timeout(const Duration(seconds: 5));
+    expect(
+      (await client.cancel('x').timeout(const Duration(seconds: 5)))
+          .failureOrNull,
+      isA<UnexpectedFailure>(),
+    );
+    await client.dispose().timeout(const Duration(seconds: 5));
+  });
+
+  test('[FND-05/AC3] a pending command completes when the worker exits '
+      'abruptly', () async {
+    final db = memoryDb();
+    final client = await PipelineIsolateClient.spawn(
+      database: await db.serializableConnection(),
+      storageRoot: tempPaths().root,
+      engines: faultyEngines,
+    );
+    addTearDown(client.dispose);
+    // The hook kills the isolate before the reply is sent.
+    await client
+        .setForeground(foreground: true)
+        .timeout(const Duration(seconds: 5));
+    await client.terminated.timeout(const Duration(seconds: 5));
+    expect(
+      (await client.enqueue('r1').timeout(const Duration(seconds: 5)))
+          .failureOrNull,
+      isA<UnexpectedFailure>(),
+    );
   });
 }

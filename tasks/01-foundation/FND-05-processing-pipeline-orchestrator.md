@@ -1,7 +1,7 @@
 # FND-05 — Processing Pipeline Orchestrator (Job Queue / State Machine)
 
 **Workstream:** Foundation | **Phase:** 1–2 | **Size:** L | **Depends on:** FND-04 | **Source:** Gap (§4.2 diagram implies a pipeline but none is specified)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-pipeline-orchestrator, vv-local-database, vv-testing
 
 ## Goal
@@ -78,3 +78,37 @@ A persistent, resumable pipeline that moves each recording through the canonical
 - **Issues found:** 
   1. PipelineOrchestrator._process persists the active state, then awaits gate.use(step.model) outside its try/catch. A throwing unload callback terminates _workLoop, strands the active job and prevents later queue work until restart; PipelineIsolateClient drops post-start errors and pending commands can hang. Handle model switching failures through job failure/retry and keep the worker alive; add regression coverage.
 - **Acceptance runner:** `python3 .agents/skills/vv-task-workflow/scripts/tasks.py verify FND-05 --run` was invoked; its evidence/dependency checks refused before launching tagged tests. All referenced tagged tests were instead executed in the shared full Dart/pytest suites, then the mutation target was re-run red and green after restoration (QA-05 is artifact-only). Pre-report diagnostic output: `/tmp/vv-verify-a/FND-05-verify.log`.
+
+## Rework
+- **Agent:** Claude Code · **Branch:** task/FND-05-rework-1 (from origin/integration/wave-4) · **Date:** 2026-10-14 — answers the Codex FAIL report above (report left unchanged).
+- **Issue 1 (model-release exception escapes `_process`, kills the worker, strands the job; isolate drops post-start errors):**
+  - Failing tests written first (commit `b5576fb`, red against the unchanged source: the three orchestrator tests
+    timed out / saw the job stuck in `extracting` with an uncaught `StateError: release failed`; the isolate tests
+    did not compile against the old client), then fixed:
+    - `[FND-05/AC3] a failing model release (STT→LLM switch) is retried with backoff; the worker stays alive and runs the next job`
+    - `[FND-05/AC3] a release that keeps failing ends in failed(retryable) and the STT model is not considered unloaded`
+    - `[FND-05/AC3] a failing release while the queue is idle does not stop the worker`
+    - `[FND-05/AC3] an unexpected exception outside a step does not kill the worker loop`
+    - `[FND-05/AC3] a command that throws in the worker is answered and the worker keeps serving commands`
+    - `[FND-05/AC3] a worker crash after startup fails pending and later commands instead of hanging, and is reported`
+    - `[FND-05/AC3] a pending command completes when the worker exits abruptly`
+    (`app/test/unit/pipeline/pipeline_orchestrator_test.dart`, `app/test/unit/pipeline/pipeline_isolate_test.dart`).
+  - `PipelineOrchestrator._process`: the model switch (`gate.use`) now runs inside its own try/catch after
+    persist-before-act; a failure goes through `_onFailure` as `FailureKind.retryable` with the content-free detail
+    `ModelSwitchFailure`, so it backs off 30 s → 2 min → 10 min and then `failed(retryable)` like any transient failure.
+  - `HeavyModelGate.releaseAll`: if the release throws, the model stays marked loaded and the error is rethrown, so
+    the next switch retries the unload and the LLM is never loaded beside a possibly still-resident STT model.
+  - `_workLoop`: the idle-queue `releaseAll` is guarded, and every iteration is guarded; an unexpected exception
+    parks an active job as `failed(retryable)` (best effort) and pauses 200 ms so a persistent fault cannot spin.
+  - `PipelineIsolateClient`: the worker answers every command even when the handler throws (`UnexpectedFailure('command failed')`)
+    and keeps its command loop; the client listens to `onError` and `onExit` after startup, completes every pending
+    command with `UnexpectedFailure('pipeline worker stopped')`, returns that for later commands, and exposes
+    `terminated`; `dispose` no longer waits on a dead worker. `pipelineClientProvider` invalidates itself on
+    `terminated`, so a new worker is spawned and startup recovery resumes the interrupted job from its checkpoint.
+    Errors stay content-free (not logged).
+  - Mutation checks (2026-10-14): the pre-fix source (commit `b5576fb`) fails the three model-release tests
+    (`TimeoutException`, uncaught `StateError: release failed`, job left `extracting`); commenting out
+    `life.terminate()` in the client's post-start error/exit handler → `a worker crash after startup …` times out
+    (`+4 -1`); replacing the work-loop guard with `rethrow` → `an unexpected exception outside a step …` fails
+    (`TimeoutException`, `Bad state: canRun bug`). Restored with git checkout → green.
+- **Still needed:** unchanged — on-device kill/background runs on the QA-05 matrix.

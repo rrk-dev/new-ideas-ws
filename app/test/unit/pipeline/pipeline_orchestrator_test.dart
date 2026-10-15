@@ -34,6 +34,10 @@ class _Harness {
   final vault = FakeVaultWriter();
   final clock = FakeClock(t0);
   final released = <HeavyModel>[];
+
+  /// Runs after each release is recorded (throw to simulate an unload
+  /// failure).
+  Future<void> Function(HeavyModel model)? onRelease;
   final events = <JobEvent>[];
   late final PipelineOrchestrator o;
 
@@ -50,7 +54,12 @@ class _Harness {
         llm: llm,
         vault: vault,
         clock: clock,
-        gate: HeavyModelGate(release: (m) async => released.add(m)),
+        gate: HeavyModelGate(
+          release: (m) async {
+            released.add(m);
+            await onRelease?.call(m);
+          },
+        ),
       ),
       config: config,
       newId: ids ?? sequentialIds(),
@@ -379,6 +388,85 @@ void main() {
     expect((await loadJob(db, id)).state, JobState.done);
   });
 
+  test('[FND-05/AC3] a failing model release (STT→LLM switch) is retried '
+      'with backoff; the worker stays alive and runs the next job', () async {
+    await seedRecordingWithChunks(db, 'r2', chunks: 1);
+    var failing = true;
+    h.onRelease = (m) async {
+      if (failing && m == HeavyModel.stt) {
+        failing = false;
+        throw StateError('release failed');
+      }
+    };
+    final o = await h.start();
+    final id1 = expectOk(await o.enqueue('r1'));
+    h.clock.advance(const Duration(seconds: 1));
+    final id2 = expectOk(await o.enqueue('r2'));
+    await o.whenIdle().timeout(const Duration(seconds: 5));
+
+    var job1 = await loadJob(db, id1);
+    expect(job1.state, JobState.transcribed, reason: 'not stranded');
+    expect(job1.step, PipelineStepId.extract);
+    expect(job1.failureKind, FailureKind.retryable);
+    expect(job1.errorDetail, 'ModelSwitchFailure');
+    expect(job1.notBefore, h.clock.now().add(const Duration(seconds: 30)));
+    expect(
+      (await loadJob(db, id2)).state,
+      JobState.done,
+      reason: 'the worker loop survived and processed the next job',
+    );
+    expect(h.llm.requests, hasLength(1), reason: 'only job 2 extracted');
+
+    h.clock.advance(const Duration(seconds: 30));
+    o.poke();
+    await o.whenIdle().timeout(const Duration(seconds: 5));
+    job1 = await loadJob(db, id1);
+    expect(job1.state, JobState.done);
+    expect(h.stt.calls, hasLength(4), reason: 'retry resumed at extract');
+  });
+
+  test('[FND-05/AC3] a release that keeps failing ends in failed(retryable) '
+      'and the STT model is not considered unloaded', () async {
+    h.onRelease = (m) async {
+      if (m == HeavyModel.stt) throw StateError('release failed');
+    };
+    final gateSeen = <HeavyModel?>[];
+    final o = await h.start();
+    final id = expectOk(await o.enqueue('r1'));
+    await o.whenIdle().timeout(const Duration(seconds: 5));
+    gateSeen.add(o.gate.loaded);
+    for (final wait in const [
+      Duration(seconds: 30),
+      Duration(minutes: 2),
+      Duration(minutes: 10),
+    ]) {
+      h.clock.advance(wait);
+      o.poke();
+      await o.whenIdle().timeout(const Duration(seconds: 5));
+    }
+    final job = await loadJob(db, id);
+    expect(job.state, JobState.failed);
+    expect(job.failureKind, FailureKind.retryable);
+    expect(job.attempts, 4);
+    expect(h.llm.requests, isEmpty, reason: 'LLM never ran beside STT');
+    expect(gateSeen, [HeavyModel.stt]);
+  });
+
+  test('[FND-05/AC3] a failing release while the queue is idle does not '
+      'stop the worker', () async {
+    h.onRelease = (_) async => throw StateError('release failed');
+    final o = await h.start();
+    final id1 = expectOk(await o.enqueue('r1'));
+    await o.whenIdle().timeout(const Duration(seconds: 5));
+    await seedRecordingWithChunks(db, 'r2', chunks: 1);
+    final id2 = expectOk(await o.enqueue('r2'));
+    await o.whenIdle().timeout(const Duration(seconds: 5));
+    // Job 1 fails its switch to the LLM and is parked for retry; job 2 is
+    // still picked up after the idle release threw.
+    expect((await loadJob(db, id1)).failureKind, FailureKind.retryable);
+    expect((await loadJob(db, id2)).state, isNot(JobState.queued));
+  });
+
   test('[FND-05/AC3] permanent failures fail at once with a content-free '
       'detail', () async {
     h.stt.failures.add(const NativeFailure(-3, 'secret transcript text'));
@@ -544,6 +632,21 @@ void main() {
       expect(job.notBefore, isNotNull);
     });
 
+    test('[FND-05/AC3] an unexpected exception outside a step does not '
+        'kill the worker loop', () async {
+      final o = PipelineOrchestrator(
+        db: db,
+        clock: h.clock,
+        newId: sequentialIds(),
+        steps: [_TestStep(PipelineStepId.transcribe, canRunThrows: 1)],
+      );
+      addTearDown(o.dispose);
+      await o.start();
+      final id = expectOk(await o.enqueue('r1'));
+      await o.whenIdle().timeout(const Duration(seconds: 5));
+      expect((await loadJob(db, id)).state, JobState.done);
+    });
+
     test('an orchestrator without steps refuses to enqueue', () async {
       final o = PipelineOrchestrator(db: db, steps: const []);
       addTearDown(o.dispose);
@@ -555,19 +658,33 @@ void main() {
 }
 
 class _TestStep implements PipelineStep {
-  _TestStep(this.id, {this.enabled = true, StepResult Function()? result})
-    : _result = result ?? (() => const StepSucceeded());
+  _TestStep(
+    this.id, {
+    this.enabled = true,
+    StepResult Function()? result,
+    this.canRunThrows = 0,
+  }) : _result = result ?? (() => const StepSucceeded());
 
   @override
   final PipelineStepId id;
   final bool enabled;
+
+  /// The first [canRunThrows] calls of [canRun] throw (a bug outside the
+  /// step's run, i.e. outside the orchestrator's step try/catch).
+  int canRunThrows;
   final StepResult Function() _result;
 
   @override
   HeavyModel? get model => null;
 
   @override
-  bool canRun(JobSnapshot job) => enabled;
+  bool canRun(JobSnapshot job) {
+    if (canRunThrows > 0) {
+      canRunThrows--;
+      throw StateError('canRun bug');
+    }
+    return enabled;
+  }
 
   @override
   Future<StepResult> run(StepContext ctx) async => _result();

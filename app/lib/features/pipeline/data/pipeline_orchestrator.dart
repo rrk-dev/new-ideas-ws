@@ -317,19 +317,63 @@ class PipelineOrchestrator implements PipelineClient {
 
   Future<void> _workLoop() async {
     while (!_stopped) {
-      final (job, wakeAt) = await _nextRunnable();
-      if (_stopped) break;
-      if (job == null) {
-        // Queue empty: free the loaded model (vv-llm-inference → unload the
-        // LLM when the queue is empty).
-        await gate.releaseAll();
+      JobSnapshot? job;
+      try {
+        final DateTime? wakeAt;
+        (job, wakeAt) = await _nextRunnable();
         if (_stopped) break;
-        await _sleep(wakeAt);
-        continue;
+        if (job == null) {
+          // Queue empty: free the loaded model (vv-llm-inference → unload
+          // the LLM when the queue is empty). A failing unload keeps the
+          // model marked loaded; the next switch retries it.
+          try {
+            await gate.releaseAll();
+          } on Object {
+            // retried on the next model switch / idle pass
+          }
+          if (_stopped) break;
+          await _sleep(wakeAt);
+          continue;
+        }
+        await _process(job);
+      } on Object {
+        // Never let one bad iteration kill the single worker: park the job
+        // (if it was left active) for an automatic retry and back off.
+        if (_stopped) break;
+        _current = null;
+        await _parkAfterCrash(job);
       }
-      await _process(job);
     }
   }
+
+  /// Best effort after an unexpected exception in the worker loop: a job
+  /// left active is failed as retryable (backoff); then the loop pauses
+  /// briefly so a persistent fault cannot spin.
+  Future<void> _parkAfterCrash(JobSnapshot? job) async {
+    try {
+      if (job != null) {
+        final loaded = await db.jobsRepository.get(job.id);
+        final row = loaded.valueOrNull;
+        if (row != null) {
+          final stored = jobFromRow(row);
+          if (stored.state.isActive) {
+            await _onFailure(
+              stored,
+              const UnexpectedFailure('worker'),
+              FailureKind.retryable,
+              clock.now(),
+            );
+          }
+        }
+      }
+    } on Object {
+      // the job is recovered from its checkpoint on the next start
+    }
+    if (_stopped) return;
+    await Future<void>.delayed(_crashBackoff);
+  }
+
+  static const _crashBackoff = Duration(milliseconds: 200);
 
   Future<(JobSnapshot?, DateTime?)> _nextRunnable() async {
     final rows = await db.jobsRepository.findByStatus({
@@ -368,7 +412,22 @@ class PipelineOrchestrator implements PipelineClient {
     // Persist before act.
     final active = machine.start(job, clock.now());
     if (!await _saveIf(job, active)) return;
-    await gate.use(step.model);
+    // Model switch (unload the other heavy model first). A failing unload
+    // is transient (the model stays marked loaded and the next attempt
+    // retries the release): fail the job as retryable so it backs off.
+    try {
+      await gate.use(step.model);
+    } on Object {
+      if (_stopped) return;
+      await _onFailure(
+        active,
+        const UnexpectedFailure('model switch failed'),
+        FailureKind.retryable,
+        clock.now(),
+        detail: 'ModelSwitchFailure',
+      );
+      return;
+    }
 
     final run = _current = _Run(active.id);
     final ctx = _Context(this, run, active);
@@ -439,9 +498,10 @@ class PipelineOrchestrator implements PipelineClient {
     JobSnapshot job,
     Failure failure,
     FailureKind? kind,
-    DateTime now,
-  ) async {
-    final detail = failure.runtimeType.toString();
+    DateTime now, {
+    String? detail,
+  }) async {
+    detail ??= failure.runtimeType.toString();
     final disposition = switch (kind) {
       FailureKind.permanent => const PermanentDisposition(),
       FailureKind.retryable => const RetryDisposition(),
