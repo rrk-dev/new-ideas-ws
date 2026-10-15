@@ -1,0 +1,27 @@
+tools/bench/diarization/der.py
+  s_9f6fcf8c1840a0::t_fca6fb6e206018 1-219
+tools/spikes/STT-05-diarization/sherpa_spike.py
+  s_9f6fcf8c1840a0::t_ae3422008b7a99 1-11,13-40,42-43,45-64,66-75,77-86,88-97
+  s_9f6fcf8c1840a0::t_cbc2300867f079 12,41,44,65,76,87
+tools/spikes/STT-05-diarization/embed_cluster_spike.py
+  s_9f6fcf8c1840a0::t_3d6a792b12ef9c 1-278
+tools/spikes/STT-05-diarization/pyannote_port_spike.py
+  s_9f6fcf8c1840a0::t_de6206326f2afe 1-132,135-240,243-345
+  s_9f6fcf8c1840a0::t_235d67e1487f24 133-134,241-242
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a12a49102d49b2d6a7d5ed3b310edef1d6a9bf39",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
