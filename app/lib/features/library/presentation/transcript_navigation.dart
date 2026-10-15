@@ -7,10 +7,9 @@ part 'transcript_navigation.g.dart';
 /// Opens a recording's transcript at a position — the target of "show in
 /// transcript" and of extraction source links (APP-05).
 ///
-/// Default: the read-only transcript list scrolled to and highlighting the
-/// line at `atMs`. The STT-06 transcript viewer (with audio playback) takes
-/// over by overriding `transcriptNavigatorProvider` so the link also seeks
-/// the audio to `atMs`.
+/// Production (integration wave 3): [PlaybackTranscriptNavigator] — the
+/// STT-06 viewer/editor scrolled to `atMs` and playing from it.
+/// [LinesTranscriptNavigator] (APP-02's read-only list) stays available.
 abstract interface class TranscriptNavigator {
   void open(BuildContext context, String recordingId, {int? atMs});
 }
@@ -26,6 +25,15 @@ class LinesTranscriptNavigator implements TranscriptNavigator {
       ).push<void>(context);
 }
 
+/// Opens the STT-06 transcript viewer at `atMs` (seeks the audio there).
+class PlaybackTranscriptNavigator implements TranscriptNavigator {
+  const PlaybackTranscriptNavigator();
+
+  @override
+  void open(BuildContext context, String recordingId, {int? atMs}) =>
+      TranscriptRoute(recordingId: recordingId, t: atMs).push<void>(context);
+}
+
 @Riverpod(keepAlive: true)
 TranscriptNavigator transcriptNavigator(Ref ref) =>
-    const LinesTranscriptNavigator();
+    const PlaybackTranscriptNavigator();

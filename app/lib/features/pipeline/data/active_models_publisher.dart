@@ -25,6 +25,7 @@ final class ActiveModelsPublisher {
     this.accessChanges = const Stream.empty(),
     this.catalog,
     this.device,
+    this.sttLanguage,
   });
 
   final SettingsRepository settings;
@@ -35,6 +36,9 @@ final class ActiveModelsPublisher {
   /// The verified catalog (bundled or updated), or null when unavailable.
   final Future<ModelCatalog?> Function()? catalog;
   final DeviceProfile? Function()? device;
+
+  /// Transcription language for STT-07's default (null = `en`).
+  final String Function()? sttLanguage;
 
   Future<ActiveModelSelection>? _running;
   bool _again = false;
@@ -88,6 +92,7 @@ final class ActiveModelsPublisher {
       preferredLlm: pref(
         (await settings.get(kPreferredLlmModelKey)).valueOrNull,
       ),
+      sttLanguage: sttLanguage?.call() ?? 'en',
     );
     final stored = (await settings.get(kActiveModelsKey)).valueOrNull;
     if (stored == null || ActiveModelSelection.fromJson(stored) != selection) {

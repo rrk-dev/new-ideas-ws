@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui' show PlatformDispatcher;
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -20,6 +21,7 @@ import 'package:vaultvoice/features/pipeline/data/production_engines.dart';
 import 'package:vaultvoice/features/profiles/data/profile_providers.dart';
 import 'package:vaultvoice/features/profiles/domain/builtin_profiles.dart';
 import 'package:vaultvoice/features/templates/domain/builtin_templates.dart';
+import 'package:vaultvoice/features/transcription/domain/stt_model_policy.dart';
 import 'package:vv_native/vv_native.dart';
 
 part 'engine_providers.g.dart';
@@ -90,6 +92,10 @@ ActiveModelsPublisher activeModelsPublisher(Ref ref) {
     catalog: () async =>
         catalogs.current ?? (await catalogs.loadBundled()).valueOrNull,
     device: () => ref.read(deviceProfileProvider),
+    // STT-07: device-locale default language (PRODUCT-DECISION in
+    // defaultSttLanguage) until a transcription-language setting exists.
+    sttLanguage: () =>
+        defaultSttLanguage(PlatformDispatcher.instance.locale.languageCode),
   );
 }
 

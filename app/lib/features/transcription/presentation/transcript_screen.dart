@@ -20,9 +20,13 @@ String formatTranscriptTime(int ms) {
 
 /// STT-06: review, play back and correct a transcript, then re-extract.
 class TranscriptScreen extends ConsumerWidget {
-  const TranscriptScreen({required this.recordingId, super.key});
+  const TranscriptScreen({required this.recordingId, this.atMs, super.key});
 
   final String recordingId;
+
+  /// Open at this recording position (ms): scroll to its segment and play
+  /// from it (integration wave 3: APP-02 / APP-05 transcript links).
+  final int? atMs;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -68,7 +72,7 @@ class TranscriptScreen extends ConsumerWidget {
                 icon: Icons.notes_outlined,
                 message: l.transcriptEmpty,
               )
-            : _TranscriptBody(recordingId: recordingId, data: data),
+            : _TranscriptBody(recordingId: recordingId, data: data, atMs: atMs),
       ),
     );
   }
@@ -87,15 +91,88 @@ class TranscriptScreen extends ConsumerWidget {
   }
 }
 
-class _TranscriptBody extends ConsumerWidget {
-  const _TranscriptBody({required this.recordingId, required this.data});
+class _TranscriptBody extends ConsumerStatefulWidget {
+  const _TranscriptBody({
+    required this.recordingId,
+    required this.data,
+    this.atMs,
+  });
 
   final String recordingId;
   final TranscriptViewData data;
+  final int? atMs;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_TranscriptBody> createState() => _TranscriptBodyState();
+}
+
+class _TranscriptBodyState extends ConsumerState<_TranscriptBody> {
+  final _scroll = ScrollController();
+  final GlobalKey _targetKey = GlobalKey();
+  bool _scrolled = false;
+  bool _played = false;
+
+  String get recordingId => widget.recordingId;
+  TranscriptViewData get data => widget.data;
+
+  /// Index (in [TranscriptViewData.segments]) of the segment at atMs.
+  int? get _target {
+    final at = widget.atMs;
+    if (at == null) return null;
+    final i = activeSegmentIndex(data.segments, at);
+    return i < 0 ? 0 : i;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.atMs != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToTarget());
+    }
+  }
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
+  }
+
+  /// Lazy list: jump near the target by its share of the list, then bring
+  /// the built tile fully into view.
+  void _scrollToTarget([int attempt = 0]) {
+    if (!mounted || _scrolled) return;
+    final ctx = _targetKey.currentContext;
+    if (ctx != null) {
+      _scrolled = true;
+      Scrollable.ensureVisible(ctx, alignment: 0.2);
+      return;
+    }
+    final target = _target;
+    if (target == null || !_scroll.hasClients || attempt > 3) return;
+    final items = data.items;
+    final pos = items.indexWhere(
+      (it) => it is SegmentItem && it.index == target,
+    );
+    if (pos > 0) {
+      final max = _scroll.position.maxScrollExtent;
+      _scroll.jumpTo((max * pos / items.length).clamp(0, max));
+    }
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _scrollToTarget(attempt + 1),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final playback = ref.watch(transcriptPlaybackProvider(recordingId));
+    final at = widget.atMs;
+    // PRODUCT-DECISION (integration W3): a transcript link plays from its
+    // position once playback is ready ("play from here").
+    if (at != null && !_played && playback.value != null) {
+      _played = true;
+      unawaited(playback.value!.playFrom(at));
+    }
+    final target = _target;
     final items = data.items;
     final hasLowConfidence = data.segments.any(
       (s) => s.lowConfidence.isNotEmpty,
@@ -123,10 +200,13 @@ class _TranscriptBody extends ConsumerWidget {
                   ? activeSegmentIndex(data.segments, position.data!)
                   : -1;
               return ListView.builder(
+                controller: _scroll,
                 itemCount: items.length,
                 itemBuilder: (context, i) => switch (items[i]) {
                   SegmentItem(:final segment, :final index) => SegmentTile(
-                    key: ValueKey('segment-${segment.id}'),
+                    key: index == target
+                        ? _targetKey
+                        : ValueKey('segment-${segment.id}'),
                     recordingId: recordingId,
                     segment: segment,
                     active: index == active,

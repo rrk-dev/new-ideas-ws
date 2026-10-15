@@ -3,6 +3,7 @@ import 'package:vaultvoice/features/extraction/domain/device_tiering.dart';
 import 'package:vaultvoice/features/licensing/domain/entitlement.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_access.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
+import 'package:vaultvoice/features/transcription/domain/stt_model_policy.dart';
 
 /// Settings key the UI isolate publishes the resolved selection under; the
 /// pipeline worker reads it at every heavy step (FND-11).
@@ -106,6 +107,7 @@ ActiveModelSelection selectActiveModels({
   DeviceProfile? device,
   String? preferredStt,
   String? preferredLlm,
+  String sttLanguage = 'en',
 }) {
   final tier = device == null ? null : tierForRam(device.totalRamBytes);
   final ramMb = device == null ? null : device.totalRamBytes ~/ (1024 * 1024);
@@ -115,6 +117,9 @@ ActiveModelSelection selectActiveModels({
           device,
           catalog,
           LlmPlanGate(largeLlm: () => access.has(Feature.largeLlm)),
+          // STT-07: tier × plan × language STT default (integration W3).
+          stt: SttPlanGate.access(access),
+          sttLanguage: sttLanguage,
         );
 
   bool usable(InstalledModelInfo m) {

@@ -8,6 +8,7 @@ import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/platform/call_guard.dart';
+import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
 import 'package:vaultvoice/features/recording/data/recording_providers.dart';
 import 'package:vaultvoice/features/recording/data/recording_screen_providers.dart';
 import 'package:vaultvoice/features/recording/data/recording_session_service.dart';
@@ -15,10 +16,12 @@ import 'package:vaultvoice/features/recording/domain/level_meter.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
 import 'package:vaultvoice/features/recording/domain/recording_session.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_screen.dart';
+import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 
 import '../fakes/fake_call_guard.dart';
 import '../fakes/fake_capture_backend.dart';
 import '../fakes/fake_recording_indicator.dart';
+import '../fakes/fake_settings_store.dart';
 
 class _Active implements ActiveRecording {
   @override
@@ -99,6 +102,7 @@ void main() {
 
   Future<void> pump(
     WidgetTester t, {
+    bool micPrimed = true,
     List<ProfileChoice> profiles = const [
       ProfileChoice(id: 'meeting', name: 'Meeting'),
       ProfileChoice(id: 'interview', name: 'Interview', consentRequired: true),
@@ -109,6 +113,10 @@ void main() {
       ProviderScope(
         overrides: [
           captureBackendProvider.overrideWithValue(capture),
+          // APP-01 priming state (integration W3).
+          settingsStoreProvider.overrideWithValue(
+            FakeSettingsStore({if (micPrimed) OnboardingKeys.micPrimed: true}),
+          ),
           callGuardProvider.overrideWithValue(guard),
           flavorProvider.overrideWithValue(Flavor.prod),
           recordingIndicatorProvider.overrideWithValue(
@@ -240,6 +248,28 @@ void main() {
     capture.notify(CaptureNotice.lowStorageWarning);
     await t.pump();
     expect(find.text('Storage is almost full.'), findsOneWidget);
+  });
+
+  testWidgets('integration W3 (AUD-08 ↔ APP-01): the first Record tap '
+      'explains the microphone; "Not now" opens nothing, Continue records', (
+    t,
+  ) async {
+    await pump(t, micPrimed: false);
+    await t.tap(main());
+    await t.pumpAndSettle();
+    expect(find.text('Allow microphone access'), findsOneWidget);
+    await t.tap(find.text('Not now'));
+    await t.pumpAndSettle();
+    expect(capture.calls, isEmpty, reason: 'nothing requested');
+
+    await t.tap(main());
+    await t.pumpAndSettle();
+    await t.tap(find.text('Continue'));
+    await t.pump();
+    expect(capture.calls.first, isA<OpenCall>());
+    await t.pump(const Duration(seconds: 1));
+    // Primed now: the next start needs no dialog.
+    expect(find.text('Allow microphone access'), findsNothing);
   });
 
   testWidgets('[AUD-08/AC3] permission denied and call state unknown are '

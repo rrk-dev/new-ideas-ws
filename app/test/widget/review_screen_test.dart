@@ -94,7 +94,7 @@ Future<ProviderContainer> _pump(
   WidgetTester t,
   String location, {
   _Review? review,
-  _Navigator? navigator,
+  TranscriptNavigator? navigator,
   bool waitingForReview = false,
 }) async {
   t.view
@@ -181,9 +181,19 @@ void main() {
     expect(nav.opened.single, (id: 'rec-a', atMs: 12000));
   });
 
-  testWidgets('[APP-05/AC1] default navigation opens the transcript at that '
+  testWidgets('[APP-05/AC1] lines navigation opens the transcript at that '
       'position with the line highlighted', (t) async {
-    await _pump(t, '/library/recordings/rec-a/review');
+    // Integration W3: production uses the STT-06 viewer (see below); the
+    // APP-02 lines view stays available as LinesTranscriptNavigator.
+    expect(
+      ProviderContainer().read(transcriptNavigatorProvider),
+      isA<PlaybackTranscriptNavigator>(),
+    );
+    await _pump(
+      t,
+      '/library/recordings/rec-a/review',
+      navigator: const LinesTranscriptNavigator(),
+    );
     final link = find.byKey(const ValueKey('source-link-00:00:12'));
     await _scrollTo(t, link);
     await t.tap(link);

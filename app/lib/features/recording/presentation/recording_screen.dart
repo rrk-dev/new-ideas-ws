@@ -8,6 +8,8 @@ import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
+import 'package:vaultvoice/features/onboarding/data/onboarding_providers.dart';
+import 'package:vaultvoice/features/onboarding/presentation/permission_priming.dart';
 import 'package:vaultvoice/features/recording/data/recording_providers.dart';
 import 'package:vaultvoice/features/recording/data/recording_screen_providers.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
@@ -50,6 +52,11 @@ class _RecordScreenState extends ConsumerState<RecordScreen> {
   bool _storageWarning = false;
   bool _starting = false;
 
+  /// APP-01 microphone priming already shown (read once up front so the
+  /// primed Record tap opens the microphone with no await first, AUD-08
+  /// AC1); null = unknown → primed on the tap.
+  bool? _micPrimed;
+
   /// Row id of the recording opened from this screen (for markers and the
   /// post-recording details).
   String? _recordingId;
@@ -69,6 +76,16 @@ class _RecordScreenState extends ConsumerState<RecordScreen> {
       }
     });
     unawaited(_checkCallState());
+    unawaited(_loadMicPrimed());
+  }
+
+  Future<void> _loadMicPrimed() async {
+    try {
+      final primed = await ref.read(onboardingStoreProvider).micPrimed();
+      if (mounted) _micPrimed = primed;
+    } on Object {
+      // Unknown: the first tap shows the priming dialog.
+    }
   }
 
   @override
@@ -114,6 +131,18 @@ class _RecordScreenState extends ConsumerState<RecordScreen> {
       );
       if (ok != true || !mounted) return;
       consentAt = ref.read(clockProvider).now();
+    }
+    // APP-01: explain the microphone once, on the first Record tap, before
+    // the OS asks (integration wave 3).
+    if (_micPrimed != true) {
+      bool go;
+      try {
+        go = await primeMicrophonePermission(context, ref);
+      } on Object {
+        go = true; // settings unreadable: let the OS prompt decide
+      }
+      if (!go || !mounted) return;
+      _micPrimed = true;
     }
     _starting = true;
     // The tap → mic path: nothing else is awaited before start (AC1 300 ms).
@@ -327,6 +356,12 @@ class _StatusText extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final b = blocked;
+    if (b == _Blocked.permission && state.phase != RecordingPhase.recording) {
+      // APP-01 recovery: what still works + a button to the OS settings.
+      return PermissionDeniedNotice.microphone(
+        key: const ValueKey('blocked-permission'),
+      );
+    }
     if (b != null && state.phase != RecordingPhase.recording) {
       return _Banner(
         key: ValueKey('blocked-${b.name}'),

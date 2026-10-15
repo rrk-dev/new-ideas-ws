@@ -160,7 +160,7 @@ final class RecommendedModelBundleProvider
 }
 
 String _$recommendedModelBundleHash() =>
-    r'b98fefec8406fde1f09eba33d718faf18471ca6a';
+    r'ed7a9c6be4753f06ee49844e65c1a5f4dcb9f81d';
 
 /// Every installed model file (`models_installed`).
 

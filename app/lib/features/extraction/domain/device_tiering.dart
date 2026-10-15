@@ -3,6 +3,7 @@ import 'package:vaultvoice/core/platform/device_capabilities.dart';
 import 'package:vaultvoice/features/licensing/domain/entitlement.dart';
 import 'package:vaultvoice/features/licensing/domain/entitlement_service.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
+import 'package:vaultvoice/features/transcription/domain/stt_model_policy.dart';
 
 /// Thermal state reported by the OS (iOS `ProcessInfo.thermalState`,
 /// Android `PowerManager.getCurrentThermalStatus`). [unknown] until the
@@ -100,11 +101,18 @@ bool isLargeLlm(CatalogModel m) =>
 /// of each type that is recommended for the tier, allowed by the plan
 /// (Free ⇒ no large LLM, no Pro/Enterprise models), and whose `min_ram_mb`
 /// fits the device. LLM-08 decides *which* models the catalog lists.
+///
+/// With [stt] (integration W3) the STT default is STT-07's
+/// [recommendedSttModel] for [sttLanguage] (benchmarked preference lists,
+/// size-class entitlements); it falls back to the largest recommended Free
+/// STT model when the catalog has none of those variants.
 TierDefaults defaultsFor(
   DeviceProfile device,
   ModelCatalog catalog,
-  LlmPlanGate plan,
-) {
+  LlmPlanGate plan, {
+  SttPlanGate? stt,
+  String sttLanguage = 'en',
+}) {
   final tier = tierForRam(device.totalRamBytes);
   final ramMb = device.totalRamBytes ~/ (1024 * 1024);
   final large = plan.largeLlm();
@@ -124,7 +132,17 @@ TierDefaults defaultsFor(
   return TierDefaults(
     tier: tier,
     llm: llm,
-    stt: pick(ModelType.stt),
+    stt:
+        (stt == null
+            ? null
+            : recommendedSttModel(
+                tier: tier,
+                totalRamMb: ramMb,
+                language: sttLanguage,
+                catalog: catalog,
+                gate: stt,
+              )) ??
+        pick(ModelType.stt),
     contextSize: defaultContextFor(tier),
   );
 }

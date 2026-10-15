@@ -55,4 +55,4 @@ final class TranscriptNavigatorProvider
 }
 
 String _$transcriptNavigatorHash() =>
-    r'0da28c8bcf7a0e9c19086ee25a56a27e54b2cdae';
+    r'd2eacc1150b1c9aa9ac52fe4b954102e449d95ac';

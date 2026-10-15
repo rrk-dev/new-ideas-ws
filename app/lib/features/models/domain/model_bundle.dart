@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:vaultvoice/features/extraction/domain/device_tiering.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
+import 'package:vaultvoice/features/transcription/domain/stt_model_policy.dart';
 
 /// RAM assumed when the capability probe is unavailable: a 4 GB phone, the
 /// smallest supported class, so the recommendation never overshoots.
@@ -43,8 +44,10 @@ final class ModelBundle {
 ModelBundle recommendBundle(
   DeviceProfile? device,
   ModelCatalog catalog,
-  LlmPlanGate plan,
-) {
+  LlmPlanGate plan, {
+  SttPlanGate? stt,
+  String sttLanguage = 'en',
+}) {
   final profile =
       device ??
       const DeviceProfile(
@@ -53,7 +56,13 @@ ModelBundle recommendBundle(
         totalRamBytes: kAssumedRamBytes,
         availableRamBytes: kAssumedRamBytes,
       );
-  final defaults = defaultsFor(profile, catalog, plan);
+  final defaults = defaultsFor(
+    profile,
+    catalog,
+    plan,
+    stt: stt,
+    sttLanguage: sttLanguage,
+  );
   return ModelBundle(
     tier: defaults.tier,
     deviceKnown: device != null,

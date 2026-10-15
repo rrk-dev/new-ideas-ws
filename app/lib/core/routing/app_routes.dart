@@ -222,15 +222,18 @@ class ActionItemsRoute extends GoRouteData with $ActionItemsRoute {
       const ActionItemsScreen();
 }
 
-/// Transcript viewer & editor of one recording (STT-06).
+/// Transcript viewer & editor of one recording (STT-06), optionally opened
+/// at position [t] (ms): scrolled there and playing from it (APP-02 "show in
+/// transcript", APP-05 source links — integration wave 3).
 class TranscriptRoute extends GoRouteData with $TranscriptRoute {
-  const TranscriptRoute({required this.recordingId});
+  const TranscriptRoute({required this.recordingId, this.t});
 
   final String recordingId;
+  final int? t;
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      TranscriptScreen(recordingId: recordingId);
+      TranscriptScreen(recordingId: recordingId, atMs: t);
 }
 
 class ProfilesRoute extends GoRouteData with $ProfilesRoute {

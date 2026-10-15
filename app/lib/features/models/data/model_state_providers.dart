@@ -1,3 +1,5 @@
+import 'dart:ui' show PlatformDispatcher;
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/errors/result.dart';
@@ -11,6 +13,8 @@ import 'package:vaultvoice/features/models/domain/download_state.dart';
 import 'package:vaultvoice/features/models/domain/installed_model.dart';
 import 'package:vaultvoice/features/models/domain/model_bundle.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
+import 'package:vaultvoice/features/transcription/data/stt_model_providers.dart';
+import 'package:vaultvoice/features/transcription/domain/stt_model_policy.dart';
 import 'package:vv_native/vv_native.dart';
 
 part 'model_state_providers.g.dart';
@@ -61,6 +65,11 @@ Future<ModelBundle?> recommendedModelBundle(Ref ref) async {
     device,
     catalog,
     LlmPlanGate.entitlements(ref.read(entitlementServiceProvider)),
+    // STT-07 recommendation (onboarding bundle + MDL-03 "recommended").
+    stt: ref.read(sttPlanGateProvider),
+    sttLanguage: defaultSttLanguage(
+      PlatformDispatcher.instance.locale.languageCode,
+    ),
   );
 }
 

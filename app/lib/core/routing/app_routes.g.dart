@@ -289,14 +289,17 @@ mixin $RecordingStatusRoute on GoRouteData {
 }
 
 mixin $TranscriptRoute on GoRouteData {
-  static TranscriptRoute _fromState(GoRouterState state) =>
-      TranscriptRoute(recordingId: state.pathParameters['recordingId']!);
+  static TranscriptRoute _fromState(GoRouterState state) => TranscriptRoute(
+    recordingId: state.pathParameters['recordingId']!,
+    t: _$convertMapValue('t', state.uri.queryParameters, int.tryParse),
+  );
 
   TranscriptRoute get _self => this as TranscriptRoute;
 
   @override
   String get location => GoRouteData.$location(
     '/library/recordings/${Uri.encodeComponent(_self.recordingId)}/transcript',
+    queryParams: {if (_self.t != null) 't': _self.t!.toString()},
   );
 
   @override

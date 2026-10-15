@@ -109,17 +109,36 @@ List<Override> _overrides(VaultVoiceDatabase db, FakeTranscriptPlayer player) =>
       }),
     ];
 
-Future<void> _pump(WidgetTester t, List<Override> overrides) async {
+Future<void> _pump(
+  WidgetTester t,
+  List<Override> overrides, {
+  int? atMs,
+}) async {
   await t.pumpWidget(
     ProviderScope(
       overrides: overrides,
-      child: const MaterialApp(home: TranscriptScreen(recordingId: 'r1')),
+      child: MaterialApp(
+        home: TranscriptScreen(recordingId: 'r1', atMs: atMs),
+      ),
     ),
   );
   await t.pumpAndSettle();
 }
 
 void main() {
+  testWidgets('integration W3 (APP-02/APP-05 ↔ STT-06): opened at a '
+      'position, the viewer shows that segment and plays from it', (t) async {
+    final db = (await t.runAsync(_seed))!;
+    final player = FakeTranscriptPlayer();
+    await _pump(t, _overrides(db, player), atMs: 65500);
+    expect(player.isPlaying, isTrue);
+    expect(player.seeks, isNotEmpty);
+    // 1:05.5 is inside the third segment (60 s chunk offset → 5.5 s).
+    expect(player.seeks.last, const Duration(milliseconds: 5500 + 30000));
+    expect(find.text('Budget review next week'), findsOneWidget);
+    await _finish(t, db);
+  });
+
   testWidgets('[STT-06/AC1] user markers appear between the segments at '
       'their positions; speaker chips, timestamps, low-confidence words', (
     t,

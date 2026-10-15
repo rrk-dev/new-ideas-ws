@@ -17,6 +17,7 @@ import 'package:vaultvoice/features/extraction/domain/model_residency.dart';
 import 'package:vaultvoice/features/pipeline/domain/active_models.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
 import 'package:vaultvoice/features/transcription/data/whisper_stt_engine.dart';
+import 'package:vaultvoice/features/transcription/domain/stt_model_policy.dart';
 
 /// An installed model file the worker can load right now.
 final class ActiveModel {
@@ -112,7 +113,7 @@ final class ActiveSttEngine implements WindowedSttEngine {
       cancel: cancel,
       onProgress: onProgress,
       onSegment: onSegment,
-      options: options,
+      options: _forModel(options),
     );
   }
 
@@ -131,8 +132,13 @@ final class ActiveSttEngine implements WindowedSttEngine {
       cancel: cancel,
       onProgress: onProgress,
       onSegment: onSegment,
-      options: options,
+      options: _forModel(options),
     );
+  }
+
+  SttOptions _forModel(SttOptions o) {
+    final path = _model?.path;
+    return path == null ? o : sttOptionsForModelFile(path, o);
   }
 
   /// The engine of the active model (rebuilt when the selection changed),
@@ -266,4 +272,23 @@ final class LlmStatsTap {
     _runs.clear();
     return out;
   }
+}
+
+/// STT-07 `sttLanguageFor` applied to the model file at [path]: `.en` models
+/// always decode English; multilingual ones get the requested language
+/// (`auto` detects). Unknown file names keep [o] unchanged.
+SttOptions sttOptionsForModelFile(String path, SttOptions o) {
+  final variant = SttVariant.fromFile(p.basename(path));
+  if (variant == null) return o;
+  final language = sttLanguageFor(variant, o.language);
+  if (language == o.language) return o;
+  return SttOptions(
+    language: language,
+    initialPrompt: o.initialPrompt,
+    beamSize: o.beamSize,
+    temperatureFallback: o.temperatureFallback,
+    tokenTimestamps: o.tokenTimestamps,
+    threads: o.threads,
+    vadModelPath: o.vadModelPath,
+  );
 }
