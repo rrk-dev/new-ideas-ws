@@ -1,0 +1,83 @@
+.github/workflows/beta.yml
+  s_c75835e9bfff2d::t_07f6dcc5272880 1-213
+.github/workflows/release.yml
+  s_c75835e9bfff2d::t_2ef9ae5fccdd00 5-8
+app/android/fastlane/Fastfile.beta
+  s_c75835e9bfff2d::t_dc8ad72bdeae6f 1-56
+app/ios/fastlane/Fastfile.beta
+  s_c75835e9bfff2d::t_4f0699bac3984c 1-86
+app/ios/fastlane/beta_review_notes.txt
+  s_c75835e9bfff2d::t_3246fb4ade5f39 1-14
+app/lib/core/l10n/arb/app_en.arb
+  s_91cce0d4a43314::t_d6520c6b20ff3f 854-874
+app/lib/core/l10n/gen/app_localizations.dart
+  s_c75835e9bfff2d::t_2f69c855608724 4500-4607
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_c75835e9bfff2d::t_7489cc475d1afc 2623-2687
+app/lib/core/platform/share_service.dart
+  s_c75835e9bfff2d::t_c9dfdb24f2cc4e 20-30
+app/lib/core/routing/app_routes.dart
+  s_c75835e9bfff2d::t_e1505e2f1278eb 4,98,355-363
+app/lib/core/routing/app_routes.g.dart
+  s_c75835e9bfff2d::t_1357efd9657983 172-176,665-685
+app/lib/features/beta/data/beta_feedback_sender.dart
+  s_c75835e9bfff2d::t_2d80192be1af24 1-70
+app/lib/features/beta/domain/beta_exit.dart
+  s_c75835e9bfff2d::t_78296428d0aad5 1-115
+app/lib/features/beta/domain/beta_feedback.dart
+  s_c75835e9bfff2d::t_62c17ca0b94c8b 1-47
+app/lib/features/beta/presentation/beta_feedback_screen.dart
+  s_c75835e9bfff2d::t_91d15156fda21d 1-227
+app/lib/features/settings/data/share_plus_share_service.dart
+  s_c75835e9bfff2d::t_71cea2199dda7f 55-85
+app/lib/features/settings/presentation/settings_screen.dart
+  s_c75835e9bfff2d::t_f3a56cf7f6f386 100-107
+app/test/fakes/fake_share_service.dart
+  s_c75835e9bfff2d::t_f1d8002a079a74 24,35-46
+app/test/unit/beta/beta_exit_test.dart
+  s_c75835e9bfff2d::t_5ac32f7102c31b 1-117
+app/test/unit/beta/beta_feedback_test.dart
+  s_c75835e9bfff2d::t_a6787014b8e0d3 1-111
+app/test/widget/accessibility_test.dart
+  s_c75835e9bfff2d::t_5df7f3266009d0 103
+app/test/widget/beta_feedback_screen_test.dart
+  s_c75835e9bfff2d::t_135a6821cb8014 1-137
+docs/beta.md
+  s_c75835e9bfff2d::t_9027113cdef24c 1-166
+docs/release-checklist.md
+  s_c75835e9bfff2d::t_f31ae39d113bbf 51-66
+docs/test-plans/device/REL-04.md
+  s_c75835e9bfff2d::t_ab3be9e1e9805a 1-14
+tasks/12-release/REL-04-beta-program.md
+  s_c75835e9bfff2d::t_0ec769c0918204 4,11-14,19-27,30
+tools/release/beta_gate.py
+  s_c75835e9bfff2d::t_4ae0768571486e 1-135
+tools/release/beta_thresholds.json
+  s_c75835e9bfff2d::t_c59bf339fcb2ee 1-7
+tools/release/tests/test_beta_program.py
+  s_c75835e9bfff2d::t_2096f919129e8e 1-190
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ab6f7550115c8049d98d1a2b5fe5a2fc1de77c3c",
+  "prompts": {},
+  "sessions": {
+    "s_91cce0d4a43314": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "98190d73-b703-4c9e-8a70-ef8c1482391d",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_c75835e9bfff2d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f15764af-6d0c-4490-8300-309d0bfc5fc5",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
