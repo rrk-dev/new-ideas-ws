@@ -1,0 +1,100 @@
+-- APP-02 full-text search (vv-local-database → FTS5). Rows:
+--   kind 'title'      one per recording: title + tags (auto rowid)
+--   kind 'transcript' one per transcript segment, rowid = -segment id, so a
+--                     segment change touches exactly one row (no rebuild of
+--                     the whole transcript — O(1) per segment written)
+--   kind 'extraction' one per recording: every string value of its newest
+--                     extraction (auto rowid)
+-- Kept in sync by the triggers below — the single place that writes the
+-- index, whichever isolate or feature changes the source rows.
+import 'recording_tables.dart';
+import 'transcript_tables.dart';
+import 'extraction_tables.dart';
+
+CREATE VIRTUAL TABLE search_index USING fts5(
+  recording_id UNINDEXED,
+  kind UNINDEXED,
+  body,
+  tokenize = 'unicode61 remove_diacritics 2'
+);
+
+-- Title and tags.
+CREATE TRIGGER search_recording_insert AFTER INSERT ON recordings BEGIN
+  INSERT INTO search_index (recording_id, kind, body)
+    SELECT new.id, 'title',
+      new.title || ' ' || COALESCE(
+        (SELECT group_concat(value, ' ') FROM json_each(new.tags)), '');
+END;
+
+CREATE TRIGGER search_recording_update AFTER UPDATE OF title, tags
+    ON recordings BEGIN
+  DELETE FROM search_index WHERE recording_id = new.id AND kind = 'title';
+  INSERT INTO search_index (recording_id, kind, body)
+    SELECT new.id, 'title',
+      new.title || ' ' || COALESCE(
+        (SELECT group_concat(value, ' ') FROM json_each(new.tags)), '');
+END;
+
+CREATE TRIGGER search_recording_delete AFTER DELETE ON recordings BEGIN
+  DELETE FROM search_index WHERE recording_id = old.id;
+END;
+
+-- Transcript segments: one row each.
+CREATE TRIGGER search_segment_insert AFTER INSERT ON transcript_segments BEGIN
+  INSERT INTO search_index (rowid, recording_id, kind, body)
+    SELECT -new.id, t.recording_id, 'transcript', new.body
+    FROM transcripts t WHERE t.id = new.transcript_id;
+END;
+
+CREATE TRIGGER search_segment_update AFTER UPDATE OF body
+    ON transcript_segments BEGIN
+  DELETE FROM search_index WHERE rowid = -old.id;
+  INSERT INTO search_index (rowid, recording_id, kind, body)
+    SELECT -new.id, t.recording_id, 'transcript', new.body
+    FROM transcripts t WHERE t.id = new.transcript_id;
+END;
+
+CREATE TRIGGER search_segment_delete AFTER DELETE ON transcript_segments BEGIN
+  DELETE FROM search_index WHERE rowid = -old.id;
+END;
+
+-- Extracted fields: every string leaf of the recording's newest extraction.
+CREATE TRIGGER search_extraction_insert AFTER INSERT ON extractions BEGIN
+  DELETE FROM search_index
+    WHERE kind = 'extraction' AND recording_id = new.recording_id;
+  INSERT INTO search_index (recording_id, kind, body)
+    SELECT e.recording_id, 'extraction', group_concat(j.value, ' ')
+    FROM extractions e, json_tree(e.json) j
+    WHERE e.id = (SELECT e2.id FROM extractions e2
+        WHERE e2.recording_id = new.recording_id
+        ORDER BY e2.created_at DESC, e2.id DESC LIMIT 1)
+      AND j.type = 'text'
+    GROUP BY e.id;
+END;
+
+CREATE TRIGGER search_extraction_update AFTER UPDATE OF json
+    ON extractions BEGIN
+  DELETE FROM search_index
+    WHERE kind = 'extraction' AND recording_id = new.recording_id;
+  INSERT INTO search_index (recording_id, kind, body)
+    SELECT e.recording_id, 'extraction', group_concat(j.value, ' ')
+    FROM extractions e, json_tree(e.json) j
+    WHERE e.id = (SELECT e2.id FROM extractions e2
+        WHERE e2.recording_id = new.recording_id
+        ORDER BY e2.created_at DESC, e2.id DESC LIMIT 1)
+      AND j.type = 'text'
+    GROUP BY e.id;
+END;
+
+CREATE TRIGGER search_extraction_delete AFTER DELETE ON extractions BEGIN
+  DELETE FROM search_index
+    WHERE kind = 'extraction' AND recording_id = old.recording_id;
+  INSERT INTO search_index (recording_id, kind, body)
+    SELECT e.recording_id, 'extraction', group_concat(j.value, ' ')
+    FROM extractions e, json_tree(e.json) j
+    WHERE e.id = (SELECT e2.id FROM extractions e2
+        WHERE e2.recording_id = old.recording_id
+        ORDER BY e2.created_at DESC, e2.id DESC LIMIT 1)
+      AND j.type = 'text'
+    GROUP BY e.id;
+END;

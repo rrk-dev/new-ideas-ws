@@ -1186,6 +1186,384 @@ abstract class AppLocalizations {
   /// **'Couldn’t delete the model.'**
   String get modelDeleteFailed;
 
+  /// No description provided for @librarySearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search recordings, transcripts and notes'**
+  String get librarySearchHint;
+
+  /// No description provided for @librarySearchClear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search'**
+  String get librarySearchClear;
+
+  /// No description provided for @librarySort.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort'**
+  String get librarySort;
+
+  /// No description provided for @librarySortNewest.
+  ///
+  /// In en, this message translates to:
+  /// **'Newest first'**
+  String get librarySortNewest;
+
+  /// No description provided for @librarySortOldest.
+  ///
+  /// In en, this message translates to:
+  /// **'Oldest first'**
+  String get librarySortOldest;
+
+  /// No description provided for @librarySortLongest.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest first'**
+  String get librarySortLongest;
+
+  /// No description provided for @librarySortTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title A–Z'**
+  String get librarySortTitle;
+
+  /// No description provided for @libraryLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t load your recordings.'**
+  String get libraryLoadFailed;
+
+  /// No description provided for @libraryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No recordings yet. Tap Record to make your first note.'**
+  String get libraryEmpty;
+
+  /// No description provided for @libraryNoMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'No recordings match your search or filters.'**
+  String get libraryNoMatches;
+
+  /// No description provided for @libraryFilterStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get libraryFilterStatus;
+
+  /// No description provided for @libraryFilterProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get libraryFilterProfile;
+
+  /// No description provided for @libraryFilterTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag'**
+  String get libraryFilterTag;
+
+  /// No description provided for @libraryFilterDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get libraryFilterDate;
+
+  /// No description provided for @libraryFilterClear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear filters'**
+  String get libraryFilterClear;
+
+  /// No description provided for @libraryFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get libraryFilterAll;
+
+  /// No description provided for @libraryExportedTo.
+  ///
+  /// In en, this message translates to:
+  /// **'{status} · {folders}'**
+  String libraryExportedTo(String status, String folders);
+
+  /// No description provided for @libraryStatusRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording'**
+  String get libraryStatusRecording;
+
+  /// No description provided for @libraryStatusRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'Not processed'**
+  String get libraryStatusRecorded;
+
+  /// No description provided for @libraryStatusProcessing.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing'**
+  String get libraryStatusProcessing;
+
+  /// No description provided for @libraryStatusWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting'**
+  String get libraryStatusWaiting;
+
+  /// No description provided for @libraryStatusProcessed.
+  ///
+  /// In en, this message translates to:
+  /// **'Processed, not exported'**
+  String get libraryStatusProcessed;
+
+  /// No description provided for @libraryStatusExported.
+  ///
+  /// In en, this message translates to:
+  /// **'Exported'**
+  String get libraryStatusExported;
+
+  /// No description provided for @libraryStatusFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get libraryStatusFailed;
+
+  /// No description provided for @durationHoursMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} h {minutes} min'**
+  String durationHoursMinutes(int hours, int minutes);
+
+  /// No description provided for @durationMinutesSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min {seconds} s'**
+  String durationMinutesSeconds(int minutes, int seconds);
+
+  /// No description provided for @durationSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds} s'**
+  String durationSeconds(int seconds);
+
+  /// No description provided for @recordingLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t load this recording.'**
+  String get recordingLoadFailed;
+
+  /// No description provided for @recordingNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'This recording no longer exists.'**
+  String get recordingNotFound;
+
+  /// No description provided for @recordingImported.
+  ///
+  /// In en, this message translates to:
+  /// **'Imported'**
+  String get recordingImported;
+
+  /// No description provided for @recordingActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording actions'**
+  String get recordingActions;
+
+  /// No description provided for @recordingReExtract.
+  ///
+  /// In en, this message translates to:
+  /// **'Extract again'**
+  String get recordingReExtract;
+
+  /// No description provided for @recordingChangeProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Change profile'**
+  String get recordingChangeProfile;
+
+  /// No description provided for @recordingReExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export again'**
+  String get recordingReExport;
+
+  /// No description provided for @recordingDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete recording'**
+  String get recordingDelete;
+
+  /// No description provided for @recordingBusy.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing is running. Try again when it has finished.'**
+  String get recordingBusy;
+
+  /// No description provided for @recordingProfileCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} (current)'**
+  String recordingProfileCurrent(String name);
+
+  /// No description provided for @recordingTranscript.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcript'**
+  String get recordingTranscript;
+
+  /// No description provided for @recordingNoTranscript.
+  ///
+  /// In en, this message translates to:
+  /// **'No transcript yet.'**
+  String get recordingNoTranscript;
+
+  /// No description provided for @recordingShowTranscript.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Show the full transcript (1 line)} other{Show the full transcript ({count} lines)}}'**
+  String recordingShowTranscript(int count);
+
+  /// No description provided for @transcriptSpeakerLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{speaker}: {text}'**
+  String transcriptSpeakerLine(String speaker, String text);
+
+  /// No description provided for @recordingExtracted.
+  ///
+  /// In en, this message translates to:
+  /// **'Extracted'**
+  String get recordingExtracted;
+
+  /// No description provided for @recordingNoExtraction.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing extracted yet.'**
+  String get recordingNoExtraction;
+
+  /// No description provided for @recordingExtractionInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The AI output didn’t fully match the profile. Showing what was extracted.'**
+  String get recordingExtractionInvalid;
+
+  /// No description provided for @recordingExports.
+  ///
+  /// In en, this message translates to:
+  /// **'Exports'**
+  String get recordingExports;
+
+  /// No description provided for @recordingNoExports.
+  ///
+  /// In en, this message translates to:
+  /// **'Not exported yet.'**
+  String get recordingNoExports;
+
+  /// No description provided for @exportStatusWritten.
+  ///
+  /// In en, this message translates to:
+  /// **'Written'**
+  String get exportStatusWritten;
+
+  /// No description provided for @exportStatusFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get exportStatusFailed;
+
+  /// No description provided for @exportStatusPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting to be written'**
+  String get exportStatusPending;
+
+  /// No description provided for @recordingDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this recording?'**
+  String get recordingDeleteTitle;
+
+  /// No description provided for @recordingDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The audio, transcript and extracted data are removed from this device. This can’t be undone.'**
+  String get recordingDeleteBody;
+
+  /// No description provided for @recordingDeleteNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Also delete the exported note from {folders}'**
+  String recordingDeleteNotes(String folders);
+
+  /// No description provided for @recordingDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording deleted.'**
+  String get recordingDeleted;
+
+  /// No description provided for @recordingDeletedNotesKept.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Recording deleted. 1 exported note couldn’t be removed — delete it in your vault.} other{Recording deleted. {count} exported notes couldn’t be removed — delete them in your vault.}}'**
+  String recordingDeletedNotesKept(int count);
+
+  /// No description provided for @recordingDeleteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t delete the recording.'**
+  String get recordingDeleteFailed;
+
+  /// No description provided for @actionItemsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Action items'**
+  String get actionItemsTitle;
+
+  /// No description provided for @actionItemsOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get actionItemsOpen;
+
+  /// No description provided for @actionItemsAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get actionItemsAll;
+
+  /// No description provided for @actionItemsLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t load action items.'**
+  String get actionItemsLoadFailed;
+
+  /// No description provided for @actionItemsNoneOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'No open action items.'**
+  String get actionItemsNoneOpen;
+
+  /// No description provided for @actionItemsNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No action items yet.'**
+  String get actionItemsNone;
+
+  /// No description provided for @actionItemUpdateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t update the action item.'**
+  String get actionItemUpdateFailed;
+
+  /// No description provided for @actionItemOpenRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Open recording'**
+  String get actionItemOpenRecording;
+
   /// No description provided for @recordingDebugTooltip.
   ///
   /// In en, this message translates to:

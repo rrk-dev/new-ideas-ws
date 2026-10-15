@@ -670,6 +670,230 @@ class AppLocalizationsEn extends AppLocalizations {
   String get modelDeleteFailed => 'Couldn’t delete the model.';
 
   @override
+  String get librarySearchHint => 'Search recordings, transcripts and notes';
+
+  @override
+  String get librarySearchClear => 'Clear search';
+
+  @override
+  String get librarySort => 'Sort';
+
+  @override
+  String get librarySortNewest => 'Newest first';
+
+  @override
+  String get librarySortOldest => 'Oldest first';
+
+  @override
+  String get librarySortLongest => 'Longest first';
+
+  @override
+  String get librarySortTitle => 'Title A–Z';
+
+  @override
+  String get libraryLoadFailed => 'Couldn’t load your recordings.';
+
+  @override
+  String get libraryEmpty =>
+      'No recordings yet. Tap Record to make your first note.';
+
+  @override
+  String get libraryNoMatches => 'No recordings match your search or filters.';
+
+  @override
+  String get libraryFilterStatus => 'Status';
+
+  @override
+  String get libraryFilterProfile => 'Profile';
+
+  @override
+  String get libraryFilterTag => 'Tag';
+
+  @override
+  String get libraryFilterDate => 'Date';
+
+  @override
+  String get libraryFilterClear => 'Clear filters';
+
+  @override
+  String get libraryFilterAll => 'All';
+
+  @override
+  String libraryExportedTo(String status, String folders) {
+    return '$status · $folders';
+  }
+
+  @override
+  String get libraryStatusRecording => 'Recording';
+
+  @override
+  String get libraryStatusRecorded => 'Not processed';
+
+  @override
+  String get libraryStatusProcessing => 'Processing';
+
+  @override
+  String get libraryStatusWaiting => 'Waiting';
+
+  @override
+  String get libraryStatusProcessed => 'Processed, not exported';
+
+  @override
+  String get libraryStatusExported => 'Exported';
+
+  @override
+  String get libraryStatusFailed => 'Failed';
+
+  @override
+  String durationHoursMinutes(int hours, int minutes) {
+    return '$hours h $minutes min';
+  }
+
+  @override
+  String durationMinutesSeconds(int minutes, int seconds) {
+    return '$minutes min $seconds s';
+  }
+
+  @override
+  String durationSeconds(int seconds) {
+    return '$seconds s';
+  }
+
+  @override
+  String get recordingLoadFailed => 'Couldn’t load this recording.';
+
+  @override
+  String get recordingNotFound => 'This recording no longer exists.';
+
+  @override
+  String get recordingImported => 'Imported';
+
+  @override
+  String get recordingActions => 'Recording actions';
+
+  @override
+  String get recordingReExtract => 'Extract again';
+
+  @override
+  String get recordingChangeProfile => 'Change profile';
+
+  @override
+  String get recordingReExport => 'Export again';
+
+  @override
+  String get recordingDelete => 'Delete recording';
+
+  @override
+  String get recordingBusy =>
+      'Processing is running. Try again when it has finished.';
+
+  @override
+  String recordingProfileCurrent(String name) {
+    return '$name (current)';
+  }
+
+  @override
+  String get recordingTranscript => 'Transcript';
+
+  @override
+  String get recordingNoTranscript => 'No transcript yet.';
+
+  @override
+  String recordingShowTranscript(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Show the full transcript ($count lines)',
+      one: 'Show the full transcript (1 line)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String transcriptSpeakerLine(String speaker, String text) {
+    return '$speaker: $text';
+  }
+
+  @override
+  String get recordingExtracted => 'Extracted';
+
+  @override
+  String get recordingNoExtraction => 'Nothing extracted yet.';
+
+  @override
+  String get recordingExtractionInvalid =>
+      'The AI output didn’t fully match the profile. Showing what was extracted.';
+
+  @override
+  String get recordingExports => 'Exports';
+
+  @override
+  String get recordingNoExports => 'Not exported yet.';
+
+  @override
+  String get exportStatusWritten => 'Written';
+
+  @override
+  String get exportStatusFailed => 'Failed';
+
+  @override
+  String get exportStatusPending => 'Waiting to be written';
+
+  @override
+  String get recordingDeleteTitle => 'Delete this recording?';
+
+  @override
+  String get recordingDeleteBody =>
+      'The audio, transcript and extracted data are removed from this device. This can’t be undone.';
+
+  @override
+  String recordingDeleteNotes(String folders) {
+    return 'Also delete the exported note from $folders';
+  }
+
+  @override
+  String get recordingDeleted => 'Recording deleted.';
+
+  @override
+  String recordingDeletedNotesKept(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'Recording deleted. $count exported notes couldn’t be removed — delete them in your vault.',
+      one: 'Recording deleted. 1 exported note couldn’t be removed — delete it in your vault.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get recordingDeleteFailed => 'Couldn’t delete the recording.';
+
+  @override
+  String get actionItemsTitle => 'Action items';
+
+  @override
+  String get actionItemsOpen => 'Open';
+
+  @override
+  String get actionItemsAll => 'All';
+
+  @override
+  String get actionItemsLoadFailed => 'Couldn’t load action items.';
+
+  @override
+  String get actionItemsNoneOpen => 'No open action items.';
+
+  @override
+  String get actionItemsNone => 'No action items yet.';
+
+  @override
+  String get actionItemUpdateFailed => 'Couldn’t update the action item.';
+
+  @override
+  String get actionItemOpenRecording => 'Open recording';
+
+  @override
   String get recordingDebugTooltip => 'Recording debug';
 
   @override

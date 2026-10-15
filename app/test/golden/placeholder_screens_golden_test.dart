@@ -7,6 +7,7 @@ import '../fakes/fake_call_guard.dart';
 import '../fakes/fake_capture_backend.dart';
 import '../fakes/fake_recording_indicator.dart';
 import '../helpers/golden.dart';
+import '../helpers/library_fixtures.dart';
 
 void main() {
   goldenTest(
@@ -24,9 +25,11 @@ void main() {
       batteryStatusProvider.overrideWith((ref) async => null),
     ],
   );
+  // APP-02: the real Library (was a placeholder until then).
   goldenTest(
-    'Library screen',
+    '[APP-02] Library screen',
     fileName: 'library_screen',
+    overrides: libraryOverrides(),
     builder: (_) => const LibraryScreen(),
   );
 }

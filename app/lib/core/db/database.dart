@@ -10,6 +10,7 @@ import 'package:vaultvoice/core/db/repositories/recordings_repository.dart';
 import 'package:vaultvoice/core/db/repositories/settings_repository.dart';
 import 'package:vaultvoice/core/db/repositories/transcripts_repository.dart';
 import 'package:vaultvoice/core/db/repositories/vault_repository.dart';
+import 'package:vaultvoice/core/db/search_migration.dart';
 import 'package:vaultvoice/core/db/tables/export_tables.dart';
 import 'package:vaultvoice/core/db/tables/extraction_tables.dart';
 import 'package:vaultvoice/core/db/tables/job_tables.dart';
@@ -44,6 +45,8 @@ part 'database.g.dart';
     ModelsInstalled,
     Settings,
   ],
+  // APP-02: FTS5 search index + the triggers that keep it in sync.
+  include: {'tables/search.drift'},
   daos: [
     RecordingsRepository,
     TranscriptsRepository,
@@ -60,10 +63,13 @@ class VaultVoiceDatabase extends _$VaultVoiceDatabase {
 
   /// Current schema version. Bump together with a registered step in
   /// [migrationSteps] and `drift_dev make-migrations`.
-  static const int currentSchemaVersion = 1;
+  static const int currentSchemaVersion = 2;
 
-  /// Upgrade steps keyed by target version (none yet: v1 is the first).
-  static const Map<int, SchemaStep> migrationSteps = {};
+  /// Upgrade steps keyed by target version.
+  static const Map<int, SchemaStep> migrationSteps = {
+    // APP-02: full-text search index (+ backfill).
+    2: migrateToV2SearchIndex,
+  };
 
   @override
   int get schemaVersion => currentSchemaVersion;

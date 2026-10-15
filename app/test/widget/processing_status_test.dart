@@ -12,6 +12,7 @@ import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
+import 'package:vaultvoice/features/library/presentation/recording_detail_screen.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_progress.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
@@ -21,6 +22,7 @@ import 'package:vaultvoice/features/pipeline/presentation/processing_status_card
 import 'package:vaultvoice/features/pipeline/presentation/processing_texts.dart';
 import 'package:vaultvoice/features/pipeline/presentation/recording_status_screen.dart';
 
+import '../helpers/library_fixtures.dart';
 import '../helpers/processing_fixtures.dart';
 
 List<Override> viewsOverride(
@@ -31,6 +33,8 @@ List<Override> viewsOverride(
   // Hermetic: no platform storage dir (path_provider) behind the
   // recording/model providers that joined in integration wave 2.
   storagePathsProvider.overrideWith((ref) => Completer<StoragePaths>().future),
+  // APP-02: the deep-link target is the recording detail.
+  ...libraryOverrides(),
 ];
 
 Future<ProviderContainer> pumpApp(
@@ -82,13 +86,16 @@ void main() {
     expect(payload.location, '/library/recordings/rec-a');
     container.read(appRouterProvider).go(payload.location);
     await t.pumpAndSettle();
-    expect(find.byType(RecordingStatusScreen), findsOneWidget);
-    expect(find.text('Weekly planning'), findsOneWidget);
+    // APP-02 grew the status screen into the recording detail; it shows
+    // the same processing status card.
+    expect(find.byType(RecordingDetailScreen), findsOneWidget);
+    expect(find.byType(ProcessingStatusCard), findsOneWidget);
+    expect(find.text('Weekly planning'), findsWidgets);
     expect(find.text('Transcribing'), findsOneWidget);
     // Back goes to the Library tab, not out of the app.
     await t.tap(find.byType(BackButton));
     await t.pumpAndSettle();
-    expect(find.byType(RecordingStatusScreen), findsNothing);
+    expect(find.byType(RecordingDetailScreen), findsNothing);
   });
 
   testWidgets('global queue indicator counts the queue and opens it', (

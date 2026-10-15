@@ -15,3 +15,5 @@ targets:
               version: "3.45"
               modules:
                 - fts5
+                # json_each / json_tree in the search triggers (APP-02).
+                - json1

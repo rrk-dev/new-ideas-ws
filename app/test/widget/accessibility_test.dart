@@ -18,6 +18,7 @@ import 'package:vaultvoice/core/theme/app_theme.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/export/domain/pending_export.dart';
 import 'package:vaultvoice/features/export/domain/routing_rule.dart';
+import 'package:vaultvoice/features/library/domain/recording_detail.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_access.dart';
 import 'package:vaultvoice/features/models/data/model_import_providers.dart';
 import 'package:vaultvoice/features/models/data/model_management_providers.dart';
@@ -40,6 +41,7 @@ import 'package:vaultvoice/features/transcription/presentation/transcript_provid
 
 import '../fakes/fake_settings_store.dart';
 import '../fakes/fake_transcript_player.dart';
+import '../helpers/library_fixtures.dart';
 import '../helpers/model_fixtures.dart';
 import '../helpers/processing_fixtures.dart';
 
@@ -56,7 +58,9 @@ const _screens = {
   'Record': '/record',
   'Library': '/library',
   'Processing queue': '/library/processing',
-  'Recording status': '/library/recordings/rec-a',
+  'Recording detail': '/library/recordings/rec-a',
+  'Recording transcript': '/library/recordings/rec-a/text',
+  'Action items': '/library/action-items',
   'Profiles': '/profiles',
   'Profile editor (new)': '/profiles/new',
   'Profile editor (built-in, read-only)': '/profiles/meeting',
@@ -204,6 +208,19 @@ List<Override> _overrides() => [
         match: RuleMatch(tagsAny: ['work']),
       ),
     ]),
+  ),
+  // APP-02 library, recording detail and action items.
+  ...libraryOverrides(
+    actionItems: const [
+      ActionItemView(
+        id: 1,
+        recordingId: 'rec-a',
+        recordingTitle: 'Weekly planning',
+        body: 'Update the client SDK',
+        done: false,
+        owner: 'Sam',
+      ),
+    ],
   ),
   // MDL-03 model screen: hermetic catalog/install state.
   modelEntriesProvider.overrideWith(
