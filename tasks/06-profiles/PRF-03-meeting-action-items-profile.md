@@ -1,7 +1,7 @@
 # PRF-03 — Built-in Profile: Meeting Action Items
 
 **Workstream:** Profiles | **Phase:** 3 | **Size:** M | **Depends on:** PRF-01, PRF-02, LLM-05, STT-05, PRF-09 | **Source:** §3.1.5
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-extraction-profiles, vv-benchmark-eval, vv-markdown-vault-export, vv-testing
 
 ## Goal
