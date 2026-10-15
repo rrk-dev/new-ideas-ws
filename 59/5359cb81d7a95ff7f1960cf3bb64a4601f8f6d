@@ -1,0 +1,53 @@
+.github/workflows/release.yml
+  s_d13dd92d2f638b::t_b353b8864562b4 9,59,104,106,117-124,126,129,163,174,184-273
+app/android/fastlane/Fastfile
+  s_d13dd92d2f638b::t_574c0db295b054 27,30-34
+app/ios/fastlane/Fastfile
+  s_d13dd92d2f638b::t_ee51a778b6800d 70,73-78,83
+docs/release-checklist.md
+  s_d13dd92d2f638b::t_292f3f9e70d790 44-45
+native/build.sh
+  s_caacb79062955e::t_72e69574280d46 123-128,131,133
+tasks/12-release/REL-01-release-build-pipeline.md
+  s_d13dd92d2f638b::t_376ea83b27532b 56-59
+tasks/12-release/REL-02-private-crash-reporting.md
+  s_d13dd92d2f638b::t_27411e9bdb0356 45
+tasks/12-release/REL-03-app-size-optimization.md
+  s_d13dd92d2f638b::t_6a91fd03863a77 47
+tools/release/build_release.sh
+  s_caacb79062955e::t_3bbe8721f21f78 56-71
+tools/release/tests/test_release_pipeline.py
+  s_c1515c206a4fe2::t_95c1d59e2619b9 61-62,68-69,72-73,82-83,173-211
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "595359cb81d7a95ff7f1960cf3bb64a4601f8f6d",
+  "prompts": {},
+  "sessions": {
+    "s_c1515c206a4fe2": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "5ded3ed9-1ed5-495a-bc36-4f8e1b98b7a3",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_caacb79062955e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "a4c673c6-579b-47bb-bdd0-b8c526a47b26",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_d13dd92d2f638b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "ad3158a4-6281-447c-9d02-64d912fccc2e",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
