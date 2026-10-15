@@ -6,7 +6,7 @@ enum VaultTargetKind {
   /// Android Storage Access Framework tree URI (EXP-03).
   saf,
 
-  /// iOS security-scoped bookmark (EXP-04).
+  /// iOS or macOS security-scoped bookmark (EXP-04, EXP-09).
   bookmark,
 
   /// The app's own folder (fallback / default target).
@@ -16,8 +16,8 @@ enum VaultTargetKind {
 /// A folder the user granted access to.
 ///
 /// [handle] is what `vault_targets.handle` stores: the SAF tree URI on
-/// Android, base64 bookmark data on iOS, an absolute path for app-local. It
-/// may identify the folder's location, so it is never logged.
+/// Android, base64 bookmark data on iOS and macOS, an absolute path for
+/// app-local. It may identify the folder's location, so it is never logged.
 class VaultFolder {
   const VaultFolder({
     required this.kind,
