@@ -1,0 +1,31 @@
+app/lib/features/export/data/export_providers.g.dart
+  s_a241c786a3b76f::t_e73c5065a54245 13-16,23-26,38-41,76
+app/lib/features/recording/data/recording_screen_providers.g.dart
+  s_a241c786a3b76f::t_46abfeeb0958ea 165
+app/test/unit/models/model_downloader_test.dart
+  s_5568385315e53b::t_463227cc8cd8b4 442-445
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f9b2c0c58bf4596a2b0ddf5eb9cc954180bbbd58",
+  "prompts": {},
+  "sessions": {
+    "s_5568385315e53b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f2a8133d-d95c-4ea9-afeb-d867f5d4c63f",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_a241c786a3b76f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "10924bfa-4490-4854-867b-a5f460f1ba0a",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
