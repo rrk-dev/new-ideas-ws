@@ -69,6 +69,7 @@ Transcribe multi-hour recordings with bounded memory, resumability and accurate 
 - **Follow-ups:** STT-10, AUD-03 (implements `VadEngine`), FND-11 (wiring).
 
 ## Follow-ups
+- Codex review 2026-10-15 (open): Near-real-time transcription has no production caller/settings toggle; token timestamps use the segment's offset instead of per-token range mapping (whisper_stt_engine.dart:208, needs range concat spans); AC2 WER comparison must run on QA-02 corpus.
 - STT-10 (proposed): register `LiveTranscriptionService` at app start (watch while a recording is
   `recording`, stop on stop/discard), Settings → Processing toggle "Transcribe while recording",
   `canRun` = pipeline worker idle (HeavyModelGate) + `nearRealTimeAllowed` with battery/thermal

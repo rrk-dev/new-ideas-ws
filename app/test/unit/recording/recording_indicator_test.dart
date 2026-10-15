@@ -128,15 +128,16 @@ void main() {
 
       await b.tap(IndicatorAction.stop);
       expect(b.rig.controller.state.phase, RecordingPhase.stopped);
-      expect(b.indicator.visible, isFalse);
-      expect(b.indicator.hides, 1);
-      // The tap's stop() finalizes asynchronously.
+      // The tap's stop() finalizes asynchronously; the indicator hides (and
+      // `stopped` is announced) only after the capture is closed.
       var rows = await b.rig.db.recordingsRepository.watchAll().first;
       for (var i = 0; i < 100 && rows.single.status.name != 'recorded'; i++) {
         await Future<void>.delayed(const Duration(milliseconds: 10));
         rows = await b.rig.db.recordingsRepository.watchAll().first;
       }
       expect(rows.single.status.name, 'recorded');
+      expect(b.indicator.visible, isFalse);
+      expect(b.indicator.hides, 1);
       expect(rows.single.durationMs, 3000);
     });
 

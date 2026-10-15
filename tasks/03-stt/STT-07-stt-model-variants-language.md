@@ -61,6 +61,7 @@ Define the set of Whisper models offered, their tiers, and language handling.
 - **Follow-ups:** STT-09; MDL-03 / FND-11 wiring (see below).
 
 ## Follow-ups
+- Codex review 2026-10-15 (open): Production selection bypasses STT size-class entitlements for sideloaded/unknown models (active_models.dart:125); needs a licensing decision (language filtering of candidates is fixed).
 - STT-09 (proposed): on-device CPU-only RTF of large-v3-turbo-q5_0 (iOS background has no
   Metal) — if it misses the budget, resolve to small.en/small for background jobs.
 - MDL-03 (model management UI) and FND-11 (engine wiring) should pick/load the STT model through

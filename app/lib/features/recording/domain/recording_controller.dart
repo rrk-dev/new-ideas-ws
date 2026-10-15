@@ -213,8 +213,9 @@ class RecordingController {
     _stopCause = cause;
     _endGuardWatch();
     _endNoticeWatch();
+    final closed = await _capture.close(cause: cause);
     _emit();
-    return await _capture.close(cause: cause);
+    return closed;
   }
 
   /// Fed by VAD (AUD-03): length of the current continuous silence.

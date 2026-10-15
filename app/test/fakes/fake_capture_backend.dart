@@ -75,6 +75,9 @@ class FakeCaptureBackend implements CaptureBackend {
     return const Ok<void>(null);
   }
 
+  /// When set, [close] waits for it (models slow chunk finalization).
+  Completer<void>? closeGate;
+
   final _notices = StreamController<CaptureNotice>.broadcast(sync: true);
 
   /// Raises a capture notice (low storage, OS interruption, failure).
@@ -88,6 +91,7 @@ class FakeCaptureBackend implements CaptureBackend {
     StopCause cause = StopCause.user,
   }) async {
     calls.add(CloseCall(cause));
+    await closeGate?.future;
     micOpen = false;
     return const Ok(
       RecordedAudio(path: 'fake/rec.wav', duration: Duration.zero),

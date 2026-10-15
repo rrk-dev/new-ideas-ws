@@ -50,5 +50,6 @@ Transcription/extraction continue or safely pause when the app is backgrounded, 
   threads at thermal `serious` instead of pausing.
 
 ## Follow-ups
+- Codex review 2026-10-15 (open): Active Whisper GPU decode is not cancelled/checkpointed on lifecycle loss (production_engines.dart notifies only LLM); restart on CPU after backgrounding (also STT-03).
 - FND-12 (proposed): Android WorkManager scheduling for "process only while charging" jobs (charging constraint,
   headless engine, `setForeground` only while visible).

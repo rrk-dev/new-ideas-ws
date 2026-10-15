@@ -33,3 +33,7 @@ Reuse the host/Metal flags from FND-06. Do not fork a second copy of ggml. Andro
   - AC3: ✅ test: [FND-10/AC3]
 - **Decisions:** none
 - **Follow-ups:** none
+
+## Follow-ups
+
+- Codex review 2026-10-15 (open): macos_bundle_host_test AC1 can pass using an existing host dylib; add a check that runs build.sh macos and verifies the framework output and printed size.

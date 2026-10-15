@@ -134,13 +134,16 @@ final class ProductionEngineSpec {
       create: (m) => LlmService(
         runtime: FfiLlmRuntime(native.value),
         modelPath: m.path,
-        // A CPU lacking the build's required features cannot run llama.cpp;
-        // the run then fails (permanent) instead of crashing (LLM-03).
         backend: () =>
             backend() ??
             const LlmBackendChoice(useGpu: false, reason: 'cpu-unsupported'),
         contextSize: m.contextSize,
         loadGate: (requested) {
+          // A CPU lacking the build's required features cannot run
+          // llama.cpp: refuse the load instead of SIGILL (LLM-03).
+          if (backend() == null) {
+            return const Err(UnsupportedFeatureFailure('cpu-features'));
+          }
           final plan = planLlmLoad(
             modelFileBytes: m.sizeBytes,
             availableBytes: native.value.deviceMemory.$2,

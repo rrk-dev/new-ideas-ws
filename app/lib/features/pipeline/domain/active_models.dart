@@ -133,6 +133,12 @@ ActiveModelSelection selectActiveModels({
       if (large) return false;
     }
     if (c != null && ramMb != null && c.minRamMb > ramMb) return false;
+    if (m.kind == EngineModelKind.stt && c != null) {
+      final v = SttVariant.fromFile(c.file);
+      if (v != null && v.englishOnly && needsMultilingual(sttLanguage)) {
+        return false;
+      }
+    }
     return true;
   }
 

@@ -32,6 +32,7 @@ Extraction works for transcripts much longer than the usable context window.
 - **Follow-ups:** see below
 
 ## Follow-ups
+- Codex review 2026-10-15 (open): AC2 uses OracleLlmEngine; real-model long/short recall-gap eval needed. Chunker leaves oversized no-whitespace (e.g. Chinese) text as one piece (transcript_chunker.dart:169); split it and verify templated prompts fit before generation.
 - **Wiring (pipeline/PRF owners):** pass `ExtractStep(longTranscript: LongTranscriptExtraction(extractor: MapReduceExtractor(engine: llmService, tokenizer: llmService), inputFor: …))` in `defaultSteps` once PRF-02 prompts and `ProfileRegistry.grammarsFor` are wired; `inputFor` = `LongExtractionInput(lines, ProfilePromptSource(profile) or the PRF-02 builder, MapReduceSpec.fromProfile(profile, grammars), tierForRam(...), paramsKey: '$modelId|${profile.id}@${profile.version}')`. Until then `ExtractStep` keeps its placeholder single prompt.
 - **PRF-02:** replace `ProfilePromptSource` with the prompt builder; keep the map/reduce wording and the rule "nothing chunk-specific in the system prompt" (KV prefix reuse).
 - **PRF-01 spec note:** `.agents/skills/vv-extraction-profiles/references/profile-spec.md` says `map_schema` defaults to "schema with prose fields removed"; the implementation keeps prose fields (they feed `llm_summarize`). Align the reference (docs/profile-spec.md does not state a default).

@@ -29,6 +29,7 @@ class _Platform implements BackgroundProcessingPlatform {
   final events$ = StreamController<BackgroundEvent>.broadcast();
   DeviceConditions now = const DeviceConditions(charging: true);
   final calls = <String>[];
+  bool failBegin = false;
 
   @override
   Stream<BackgroundEvent> get events => events$.stream;
@@ -40,7 +41,10 @@ class _Platform implements BackgroundProcessingPlatform {
   Future<void> beginProcessing({
     required String title,
     required String text,
-  }) async => calls.add('begin:$title');
+  }) async {
+    if (failBegin) throw StateError('service start refused');
+    calls.add('begin:$title');
+  }
 
   @override
   Future<void> updateProgress(int percent) async =>
@@ -275,6 +279,17 @@ void main() {
       // Jobs waiting for the user/model are not work.
       await push([_job('w', JobState.waiting)]);
       expect(platform.calls.last, 'end');
+    });
+
+    test('[FND-08/AC2] a refused service start does not latch the keep-alive: '
+        'the next update retries', () async {
+      platform.failBegin = true;
+      await push([_job('a', JobState.transcribing, progress: 0.25)])
+          .then((_) {}, onError: (Object _) {});
+      expect(platform.calls, isEmpty);
+      platform.failBegin = false;
+      await push([_job('a', JobState.transcribing, progress: 0.25)]);
+      expect(platform.calls.first, 'begin:Processing');
     });
 
     test(

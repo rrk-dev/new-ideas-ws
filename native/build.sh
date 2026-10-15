@@ -213,11 +213,22 @@ case "$1" in
   macos) build_macos ;;
   all)
     build_host
-    (find_ndk) >/dev/null 2>&1 && build_android || echo "skip android: no NDK"
-    have_xcode && build_ios || echo "skip ios: no Xcode"
+    # Toolchain detection is separate from the build, and each build runs as
+    # its own invocation so a failure (with set -e active inside) fails `all`
+    # instead of being reported as a skip.
+    if (find_ndk) >/dev/null 2>&1; then
+      bash "$0" android
+    else
+      echo "skip android: no NDK"
+    fi
+    if have_xcode; then
+      bash "$0" ios
+    else
+      echo "skip ios: no Xcode"
+    fi
     if [ "$(uname -s)" = Darwin ]; then
       if xcrun --show-sdk-path --sdk macosx >/dev/null 2>&1; then
-        build_macos
+        bash "$0" macos
       else
         echo "skip macos: Xcode license not accepted or macOS SDK unavailable"
       fi

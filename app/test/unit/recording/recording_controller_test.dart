@@ -81,6 +81,25 @@ RecordingBlockReason? _reason(Result<Object?> r) => switch (r.failureOrNull) {
 };
 
 void main() {
+  group('stop ordering', () {
+    test('[AUD-01/AC1] stopped is announced only after capture finalized, so '
+        'transcription never reads incomplete chunks', () {
+      fakeAsync((async) {
+        final h = _Harness(async);
+        expect(h.start().isOk, isTrue);
+        final seen = <RecordingPhase>[];
+        h.controller.states.listen((s) => seen.add(s.phase));
+        h.capture.closeGate = Completer<void>();
+        unawaited(h.controller.stop());
+        async.flushMicrotasks();
+        expect(seen, isNot(contains(RecordingPhase.stopped)));
+        h.capture.closeGate!.complete();
+        async.flushMicrotasks();
+        expect(seen, contains(RecordingPhase.stopped));
+      });
+    });
+  });
+
   group('start refused during calls', () {
     test('[SEC-09/AC2] start is refused while a call rings or is active; '
         'the microphone is never opened', () {

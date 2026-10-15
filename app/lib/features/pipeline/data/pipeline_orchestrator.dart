@@ -146,6 +146,7 @@ class PipelineOrchestrator implements PipelineClient {
   bool _idle = false;
   Future<void>? _loop;
   Completer<void>? _wake;
+  int _pokes = 0;
   Timer? _timer;
   _Run? _current;
   final List<Completer<void>> _idleWaiters = [];
@@ -170,6 +171,7 @@ class PipelineOrchestrator implements PipelineClient {
 
   /// Wakes the worker (after the clock passed a retry's `notBefore`).
   void poke() {
+    _pokes++;
     _idle = false;
     final wake = _wake;
     _wake = null;
@@ -326,12 +328,16 @@ class PipelineOrchestrator implements PipelineClient {
           // Queue empty: free the loaded model (vv-llm-inference → unload
           // the LLM when the queue is empty). A failing unload keeps the
           // model marked loaded; the next switch retries it.
+          final pokesBefore = _pokes;
           try {
             await gate.releaseAll();
           } on Object {
             // retried on the next model switch / idle pass
           }
           if (_stopped) break;
+          // Work arrived while the (awaited) unload ran: its wake-up had no
+          // sleeper to wake, so look again instead of sleeping.
+          if (_pokes != pokesBefore) continue;
           await _sleep(wakeAt);
           continue;
         }
