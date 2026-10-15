@@ -1,0 +1,105 @@
+app/lib/features/models/domain/model_bundle.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-63
+app/lib/features/models/presentation/model_texts.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-45
+app/lib/core/routing/app_router.g.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 51
+app/lib/core/routing/app_routes.g.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 9-36
+app/lib/features/onboarding/data/onboarding_providers.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-52
+app/integration_test/e2e_test.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 8,25-29
+app/lib/features/onboarding/domain/onboarding_keys.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-18
+app/lib/features/settings/presentation/vault_settings_screens.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 37-94,117-120
+  s_9f6fcf8c1840a0::t_7081d4a18ff804 116
+app/test/widget/accessibility_test.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 21,68,148-151
+app/lib/features/onboarding/presentation/onboarding_screen.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-346
+app/lib/features/onboarding/presentation/recording_consent_explainer.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-40
+app/lib/core/platform/app_settings_launcher.g.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-58
+app/lib/features/pipeline/presentation/processing_services_host.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 50-51
+  s_9f6fcf8c1840a0::t_7081d4a18ff804 6,13-14
+app/lib/features/models/data/model_install_waker.g.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-57
+docs/test-plans/device/APP-01.md
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-26
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/MainActivity.kt
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 50-51
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 74-168
+app/lib/features/onboarding/presentation/onboarding_models_step.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-200
+app/lib/features/onboarding/presentation/permission_priming.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-119
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/AppSettingsPlugin.kt
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-62
+app/lib/core/platform/app_settings_launcher.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-41
+app/test/fakes/fake_permission_hosts.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-49
+app/lib/features/models/data/model_state_providers.g.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-241
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 451-948
+app/test/widget/record_screen_test.dart
+  s_9f6fcf8c1840a0::t_eb15e611d7a680 146-148,150-155,160
+app/lib/features/models/domain/installed_model.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-21
+tasks/08-app-ux/APP-01-onboarding-permissions.md
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 4,11-17,22-64
+app/lib/features/models/data/model_install_waker.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-72
+app/test/widget/onboarding_test.dart
+  s_9f6fcf8c1840a0::t_6cde2ff4004776 33,87-89
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-32,34-86,90-423
+app/lib/features/models/data/model_state_providers.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-83
+app/test/widget/profile_editor_test.dart
+  s_9f6fcf8c1840a0::t_6cde2ff4004776 15,41-44
+app/lib/core/routing/app_routes.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 11,25-34
+  s_9f6fcf8c1840a0::t_a2f07f3530b9dc 35
+app/lib/features/onboarding/data/onboarding_providers.g.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-137
+app/test/fakes/fake_model_downloader.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-110
+app/test/golden/onboarding_golden_test.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-16
+app/test/helpers/model_fixtures.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-50
+app/test/unit/onboarding/onboarding_logic_test.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-122
+app/test/widget/app_shell_test.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 8,25-28
+app/lib/core/routing/app_router.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1,5,9-16,18-34
+app/ios/Runner/AppDelegate.swift
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 53-66
+app/lib/features/models/presentation/model_download_actions.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 1-211
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_8e19f37d16d36b 221-520
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bcc64fedfd1014674fb9507d0c03059c136f45e1",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
