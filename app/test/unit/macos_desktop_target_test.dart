@@ -86,7 +86,7 @@ void main() {
         contains(
           dev
               ? 'APP_DISPLAY_NAME = "VaultVoice Dev";'
-              : 'APP_DISPLAY_NAME = "VaultVoice";',
+              : 'APP_DISPLAY_NAME = VaultVoice;',
         ),
         reason: config.name,
       );
@@ -164,7 +164,7 @@ final class _Config {
 
 List<_Config> _configurations(String pbxproj) {
   final re = RegExp(
-    r'isa = XCBuildConfiguration;\n(.*?)name = ([A-Za-z0-9-]+);',
+    r'isa = XCBuildConfiguration;\n(.*?)name = "?([A-Za-z0-9-]+)"?;',
     dotAll: true,
   );
   return [

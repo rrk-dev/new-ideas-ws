@@ -38,7 +38,7 @@ check_submodules() {
 
 have_xcode() { xcodebuild -version >/dev/null 2>&1; }
 
-size_of() { stat -f%z "$1" 2>/dev/null || stat -c%s "$1"; }
+size_of() { stat -L -f%z "$1" 2>/dev/null || stat -L -c%s "$1"; }
 
 build_host() {
   need cmake "brew install cmake"; need ninja "brew install ninja"
