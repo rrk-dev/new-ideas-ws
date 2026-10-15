@@ -1,0 +1,69 @@
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 463-482
+app/test/widget/level_meter_bar_test.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 1-80
+docs/adr/ADR-AUD-02-agc-level-metering.md
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 1-72
+app/lib/features/recording/domain/pcm_mic_source.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 5,32-33,37-54
+app/lib/features/recording/data/platform_audio_effects_probe.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 1-48
+app/lib/features/settings/domain/setting_keys.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 21-27
+docs/test-plans/device/AUD-02.md
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 1-19
+app/lib/features/recording/data/record_capture_backend.dart
+  s_9f6fcf8c1840a0::t_91cd58a89d2c2d 44-45
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 21,24,27,60,67,85-92,131,134-141,228-229,279-280,327,333,341-342,359,362,379-419
+  s_9f6fcf8c1840a0::t_5652b1252dcf9b 420
+app/lib/features/recording/data/recording_providers.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 20,28,31,66-94,98,108-113,120-127
+  s_9f6fcf8c1840a0::t_b0cdfccdc3beb9 128-129
+app/lib/features/settings/presentation/setting_texts.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 20-21,41-42
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 35-36
+app/lib/features/recording/domain/software_agc.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 1-116
+app/test/unit/recording/capture_rig.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 11,32,49
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 167-172
+app/lib/features/recording/presentation/recording_debug_screen.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 12,128-130
+app/lib/features/settings/domain/setting_definitions.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 139-150,258-259
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 841-876
+app/test/unit/recording/agc_level_meter_test.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 1-393
+app/lib/features/recording/data/recording_providers.g.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 252-359,411-457
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/StorageInfoPlugin.kt
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 3-4,16-20,54-59
+app/lib/features/recording/domain/audio_processing.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 1-107
+tasks/02-audio/AUD-02-auto-gain-level-metering.md
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 4,11-15,22-45
+  s_9f6fcf8c1840a0::t_43357d7aea4484 46
+app/lib/features/recording/domain/level_meter.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 1-161
+app/lib/features/recording/presentation/level_meter_bar.dart
+  s_9f6fcf8c1840a0::t_63b034df4a44f5 1-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7519946464f9f244a1da4f360a04b7930cf0ceaf",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
