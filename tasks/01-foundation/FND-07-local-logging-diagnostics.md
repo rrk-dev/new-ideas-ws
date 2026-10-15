@@ -1,7 +1,7 @@
 # FND-07 — Local-Only Logging & Diagnostics
 
 **Workstream:** Foundation | **Phase:** 1 | **Size:** S | **Depends on:** FND-02 | **Source:** Gap (privacy promise rules out cloud telemetry)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-privacy-security, vv-flutter-architecture, vv-benchmark-eval, vv-testing
 
 ## Goal
@@ -70,3 +70,24 @@ Developers and users can diagnose problems without any data leaving the device u
 - **Issues found:** 
   1. RotatingFileSink.write only rotates when _size > 0 and does not reject/truncate/split a record larger than maxFileBytes. A large record is written whole into an empty file (also immediately after rotation), exceeding the configured per-file and total storage caps. Add oversized-record handling and a regression asserting the cap for large records.
 - **Acceptance runner:** `python3 .agents/skills/vv-task-workflow/scripts/tasks.py verify FND-07 --run` was invoked; its evidence/dependency checks refused before launching tagged tests. All referenced tagged tests were instead executed in the shared full Dart/pytest suites, then the mutation target was re-run red and green after restoration (QA-05 is artifact-only). Pre-report diagnostic output: `/tmp/vv-verify-a/FND-07-verify.log`.
+
+## Rework
+- **Agent:** Claude Code · **Branch:** task/FND-07-rework-1 (from origin/integration/wave-4) · **Date:** 2026-10-14 — answers the Codex FAIL report above (report left unchanged).
+- **Issue 1 (a single oversized record overflows the per-file/total cap):** reproduced first with a failing
+  regression test (commit `daf8952`): `[FND-07/AC1] an oversized record never exceeds the per-file or total cap
+  (regression: Codex FAIL 2026-10-14)` in `app/test/unit/logging_test.dart` — `RotatingFileSink(maxFileBytes: 256,
+  maxFiles: 2)` + `Logger.info` with 100 numeric fields, on an empty file, after a normal line and right after a
+  rotation; failed with `vv.log` = 1,755 bytes (> 256). Fix in `app/lib/core/logging/rotating_file_sink.dart`
+  (`_bounded`): a record whose encoded line exceeds `maxFileBytes` is **replaced, never split** (every line stays one
+  parseable JSON object) by a content-free marker with the same time/level/tag and fields
+  `{truncated: true, bytes: <original size>, dropped_fields: <n>}`; if the (already redacted) message is itself too
+  long, the message becomes the constant `record truncated`; if even that does not fit (a cap of a few dozen bytes)
+  the record is dropped. Conservative choice: fields are dropped wholesale rather than partially kept, so no
+  cut-off value can be misread. The test asserts every file ≤ 256 bytes, total ≤ 2 × 256, ≤ 2 files, every line
+  parses, both marker forms (event name kept + `dropped_fields: 100`; `record truncated` for a 2,000-char sink-level
+  message), and that logging continues normally afterwards. Second test `[FND-07/AC1] a cap too small for even the
+  marker drops the record` (16-byte cap) asserts the drop path.
+  Mutation check (2026-10-14): `_bounded` changed to always return the full line → `fvm flutter test
+  test/unit/logging_test.dart` → both new tests failed; restored with `git checkout` → `+10: All tests passed!`.
+- **Still needed (unchanged):** AC2 device rows in `docs/test-plans/device/FND-07.md` (real share sheet /
+  app-private paths on iPhone, iPad and Android).
