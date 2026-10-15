@@ -24,9 +24,14 @@ platform :android do
     sh("bash", File.join(ROOT, "tools/release/build_release.sh"), "android")
   end
 
-  desc "Build and upload to the Play internal testing track"
+  desc "Build and upload to the Play internal testing track (local use)"
   lane :internal do
     build
+    upload
+  end
+
+  desc "Upload the already built (and gated) AAB to the Play internal track"
+  lane :upload do
     aab = File.join(ROOT, "app/build/release/android/app-prod-release.aab")
     metadata = File.join(ROOT, "app/build/release/android/metadata")
     notes = ENV["VV_RELEASE_NOTES_PATH"]

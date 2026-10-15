@@ -53,6 +53,22 @@ else
   if [ -d build/ios/archive/Runner.xcarchive/dSYMs ]; then
     cp -R build/ios/archive/Runner.xcarchive/dSYMs "$SYM/native/"
   fi
+  # REL-02: the prebuilt vv_native framework's dSYMs ship inside the xcframework
+  # (native/build.sh ios -debug-symbols); the app archive does not contain them.
+  XCF="$ROOT/packages/vv_native/ios/Frameworks/vv_native.xcframework"
+  mkdir -p "$SYM/native/dSYMs"
+  found=0
+  for d in "$XCF"/*/dSYMs/*.dSYM; do
+    [ -d "$d" ] || continue
+    slice="$(basename "$(dirname "$(dirname "$d")")")"
+    mkdir -p "$SYM/native/dSYMs/$slice"
+    cp -R "$d" "$SYM/native/dSYMs/$slice/"
+    found=1
+  done
+  if [ "$found" != 1 ]; then
+    echo "release: no vv_native dSYMs in $XCF (run native/build.sh ios first)" >&2
+    exit 1
+  fi
 fi
 
 # Integrity manifest for the archived symbols and the uploaded binary.
