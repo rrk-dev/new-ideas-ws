@@ -1,7 +1,7 @@
 # FND-03 — Continuous Integration Pipeline
 
 **Workstream:** Foundation | **Phase:** 1 | **Size:** M | **Depends on:** FND-01 | **Source:** Gap (no CI defined)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-ci-release, vv-testing, vv-privacy-security, vv-native-build, vv-ffi-bridge
 
 ## Notes
@@ -62,3 +62,17 @@ Every change is formatted, analyzed, tested and built for both platforms, includ
   1. AC2 has no checkable evidence that failing lint and failing tests block merge through required checks. Supply a protected-branch failing-PR demonstration (no admin changes performed by this verifier).
   2. AC3 explicitly requires a test-branch CI demonstration. The sandbox unit test and green runs 50/51 do not supply it; record the failed task-gate run URL and observed refusal.
 - **Acceptance runner:** `python3 .agents/skills/vv-task-workflow/scripts/tasks.py verify FND-03 --run` was invoked; its evidence/dependency checks refused before launching tagged tests. All referenced tagged tests were instead executed in the shared full Dart/pytest suites, then the mutation target was re-run red and green after restoration (QA-05 is artifact-only). Pre-report diagnostic output: `/tmp/vv-verify-a/FND-03-verify.log`.
+
+## Rework
+- **Agent:** Claude Code · **Branch:** task/FND-03-rework-1 (from origin/integration/wave-4) · **Date:** 2026-10-14 — answers the Codex FAIL report above (report left unchanged). Notes only, no code change.
+- **Why implementers cannot close these:** `ci.yml` runs on `pull_request` and on `push` to `main` only, so a pushed `task/*` branch alone starts no run; implementers must not open PRs or call the GitHub API in this batch, and applying branch protection needs repo-admin rights. Both issues therefore need the **repo owner (rrk-dev)**. AC2/AC3 stay ⏳ in `docs/test-plans/device/FND-03.md`; the local proofs (`[FND-03/AC2]`, `[FND-03/AC3]` in `tools/ci/tests/`) are unchanged.
+- **Issue 1 (AC2 — failing lint/test must block merge), owner steps:**
+  1. Apply branch protection on `main` with the six required checks `static`, `test`, `task-gate`, `android`, `ios`, `native-host` (command in `docs/ci.md` → "Branch protection", or Settings → Branches → Add rule → "Require status checks to pass" + "Require a pull request before merging" + "Do not allow bypassing").
+  2. `git switch -c ci-demo/lint origin/main`; append an unformatted line (e.g. `int  x=1;`) to `app/lib/core/app_info.dart`; commit, push, open a **draft** PR to `main`. Expected: `static` fails at `format.sh` naming the file; merge button blocked ("Required statuses must pass").
+  3. `git switch -c ci-demo/test origin/main`; add `app/test/ci_demo_test.dart` with `test('ci demo', () => expect(1, 2));`; push, draft PR. Expected: `test` fails; merge blocked.
+  4. Paste both run URLs + a screenshot of the blocked merge box into the AC2 row (Result/Date/Tester), close both PRs without merging, delete the branches.
+- **Issue 2 (AC3 — task-gate demonstration on a test branch), owner steps:**
+  1. `git switch -c ci-demo/fake-done origin/main`; edit a task with no Completion Notes or Verification Report (e.g. `tasks/06-profiles/PRF-04-warranty-receipt-profile.md`) by hand to `**Status:** done` (`tasks.py set` refuses, which is expected); commit, push, open a draft PR.
+  2. Expected: `task-gate` fails at `tasks.py verify --all-done --run` with lines such as `PRF-04: FAIL missing '## Completion Notes'` and `PRF-04: FAIL missing '## Verification Report' …` (checked locally with `tasks.py verify PRF-04` on 2026-10-14); merge blocked once protection is on.
+  3. Paste the run URL and the observed refusal line into the AC3 row; close the PR unmerged, delete the branch.
+- **AC1/AC4:** already ✅ per the report (runs 50/51 and their artifacts); the AC4 row's APK install on an arm64 emulator remains for whoever has an Android emulator.
