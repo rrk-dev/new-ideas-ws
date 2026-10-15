@@ -1,0 +1,84 @@
+app/lib/core/network/network_activity.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 1-171
+app/test/unit/network/network_activity_test.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 1-82
+app/android/app/src/main/res/xml/network_security_config.xml
+  s_9f6fcf8c1840a0::t_79ead2182f8983 6-10
+  s_9f6fcf8c1840a0::t_195378bcf82947 2-5,12-16,20-24
+app/lib/core/platform/providers.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 4,46-54,59-60
+tools/ci/package_audit.json
+  s_9f6fcf8c1840a0::t_195378bcf82947 1-32,49-50
+  s_9f6fcf8c1840a0::t_f1d1fe84ceb347 33-48
+app/lib/features/retention/data/retention_providers.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 79-81
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 14,82-84
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_195378bcf82947 496-508
+app/android/app/src/main/AndroidManifest.xml
+  s_9f6fcf8c1840a0::t_195378bcf82947 28-29
+app/lib/core/network/network_gateway.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 6,58-61,69-72,78-97,114-117,125-132,134,143-147,164-167,176-181,209,214
+app/test/unit/network/egress_capture_test.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 1-186
+app/test/widget/network_activity_screen_test.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 1-77
+app/lib/core/platform/providers.g.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 270-325,365
+tools/ci/tests/test_egress_guard.py
+  s_9f6fcf8c1840a0::t_c8cee69f1d32df 122-140,144-160
+  s_9f6fcf8c1840a0::t_195378bcf82947 1-121,141-143
+app/lib/features/settings/domain/setting_definitions.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 243-250,280
+tools/ci/check_packages.sh
+  s_9f6fcf8c1840a0::t_195378bcf82947 1-13
+tasks/10-security-privacy/SEC-02-network-egress-guarantee.md
+  s_9f6fcf8c1840a0::t_195378bcf82947 4,11-17,21-55
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 1484-1522
+app/ios/Runner/Info.plist
+  s_9f6fcf8c1840a0::t_195378bcf82947 36-43
+docs/privacy-audit.md
+  s_9f6fcf8c1840a0::t_195378bcf82947 4,21-50,52-59,61-93,95-103,106-108,112-116,118-139,142-152,154-162,164-181
+  s_9f6fcf8c1840a0::t_232436c831c30c 51,60,94,104-105,109-111,117,140-141,153,163
+  s_9f6fcf8c1840a0::t_5bf09aa6da6995 182
+tools/ci/audit_packages.py
+  s_9f6fcf8c1840a0::t_195378bcf82947 1-168
+tools/ci/check_egress.sh
+  s_9f6fcf8c1840a0::t_c8cee69f1d32df 9-13,89-105,134-137
+  s_9f6fcf8c1840a0::t_195378bcf82947 2-8,29-36,43-46,54,58-60,67-88,106-133,138-143
+app/lib/features/settings/presentation/setting_texts.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 34,51
+app/lib/features/settings/domain/setting_keys.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 70-74
+app/test/widget/accessibility_test.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 16-17,40,402-451
+  s_9f6fcf8c1840a0::t_d511acf8c96151 452
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 2563-2628
+app/lib/bootstrap.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 21,23,79-87
+app/lib/features/settings/presentation/network_activity_screen.dart
+  s_9f6fcf8c1840a0::t_195378bcf82947 1-87
+tools/ci/tests/test_package_audit.py
+  s_9f6fcf8c1840a0::t_195378bcf82947 1-75
+docs/test-plans/device/SEC-02.md
+  s_9f6fcf8c1840a0::t_195378bcf82947 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e6d8b2baadc819f9cd2f8a83af55ed1f265ea9f8",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
