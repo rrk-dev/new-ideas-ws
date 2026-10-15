@@ -1,0 +1,19 @@
+docs/threat-model.md
+  s_c75835e9bfff2d::t_6d29a151390720 102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a8f333b6b6987f9a95ccb8c97e661ee7acee03a6",
+  "prompts": {},
+  "sessions": {
+    "s_c75835e9bfff2d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f15764af-6d0c-4490-8300-309d0bfc5fc5",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
