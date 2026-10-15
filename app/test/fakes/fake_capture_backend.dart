@@ -49,9 +49,13 @@ class FakeCaptureBackend implements CaptureBackend {
   List<SuspendCall> get suspends => calls.whereType<SuspendCall>().toList();
 
   @override
-  Future<Result<void>> openMicrophone() async {
+  Future<Result<void>> openMicrophone({bool Function()? mayOpen}) async {
     calls.add(const OpenCall());
     if (_failure case final f?) return Err(f);
+    await openGate?.future;
+    if (mayOpen != null && !mayOpen()) {
+      return Err(RecordingBlockedFailure(RecordingBlockReason.inCall));
+    }
     onOpen?.call();
     micOpen = true;
     return const Ok<void>(null);
@@ -68,12 +72,18 @@ class FakeCaptureBackend implements CaptureBackend {
   }
 
   @override
-  Future<Result<void>> resumeCapture() async {
+  Future<Result<void>> resumeCapture({bool Function()? mayOpen}) async {
     calls.add(const ResumeCall());
     onOpen?.call();
     micOpen = true;
     return const Ok<void>(null);
   }
+
+  /// When set, [openMicrophone] waits for it (slow storage/permission work).
+  Completer<void>? openGate;
+
+  /// When set, [close] waits for it (models slow chunk finalization).
+  Completer<void>? closeGate;
 
   final _notices = StreamController<CaptureNotice>.broadcast(sync: true);
 
@@ -88,6 +98,7 @@ class FakeCaptureBackend implements CaptureBackend {
     StopCause cause = StopCause.user,
   }) async {
     calls.add(CloseCall(cause));
+    await closeGate?.future;
     micOpen = false;
     return const Ok(
       RecordedAudio(path: 'fake/rec.wav', duration: Duration.zero),

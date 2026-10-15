@@ -299,6 +299,7 @@ final class MapReduceExtractor {
     }
     var target = budget;
     late List<TranscriptChunk> chunks;
+    var worst = 0;
     for (var attempt = 0; ; attempt++) {
       chunks = chunkTranscript(
         lines,
@@ -306,7 +307,7 @@ final class MapReduceExtractor {
         maxTokens: target,
         overlapTokens: plan.overlapTokens,
       );
-      var worst = 0;
+      worst = 0;
       for (final c in chunks) {
         final n = await _ok(
           tokenizer.countTokens(
@@ -318,6 +319,9 @@ final class MapReduceExtractor {
       if (worst <= budget || attempt == 3) break;
       target = (target * 0.9).floor();
     }
+    // A chunk that still does not fit would be rejected natively: fail as
+    // out-of-memory (the pipeline retries with a smaller plan) instead.
+    if (worst > budget) return const Err(OutOfMemoryFailure());
 
     final hash = fnv1a32(
       jsonEncode([

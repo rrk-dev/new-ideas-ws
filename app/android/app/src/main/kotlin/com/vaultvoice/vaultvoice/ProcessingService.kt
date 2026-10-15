@@ -37,8 +37,11 @@ class ProcessingService : Service() {
         val notification = buildNotification(this, -1)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
             startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PROCESSING)
-        } else {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+        } else {
+            // The typed overload needs API 29; minSdk is 26.
+            startForeground(NOTIFICATION_ID, notification)
         }
         // Not sticky: after a kill the pipeline resumes from its checkpoint
         // on the next launch (FND-05 recovery).

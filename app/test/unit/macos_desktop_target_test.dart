@@ -129,7 +129,8 @@ void main() {
       'macos/Runner/Release.entitlements',
     ]) {
       final entitlements = File(name).readAsStringSync();
-      expect(entitlements, isNot(contains('device.audio-input')));
+      expect(entitlements, contains('device.audio-input'));
+      expect(entitlements, isNot(contains('device.camera')));
       expect(entitlements, isNot(contains('screen-capture')));
     }
 

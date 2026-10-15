@@ -114,3 +114,7 @@ A Dart `SttEngine` implementation that transcribes audio with progress, cancella
   fixed above; file now 7/7), the other 3 are pre-existing wall-clock budget tests outside this task
   (`[AUD-08/AC1]` < 300 ms, `[APP-02/AC1]` < 200 ms, `[AUD-05/AC1]` background recording) that fail only
   under this load (no code they exercise changed here).
+
+## Follow-ups
+
+- Codex review 2026-10-15 (fixed, regression-tested): Active Metal STT decode continues after backgrounding; cancel/checkpoint STT on the lifecycle transition and reload on CPU before resuming.

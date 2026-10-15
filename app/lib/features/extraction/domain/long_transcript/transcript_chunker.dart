@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/foundation.dart';
 
 /// `hh:mm:ss` for a transcript offset (evidence timestamps, vv-llm-inference).
@@ -169,15 +171,33 @@ List<TranscriptLine> splitLongLines(
     final words = l.text.trim().split(RegExp(r'\s+'));
     final pieces = (lineTokens[i] / maxLineTokens).ceil() + 1;
     final per = (words.length / pieces).ceil().clamp(1, words.length);
+    final totalChars = l.text.runes.length;
     for (var w = 0; w < words.length; w += per) {
       final to = w + per > words.length ? words.length : w + per;
-      out.add(
-        TranscriptLine(
-          startMs: l.startMs,
-          speaker: l.speaker,
-          text: words.sublist(w, to).join(' '),
-        ),
-      );
+      final text = words.sublist(w, to).join(' ');
+      // Text without whitespace (e.g. Chinese, one huge token) cannot be cut
+      // at words: cut it by characters, sized from the proportional estimate.
+      final estimate = lineTokens[i] * text.runes.length / totalChars;
+      if (estimate <= maxLineTokens || text.runes.length < 2) {
+        out.add(
+          TranscriptLine(startMs: l.startMs, speaker: l.speaker, text: text),
+        );
+        continue;
+      }
+      final runes = text.runes.toList();
+      final parts = (estimate / maxLineTokens).ceil() + 1;
+      final size = (runes.length / parts).ceil().clamp(1, runes.length);
+      for (var c = 0; c < runes.length; c += size) {
+        out.add(
+          TranscriptLine(
+            startMs: l.startMs,
+            speaker: l.speaker,
+            text: String.fromCharCodes(
+              runes.sublist(c, math.min(c + size, runes.length)),
+            ),
+          ),
+        );
+      }
     }
   }
   return out;

@@ -148,9 +148,12 @@ class RecordingController {
       _opening = false;
       return _blocked(refused);
     }
-    final opened = await _capture.openMicrophone();
+    final opened = await _capture.openMicrophone(
+      mayOpen: () => _pendingBlock == null,
+    );
     _opening = false;
     if (opened case Err(:final failure)) {
+      _pendingBlock = null;
       _endGuardWatch();
       return Err(failure);
     }
@@ -192,9 +195,14 @@ class RecordingController {
       _opening = false;
       return _blocked(refused);
     }
-    final reopened = await _capture.resumeCapture();
+    final reopened = await _capture.resumeCapture(
+      mayOpen: () => _pendingBlock == null,
+    );
     _opening = false;
-    if (reopened case Err(:final failure)) return Err(failure);
+    if (reopened case Err(:final failure)) {
+      _pendingBlock = null;
+      return Err(failure);
+    }
     _enterRecording();
     _applyPendingBlock();
     return const Ok<void>(null);
@@ -213,8 +221,9 @@ class RecordingController {
     _stopCause = cause;
     _endGuardWatch();
     _endNoticeWatch();
+    final closed = await _capture.close(cause: cause);
     _emit();
-    return await _capture.close(cause: cause);
+    return closed;
   }
 
   /// Fed by VAD (AUD-03): length of the current continuous silence.
@@ -321,7 +330,9 @@ class RecordingController {
       );
       return;
     }
-    final reopened = await _capture.resumeCapture();
+    final reopened = await _capture.resumeCapture(
+      mayOpen: () => _pendingBlock == null,
+    );
     _opening = false;
     if (reopened case Err()) {
       _pendingBlock = null;

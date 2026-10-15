@@ -55,6 +55,7 @@ Reliable, low-latency recording directly in the format Whisper consumes (16 kHz,
 - **Follow-ups:** AUD-09 (proposed), AUD-02 note.
 
 ## Follow-ups
+- Codex review 2026-10-15 (fixed, regression-tested): Re-check call/foreground state right before opening the mic after async storage/permission work, and cancel pending opens on blocking events (recording_controller.dart:151); chunk writer: pause exactly at chunk rollover skips fade-out (recording_chunk_writer.dart:140) - add exact-rollover AC3 test.
 - **AUD-09 (proposed): Compressed archive copy (AAC m4a, 32–64 kbps) after transcription** — native
   transcoder (iOS `AVAssetExportSession`/`AVAudioConverter`, Android `MediaCodec`) run as a pipeline
   step after STT; WAV deletion per SEC-04 retention setting. Deferred from AUD-01 scope.

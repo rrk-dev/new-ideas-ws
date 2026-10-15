@@ -81,6 +81,46 @@ RecordingBlockReason? _reason(Result<Object?> r) => switch (r.failureOrNull) {
 };
 
 void main() {
+  group('stop ordering', () {
+    test('[AUD-01/AC1] stopped is announced only after capture finalized, so '
+        'transcription never reads incomplete chunks', () {
+      fakeAsync((async) {
+        final h = _Harness(async);
+        expect(h.start().isOk, isTrue);
+        final seen = <RecordingPhase>[];
+        h.controller.states.listen((s) => seen.add(s.phase));
+        h.capture.closeGate = Completer<void>();
+        unawaited(h.controller.stop());
+        async.flushMicrotasks();
+        expect(seen, isNot(contains(RecordingPhase.stopped)));
+        h.capture.closeGate!.complete();
+        async.flushMicrotasks();
+        expect(seen, contains(RecordingPhase.stopped));
+      });
+    });
+  });
+
+  group('open recheck', () {
+    test('[SEC-09/AC2] a call that starts during the asynchronous open work '
+        'is seen right before the mic opens: the mic never opens', () {
+      fakeAsync((async) {
+        final h = _Harness(async);
+        h.capture.openGate = Completer<void>();
+        Result<void>? r;
+        unawaited(
+          h.controller.start(StartSource.inAppButton).then((v) => r = v),
+        );
+        async.flushMicrotasks();
+        h.guard.emit(CallGuardSignal.callActive, h.clock.now());
+        h.capture.openGate!.complete();
+        async.flushMicrotasks();
+        expect(r?.isOk, isFalse);
+        expect(h.capture.micOpen, isFalse);
+        expect(h.phase, RecordingPhase.idle);
+      });
+    });
+  });
+
   group('start refused during calls', () {
     test('[SEC-09/AC2] start is refused while a call rings or is active; '
         'the microphone is never opened', () {

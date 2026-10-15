@@ -289,6 +289,27 @@ void main() {
     });
   });
 
+  group('pause at a chunk rollover', () {
+    test('[AUD-01/AC3] pausing exactly at a chunk boundary still fades the '
+        'segment out (no click on resume)', () async {
+      final rig = CaptureRig(chunkDuration: const Duration(seconds: 1));
+      expectOk(await rig.controller.start(StartSource.inAppButton));
+      rig.speak(_ms * 1000, signal: (_) => 30000);
+      final pauseAt = rig.nextSample;
+      expectOk(await rig.controller.pause());
+      expectOk(await rig.controller.resume(ResumeSource.inAppButton));
+      rig.speak(_ms * 1000, signal: (_) => -30000);
+      final done = expectOk(await rig.controller.stop());
+      final got = await rig.recordedSamples(done.recordingId!);
+      var maxStep = 0;
+      for (var i = 1; i < got.length; i++) {
+        maxStep = max(maxStep, (got[i] - got[i - 1]).abs());
+      }
+      expect(maxStep, lessThan(1000));
+      expect(got[pauseAt - 1].abs(), lessThan(1000));
+    });
+  });
+
   group('storage, permission, platform', () {
     test(
       'refuses to start below 200 MB free (microphone never opened)',

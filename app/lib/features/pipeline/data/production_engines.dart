@@ -27,6 +27,7 @@ import 'package:vaultvoice/features/pipeline/data/steps/render_write_steps.dart'
 import 'package:vaultvoice/features/pipeline/domain/heavy_model_gate.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
+import 'package:vaultvoice/features/pipeline/domain/preview_lease.dart';
 import 'package:vaultvoice/features/profiles/data/profile_registry.dart';
 import 'package:vaultvoice/features/profiles/domain/builtin_profiles.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
@@ -134,13 +135,16 @@ final class ProductionEngineSpec {
       create: (m) => LlmService(
         runtime: FfiLlmRuntime(native.value),
         modelPath: m.path,
-        // A CPU lacking the build's required features cannot run llama.cpp;
-        // the run then fails (permanent) instead of crashing (LLM-03).
         backend: () =>
             backend() ??
             const LlmBackendChoice(useGpu: false, reason: 'cpu-unsupported'),
         contextSize: m.contextSize,
         loadGate: (requested) {
+          // A CPU lacking the build's required features cannot run
+          // llama.cpp: refuse the load instead of SIGILL (LLM-03).
+          if (backend() == null) {
+            return const Err(UnsupportedFeatureFailure('cpu-features'));
+          }
           final plan = planLlmLoad(
             modelFileBytes: m.sizeBytes,
             availableBytes: native.value.deviceMemory.$2,
@@ -155,6 +159,7 @@ final class ProductionEngineSpec {
       ),
     );
     final gate = HeavyModelGate(
+      isBlocked: PreviewLease(db.settingsRepository).isHeld,
       release: (model) async {
         switch (model) {
           case HeavyModel.stt:
@@ -231,6 +236,7 @@ final class ProductionEngineSpec {
       onForeground: ({required foreground}) {
         inForeground = foreground;
         llm.setForeground(foreground: foreground);
+        if (!foreground) stt.onBackgrounded();
       },
       onMemoryPressure: llm.onMemoryPressure,
       dispose: () async {

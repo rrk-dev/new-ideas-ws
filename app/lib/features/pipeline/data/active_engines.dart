@@ -100,6 +100,10 @@ final class ActiveSttEngine implements WindowedSttEngine {
   /// Id of the model the current engine was built for (diagnostics/tests).
   String? get modelId => _model?.id;
 
+  /// App lifecycle: leaving the foreground stops a GPU decode in flight and
+  /// restarts it on the CPU.
+  void onBackgrounded() => _engine?.onBackgrounded();
+
   @override
   Future<Result<Transcript>> transcribe(
     String audioPath, {
