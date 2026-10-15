@@ -1,7 +1,7 @@
 # LLM-04 — LLM Dart FFI Binding & Inference Service
 
 **Workstream:** LLM | **Phase:** 2 | **Size:** L | **Depends on:** LLM-02, LLM-03 | **Source:** §5 Phase 2 (integrate llama.cpp FFI)
-**Status:** in-progress
+**Status:** review
 **Skills:** vv-task-workflow, vv-ffi-bridge, vv-llm-inference, vv-testing
 
 ## Goal
@@ -53,3 +53,28 @@ A Dart `LlmEngine` that loads a GGUF model and runs prompts with streaming, canc
 - **Skill/rule compliance:** Read AGENTS.md, verifier prompt, workflow/verification skills and all task-listed skills; reviewed the merged implementation at main (no unmerged task diff). Pins checked against local headers. RTK.md is referenced by the supplied instructions but absent. Product code/tests unchanged after temporary mutations; no criteria weakened, GitHub API/gh, pushes, git config edits or model commits.
 - **Issues found:**
   1. `LlmService.onBackgrounded()` returns when `_session == null`, including while `_loading` is active. `_ensureSession()` later installs the in-flight GPU session and generation starts without rechecking background state. Repro: delayed runtime load → service.generate → background flag false + onBackgrounded → complete load → session.usedGpu is true. Track lifecycle during load and cancel/dispose/reload or pause before generation. This violates the no-GPU-in-background rule.
+
+## Rework
+- **Agent:** Claude Code · **Branch:** task/LLM-04-rework-1 (from origin/integration/wave-4) · **Date:** 2026-10-14 — answers the Codex FAIL report above (report left unchanged).
+- **Issue 1 (GPU generation after backgrounding during an asynchronous load):** reproduced first with failing tests, then fixed in
+  `app/lib/features/extraction/domain/llm_service.dart`:
+  - `onBackgrounded()` now always sets the force-CPU flag — also when no session exists yet or a load is in flight (before, it
+    returned early on `_session == null`). The same gap made `ActiveLlmEngine._current()`'s `if (!_foreground) service.onBackgrounded()`
+    a no-op for a service created while backgrounded; that path is now covered too.
+  - `_ensureSession()` re-checks after every (possibly shared) load: a GPU session that finished loading after the app was
+    backgrounded is disposed unused and the model is reloaded on the CPU; every caller that awaited the same in-flight load
+    re-checks, so no caller (generate or token counting) ever receives a GPU session while backgrounded. Generation starts
+    synchronously after `_ensureSession` returns, so there is no further await between the check and `session.generate`.
+  - Tests (`app/test/fakes/fake_llm_runtime.dart` gained `loadDelay` to hold the load open):
+    `[LLM-04/AC1] backgrounded while the GPU model is still loading -> no GPU generation; the run uses a CPU session`
+    (the verifier's repro: delayed load → generate → background → complete load; asserts the only session that ran is CPU and the
+    GPU session was disposed), `[LLM-04/AC1] backgrounded before any load -> the first load is CPU; the next foreground load uses the GPU`,
+    `[LLM-04/AC1] concurrent callers awaiting a GPU load that finishes in the background never get the GPU session`
+    (`app/test/unit/extraction/llm_service_test.dart`), and `[LLM-04/AC1] a service created while backgrounded with a GPU policy
+    loads on the CPU` (`app/test/unit/pipeline/active_engines_test.dart`).
+  - Mutation check: with the original `llm_service.dart` restored, `--plain-name "LLM-04/AC1"` on those two files → 4 failed
+    (`Expected: false, Actual: <true>` for `usedGpu`); with the fix → 4 passed.
+- **Behaviour note:** a loaded CPU session is kept after returning to the foreground (unchanged); the next load uses the GPU again.
+  No new product decision.
+- **Still needed (⏳):** device rows in `docs/test-plans/device/LLM-04.md` (prefill/decode cancel < 500 ms on iPhone 11 +
+  Snapdragon 7-series, unload deltas, the "press Home during a long generation" iOS row, and a new row: press Home while the model is still loading).

@@ -21,3 +21,4 @@ Model on device: see LLM-02 / LLM-03 device docs (Documents dir). Commands from 
 | [LLM-04/AC3] | Same file, `--plain-name "[LLM-04/AC3]"` with the 1B model, then with `--dart-define=VV_LLM_BENCH_GPU=0` | Passes: `VV_LLM_UNLOAD delta` < 50 MiB for GPU and CPU | iPhone + Android (any matrix device) | — | | | |
 | [LLM-04/AC2] | Same file, `--plain-name "[LLM-04/AC2]"` | Passes (identical output for the same seed) | iPhone + Android | — | | | |
 | [LLM-04/AC1] | Debug screen, start a long generation, press Home (iOS) | App keeps running; run restarts on CPU (status `done`, not `failed`); no GPU error crash | iPhone (VV-IOS-16) | iOS 18+ | | | |
+| [LLM-04/AC1] | Debug screen with the 3B model, tap Generate and press Home **while the model is still loading** (before the first token) | Run completes on CPU (status `done`, backend CPU in the stats line); no Metal/GPU error, no crash | iPhone (VV-IOS-16) | iOS 18+ | | | |
