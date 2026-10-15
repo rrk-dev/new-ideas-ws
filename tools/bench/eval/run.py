@@ -208,6 +208,8 @@ def main() -> int:
     p.add_argument("--no-baseline", action="store_true")
     p.add_argument("--write-baseline", action="store_true")
     p.add_argument("--gate", action="store_true")
+    p.add_argument("--max-drop", type=float, default=0.02,
+                   help="gate: largest allowed F1/accuracy drop vs the baseline (default 0.02)")
     p.add_argument("--out-dir", default=str(ROOT / "tools/bench/results"))
     p.add_argument("--raw", action="store_true",
                    help="score the raw model output instead of the post-processed result")
@@ -283,7 +285,7 @@ def main() -> int:
         base = json.loads(baseline_path.read_text())["aggregate"]
         now_m, base_m = scoring.gate_metrics(agg), scoring.gate_metrics(base)
         diff = {k: (base_m[k], now_m[k]) for k in base_m if k in now_m}
-        problems = scoring.regressions(agg, base)
+        problems = scoring.regressions(agg, base, max_drop=args.max_drop)
     report = render_report(args.profile, args.model, agg, perf, env, cases, diff, problems, cfg.get("targets", {}))
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)

@@ -27,7 +27,7 @@ Offline edits conflict when two devices change one note.
 
 Merges local and remote change sets.
 
-```
+```text
 Future<void> push(ChangeSet set)
 Stream<ChangeSet> pull()
 ```

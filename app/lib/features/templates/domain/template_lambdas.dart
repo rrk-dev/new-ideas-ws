@@ -59,7 +59,7 @@ Map<String, Object> buildLambdas([
     'code_block': (LambdaContext ctx) => codeFence(_renderRaw(ctx)),
     'code_lines': (LambdaContext ctx) {
       final lines = _texts(_list(ctx)).where((l) => l.trim().isNotEmpty);
-      return lines.isEmpty ? '' : codeFence(lines.join('\n'));
+      return lines.isEmpty ? '' : codeFence(lines.join('\n'), info: 'text');
     },
   };
   assert(
