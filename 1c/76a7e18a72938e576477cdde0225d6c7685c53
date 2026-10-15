@@ -1,0 +1,121 @@
+.github/workflows/release.yml
+  s_c75835e9bfff2d::t_81c5892e1572d9 4
+app/android/app/src/dev/res/values/colors.xml
+  s_c75835e9bfff2d::t_bef0a8cd98f778 1-5
+app/android/app/src/main/res/drawable-v21/launch_background.xml
+  s_c75835e9bfff2d::t_98b44ac122d071 4
+app/android/app/src/main/res/drawable/launch_background.xml
+  s_c75835e9bfff2d::t_4cae519a65d86f 4
+app/android/app/src/main/res/values/colors.xml
+  s_c75835e9bfff2d::t_feb2739c051929 1-5
+app/android/app/src/prod/res/values/colors.xml
+  s_c75835e9bfff2d::t_1cc2c914388bea 1-5
+app/android/fastlane/Fastfile
+  s_c75835e9bfff2d::t_e938dcb54ccd4d 2
+app/android/fastlane/Fastfile.store
+  s_c75835e9bfff2d::t_cd73c4e8a7fea9 1-15
+app/android/fastlane/Screengrabfile
+  s_c75835e9bfff2d::t_61d7fedaf7c4a0 1-11
+app/android/fastlane/metadata/android/en-US/changelogs/default.txt
+  s_c75835e9bfff2d::t_987abfd9111d6b 1
+app/android/fastlane/metadata/android/en-US/full_description.txt
+  s_c75835e9bfff2d::t_ca8e6e1faa09de 1-5
+app/android/fastlane/metadata/android/en-US/images/phoneScreenshots/.gitkeep
+  s_c75835e9bfff2d::t_9e89cc3b3d0774 1
+app/android/fastlane/metadata/android/en-US/review_notes.txt
+  s_c75835e9bfff2d::t_2f598d310cbed9 1-45
+app/android/fastlane/metadata/android/en-US/short_description.txt
+  s_c75835e9bfff2d::t_14e10e37097817 1
+app/android/fastlane/metadata/android/en-US/title.txt
+  s_c75835e9bfff2d::t_318ea15bcd16f6 1
+app/android/fastlane/metadata/android/en-US/video.txt
+  s_c75835e9bfff2d::t_11b6ef6eed271b 1
+app/flutter_native_splash-dev.yaml
+  s_c75835e9bfff2d::t_e58068543b671d 1-13
+app/flutter_native_splash-prod.yaml
+  s_c75835e9bfff2d::t_8093b1b5c48634 1-13
+app/integration_test/store_screenshots_test.dart
+  s_c75835e9bfff2d::t_b8e3fecaf3fa8f 1-72
+app/ios/Runner/Base.lproj/LaunchScreen.storyboard
+  s_c75835e9bfff2d::t_b1dce3bb9ca765 22-23
+app/ios/fastlane/Fastfile
+  s_c75835e9bfff2d::t_0a86a67e1e3312 2
+app/ios/fastlane/Fastfile.store
+  s_c75835e9bfff2d::t_563161fe3fe708 1-15
+app/ios/fastlane/Snapfile
+  s_c75835e9bfff2d::t_b6b69a681ae623 1-21
+app/ios/fastlane/metadata/en-US/description.txt
+  s_c75835e9bfff2d::t_2a4726f8948f36 1-5
+app/ios/fastlane/metadata/en-US/keywords.txt
+  s_c75835e9bfff2d::t_ce65a80e68b8c8 1
+app/ios/fastlane/metadata/en-US/marketing_url.txt
+  s_c75835e9bfff2d::t_bcd4f14f835a70 1
+app/ios/fastlane/metadata/en-US/name.txt
+  s_c75835e9bfff2d::t_2283cfc4997f58 1
+app/ios/fastlane/metadata/en-US/privacy_url.txt
+  s_c75835e9bfff2d::t_7dc350690e7ba3 1
+app/ios/fastlane/metadata/en-US/promotional_text.txt
+  s_c75835e9bfff2d::t_cc63469425b5f9 1
+app/ios/fastlane/metadata/en-US/release_notes.txt
+  s_c75835e9bfff2d::t_94c46b44901a3c 1
+app/ios/fastlane/metadata/en-US/subtitle.txt
+  s_c75835e9bfff2d::t_53667ca954d297 1
+app/ios/fastlane/metadata/en-US/support_url.txt
+  s_c75835e9bfff2d::t_7072e838126875 1
+app/ios/fastlane/metadata/review_information/demo_password.txt
+  s_c75835e9bfff2d::t_2a79bbcd2d161f 1
+app/ios/fastlane/metadata/review_information/demo_user.txt
+  s_c75835e9bfff2d::t_ba1c22148e991b 1
+app/ios/fastlane/metadata/review_information/email_address.txt
+  s_c75835e9bfff2d::t_f7e460ee9434bd 1
+app/ios/fastlane/metadata/review_information/notes.txt
+  s_c75835e9bfff2d::t_9c8bf90a4d58a8 1-48
+app/ios/fastlane/metadata/review_information/phone_number.txt
+  s_c75835e9bfff2d::t_57b8f97a6f4ed9 1
+app/ios/fastlane/screenshots/en-US/.gitkeep
+  s_c75835e9bfff2d::t_af68458345dbd1 1
+app/test/helpers/library_fixtures.dart
+  s_c75835e9bfff2d::t_af6377f4e3077d 133,164
+app/test/helpers/store_demo_data.dart
+  s_c75835e9bfff2d::t_3378356bccced5 1-94
+app/test/unit/release/store_demo_data_test.dart
+  s_c75835e9bfff2d::t_5c05d23a6765d1 1-29
+app/test/widget/store_screenshots_test.dart
+  s_c75835e9bfff2d::t_c776bd4c9cfbc9 1-66
+docs/iap-products.md
+  s_c75835e9bfff2d::t_7652460aa21c2b 1-45
+docs/release-checklist.md
+  s_c75835e9bfff2d::t_9f495ed5ccab57 67-78
+docs/store-listing.md
+  s_c75835e9bfff2d::t_2c888399e5d412 1-114
+docs/test-plans/device/REL-05.md
+  s_c75835e9bfff2d::t_257cd61c832d83 1-19
+tasks/12-release/REL-05-store-listing-technical-assets.md
+  s_c75835e9bfff2d::t_37dfaa38bcee1d 4,11-14,18-38
+tools/release/capture_store_screenshots.sh
+  s_c75835e9bfff2d::t_1000cb35af924e 1-40
+tools/release/gen_store_graphics.py
+  s_c75835e9bfff2d::t_c7ffc83dc9a21b 1-62
+tools/release/iap_products.json
+  s_c75835e9bfff2d::t_cbbc4cc7e00fd6 1-15
+tools/release/store_screenshot_sizes.json
+  s_c75835e9bfff2d::t_f8debd79082848 1-45
+tools/release/tests/test_store_listing.py
+  s_c75835e9bfff2d::t_01937cb12b2bc0 1-196
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1c76a7e18a72938e576477cdde0225d6c7685c53",
+  "prompts": {},
+  "sessions": {
+    "s_c75835e9bfff2d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f15764af-6d0c-4490-8300-309d0bfc5fc5",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
