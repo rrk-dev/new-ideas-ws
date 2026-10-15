@@ -65,6 +65,7 @@ class ProcessingMonitor {
   StreamSubscription<List<JobSnapshot>>? _sub;
   Future<void> _pending = Future.value();
   bool _seeded = false;
+  final Completer<void> _firstSnapshot = Completer<void>();
   bool _started = false;
 
   /// Starts observing; also follows a notification tap that launched the app.
@@ -75,7 +76,10 @@ class ProcessingMonitor {
     final launch = await notifier.launchTap();
     _sub = jobs.listen(
       (list) => _pending = _pending.then((_) => _onJobs(list)),
-      onError: (Object _) {}, // DB unavailable: show nothing, never crash
+      onError: (Object _) {
+        // DB unavailable: show nothing, never crash
+        if (!_firstSnapshot.isCompleted) _firstSnapshot.complete();
+      },
     );
     if (launch != null) await handleTap(launch);
   }
@@ -96,6 +100,9 @@ class ProcessingMonitor {
     if (!isAllowedPayload(tap.payload)) return;
     if (tap.actionId == NotificationActions.retry) {
       final recordingId = Uri.parse(tap.payload).pathSegments.last;
+      // A cold start delivers the tap before the first jobs snapshot.
+      await _firstSnapshot.future;
+      await _pending;
       for (final job in _latest.values) {
         if (job.recordingId == recordingId && job.state == JobState.failed) {
           await retry(job.id);
@@ -129,6 +136,7 @@ class ProcessingMonitor {
     observer.retain(ids);
     _last.removeWhere((id, _) => !ids.contains(id));
     _latest.removeWhere((id, _) => !ids.contains(id));
+    if (!_firstSnapshot.isCompleted) _firstSnapshot.complete();
     if (newJob) await _maybeAskPermission();
   }
 

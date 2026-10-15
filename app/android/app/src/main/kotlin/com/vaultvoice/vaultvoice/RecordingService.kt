@@ -141,6 +141,8 @@ class RecordingService : Service() {
             // ForegroundServiceStartNotAllowedException (API 31+).
             Log.e(TAG, "startForeground refused: ${e.javaClass.simpleName}")
             spec = null
+            // Capture must not continue without its indicator (SEC-09).
+            onAction?.invoke("pause")
             stopSelf()
         }
     }

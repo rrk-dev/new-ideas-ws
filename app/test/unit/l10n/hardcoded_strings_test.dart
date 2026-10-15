@@ -8,6 +8,21 @@ import 'package:flutter_test/flutter_test.dart';
 const _scanned = ['lib/core/routing', 'lib/core/widgets', 'lib/app.dart'];
 const _presentationRoot = 'lib/features';
 
+/// Non-widget code that builds OS notification text (the recording indicator
+/// and its "Still recording" reminder): also scanned, incl. `text:` and
+/// returned literals.
+const _notificationSources = [
+  'lib/features/recording/domain/recording_indicator.dart',
+  'lib/features/recording/domain/recording_limits.dart',
+  'lib/features/recording/data/method_channel_recording_indicator.dart',
+  'lib/features/pipeline/domain/processing_notification.dart',
+];
+final _notificationPatterns = <RegExp>[
+  RegExp(r'''\btext\s*:\s*(?:const\s+)?(['"])'''),
+  RegExp(r'''\breturn\s+(['"])'''),
+  RegExp(r'''=>\s*(['"])'''),
+];
+
 /// Files exempt from the scan, with the reason.
 const _allowlist = {
   // Dev-flavor-only SEC-09 diagnostics screen, never shown to users.
@@ -41,13 +56,13 @@ bool _hasWords(String literal) {
 }
 
 /// Returns `path:line: literal` for every hard-coded user-facing string.
-List<String> scan(String path, String source) {
+List<String> scan(String path, String source, {List<RegExp> extra = const []}) {
   final hits = <String>[];
   final lines = const LineSplitter().convert(source);
   for (final (i, line) in lines.indexed) {
     final code = line.trimLeft();
     if (code.startsWith('//') || code.startsWith('import ')) continue;
-    for (final p in _patterns) {
+    for (final p in [..._patterns, ...extra]) {
       for (final m in p.allMatches(line)) {
         final quote = m.group(1)!;
         final start = m.end;
@@ -90,6 +105,31 @@ void main() {
     expect(files.length, greaterThan(10), reason: 'scan found the UI files');
     final hits = [for (final f in files) ...scan(f.path, f.readAsStringSync())];
     expect(hits, isEmpty, reason: hits.join('\n'));
+  });
+
+  test('[APP-06/AC2] notification text (recording indicator and reminder) '
+      'comes from the ARB too', () {
+    final hits = [
+      for (final path in _notificationSources)
+        ...scan(
+          path,
+          File(path).readAsStringSync(),
+          extra: _notificationPatterns,
+        ),
+    ];
+    expect(hits, isEmpty, reason: hits.join('\n'));
+    expect(
+      scan(
+        'x.dart',
+        r"  return 'Still recording (${h}h)';",
+        extra: _notificationPatterns,
+      ),
+      hasLength(1),
+    );
+    expect(
+      scan('x.dart', "  text: 'Tap to open.',", extra: _notificationPatterns),
+      hasLength(1),
+    );
   });
 
   test('[APP-06/AC2] the scanner catches hard-coded strings', () {

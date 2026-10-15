@@ -72,10 +72,15 @@ class RecordCaptureBackend
        _resolveProcessing = processing,
        _log = logger;
 
-  /// Extra audio dropped before a call event to cover delivery latency.
-  // PRODUCT-DECISION: 250 ms (conservative: losing a quarter second of the
-  // user's own speech is preferred over keeping any call audio).
-  static const defaultDiscardMargin = Duration(milliseconds: 250);
+  /// Extra audio dropped before a call event: Android API 26-30 detects calls
+  /// by polling every 500 ms (the call may have begun right after the previous
+  /// poll) plus delivery latency.
+  // PRODUCT-DECISION: 1 s (losing a second of the user's own speech is
+  // preferred over keeping any call audio).
+  static const defaultDiscardMargin = Duration(milliseconds: 1000);
+
+  /// CallGuardPlugin.kt POLL_INTERVAL_MS.
+  static const androidCallPollInterval = Duration(milliseconds: 500);
 
   final PcmMicSource _mic;
   final RecordingsRepository _repo;

@@ -1,5 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/db/enums.dart';
+import 'package:vaultvoice/core/errors/failure.dart';
+import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/features/recording/data/recording_session_service.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
 import 'package:vaultvoice/features/recording/domain/recording_session.dart';
@@ -86,8 +88,10 @@ void main() {
     final service = RecordingSessionService(
       recordings: rig.db.recordingsRepository,
       settings: rig.db.settingsRepository,
-      enqueue: (id, {userInitiated = false}) async =>
-          calls.add((id, userInitiated)),
+      enqueue: (id, {userInitiated = false}) async {
+        calls.add((id, userInitiated));
+        return const Ok<void>(null);
+      },
     );
     expect(await service.finish('r1'), isTrue, reason: 'default on');
     await rig.db.settingsRepository.set('processing.auto_process', false);
@@ -99,5 +103,17 @@ void main() {
       settings: rig.db.settingsRepository,
     );
     expect(await none.finish('r3'), isFalse);
+  });
+
+  test('[AUD-08] a failed enqueue is reported as not queued', () async {
+    final rig = CaptureRig();
+    final service = RecordingSessionService(
+      recordings: rig.db.recordingsRepository,
+      settings: rig.db.settingsRepository,
+      enqueue: (id, {userInitiated = false}) async =>
+          const Err<void>(UnexpectedFailure('queue')),
+    );
+    expect(await service.finish('r1'), isFalse);
+    expect(await service.processNow('r1'), isFalse);
   });
 }

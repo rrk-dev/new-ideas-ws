@@ -20,7 +20,7 @@ class RecordingSessionService {
   final SettingsRepository _settings;
 
   /// Queues a recording in the FND-05 pipeline (`PipelineClient.enqueue`).
-  final Future<void> Function(String recordingId, {bool userInitiated})?
+  final Future<Result<void>> Function(String recordingId, {bool userInitiated})?
   _enqueue;
 
   /// Called when a recording from the Record screen has stopped: queues it
@@ -33,8 +33,7 @@ class RecordingSessionService {
     final auto = AppSettings.autoProcess.decode(stored.valueOrNull);
     if (!auto) return false;
     try {
-      await enqueue(recordingId);
-      return true;
+      return await enqueue(recordingId) is Ok;
     } on Object {
       return false;
     }
@@ -45,8 +44,7 @@ class RecordingSessionService {
     final enqueue = _enqueue;
     if (enqueue == null) return false;
     try {
-      await enqueue(recordingId, userInitiated: true);
-      return true;
+      return await enqueue(recordingId, userInitiated: true) is Ok;
     } on Object {
       return false;
     }

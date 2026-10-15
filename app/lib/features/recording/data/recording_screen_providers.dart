@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
+import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_providers.dart';
 import 'package:vaultvoice/features/profiles/data/profile_providers.dart';
 import 'package:vaultvoice/features/profiles/data/profile_registry.dart';
@@ -28,7 +29,11 @@ RecordingSessionService recordingSessionService(Ref ref) =>
       // FND-05 PipelineClient (on main). FND-11 may later own this wiring.
       enqueue: (id, {userInitiated = false}) async {
         final client = await ref.read(pipelineClientProvider.future);
-        await client.enqueue(id, userInitiated: userInitiated);
+        final r = await client.enqueue(id, userInitiated: userInitiated);
+        return switch (r) {
+          Ok() => const Ok<void>(null),
+          Err(:final failure) => Err<void>(failure),
+        };
       },
     );
 

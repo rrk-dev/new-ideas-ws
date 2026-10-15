@@ -2588,4 +2588,36 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noteShareHint =>
       'The note leaves the app only through the app you pick.';
+
+  @override
+  String get indicatorRecordingTitle => 'Recording';
+
+  @override
+  String get indicatorRecordingText => 'VaultVoice is recording. Tap to open.';
+
+  @override
+  String get indicatorPausedTitle => 'Recording paused';
+
+  @override
+  String get indicatorPausedCallTitle =>
+      'Recording paused because a call started';
+
+  @override
+  String get indicatorPausedCallText =>
+      'Audio from the call was not recorded. Tap Resume to continue.';
+
+  @override
+  String get indicatorPausedMicText =>
+      'Another app or the system took the microphone. Tap Resume to continue.';
+
+  @override
+  String get indicatorPausedSilenceTitle => 'Recording paused after silence';
+
+  @override
+  String get indicatorResumeHint => 'Tap Resume to continue.';
+
+  @override
+  String indicatorStillRecording(int hours, String minutes) {
+    return 'Still recording (${hours}h ${minutes}m)';
+  }
 }

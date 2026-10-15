@@ -17,6 +17,7 @@ import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 
 import '../../db/db_test_utils.dart';
 import '../../fakes/fake_stt_engine.dart';
+import '../../fakes/fake_windowed_stt_engine.dart';
 import '../pipeline/pipeline_test_utils.dart';
 
 class _Ctx implements StepContext {
@@ -44,9 +45,10 @@ class _Ctx implements StepContext {
 }
 
 class _Vad implements VadEngine {
-  _Vad({this.fail = false});
+  _Vad({this.fail = false, this.silence = false});
 
   final bool fail;
+  final bool silence;
   final calls = <(String, String)>[];
 
   @override
@@ -59,6 +61,7 @@ class _Vad implements VadEngine {
       calls.add((modelPath, c.path));
     }
     if (fail) return const Err(UnexpectedFailure('vad'));
+    if (silence) return const Ok([]);
     return Ok([
       for (final c in chunks) ...[
         SpeechSpan(c.startMs + 500, c.startMs + 4000),
@@ -192,5 +195,42 @@ void main() {
     );
     expect(await step.run(_Ctx(db, _job())), isA<StepSucceeded>());
     expect(await speech(), isEmpty);
+  });
+
+  test('[AUD-03] silence-only recording: VAD finds no speech, STT is never '
+      'called on the windowed path', () async {
+    await installVad();
+    final stt = FakeWindowedSttEngine();
+    final step = TranscribeStep(
+      db: db,
+      paths: paths,
+      stt: stt,
+      config: const PipelineConfig(),
+      vad: _Vad(silence: true),
+    );
+    expect(await step.run(_Ctx(db, _job())), isA<StepSucceeded>());
+    expect(stt.calls, isEmpty);
+  });
+
+  test('[AUD-03] skip silence off ignores stored speech spans on a re-run '
+      '(windows cut at chunk boundaries)', () async {
+    await installVad();
+    final stt = FakeWindowedSttEngine();
+    final step = TranscribeStep(
+      db: db,
+      paths: paths,
+      stt: stt,
+      config: const PipelineConfig(),
+      vad: _Vad(),
+    );
+    await step.run(_Ctx(db, _job()));
+    expect(stt.calls.first.first.startMs, 500);
+
+    expectOk(
+      await db.settingsRepository.set(SettingKeys.processingSkipSilence, false),
+    );
+    stt.calls.clear();
+    await step.run(_Ctx(db, _job()));
+    expect(stt.calls.first.first.startMs, 0);
   });
 }
