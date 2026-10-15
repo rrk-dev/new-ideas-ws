@@ -1,16 +1,15 @@
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/platform/cancel_token.dart';
-import 'package:vaultvoice/core/platform/stt_engine.dart';
 import 'package:vaultvoice/features/transcription/data/whisper_stt_engine.dart';
 import 'package:vv_native/vv_native.dart';
+
+import 'support/stt_live_harness.dart';
 
 /// Directory on the device holding `ggml-tiny.en.bin` + `jfk.wav` from
 /// `tools/ci/fetch_test_models.sh` (push them, then pass
@@ -75,72 +74,70 @@ void main() {
     return e;
   }
 
+  Future<SttLiveReport> liveRun(
+    WidgetTester tester,
+    WhisperSttEngine e, {
+    required Duration minLive,
+  }) async {
+    final tenMin = await tiledWav(55); // 55 × 11 s ≈ 10 min
+    final state = SttLiveState();
+    final cancel = CancelToken();
+    return await runLiveAndCancel(
+      tester,
+      state: state,
+      cancel: cancel,
+      minLive: minLive,
+      minSegments: 3,
+      start: () => e.transcribe(
+        tenMin.path,
+        cancel: cancel,
+        onProgress: state.onProgress,
+        onSegment: state.onSegment,
+      ),
+    );
+  }
+
   testWidgets(
-    '[STT-03/AC3] on-device: jfk keywords, 10-min live progress, cancel < 1 s, '
-    'no frame > 16 ms',
+    '[STT-03/AC1] [STT-03/AC3] on-device: jfk keywords; 10-min file shows '
+    'live progress + segments on screen; cancel while running stops < 1 s',
     skip: skip != null,
     (tester) async {
-      var progress = 0.0;
-      final segments = <TranscriptSegment>[];
-      await tester.pumpWidget(
-        MaterialApp(
-          home: StatefulBuilder(
-            builder: (context, setState) => Scaffold(
-              body: Column(
-                children: [
-                  const CircularProgressIndicator(),
-                  LinearProgressIndicator(value: progress),
-                  Text('${segments.length} segments'),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
       final e = engine();
-
-      // 1. Keywords.
       final jfk = await e.transcribe('$kTestModelsDir/jfk.wav');
       expect(jfk.valueOrNull!.text.toLowerCase(), contains('country'));
 
-      // 2. 10-min file with live progress + segments while measuring frames.
-      final timings = <FrameTiming>[];
-      void onTimings(List<FrameTiming> t) => timings.addAll(t);
-      SchedulerBinding.instance.addTimingsCallback(onTimings);
-      final tenMin = await tiledWav(55); // 55 × 11 s ≈ 10 min
-      final cancel = CancelToken();
-      final sw = Stopwatch();
-      final run = e.transcribe(
-        tenMin.path,
-        cancel: cancel,
-        onProgress: (f) => progress = f,
-        onSegment: segments.add,
-      );
-      // Keep frames flowing; cancel after 30 s of live segments.
-      final until = DateTime.now().add(const Duration(seconds: 30));
-      while (DateTime.now().isBefore(until)) {
-        await tester.pump(const Duration(milliseconds: 16));
-      }
-      expect(segments, isNotEmpty, reason: 'live segments');
-      expect(progress, greaterThan(0), reason: 'live progress');
-      sw.start();
-      cancel.cancel();
-      final result = await run;
-      sw.stop();
-      SchedulerBinding.instance.removeTimingsCallback(onTimings);
-      expect(result.failureOrNull, isA<CancelledFailure>());
-      expect(sw.elapsedMilliseconds, lessThan(1000));
+      // Cancel as soon as ≥ 3 s live and ≥ 3 segments are displayed; a run
+      // that finishes first is a failure, not a pass.
+      final r = await liveRun(tester, e, minLive: const Duration(seconds: 3));
+      binding.reportData = {...?binding.reportData, ...r.toReportData()};
+      expect(liveUiProblems(r), isEmpty);
+    },
+  );
 
-      final spans = timings.map((t) => t.totalSpan.inMicroseconds).toList()
-        ..sort();
-      final p99 = spans.isEmpty ? 0 : spans[(spans.length * 0.99).floor()];
-      binding.reportData = {
-        'frames': spans.length,
-        'p99_frame_us': p99,
-        'cancel_ms': sw.elapsedMilliseconds,
-        'segments_before_cancel': segments.length,
-      };
-      expect(p99, lessThanOrEqualTo(16000), reason: 'p99 build+raster');
+  testWidgets(
+    '[STT-03/AC2] [STT-03/AC3] on-device (profile mode): p99 build+raster '
+    '≤ 16 ms over ≥ 10 s of live transcription',
+    // Debug-mode frame timings say nothing about jank: run this one with
+    // `flutter drive --profile` (docs/test-plans/device/STT-03.md).
+    skip: skip != null || !kProfileMode,
+    (tester) async {
+      final e = engine();
+      final spans = <int>[];
+      void onTimings(List<FrameTiming> t) =>
+          spans.addAll(t.map((f) => f.totalSpan.inMicroseconds));
+      SchedulerBinding.instance.addTimingsCallback(onTimings);
+      final SttLiveReport live;
+      try {
+        live = await liveRun(tester, e, minLive: const Duration(seconds: 10));
+        // FrameTimings arrive in batches (≤ 1 s in profile mode): flush.
+        await Future<void>.delayed(const Duration(milliseconds: 1500));
+      } finally {
+        SchedulerBinding.instance.removeTimingsCallback(onTimings);
+      }
+      final r = live.withFrames(spans);
+      binding.reportData = {...?binding.reportData, ...r.toReportData()};
+      expect(liveUiProblems(r), isEmpty);
+      expect(frameBudgetProblems(r), isEmpty);
     },
   );
 }

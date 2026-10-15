@@ -180,7 +180,10 @@ void main() {
     });
 
     test('p99 above 16 ms fails; at or below passes', () {
-      final slow = [...List<int>.filled(195, 8000), ...List<int>.filled(5, 17000)];
+      final slow = [
+        ...List<int>.filled(195, 8000),
+        ...List<int>.filled(5, 17000),
+      ];
       expect(frameBudgetProblems(goodReport(frames: slow)), [
         startsWith('p99 frame 17000'),
       ]);
@@ -202,4 +205,3 @@ class _SilentState extends SttLiveState {
   @override
   void onSegment(TranscriptSegment segment) => callbackCount++;
 }
-
