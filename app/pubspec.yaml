@@ -71,6 +71,8 @@ flutter:
     - assets/profiles/
     # Built-in Markdown templates (EXP-01) — read-only, never stored as rows.
     - assets/templates/
+    # In-app privacy policy (SEC-06) — shown offline, never fetched.
+    - assets/legal/
 
 # SEC-01 (ADR-SEC-01-file-encryption): bundle SQLite3 Multiple Ciphers instead
 # of plain SQLite so the drift database is encrypted (`PRAGMA key`). Verified

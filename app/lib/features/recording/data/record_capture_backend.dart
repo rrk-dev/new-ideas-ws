@@ -22,6 +22,7 @@ import 'package:vaultvoice/features/recording/domain/audio_processing.dart';
 import 'package:vaultvoice/features/recording/domain/audio_session_monitor.dart';
 import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
 import 'package:vaultvoice/features/recording/domain/level_meter.dart';
+import 'package:vaultvoice/features/recording/domain/macos_microphone_policy.dart';
 import 'package:vaultvoice/features/recording/domain/pcm_converter.dart';
 import 'package:vaultvoice/features/recording/domain/pcm_mic_source.dart';
 import 'package:vaultvoice/features/recording/domain/recording_session.dart';
@@ -63,6 +64,8 @@ class RecordCaptureBackend
     this._request = const MicRequest(),
     this._audioSession = const NoAudioSessionMonitor(),
     Future<ResolvedAudioProcessing> Function()? processing,
+    this.pauseOnInputRemoved = false,
+    this.rejectNonMicrophoneInputs = false,
     Logger? logger,
   }) : assert(
          flushInterval <= const Duration(seconds: 1),
@@ -106,12 +109,24 @@ class RecordCaptureBackend
   final Duration flushInterval;
   final Duration discardMargin;
 
+  /// macOS (AUD-09): an unplugged input pauses capture. Later route and
+  /// engine events do not reopen the microphone until the user resumes.
+  final bool pauseOnInputRemoved;
+
+  /// macOS (AUD-09): drop inputs that are not a microphone (aggregate
+  /// devices, display/AirPlay, unclassified routes).
+  final bool rejectNonMicrophoneInputs;
+
   MicRequest _request;
   final _notices = StreamController<CaptureNotice>.broadcast();
   final _pcm = StreamController<Uint8List>.broadcast();
 
   _Session? _session;
   bool _accepting = false;
+
+  /// Set when the macOS input is unplugged. Cleared only by a user resume
+  /// or a new recording — never by a device-returned event.
+  bool _inputRemoved = false;
   // Cancelled in _closeMic().
   // ignore: cancel_subscriptions
   StreamSubscription<MicEvent>? _micSub;
@@ -135,11 +150,27 @@ class RecordCaptureBackend
   MicRequest get request => _request;
 
   /// Inputs the user can pick (built-in, wired, Bluetooth HFP, USB).
-  Future<Result<List<AudioInputDevice>>> inputDevices() => _mic.inputDevices();
+  /// macOS also drops unclassified routes (aggregate / non-microphone).
+  Future<Result<List<AudioInputDevice>>> inputDevices() async {
+    final listed = await _mic.inputDevices();
+    if (!rejectNonMicrophoneInputs) return listed;
+    if (listed case Ok(:final value)) {
+      return Ok([
+        for (final device in value)
+          if (macosMaySelectInput(device)) device,
+      ]);
+    }
+    return listed;
+  }
 
   /// Selects the input for the next open/resume (null = platform default).
-  /// Never opens the microphone.
+  /// Never opens the microphone. On macOS a non-microphone route is ignored.
   void selectInput(AudioInputDevice? device) {
+    if (device != null &&
+        rejectNonMicrophoneInputs &&
+        !macosMaySelectInput(device)) {
+      return;
+    }
     _request = _request.withDevice(device);
   }
 
@@ -165,6 +196,13 @@ class RecordCaptureBackend
     if (_session != null) {
       return const Err(UnexpectedFailure('capture already open'));
     }
+    final selected = _request.device;
+    if (rejectNonMicrophoneInputs &&
+        selected != null &&
+        !macosMaySelectInput(selected)) {
+      return const Err(UnexpectedFailure('input'));
+    }
+    _inputRemoved = false;
     final paths = await _paths();
     final free = await _disk.freeBytes(paths.root);
     var warn = false;
@@ -268,6 +306,8 @@ class RecordCaptureBackend
 
   @override
   Future<Result<void>> resumeCapture({bool Function()? mayOpen}) async {
+    // A user resume is the only thing that clears an unplug (AUD-09).
+    _inputRemoved = false;
     final session = _session;
     if (session == null) {
       return const Err(UnexpectedFailure('no capture open'));
@@ -293,6 +333,7 @@ class RecordCaptureBackend
     if (session == null) {
       return const Err(UnexpectedFailure('no capture open'));
     }
+    _inputRemoved = false;
     _accepting = false;
     final wasOpen = session.micOpen;
     session.micOpen = false;
@@ -449,6 +490,15 @@ class RecordCaptureBackend
       'audio session event',
       fields: {'kind': event.kind, 'inputs': event.inputs.length},
     );
+    if (pauseOnInputRemoved && macosInputWasRemoved(event)) {
+      _inputRemoved = true;
+      _log?.info(_tag, 'input removed');
+      if (_accepting) _notices.add(CaptureNotice.interrupted);
+      return;
+    }
+    // After an unplug, ignore route and engine events until the user
+    // resumes. That is not an automatic reopen (AUD-09).
+    if (pauseOnInputRemoved && _inputRemoved) return;
     if (event.kind == AudioSessionEventKind.routeChanged) return;
     if (_accepting) _notices.add(CaptureNotice.inputRestartRequired);
   }

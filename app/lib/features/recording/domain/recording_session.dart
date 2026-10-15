@@ -13,6 +13,7 @@ final class ProfileChoice {
     required this.id,
     required this.name,
     this.consentRequired = false,
+    this.consentOptional = false,
   });
 
   final String id;
@@ -21,6 +22,10 @@ final class ProfileChoice {
   /// `consent_confirmation: required` (SEC-07): the "everyone present
   /// agrees" confirmation must be given before the microphone opens.
   final bool consentRequired;
+
+  /// `consent_confirmation: optional`: the confirmation is offered (default
+  /// action) but the user may record without it; no `consent_at` is stored.
+  final bool consentOptional;
 }
 
 /// A vault folder the note can go to ([id] null = Auto: routing rules).
