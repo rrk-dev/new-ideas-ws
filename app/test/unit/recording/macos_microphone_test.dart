@@ -40,7 +40,7 @@ const _hostFiles = <String>[
   '../packages/vv_native/macos/Info.plist',
   '../packages/vv_native/macos/DebugProfile.entitlements',
   '../packages/vv_native/macos/Release.entitlements',
-  '../packages/vv_native/macos/MacAudioRouteObserver.swift',
+  'macos/Runner/MacAudioRouteObserver.swift',
   'lib/features/recording/domain/macos_microphone_policy.dart',
 ];
 
@@ -217,6 +217,36 @@ void main() {
       for (final token in _forbidden) {
         expect(text, isNot(contains(token)), reason: '$path has $token');
       }
+    }
+  });
+
+  test('[AUD-09/AC3] the macOS Runner requests the microphone only', () {
+    final plist = File('macos/Runner/Info.plist').readAsStringSync();
+    expect(plist, contains('<string>$macosMicrophonePurpose</string>'));
+    for (final name in ['DebugProfile', 'Release']) {
+      final text = File('macos/Runner/$name.entitlements').readAsStringSync();
+      final keys = RegExp('<key>([^<]+)</key>')
+          .allMatches(text)
+          .map((m) => m.group(1)!)
+          .toSet();
+      expect(keys, contains('com.apple.security.device.audio-input'));
+      for (final key in keys) {
+        expect(
+          key,
+          isNot(
+            matches(RegExp('screen|camera|temporary-exception|voip|files')),
+          ),
+          reason: '$name has $key',
+        );
+      }
+    }
+    final all = [
+      plist,
+      File('macos/Runner/AppDelegate.swift').readAsStringSync(),
+      File('macos/Runner/MainFlutterWindow.swift').readAsStringSync(),
+    ].join();
+    for (final token in _forbidden) {
+      expect(all, isNot(contains(token)), reason: 'Runner has $token');
     }
   });
 }

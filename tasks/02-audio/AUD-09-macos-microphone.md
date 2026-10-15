@@ -24,14 +24,14 @@ On macOS, recording starts only after an explicit user click, uses the standard 
 SEC-09 still applies: never record a phone or VoIP call. macOS has no cellular call, but do not attach to FaceTime, Continuity, or any call audio source.
 
 ## Completion Notes
-- **Agent:** Cursor · **Branch:** task/AUD-09-macos-microphone · **Date:** 2026-10-14
-- **Summary:** macOS capture stays on `RecordingController` and `RecordCaptureBackend` (AUD-01). The macOS provider allows only `StartSource.inAppButton`. Unplug emits the existing interruption pause and does not reopen the mic. Purpose string and microphone-only entitlements live in `packages/vv_native/macos/` for FND-09 to merge. `MacAudioRouteObserver.swift` reports device removal and does not open the microphone.
+- **Agent:** Copilot CLI · **Branch:** fix/aud09-sec09 · **Date:** 2026-10-15
+- **Summary:** macOS capture stays on `RecordingController` and `RecordCaptureBackend` (AUD-01). The macOS provider allows only `StartSource.inAppButton`; unplug pauses and never auto-resumes; non-microphone inputs are refused. `MacAudioRouteObserver` is now compiled into `app/macos/Runner` (pbxproj) and registered in `MainFlutterWindow`; the Runner purpose string says note, not a call. `check_recording_policy.py` now scans macOS plists, entitlements and Swift sources (screen / process-audio capture, call intents, hidden-agent keys, forbidden entitlement exceptions).
 - **Acceptance evidence:**
-  - AC1: ✅ test: [AUD-09/AC1]
+  - AC1: ✅ test: [AUD-09/AC1]; device: docs/test-plans/device/AUD-09.md
   - AC2: ⏳ device: docs/test-plans/device/AUD-09.md
   - AC3: ✅ test: [AUD-09/AC3]
-- **Decisions:** none (no new recorder; record_macos 2.1.1 remains the OS microphone API)
-- **Follow-ups:** FND-09 merges `packages/vv_native/macos/Info.plist`, `DebugProfile.entitlements`, `Release.entitlements`, and registers `MacAudioRouteObserver` in the runner. Real microphone grant was not run (Xcode license not accepted; no `sudo`).
+- **Decisions:** none (no new recorder; record_macos remains the OS microphone API)
+- **Follow-ups:** device rows (real grant, denial, unplug, FaceTime) need a human on a Mac. The Runner entitlements still carry `network.client` from FND-09; the egress review owns that.
 
 ## Follow-ups
-- FND-09: copy the microphone purpose string and `com.apple.security.device.audio-input` into the runner, and register `MacAudioRouteObserver`. Do not add screen capture or a second recorder.
+- None.

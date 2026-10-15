@@ -6,8 +6,8 @@ import Foundation
 ///
 /// Does not open the microphone. Capture stays in the `record` package
 /// (`RecordMicSource`, record_macos 2.1.1), which uses `AVCaptureDevice`
-/// microphone types only. FND-09 compiles this file into the macOS runner
-/// and calls `MacAudioRouteObserver.register(with:)`.
+/// microphone types only. Compiled into the macOS runner and registered in
+/// `MainFlutterWindow`.
 ///
 /// Property names match record_macos 2.1.1 (`kAudioObjectPropertyElementMain`,
 /// `kAudioHardwarePropertyDefaultInputDevice`). Wire format matches
@@ -31,7 +31,7 @@ final class MacAudioRouteObserver: NSObject, FlutterPlugin, FlutterStreamHandler
     shared = instance
     let events = FlutterEventChannel(
       name: eventChannelName,
-      binaryMessenger: registrar.messenger()
+      binaryMessenger: registrar.messenger
     )
     events.setStreamHandler(instance)
   }
