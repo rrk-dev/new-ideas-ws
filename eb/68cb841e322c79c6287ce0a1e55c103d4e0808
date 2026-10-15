@@ -1,0 +1,114 @@
+.github/workflows/release.yml
+  h_9c63801c22a53c 4
+app/android/app/src/dev/res/values/colors.xml
+  h_9c63801c22a53c 1-5
+app/android/app/src/main/res/drawable-v21/launch_background.xml
+  h_9c63801c22a53c 4
+app/android/app/src/main/res/drawable/launch_background.xml
+  h_9c63801c22a53c 4
+app/android/app/src/main/res/values/colors.xml
+  h_9c63801c22a53c 1-5
+app/android/app/src/prod/res/values/colors.xml
+  h_9c63801c22a53c 1-5
+app/android/fastlane/Fastfile
+  h_9c63801c22a53c 2
+app/android/fastlane/Fastfile.store
+  h_9c63801c22a53c 1-15
+app/android/fastlane/Screengrabfile
+  h_9c63801c22a53c 1-11
+app/android/fastlane/metadata/android/en-US/changelogs/default.txt
+  h_9c63801c22a53c 1
+app/android/fastlane/metadata/android/en-US/full_description.txt
+  h_9c63801c22a53c 1-5
+app/android/fastlane/metadata/android/en-US/images/phoneScreenshots/.gitkeep
+  h_9c63801c22a53c 1
+app/android/fastlane/metadata/android/en-US/review_notes.txt
+  h_9c63801c22a53c 1-45
+app/android/fastlane/metadata/android/en-US/short_description.txt
+  h_9c63801c22a53c 1
+app/android/fastlane/metadata/android/en-US/title.txt
+  h_9c63801c22a53c 1
+app/android/fastlane/metadata/android/en-US/video.txt
+  h_9c63801c22a53c 1
+app/flutter_native_splash-dev.yaml
+  h_9c63801c22a53c 1-13
+app/flutter_native_splash-prod.yaml
+  h_9c63801c22a53c 1-13
+app/integration_test/store_screenshots_test.dart
+  h_9c63801c22a53c 1-72
+app/ios/Runner/Base.lproj/LaunchScreen.storyboard
+  h_9c63801c22a53c 22-23
+app/ios/fastlane/Fastfile
+  h_9c63801c22a53c 2
+app/ios/fastlane/Fastfile.store
+  h_9c63801c22a53c 1-15
+app/ios/fastlane/Snapfile
+  h_9c63801c22a53c 1-21
+app/ios/fastlane/metadata/en-US/description.txt
+  h_9c63801c22a53c 1-5
+app/ios/fastlane/metadata/en-US/keywords.txt
+  h_9c63801c22a53c 1
+app/ios/fastlane/metadata/en-US/marketing_url.txt
+  h_9c63801c22a53c 1
+app/ios/fastlane/metadata/en-US/name.txt
+  h_9c63801c22a53c 1
+app/ios/fastlane/metadata/en-US/privacy_url.txt
+  h_9c63801c22a53c 1
+app/ios/fastlane/metadata/en-US/promotional_text.txt
+  h_9c63801c22a53c 1
+app/ios/fastlane/metadata/en-US/release_notes.txt
+  h_9c63801c22a53c 1
+app/ios/fastlane/metadata/en-US/subtitle.txt
+  h_9c63801c22a53c 1
+app/ios/fastlane/metadata/en-US/support_url.txt
+  h_9c63801c22a53c 1
+app/ios/fastlane/metadata/review_information/demo_password.txt
+  h_9c63801c22a53c 1
+app/ios/fastlane/metadata/review_information/demo_user.txt
+  h_9c63801c22a53c 1
+app/ios/fastlane/metadata/review_information/email_address.txt
+  h_9c63801c22a53c 1
+app/ios/fastlane/metadata/review_information/notes.txt
+  h_9c63801c22a53c 1-48
+app/ios/fastlane/metadata/review_information/phone_number.txt
+  h_9c63801c22a53c 1
+app/ios/fastlane/screenshots/en-US/.gitkeep
+  h_9c63801c22a53c 1
+app/test/helpers/library_fixtures.dart
+  h_9c63801c22a53c 133,164
+app/test/helpers/store_demo_data.dart
+  h_9c63801c22a53c 1-94
+app/test/unit/release/store_demo_data_test.dart
+  h_9c63801c22a53c 1-29
+app/test/widget/store_screenshots_test.dart
+  h_9c63801c22a53c 1-66
+docs/iap-products.md
+  h_9c63801c22a53c 1-45
+docs/release-checklist.md
+  h_9c63801c22a53c 50-59
+docs/store-listing.md
+  h_9c63801c22a53c 1-114
+docs/test-plans/device/REL-05.md
+  h_9c63801c22a53c 1-19
+tools/release/capture_store_screenshots.sh
+  h_9c63801c22a53c 1-40
+tools/release/gen_store_graphics.py
+  h_9c63801c22a53c 1-62
+tools/release/iap_products.json
+  h_9c63801c22a53c 1-15
+tools/release/store_screenshot_sizes.json
+  h_9c63801c22a53c 1-45
+tools/release/tests/test_store_listing.py
+  h_9c63801c22a53c 1-196
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "eb68cb841e322c79c6287ce0a1e55c103d4e0808",
+  "prompts": {},
+  "humans": {
+    "h_9c63801c22a53c": {
+      "author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
