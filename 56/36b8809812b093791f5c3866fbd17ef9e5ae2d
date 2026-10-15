@@ -1,0 +1,46 @@
+app/lib/features/transcription/domain/window_planner.dart
+  s_ef737ddb7fda7e::t_934273e12e3afc 149-150
+  s_c1515c206a4fe2::t_a5853d6099a4c9 148,163,170-171
+app/lib/features/pipeline/data/processing_monitor.dart
+  s_ef737ddb7fda7e::t_bad4c211e40c6c 68,79-82,103-105,139
+app/lib/features/pipeline/data/steps/transcribe_step.dart
+  s_ef737ddb7fda7e::t_de969c204f4b96 282-283,417,423-426,431-434,437-439,448-466
+app/test/unit/pipeline/processing_monitor_test.dart
+  s_ef737ddb7fda7e::t_dda1367a67c38d 225-237
+app/test/unit/transcription/transcribe_step_vad_test.dart
+  s_ef737ddb7fda7e::t_e33c49d64fe78d 20,48,51,64,199-235
+tasks/02-audio/AUD-05-android-background-recording.md
+  s_ef737ddb7fda7e::t_0820ee7f1ed864 63
+tasks/02-audio/AUD-06-audio-import-conversion.md
+  s_ef737ddb7fda7e::t_c76ed359175e38 60-61
+tasks/02-audio/AUD-07-recording-crash-recovery.md
+  s_ef737ddb7fda7e::t_7982fb2a0c5c4e 47
+tasks/02-audio/AUD-08-recording-ui.md
+  s_ef737ddb7fda7e::t_b10bbccb9c5d82 62
+tasks/08-app-ux/APP-06-accessibility-localization.md
+  s_ef737ddb7fda7e::t_b656d7db5c0aa8 59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5636b8809812b093791f5c3866fbd17ef9e5ae2d",
+  "prompts": {},
+  "sessions": {
+    "s_c1515c206a4fe2": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "5ded3ed9-1ed5-495a-bc36-4f8e1b98b7a3",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_ef737ddb7fda7e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "cbbe9237-ba5d-41e1-b0c2-4afbc11e83ad",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
