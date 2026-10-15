@@ -1,0 +1,19 @@
+tasks/09-licensing/LIC-01-entitlements-feature-gating.md
+  s_9f6fcf8c1840a0::t_fcf7688dc9098a 67-77
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cedd714cf28f4d5071ab36323b94eb25cf7c772f",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
