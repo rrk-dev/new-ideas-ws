@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/platform/call_guard.dart';
+import 'package:vaultvoice/features/recording/data/record_capture_backend.dart';
 import 'package:vaultvoice/features/recording/domain/audio_chunk_codec.dart';
 import 'package:vaultvoice/features/recording/domain/audio_format.dart';
 import 'package:vaultvoice/features/recording/domain/pcm_mic_source.dart';
@@ -184,12 +185,12 @@ void main() {
       expect(rig.mic.micOpen, isFalse);
 
       final id = rig.backend.recordingId!;
-      // 3000 − 400 (after the event) − 250 (safety margin) = 2350 ms kept.
-      expect(await rig.recordedSamples(id), hasLength(_n(2350)));
+      // 3000 − 400 (after the event) − 1000 (safety margin) = 1600 ms kept.
+      expect(await rig.recordedSamples(id), hasLength(_n(1600)));
       final marker = (await rig.markers(id)).single;
       expect(marker.kind, MarkerKind.callInterruption);
       expect(marker.label, 'call_interruption');
-      expect(marker.atMs, 2350);
+      expect(marker.atMs, 1600);
       expect((await rig.row(id)).status, RecordingStatus.inProgress);
 
       // Hang-up never resumes.
@@ -206,9 +207,9 @@ void main() {
       final done = expectOk(await rig.controller.stop());
       expect(
         [for (final c in await rig.chunks(id)) (c.startMs, c.endMs)],
-        [(0, 2350), (2350, 3350)],
+        [(0, 1600), (1600, 2600)],
       );
-      expect(done.duration, _ms * 3350);
+      expect(done.duration, _ms * 2600);
     });
 
     test('[AUD-01/AC2] start is refused while a call rings: the microphone is '
@@ -229,20 +230,21 @@ void main() {
       () async {
         final rig = CaptureRig(chunkDuration: const Duration(seconds: 1));
         expectOk(await rig.controller.start(StartSource.inAppButton));
-        rig.speak(_ms * 1100);
+        rig.speak(_ms * 2100);
         rig.guard.emit(
           CallGuardSignal.callActive,
           rig.clock.now().subtract(_ms * 600),
         );
         await rig.settle();
         final id = rig.backend.recordingId!;
-        // 1100 − 600 − 250 = 250 ms kept; the post-rollover chunk is gone.
+        // 2100 − 600 − 1000 = 500 ms kept (margin covers the 500 ms Android
+        // call poll: [SEC-09/AC3]); the post-rollover chunk is gone.
         final chunks = await rig.chunks(id);
         expect(
           [for (final c in chunks) (c.seq, c.startMs, c.endMs)],
-          [(0, 0, 250)],
+          [(0, 0, 500)],
         );
-        expect(await rig.recordedSamples(id), hasLength(_n(250)));
+        expect(await rig.recordedSamples(id), hasLength(_n(500)));
         expect(
           rig.dir.listSync(recursive: true).whereType<Object>(),
           isNotEmpty,
@@ -418,5 +420,13 @@ void main() {
       );
       await rig.controller.stop();
     });
+  });
+
+  test('[SEC-09/AC3] the default discard margin covers the Android call poll '
+      'interval plus delivery latency', () {
+    expect(
+      RecordCaptureBackend.defaultDiscardMargin,
+      greaterThan(RecordCaptureBackend.androidCallPollInterval),
+    );
   });
 }

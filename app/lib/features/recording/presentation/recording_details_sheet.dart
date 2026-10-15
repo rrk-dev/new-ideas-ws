@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/features/recording/data/recording_screen_providers.dart';
@@ -78,6 +79,7 @@ class RecordingDetailsSheet extends ConsumerStatefulWidget {
     required this.initialSetup,
     this.stopCause,
     this.queued = false,
+    this.onQueued,
     super.key,
   });
 
@@ -86,6 +88,9 @@ class RecordingDetailsSheet extends ConsumerStatefulWidget {
   /// Already queued for processing (auto-process on); otherwise the sheet
   /// offers "Process now".
   final bool queued;
+
+  /// Called once the sheet itself queued the recording (Process now).
+  final VoidCallback? onQueued;
   final RecordingSetup initialSetup;
   final StopCause? stopCause;
 
@@ -108,16 +113,18 @@ class _RecordingDetailsSheetState extends ConsumerState<RecordingDetailsSheet> {
     super.dispose();
   }
 
+  Future<Result<void>> _persist() => ref
+      .read(recordingSessionServiceProvider)
+      .saveDetails(
+        widget.recordingId,
+        title: _title.text,
+        tags: RecordingSessionService.parseTags(_tags.text),
+        setup: _setup,
+      );
+
   Future<void> _save() async {
     setState(() => _saving = true);
-    await ref
-        .read(recordingSessionServiceProvider)
-        .saveDetails(
-          widget.recordingId,
-          title: _title.text,
-          tags: RecordingSessionService.parseTags(_tags.text),
-          setup: _setup,
-        );
+    await _persist();
     if (mounted) Navigator.of(context).pop();
   }
 
@@ -179,9 +186,13 @@ class _RecordingDetailsSheetState extends ConsumerState<RecordingDetailsSheet> {
                 icon: const Icon(Icons.play_arrow),
                 label: Text(l10n.detailsProcessNow),
                 onPressed: () async {
-                  final ok = await ref
-                      .read(recordingSessionServiceProvider)
-                      .processNow(widget.recordingId);
+                  final service = ref.read(recordingSessionServiceProvider);
+                  // The job must see the edited profile and destination.
+                  final saved = await _persist();
+                  final ok =
+                      saved is Ok &&
+                      await service.processNow(widget.recordingId);
+                  if (ok) widget.onQueued?.call();
                   if (mounted) setState(() => _queued = ok);
                 },
               ),

@@ -207,10 +207,8 @@ class _RecordScreenState extends ConsumerState<RecordScreen> {
   }
 
   Future<void> _showDetails(String id, StopCause? cause) async {
-    // Queue for processing per `processing.auto_process` (FND-05 pipeline);
-    // otherwise the sheet offers "Process now".
-    final queued = await ref.read(recordingSessionServiceProvider).finish(id);
-    if (!mounted) return;
+    final service = ref.read(recordingSessionServiceProvider);
+    var queued = false;
     await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
@@ -219,9 +217,12 @@ class _RecordScreenState extends ConsumerState<RecordScreen> {
         recordingId: id,
         stopCause: cause,
         initialSetup: _setup,
-        queued: queued,
+        onQueued: () => queued = true,
       ),
     );
+    // Auto-process only after the sheet saved the user's title, tags,
+    // profile and destination.
+    if (!queued) await service.finish(id);
     if (mounted) setState(() => _recordingId = null);
   }
 

@@ -154,10 +154,11 @@ void main() {
         await pumpEventQueue();
         expect(b.rig.controller.state.pauseCause, PauseCause.call);
         expect(b.indicator.current!.title, contains('call started'));
-        // 3000 − 250 ms safety margin; nothing from after the event.
+        // 3000 − 1000 ms safety margin (covers the 500 ms call poll).
+        // Nothing from after the event is kept.
         expect(
           await b.rig.recordedSamples(id),
-          hasLength(16000 * 2750 ~/ 1000),
+          hasLength(16000 * 2000 ~/ 1000),
         );
 
         // Resume tapped while the call is still active: refused, stays paused.

@@ -90,15 +90,18 @@ class TranscribeStep implements PipelineStep {
   );
 
   /// The installed VAD model when silence skipping is on, else null.
-  Future<String?> _vadModel() async {
+  Future<bool> _skipSilenceOn() async {
     final skip = await db.settingsRepository.get(
       SettingKeys.processingSkipSilence,
     );
-    final on = switch (skip) {
+    return switch (skip) {
       Ok(:final value) => value is! bool || value,
       Err() => true,
     };
-    if (!on) return null;
+  }
+
+  Future<String?> _vadModel() async {
+    if (!await _skipSilenceOn()) return null;
     final models = await db.modelsRepository
         .watchAll(type: ModelType.vad)
         .first;
