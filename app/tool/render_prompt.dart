@@ -17,6 +17,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:vaultvoice/features/extraction/domain/output_schema_validator.dart';
+import 'package:vaultvoice/features/profiles/domain/post_processing.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
 import 'package:vaultvoice/features/profiles/domain/prompt_builder.dart';
 import 'package:vv_native/vv_native.dart';
@@ -86,6 +87,11 @@ Future<void> main(List<String> argv) async {
               grammar!,
               profile,
               budget,
+              PostProcessContext.fromTranscriptLines(
+                builder.transcriptLines(c.segments, c.metadata),
+                recordedAt: c.metadata.recordedAt,
+                speakers: c.metadata.speakers,
+              ),
             ),
           );
         }
@@ -159,6 +165,7 @@ Future<Map<String, Object?>> _generate(
   String grammar,
   Profile profile,
   PromptBudget budget,
+  PostProcessContext postContext,
 ) async {
   final watch = Stopwatch()..start();
   final gen = llm.generate(
@@ -184,6 +191,10 @@ Future<Map<String, Object?>> _generate(
   return {
     'status': r.status,
     'output': output,
+    // What the app stores and renders: the profile's Dart post-processors
+    // applied to the valid model output (PRF-03/04/05).
+    if (issues.isEmpty && decoded is Map<String, Object?>)
+      'post_processed': applyPostProcessors(profile, decoded, postContext),
     'valid': issues.isEmpty,
     'issues': issues,
     'n_prompt': r.nPrompt,

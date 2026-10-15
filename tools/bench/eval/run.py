@@ -141,7 +141,8 @@ def render_report(profile, model, agg, perf, env, cases, diff, problems, targets
              f"- Date: {env['date']} · host: {env['host']} · backend: {env['backend']}",
              f"- Model sha256: `{env['model_sha256'][:16]}` · n_ctx {env['n_ctx']} · max_tokens "
              f"{env['max_tokens']} · sampling: extraction preset (grammar, temp 0.2, seed 42)",
-             f"- Commit: `{env['commit']}` · llama.cpp `{env['llama']}` · profile version {env['profile_version']}",
+             f"- Commit: `{env['commit']}` · llama.cpp `{env['llama']}` · profile version {env['profile_version']}"
+             f" · scored: {env.get('scored', 'raw')} output",
              f"- Cases: {agg['cases']} (synthetic TTS → whisper transcripts, `tools/bench/eval/{profile}/`)",
              f"- Wall time: {perf['wall_s']:.0f} s incl. model load + Dart compile · peak RSS: "
              f"{rss_text}",
@@ -208,6 +209,8 @@ def main() -> int:
     p.add_argument("--write-baseline", action="store_true")
     p.add_argument("--gate", action="store_true")
     p.add_argument("--out-dir", default=str(ROOT / "tools/bench/results"))
+    p.add_argument("--raw", action="store_true",
+                   help="score the raw model output instead of the post-processed result")
     p.add_argument("--from-results", help="score an existing results JSONL instead of running the model")
     args = p.parse_args()
 
@@ -239,6 +242,11 @@ def main() -> int:
             pred = json.loads(r.get("output") or "")
         except ValueError:
             pred = None
+        c["raw_output"] = pred
+        if not args.raw and isinstance(r.get("post_processed"), dict):
+            # Score what the app stores: Dart post-processors applied
+            # (serial normalization, owner mapping, …; PRF-03/04/05).
+            pred = r["post_processed"]
         c["output"] = pred
         c["score"] = scoring.score_case(c["expected"], pred if c["valid"] else None, c["transcript"], cfg)
     agg = scoring.aggregate(cases, cfg)
@@ -266,6 +274,7 @@ def main() -> int:
         "llama": subprocess.run(["git", "-C", str(ROOT / "native/llama.cpp"), "rev-parse", "--short", "HEAD"],
                                 capture_output=True, text=True).stdout.strip(),
         "profile_version": int(profile_version.group(1)) if profile_version else None,
+        "scored": "raw" if args.raw or not any("post_processed" in r for r in records) else "post-processed",
     }
     model_slug = re.sub(r"[^A-Za-z0-9.-]+", "-", Path(args.model).stem)
     baseline_path = Path(args.baseline) if args.baseline else EVAL / "baselines" / f"{args.profile}.{model_slug}.json"
@@ -283,7 +292,8 @@ def main() -> int:
     md.write_text(report, encoding="utf-8")
     raw = {"env": env, "perf": perf, "aggregate": agg,
            "cases": [{k: c[k] for k in ("id", "valid", "prompt_tokens", "latency_ms", "n_prompt", "n_gen",
-                                        "prefill_ms", "decode_ms", "output", "score", "issues")} for c in cases]}
+                                        "prefill_ms", "decode_ms", "raw_output", "output", "score", "issues")}
+                     for c in cases]}
     raw_path.write_text(json.dumps(raw, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     if args.write_baseline:
         baseline_path.parent.mkdir(parents=True, exist_ok=True)
