@@ -6,7 +6,7 @@ Date: 2026-10-14
 ## Question and constraints
 Sell annual `vv_pro_annual` and non-consumable `vv_pro_lifetime` without a
 backend, telemetry, content transmission or hard-coded production prices.
-iOS 16.4+, Android 26+, arm64; Flutter 3.47.7, Pigeon 29.0.8.
+iOS 16+, Android 26+, arm64; Flutter 3.47.7, Pigeon 29.0.8.
 
 ## Options and criteria
 Criteria chosen before implementation: privacy 40%, offline behavior 25%,

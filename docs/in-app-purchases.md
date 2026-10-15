@@ -36,7 +36,7 @@ via the file picker if it is not listed. Its 1.00 / 2.00 amounts are synthetic
 local testing data, unrelated to production prices. Enable interrupted/pending,
 renewal/expiry and refund simulations in Xcode's transaction manager. For real
 sandbox runs disable the local configuration and use TestFlight/store products.
-Minimum deployment target is iOS 16.4.
+Minimum deployment target is iOS 16.0 (project policy); confirm the StoreKit 2 calls compile and run on 16.0 devices.
 
 Apple Family Sharing is accepted for verified entitlements and should be enabled
 for eligible products in the console. Play family library does not share IAP.
