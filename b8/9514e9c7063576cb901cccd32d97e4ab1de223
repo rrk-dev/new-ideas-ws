@@ -1,0 +1,57 @@
+docs/test-plans/device/QA-02.md
+  s_9f6fcf8c1840a0::t_54e251406923a7 1-15
+tasks/11-quality/QA-02-stt-benchmark-corpus.md
+  s_9f6fcf8c1840a0::t_3d50920f565d16 4,11-15,19-46
+tools/bench/corpus/corpus.jsonl
+  s_9f6fcf8c1840a0::t_47c560ea9f0506 1-48
+tools/bench/corpus/librispeech-test-clean.jsonl
+  s_9f6fcf8c1840a0::t_a8c5531960918f 1-40
+tools/bench/corpus/make_corpus.py
+  s_9f6fcf8c1840a0::t_0cf6a81e8336f9 1-209
+tools/bench/corpus/scripts/accent-au-travel.txt
+  s_9f6fcf8c1840a0::t_0db54b37dee71d 1-4
+tools/bench/corpus/scripts/accent-in-standup.txt
+  s_9f6fcf8c1840a0::t_75d34167189f33 1-4
+tools/bench/corpus/scripts/engineering-brainstorm.txt
+  s_9f6fcf8c1840a0::t_5d307f4f2a35a5 1-5
+tools/bench/corpus/scripts/meeting-customer.txt
+  s_9f6fcf8c1840a0::t_35fda2cf67e118 1-6
+tools/bench/corpus/scripts/meeting-sprint.txt
+  s_9f6fcf8c1840a0::t_408e9000b6bf30 1-7
+tools/bench/corpus/scripts/notes-grocery.txt
+  s_9f6fcf8c1840a0::t_a31ee4ee7722e9 1-4
+tools/bench/corpus/scripts/notes-recipe.txt
+  s_9f6fcf8c1840a0::t_cd0f8775bbe5a6 1-5
+tools/bench/corpus/scripts/warranty-receipt.txt
+  s_9f6fcf8c1840a0::t_195bf9f085b9f9 1-4
+tools/bench/results/2026-10-14-qa02-stt-wer.jsonl
+  s_9f6fcf8c1840a0::t_55520deba05890 1-537
+tools/bench/results/2026-10-14-qa02-stt-wer.md
+  s_9f6fcf8c1840a0::t_313cc1bfbedf7c 1-53
+tools/bench/stt_wer/audio.py
+  s_9f6fcf8c1840a0::t_eb2b1ad50b5da7 1-130
+tools/bench/stt_wer/bridge.py
+  s_9f6fcf8c1840a0::t_1c5f7241a27dea 1-135
+tools/bench/stt_wer/run.py
+  s_9f6fcf8c1840a0::t_5dd46b41d2f6b2 1-364
+tools/bench/stt_wer/wer.py
+  s_9f6fcf8c1840a0::t_1f3b273af0bf24 1-113
+tools/ci/tests/test_stt_wer_harness.py
+  s_9f6fcf8c1840a0::t_b14d214475dce9 1-78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b89514e9c7063576cb901cccd32d97e4ab1de223",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
