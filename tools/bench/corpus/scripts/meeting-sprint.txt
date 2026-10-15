@@ -1,0 +1,7 @@
+# meeting: three speakers, sprint planning with owners and dates.
+Reed|Okay everyone, let's get started with the sprint planning. The main goal this sprint is to finish the export feature and fix the login crash.
+Daniel|I can take the login crash. I already found that it happens when the session token expires during the upload, so I should have a fix by Wednesday.
+Karen|For the export feature, the template engine is done, but we still need the folder picker on Android. I will pair with Priya on that and aim for Thursday.
+Reed|Great. Daniel, please also update the release notes once your fix is merged. And Karen, can you send the design review invite for Monday at ten?
+Karen|Sure, I will send it this afternoon.
+Reed|Perfect. Let's meet again on Friday to check the progress. Thanks everyone.
