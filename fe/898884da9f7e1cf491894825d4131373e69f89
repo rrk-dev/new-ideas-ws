@@ -1,0 +1,80 @@
+app/test/unit/transcription/whisper_stt_lifecycle_test.dart
+  s_c1515c206a4fe2::t_d34fd034dc677b 1-85
+  s_c1515c206a4fe2::t_976c0dc57c7d44 86-88
+app/lib/features/extraction/data/preview_llm_engine.dart
+  s_c1515c206a4fe2::t_eb1a9ec04416f9 20,40,43-47,54-69,76,78-92,94,117
+app/lib/features/extraction/domain/long_transcript/map_reduce_extractor.dart
+  s_c1515c206a4fe2::t_0af26e03a059e5 302,310,322-324
+app/lib/features/extraction/domain/long_transcript/transcript_chunker.dart
+  s_c1515c206a4fe2::t_972b80a63774e7 1-2,174,177-200
+app/lib/features/pipeline/data/active_engines.dart
+  s_c1515c206a4fe2::t_c907ac1e03f0e0 103-106
+app/lib/features/pipeline/data/active_models_publisher.dart
+  s_c1515c206a4fe2::t_345d563d269f4a 81
+app/lib/features/pipeline/data/production_engines.dart
+  s_c1515c206a4fe2::t_ca4ff192501489 30,162,239
+app/lib/features/pipeline/domain/active_models.dart
+  s_c1515c206a4fe2::t_6382ccf78916e8 31,37-40,43-46,145-146,150-159
+app/lib/features/pipeline/domain/heavy_model_gate.dart
+  s_c1515c206a4fe2::t_c377b6c0364dec 9-13,25-27,50-58
+app/lib/features/pipeline/domain/preview_lease.dart
+  s_c1515c206a4fe2::t_029457aab459ba 1-32
+app/lib/features/pipeline/presentation/processing_services_host.dart
+  s_c1515c206a4fe2::t_d78fdeff824192 6,83-89
+app/lib/features/recording/data/record_capture_backend.dart
+  s_c1515c206a4fe2::t_752789462f1d33 159,185,208-212,225-227,265,276
+app/lib/features/recording/data/recording_chunk_writer.dart
+  s_c1515c206a4fe2::t_6772ab78a7b14f 140-144
+app/lib/features/recording/domain/capture_backend.dart
+  s_c1515c206a4fe2::t_cfbab22d74fe4a 78-83,91-92
+app/lib/features/recording/domain/recording_controller.dart
+  s_c1515c206a4fe2::t_b20ff083ba29dd 151-153,156,198-200,202-205,333-335
+app/lib/features/recording/presentation/call_guard_debug_screen.dart
+  s_c1515c206a4fe2::t_c1a8c3df0030ed 140-141,150-151
+app/lib/features/transcription/data/whisper_stt_engine.dart
+  s_c1515c206a4fe2::t_0210b328141ed5 4,15-21,41-43,59,62-63,127-148,159,182,194-203,223
+app/test/fakes/fake_capture_backend.dart
+  s_c1515c206a4fe2::t_dbaebc0d65635e 52,55-58,75,82-84
+app/test/unit/extraction/long_transcript_test.dart
+  s_c1515c206a4fe2::t_c273c4a875d9d3 253-262
+app/test/unit/extraction/preview_lifecycle_test.dart
+  s_c1515c206a4fe2::t_3b47a7654046f2 1-38
+app/test/unit/integration/wave3_wiring_test.dart
+  s_c1515c206a4fe2::t_0fcd5b1a27571b 20,22-23,205-234
+app/test/unit/pipeline/active_models_test.dart
+  s_c1515c206a4fe2::t_ea60fea223e39f 60-65,133-169
+app/test/unit/recording/record_capture_backend_test.dart
+  s_c1515c206a4fe2::t_0d7fd245ba0a05 292-312
+app/test/unit/recording/recording_controller_test.dart
+  s_c1515c206a4fe2::t_8197baf3ebcc76 103-123
+tasks/01-foundation/FND-08-background-processing-guardrails.md
+  s_c1515c206a4fe2::t_8b939c274f966b 53
+tasks/01-foundation/FND-11-production-engine-wiring.md
+  s_c1515c206a4fe2::t_a2a063851fb557 95
+tasks/02-audio/AUD-01-recording-service.md
+  s_c1515c206a4fe2::t_9bbe64f8c819a9 58
+tasks/03-stt/STT-03-whisper-dart-ffi-binding.md
+  s_c1515c206a4fe2::t_4c9e5d6d081a9d 120
+tasks/03-stt/STT-07-stt-model-variants-language.md
+  s_c1515c206a4fe2::t_113c0b41362e2d 64
+tasks/04-llm/LLM-04-llm-dart-ffi-engine.md
+  s_c1515c206a4fe2::t_c20e6a0a9fac5a 37
+tasks/04-llm/LLM-06-long-transcript-map-reduce.md
+  s_c1515c206a4fe2::t_f538f1bb2e29b8 35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fe898884da9f7e1cf491894825d4131373e69f89",
+  "prompts": {},
+  "sessions": {
+    "s_c1515c206a4fe2": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "5ded3ed9-1ed5-495a-bc36-4f8e1b98b7a3",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
