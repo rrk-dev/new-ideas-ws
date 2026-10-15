@@ -1,7 +1,7 @@
 # REL-04 — Beta Program (TestFlight / Play Testing)
 
 **Workstream:** Release | **Phase:** 3–4 | **Size:** S | **Depends on:** REL-01 | **Source:** Gap
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-ci-release
 
 ## Goal
