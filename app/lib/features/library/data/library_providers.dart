@@ -15,6 +15,7 @@ import 'package:vaultvoice/features/pipeline/data/pipeline_providers.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_progress.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/profiles/data/profile_providers.dart';
+import 'package:vaultvoice/features/retention/data/retention_providers.dart';
 
 part 'library_providers.g.dart';
 
@@ -298,10 +299,13 @@ Stream<List<ActionItemView>> actionItems(Ref ref, {required bool openOnly}) {
 Future<RecordingDeleter> recordingDeleter(Ref ref) async {
   final db = ref.watch(vaultVoiceDatabaseProvider);
   final paths = await ref.watch(storagePathsProvider.future);
+  // SEC-04's secure purger does the row/FTS/file deletion (integration W3).
+  final purger = await ref.watch(recordingPurgerProvider.future);
   return LocalRecordingDeleter(
     db: db,
     paths: paths,
     writerFor: (target) => writerForTarget(ref, target),
+    purger: purger,
     stopJobs: (jobIds) async {
       if (jobIds.isEmpty) return;
       try {

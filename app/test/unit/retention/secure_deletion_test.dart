@@ -107,7 +107,9 @@ void main() {
     expect(Directory(paths.audioDir('r2')).listSync(), hasLength(2));
     expect(Directory(paths.workDir(otherJob)).existsSync(), isTrue);
     expect(File(paths.renderedFile('r2')).existsSync(), isTrue);
-    expect((await rowsReferencing(db, 'r2'))['search_index'], 1);
+    // Integration W3: APP-02's triggers index title, segments and the
+    // extraction, so r2 has several rows — all still there.
+    expect((await rowsReferencing(db, 'r2'))['search_index'], greaterThan(0));
 
     // No file in the container holds r1's content (DB + WAL encrypted,
     // files gone).
@@ -145,7 +147,7 @@ void main() {
     expect(rows['audio_chunks'], 0);
     expect(rows['speech_segments'], 0);
     expect(rows['transcripts'], 1);
-    expect(rows['search_index'], 1);
+    expect(rows['search_index'], greaterThan(0));
     expect(Directory(paths.audioDir('r1')).existsSync(), isFalse);
     expect(File(paths.renderedFile('r1')).existsSync(), isTrue);
 
@@ -159,7 +161,11 @@ void main() {
     expect(rows['speakers'], 0);
     expect(rows['extractions'], 0);
     expect(rows['action_items'], 0);
-    expect(rows['search_index'], 0);
+    // Only the title row (title + tags) of the kept recording is left.
+    final kinds = await db
+        .customSelect("SELECT kind FROM search_index WHERE recording_id = 'r2'")
+        .get();
+    expect(kinds.map((r) => r.read<String>('kind')).toSet(), {'title'});
     expect(File(paths.renderedFile('r2')).existsSync(), isFalse);
     expect(Directory(paths.audioDir('r2')).listSync(), hasLength(2));
   });

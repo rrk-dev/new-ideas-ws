@@ -8,6 +8,7 @@ import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
 import 'package:vaultvoice/features/library/data/recording_deleter.dart';
+import 'package:vaultvoice/features/retention/data/recording_purger.dart';
 
 import '../fakes/fake_vault_writer.dart';
 import 'db_test_utils.dart';
@@ -222,5 +223,46 @@ void main() {
     expect(r.notesDeleted, 0);
     expect(r.notesKept, 1);
     expect(await rowsFor('r1'), 0);
+  });
+
+  test('integration W3 (APP-02 ↔ SEC-04): with the secure purger the same '
+      'deletion leaves no rows, FTS entries or files; the exported-note '
+      'step still runs first', () async {
+    final secure = LocalRecordingDeleter(
+      db: db,
+      paths: paths,
+      writerFor: (target) => target.id == 'v1' ? vault : null,
+      stopJobs: (ids) async => stopped.addAll(ids),
+      purger: RecordingPurger(db, paths),
+    );
+    await seedProcessed('r1');
+    await seedProcessed('r2', note: 'Notes/b.md');
+    final r = expectOk(await secure.delete('r1', deleteExportedNotes: true));
+    expect(r.notesDeleted, 1);
+    expect(vault.notes.containsKey('Notes/a.md'), isFalse);
+    expect(await rowsFor('r1'), 0);
+    expect(anyFileFor('r1'), isFalse);
+    expect(stopped, ['j-r1']);
+    expect(await rowsFor('r2'), greaterThan(8), reason: 'r2 untouched');
+    expect(anyFileFor('r2'), isTrue);
+  });
+
+  test('integration W3: the secure deleter retries while a cancelled step '
+      'is still running, then reports the failure', () async {
+    await seedProcessed('r1');
+    await (db.update(db.jobs)..where((j) => j.id.equals('j-r1'))).write(
+      const JobsCompanion(status: Value('transcribing')),
+    );
+    final secure = LocalRecordingDeleter(
+      db: db,
+      paths: paths,
+      writerFor: (target) => vault,
+      stopJobs: (ids) async {},
+      purger: RecordingPurger(db, paths),
+      retryDelay: Duration.zero,
+    );
+    final r = await secure.delete('r1', deleteExportedNotes: false);
+    expect(r.isOk, isFalse);
+    expect(await rowsFor('r1'), greaterThan(0), reason: 'nothing deleted');
   });
 }

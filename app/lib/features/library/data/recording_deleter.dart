@@ -6,6 +6,7 @@ import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
+import 'package:vaultvoice/features/retention/data/recording_purger.dart';
 import 'package:vaultvoice/features/review/domain/review_policy.dart';
 
 /// What a deletion did to the exported notes.
@@ -43,6 +44,8 @@ class LocalRecordingDeleter implements RecordingDeleter {
     required this._paths,
     required this._writerFor,
     required this._stopJobs,
+    this._purger,
+    this._retryDelay = const Duration(milliseconds: 200),
   });
 
   final VaultVoiceDatabase _db;
@@ -52,6 +55,13 @@ class LocalRecordingDeleter implements RecordingDeleter {
   /// Cancels the recording's jobs still in the pipeline (so no step writes
   /// outputs for a recording that no longer exists).
   final Future<void> Function(List<String> jobIds) _stopJobs;
+
+  /// SEC-04 secure purger (integration W3): when set, rows, FTS entries and
+  /// files are removed by [RecordingPurger.purge] (one transaction with
+  /// `secure_delete`, WAL truncated, files after the commit) instead of the
+  /// plain deletion below. The exported-note step stays here.
+  final RecordingPurger? _purger;
+  final Duration _retryDelay;
 
   @override
   Future<Result<RecordingDeletion>> delete(
@@ -94,6 +104,24 @@ class LocalRecordingDeleter implements RecordingDeleter {
     }
 
     await _stopJobs([for (final j in jobs) j.id]);
+    if (_purger case final purger?) {
+      final approvals = await guardDb(() async {
+        // APP-05 review approvals of its extractions (settings rows).
+        for (final e in extractions) {
+          await _db.settingsRepository.remove(ReviewKeys.approved(e.id));
+        }
+      });
+      if (approvals case Err(:final failure)) return Err(failure);
+      // A cancelled step may still be finishing: the purger refuses while a
+      // step runs, so retry briefly before giving up.
+      var purged = await purger.purge(recordingId);
+      for (var i = 0; i < 10 && purged is Err; i++) {
+        await Future<void>.delayed(_retryDelay);
+        purged = await purger.purge(recordingId);
+      }
+      if (purged case Err(:final failure)) return Err(failure);
+      return Ok(RecordingDeletion(notesDeleted: deleted, notesKept: kept));
+    }
     final rows = await guardDb(
       () => _db.transaction(() async {
         await _db.customStatement(

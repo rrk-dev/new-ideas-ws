@@ -69,9 +69,18 @@ class RecordingPurger {
     }
     final rows = await guardDb(() async {
       await db.transaction(() async {
-        if (scope != PurgeScope.audio && hasFts) {
+        // APP-02's triggers also maintain the index; deleting explicitly
+        // keeps this correct whatever the trigger set. The transcripts scope
+        // keeps the `title` row (title + tags of a recording that stays).
+        if (scope == PurgeScope.all && hasFts) {
           await db.customStatement(
             'DELETE FROM $kSearchIndexTable WHERE recording_id = ?',
+            [id],
+          );
+        } else if (scope == PurgeScope.transcripts && hasFts) {
+          await db.customStatement(
+            'DELETE FROM $kSearchIndexTable '
+            "WHERE recording_id = ? AND kind <> 'title'",
             [id],
           );
         }
