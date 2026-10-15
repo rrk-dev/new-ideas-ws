@@ -1,0 +1,46 @@
+tools/ci/size_check.sh
+  s_9f6fcf8c1840a0::t_2471706ca8c198 1-6,12-16,20-23
+  s_9f6fcf8c1840a0::t_07f29b4ba1c3dd 24
+  s_9f6fcf8c1840a0::t_e0388b07dc9327 7-11,18-19
+  s_9f6fcf8c1840a0::t_653ca59aac0f1f 17
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_9f6fcf8c1840a0::t_d8f09c49f2e7a9 398-399,454-455,768-769,826-827
+  s_9f6fcf8c1840a0::t_0ad3290cbc8391 379,435,747,805
+tools/ci/size-budget.json
+  s_9f6fcf8c1840a0::t_08d4187ccdaf51 1-8,11-15,18-19
+  s_9f6fcf8c1840a0::t_24f1cde1ce29d5 9-10,16-17
+native/build.sh
+  s_9f6fcf8c1840a0::t_8ff55709125a36 103-112
+tools/ci/tests/test_size_check.py
+  s_9f6fcf8c1840a0::t_4ded58ffa93323 1-100
+tools/bench/results/2026-10-14-rel03-size.md
+  s_9f6fcf8c1840a0::t_73db72c969f62a 1-47
+docs/test-plans/device/REL-03.md
+  s_9f6fcf8c1840a0::t_fa087c3d2c4d81 1-15
+tasks/12-release/REL-03-app-size-optimization.md
+  s_9f6fcf8c1840a0::t_98309f295e73d0 4,11-14,18-46
+app/android/app/build.gradle.kts
+  s_9f6fcf8c1840a0::t_ffa7008034967b 77-80
+  s_9f6fcf8c1840a0::t_8124f518521377 69-74
+tools/ci/size_check.py
+  s_9f6fcf8c1840a0::t_08d4187ccdaf51 1-20,22-112,116-176
+  s_9f6fcf8c1840a0::t_24f1cde1ce29d5 21,113-115
+native/VERSIONS.md
+  s_9f6fcf8c1840a0::t_fa91d252e7d543 33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "92cddad64850a380beeeedf29eedc6d464e58b36",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
