@@ -75,6 +75,12 @@ final class _Prompts implements ExtractionPromptSource {
       'You extract structured data from transcripts. Output JSON only.';
 
   @override
+  String get chunkSystemPrompt => systemPrompt;
+
+  @override
+  String transcript(List<TranscriptLine> lines) => transcriptBlock(lines);
+
+  @override
   String singleUser(String block, {required bool withExamples}) =>
       '$block\nReturn the JSON now.';
 
@@ -139,6 +145,7 @@ PipelineOrchestrator _orchestrator(
                   lines, {
                   required modelId,
                   required maxTokens,
+                  metadata,
                 }) async => LongExtractionInput(
                   lines: lines,
                   prompts: _Prompts(),

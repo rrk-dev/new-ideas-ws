@@ -10,6 +10,7 @@ import 'package:vaultvoice/features/pipeline/domain/heavy_model_gate.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
+import 'package:vaultvoice/features/profiles/domain/prompt_inputs.dart';
 
 /// Engine configuration the pipeline uses until the owning tasks provide
 /// richer settings (STT-07 model variants, PRF-01 profiles, EXP-03/04
@@ -76,6 +77,9 @@ abstract interface class ExtractionStrategy {
 
     /// The step's resolved model id (part of the map checkpoint key).
     required String modelId,
+
+    /// Recording metadata for the PRF-02 prompts.
+    PromptMetadata? metadata,
   });
 }
 

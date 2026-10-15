@@ -176,18 +176,19 @@ final class ProductionEngineSpec {
     final longTranscript = LongTranscriptStrategy(
       LongTranscriptExtraction(
         extractor: MapReduceExtractor(engine: llm, tokenizer: llm),
-        inputFor: (p, lines, {required modelId, required maxTokens}) async {
-          final grammars = (await registry.grammarsFor(p)).valueOrNull;
-          if (grammars == null) return null;
-          return LongExtractionInput(
-            lines: lines,
-            prompts: ProfilePromptSource(p),
-            spec: MapReduceSpec.fromProfile(p, grammars),
-            tier: tierForRam(native.value.deviceMemory.$1),
-            maxTokens: maxTokens,
-            paramsKey: '$modelId|${p.id}@${p.version}',
-          );
-        },
+        inputFor:
+            (p, lines, {required modelId, required maxTokens, metadata}) async {
+              final grammars = (await registry.grammarsFor(p)).valueOrNull;
+              if (grammars == null) return null;
+              return LongExtractionInput(
+                lines: lines,
+                prompts: ProfilePromptSource(p, metadata: metadata),
+                spec: MapReduceSpec.fromProfile(p, grammars),
+                tier: tierForRam(native.value.deviceMemory.$1),
+                maxTokens: maxTokens,
+                paramsKey: '$modelId|${p.id}@${p.version}',
+              );
+            },
       ),
     );
 

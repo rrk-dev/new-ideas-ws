@@ -215,12 +215,13 @@ final class MapReduceExtractor {
   ) async {
     final prompts = input.prompts;
     final system = prompts.systemPrompt;
+    final chunkSystem = prompts.chunkSystemPrompt;
     final ctx = await _ok(tokenizer.contextWindow());
     var lines = input.lines;
     var lineTokens = [
       for (final l in lines) await _ok(tokenizer.countTokens(l.render())),
     ];
-    final block = transcriptBlock(lines);
+    final block = prompts.transcript(lines);
     final single = await _ok(
       tokenizer.countPromptTokens(
         prompts.singleUser(block, withExamples: true),
@@ -241,8 +242,8 @@ final class MapReduceExtractor {
     );
     final mapOverhead = await _ok(
       tokenizer.countPromptTokens(
-        prompts.chunkUser(transcriptBlock(const []), emptyInfo),
-        systemPrompt: system,
+        prompts.chunkUser(prompts.transcript(const []), emptyInfo),
+        systemPrompt: chunkSystem,
       ),
     );
     final transcriptTokens = lineTokens.fold<int>(0, (a, b) => a + b);
@@ -308,7 +309,9 @@ final class MapReduceExtractor {
       var worst = 0;
       for (final c in chunks) {
         final n = await _ok(
-          tokenizer.countTokens(transcriptBlock(lines.sublist(c.start, c.end))),
+          tokenizer.countTokens(
+            prompts.transcript(lines.sublist(c.start, c.end)),
+          ),
         );
         if (n > worst) worst = n;
       }
@@ -351,7 +354,7 @@ final class MapReduceExtractor {
       if (cp!.results.containsKey(c.index)) continue;
       if (cancel?.isCancelled ?? false) return const Err(CancelledFailure());
       final chunkLines = lines.sublist(c.start, c.end);
-      final chunkBlock = transcriptBlock(chunkLines);
+      final chunkBlock = prompts.transcript(chunkLines);
       final info = ChunkInfo(
         index: c.index,
         count: chunks.length,
@@ -363,7 +366,7 @@ final class MapReduceExtractor {
       final out = await _ok(
         _extractor.extract(
           ExtractionRequest(
-            systemPrompt: system,
+            systemPrompt: chunkSystem,
             userPrompt: prompts.chunkUser(chunkBlock, info),
             schema: spec.mapSchema,
             grammar: spec.mapGrammar,
@@ -405,7 +408,8 @@ final class MapReduceExtractor {
         engine.generate(
           LlmRequest(
             prompt:
-                '${transcriptBlock(first)}\n\nWrite a short title on the '
+                '<transcript>\n${prompts.transcript(first)}\n</transcript>'
+                '\n\nWrite a short title on the '
                 'first line, then a 2–4 sentence summary.',
             systemPrompt: system,
             maxTokens: 300,

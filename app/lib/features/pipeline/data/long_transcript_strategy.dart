@@ -6,6 +6,7 @@ import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/extract_step.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
+import 'package:vaultvoice/features/profiles/domain/prompt_inputs.dart';
 
 /// Resolves the map-reduce input of one extraction: prompts, schemas and
 /// grammars of [profile], the device tier and the checkpoint params key.
@@ -16,6 +17,7 @@ typedef LongExtractionInputFor = Future<LongExtractionInput?> Function(
   List<TranscriptLine> lines, {
   required String modelId,
   required int maxTokens,
+  PromptMetadata? metadata,
 });
 
 /// LLM-06 extraction through [MapReduceExtractor] (token-budget plan, chunked
@@ -48,6 +50,7 @@ final class LongTranscriptStrategy implements ExtractionStrategy {
     required List<TranscriptSegmentRow> segments,
     required int maxTokens,
     required String modelId,
+    PromptMetadata? metadata,
   }) async {
     final lines = [
       for (final s in segments)
@@ -58,6 +61,7 @@ final class LongTranscriptStrategy implements ExtractionStrategy {
       lines,
       modelId: modelId,
       maxTokens: maxTokens,
+      metadata: metadata,
     );
     if (input == null) return null;
     final result = await long.extractor.extract(

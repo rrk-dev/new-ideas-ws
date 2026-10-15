@@ -10,13 +10,13 @@ import 'package:vaultvoice/core/platform/llm_engine.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_orchestrator.dart';
-import 'package:vaultvoice/features/pipeline/data/steps/extract_step.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/render_write_steps.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/step_support.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
 import 'package:vaultvoice/features/profiles/domain/builtin_profiles.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
+import 'package:vaultvoice/features/profiles/domain/prompt_builder.dart';
 import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 
 import '../../db/db_test_utils.dart';
@@ -95,7 +95,10 @@ void main() {
       expect((await loadJob(db, id)).state, JobState.done);
       final request = r.llm.requests.single;
       expect(request.grammar, 'root ::= "meeting"');
-      expect(request.systemPrompt, kInterimExtractionSystemPrompt);
+      // Integration W3: PRF-02 prompts replace FND-11's interim prompt.
+      expect(request.systemPrompt, startsWith(kExtractionSystemPrompt));
+      expect(request.systemPrompt, contains('Instructions:'));
+      expect(request.prompt, contains('Metadata:'));
       expect(request.prompt, contains('<transcript>\n[00:00:00] chunk_0'));
       final ext = expectOk(
         await db.extractionsRepository.get(extractionIdFor(id)),
@@ -309,6 +312,7 @@ class _Strategy implements ExtractionStrategy {
     required List<TranscriptSegmentRow> segments,
     required int maxTokens,
     required String modelId,
+    PromptMetadata? metadata,
   }) async {
     calls++;
     modelIds.add(modelId);
