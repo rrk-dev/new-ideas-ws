@@ -1,0 +1,67 @@
+app/lib/bootstrap.dart
+  s_9f6fcf8c1840a0::t_413d3e64a61bf7 28,92
+app/lib/core/db/connection.dart
+  s_9f6fcf8c1840a0::t_fe044bd444d4ad 30-32,36-37
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_2d30caea56750d 541
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_63d50161f480d7 2803-2808
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_50ddd815389504 1641-1644
+app/lib/core/security/database_key_rotation.dart
+  s_9f6fcf8c1840a0::t_a300e60dddee74 1-75
+app/lib/core/security/security_providers.dart
+  s_9f6fcf8c1840a0::t_6add27494a462e 1-2,8,66-70,74-78,88-95
+app/lib/core/security/security_providers.g.dart
+  s_9f6fcf8c1840a0::t_50e271e9dd6eef 105-151
+app/lib/core/security/sqlite3mc_cipher.dart
+  s_9f6fcf8c1840a0::t_09ac483e5af6b0 16-25,31-35,49-50,56-72,76-80
+app/lib/features/retention/data/recording_purger.dart
+  s_9f6fcf8c1840a0::t_902c575a5c219f 1-202
+app/lib/features/retention/data/retention_providers.dart
+  s_9f6fcf8c1840a0::t_1aab621891eddf 1-161
+app/lib/features/retention/data/retention_providers.g.dart
+  s_9f6fcf8c1840a0::t_188cdbf18216ab 1-190
+app/lib/features/retention/data/retention_sweeper.dart
+  s_9f6fcf8c1840a0::t_0c48d6b9512059 1-171
+app/lib/features/retention/data/secure_data_wiper.dart
+  s_9f6fcf8c1840a0::t_8c338b3f9ba337 1-128
+app/lib/features/retention/domain/retention_policy.dart
+  s_9f6fcf8c1840a0::t_c9962fb1c9b377 1-62
+app/lib/features/retention/presentation/retention_host.dart
+  s_9f6fcf8c1840a0::t_2edce86608b0f2 1-18
+app/lib/features/settings/presentation/settings_providers.dart
+  s_9f6fcf8c1840a0::t_6da6ad333f7f54 8,34,36
+app/lib/features/settings/presentation/settings_providers.g.dart
+  s_9f6fcf8c1840a0::t_73421db563a643 198,203,208,242
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9f6fcf8c1840a0::t_9d16cbe5ea0ecf 4-5,235-240
+app/test/unit/retention/delete_all_data_test.dart
+  s_9f6fcf8c1840a0::t_8ec406df610ed3 1-206
+app/test/unit/retention/retention_fixtures.dart
+  s_9f6fcf8c1840a0::t_3975330eb7c130 1-210
+app/test/unit/retention/retention_test.dart
+  s_9f6fcf8c1840a0::t_e7d3feaa3ff844 1-237
+app/test/unit/retention/secure_deletion_test.dart
+  s_9f6fcf8c1840a0::t_980b9598fe37d8 1-229
+app/test/widget/settings_screen_test.dart
+  s_9f6fcf8c1840a0::t_1fcf7af7eed218 57-66,250,253-256,278-279
+tasks/10-security-privacy/SEC-04-data-retention-secure-deletion.md
+  s_9f6fcf8c1840a0::t_35ac124fd5e1a2 4,11-14,18-47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bac7af7e59f8efb0c2832340e4ec8dacbd14e0b0",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
