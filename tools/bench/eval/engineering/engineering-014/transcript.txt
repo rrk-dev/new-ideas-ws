@@ -1,0 +1,5 @@
+[00:00:00] Kofi: We need feature flags for the new editor.
+[00:00:03] Lena: We could build a small flag service, or use a config file shipped with the app.
+[00:00:08] Kofi: A config file can't change without a release.
+[00:00:11] Lena: Then a small flag service with a local cache.
+[00:00:14] Kofi: Agreed, I'll design the flag service API, get/flags.

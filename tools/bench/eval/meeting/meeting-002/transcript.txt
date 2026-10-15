@@ -1,0 +1,4 @@
+[00:00:00] Lena: This is just a status update, no decisions today.
+[00:00:04] Omar: The payment's migration is about half done.
+[00:00:08] Mei: Support tickets dropped by 10% this week.
+[00:00:10] Lena: Good to hear, let's meet again next week.

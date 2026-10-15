@@ -1,0 +1,5 @@
+[00:00:00] Hana: We have three candidates for the back-end role.
+[00:00:03] Tomas: I like the second candidate at most.
+[00:00:06] Hana: Me too, we'll make an offer to the second candidate.
+[00:00:09] Tomas: I'll call the recruiter tomorrow morning.
+[00:00:12] Hana: Should we keep the other two in the pipeline?

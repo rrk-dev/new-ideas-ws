@@ -1,0 +1,12 @@
+[00:00:00] Nadia: Let's go through the mobile roadmap.
+[00:00:03] Ravi: First item is widgets.
+[00:00:05] Ravi: Users ask for them a lot.
+[00:00:07] Nadia: Widgets are planned for the summer release.
+[00:00:09] Ravi: Second is tablet layouts.
+[00:00:11] Nadia: We post phone tablet layouts to next year.
+[00:00:14] Ravi: Third is accessibility fixes.
+[00:00:18] Nadia: Accessibility fixes go into every release from now on.
+[00:00:21] Ravi: I'll create a backlog of accessibility issues by next Monday.
+[00:00:25] Nadia: I'll share the roadmap with leadership on Thursday.
+[00:00:28] Ravi: Do we have budget for an external accessibility audit?
+[00:00:32] Nadia: I don't know yet.

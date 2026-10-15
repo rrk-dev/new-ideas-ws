@@ -1,0 +1,21 @@
+{
+  "title": "Export help article",
+  "summary": "Lena confirmed that the export includes archived notes and will update the help article this week.",
+  "attendees": [
+    "Lena",
+    "Sam"
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "task": "Update the help article",
+      "owner": "Lena",
+      "due": "this week",
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "export"
+  ]
+}

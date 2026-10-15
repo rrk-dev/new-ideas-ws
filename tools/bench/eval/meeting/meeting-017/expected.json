@@ -1,0 +1,25 @@
+{
+  "title": "Sprint retrospective",
+  "summary": "The new review process went well while late design changes caused problems. The team agreed to freeze designs one week before each sprint and Aisha will add the rule to the team handbook.",
+  "attendees": [
+    "Diego",
+    "Aisha",
+    "Ravi"
+  ],
+  "decisions": [
+    "Freeze designs one week before each sprint"
+  ],
+  "action_items": [
+    {
+      "task": "Write the design freeze rule into the team handbook",
+      "owner": "Aisha",
+      "due": null,
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "review process",
+    "design changes"
+  ]
+}

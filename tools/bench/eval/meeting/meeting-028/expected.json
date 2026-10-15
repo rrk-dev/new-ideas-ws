@@ -1,0 +1,27 @@
+{
+  "title": "Style guide",
+  "summary": "Lena owns the style guide and will publish the first version by the end of next week. Omar will present it at the all hands.",
+  "attendees": [
+    "Omar",
+    "Lena"
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "task": "Publish the first version of the style guide",
+      "owner": "Lena",
+      "due": "end of next week",
+      "t": null
+    },
+    {
+      "task": "Present the style guide at the all hands",
+      "owner": "Omar",
+      "due": null,
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "style guide"
+  ]
+}

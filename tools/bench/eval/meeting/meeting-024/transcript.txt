@@ -1,0 +1,6 @@
+[00:00:00] Tomas: We found an outdated library with a known vulnerability.
+[00:00:03] Kofi: I'll upgrade it to day and ship a patch.
+[00:00:07] Tomas: We also need to rotate the API secrets.
+[00:00:10] Kofi: Who should rotate the secrets?
+[00:00:12] Kofi: I don't have access.
+[00:00:14] Tomas: I'll rotate them myself tomorrow.

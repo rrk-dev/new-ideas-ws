@@ -1,0 +1,15 @@
+{
+  "product": "tablet",
+  "brand": "Tailspin",
+  "model": "Tab 10",
+  "serial_number": "RT105532",
+  "purchase_date": "yesterday",
+  "retailer": "Wingtip Refurb",
+  "price": "150 dollars",
+  "warranty_period": {
+    "value": 12,
+    "unit": "weeks"
+  },
+  "support_contacts": [],
+  "notes": "Refurbished."
+}

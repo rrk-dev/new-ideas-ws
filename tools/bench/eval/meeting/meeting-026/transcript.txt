@@ -1,0 +1,4 @@
+[00:00:00] Mei: I'm going on leave, so I'm handing over the billing project to you, Diego.
+[00:00:05] Diego: Okay, what's left?
+[00:00:08] Mei: The invoice template and the tax report.
+[00:00:10] Diego: I'll finish the invoice template this week and the tax report next week.

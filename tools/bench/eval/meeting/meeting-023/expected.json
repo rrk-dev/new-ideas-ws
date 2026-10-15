@@ -1,0 +1,32 @@
+{
+  "title": "Company offsite planning",
+  "summary": "The team chose the city hotel for the company offsite because the lake venue is too far for some. Omar will book it by Friday and Hana will collect dietary needs.",
+  "attendees": [
+    "Aisha",
+    "Diego",
+    "Hana",
+    "Omar",
+    "Priya"
+  ],
+  "decisions": [
+    "Book the city hotel for the offsite"
+  ],
+  "action_items": [
+    {
+      "task": "Book the city hotel",
+      "owner": "Omar",
+      "due": "Friday",
+      "t": null
+    },
+    {
+      "task": "Collect dietary needs from everyone",
+      "owner": "Hana",
+      "due": null,
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "company offsite"
+  ]
+}

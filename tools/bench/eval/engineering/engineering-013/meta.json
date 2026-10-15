@@ -1,0 +1,29 @@
+{
+  "id": "engineering-013",
+  "profile": "engineering",
+  "date": "2026-03-02T14:00:00",
+  "diarization": true,
+  "synthetic": true,
+  "tags": [
+    "database-migration"
+  ],
+  "speakers": [
+    {
+      "label": "S1",
+      "name": "Aisha",
+      "voice": "Samantha"
+    },
+    {
+      "label": "S2",
+      "name": "Diego",
+      "voice": "Daniel"
+    }
+  ],
+  "duration_s": 20.31,
+  "asr": {
+    "engine": "whisper.cpp d1be6fde",
+    "model": "ggml-base.en-q8_0.bin",
+    "model_sha256": "a4d4a0768075e13c",
+    "tts": "say"
+  }
+}

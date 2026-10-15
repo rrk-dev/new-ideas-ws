@@ -1,0 +1,42 @@
+{
+  "title": "Offline conflict resolution",
+  "context": "Offline mode needs conflict resolution.",
+  "concepts": [
+    "field level merge",
+    "last write wins"
+  ],
+  "api_designs": [],
+  "tradeoffs": [
+    {
+      "option": "Last write wins",
+      "pros": [
+        "easy"
+      ],
+      "cons": [
+        "can lose data"
+      ]
+    },
+    {
+      "option": "Field by field merge",
+      "pros": [
+        "keeps more data"
+      ],
+      "cons": [
+        "complex"
+      ]
+    }
+  ],
+  "decisions": [
+    "Field level merge for notes, last write wins elsewhere"
+  ],
+  "todos": [
+    {
+      "task": "Write the merge function for notes",
+      "owner": "Kofi",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "What happens when both sides delete?"
+  ]
+}

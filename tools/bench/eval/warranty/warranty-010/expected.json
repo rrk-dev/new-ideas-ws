@@ -1,0 +1,15 @@
+{
+  "product": "television",
+  "brand": "Litware",
+  "model": "Vision 55",
+  "serial_number": null,
+  "purchase_date": "January fifth",
+  "retailer": "Adventure Electronics",
+  "price": "899 euros",
+  "warranty_period": {
+    "value": 2,
+    "unit": "years"
+  },
+  "support_contacts": [],
+  "notes": "Bought a three year extended warranty for 99 euros."
+}

@@ -1,0 +1,4 @@
+[00:00:00] Nadia: Kofi, please book the conference room for the workshop.
+[00:00:04] Kofi: Sure, I'll book it.
+[00:00:06] Nadia: Actually, scratch that, the workshop will be remote.
+[00:00:10] Kofi: Then I'll send a video call link to everyone instead, today.

@@ -1,0 +1,4 @@
+[00:00:00] New phone, Litware 15, 256GB.
+[00:00:05] Serial L, O, 5, 2, 2, 8, 3, 6.
+[00:00:11] Bought at Adventure Mobile on March 3rd for $699.
+[00:00:17] Warranty is one year, and the store adds another year.

@@ -1,0 +1,4 @@
+[00:00:00] New bicycle from Wingtip Cycles, the commuter 7 model.
+[00:00:04] Frame number is W, C, 7, 7, 3, 0, 0, 8.
+[00:00:11] Paid $740 at Wingtip Cycles downtown on April 2.
+[00:00:16] Frame warranty is 5 years.

@@ -1,0 +1,29 @@
+{
+  "title": "Mobile storage choice",
+  "context": "Choosing between a local database and plain files for the mobile app.",
+  "concepts": [],
+  "api_designs": [],
+  "tradeoffs": [
+    {
+      "option": "Local database",
+      "pros": [
+        "queries",
+        "migrations"
+      ],
+      "cons": []
+    },
+    {
+      "option": "Files",
+      "pros": [
+        "simpler",
+        "easier to back up"
+      ],
+      "cons": []
+    }
+  ],
+  "decisions": [],
+  "todos": [],
+  "open_questions": [
+    "Should the mobile app use a local database or files?"
+  ]
+}

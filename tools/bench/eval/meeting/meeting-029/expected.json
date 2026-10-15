@@ -1,0 +1,27 @@
+{
+  "title": "Board meeting preparation",
+  "summary": "The board meeting is on March twentieth. Tomas will prepare the slides by March eighteenth and Priya will review them on March nineteenth.",
+  "attendees": [
+    "Priya",
+    "Tomas"
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "task": "Prepare the board meeting slides",
+      "owner": "Tomas",
+      "due": "March eighteenth",
+      "t": null
+    },
+    {
+      "task": "Review the board meeting slides",
+      "owner": "Priya",
+      "due": "March nineteenth",
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "board meeting"
+  ]
+}

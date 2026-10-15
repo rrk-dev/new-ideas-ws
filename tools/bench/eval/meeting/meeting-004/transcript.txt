@@ -1,0 +1,5 @@
+[00:00:00] Tomas: Nadia, can you update the onboarding guide?
+[00:00:03] Nadia: I'm out next week, so I can't.
+[00:00:06] Kofi: Then I'll take the onboarding guide.
+[00:00:09] Tomas: Thanks Ko-fi, please have it done by Wednesday.
+[00:00:12] Nadia: I'll review Ko-fi's draft when I'm back.

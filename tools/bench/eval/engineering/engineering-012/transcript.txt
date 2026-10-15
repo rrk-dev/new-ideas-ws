@@ -1,0 +1,5 @@
+[00:00:00] Priya: Brainstorm, how could the app suggest tags automatically?
+[00:00:04] Ravi: Keyword extraction on the note text.
+[00:00:07] Mei: Or reuse tags from similar notes.
+[00:00:10] Priya: Or let the user define rules, like if the note mentions invoice then tag finance.
+[00:00:15] Ravi: All interesting, no decision today.

@@ -1,0 +1,35 @@
+{
+  "title": "Mobile roadmap review",
+  "summary": "Widgets are planned for the summer release, tablet layouts are postponed to next year, and accessibility fixes go into every release. Ravi will create an accessibility backlog and Nadia will share the roadmap with leadership.",
+  "attendees": [
+    "Nadia",
+    "Ravi"
+  ],
+  "decisions": [
+    "Widgets are planned for the summer release",
+    "Postpone tablet layouts to next year",
+    "Accessibility fixes go into every release"
+  ],
+  "action_items": [
+    {
+      "task": "Create a backlog of accessibility issues",
+      "owner": "Ravi",
+      "due": "next Monday",
+      "t": null
+    },
+    {
+      "task": "Share the roadmap with leadership",
+      "owner": "Nadia",
+      "due": "Thursday",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "Is there budget for an external accessibility audit?"
+  ],
+  "topics": [
+    "mobile roadmap",
+    "widgets",
+    "accessibility"
+  ]
+}

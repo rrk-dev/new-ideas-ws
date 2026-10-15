@@ -1,0 +1,28 @@
+{
+  "title": "Onboarding guide update",
+  "summary": "Kofi took over the onboarding guide update from Nadia, due Wednesday. Nadia will review the draft when she is back.",
+  "attendees": [
+    "Tomas",
+    "Nadia",
+    "Kofi"
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "task": "Update the onboarding guide",
+      "owner": "Kofi",
+      "due": "Wednesday",
+      "t": null
+    },
+    {
+      "task": "Review Kofi's onboarding guide draft",
+      "owner": "Nadia",
+      "due": null,
+      "t": null
+    }
+  ],
+  "open_questions": [],
+  "topics": [
+    "onboarding guide"
+  ]
+}

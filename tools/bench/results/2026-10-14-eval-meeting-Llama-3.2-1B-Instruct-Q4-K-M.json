@@ -1,0 +1,2889 @@
+{
+ "env": {
+  "date": "2026-10-14",
+  "host": "Darwin arm64",
+  "backend": "gpu",
+  "model": "Llama-3.2-1B-Instruct-Q4_K_M.gguf",
+  "model_sha256": "6f85a640a97cf2bf5b8e764087b1e83da0fdb51d7c9fab7d0fece9385611df83",
+  "n_ctx": 4096,
+  "max_tokens": 1024,
+  "commit": "279469c",
+  "llama": "d81235049",
+  "profile_version": 1
+ },
+ "perf": {
+  "wall_s": 74.37224641600915,
+  "peak_rss": 1206796288,
+  "prefill_tps": 3627.2362019109314,
+  "decode_tps": 92.79322816135596,
+  "latency_med_s": 1.7315,
+  "latency_max_s": 10.891,
+  "prompt_tokens_med": 784,
+  "prompt_tokens_max": 1003
+ },
+ "aggregate": {
+  "cases": 30,
+  "schema_valid": 0.9666666666666667,
+  "scalars": {},
+  "lists": {
+   "attendees": {
+    "precision": 1.0,
+    "recall": 0.9041095890410958,
+    "f1": 0.949640287769784,
+    "tp": 66,
+    "expected": 73,
+    "predicted": 66
+   },
+   "decisions": {
+    "precision": 0.12941176470588237,
+    "recall": 0.6875,
+    "f1": 0.21782178217821782,
+    "tp": 11,
+    "expected": 16,
+    "predicted": 85
+   },
+   "action_items": {
+    "precision": 0.5945945945945946,
+    "recall": 0.5238095238095238,
+    "f1": 0.5569620253164557,
+    "tp": 22,
+    "expected": 42,
+    "predicted": 37,
+    "owner_accuracy": 0.5454545454545454,
+    "due_accuracy": 0.7727272727272727
+   },
+   "open_questions": {
+    "precision": 0.05357142857142857,
+    "recall": 0.6,
+    "f1": 0.0983606557377049,
+    "tp": 6,
+    "expected": 10,
+    "predicted": 112
+   },
+   "topics": {
+    "precision": 0.3176470588235294,
+    "recall": 0.6428571428571429,
+    "f1": 0.42519685039370075,
+    "tp": 27,
+    "expected": 42,
+    "predicted": 85
+   }
+  },
+  "prose": {
+   "title": 0.7509421279546964,
+   "summary": 0.7653229771452027
+  },
+  "hallucination_rate": 0.05454545454545454
+ },
+ "cases": [
+  {
+   "id": "meeting-001",
+   "valid": true,
+   "prompt_tokens": 804,
+   "latency_ms": 6429,
+   "n_prompt": 804,
+   "n_gen": 591,
+   "prefill_ms": 243.528625,
+   "decode_ms": 6171.783666,
+   "output": {
+    "title": "Sync client release date",
+    "summary": "The team agreed on the beta release date. Sam will finish the installer by Thursday. Ownership of the release notes is unclear.",
+    "attendees": [
+     "Priya",
+     "Sam"
+    ],
+    "decisions": [
+     "Beta release date is set to 9th.",
+     "Release notes will be signed off by Sam.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya.",
+     "Release notes will be signed off by Priya."
+    ],
+    "action_items": [
+     {
+      "task": "Finish the installer by Thursday",
+      "owner": "Sam",
+      "due": "Thursday",
+      "t": "00:00:11"
+     }
+    ],
+    "open_questions": [
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?",
+     "Who signs off on the release notes?"
+    ],
+    "topics": [
+     "Release notes",
+     "Release notes",
+     "Release notes",
+     "Release notes",
+     "Release notes",
+     "Release notes",
+     "Release notes",
+     "Release notes",
+     "Release notes",
+     "Release notes"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 30,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       },
+       "due": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 20,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 10,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.8648648648648649,
+     "summary": 0.8571428571428571
+    },
+    "extracted": 63,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-002",
+   "valid": true,
+   "prompt_tokens": 776,
+   "latency_ms": 3440,
+   "n_prompt": 776,
+   "n_gen": 289,
+   "prefill_ms": 219.478166,
+   "decode_ms": 3217.676583,
+   "output": {
+    "title": "Payment migration update",
+    "summary": "The payment's migration is about half done. Good to hear, let's meet again next week.",
+    "attendees": [
+     "Lena",
+     "Omar",
+     "Mei"
+    ],
+    "decisions": [
+     "Payment's migration is about half done"
+    ],
+    "action_items": [
+     {
+      "task": "Update payment status",
+      "owner": "Lena",
+      "due": "Monday",
+      "t": "00:00:04"
+     }
+    ],
+    "open_questions": [
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?",
+     "Who is responsible for the payment's migration?"
+    ],
+    "topics": [
+     "Payment migration update"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 3,
+      "expected": 3,
+      "predicted": 3,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       },
+       "due": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 20,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.5,
+     "summary": 0.6434782608695652
+    },
+    "extracted": 26,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-003",
+   "valid": true,
+   "prompt_tokens": 767,
+   "latency_ms": 1734,
+   "n_prompt": 767,
+   "n_gen": 129,
+   "prefill_ms": 217.765041,
+   "decode_ms": 1513.564417,
+   "output": {
+    "title": "Vendor contract review",
+    "summary": "Aisha will review the vendor contract by next Friday. Diego will review it by the end of the month and send the signed copy to finance. The review is still needed.",
+    "attendees": [
+     "Aisha",
+     "Diego"
+    ],
+    "decisions": [
+     "Review vendor contract by next Friday",
+     "Review vendor contract by the end of the month",
+     "Send signed copy to finance by the end of the month"
+    ],
+    "action_items": [
+     {
+      "task": "Review vendor contract",
+      "owner": "Aisha",
+      "due": "Friday",
+      "t": "00:00:06"
+     }
+    ],
+    "open_questions": [
+     "Who needs to review the contract?"
+    ],
+    "topics": [
+     "Vendor contract review"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       },
+       "due": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "summary": 0.9437229437229437
+    },
+    "extracted": 8,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-004",
+   "valid": true,
+   "prompt_tokens": 803,
+   "latency_ms": 1792,
+   "n_prompt": 803,
+   "n_gen": 140,
+   "prefill_ms": 218.015,
+   "decode_ms": 1571.800958,
+   "output": {
+    "title": "Onboarding guide update",
+    "summary": "The team discussed the onboarding guide. Nadia will review Ko-fi's draft by Wednesday. Tomas will update the guide by Wednesday.",
+    "attendees": [
+     "Tomas",
+     "Nadia",
+     "Kofi"
+    ],
+    "decisions": [
+     "Update the onboarding guide to Ko-fi's draft by Wednesday"
+    ],
+    "action_items": [
+     {
+      "task": "Update the onboarding guide to Ko-fi's draft by Wednesday",
+      "owner": "Tomas",
+      "due": "Wednesday",
+      "t": "00:00:09"
+     }
+    ],
+    "open_questions": [
+     "Who will review Ko-fi's draft?",
+     "Who will update the onboarding guide?"
+    ],
+    "topics": [
+     "Onboarding guide update",
+     "Kofi's draft review",
+     "Tomas' task"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 3,
+      "expected": 3,
+      "predicted": 3,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 1
+       },
+       "due": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "summary": 0.8082901554404145
+    },
+    "extracted": 10,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-005",
+   "valid": true,
+   "prompt_tokens": 763,
+   "latency_ms": 1546,
+   "n_prompt": 763,
+   "n_gen": 117,
+   "prefill_ms": 215.514041,
+   "decode_ms": 1328.361542,
+   "output": {
+    "title": "Launch date decision",
+    "summary": "The team agreed to move the launch to April. Hana needs to inform the marketing team about the new date. The press release is unclear about its timing.",
+    "attendees": [
+     "Hana"
+    ],
+    "decisions": [
+     "Move the launch to April"
+    ],
+    "action_items": [
+     {
+      "task": "Inform the marketing team about the new launch date",
+      "owner": "Hana",
+      "due": "tomorrow",
+      "t": "00:00:04"
+     }
+    ],
+    "open_questions": [
+     "What is the press release about?",
+     "Who is the press release for?"
+    ],
+    "topics": [
+     "Launch date",
+     "Press release"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       },
+       "due": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.4878048780487805,
+     "summary": 0.7634408602150538
+    },
+    "extracted": 7,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-006",
+   "valid": false,
+   "prompt_tokens": 1003,
+   "latency_ms": 10891,
+   "n_prompt": 1003,
+   "n_gen": 1024,
+   "prefill_ms": 217.856583,
+   "decode_ms": 10670.435083,
+   "output": null,
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 0,
+      "expected": 6,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 0,
+      "expected": 4,
+      "predicted": 0,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       },
+       "due": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 0,
+      "expected": 4,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.0,
+     "summary": 0.0
+    },
+    "extracted": 0,
+    "ungrounded": 0
+   },
+   "issues": [
+    "$: not valid JSON"
+   ]
+  },
+  {
+   "id": "meeting-007",
+   "valid": true,
+   "prompt_tokens": 776,
+   "latency_ms": 1665,
+   "n_prompt": 776,
+   "n_gen": 137,
+   "prefill_ms": 216.314375,
+   "decode_ms": 1446.391417,
+   "output": {
+    "title": "Help Center Quick Sync",
+    "summary": "Aisha and Tomas discussed Quick Sync on the Help Center. Tomas added an action item to fix the broken search on the Help Center by Friday. Aisha agreed to fix the broken search by Friday.",
+    "attendees": [
+     "Aisha",
+     "Tomas"
+    ],
+    "decisions": [
+     "Fix the broken search on the Help Center by Friday"
+    ],
+    "action_items": [
+     {
+      "task": "Fix the broken search on the Help Center",
+      "owner": "Tomas",
+      "due": "Friday",
+      "t": "00:00:07"
+     }
+    ],
+    "open_questions": [
+     "Who added the action item?",
+     "Who will fix the broken search?"
+    ],
+    "topics": [
+     "Help Center Quick Sync",
+     "Action item on the Help Center"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 1
+       },
+       "due": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "summary": 0.9541284403669725
+    },
+    "extracted": 8,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-008",
+   "valid": true,
+   "prompt_tokens": 783,
+   "latency_ms": 1419,
+   "n_prompt": 783,
+   "n_gen": 111,
+   "prefill_ms": 215.421667,
+   "decode_ms": 1201.69325,
+   "output": {
+    "title": "Workshop decision",
+    "summary": "The team decided to hold the workshop remotely. Nadia and Kofi will send video call links instead.",
+    "attendees": [
+     "Nadia",
+     "Kofi"
+    ],
+    "decisions": [
+     "Hold the workshop remotely",
+     "Send video call links instead"
+    ],
+    "action_items": [
+     {
+      "task": "Send video call links to attendees",
+      "owner": "Nadia",
+      "due": "Today",
+      "t": "00:00:10"
+     }
+    ],
+    "open_questions": [
+     "Who will book the conference room?",
+     "Who will send video call links?"
+    ],
+    "topics": [
+     "Remote work",
+     "Video call links"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 1
+       },
+       "due": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.6857142857142857,
+     "summary": 0.7282051282051282
+    },
+    "extracted": 9,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-009",
+   "valid": true,
+   "prompt_tokens": 803,
+   "latency_ms": 1650,
+   "n_prompt": 803,
+   "n_gen": 128,
+   "prefill_ms": 213.872833,
+   "decode_ms": 1434.160833,
+   "output": {
+    "title": "Pricing discussion",
+    "summary": "Hana and Ravi discussed the new pricing. The current pricing remains in effect until the new price takes effect. The new price is open to negotiation.",
+    "attendees": [
+     "Hana",
+     "Ravi"
+    ],
+    "decisions": [
+     "The current pricing remains in effect until the new price takes effect.",
+     "The new price is open to negotiation"
+    ],
+    "action_items": [
+     {
+      "task": "Negotiate the new price",
+      "owner": "Hana",
+      "due": "Friday",
+      "t": "00:00:14"
+     }
+    ],
+    "open_questions": [
+     "When does the new price take effect?",
+     "Who keeps the old price?"
+    ],
+    "topics": [
+     "Pricing discussion"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       },
+       "due": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.6666666666666666,
+     "summary": 0.592274678111588
+    },
+    "extracted": 8,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-010",
+   "valid": true,
+   "prompt_tokens": 786,
+   "latency_ms": 1744,
+   "n_prompt": 786,
+   "n_gen": 133,
+   "prefill_ms": 216.721,
+   "decode_ms": 1523.954709,
+   "output": {
+    "title": "Server bill discussion",
+    "summary": "The team agreed to reduce the server bill by 20%. Omar will turn off unused staging servers by Tuesday. Mei will check storage costs next week.",
+    "attendees": [
+     "Omar",
+     "Mei"
+    ],
+    "decisions": [
+     "Reduce server bill by 20%",
+     "Turn off unused staging servers by Tuesday"
+    ],
+    "action_items": [
+     {
+      "task": "Turn off unused staging servers by Tuesday",
+      "owner": "Omar",
+      "due": "Tuesday",
+      "t": "00:00:07"
+     }
+    ],
+    "open_questions": [
+     "Who should cut the server bill by 20%?",
+     "Who should check storage costs next week?"
+    ],
+    "topics": [
+     "Server bill reduction",
+     "Unused staging server management"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       },
+       "due": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.5581395348837209,
+     "summary": 0.8908296943231441
+    },
+    "extracted": 9,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-011",
+   "valid": true,
+   "prompt_tokens": 789,
+   "latency_ms": 1479,
+   "n_prompt": 789,
+   "n_gen": 114,
+   "prefill_ms": 217.497,
+   "decode_ms": 1259.674583,
+   "output": {
+    "title": "Decision on dark theme and old tablet app support",
+    "summary": "The team agreed on keeping the dark theme as the default and dropping support for the old tablet app.",
+    "attendees": [
+     "Lena",
+     "Diego",
+     "Sam"
+    ],
+    "decisions": [
+     "Keep dark theme as default",
+     "Drop support for old tablet app"
+    ],
+    "action_items": [
+     {
+      "task": "Update the dark theme settings",
+      "owner": "Lena",
+      "due": "Monday",
+      "t": "00:00:06"
+     }
+    ],
+    "open_questions": [
+     "Who owns the old tablet app support?"
+    ],
+    "topics": [
+     "Dark theme settings",
+     "Old tablet app support"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 3,
+      "expected": 3,
+      "predicted": 3,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       },
+       "due": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.7619047619047619,
+     "summary": 0.9058823529411765
+    },
+    "extracted": 9,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-012",
+   "valid": true,
+   "prompt_tokens": 764,
+   "latency_ms": 1798,
+   "n_prompt": 764,
+   "n_gen": 140,
+   "prefill_ms": 216.270541,
+   "decode_ms": 1580.158375,
+   "output": {
+    "title": "Domain renewal",
+    "summary": "The team discussed renewing the domain before it expires next month. Kofi and Priya need to figure out who has access. The decision is to proceed with the renewal. The team will discuss access later.",
+    "attendees": [
+     "Priya",
+     "Kofi"
+    ],
+    "decisions": [
+     "Renew the domain before it expires next month",
+     "Proceed with the renewal."
+    ],
+    "action_items": [
+     {
+      "task": "Renew the domain",
+      "owner": "Priya",
+      "due": "next month",
+      "t": "00:00:04"
+     }
+    ],
+    "open_questions": [
+     "Who has access to the domain?",
+     "Who will renew the domain?"
+    ],
+    "topics": [
+     "Domain renewal",
+     "Access control",
+     "Renewal process"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 1
+       },
+       "due": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "summary": 0.7305389221556886
+    },
+    "extracted": 10,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-013",
+   "valid": true,
+   "prompt_tokens": 777,
+   "latency_ms": 1586,
+   "n_prompt": 777,
+   "n_gen": 124,
+   "prefill_ms": 215.797083,
+   "decode_ms": 1368.366291,
+   "output": {
+    "title": "Mentoring update",
+    "summary": "Aisha is preparing for the team demo. Ravi will present at the demo in two weeks.",
+    "attendees": [
+     "Aisha",
+     "Ravi"
+    ],
+    "decisions": [
+     "Prepare a short outline for the team demo",
+     "Send the outline to Aisha by Monday"
+    ],
+    "action_items": [
+     {
+      "task": "Prepare a short outline for the team demo",
+      "owner": "Aisha",
+      "due": "Monday",
+      "t": "00:00:10"
+     }
+    ],
+    "open_questions": [
+     "Who will present at the demo?",
+     "Who will send the outline to Aisha?"
+    ],
+    "topics": [
+     "Mentoring update",
+     "Team demo preparation"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       },
+       "due": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.72,
+     "summary": 0.8571428571428571
+    },
+    "extracted": 9,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-014",
+   "valid": true,
+   "prompt_tokens": 787,
+   "latency_ms": 1735,
+   "n_prompt": 787,
+   "n_gen": 132,
+   "prefill_ms": 218.981041,
+   "decode_ms": 1513.452,
+   "output": {
+    "title": "Release preparation",
+    "summary": "The team is preparing for the release. Tomas will tag the release candidate, run smoke tests, and publish the release on Friday if they pass.",
+    "attendees": [
+     "Mei",
+     "Tomas"
+    ],
+    "decisions": [
+     "Tag release candidate on Wednesday",
+     "Publish release on Friday if passes",
+     "Run smoke tests on Wednesday"
+    ],
+    "action_items": [
+     {
+      "task": "Tag release candidate on Wednesday",
+      "owner": "Tomas",
+      "due": "Wednesday",
+      "t": "00:00:03"
+     }
+    ],
+    "open_questions": [
+     "Who will publish the release?",
+     "Who will run the smoke tests?"
+    ],
+    "topics": [
+     "Release preparation",
+     "Smoke tests",
+     "Release candidate tagging",
+     "Publish release on Friday"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 3,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       },
+       "due": {
+        "correct": 0,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 4,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.7368421052631579,
+     "summary": 0.8877551020408163
+    },
+    "extracted": 12,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-015",
+   "valid": true,
+   "prompt_tokens": 761,
+   "latency_ms": 1906,
+   "n_prompt": 761,
+   "n_gen": 149,
+   "prefill_ms": 216.878417,
+   "decode_ms": 1685.691584,
+   "output": {
+    "title": "Office opening and Hana's move",
+    "summary": "The team discussed the new office opening on 1 May. Nadia will update Hana's move schedule. Nadia will email Hana the move details this afternoon.",
+    "attendees": [
+     "Nadia",
+     "Omar"
+    ],
+    "decisions": [
+     "Update Hana's move schedule",
+     "Open the new office on 1 May"
+    ],
+    "action_items": [
+     {
+      "task": "Update Hana's move schedule",
+      "owner": "Nadia",
+      "due": "this afternoon",
+      "t": "00:00:04"
+     }
+    ],
+    "open_questions": [
+     "Who will update Hana's move schedule?",
+     "Who will open the new office on 1 May?"
+    ],
+    "topics": [
+     "Office opening",
+     "Hana's move",
+     "New office opening on 1 May"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       },
+       "due": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.8461538461538461,
+     "summary": 0.8409090909090909
+    },
+    "extracted": 10,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-016",
+   "valid": true,
+   "prompt_tokens": 794,
+   "latency_ms": 2684,
+   "n_prompt": 794,
+   "n_gen": 224,
+   "prefill_ms": 218.771333,
+   "decode_ms": 2461.9975,
+   "output": {
+    "title": "API key issue",
+    "summary": "The team is aware of the API key issue. Sam will investigate, Lena will assist, Kofi will block, and Mei will contact the vendor.",
+    "attendees": [
+     "Kofi",
+     "Lena",
+     "Mei"
+    ],
+    "decisions": [
+     "Investigate the API key issue",
+     "Assist with investigation",
+     "Block on API keys",
+     "Contact vendor about API keys"
+    ],
+    "action_items": [
+     {
+      "task": "Investigate the API key issue",
+      "owner": "Sam",
+      "due": "Monday",
+      "t": "00:00:10"
+     },
+     {
+      "task": "Assist with investigation",
+      "owner": "Lena",
+      "due": "Monday",
+      "t": "00:00:06"
+     },
+     {
+      "task": "Block on API keys",
+      "owner": "Kofi",
+      "due": "Monday",
+      "t": "00:00:10"
+     },
+     {
+      "task": "Contact vendor about API keys",
+      "owner": "Mei",
+      "due": "Monday",
+      "t": "00:00:13"
+     }
+    ],
+    "open_questions": [
+     "Who will investigate the API key issue?",
+     "Who will assist with investigation?",
+     "Who will block?",
+     "Who will contact the vendor?"
+    ],
+    "topics": [
+     "API key issue",
+     "Investigation",
+     "Vendor",
+     "Vendor contact"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 3,
+      "expected": 4,
+      "predicted": 3,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 4,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 4,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       },
+       "due": {
+        "correct": 0,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 4,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 4,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.23076923076923078,
+     "summary": 0.6068965517241379
+    },
+    "extracted": 19,
+    "ungrounded": 6
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-017",
+   "valid": true,
+   "prompt_tokens": 796,
+   "latency_ms": 1689,
+   "n_prompt": 796,
+   "n_gen": 133,
+   "prefill_ms": 217.377666,
+   "decode_ms": 1469.725292,
+   "output": {
+    "title": "Design review process",
+    "summary": "The team agreed to improve the review process. Diego and Aisha suggested design freeze one week before each sprint. Aisha also proposed writing the rule into the teen handbook.",
+    "attendees": [
+     "Diego",
+     "Aisha",
+     "Ravi"
+    ],
+    "decisions": [
+     "Design review process improvement",
+     "Design freeze one week before each sprint"
+    ],
+    "action_items": [
+     {
+      "task": "Write the rule into the teen handbook",
+      "owner": "Aisha",
+      "due": "Friday",
+      "t": "00:00:12"
+     }
+    ],
+    "open_questions": [
+     "What went badly was the late design changes?",
+     "Who owns the rule?"
+    ],
+    "topics": [
+     "Design review process",
+     "Design freeze",
+     "Teen handbook"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 3,
+      "expected": 3,
+      "predicted": 3,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       },
+       "due": {
+        "correct": 0,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 3,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.14634146341463414,
+     "summary": 0.776
+    },
+    "extracted": 11,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-018",
+   "valid": true,
+   "prompt_tokens": 792,
+   "latency_ms": 2095,
+   "n_prompt": 792,
+   "n_gen": 172,
+   "prefill_ms": 214.151333,
+   "decode_ms": 1877.899125,
+   "output": {
+    "title": "Customer request for offline mode",
+    "summary": "The customer wants offline mode in the mobile app. Priya and Omar discussed the request. Omar estimated the offline mode work by Thursday. Priya asked which screens must work offline.",
+    "attendees": [
+     "Omar",
+     "Priya"
+    ],
+    "decisions": [
+     "Offline mode in the mobile app",
+     "Use Omar's estimate for Thursday",
+     "Use Priya's request for offline screens"
+    ],
+    "action_items": [
+     {
+      "task": "Discuss offline mode request with customer",
+      "owner": "Priya",
+      "due": "Thursday",
+      "t": "00:00:03"
+     }
+    ],
+    "open_questions": [
+     "When will the customer need offline mode?",
+     "Who must work offline?",
+     "What screens must work offline?"
+    ],
+    "topics": [
+     "Customer request for offline mode",
+     "Offline mode in the mobile app",
+     "Estimating offline mode work",
+     "Trade show in June",
+     "Screen usage in the app",
+     "Customer communication"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       },
+       "due": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 6,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "summary": 0.8498168498168498
+    },
+    "extracted": 15,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-019",
+   "valid": true,
+   "prompt_tokens": 795,
+   "latency_ms": 1638,
+   "n_prompt": 795,
+   "n_gen": 135,
+   "prefill_ms": 215.014209,
+   "decode_ms": 1421.114167,
+   "output": {
+    "title": "Back-end role candidate discussion",
+    "summary": "The team discussed potential back-end role candidates. Hana and Tomas agreed to make an offer to the second candidate. Tomas suggested keeping the other two in the pipeline.",
+    "attendees": [
+     "Hana",
+     "Tomas"
+    ],
+    "decisions": [
+     "Make an offer to the second candidate.",
+     "Keep the other two in the pipeline"
+    ],
+    "action_items": [
+     {
+      "task": "Make an offer to the second candidate",
+      "owner": "Hana",
+      "due": "Tomorrow morning",
+      "t": "00:00:03"
+     }
+    ],
+    "open_questions": [
+     "Should we keep the other two in the pipeline?",
+     "Who owns the migration guide?"
+    ],
+    "topics": [
+     "Back-end role candidates",
+     "Pipeline management"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       },
+       "due": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.5263157894736842,
+     "summary": 0.6523297491039427
+    },
+    "extracted": 9,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-020",
+   "valid": true,
+   "prompt_tokens": 775,
+   "latency_ms": 1395,
+   "n_prompt": 775,
+   "n_gen": 116,
+   "prefill_ms": 213.682916,
+   "decode_ms": 1179.183167,
+   "output": {
+    "title": "Newsletter draft",
+    "summary": "The team discussed the newsletter, and Kofi will draft it tonight. Nadia will add product photos tomorrow.",
+    "attendees": [
+     "Kofi",
+     "Nadia"
+    ],
+    "decisions": [
+     "Draft the newsletter tonight",
+     "Add product photos tomorrow"
+    ],
+    "action_items": [
+     {
+      "task": "Draft the newsletter tonight",
+      "owner": "Kofi",
+      "due": "00:00:00",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": [
+     "Who will add product photos tomorrow?",
+     "Who will draft the newsletter tonight?"
+    ],
+    "topics": [
+     "Newsletter draft",
+     "Product photos",
+     "Drafting the newsletter"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 1
+       },
+       "due": {
+        "correct": 0,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "summary": 0.9186046511627907
+    },
+    "extracted": 10,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-021",
+   "valid": true,
+   "prompt_tokens": 783,
+   "latency_ms": 1380,
+   "n_prompt": 783,
+   "n_gen": 113,
+   "prefill_ms": 215.845,
+   "decode_ms": 1162.3465,
+   "output": {
+    "title": "Audit report deadline change",
+    "summary": "The team agreed to delay the audit report to Wednesday. Mei and Ravi agreed on the new deadline.",
+    "attendees": [
+     "Mei",
+     "Ravi"
+    ],
+    "decisions": [
+     "Delay the audit report to Wednesday",
+     "Move the deadline to Wednesday"
+    ],
+    "action_items": [
+     {
+      "task": "Deliver the audit report on Wednesday",
+      "owner": "Ravi",
+      "due": "Wednesday",
+      "t": "00:00:06"
+     }
+    ],
+    "open_questions": [
+     "Who owns the data?",
+     "Who owns the audit report?"
+    ],
+    "topics": [
+     "Audit report deadline",
+     "Audit report timing"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       },
+       "due": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "summary": 0.7226890756302521
+    },
+    "extracted": 9,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-022",
+   "valid": true,
+   "prompt_tokens": 750,
+   "latency_ms": 1415,
+   "n_prompt": 750,
+   "n_gen": 113,
+   "prefill_ms": 213.918083,
+   "decode_ms": 1199.938167,
+   "output": {
+    "title": "Export metadata and updates",
+    "summary": "The team agreed to include archived notes in the export. Lena and Sam will update the health article this week.",
+    "attendees": [
+     "Lena",
+     "Sam"
+    ],
+    "decisions": [
+     "Include archived notes in export"
+    ],
+    "action_items": [
+     {
+      "task": "Update the health article",
+      "owner": "Lena",
+      "due": "this week",
+      "t": "00:00:03"
+     }
+    ],
+    "open_questions": [
+     "Who will update the health article?",
+     "Who will include archived notes in the export?"
+    ],
+    "topics": [
+     "Export metadata",
+     "Health article updates",
+     "Archived notes inclusion"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       },
+       "due": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.48,
+     "summary": 0.8762886597938144
+    },
+    "extracted": 9,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-023",
+   "valid": true,
+   "prompt_tokens": 892,
+   "latency_ms": 2037,
+   "n_prompt": 892,
+   "n_gen": 170,
+   "prefill_ms": 216.236625,
+   "decode_ms": 1819.689917,
+   "output": {
+    "title": "Company offsite planning",
+    "summary": "The team decided to use the city hotel for the offsite. Aisha and Omar agreed on the venue. The meeting concluded with a decision. The attendees are Aisha, Diego, Hana, Omar, and Priya. The decisions are to use the city hotel. The action items are to book the hotel by Friday. The open questions are about dietary needs. The topics are company offsite planning.",
+    "attendees": [
+     "Aisha",
+     "Diego",
+     "Hana",
+     "Omar",
+     "Priya"
+    ],
+    "decisions": [
+     "Use the city hotel for the offsite meeting"
+    ],
+    "action_items": [
+     {
+      "task": "Book the city hotel by Friday",
+      "owner": "Aisha",
+      "due": "Friday",
+      "t": "00:00:19"
+     }
+    ],
+    "open_questions": [
+     "What about dietary needs?"
+    ],
+    "topics": [
+     "Company offsite planning"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 5,
+      "expected": 5,
+      "predicted": 5,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 1
+       },
+       "due": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "summary": 0.775330396475771
+    },
+    "extracted": 9,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-024",
+   "valid": true,
+   "prompt_tokens": 804,
+   "latency_ms": 1729,
+   "n_prompt": 804,
+   "n_gen": 155,
+   "prefill_ms": 214.456,
+   "decode_ms": 1513.2735,
+   "output": {
+    "title": "API security update",
+    "summary": "The team agreed to upgrade the library and rotate API secrets. Tomas will handle rotation. Kofi will upgrade the library. Ownership of the rotation task is still open.",
+    "attendees": [
+     "Tomas",
+     "Kofi"
+    ],
+    "decisions": [
+     "Upgrade the library to day and ship a patch",
+     "Rotate API secrets"
+    ],
+    "action_items": [
+     {
+      "task": "Upgrade the library to day and ship a patch",
+      "owner": "Tomas",
+      "due": "tomorrow",
+      "t": "00:00:07"
+     },
+     {
+      "task": "Rotate API secrets",
+      "owner": "Kofi",
+      "due": "tomorrow",
+      "t": "00:00:10"
+     }
+    ],
+    "open_questions": [
+     "Who should rotate the secrets?",
+     "Who should handle rotation?"
+    ],
+    "topics": [
+     "API security update",
+     "Library upgrade",
+     "API secret rotation"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 2
+       },
+       "due": {
+        "correct": 1,
+        "matched": 2
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 3,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.7272727272727273,
+     "summary": 0.6451612903225806
+    },
+    "extracted": 11,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-025",
+   "valid": true,
+   "prompt_tokens": 914,
+   "latency_ms": 5034,
+   "n_prompt": 914,
+   "n_gen": 480,
+   "prefill_ms": 214.117125,
+   "decode_ms": 4817.667083,
+   "output": {
+    "title": "Mobile roadmap update",
+    "summary": "The team discussed the mobile roadmap, with Nadia and Ravi presenting their plans. Nadia discussed the upcoming release of widgets, while Ravi outlined the tablet layout and accessibility fixes. Nadia also mentioned the need for an external accessibility audit. The team discussed budget for such an audit. Nadia and Ravi will share the roadmap with leadership on Thursday.",
+    "attendees": [
+     "Nadia",
+     "Ravi"
+    ],
+    "decisions": [
+     "Widgets release in summer",
+     "Tablet layouts to be posted next year",
+     "Accessibility fixes to be implemented from now on",
+     "External accessibility audit budget unknown",
+     "Leadership to be informed on Thursday"
+    ],
+    "action_items": [
+     {
+      "task": "Widgets release in summer",
+      "owner": "Nadia",
+      "due": "Thursday",
+      "t": "00:00:28"
+     },
+     {
+      "task": "Tablet layouts to be posted next year",
+      "owner": "Ravi",
+      "due": "next year",
+      "t": "00:00:21"
+     },
+     {
+      "task": "Accessibility fixes to be implemented from now on",
+      "owner": "Nadia",
+      "due": "next Monday",
+      "t": "00:00:25"
+     },
+     {
+      "task": "External accessibility audit budget unknown",
+      "owner": "Ravi",
+      "due": "unknown",
+      "t": "00:00:32"
+     }
+    ],
+    "open_questions": [
+     "Who owns the migration guide?",
+     "Do we have budget for an external accessibility audit?",
+     "Who owns the migration guide?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?",
+     "Do we have budget for an external accessibility audit?"
+    ],
+    "topics": [
+     "Mobile roadmap update",
+     "Widgets release in summer",
+     "Tablet layouts",
+     "Accessibility fixes",
+     "External accessibility audit budget"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 2,
+      "expected": 3,
+      "predicted": 5,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 4,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       },
+       "due": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 20,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 3,
+      "expected": 3,
+      "predicted": 5,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.8,
+     "summary": 0.7228070175438597
+    },
+    "extracted": 36,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-026",
+   "valid": true,
+   "prompt_tokens": 781,
+   "latency_ms": 1895,
+   "n_prompt": 781,
+   "n_gen": 160,
+   "prefill_ms": 214.014792,
+   "decode_ms": 1679.172375,
+   "output": {
+    "title": "Billing project handover",
+    "summary": "Mei handed over the billing project to Diego. Diego will finish the invoice template and tax report. The team is working on the remaining tasks.",
+    "attendees": [
+     "Mei",
+     "Diego"
+    ],
+    "decisions": [
+     "Handover of the billing project to Diego"
+    ],
+    "action_items": [
+     {
+      "task": "Finish the invoice template",
+      "owner": "Mei",
+      "due": "This week",
+      "t": "00:00:10"
+     },
+     {
+      "task": "Finish the tax report",
+      "owner": "Mei",
+      "due": "Next week",
+      "t": "00:00:10"
+     }
+    ],
+    "open_questions": [
+     "Who will handle the remaining tasks?",
+     "What's left for Diego to do?"
+    ],
+    "topics": [
+     "Billing project handover",
+     "Invoice template",
+     "Tax report",
+     "Remaining tasks",
+     "Mei's responsibilities",
+     "Diego's responsibilities"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 2
+       },
+       "due": {
+        "correct": 2,
+        "matched": 2
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 6,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "summary": 0.8461538461538461
+    },
+    "extracted": 13,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-027",
+   "valid": true,
+   "prompt_tokens": 737,
+   "latency_ms": 1202,
+   "n_prompt": 737,
+   "n_gen": 92,
+   "prefill_ms": 213.963375,
+   "decode_ms": 986.946625,
+   "output": {
+    "title": "Documentation discussion",
+    "summary": "Sam and Hana discussed the need for documentation. They will consider it in the future.",
+    "attendees": [
+     "Sam",
+     "Hana"
+    ],
+    "decisions": [
+     "Consider documentation in the future"
+    ],
+    "action_items": [
+     {
+      "task": "Consider documentation",
+      "owner": "Sam",
+      "due": "",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": [
+     "What is the plan for documentation?",
+     "Who will lead the discussion?"
+    ],
+    "topics": [
+     "Documentation needs consideration"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       },
+       "due": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "summary": 0.4888888888888889
+    },
+    "extracted": 7,
+    "ungrounded": 4
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-028",
+   "valid": true,
+   "prompt_tokens": 767,
+   "latency_ms": 1892,
+   "n_prompt": 767,
+   "n_gen": 171,
+   "prefill_ms": 216.016167,
+   "decode_ms": 1674.470333,
+   "output": {
+    "title": "Style guide ownership",
+    "summary": "Omar and Lena agreed that Laina should own the style guide. Lena will publish the first version by the end of the week and present it at the all hands.",
+    "attendees": [
+     "Omar",
+     "Lena"
+    ],
+    "decisions": [
+     "Laina should own the style guide",
+     "Lena will publish the first version by the end of the week",
+     "Lena will present it at the all hands"
+    ],
+    "action_items": [
+     {
+      "task": "Publish the first version of the style guide",
+      "owner": "Lena",
+      "due": "the end of the week",
+      "t": "00:00:04"
+     }
+    ],
+    "open_questions": [
+     "Who should own the style guide?",
+     "Who will publish the first version?",
+     "Who will present it?"
+    ],
+    "topics": [
+     "Style guide ownership",
+     "Lena's role",
+     "Publishing the first version",
+     "Presenting the style guide"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       },
+       "due": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 4,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "summary": 0.9479166666666666
+    },
+    "extracted": 13,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-029",
+   "valid": true,
+   "prompt_tokens": 758,
+   "latency_ms": 1372,
+   "n_prompt": 758,
+   "n_gen": 110,
+   "prefill_ms": 215.300959,
+   "decode_ms": 1155.088375,
+   "output": {
+    "title": "Board meeting",
+    "summary": "The board meeting is scheduled for March 20th. Tomas will prepare slides by March 18th. Priya will review them by March 19th.",
+    "attendees": [
+     "Priya",
+     "Tomas"
+    ],
+    "decisions": [
+     "Prepare slides by March 18th"
+    ],
+    "action_items": [
+     {
+      "task": "Prepare slides by March 18th",
+      "owner": "Tomas",
+      "due": "March 18th",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": [
+     "Who will review the slides?"
+    ],
+    "topics": [
+     "Board meeting preparation"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       },
+       "due": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "summary": 0.9590643274853801
+    },
+    "extracted": 6,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "meeting-030",
+   "valid": true,
+   "prompt_tokens": 818,
+   "latency_ms": 1662,
+   "n_prompt": 818,
+   "n_gen": 138,
+   "prefill_ms": 216.016292,
+   "decode_ms": 1443.617208,
+   "output": {
+    "title": "Support chatbot decision",
+    "summary": "The team agreed to launch the support chatbot when it reaches 80% accuracy. Kofi will add more training examples by Friday. Aisha and Mei will monitor its performance.",
+    "attendees": [
+     "Aisha",
+     "Kofi",
+     "Mei"
+    ],
+    "decisions": [
+     "Launch the support chatbot when it reaches 80% accuracy"
+    ],
+    "action_items": [
+     {
+      "task": "Add more training examples by Friday",
+      "owner": "Kofi",
+      "due": "Friday",
+      "t": "00:00:13"
+     }
+    ],
+    "open_questions": [
+     "How do we measure the 80%?",
+     "Who owns the decision to launch?"
+    ],
+    "topics": [
+     "Support chatbot launch",
+     "Training examples",
+     "Accuracy metrics"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "attendees": {
+      "tp": 3,
+      "expected": 3,
+      "predicted": 3,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "action_items": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       },
+       "due": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "topics": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.7894736842105263,
+     "summary": 0.768
+    },
+    "extracted": 10,
+    "ungrounded": 2
+   },
+   "issues": []
+  }
+ ]
+}

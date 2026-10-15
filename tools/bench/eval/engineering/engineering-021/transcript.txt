@@ -1,0 +1,5 @@
+[00:00:00] Tomas: App startup takes four seconds.
+[00:00:03] Ravi: We load all plugins at startup, we could load them lazily.
+[00:00:07] Tomas: Lazy loading makes the first use of a plugin slower.
+[00:00:10] Ravi: That's acceptable, let's lazy load plugins.
+[00:00:14] Tomas: I'll measure startup before and after.

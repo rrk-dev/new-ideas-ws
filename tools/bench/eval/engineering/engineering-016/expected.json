@@ -1,0 +1,37 @@
+{
+  "title": "API rate limiting",
+  "context": "Some clients send too many requests.",
+  "concepts": [
+    "rate limiting per API key"
+  ],
+  "api_designs": [],
+  "tradeoffs": [
+    {
+      "option": "Token bucket",
+      "pros": [
+        "limits bursts fairly"
+      ],
+      "cons": []
+    },
+    {
+      "option": "Fixed window",
+      "pros": [
+        "simpler"
+      ],
+      "cons": [
+        "allows spikes at the window edge"
+      ]
+    }
+  ],
+  "decisions": [
+    "Use a token bucket per API key"
+  ],
+  "todos": [
+    {
+      "task": "Implement the token bucket middleware",
+      "owner": "Hana",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

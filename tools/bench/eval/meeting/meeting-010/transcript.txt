@@ -1,0 +1,5 @@
+[00:00:00] Omar: The server bill went up to $4,000 last month.
+[00:00:04] Mei: We should cut it by 20%.
+[00:00:06] Omar: Agreed.
+[00:00:07] Omar: I'll turn off the unused staging servers by Tuesday.
+[00:00:10] Mei: I'll check the storage costs next week.

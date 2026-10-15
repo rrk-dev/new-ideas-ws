@@ -1,0 +1,29 @@
+{
+  "id": "meeting-008",
+  "profile": "meeting",
+  "date": "2026-03-02T10:00:00",
+  "diarization": true,
+  "synthetic": true,
+  "tags": [
+    "cancelled-action"
+  ],
+  "speakers": [
+    {
+      "label": "S1",
+      "name": "Nadia",
+      "voice": "Samantha"
+    },
+    {
+      "label": "S2",
+      "name": "Kofi",
+      "voice": "Daniel"
+    }
+  ],
+  "duration_s": 14.62,
+  "asr": {
+    "engine": "whisper.cpp d1be6fde",
+    "model": "ggml-base.en-q8_0.bin",
+    "model_sha256": "a4d4a0768075e13c",
+    "tts": "say"
+  }
+}

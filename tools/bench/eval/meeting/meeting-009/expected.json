@@ -1,0 +1,17 @@
+{
+  "title": "New pricing questions",
+  "summary": "Hana raised questions about the new pricing. Whether existing customers keep the old price and when the new price takes effect are still undecided.",
+  "attendees": [
+    "Hana",
+    "Ravi"
+  ],
+  "decisions": [],
+  "action_items": [],
+  "open_questions": [
+    "Do existing customers keep the old price?",
+    "When does the new price take effect?"
+  ],
+  "topics": [
+    "pricing"
+  ]
+}

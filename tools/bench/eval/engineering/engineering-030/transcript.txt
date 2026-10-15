@@ -1,0 +1,4 @@
+[00:00:00] Ravi: So, ah, the, the upload thing, it, um, times out for big files.
+[00:00:06] Diego: Yeah, we should, like, do chunked uploads, you know, resumable.
+[00:00:11] Ravi: Okay, yeah, let's do resumable chunked uploads.
+[00:00:15] Diego: Ah, ah, write the chunk endpoint, could slash upload slash id slash chunks.

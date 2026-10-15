@@ -1,0 +1,23 @@
+{
+  "title": "Domain renewal",
+  "summary": "The domain must be renewed before it expires next month. Nobody has been assigned and it is unclear who has access.",
+  "attendees": [
+    "Priya",
+    "Kofi"
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "task": "Renew the domain",
+      "owner": null,
+      "due": "next month",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "Who has access to renew the domain?"
+  ],
+  "topics": [
+    "domain renewal"
+  ]
+}

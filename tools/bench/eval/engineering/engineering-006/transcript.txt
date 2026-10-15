@@ -1,0 +1,7 @@
+[00:00:00] Hana: Should we split the monolith into microservices?
+[00:00:04] Ravi: Microservices let teams deploy independently.
+[00:00:07] Lena: But they add network latency and operational overhead.
+[00:00:11] Omar: A modular monolith gives us clear boundaries without the overhead.
+[00:00:15] Hana: Decision, we go with a modular monolith for now.
+[00:00:18] Ravi: I'll draw the module boundaries by next Tuesday.
+[00:00:22] Lena: Which module do we extract first if we ever split?

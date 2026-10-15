@@ -1,0 +1,5 @@
+[00:00:00] Sam: How do we version the public API?
+[00:00:03] Aisha: Version in the URL, like /v2/orders, is explicit.
+[00:00:08] Sam: A header is cleaner but harder to test in a browser.
+[00:00:12] Aisha: URL versioning then.
+[00:00:14] Sam: I'll add the v2 prefix to the router.

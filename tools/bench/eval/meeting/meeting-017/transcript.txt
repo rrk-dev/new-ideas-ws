@@ -1,0 +1,5 @@
+[00:00:00] Diego: Retro time, what went well?
+[00:00:03] Aisha: The new review process was much faster.
+[00:00:06] Ravi: What went badly was the late design changes.
+[00:00:09] Diego: Let's freeze designs one week before each sprint.
+[00:00:12] Aisha: Agreed, I'll write that rule into the teen handbook.

@@ -1,0 +1,29 @@
+{
+  "title": "Distributed tracing",
+  "context": "The team cannot see where requests spend time.",
+  "concepts": [
+    "distributed tracing",
+    "trace id in every log line"
+  ],
+  "api_designs": [],
+  "tradeoffs": [
+    {
+      "option": "Distributed tracing",
+      "pros": [],
+      "cons": [
+        "adds a little overhead"
+      ]
+    }
+  ],
+  "decisions": [
+    "Add distributed tracing"
+  ],
+  "todos": [
+    {
+      "task": "Instrument the checkout service",
+      "owner": "Ravi",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

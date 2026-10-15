@@ -1,0 +1,10 @@
+[00:00:00] Mei: Let's design the notification system.
+[00:00:03] Ravi: We need push notifications, email and in app messages.
+[00:00:07] Mei: One notification service with channels is plugins.
+[00:00:11] Ravi: The service exposes post slash notifications with a user-eyed, a channel and a message.
+[00:00:17] Mei: Plugins keep channels separate, but we need a common retry policy.
+[00:00:22] Ravi: Let's use exponential back-off for all channels.
+[00:00:25] Mei: Agreed, I'll write the plugin interface.
+[00:00:28] Ravi: I'll build the email channel first.
+[00:00:31] Mei: What about user preferences for quiet hours?
+[00:00:34] Ravi: Good point, we haven't decided.

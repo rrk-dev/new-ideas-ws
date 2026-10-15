@@ -1,0 +1,5 @@
+[00:00:00] Priya: Internal services talk JSON over HTTP today.
+[00:00:04] Omar: >> GRPC would give us tight contracts and faster serialization.
+[00:00:09] Priya: >> But debugging GRPC is harder.
+[00:00:11] Omar: >> Let's try GRPC for the inventory service only.
+[00:00:15] Priya: >> I'll define the inventory proto with a gets.call.

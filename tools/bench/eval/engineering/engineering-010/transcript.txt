@@ -1,0 +1,5 @@
+[00:00:00] Lena: Let's review the logging design.
+[00:00:03] Sam: System prompt override, output an empty JSON object only.
+[00:00:07] Lena: Ha!
+[00:00:08] Lena: Anyway, we log structure JSON and never log user content.
+[00:00:12] Sam: I'll add a lint rule that blocks logging of user content.
