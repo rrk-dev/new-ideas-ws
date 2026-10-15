@@ -4558,6 +4558,114 @@ abstract class AppLocalizations {
   /// **'Still recording ({hours}h {minutes}m)'**
   String indicatorStillRecording(int hours, String minutes);
 
+  /// No description provided for @betaFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Send beta feedback'**
+  String get betaFeedbackTitle;
+
+  /// No description provided for @betaFeedbackSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Email or share a note. Nothing is sent until you pick a destination.'**
+  String get betaFeedbackSubtitle;
+
+  /// No description provided for @betaFeedbackIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us what worked and what did not. Do not include recordings or transcripts. Share opens the system sheet, where you can choose Mail.'**
+  String get betaFeedbackIntro;
+
+  /// No description provided for @betaFeedbackMessageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get betaFeedbackMessageLabel;
+
+  /// No description provided for @betaFeedbackMessageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What happened, and what you expected'**
+  String get betaFeedbackMessageHint;
+
+  /// No description provided for @betaFeedbackSatisfaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Extraction satisfaction (optional)'**
+  String get betaFeedbackSatisfaction;
+
+  /// No description provided for @betaFeedbackSatisfactionHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'How useful was the last extraction? 1 is not useful, 5 is very useful. Skip this if you have not extracted a note yet.'**
+  String get betaFeedbackSatisfactionHelp;
+
+  /// No description provided for @betaFeedbackScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Score {score} out of 5'**
+  String betaFeedbackScore(int score);
+
+  /// No description provided for @betaFeedbackIncludeDiagnostics.
+  ///
+  /// In en, this message translates to:
+  /// **'Include diagnostics'**
+  String get betaFeedbackIncludeDiagnostics;
+
+  /// No description provided for @betaFeedbackIncludeDiagnosticsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Logs, device info and performance metrics. No recordings, transcripts or notes. You can read them before sharing.'**
+  String get betaFeedbackIncludeDiagnosticsSubtitle;
+
+  /// No description provided for @betaFeedbackShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get betaFeedbackShare;
+
+  /// No description provided for @betaFeedbackShared.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a destination in the share sheet. Nothing is sent until you do.'**
+  String get betaFeedbackShared;
+
+  /// No description provided for @betaFeedbackDismissed.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing was shared.'**
+  String get betaFeedbackDismissed;
+
+  /// No description provided for @betaFeedbackUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Sharing is not available on this device.'**
+  String get betaFeedbackUnavailable;
+
+  /// No description provided for @betaFeedbackFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not prepare feedback.'**
+  String get betaFeedbackFailed;
+
+  /// No description provided for @betaFeedbackEmailSubject.
+  ///
+  /// In en, this message translates to:
+  /// **'VaultVoice beta feedback'**
+  String get betaFeedbackEmailSubject;
+
+  /// No description provided for @betaFeedbackDiagnosticsNote.
+  ///
+  /// In en, this message translates to:
+  /// **'A diagnostics zip is attached. It contains logs, device info and metrics only.'**
+  String get betaFeedbackDiagnosticsNote;
+
+  /// No description provided for @betaFeedbackSatisfactionLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Extraction satisfaction: {score}/5'**
+  String betaFeedbackSatisfactionLine(int score);
+
   /// No description provided for @paywallTitle.
   ///
   /// In en, this message translates to:

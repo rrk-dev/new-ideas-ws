@@ -1,0 +1,45 @@
+{
+  "source": "https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/",
+  "retrieved": "2026-10-15",
+  "shots": [
+    "01_onboarding",
+    "02_record",
+    "03_library",
+    "04_transcript",
+    "05_settings"
+  ],
+  "ios": [
+    {
+      "id": "iphone_dynamic_island_medium",
+      "required": true,
+      "portrait": [1206, 2622],
+      "devices": ["iPhone 16 Pro"],
+      "note": "App Store Connect required iPhone class (Dynamic Island, medium display)."
+    },
+    {
+      "id": "ipad_13",
+      "required": true,
+      "portrait": [2064, 2752],
+      "devices": ["iPad Pro 13-inch (M4)"],
+      "note": "Required because TARGETED_DEVICE_FAMILY includes iPad."
+    }
+  ],
+  "android": [
+    {
+      "id": "phone",
+      "required": true,
+      "portrait": [1080, 1920],
+      "note": "Play phone screenshots (9:16). At least two shots."
+    },
+    {
+      "id": "feature_graphic",
+      "required": true,
+      "size": [1024, 500]
+    },
+    {
+      "id": "hires_icon",
+      "required": true,
+      "size": [512, 512]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+# REL-05. Pixel sizes: tools/release/store_screenshot_sizes.json
+# Capture is driven by tools/release/capture_store_screenshots.sh.
+# This file documents locales and the Play metadata output tree for
+# `supply` / screengrab on a machine with an emulator.
+
+app_package_name('com.vaultvoice.vaultvoice')
+locales(['en-US'])
+clear_previous_screenshots(true)
+output_directory(File.expand_path('metadata/android', __dir__))
+use_tests_in_packages(['com.vaultvoice.vaultvoice'])
+skip_open_summary(true)

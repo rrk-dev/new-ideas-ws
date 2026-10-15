@@ -21,6 +21,7 @@ class FakeShareService implements ShareService {
   }
 
   final texts = <({String text, String? subject})>[];
+  final payloads = <({String? text, String? subject, String? path})>[];
 
   @override
   Future<ShareOutcome> shareText(
@@ -29,6 +30,18 @@ class FakeShareService implements ShareService {
     Rect? origin,
   }) async {
     texts.add((text: text, subject: subject));
+    return outcome;
+  }
+
+  @override
+  Future<ShareOutcome> sharePayload({
+    String? text,
+    String? subject,
+    String? filePath,
+    String? mimeType,
+    Rect? origin,
+  }) async {
+    payloads.add((text: text, subject: subject, path: filePath));
     return outcome;
   }
 }

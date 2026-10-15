@@ -101,6 +101,14 @@ class SettingsScreen extends ConsumerWidget {
             subtitle: const Text('$kAppName $kAppVersion'),
           ),
           ListTile(
+            key: const ValueKey('link-beta-feedback'),
+            leading: const Icon(Icons.feedback_outlined),
+            title: Text(l10n.betaFeedbackTitle),
+            subtitle: Text(l10n.betaFeedbackSubtitle),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => const BetaFeedbackRoute().push<void>(context),
+          ),
+          ListTile(
             key: const ValueKey('about-privacy-policy'),
             leading: const Icon(Icons.privacy_tip_outlined),
             title: Text(l10n.aboutPrivacyPolicy),

@@ -130,6 +130,7 @@ List<Override> libraryOverrides({
   String detailId = 'rec-a',
   List<ActionItemView> actionItems = const [],
   ExtractionView? extraction,
+  List<TranscriptLine>? lines,
 }) {
   final all = items ?? sampleLibrary();
   final detail = all.where((i) => i.id == detailId).firstOrNull;
@@ -160,7 +161,7 @@ List<Override> libraryOverrides({
       ),
     ),
     recordingTranscriptProvider(detailId)
-        .overrideWith((ref) => Stream.value(sampleLines)),
+        .overrideWith((ref) => Stream.value(lines ?? sampleLines)),
     recordingExtractionProvider(detailId)
         .overrideWith((ref) => Stream.value(extraction ?? sampleExtraction)),
     recordingExportsProvider(detailId)

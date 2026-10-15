@@ -1,4 +1,5 @@
 # VaultVoice iOS release lanes (REL-01).
+# REL-05 store screenshots / metadata: Fastfile.store + fastlane/metadata/**.
 #
 # NOT executed by the authoring agent (no Xcode / fastlane available); the
 # first real run is the first tagged release on GitHub Actions

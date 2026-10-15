@@ -1,0 +1,7 @@
+{
+  "min_testers": 50,
+  "min_crash_free_session_rate": 0.995,
+  "max_data_loss_reports": 0,
+  "min_extraction_satisfaction": 0.8,
+  "max_open_s1": 0
+}

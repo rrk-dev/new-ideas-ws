@@ -1,0 +1,32 @@
+{
+  "device": {
+    "id": "VV-SYN-HIGH",
+    "model": "synthetic",
+    "tier": "high",
+    "os": "test"
+  },
+  "date": "2026-01-01",
+  "metrics": [
+    {
+      "step": "transcribe",
+      "wall_ms": 480000,
+      "audio_ms": 3600000,
+      "peak_rss_bytes": 943718400,
+      "battery_delta_pct": 3,
+      "thermal": [
+        "nominal",
+        "fair"
+      ]
+    },
+    {
+      "step": "extract",
+      "wall_ms": 180000,
+      "audio_ms": null,
+      "battery_delta_pct": 1,
+      "thermal": [
+        "nominal",
+        "fair"
+      ]
+    }
+  ]
+}
