@@ -44,6 +44,10 @@ import UserNotifications
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "RecordingIndicatorPlugin") {
       RecordingIndicatorPlugin.register(with: registrar)
     }
+    // AUD-06: audio import (AVFoundation decoding, "Open in" / share inbox).
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "AudioImportPlugin") {
+      AudioImportPlugin.register(with: registrar)
+    }
     BookmarkHostApiSetup.setUp(
       binaryMessenger: engineBridge.applicationRegistrar.messenger(), api: bookmarkApi)
   }

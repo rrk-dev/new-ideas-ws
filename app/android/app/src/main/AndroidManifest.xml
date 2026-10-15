@@ -63,6 +63,22 @@
                 <data android:pathPattern=".*\\.vvprofile"/>
                 <data android:pathPattern=".*\\..*\\.vvprofile"/>
             </intent-filter>
+            <!-- AUD-06: import audio the user recorded elsewhere (share sheet /
+                 "Open with"). The file is copied into app storage at once and only
+                 processed after the user's rights/consent attestation. -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="audio/*" />
+                <data android:mimeType="application/ogg" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" />
+                <data android:mimeType="audio/*" />
+            </intent-filter>
         </activity>
         <service
             android:name=".modeldownload.ModelDownloadService"

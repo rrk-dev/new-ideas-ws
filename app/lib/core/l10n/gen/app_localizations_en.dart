@@ -222,6 +222,44 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recordingDebugTooltip => 'Recording debug';
 
   @override
+  String get importAudioTooltip => 'Import audio file';
+
+  @override
+  String get importAttestationTitle => 'Import a recording';
+
+  @override
+  String get importAttestationBody =>
+      'The audio is processed on this device only. Import only recordings you are allowed to use.';
+
+  @override
+  String get importAttestationCheckbox =>
+      'I have the right to process this recording and everyone in it consented to being recorded.';
+
+  @override
+  String get importAction => 'Import';
+
+  @override
+  String get importInProgress => 'Importing audio…';
+
+  @override
+  String get importDone => 'Imported. Processing has been queued.';
+
+  @override
+  String importUnsupportedFormat(String format) {
+    return '$format files can’t be imported on this device.';
+  }
+
+  @override
+  String get importUnsupportedUnknown =>
+      'This file type can’t be imported on this device.';
+
+  @override
+  String get importNoAudio => 'This file contains no audio.';
+
+  @override
+  String get importFailed => 'The file could not be imported.';
+
+  @override
   String get diagnosticsTitle => 'Export diagnostics';
 
   @override

@@ -17,6 +17,8 @@
 		A0D01A012F00000100C0FFEE /* StorageInfoPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D01A002F00000100C0FFEE /* StorageInfoPlugin.swift */; };
 		A0F08A012F00000100C0FFEE /* ProcessingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F08A002F00000100C0FFEE /* ProcessingPlugin.swift */; };
 		A0D04A012F00000100C0FFEE /* AudioSessionPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D04A002F00000100C0FFEE /* AudioSessionPlugin.swift */; };
+		A0D06A012F00000100C0FFEE /* AudioImportHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D06A002F00000100C0FFEE /* AudioImportHostApiImpl.swift */; };
+		A0D06A032F00000100C0FFEE /* AudioImportApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D06A022F00000100C0FFEE /* AudioImportApi.g.swift */; };
 		A0D04A032F00000100C0FFEE /* RecordingIndicatorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D04A022F00000100C0FFEE /* RecordingIndicatorPlugin.swift */; };
 		E04B00000000000000000A02 /* BookmarkApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04B00000000000000000A01 /* BookmarkApi.g.swift */; };
 		E04B00000000000000000A04 /* BookmarkHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04B00000000000000000A03 /* BookmarkHostApiImpl.swift */; };
@@ -63,6 +65,8 @@
 		A0D01A002F00000100C0FFEE /* StorageInfoPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageInfoPlugin.swift; sourceTree = "<group>"; };
 		A0F08A002F00000100C0FFEE /* ProcessingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingPlugin.swift; sourceTree = "<group>"; };
 		A0D04A002F00000100C0FFEE /* AudioSessionPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionPlugin.swift; sourceTree = "<group>"; };
+		A0D06A002F00000100C0FFEE /* AudioImportHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioImportHostApiImpl.swift; sourceTree = "<group>"; };
+		A0D06A022F00000100C0FFEE /* AudioImportApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioImportApi.g.swift; sourceTree = "<group>"; };
 		A0D04A022F00000100C0FFEE /* RecordingIndicatorPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingIndicatorPlugin.swift; sourceTree = "<group>"; };
 		E04B00000000000000000A01 /* BookmarkApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkApi.g.swift; sourceTree = "<group>"; };
 		E04B00000000000000000A03 /* BookmarkHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkHostApiImpl.swift; sourceTree = "<group>"; };
@@ -144,6 +148,8 @@
 				A0D01A002F00000100C0FFEE /* StorageInfoPlugin.swift */,
 				A0F08A002F00000100C0FFEE /* ProcessingPlugin.swift */,
 				A0D04A002F00000100C0FFEE /* AudioSessionPlugin.swift */,
+				A0D06A002F00000100C0FFEE /* AudioImportHostApiImpl.swift */,
+				A0D06A022F00000100C0FFEE /* AudioImportApi.g.swift */,
 				A0D04A022F00000100C0FFEE /* RecordingIndicatorPlugin.swift */,
 				E04B00000000000000000A01 /* BookmarkApi.g.swift */,
 				E04B00000000000000000A03 /* BookmarkHostApiImpl.swift */,
@@ -313,6 +319,8 @@
 				A0D01A012F00000100C0FFEE /* StorageInfoPlugin.swift in Sources */,
 				A0F08A012F00000100C0FFEE /* ProcessingPlugin.swift in Sources */,
 				A0D04A012F00000100C0FFEE /* AudioSessionPlugin.swift in Sources */,
+				A0D06A012F00000100C0FFEE /* AudioImportHostApiImpl.swift in Sources */,
+				A0D06A032F00000100C0FFEE /* AudioImportApi.g.swift in Sources */,
 				A0D04A032F00000100C0FFEE /* RecordingIndicatorPlugin.swift in Sources */,
 				E04B00000000000000000A02 /* BookmarkApi.g.swift in Sources */,
 				E04B00000000000000000A04 /* BookmarkHostApiImpl.swift in Sources */,
