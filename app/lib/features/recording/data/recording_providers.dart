@@ -31,6 +31,7 @@ import 'package:vaultvoice/features/recording/domain/audio_processing.dart';
 import 'package:vaultvoice/features/recording/domain/audio_session_monitor.dart';
 import 'package:vaultvoice/features/recording/domain/capture_backend.dart';
 import 'package:vaultvoice/features/recording/domain/level_meter.dart';
+import 'package:vaultvoice/features/recording/domain/macos_microphone_policy.dart';
 import 'package:vaultvoice/features/recording/domain/pcm_mic_source.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
 import 'package:vaultvoice/features/recording/domain/recording_indicator.dart';
@@ -58,10 +59,13 @@ DiskSpaceProbe diskSpaceProbe(Ref ref) => const MethodChannelDiskSpaceProbe();
 @Riverpod(keepAlive: true)
 AudioChunkCodec audioChunkCodec(Ref ref) => const WavChunkCodec();
 
-/// iOS audio-session observer (route / engine configuration / media-services
-/// reset, AUD-04). Android `AudioRecord` follows routes itself.
+/// iOS / macOS audio-session observer (route / engine configuration /
+/// media-services reset). Android `AudioRecord` follows routes itself.
+/// macOS uses the same event channel; `MacAudioRouteObserver` (AUD-09)
+/// reports an unplugged input. FND-09 compiles that Swift into the runner.
 @Riverpod(keepAlive: true)
-AudioSessionMonitor audioSessionMonitor(Ref ref) => Platform.isIOS
+AudioSessionMonitor audioSessionMonitor(Ref ref) =>
+    Platform.isIOS || Platform.isMacOS
     ? MethodChannelAudioSessionMonitor()
     : const NoAudioSessionMonitor();
 
@@ -113,6 +117,8 @@ RecordCaptureBackend recordCaptureBackend(Ref ref) {
       await readSettings(),
       await ref.read(platformAudioEffectsProvider.future),
     ),
+    pauseOnInputRemoved: Platform.isMacOS,
+    rejectNonMicrophoneInputs: Platform.isMacOS,
     logger: ref.watch(loggerProvider),
   );
   ref.onDispose(backend.dispose);
@@ -265,6 +271,9 @@ RecordingController recordingController(Ref ref) {
     isAppInForeground: isAppInForeground,
     // "Still recording (1h 00m)" while backgrounded (SEC-09 §6, AUD-05).
     reminders: ref.watch(recordingIndicatorProvider),
+    // macOS: the Record button only. Other start sources stay available
+    // on iOS and Android (AUD-09).
+    allowedStarts: Platform.isMacOS ? macosAllowedStartSources : null,
   );
   ref.onDispose(controller.dispose);
   return controller;
