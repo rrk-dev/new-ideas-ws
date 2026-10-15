@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +15,8 @@ import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/theme/app_theme.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
+import 'package:vaultvoice/features/profiles/data/custom_profile_providers.dart';
+import 'package:vaultvoice/features/profiles/domain/profile_codec.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 
@@ -35,6 +38,8 @@ const _screens = {
   'Processing queue': '/library/processing',
   'Recording status': '/library/recordings/rec-a',
   'Profiles': '/profiles',
+  'Profile editor (new)': '/profiles/new',
+  'Profile editor (built-in, read-only)': '/profiles/meeting',
   'Settings': '/settings',
   'Vault folders': '/settings/vault-folders',
   'Routing rules': '/settings/routing-rules',
@@ -57,6 +62,15 @@ List<Override> _overrides() => [
         platform: VaultPlatform.appLocal,
         handle: '/x',
       ),
+    ]),
+  ),
+  profileListProvider.overrideWith(
+    (ref) => Stream.value([
+      for (final id in ['meeting', 'warranty', 'engineering'])
+        ProfileCodec.parseYaml(
+          File('assets/profiles/$id.yaml').readAsStringSync(),
+          profileSource: ProfileSource.builtin,
+        ).profile!,
     ]),
   ),
   routingRulesProvider.overrideWith(

@@ -1317,6 +1317,426 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No routing rules. Every note goes to your first vault folder.'**
   String get routingRulesEmpty;
+
+  /// No description provided for @profilesBuiltinSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Built-in profiles'**
+  String get profilesBuiltinSection;
+
+  /// No description provided for @profilesCustomSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Your profiles'**
+  String get profilesCustomSection;
+
+  /// No description provided for @profilesCustomEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No custom profiles yet. Create one or duplicate a built-in profile.'**
+  String get profilesCustomEmpty;
+
+  /// No description provided for @profilesLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load profiles.'**
+  String get profilesLoadFailed;
+
+  /// No description provided for @profilesNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New profile'**
+  String get profilesNew;
+
+  /// No description provided for @profilesDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate {name}'**
+  String profilesDuplicate(String name);
+
+  /// No description provided for @profilesCopyName.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} (copy)'**
+  String profilesCopyName(String name);
+
+  /// No description provided for @profilesProOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom profiles are a Pro feature.'**
+  String get profilesProOnly;
+
+  /// No description provided for @profilesReadOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Read-only'**
+  String get profilesReadOnly;
+
+  /// No description provided for @profilesManaged.
+  ///
+  /// In en, this message translates to:
+  /// **'Managed by your organization'**
+  String get profilesManaged;
+
+  /// No description provided for @profileEditorNewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New profile'**
+  String get profileEditorNewTitle;
+
+  /// No description provided for @profileEditorEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit profile'**
+  String get profileEditorEditTitle;
+
+  /// No description provided for @profileEditorViewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profileEditorViewTitle;
+
+  /// No description provided for @profileEditorNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'This profile no longer exists.'**
+  String get profileEditorNotFound;
+
+  /// No description provided for @profileEditorReadOnlyBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'This profile is read-only. Duplicate it to make changes.'**
+  String get profileEditorReadOnlyBanner;
+
+  /// No description provided for @profileEditorProBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Editing custom profiles needs Pro. Your profiles keep working.'**
+  String get profileEditorProBanner;
+
+  /// No description provided for @profileEditorName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get profileEditorName;
+
+  /// No description provided for @profileEditorDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get profileEditorDescription;
+
+  /// No description provided for @profileEditorInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructions for the assistant'**
+  String get profileEditorInstructions;
+
+  /// No description provided for @profileEditorInstructionsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Short bullet points, e.g. “Use the speaker’s name as owner.”'**
+  String get profileEditorInstructionsHint;
+
+  /// No description provided for @profileEditorSpeakers.
+  ///
+  /// In en, this message translates to:
+  /// **'Several speakers'**
+  String get profileEditorSpeakers;
+
+  /// No description provided for @profileEditorSpeakersHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Label who said what (asks for consent before recording)'**
+  String get profileEditorSpeakersHint;
+
+  /// No description provided for @profileEditorFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Fields'**
+  String get profileEditorFields;
+
+  /// No description provided for @profileEditorAddField.
+  ///
+  /// In en, this message translates to:
+  /// **'Add field'**
+  String get profileEditorAddField;
+
+  /// No description provided for @profileEditorFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Field name'**
+  String get profileEditorFieldLabel;
+
+  /// No description provided for @profileEditorFieldKey.
+  ///
+  /// In en, this message translates to:
+  /// **'Key: {key}'**
+  String profileEditorFieldKey(String key);
+
+  /// No description provided for @profileEditorFieldType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get profileEditorFieldType;
+
+  /// No description provided for @profileEditorFieldDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'What to extract'**
+  String get profileEditorFieldDescription;
+
+  /// No description provided for @profileEditorFieldColumns.
+  ///
+  /// In en, this message translates to:
+  /// **'Columns (comma-separated)'**
+  String get profileEditorFieldColumns;
+
+  /// No description provided for @profileEditorFieldRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove field {name}'**
+  String profileEditorFieldRemove(String name);
+
+  /// No description provided for @profileEditorFieldAdvanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced field, kept as is.'**
+  String get profileEditorFieldAdvanced;
+
+  /// No description provided for @profileEditorKindText.
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get profileEditorKindText;
+
+  /// No description provided for @profileEditorKindLongText.
+  ///
+  /// In en, this message translates to:
+  /// **'Long text'**
+  String get profileEditorKindLongText;
+
+  /// No description provided for @profileEditorKindTextList.
+  ///
+  /// In en, this message translates to:
+  /// **'List of text'**
+  String get profileEditorKindTextList;
+
+  /// No description provided for @profileEditorKindDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get profileEditorKindDate;
+
+  /// No description provided for @profileEditorKindNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Number'**
+  String get profileEditorKindNumber;
+
+  /// No description provided for @profileEditorKindBoolean.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes / no'**
+  String get profileEditorKindBoolean;
+
+  /// No description provided for @profileEditorKindCheckboxList.
+  ///
+  /// In en, this message translates to:
+  /// **'Checkbox list'**
+  String get profileEditorKindCheckboxList;
+
+  /// No description provided for @profileEditorKindTable.
+  ///
+  /// In en, this message translates to:
+  /// **'Table'**
+  String get profileEditorKindTable;
+
+  /// No description provided for @profileEditorKindAdvanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get profileEditorKindAdvanced;
+
+  /// No description provided for @profileEditorExamples.
+  ///
+  /// In en, this message translates to:
+  /// **'Examples (optional)'**
+  String get profileEditorExamples;
+
+  /// No description provided for @profileEditorAddExample.
+  ///
+  /// In en, this message translates to:
+  /// **'Add example'**
+  String get profileEditorAddExample;
+
+  /// No description provided for @profileEditorExampleTranscript.
+  ///
+  /// In en, this message translates to:
+  /// **'Example transcript'**
+  String get profileEditorExampleTranscript;
+
+  /// No description provided for @profileEditorExampleValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected {field}'**
+  String profileEditorExampleValue(String field);
+
+  /// No description provided for @profileEditorExampleRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove example'**
+  String get profileEditorExampleRemove;
+
+  /// No description provided for @profileEditorTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Save notes to'**
+  String get profileEditorTarget;
+
+  /// No description provided for @profileEditorTargetDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'App default'**
+  String get profileEditorTargetDefault;
+
+  /// No description provided for @profileEditorTargetAsk.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask every time'**
+  String get profileEditorTargetAsk;
+
+  /// No description provided for @profileEditorSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save profile'**
+  String get profileEditorSave;
+
+  /// No description provided for @profileEditorSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile saved.'**
+  String get profileEditorSaved;
+
+  /// No description provided for @profileEditorSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the profile: {reason}'**
+  String profileEditorSaveFailed(String reason);
+
+  /// No description provided for @profileEditorDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete profile'**
+  String get profileEditorDelete;
+
+  /// No description provided for @profileEditorDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this profile?'**
+  String get profileEditorDeleteTitle;
+
+  /// No description provided for @profileEditorDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes already exported stay in your vault.'**
+  String get profileEditorDeleteBody;
+
+  /// No description provided for @profileEditorCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get profileEditorCancel;
+
+  /// No description provided for @profileEditorIssueName.
+  ///
+  /// In en, this message translates to:
+  /// **'Give the profile a name.'**
+  String get profileEditorIssueName;
+
+  /// No description provided for @profileEditorIssueNoFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Add at least one field.'**
+  String get profileEditorIssueNoFields;
+
+  /// No description provided for @profileEditorIssueTooManyFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many fields (at most 25).'**
+  String get profileEditorIssueTooManyFields;
+
+  /// No description provided for @profileEditorIssueFieldName.
+  ///
+  /// In en, this message translates to:
+  /// **'Use a name that starts with a letter.'**
+  String get profileEditorIssueFieldName;
+
+  /// No description provided for @profileEditorIssueDuplicateField.
+  ///
+  /// In en, this message translates to:
+  /// **'Another field has the same name.'**
+  String get profileEditorIssueDuplicateField;
+
+  /// No description provided for @profileEditorIssueColumns.
+  ///
+  /// In en, this message translates to:
+  /// **'Add 1–8 columns with distinct names.'**
+  String get profileEditorIssueColumns;
+
+  /// No description provided for @profileEditorTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Test on a recording'**
+  String get profileEditorTest;
+
+  /// No description provided for @profileEditorTestPick.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a recording'**
+  String get profileEditorTestPick;
+
+  /// No description provided for @profileEditorTestNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No transcribed recordings yet.'**
+  String get profileEditorTestNone;
+
+  /// No description provided for @profileEditorTestRunning.
+  ///
+  /// In en, this message translates to:
+  /// **'Running the profile on this recording…'**
+  String get profileEditorTestRunning;
+
+  /// No description provided for @profileEditorTestFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The test run failed.'**
+  String get profileEditorTestFailed;
+
+  /// No description provided for @profileEditorTestJson.
+  ///
+  /// In en, this message translates to:
+  /// **'Extracted data'**
+  String get profileEditorTestJson;
+
+  /// No description provided for @profileEditorTestMarkdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Note preview'**
+  String get profileEditorTestMarkdown;
+
+  /// No description provided for @profileEditorTestInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The output does not match the fields.'**
+  String get profileEditorTestInvalid;
+
+  /// No description provided for @profileEditorTestClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get profileEditorTestClose;
 }
 
 class _AppLocalizationsDelegate

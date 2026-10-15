@@ -7,6 +7,7 @@ import 'package:vaultvoice/features/library/presentation/library_screen.dart';
 import 'package:vaultvoice/features/models/presentation/model_import_tile.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_queue_screen.dart';
 import 'package:vaultvoice/features/pipeline/presentation/recording_status_screen.dart';
+import 'package:vaultvoice/features/profiles/presentation/profile_editor_screen.dart';
 import 'package:vaultvoice/features/profiles/presentation/profiles_screen.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_screen.dart';
@@ -31,7 +32,15 @@ part 'app_routes.g.dart';
       ],
     ),
     TypedStatefulShellBranch<ProfilesBranchData>(
-      routes: [TypedGoRoute<ProfilesRoute>(path: '/profiles')],
+      routes: [
+        TypedGoRoute<ProfilesRoute>(
+          path: '/profiles',
+          routes: [
+            TypedGoRoute<ProfileNewRoute>(path: 'new'),
+            TypedGoRoute<ProfileEditRoute>(path: ':profileId'),
+          ],
+        ),
+      ],
     ),
     TypedStatefulShellBranch<SettingsBranchData>(
       routes: [
@@ -133,6 +142,26 @@ class ProfilesRoute extends GoRouteData with $ProfilesRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const ProfilesScreen();
+}
+
+/// Custom profile editor, new profile (PRF-07).
+class ProfileNewRoute extends GoRouteData with $ProfileNewRoute {
+  const ProfileNewRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const ProfileEditorScreen();
+}
+
+/// A profile in the editor (read-only for built-in / managed ones).
+class ProfileEditRoute extends GoRouteData with $ProfileEditRoute {
+  const ProfileEditRoute({required this.profileId});
+
+  final String profileId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      ProfileEditorScreen(profileId: profileId);
 }
 
 class SettingsRoute extends GoRouteData with $SettingsRoute {

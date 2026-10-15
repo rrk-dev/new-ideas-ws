@@ -748,4 +748,237 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get routingRulesEmpty =>
       'No routing rules. Every note goes to your first vault folder.';
+
+  @override
+  String get profilesBuiltinSection => 'Built-in profiles';
+
+  @override
+  String get profilesCustomSection => 'Your profiles';
+
+  @override
+  String get profilesCustomEmpty =>
+      'No custom profiles yet. Create one or duplicate a built-in profile.';
+
+  @override
+  String get profilesLoadFailed => 'Could not load profiles.';
+
+  @override
+  String get profilesNew => 'New profile';
+
+  @override
+  String profilesDuplicate(String name) {
+    return 'Duplicate $name';
+  }
+
+  @override
+  String profilesCopyName(String name) {
+    return '$name (copy)';
+  }
+
+  @override
+  String get profilesProOnly => 'Custom profiles are a Pro feature.';
+
+  @override
+  String get profilesReadOnly => 'Read-only';
+
+  @override
+  String get profilesManaged => 'Managed by your organization';
+
+  @override
+  String get profileEditorNewTitle => 'New profile';
+
+  @override
+  String get profileEditorEditTitle => 'Edit profile';
+
+  @override
+  String get profileEditorViewTitle => 'Profile';
+
+  @override
+  String get profileEditorNotFound => 'This profile no longer exists.';
+
+  @override
+  String get profileEditorReadOnlyBanner =>
+      'This profile is read-only. Duplicate it to make changes.';
+
+  @override
+  String get profileEditorProBanner =>
+      'Editing custom profiles needs Pro. Your profiles keep working.';
+
+  @override
+  String get profileEditorName => 'Name';
+
+  @override
+  String get profileEditorDescription => 'Description';
+
+  @override
+  String get profileEditorInstructions => 'Instructions for the assistant';
+
+  @override
+  String get profileEditorInstructionsHint =>
+      'Short bullet points, e.g. “Use the speaker’s name as owner.”';
+
+  @override
+  String get profileEditorSpeakers => 'Several speakers';
+
+  @override
+  String get profileEditorSpeakersHint =>
+      'Label who said what (asks for consent before recording)';
+
+  @override
+  String get profileEditorFields => 'Fields';
+
+  @override
+  String get profileEditorAddField => 'Add field';
+
+  @override
+  String get profileEditorFieldLabel => 'Field name';
+
+  @override
+  String profileEditorFieldKey(String key) {
+    return 'Key: $key';
+  }
+
+  @override
+  String get profileEditorFieldType => 'Type';
+
+  @override
+  String get profileEditorFieldDescription => 'What to extract';
+
+  @override
+  String get profileEditorFieldColumns => 'Columns (comma-separated)';
+
+  @override
+  String profileEditorFieldRemove(String name) {
+    return 'Remove field $name';
+  }
+
+  @override
+  String get profileEditorFieldAdvanced => 'Advanced field, kept as is.';
+
+  @override
+  String get profileEditorKindText => 'Text';
+
+  @override
+  String get profileEditorKindLongText => 'Long text';
+
+  @override
+  String get profileEditorKindTextList => 'List of text';
+
+  @override
+  String get profileEditorKindDate => 'Date';
+
+  @override
+  String get profileEditorKindNumber => 'Number';
+
+  @override
+  String get profileEditorKindBoolean => 'Yes / no';
+
+  @override
+  String get profileEditorKindCheckboxList => 'Checkbox list';
+
+  @override
+  String get profileEditorKindTable => 'Table';
+
+  @override
+  String get profileEditorKindAdvanced => 'Advanced';
+
+  @override
+  String get profileEditorExamples => 'Examples (optional)';
+
+  @override
+  String get profileEditorAddExample => 'Add example';
+
+  @override
+  String get profileEditorExampleTranscript => 'Example transcript';
+
+  @override
+  String profileEditorExampleValue(String field) {
+    return 'Expected $field';
+  }
+
+  @override
+  String get profileEditorExampleRemove => 'Remove example';
+
+  @override
+  String get profileEditorTarget => 'Save notes to';
+
+  @override
+  String get profileEditorTargetDefault => 'App default';
+
+  @override
+  String get profileEditorTargetAsk => 'Ask every time';
+
+  @override
+  String get profileEditorSave => 'Save profile';
+
+  @override
+  String get profileEditorSaved => 'Profile saved.';
+
+  @override
+  String profileEditorSaveFailed(String reason) {
+    return 'Could not save the profile: $reason';
+  }
+
+  @override
+  String get profileEditorDelete => 'Delete profile';
+
+  @override
+  String get profileEditorDeleteTitle => 'Delete this profile?';
+
+  @override
+  String get profileEditorDeleteBody =>
+      'Notes already exported stay in your vault.';
+
+  @override
+  String get profileEditorCancel => 'Cancel';
+
+  @override
+  String get profileEditorIssueName => 'Give the profile a name.';
+
+  @override
+  String get profileEditorIssueNoFields => 'Add at least one field.';
+
+  @override
+  String get profileEditorIssueTooManyFields => 'Too many fields (at most 25).';
+
+  @override
+  String get profileEditorIssueFieldName =>
+      'Use a name that starts with a letter.';
+
+  @override
+  String get profileEditorIssueDuplicateField =>
+      'Another field has the same name.';
+
+  @override
+  String get profileEditorIssueColumns =>
+      'Add 1–8 columns with distinct names.';
+
+  @override
+  String get profileEditorTest => 'Test on a recording';
+
+  @override
+  String get profileEditorTestPick => 'Choose a recording';
+
+  @override
+  String get profileEditorTestNone => 'No transcribed recordings yet.';
+
+  @override
+  String get profileEditorTestRunning =>
+      'Running the profile on this recording…';
+
+  @override
+  String get profileEditorTestFailed => 'The test run failed.';
+
+  @override
+  String get profileEditorTestJson => 'Extracted data';
+
+  @override
+  String get profileEditorTestMarkdown => 'Note preview';
+
+  @override
+  String get profileEditorTestInvalid =>
+      'The output does not match the fields.';
+
+  @override
+  String get profileEditorTestClose => 'Close';
 }
