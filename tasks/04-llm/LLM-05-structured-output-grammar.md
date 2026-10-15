@@ -1,7 +1,7 @@
 # LLM-05 — Structured Output via Constrained Decoding
 
 **Workstream:** LLM | **Phase:** 2–3 | **Size:** M | **Depends on:** LLM-04, PRF-09 | **Source:** Gap (small models produce unreliable free-form Markdown; templates need structured data)
-**Status:** review
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-llm-inference, vv-extraction-profiles, vv-ffi-bridge, vv-native-build, vv-benchmark-eval, vv-testing
 
 ## Goal
@@ -34,3 +34,19 @@ The LLM produces JSON matching each profile's output schema; Markdown is rendere
 - PRF-09 eval set is a hard dependency of AC1's "≥ 99% on the PRF-09 set" — re-run when it lands; the host test uses synthetic transcripts.
 - PRF-01 merge: add `implements SchemaGrammarConverter` to `NativeSchemaGrammarConverter` and persist grammars in `ProfileGrammarCache` (PRF-01 follow-up).
 - Profile spec (PRF-01): evidence `t` should be declared nullable or optional; a required non-null `t` makes the extractor drop items with unverifiable timestamps.
+
+
+## Verification Report
+- **Verifier:** Codex · **Implementer:** Claude Code · **Date:** 2026-10-14 · **Commit:** 67b6fcf2fc125f4493ad542dda29244716602e31
+- **Verdict:** FAIL
+- **Gates:** format ✅ (387 files, 0 changed) · analyze ✅ (zero issues) · Flutter tests ✅ (785 passed, 24 skipped; coverage 93.3%, gate 80%) · pytest ✅ (66 passed) · native host ✅ (fresh native/build.sh host; model-backed ctest 21 passed, 2 explicitly skipped) · egress ✅ · recording policy ✅ · tasks validate ✅ (85 tasks, 0 problems) · CI run: local. No Xcode/NDK/mobile SDKs; no mobile/device reruns.
+- **Acceptance criteria:**
+  - AC1: ✅ tagged cleanup test and model-backed synthetic host suite passed (25/25 first pass). ❌ required evidence cleanup can return schema-invalid JSON with valid=true; the required PRF-09 eval corpus/harness is still todo and has not established ≥99%.
+  - AC2: ✅ benchmark artifact documents full/lazy grammar rates and native lazy/full greedy equivalence passed. Device <20% benchmark test read; its runs remain ⏳.
+- **Mutation sanity check:** Forced the transcript timestamp membership check to always succeed: `[LLM-05/AC1]` required-evidence cleanup test failed; restored with git checkout.
+- **Adversarial checks:** Bad JSON/schema/grammar, one-repair/fallback and cancellation/OOM tests read and passed. External Flutter repro: schema requires root string t (maxLength 8), output {"t":"00:00:09"}, known timestamps {00:00:05}. Extractor returns data={} and valid=true although validator reports $.t: required.
+- **Device evidence:** Reviewed every row in `docs/test-plans/device/LLM-05.md`. Result/date/tester cells are unfilled; no physical run is represented as PASS. The user explicitly permits a provisional verifier PASS with these rows pending.
+- **Skill/rule compliance:** Read AGENTS.md, verifier prompt, workflow/verification skills and all task-listed skills; reviewed the merged implementation at main (no unmerged task diff). Pins checked against local headers. RTK.md is referenced by the supplied instructions but absent. Product code/tests unchanged after temporary mutations; no criteria weakened, GitHub API/gh, pushes, git config edits or model commits.
+- **Issues found:**
+  1. `StructuredExtractor._accept` cleans after validation and never revalidates. If a required root t is unverifiable, clean returns the drop sentinel and _accept replaces it with {} while returning valid=true. Nested required objects/minItems can similarly be broken by removal. Revalidate cleaned output and route invalid results through the repair/fallback policy; never report invalid JSON as schema-valid.
+  2. AC1 specifically requires ≥99% on the PRF-09 evaluation set. The tagged host test synthesizes only 25 transcripts with one schema; PRF-09 remains todo and tools/bench/eval/run.py is absent at this SHA. This is outstanding host evaluation work, not merely a pending physical-device row.
