@@ -121,9 +121,10 @@ void main() {
       );
 
       // On an empty file, after a normal line, and right after a rotation.
-      logger.info('test', 'big', fields: fields);
-      logger.info('test', 'small');
-      logger.info('test', 'big', fields: fields);
+      logger
+        ..info('test', 'big', fields: fields)
+        ..info('test', 'small')
+        ..info('test', 'big', fields: fields);
       for (var i = 0; i < 20; i++) {
         logger.info('test', 'small', fields: {'i': i});
       }
