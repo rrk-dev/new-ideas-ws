@@ -419,10 +419,15 @@ class _TemplateEditorState extends ConsumerState<_TemplateEditor> {
             Text(l.templateReadOnly, key: const ValueKey('template-readonly'))
           else if (!editable)
             Text(l.templateLockedReadOnly),
-          Text(switch (widget.builtin) {
-            null => forProfile,
-            final b => '${flavorLabel(context, b.flavor)} · $scope',
-          }, style: theme.textTheme.bodySmall),
+          Text(
+            switch (widget.builtin) {
+              null => forProfile,
+              final b => '${flavorLabel(context, b.flavor)} · $scope',
+            },
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurface,
+            ),
+          ),
           const SizedBox(height: AppSpacing.sm),
           editor,
           for (final i in issues)
