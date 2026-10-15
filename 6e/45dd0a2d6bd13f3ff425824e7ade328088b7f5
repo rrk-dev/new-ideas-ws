@@ -1,0 +1,19 @@
+tasks/10-security-privacy/SEC-09-recording-safeguards-no-call-capture.md
+  s_5a534bed398a49::t_677083b7ef9e42 42-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6e45dd0a2d6bd13f3ff425824e7ade328088b7f5",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
