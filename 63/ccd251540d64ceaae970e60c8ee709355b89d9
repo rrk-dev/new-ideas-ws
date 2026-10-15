@@ -1,0 +1,151 @@
+.github/workflows/ci.yml
+  s_91cce0d4a43314::t_5546238a3a6f1c 52-53
+app/assets/legal/privacy_policy.md
+  s_91cce0d4a43314::t_c6f4482ddf1137 1-42
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_91cce0d4a43314::t_a32cc8bddbb530 31,87,148,271
+app/ios/Runner/PrivacyInfo.xcprivacy
+  s_91cce0d4a43314::t_001ad399aff6fb 1-47
+app/lib/core/l10n/arb/app_en.arb
+  s_91cce0d4a43314::t_a70c4f8eff2317 368-371,584-586
+app/lib/core/l10n/gen/app_localizations.dart
+  s_c75835e9bfff2d::t_418aa1f3a82a27 1963-1986,3037-3054
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_c75835e9bfff2d::t_71b5b4cfbbfa5b 1128-1140,1774-1783
+app/lib/features/export/data/bookmark_vault_writer.dart
+  s_91cce0d4a43314::t_e909d03a172bdc 17-18,119-122
+app/lib/features/export/data/export_providers.dart
+  s_91cce0d4a43314::t_0eba0f5094d125 18-21,26
+app/lib/features/export/data/export_providers.g.dart
+  s_91cce0d4a43314::t_bc0f442c89b169 13-16,23-26,38-41,76
+app/lib/features/export/domain/vault_folder.dart
+  s_91cce0d4a43314::t_9cf930144c6487 9,19-20
+app/lib/features/onboarding/data/onboarding_providers.dart
+  s_91cce0d4a43314::t_9c6c69a550078b 40-46
+app/lib/features/recording/data/record_capture_backend.dart
+  s_91cce0d4a43314::t_0c82e32847fbf4 25,67-68,112-119,126-129,153-164,167,169-173,199-205,309-310,336,493-501
+app/lib/features/recording/data/recording_providers.dart
+  s_91cce0d4a43314::t_0dd8356b6f8f24 34,62-65,67-68,120-121,274-276
+app/lib/features/recording/data/recording_providers.g.dart
+  s_91cce0d4a43314::t_452cc01f665665 196-199,204-207,217-220,256,417,986
+app/lib/features/recording/data/recording_screen_providers.dart
+  s_91cce0d4a43314::t_8c4477699180d5 59-60
+app/lib/features/recording/data/recording_screen_providers.g.dart
+  s_91cce0d4a43314::t_f5337ce53ce8a9 165
+app/lib/features/recording/data/recording_session_service.dart
+  s_91cce0d4a43314::t_a29749d3a4b712 85-96
+app/lib/features/recording/domain/macos_microphone_policy.dart
+  s_91cce0d4a43314::t_f1956edb140cfe 1-72
+app/lib/features/recording/domain/recording_controller.dart
+  s_91cce0d4a43314::t_180faae84b781c 76,79,86-89,137
+app/lib/features/recording/domain/recording_session.dart
+  s_91cce0d4a43314::t_9445d74b7b6470 16,25-28
+app/lib/features/recording/presentation/recording_screen.dart
+  s_91cce0d4a43314::t_e3fe11fd649ab3 14,64-67,89,106-116,166-184,186-187,190,192-195,673-682,684-686,693,696,699-704,707,714-739
+app/lib/features/settings/presentation/privacy_policy_screen.dart
+  s_91cce0d4a43314::t_bfe305e9bd1945 1-41
+app/lib/features/settings/presentation/settings_screen.dart
+  s_c75835e9bfff2d::t_65043b34c3a338 15,109-119
+app/macos/Runner.xcodeproj/project.pbxproj
+  s_91cce0d4a43314::t_d017c5db61bd03 33,95,192,448
+app/macos/Runner/Info.plist
+  s_91cce0d4a43314::t_3ffa489188987f 32
+app/macos/Runner/MacAudioRouteObserver.swift
+  s_91cce0d4a43314::t_fbc7ac2ea9e881 1-99
+app/macos/Runner/MainFlutterWindow.swift
+  s_91cce0d4a43314::t_f7b8a801f6bafb 24-26
+app/pubspec.yaml
+  s_91cce0d4a43314::t_d9c6bb2af96e50 74-75
+app/test/unit/export/macos_bookmark_test.dart
+  s_91cce0d4a43314::t_a7ab1dcb4c9e00 1-144
+app/test/unit/recording/capture_rig.dart
+  s_91cce0d4a43314::t_09b1bb93ccae24 14,35-37,54-55,62
+app/test/unit/recording/macos_microphone_test.dart
+  s_91cce0d4a43314::t_885225d671e898 1-252
+app/test/unit/recording/recording_session_test.dart
+  s_91cce0d4a43314::t_3cc9ebf999bbdc 84-108
+app/test/unit/templates/template_note_renderer_test.dart
+  s_91cce0d4a43314::t_2080bb134c5a8e 19,30,77-86
+app/test/widget/privacy_policy_test.dart
+  s_91cce0d4a43314::t_4d8e3732795a22 1-55
+app/test/widget/record_screen_test.dart
+  s_91cce0d4a43314::t_f5f41e6ceed3be 106-107,111,121-124,147-153,343-426
+app/test/widget/settings_screen_test.dart
+  s_91cce0d4a43314::t_9eadbaa2dbdff6 300-305
+docs/adr/ADR-SEC-07-recording-consent.md
+  s_91cce0d4a43314::t_10a7c0e2072e84 1-49
+docs/ci.md
+  s_91cce0d4a43314::t_577eedf6e8ecb9 8
+docs/store/listing.md
+  s_91cce0d4a43314::t_7a47fcfe6a422e 1-45
+docs/store/pre-submission-checklist.md
+  s_91cce0d4a43314::t_6ad3b0666329d6 1-30
+docs/store/privacy-manifest.md
+  s_91cce0d4a43314::t_9655858a45751c 1-60
+docs/store/reviewer-notes.md
+  s_91cce0d4a43314::t_03c65a697c5e67 1-48
+docs/test-plans/device/AUD-09.md
+  s_91cce0d4a43314::t_74aca26b6bd06a 1-20
+docs/test-plans/device/EXP-09.md
+  s_91cce0d4a43314::t_939ca0df375f90 1-19
+docs/test-plans/device/SEC-06.md
+  s_91cce0d4a43314::t_fbbe383b22c9fd 1-13
+docs/test-plans/device/SEC-07.md
+  s_91cce0d4a43314::t_d768c03f132a6b 1-13
+packages/vv_native/ios/PrivacyInfo.xcprivacy
+  s_91cce0d4a43314::t_ac8afd5c845e5c 1-26
+packages/vv_native/ios/vv_native.podspec
+  s_91cce0d4a43314::t_7801c1c896fd30 19
+packages/vv_native/macos/DebugProfile.entitlements
+  s_91cce0d4a43314::t_98d570a0d67a37 1-10
+packages/vv_native/macos/Info.plist
+  s_91cce0d4a43314::t_9c8450ab085e0a 1-8
+packages/vv_native/macos/MacBookmarkPanel.swift
+  s_91cce0d4a43314::t_4eac960a423bab 1-280
+packages/vv_native/macos/Release.entitlements
+  s_91cce0d4a43314::t_49407ed2887871 1-10
+packages/vv_native/macos/VaultFolder.entitlements
+  s_91cce0d4a43314::t_93234be1ef30b0 1-10
+tasks/02-audio/AUD-09-macos-microphone.md
+  s_91cce0d4a43314::t_1e617fb6ff7f28 4,11-16,25-37
+tasks/07-export/EXP-09-macos-folder-bookmarks.md
+  s_91cce0d4a43314::t_9c41b041e67f97 4,11-15,24-36
+tasks/10-security-privacy/SEC-06-store-privacy-compliance.md
+  s_91cce0d4a43314::t_50c40b812649f0 4,11-17,21-34
+tasks/10-security-privacy/SEC-07-recording-consent-features.md
+  s_91cce0d4a43314::t_d9b378a8e00bab 4,11-16,22-35
+tools/ci/check_recording_policy.py
+  s_91cce0d4a43314::t_a9d13aaf05be39 10-11,73-89,98-103,125-126,128,191-205,224-225,236-238
+tools/ci/check_store_privacy.py
+  s_91cce0d4a43314::t_2fc921a662bca5 1-310
+tools/ci/check_store_privacy.sh
+  s_91cce0d4a43314::t_f0c82cd1976325 1-7
+tools/ci/tests/test_recording_policy.py
+  s_91cce0d4a43314::t_4217ca934f0d06 8,197-270
+tools/ci/tests/test_store_privacy.py
+  s_91cce0d4a43314::t_849a868ec6eb65 1-154
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "63ccd251540d64ceaae970e60c8ee709355b89d9",
+  "prompts": {},
+  "sessions": {
+    "s_91cce0d4a43314": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "98190d73-b703-4c9e-8a70-ef8c1482391d",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_c75835e9bfff2d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f15764af-6d0c-4490-8300-309d0bfc5fc5",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
