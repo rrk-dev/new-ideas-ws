@@ -1,0 +1,77 @@
+app/lib/core/db/enums.dart
+  s_caacb79062955e::t_6341e5e69bf930 23
+app/lib/core/l10n/arb/app_en.arb
+  s_caacb79062955e::t_f74645af74acc2 301
+app/lib/core/l10n/gen/app_localizations.dart
+  s_caacb79062955e::t_9eb6e035283ded 1615-1620
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_caacb79062955e::t_a68c0c3bc0f2ab 931-933
+app/lib/features/export/data/note_sharing_providers.dart
+  s_caacb79062955e::t_dd046be0c28fe2 1-2,30-55,62
+app/lib/features/export/data/note_sharing_providers.g.dart
+  s_98284e60985282::t_0178afcdd525bc 94-177,240
+app/lib/features/export/data/vault_exporter.dart
+  s_caacb79062955e::t_809cd094762e51 248-260,270-277,287-305,339-346,363-374,398-401,403-406,408-409,514-518
+app/lib/features/export/domain/pending_export.dart
+  s_caacb79062955e::t_ba15db25444f0b 97-100
+app/lib/features/review/presentation/review_screen.dart
+  s_caacb79062955e::t_86c778583301ab 113,174-175,206-208
+app/lib/features/review/presentation/schema_form.dart
+  s_caacb79062955e::t_1ba035fa891df7 50,61-64,74-76,157-159,161-178,198,220
+app/lib/features/templates/data/template_editor_providers.g.dart
+  s_98284e60985282::t_3d2159249813a7 239-240,245-246,258-259,306,308-309,322-323
+app/test/fakes/fake_vault_writer.dart
+  s_caacb79062955e::t_5e157e97975e9a 28-30,90
+app/test/unit/export/shareable_formats_provider_test.dart
+  s_caacb79062955e::t_a2b183d665be71 1-55
+app/test/unit/export/vault_exporter_test.dart
+  s_caacb79062955e::t_59396e460f9312 315-365
+app/test/widget/processing_status_test.dart
+  s_ef737ddb7fda7e::t_593327b74f1421 15,72-77
+app/test/widget/schema_form_test.dart
+  s_caacb79062955e::t_9c53ad982d8003 1-49
+app/test/widget/share_note_sheet_test.dart
+  s_caacb79062955e::t_ef8eed75647d53 74-76
+tasks/07-export/EXP-07-template-editor-preview.md
+  s_5a534bed398a49::t_1bd25bee709506 47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5ec28b5d3b72b638927a78016870bacf95e43532",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_98284e60985282": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "8c0bcf5b-010a-4914-b1cc-deab4029b4f6",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_caacb79062955e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "a4c673c6-579b-47bb-bdd0-b8c526a47b26",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_ef737ddb7fda7e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "cbbe9237-ba5d-41e1-b0c2-4afbc11e83ad",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
