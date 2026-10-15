@@ -1,0 +1,795 @@
+Makefile
+  s_9f6fcf8c1840a0::t_afa42f2c65b61e 1-28
+tasks/06-profiles/PRF-09-extraction-eval-harness.md
+  s_9f6fcf8c1840a0::t_9b584cfa752b69 4,11-15,20-65
+tools/bench/eval/README.md
+  s_9f6fcf8c1840a0::t_b594a03b89e155 1-85
+tools/bench/eval/baselines/engineering.Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_9f6fcf8c1840a0::t_355445fd1cc46c 1-85
+tools/bench/eval/baselines/engineering.SmolLM2-135M-Instruct-Q8-0.json
+  s_9f6fcf8c1840a0::t_e6557b350b2507 1-85
+tools/bench/eval/baselines/meeting.Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_9f6fcf8c1840a0::t_edb890de4b1f40 1-78
+tools/bench/eval/baselines/meeting.SmolLM2-135M-Instruct-Q8-0.json
+  s_9f6fcf8c1840a0::t_0ecd6411dbb5e8 1-78
+tools/bench/eval/baselines/warranty.Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_9f6fcf8c1840a0::t_9985215f3cb092 1-78
+tools/bench/eval/baselines/warranty.SmolLM2-135M-Instruct-Q8-0.json
+  s_9f6fcf8c1840a0::t_0b9eaf08af12c8 1-78
+tools/bench/eval/engineering/engineering-001/expected.json
+  s_9f6fcf8c1840a0::t_06da1131cb0fb8 1-41
+tools/bench/eval/engineering/engineering-001/meta.json
+  s_9f6fcf8c1840a0::t_279f0c3c5dedb6 1-30
+tools/bench/eval/engineering/engineering-001/script.md
+  s_9f6fcf8c1840a0::t_009d5715b0c1d0 1-8
+tools/bench/eval/engineering/engineering-001/transcript.txt
+  s_9f6fcf8c1840a0::t_f9247891a80f91 1-5
+tools/bench/eval/engineering/engineering-002/expected.json
+  s_9f6fcf8c1840a0::t_a7ec47c482f951 1-28
+tools/bench/eval/engineering/engineering-002/meta.json
+  s_9f6fcf8c1840a0::t_f20e15c27fb3be 1-29
+tools/bench/eval/engineering/engineering-002/script.md
+  s_9f6fcf8c1840a0::t_7925251e9d22c2 1-8
+tools/bench/eval/engineering/engineering-002/transcript.txt
+  s_9f6fcf8c1840a0::t_58bbe54acc0aaa 1-5
+tools/bench/eval/engineering/engineering-003/expected.json
+  s_9f6fcf8c1840a0::t_da0a4d15472c84 1-40
+tools/bench/eval/engineering/engineering-003/meta.json
+  s_9f6fcf8c1840a0::t_2686603ae06a72 1-35
+tools/bench/eval/engineering/engineering-003/script.md
+  s_9f6fcf8c1840a0::t_162e8faca0c437 1-11
+tools/bench/eval/engineering/engineering-003/transcript.txt
+  s_9f6fcf8c1840a0::t_dbac4ecd0fdd21 1-7
+tools/bench/eval/engineering/engineering-004/expected.json
+  s_9f6fcf8c1840a0::t_1b8b88570c0bd7 1-29
+tools/bench/eval/engineering/engineering-004/meta.json
+  s_9f6fcf8c1840a0::t_8d76e90fac3aad 1-29
+tools/bench/eval/engineering/engineering-004/script.md
+  s_9f6fcf8c1840a0::t_fff23ee67713d8 1-8
+tools/bench/eval/engineering/engineering-004/transcript.txt
+  s_9f6fcf8c1840a0::t_e9614581bacae2 1-4
+tools/bench/eval/engineering/engineering-005/expected.json
+  s_9f6fcf8c1840a0::t_369585f8142459 1-18
+tools/bench/eval/engineering/engineering-005/meta.json
+  s_9f6fcf8c1840a0::t_38f8a41e08ad8b 1-25
+tools/bench/eval/engineering/engineering-005/script.md
+  s_9f6fcf8c1840a0::t_f1c47df0f184af 1-7
+tools/bench/eval/engineering/engineering-005/transcript.txt
+  s_9f6fcf8c1840a0::t_d7f49e3d96c1e3 1-3
+tools/bench/eval/engineering/engineering-006/expected.json
+  s_9f6fcf8c1840a0::t_2cb63b594d42bc 1-41
+tools/bench/eval/engineering/engineering-006/meta.json
+  s_9f6fcf8c1840a0::t_60b076b6bd4815 1-40
+tools/bench/eval/engineering/engineering-006/script.md
+  s_9f6fcf8c1840a0::t_0c20c822a71af6 1-11
+tools/bench/eval/engineering/engineering-006/transcript.txt
+  s_9f6fcf8c1840a0::t_fa3c287bc6e05d 1-7
+tools/bench/eval/engineering/engineering-007/expected.json
+  s_9f6fcf8c1840a0::t_f515a19f291f17 1-43
+tools/bench/eval/engineering/engineering-007/meta.json
+  s_9f6fcf8c1840a0::t_2d991ad05fe026 1-29
+tools/bench/eval/engineering/engineering-007/script.md
+  s_9f6fcf8c1840a0::t_c22f4a592c84b0 1-8
+tools/bench/eval/engineering/engineering-007/transcript.txt
+  s_9f6fcf8c1840a0::t_e9895224478698 1-4
+tools/bench/eval/engineering/engineering-008/expected.json
+  s_9f6fcf8c1840a0::t_777ad469e3e809 1-26
+tools/bench/eval/engineering/engineering-008/meta.json
+  s_9f6fcf8c1840a0::t_a1f6faad8da8f2 1-29
+tools/bench/eval/engineering/engineering-008/script.md
+  s_9f6fcf8c1840a0::t_00faa6aeac15e5 1-8
+tools/bench/eval/engineering/engineering-008/transcript.txt
+  s_9f6fcf8c1840a0::t_a4a5314d164606 1-4
+tools/bench/eval/engineering/engineering-009/expected.json
+  s_9f6fcf8c1840a0::t_d6932e4416ce04 1-33
+tools/bench/eval/engineering/engineering-009/meta.json
+  s_9f6fcf8c1840a0::t_2be1d85200f94e 1-34
+tools/bench/eval/engineering/engineering-009/script.md
+  s_9f6fcf8c1840a0::t_7cdb5f8257a85c 1-10
+tools/bench/eval/engineering/engineering-009/transcript.txt
+  s_9f6fcf8c1840a0::t_75349d308b95ba 1-6
+tools/bench/eval/engineering/engineering-010/expected.json
+  s_9f6fcf8c1840a0::t_fd0681bb25c29b 1-20
+tools/bench/eval/engineering/engineering-010/meta.json
+  s_9f6fcf8c1840a0::t_74ed82e98e6b17 1-29
+tools/bench/eval/engineering/engineering-010/script.md
+  s_9f6fcf8c1840a0::t_2560692a69db9c 1-8
+tools/bench/eval/engineering/engineering-010/transcript.txt
+  s_9f6fcf8c1840a0::t_b09dea75bb038d 1-5
+tools/bench/eval/engineering/engineering-011/expected.json
+  s_9f6fcf8c1840a0::t_4311817e733f5f 1-45
+tools/bench/eval/engineering/engineering-011/meta.json
+  s_9f6fcf8c1840a0::t_d1c8ee58d2e0b2 1-30
+tools/bench/eval/engineering/engineering-011/script.md
+  s_9f6fcf8c1840a0::t_b1b7283a2afea7 1-9
+tools/bench/eval/engineering/engineering-011/transcript.txt
+  s_9f6fcf8c1840a0::t_58985300c82c65 1-5
+tools/bench/eval/engineering/engineering-012/expected.json
+  s_9f6fcf8c1840a0::t_012ed95924b08b 1-16
+tools/bench/eval/engineering/engineering-012/meta.json
+  s_9f6fcf8c1840a0::t_5e8f24b81b03a0 1-35
+tools/bench/eval/engineering/engineering-012/script.md
+  s_9f6fcf8c1840a0::t_d06f57ca917a69 1-9
+tools/bench/eval/engineering/engineering-012/transcript.txt
+  s_9f6fcf8c1840a0::t_65727fd26f9e6c 1-5
+tools/bench/eval/engineering/engineering-013/expected.json
+  s_9f6fcf8c1840a0::t_f53c5187f9ecf9 1-31
+tools/bench/eval/engineering/engineering-013/meta.json
+  s_9f6fcf8c1840a0::t_53b907ee31c5d1 1-29
+tools/bench/eval/engineering/engineering-013/script.md
+  s_9f6fcf8c1840a0::t_74b51e0c4af837 1-9
+tools/bench/eval/engineering/engineering-013/transcript.txt
+  s_9f6fcf8c1840a0::t_0099b208379f93 1-6
+tools/bench/eval/engineering/engineering-014/expected.json
+  s_9f6fcf8c1840a0::t_24c70842c87330 1-42
+tools/bench/eval/engineering/engineering-014/meta.json
+  s_9f6fcf8c1840a0::t_c09326dddf5f75 1-29
+tools/bench/eval/engineering/engineering-014/script.md
+  s_9f6fcf8c1840a0::t_c7f964d13b1f02 1-9
+tools/bench/eval/engineering/engineering-014/transcript.txt
+  s_9f6fcf8c1840a0::t_8e3087fef0c8dc 1-5
+tools/bench/eval/engineering/engineering-015/expected.json
+  s_9f6fcf8c1840a0::t_22054be47b5d6f 1-27
+tools/bench/eval/engineering/engineering-015/meta.json
+  s_9f6fcf8c1840a0::t_83fc8e0700239f 1-29
+tools/bench/eval/engineering/engineering-015/script.md
+  s_9f6fcf8c1840a0::t_f433fc7bb09085 1-9
+tools/bench/eval/engineering/engineering-015/transcript.txt
+  s_9f6fcf8c1840a0::t_9e2c0fbb2e089f 1-3
+tools/bench/eval/engineering/engineering-016/expected.json
+  s_9f6fcf8c1840a0::t_f46be58f401e10 1-37
+tools/bench/eval/engineering/engineering-016/meta.json
+  s_9f6fcf8c1840a0::t_52e59a7364c246 1-34
+tools/bench/eval/engineering/engineering-016/script.md
+  s_9f6fcf8c1840a0::t_434b5fd775ca84 1-9
+tools/bench/eval/engineering/engineering-016/transcript.txt
+  s_9f6fcf8c1840a0::t_8467650b17a74e 1-5
+tools/bench/eval/engineering/engineering-017/expected.json
+  s_9f6fcf8c1840a0::t_be0b0361e08a55 1-48
+tools/bench/eval/engineering/engineering-017/meta.json
+  s_9f6fcf8c1840a0::t_45290db8818a8a 1-30
+tools/bench/eval/engineering/engineering-017/script.md
+  s_9f6fcf8c1840a0::t_a8a73fa23641f5 1-14
+tools/bench/eval/engineering/engineering-017/transcript.txt
+  s_9f6fcf8c1840a0::t_1326fd550f4b51 1-10
+tools/bench/eval/engineering/engineering-018/expected.json
+  s_9f6fcf8c1840a0::t_4d0dbcabe24dc9 1-20
+tools/bench/eval/engineering/engineering-018/meta.json
+  s_9f6fcf8c1840a0::t_bcdf55d66f7507 1-29
+tools/bench/eval/engineering/engineering-018/script.md
+  s_9f6fcf8c1840a0::t_12149a165146fa 1-8
+tools/bench/eval/engineering/engineering-018/transcript.txt
+  s_9f6fcf8c1840a0::t_d1303f50146bc5 1-5
+tools/bench/eval/engineering/engineering-019/expected.json
+  s_9f6fcf8c1840a0::t_4812693238a7bb 1-42
+tools/bench/eval/engineering/engineering-019/meta.json
+  s_9f6fcf8c1840a0::t_cefd725e6e2d1a 1-34
+tools/bench/eval/engineering/engineering-019/script.md
+  s_9f6fcf8c1840a0::t_910634f4b570cd 1-10
+tools/bench/eval/engineering/engineering-019/transcript.txt
+  s_9f6fcf8c1840a0::t_d129ee32ef576d 1-7
+tools/bench/eval/engineering/engineering-020/expected.json
+  s_9f6fcf8c1840a0::t_69b979bc6dde0f 1-29
+tools/bench/eval/engineering/engineering-020/meta.json
+  s_9f6fcf8c1840a0::t_f81e3431081d9d 1-30
+tools/bench/eval/engineering/engineering-020/script.md
+  s_9f6fcf8c1840a0::t_7ff92a77ac9bec 1-9
+tools/bench/eval/engineering/engineering-020/transcript.txt
+  s_9f6fcf8c1840a0::t_48ff3defb1f94e 1-5
+tools/bench/eval/engineering/engineering-021/expected.json
+  s_9f6fcf8c1840a0::t_7597c03799083a 1-30
+tools/bench/eval/engineering/engineering-021/meta.json
+  s_9f6fcf8c1840a0::t_ebfbaad3a0faa9 1-29
+tools/bench/eval/engineering/engineering-021/script.md
+  s_9f6fcf8c1840a0::t_bf0d18ca31dd76 1-9
+tools/bench/eval/engineering/engineering-021/transcript.txt
+  s_9f6fcf8c1840a0::t_e2d5b0d5b52726 1-5
+tools/bench/eval/engineering/engineering-022/expected.json
+  s_9f6fcf8c1840a0::t_60c97cb9f3a4ff 1-10
+tools/bench/eval/engineering/engineering-022/meta.json
+  s_9f6fcf8c1840a0::t_19e3b2c09ad8e1 1-30
+tools/bench/eval/engineering/engineering-022/script.md
+  s_9f6fcf8c1840a0::t_9fdcbc912dcf9e 1-6
+tools/bench/eval/engineering/engineering-022/transcript.txt
+  s_9f6fcf8c1840a0::t_53eff4a70f0505 1-2
+tools/bench/eval/engineering/engineering-023/expected.json
+  s_9f6fcf8c1840a0::t_4da93ab5ff77dc 1-31
+tools/bench/eval/engineering/engineering-023/meta.json
+  s_9f6fcf8c1840a0::t_b8cb627de0ffd3 1-30
+tools/bench/eval/engineering/engineering-023/script.md
+  s_9f6fcf8c1840a0::t_441b153247e5f4 1-9
+tools/bench/eval/engineering/engineering-023/transcript.txt
+  s_9f6fcf8c1840a0::t_ed7fbf4f447375 1-5
+tools/bench/eval/engineering/engineering-024/expected.json
+  s_9f6fcf8c1840a0::t_27f4a8b067f64c 1-38
+tools/bench/eval/engineering/engineering-024/meta.json
+  s_9f6fcf8c1840a0::t_c12a72389667e2 1-35
+tools/bench/eval/engineering/engineering-024/script.md
+  s_9f6fcf8c1840a0::t_021771fe23e49e 1-10
+tools/bench/eval/engineering/engineering-024/transcript.txt
+  s_9f6fcf8c1840a0::t_dde060a4823a5c 1-6
+tools/bench/eval/engineering/engineering-025/expected.json
+  s_9f6fcf8c1840a0::t_63bdebcf1402bc 1-43
+tools/bench/eval/engineering/engineering-025/meta.json
+  s_9f6fcf8c1840a0::t_384531af9f4dd8 1-29
+tools/bench/eval/engineering/engineering-025/script.md
+  s_9f6fcf8c1840a0::t_82d6fdd33b59cd 1-9
+tools/bench/eval/engineering/engineering-025/transcript.txt
+  s_9f6fcf8c1840a0::t_54b56f75e439d6 1-5
+tools/bench/eval/engineering/engineering-026/expected.json
+  s_9f6fcf8c1840a0::t_0b2447976c6636 1-29
+tools/bench/eval/engineering/engineering-026/meta.json
+  s_9f6fcf8c1840a0::t_4481d73e8a47e7 1-29
+tools/bench/eval/engineering/engineering-026/script.md
+  s_9f6fcf8c1840a0::t_96f6ca01a7b3b2 1-8
+tools/bench/eval/engineering/engineering-026/transcript.txt
+  s_9f6fcf8c1840a0::t_ab8a14677a2131 1-4
+tools/bench/eval/engineering/engineering-027/expected.json
+  s_9f6fcf8c1840a0::t_5c2470779aefb3 1-33
+tools/bench/eval/engineering/engineering-027/meta.json
+  s_9f6fcf8c1840a0::t_04517a67d2437f 1-34
+tools/bench/eval/engineering/engineering-027/script.md
+  s_9f6fcf8c1840a0::t_140e61fdd04d66 1-10
+tools/bench/eval/engineering/engineering-027/transcript.txt
+  s_9f6fcf8c1840a0::t_095aae35d81415 1-6
+tools/bench/eval/engineering/engineering-028/expected.json
+  s_9f6fcf8c1840a0::t_8e49c91cb621e1 1-31
+tools/bench/eval/engineering/engineering-028/meta.json
+  s_9f6fcf8c1840a0::t_3c2a1fdc2691e7 1-29
+tools/bench/eval/engineering/engineering-028/script.md
+  s_9f6fcf8c1840a0::t_216cc18e945a62 1-8
+tools/bench/eval/engineering/engineering-028/transcript.txt
+  s_9f6fcf8c1840a0::t_c1d0c6375dd42d 1-4
+tools/bench/eval/engineering/engineering-029/expected.json
+  s_9f6fcf8c1840a0::t_c97bda26ea8c22 1-39
+tools/bench/eval/engineering/engineering-029/meta.json
+  s_9f6fcf8c1840a0::t_9ee8081aa2d958 1-29
+tools/bench/eval/engineering/engineering-029/script.md
+  s_9f6fcf8c1840a0::t_35cd2328b988e8 1-9
+tools/bench/eval/engineering/engineering-029/transcript.txt
+  s_9f6fcf8c1840a0::t_21a414527cd14d 1-5
+tools/bench/eval/engineering/engineering-030/expected.json
+  s_9f6fcf8c1840a0::t_10a568f8e487e2 1-28
+tools/bench/eval/engineering/engineering-030/meta.json
+  s_9f6fcf8c1840a0::t_d39a7d7f962226 1-29
+tools/bench/eval/engineering/engineering-030/script.md
+  s_9f6fcf8c1840a0::t_c19d12e9805852 1-8
+tools/bench/eval/engineering/engineering-030/transcript.txt
+  s_9f6fcf8c1840a0::t_e9c4481ec4694d 1-4
+tools/bench/eval/engineering/scoring.json
+  s_9f6fcf8c1840a0::t_f211486a99f4f7 1-33
+tools/bench/eval/meeting/meeting-001/expected.json
+  s_9f6fcf8c1840a0::t_85f376f521b6d4 1-25
+tools/bench/eval/meeting/meeting-001/meta.json
+  s_9f6fcf8c1840a0::t_a9c31eb1c2b401 1-30
+tools/bench/eval/meeting/meeting-001/script.md
+  s_9f6fcf8c1840a0::t_baccf49ab864fe 1-9
+tools/bench/eval/meeting/meeting-001/transcript.txt
+  s_9f6fcf8c1840a0::t_9be4476f8089c6 1-5
+tools/bench/eval/meeting/meeting-002/expected.json
+  s_9f6fcf8c1840a0::t_41fe905c3d4bad 1-16
+tools/bench/eval/meeting/meeting-002/meta.json
+  s_9f6fcf8c1840a0::t_acfe791df109c9 1-35
+tools/bench/eval/meeting/meeting-002/script.md
+  s_9f6fcf8c1840a0::t_55882e9e216904 1-8
+tools/bench/eval/meeting/meeting-002/transcript.txt
+  s_9f6fcf8c1840a0::t_0f0a66eb5ea249 1-4
+tools/bench/eval/meeting/meeting-003/expected.json
+  s_9f6fcf8c1840a0::t_1b592554915d24 1-29
+tools/bench/eval/meeting/meeting-003/meta.json
+  s_9f6fcf8c1840a0::t_2afb66f7f4f0e4 1-30
+tools/bench/eval/meeting/meeting-003/script.md
+  s_9f6fcf8c1840a0::t_8c2ff47aff74ad 1-8
+tools/bench/eval/meeting/meeting-003/transcript.txt
+  s_9f6fcf8c1840a0::t_3b4dd7f4700f15 1-3
+tools/bench/eval/meeting/meeting-004/expected.json
+  s_9f6fcf8c1840a0::t_b7443185a3a9b0 1-28
+tools/bench/eval/meeting/meeting-004/meta.json
+  s_9f6fcf8c1840a0::t_283ca3fd6e9610 1-35
+tools/bench/eval/meeting/meeting-004/script.md
+  s_9f6fcf8c1840a0::t_3345ac84999516 1-9
+tools/bench/eval/meeting/meeting-004/transcript.txt
+  s_9f6fcf8c1840a0::t_98af006364532d 1-5
+tools/bench/eval/meeting/meeting-005/expected.json
+  s_9f6fcf8c1840a0::t_b4ae7dc3bc2c60 1-24
+tools/bench/eval/meeting/meeting-005/meta.json
+  s_9f6fcf8c1840a0::t_7fa0a6933571b1 1-25
+tools/bench/eval/meeting/meeting-005/script.md
+  s_9f6fcf8c1840a0::t_25360bd086956e 1-7
+tools/bench/eval/meeting/meeting-005/transcript.txt
+  s_9f6fcf8c1840a0::t_cafde5ac07a73f 1-3
+tools/bench/eval/meeting/meeting-006/expected.json
+  s_9f6fcf8c1840a0::t_ad2905737e8cc3 1-50
+tools/bench/eval/meeting/meeting-006/meta.json
+  s_9f6fcf8c1840a0::t_8e857273e9bb7d 1-50
+tools/bench/eval/meeting/meeting-006/script.md
+  s_9f6fcf8c1840a0::t_28c8d0584ea560 1-18
+tools/bench/eval/meeting/meeting-006/transcript.txt
+  s_9f6fcf8c1840a0::t_d3e4b3e4247122 1-16
+tools/bench/eval/meeting/meeting-007/expected.json
+  s_9f6fcf8c1840a0::t_4085469b75731d 1-21
+tools/bench/eval/meeting/meeting-007/meta.json
+  s_9f6fcf8c1840a0::t_50aa8f3df2180b 1-29
+tools/bench/eval/meeting/meeting-007/script.md
+  s_9f6fcf8c1840a0::t_2d8587ce937698 1-7
+tools/bench/eval/meeting/meeting-007/transcript.txt
+  s_9f6fcf8c1840a0::t_92543359c20c5d 1-4
+tools/bench/eval/meeting/meeting-008/expected.json
+  s_9f6fcf8c1840a0::t_a40e45a818dca2 1-23
+tools/bench/eval/meeting/meeting-008/meta.json
+  s_9f6fcf8c1840a0::t_cf88c41b1d75a9 1-29
+tools/bench/eval/meeting/meeting-008/script.md
+  s_9f6fcf8c1840a0::t_41e89526eeec1e 1-8
+tools/bench/eval/meeting/meeting-008/transcript.txt
+  s_9f6fcf8c1840a0::t_e79261f579aeb0 1-4
+tools/bench/eval/meeting/meeting-009/expected.json
+  s_9f6fcf8c1840a0::t_bc3bac7440665f 1-17
+tools/bench/eval/meeting/meeting-009/meta.json
+  s_9f6fcf8c1840a0::t_82b129f138d88d 1-29
+tools/bench/eval/meeting/meeting-009/script.md
+  s_9f6fcf8c1840a0::t_d0b7d8e6b5d68d 1-10
+tools/bench/eval/meeting/meeting-009/transcript.txt
+  s_9f6fcf8c1840a0::t_46a7d53bb90d19 1-6
+tools/bench/eval/meeting/meeting-010/expected.json
+  s_9f6fcf8c1840a0::t_3f581a73b36727 1-29
+tools/bench/eval/meeting/meeting-010/meta.json
+  s_9f6fcf8c1840a0::t_6fceca3bfbd471 1-30
+tools/bench/eval/meeting/meeting-010/script.md
+  s_9f6fcf8c1840a0::t_daea8a08aed651 1-8
+tools/bench/eval/meeting/meeting-010/transcript.txt
+  s_9f6fcf8c1840a0::t_dda4ea19a52aa6 1-5
+tools/bench/eval/meeting/meeting-011/expected.json
+  s_9f6fcf8c1840a0::t_e724ec964153be 1-19
+tools/bench/eval/meeting/meeting-011/meta.json
+  s_9f6fcf8c1840a0::t_d2480e1be94e5c 1-35
+tools/bench/eval/meeting/meeting-011/script.md
+  s_9f6fcf8c1840a0::t_304bf369a2536c 1-9
+tools/bench/eval/meeting/meeting-011/transcript.txt
+  s_9f6fcf8c1840a0::t_5a938ec48d2b53 1-5
+tools/bench/eval/meeting/meeting-012/expected.json
+  s_9f6fcf8c1840a0::t_b5a0589c1bd5a2 1-23
+tools/bench/eval/meeting/meeting-012/meta.json
+  s_9f6fcf8c1840a0::t_87e2e52146d6d4 1-29
+tools/bench/eval/meeting/meeting-012/script.md
+  s_9f6fcf8c1840a0::t_e85c671542f73b 1-7
+tools/bench/eval/meeting/meeting-012/transcript.txt
+  s_9f6fcf8c1840a0::t_1d02f4241e0176 1-3
+tools/bench/eval/meeting/meeting-013/expected.json
+  s_9f6fcf8c1840a0::t_1da3cd1befff0c 1-22
+tools/bench/eval/meeting/meeting-013/meta.json
+  s_9f6fcf8c1840a0::t_9014872ef3b1e7 1-29
+tools/bench/eval/meeting/meeting-013/script.md
+  s_9f6fcf8c1840a0::t_fc609706df06c0 1-8
+tools/bench/eval/meeting/meeting-013/transcript.txt
+  s_9f6fcf8c1840a0::t_8089e36e5ea59e 1-4
+tools/bench/eval/meeting/meeting-014/expected.json
+  s_9f6fcf8c1840a0::t_7de32de24a3ef2 1-33
+tools/bench/eval/meeting/meeting-014/meta.json
+  s_9f6fcf8c1840a0::t_054833c76957a3 1-29
+tools/bench/eval/meeting/meeting-014/script.md
+  s_9f6fcf8c1840a0::t_72f91f36d1168c 1-9
+tools/bench/eval/meeting/meeting-014/transcript.txt
+  s_9f6fcf8c1840a0::t_2f421e53920814 1-5
+tools/bench/eval/meeting/meeting-015/expected.json
+  s_9f6fcf8c1840a0::t_502da6b9bb5d59 1-21
+tools/bench/eval/meeting/meeting-015/meta.json
+  s_9f6fcf8c1840a0::t_9b416e886333fb 1-29
+tools/bench/eval/meeting/meeting-015/script.md
+  s_9f6fcf8c1840a0::t_8039155ca7d314 1-7
+tools/bench/eval/meeting/meeting-015/transcript.txt
+  s_9f6fcf8c1840a0::t_30db743374a703 1-3
+tools/bench/eval/meeting/meeting-016/expected.json
+  s_9f6fcf8c1840a0::t_b031d13dc7dbea 1-24
+tools/bench/eval/meeting/meeting-016/meta.json
+  s_9f6fcf8c1840a0::t_78f735843e4590 1-40
+tools/bench/eval/meeting/meeting-016/script.md
+  s_9f6fcf8c1840a0::t_ff2071986fa70c 1-8
+tools/bench/eval/meeting/meeting-016/transcript.txt
+  s_9f6fcf8c1840a0::t_f23c328dcd06a1 1-4
+tools/bench/eval/meeting/meeting-017/expected.json
+  s_9f6fcf8c1840a0::t_6c062125028f60 1-25
+tools/bench/eval/meeting/meeting-017/meta.json
+  s_9f6fcf8c1840a0::t_d91c821e33de4d 1-34
+tools/bench/eval/meeting/meeting-017/script.md
+  s_9f6fcf8c1840a0::t_128bcd24acb40e 1-9
+tools/bench/eval/meeting/meeting-017/transcript.txt
+  s_9f6fcf8c1840a0::t_c0cf3d2fdc996e 1-5
+tools/bench/eval/meeting/meeting-018/expected.json
+  s_9f6fcf8c1840a0::t_7b11d4d19e08f6 1-28
+tools/bench/eval/meeting/meeting-018/meta.json
+  s_9f6fcf8c1840a0::t_bed361e3f81eb1 1-29
+tools/bench/eval/meeting/meeting-018/script.md
+  s_9f6fcf8c1840a0::t_bd0bced288ba23 1-9
+tools/bench/eval/meeting/meeting-018/transcript.txt
+  s_9f6fcf8c1840a0::t_4f5472d65943a6 1-5
+tools/bench/eval/meeting/meeting-019/expected.json
+  s_9f6fcf8c1840a0::t_f17045203a62f7 1-25
+tools/bench/eval/meeting/meeting-019/meta.json
+  s_9f6fcf8c1840a0::t_e3c70769c8a133 1-29
+tools/bench/eval/meeting/meeting-019/script.md
+  s_9f6fcf8c1840a0::t_9c37d56713fc9e 1-9
+tools/bench/eval/meeting/meeting-019/transcript.txt
+  s_9f6fcf8c1840a0::t_d835f2218ea842 1-5
+tools/bench/eval/meeting/meeting-020/expected.json
+  s_9f6fcf8c1840a0::t_d4ee59e003407b 1-27
+tools/bench/eval/meeting/meeting-020/meta.json
+  s_9f6fcf8c1840a0::t_9b1e50a90d9915 1-29
+tools/bench/eval/meeting/meeting-020/script.md
+  s_9f6fcf8c1840a0::t_6c2d36cb61c729 1-7
+tools/bench/eval/meeting/meeting-020/transcript.txt
+  s_9f6fcf8c1840a0::t_e76ee41e620f24 1-3
+tools/bench/eval/meeting/meeting-021/expected.json
+  s_9f6fcf8c1840a0::t_2509965bf740d9 1-23
+tools/bench/eval/meeting/meeting-021/meta.json
+  s_9f6fcf8c1840a0::t_a1115932e00dba 1-29
+tools/bench/eval/meeting/meeting-021/script.md
+  s_9f6fcf8c1840a0::t_0ae867dbc34cbb 1-8
+tools/bench/eval/meeting/meeting-021/transcript.txt
+  s_9f6fcf8c1840a0::t_dcdff15dfc4924 1-5
+tools/bench/eval/meeting/meeting-022/expected.json
+  s_9f6fcf8c1840a0::t_70028cd292bdcb 1-21
+tools/bench/eval/meeting/meeting-022/meta.json
+  s_9f6fcf8c1840a0::t_37403fb8ce4ecb 1-29
+tools/bench/eval/meeting/meeting-022/script.md
+  s_9f6fcf8c1840a0::t_17e331e93c167d 1-7
+tools/bench/eval/meeting/meeting-022/transcript.txt
+  s_9f6fcf8c1840a0::t_39f014b9682d1d 1-3
+tools/bench/eval/meeting/meeting-023/expected.json
+  s_9f6fcf8c1840a0::t_8103850eba7061 1-32
+tools/bench/eval/meeting/meeting-023/meta.json
+  s_9f6fcf8c1840a0::t_773cfcba52f139 1-44
+tools/bench/eval/meeting/meeting-023/script.md
+  s_9f6fcf8c1840a0::t_dc1dc9e0bb078b 1-12
+tools/bench/eval/meeting/meeting-023/transcript.txt
+  s_9f6fcf8c1840a0::t_6ebcdbd5958c58 1-12
+tools/bench/eval/meeting/meeting-024/expected.json
+  s_9f6fcf8c1840a0::t_887fc8c74c4e4f 1-28
+tools/bench/eval/meeting/meeting-024/meta.json
+  s_9f6fcf8c1840a0::t_db182312acdb82 1-29
+tools/bench/eval/meeting/meeting-024/script.md
+  s_9f6fcf8c1840a0::t_8df0f1faaf424e 1-9
+tools/bench/eval/meeting/meeting-024/transcript.txt
+  s_9f6fcf8c1840a0::t_2de2aa2d3f54cc 1-6
+tools/bench/eval/meeting/meeting-025/expected.json
+  s_9f6fcf8c1840a0::t_4a17d93c2f6b5b 1-35
+tools/bench/eval/meeting/meeting-025/meta.json
+  s_9f6fcf8c1840a0::t_51aa23bc9eef97 1-30
+tools/bench/eval/meeting/meeting-025/script.md
+  s_9f6fcf8c1840a0::t_62e21e6566ccef 1-15
+tools/bench/eval/meeting/meeting-025/transcript.txt
+  s_9f6fcf8c1840a0::t_58a2ac21a8da78 1-12
+tools/bench/eval/meeting/meeting-026/expected.json
+  s_9f6fcf8c1840a0::t_2bf2ff39176019 1-29
+tools/bench/eval/meeting/meeting-026/meta.json
+  s_9f6fcf8c1840a0::t_4fa8a304000dc5 1-29
+tools/bench/eval/meeting/meeting-026/script.md
+  s_9f6fcf8c1840a0::t_49d5a0c88722bf 1-8
+tools/bench/eval/meeting/meeting-026/transcript.txt
+  s_9f6fcf8c1840a0::t_2a53db5df2a3a7 1-4
+tools/bench/eval/meeting/meeting-027/expected.json
+  s_9f6fcf8c1840a0::t_5d7000b9ef8563 1-14
+tools/bench/eval/meeting/meeting-027/meta.json
+  s_9f6fcf8c1840a0::t_77256dd97b0ea3 1-29
+tools/bench/eval/meeting/meeting-027/script.md
+  s_9f6fcf8c1840a0::t_2c2efd3b925534 1-6
+tools/bench/eval/meeting/meeting-027/transcript.txt
+  s_9f6fcf8c1840a0::t_27a55723e01d65 1-2
+tools/bench/eval/meeting/meeting-028/expected.json
+  s_9f6fcf8c1840a0::t_15e39a6be80466 1-27
+tools/bench/eval/meeting/meeting-028/meta.json
+  s_9f6fcf8c1840a0::t_d789edd6833288 1-29
+tools/bench/eval/meeting/meeting-028/script.md
+  s_9f6fcf8c1840a0::t_201f9076f6b9e6 1-7
+tools/bench/eval/meeting/meeting-028/transcript.txt
+  s_9f6fcf8c1840a0::t_7eee41f5950c63 1-3
+tools/bench/eval/meeting/meeting-029/expected.json
+  s_9f6fcf8c1840a0::t_16a24f934b44d1 1-27
+tools/bench/eval/meeting/meeting-029/meta.json
+  s_9f6fcf8c1840a0::t_5eee5a714e810c 1-29
+tools/bench/eval/meeting/meeting-029/script.md
+  s_9f6fcf8c1840a0::t_da903f4c457801 1-7
+tools/bench/eval/meeting/meeting-029/transcript.txt
+  s_9f6fcf8c1840a0::t_67f245c08abf15 1-3
+tools/bench/eval/meeting/meeting-030/expected.json
+  s_9f6fcf8c1840a0::t_d528922b436e7d 1-26
+tools/bench/eval/meeting/meeting-030/meta.json
+  s_9f6fcf8c1840a0::t_a8c6af03da1c28 1-35
+tools/bench/eval/meeting/meeting-030/script.md
+  s_9f6fcf8c1840a0::t_0dc1a1f669d266 1-10
+tools/bench/eval/meeting/meeting-030/transcript.txt
+  s_9f6fcf8c1840a0::t_a1a93f87d66a13 1-6
+tools/bench/eval/meeting/scoring.json
+  s_9f6fcf8c1840a0::t_28c297396ca92d 1-31
+tools/bench/eval/run.py
+  s_9f6fcf8c1840a0::t_ffba4aacf1c294 1-301
+tools/bench/eval/scoring.py
+  s_9f6fcf8c1840a0::t_f5f0121307175a 1-269
+tools/bench/eval/synth.py
+  s_9f6fcf8c1840a0::t_750c18e758f911 1-202
+tools/bench/eval/warranty/scoring.json
+  s_9f6fcf8c1840a0::t_abe59d9b7762e1 1-27
+tools/bench/eval/warranty/warranty-001/expected.json
+  s_9f6fcf8c1840a0::t_79f568e7dcec01 1-15
+tools/bench/eval/warranty/warranty-001/meta.json
+  s_9f6fcf8c1840a0::t_b3ad1c29028821 1-24
+tools/bench/eval/warranty/warranty-001/script.md
+  s_9f6fcf8c1840a0::t_606dbd3a9dfcec 1-8
+tools/bench/eval/warranty/warranty-001/transcript.txt
+  s_9f6fcf8c1840a0::t_9c4ce33a6f4c86 1-4
+tools/bench/eval/warranty/warranty-002/expected.json
+  s_9f6fcf8c1840a0::t_92f4c0e1bf32be 1-15
+tools/bench/eval/warranty/warranty-002/meta.json
+  s_9f6fcf8c1840a0::t_c910c2dccb5211 1-24
+tools/bench/eval/warranty/warranty-002/script.md
+  s_9f6fcf8c1840a0::t_b68dce4a883d74 1-7
+tools/bench/eval/warranty/warranty-002/transcript.txt
+  s_9f6fcf8c1840a0::t_f89fb80848a05e 1-2
+tools/bench/eval/warranty/warranty-003/expected.json
+  s_9f6fcf8c1840a0::t_82f126d9698ef2 1-17
+tools/bench/eval/warranty/warranty-003/meta.json
+  s_9f6fcf8c1840a0::t_4beab773780b0b 1-25
+tools/bench/eval/warranty/warranty-003/script.md
+  s_9f6fcf8c1840a0::t_2678e713d2a58e 1-8
+tools/bench/eval/warranty/warranty-003/transcript.txt
+  s_9f6fcf8c1840a0::t_1148f57582ec72 1-3
+tools/bench/eval/warranty/warranty-004/expected.json
+  s_9f6fcf8c1840a0::t_d98009e3ac3fed 1-17
+tools/bench/eval/warranty/warranty-004/meta.json
+  s_9f6fcf8c1840a0::t_2a01373cdeabdc 1-24
+tools/bench/eval/warranty/warranty-004/script.md
+  s_9f6fcf8c1840a0::t_6f6ae7cbfe15f9 1-7
+tools/bench/eval/warranty/warranty-004/transcript.txt
+  s_9f6fcf8c1840a0::t_22ec28f81c3192 1-3
+tools/bench/eval/warranty/warranty-005/expected.json
+  s_9f6fcf8c1840a0::t_fc104e4ec10d2f 1-15
+tools/bench/eval/warranty/warranty-005/meta.json
+  s_9f6fcf8c1840a0::t_09d3955d2005ec 1-24
+tools/bench/eval/warranty/warranty-005/script.md
+  s_9f6fcf8c1840a0::t_fddaaf607eb70a 1-7
+tools/bench/eval/warranty/warranty-005/transcript.txt
+  s_9f6fcf8c1840a0::t_641884389c22b1 1-2
+tools/bench/eval/warranty/warranty-006/expected.json
+  s_9f6fcf8c1840a0::t_7ee8a9b795da7e 1-15
+tools/bench/eval/warranty/warranty-006/meta.json
+  s_9f6fcf8c1840a0::t_1d7aa6eb14446f 1-24
+tools/bench/eval/warranty/warranty-006/script.md
+  s_9f6fcf8c1840a0::t_9eba5d75366f6c 1-7
+tools/bench/eval/warranty/warranty-006/transcript.txt
+  s_9f6fcf8c1840a0::t_f8afdda7c4a96b 1-3
+tools/bench/eval/warranty/warranty-007/expected.json
+  s_9f6fcf8c1840a0::t_f1060f0ed2cb1c 1-15
+tools/bench/eval/warranty/warranty-007/meta.json
+  s_9f6fcf8c1840a0::t_0321342eb1525c 1-24
+tools/bench/eval/warranty/warranty-007/script.md
+  s_9f6fcf8c1840a0::t_39b861885ece54 1-7
+tools/bench/eval/warranty/warranty-007/transcript.txt
+  s_9f6fcf8c1840a0::t_1f6736706f67ec 1-3
+tools/bench/eval/warranty/warranty-008/expected.json
+  s_9f6fcf8c1840a0::t_e05b14ed93e0cd 1-17
+tools/bench/eval/warranty/warranty-008/meta.json
+  s_9f6fcf8c1840a0::t_e073490ccce247 1-25
+tools/bench/eval/warranty/warranty-008/script.md
+  s_9f6fcf8c1840a0::t_22b8c8dcba262e 1-9
+tools/bench/eval/warranty/warranty-008/transcript.txt
+  s_9f6fcf8c1840a0::t_a969fab3193b51 1-4
+tools/bench/eval/warranty/warranty-009/expected.json
+  s_9f6fcf8c1840a0::t_2c54b7f4aca2c0 1-12
+tools/bench/eval/warranty/warranty-009/meta.json
+  s_9f6fcf8c1840a0::t_86160606b20c39 1-24
+tools/bench/eval/warranty/warranty-009/script.md
+  s_9f6fcf8c1840a0::t_43e27733aa80c5 1-5
+tools/bench/eval/warranty/warranty-009/transcript.txt
+  s_9f6fcf8c1840a0::t_601f2a725f2546 1
+tools/bench/eval/warranty/warranty-010/expected.json
+  s_9f6fcf8c1840a0::t_0e2b06ce44891a 1-15
+tools/bench/eval/warranty/warranty-010/meta.json
+  s_9f6fcf8c1840a0::t_7fd25ef29ea68a 1-24
+tools/bench/eval/warranty/warranty-010/script.md
+  s_9f6fcf8c1840a0::t_d8963f36c4a7b6 1-7
+tools/bench/eval/warranty/warranty-010/transcript.txt
+  s_9f6fcf8c1840a0::t_069697b3acbe96 1-3
+tools/bench/eval/warranty/warranty-011/expected.json
+  s_9f6fcf8c1840a0::t_500ae59a463abc 1-15
+tools/bench/eval/warranty/warranty-011/meta.json
+  s_9f6fcf8c1840a0::t_d17738eabbe270 1-24
+tools/bench/eval/warranty/warranty-011/script.md
+  s_9f6fcf8c1840a0::t_bb0628bb9f54c9 1-7
+tools/bench/eval/warranty/warranty-011/transcript.txt
+  s_9f6fcf8c1840a0::t_400a2161603156 1-2
+tools/bench/eval/warranty/warranty-012/expected.json
+  s_9f6fcf8c1840a0::t_8977dc30a2289f 1-15
+tools/bench/eval/warranty/warranty-012/meta.json
+  s_9f6fcf8c1840a0::t_0f3b4e727d2b17 1-24
+tools/bench/eval/warranty/warranty-012/script.md
+  s_9f6fcf8c1840a0::t_cafa95bc09bc57 1-6
+tools/bench/eval/warranty/warranty-012/transcript.txt
+  s_9f6fcf8c1840a0::t_4191619def6f4a 1-3
+tools/bench/eval/warranty/warranty-013/expected.json
+  s_9f6fcf8c1840a0::t_f501bc19305cab 1-15
+tools/bench/eval/warranty/warranty-013/meta.json
+  s_9f6fcf8c1840a0::t_e808433022afad 1-24
+tools/bench/eval/warranty/warranty-013/script.md
+  s_9f6fcf8c1840a0::t_c3b0c96e13f62c 1-7
+tools/bench/eval/warranty/warranty-013/transcript.txt
+  s_9f6fcf8c1840a0::t_1472555f05e66d 1-3
+tools/bench/eval/warranty/warranty-014/expected.json
+  s_9f6fcf8c1840a0::t_4a840db42a7140 1-17
+tools/bench/eval/warranty/warranty-014/meta.json
+  s_9f6fcf8c1840a0::t_f6b329a8728ecf 1-25
+tools/bench/eval/warranty/warranty-014/script.md
+  s_9f6fcf8c1840a0::t_553ee37787e45d 1-6
+tools/bench/eval/warranty/warranty-014/transcript.txt
+  s_9f6fcf8c1840a0::t_5d96f3f9f26a98 1-2
+tools/bench/eval/warranty/warranty-015/expected.json
+  s_9f6fcf8c1840a0::t_3f4ca4194e8e5f 1-15
+tools/bench/eval/warranty/warranty-015/meta.json
+  s_9f6fcf8c1840a0::t_2c3f6fe1889e82 1-24
+tools/bench/eval/warranty/warranty-015/script.md
+  s_9f6fcf8c1840a0::t_2eb24e5e9ca0d1 1-8
+tools/bench/eval/warranty/warranty-015/transcript.txt
+  s_9f6fcf8c1840a0::t_76c11b760bd0d9 1-4
+tools/bench/eval/warranty/warranty-016/expected.json
+  s_9f6fcf8c1840a0::t_a84f86e8652c94 1-17
+tools/bench/eval/warranty/warranty-016/meta.json
+  s_9f6fcf8c1840a0::t_b4ca75c0ee3cc1 1-24
+tools/bench/eval/warranty/warranty-016/script.md
+  s_9f6fcf8c1840a0::t_75cfab7cb6426f 1-8
+tools/bench/eval/warranty/warranty-016/transcript.txt
+  s_9f6fcf8c1840a0::t_44505cc3c7c9f1 1-4
+tools/bench/eval/warranty/warranty-017/expected.json
+  s_9f6fcf8c1840a0::t_327790bf498f29 1-17
+tools/bench/eval/warranty/warranty-017/meta.json
+  s_9f6fcf8c1840a0::t_712a01231dc4e9 1-25
+tools/bench/eval/warranty/warranty-017/script.md
+  s_9f6fcf8c1840a0::t_c8a5064569518c 1-11
+tools/bench/eval/warranty/warranty-017/transcript.txt
+  s_9f6fcf8c1840a0::t_f6c206940fe280 1-7
+tools/bench/eval/warranty/warranty-018/expected.json
+  s_9f6fcf8c1840a0::t_69e0e99cd97043 1-12
+tools/bench/eval/warranty/warranty-018/meta.json
+  s_9f6fcf8c1840a0::t_8b312d16478079 1-24
+tools/bench/eval/warranty/warranty-018/script.md
+  s_9f6fcf8c1840a0::t_bb9d2ab8b9a0eb 1-6
+tools/bench/eval/warranty/warranty-018/transcript.txt
+  s_9f6fcf8c1840a0::t_273845d40e5abf 1-2
+tools/bench/eval/warranty/warranty-019/expected.json
+  s_9f6fcf8c1840a0::t_c94a92139ddeed 1-15
+tools/bench/eval/warranty/warranty-019/meta.json
+  s_9f6fcf8c1840a0::t_43f1fe36b99fbd 1-24
+tools/bench/eval/warranty/warranty-019/script.md
+  s_9f6fcf8c1840a0::t_230d734e674005 1-7
+tools/bench/eval/warranty/warranty-019/transcript.txt
+  s_9f6fcf8c1840a0::t_3a83a078a62f54 1-3
+tools/bench/eval/warranty/warranty-020/expected.json
+  s_9f6fcf8c1840a0::t_1a0c5b02e0553c 1-15
+tools/bench/eval/warranty/warranty-020/meta.json
+  s_9f6fcf8c1840a0::t_661f3e1df292d9 1-24
+tools/bench/eval/warranty/warranty-020/script.md
+  s_9f6fcf8c1840a0::t_75eebc8aee7509 1-7
+tools/bench/eval/warranty/warranty-020/transcript.txt
+  s_9f6fcf8c1840a0::t_ee34c436519e0e 1-2
+tools/bench/eval/warranty/warranty-021/expected.json
+  s_9f6fcf8c1840a0::t_6853078d794c13 1-15
+tools/bench/eval/warranty/warranty-021/meta.json
+  s_9f6fcf8c1840a0::t_01d2fb776dfb1b 1-24
+tools/bench/eval/warranty/warranty-021/script.md
+  s_9f6fcf8c1840a0::t_7ccd296966b147 1-6
+tools/bench/eval/warranty/warranty-021/transcript.txt
+  s_9f6fcf8c1840a0::t_f4b3c65baacba2 1-2
+tools/bench/eval/warranty/warranty-022/expected.json
+  s_9f6fcf8c1840a0::t_8c79d3e8fbe60b 1-18
+tools/bench/eval/warranty/warranty-022/meta.json
+  s_9f6fcf8c1840a0::t_2d01f0936d4ae1 1-24
+tools/bench/eval/warranty/warranty-022/script.md
+  s_9f6fcf8c1840a0::t_cb0cbd023b8f27 1-8
+tools/bench/eval/warranty/warranty-022/transcript.txt
+  s_9f6fcf8c1840a0::t_11e9f7f2fd698d 1-4
+tools/bench/eval/warranty/warranty-023/expected.json
+  s_9f6fcf8c1840a0::t_aa208e0c745f86 1-15
+tools/bench/eval/warranty/warranty-023/meta.json
+  s_9f6fcf8c1840a0::t_a7d047caf99a6e 1-24
+tools/bench/eval/warranty/warranty-023/script.md
+  s_9f6fcf8c1840a0::t_c22d5a8622f927 1-7
+tools/bench/eval/warranty/warranty-023/transcript.txt
+  s_9f6fcf8c1840a0::t_91423e02932c68 1-3
+tools/bench/eval/warranty/warranty-024/expected.json
+  s_9f6fcf8c1840a0::t_929fc3fe77396c 1-15
+tools/bench/eval/warranty/warranty-024/meta.json
+  s_9f6fcf8c1840a0::t_208c7fdebb1b1b 1-24
+tools/bench/eval/warranty/warranty-024/script.md
+  s_9f6fcf8c1840a0::t_58afaff62ff67d 1-7
+tools/bench/eval/warranty/warranty-024/transcript.txt
+  s_9f6fcf8c1840a0::t_71042f5d8e9756 1-2
+tools/bench/eval/warranty/warranty-025/expected.json
+  s_9f6fcf8c1840a0::t_ca2c186b795aeb 1-15
+tools/bench/eval/warranty/warranty-025/meta.json
+  s_9f6fcf8c1840a0::t_64b2e244d2c78e 1-25
+tools/bench/eval/warranty/warranty-025/script.md
+  s_9f6fcf8c1840a0::t_bf4159c319b7ae 1-7
+tools/bench/eval/warranty/warranty-025/transcript.txt
+  s_9f6fcf8c1840a0::t_8c98798c212aca 1-2
+tools/bench/eval/warranty/warranty-026/expected.json
+  s_9f6fcf8c1840a0::t_d50f25285c6592 1-15
+tools/bench/eval/warranty/warranty-026/meta.json
+  s_9f6fcf8c1840a0::t_436937c11980cd 1-24
+tools/bench/eval/warranty/warranty-026/script.md
+  s_9f6fcf8c1840a0::t_c1af6b68470b1f 1-8
+tools/bench/eval/warranty/warranty-026/transcript.txt
+  s_9f6fcf8c1840a0::t_e3ec1c406628e7 1-4
+tools/bench/eval/warranty/warranty-027/expected.json
+  s_9f6fcf8c1840a0::t_58fc96325a3ea7 1-15
+tools/bench/eval/warranty/warranty-027/meta.json
+  s_9f6fcf8c1840a0::t_de20a76058c1f6 1-24
+tools/bench/eval/warranty/warranty-027/script.md
+  s_9f6fcf8c1840a0::t_4be039378395a0 1-7
+tools/bench/eval/warranty/warranty-027/transcript.txt
+  s_9f6fcf8c1840a0::t_3f55d823555b51 1-3
+tools/bench/eval/warranty/warranty-028/expected.json
+  s_9f6fcf8c1840a0::t_c91da0e15a8be4 1-15
+tools/bench/eval/warranty/warranty-028/meta.json
+  s_9f6fcf8c1840a0::t_7869fdc4da6117 1-24
+tools/bench/eval/warranty/warranty-028/script.md
+  s_9f6fcf8c1840a0::t_089d1ec90ae123 1-6
+tools/bench/eval/warranty/warranty-028/transcript.txt
+  s_9f6fcf8c1840a0::t_687a44827ac9cb 1-4
+tools/bench/eval/warranty/warranty-029/expected.json
+  s_9f6fcf8c1840a0::t_eb110ef2ae2c2a 1-17
+tools/bench/eval/warranty/warranty-029/meta.json
+  s_9f6fcf8c1840a0::t_346bb3f96d33ba 1-24
+tools/bench/eval/warranty/warranty-029/script.md
+  s_9f6fcf8c1840a0::t_af0142cc48eeef 1-8
+tools/bench/eval/warranty/warranty-029/transcript.txt
+  s_9f6fcf8c1840a0::t_8665300388b68a 1-3
+tools/bench/eval/warranty/warranty-030/expected.json
+  s_9f6fcf8c1840a0::t_11f93822ee484b 1-15
+tools/bench/eval/warranty/warranty-030/meta.json
+  s_9f6fcf8c1840a0::t_6d3f4c7f5c4bde 1-24
+tools/bench/eval/warranty/warranty-030/script.md
+  s_9f6fcf8c1840a0::t_10db8b307d2257 1-7
+tools/bench/eval/warranty/warranty-030/transcript.txt
+  s_9f6fcf8c1840a0::t_1a1a585eabcab9 1-3
+tools/bench/results/2026-10-14-eval-engineering-Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_9f6fcf8c1840a0::t_3d3beddf659d60 1-5623
+tools/bench/results/2026-10-14-eval-engineering-Llama-3.2-1B-Instruct-Q4-K-M.md
+  s_9f6fcf8c1840a0::t_41bb800dbd46f4 1-77
+tools/bench/results/2026-10-14-eval-engineering-SmolLM2-135M-Instruct-Q8-0.json
+  s_9f6fcf8c1840a0::t_9d1e426b817dcc 1-3586
+tools/bench/results/2026-10-14-eval-engineering-SmolLM2-135M-Instruct-Q8-0.md
+  s_9f6fcf8c1840a0::t_93fef7d277c15f 1-77
+tools/bench/results/2026-10-14-eval-meeting-Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_9f6fcf8c1840a0::t_3db883c58c599d 1-2889
+tools/bench/results/2026-10-14-eval-meeting-Llama-3.2-1B-Instruct-Q4-K-M.md
+  s_9f6fcf8c1840a0::t_cb68405e75e74d 1-76
+tools/bench/results/2026-10-14-eval-meeting-SmolLM2-135M-Instruct-Q8-0.json
+  s_9f6fcf8c1840a0::t_1e7870dacba893 1-2819
+tools/bench/results/2026-10-14-eval-meeting-SmolLM2-135M-Instruct-Q8-0.md
+  s_9f6fcf8c1840a0::t_bd66fbb35d8d4b 1-76
+tools/bench/results/2026-10-14-eval-warranty-Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_9f6fcf8c1840a0::t_93393beaa12ebf 1-2337
+tools/bench/results/2026-10-14-eval-warranty-Llama-3.2-1B-Instruct-Q4-K-M.md
+  s_9f6fcf8c1840a0::t_e2dfe2780dde12 1-86
+tools/bench/results/2026-10-14-eval-warranty-SmolLM2-135M-Instruct-Q8-0.json
+  s_9f6fcf8c1840a0::t_0b2335cb596660 1-2330
+tools/bench/results/2026-10-14-eval-warranty-SmolLM2-135M-Instruct-Q8-0.md
+  s_9f6fcf8c1840a0::t_d016704dd83f63 1-86
+tools/ci/eval.sh
+  s_9f6fcf8c1840a0::t_9595e5335ab239 1-70
+tools/ci/tests/test_eval_harness.py
+  s_9f6fcf8c1840a0::t_d735263a24aba4 1-125
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b16bc0759d27ce91686d4d748df2a3ba27a71a44",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
