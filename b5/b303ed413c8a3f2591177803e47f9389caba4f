@@ -1,0 +1,87 @@
+tools/ci/check_store_privacy.py
+  s_5568385315e53b::t_dd4342ccd79f5e 1-310
+tools/ci/tests/test_store_privacy.py
+  s_5568385315e53b::t_b6d78d8862ec50 1-154
+docs/store/listing.md
+  s_5568385315e53b::t_ffc8667320a426 1-45
+docs/test-plans/device/SEC-06.md
+  s_5568385315e53b::t_490884d4ecf5e3 1-13
+docs/store/privacy-manifest.md
+  s_5568385315e53b::t_b4a2590ddaa761 1-60
+packages/vv_native/ios/vv_native.podspec
+  s_5568385315e53b::t_01486d9691d182 19
+docs/store/reviewer-notes.md
+  s_5568385315e53b::t_3b5c9d7d3fefbb 1-48
+docs/adr/ADR-SEC-07-recording-consent.md
+  s_5568385315e53b::t_76d257de599780 1-49
+docs/test-plans/device/SEC-07.md
+  s_5568385315e53b::t_f234f91b41538b 1-13
+packages/vv_native/ios/PrivacyInfo.xcprivacy
+  s_5568385315e53b::t_0ccaa15a426a55 1-26
+app/ios/Runner/PrivacyInfo.xcprivacy
+  s_5568385315e53b::t_3f3411624db64d 1-47
+docs/store/pre-submission-checklist.md
+  s_5568385315e53b::t_8fbbdcae5ec5a3 1-30
+.github/workflows/ci.yml
+  s_5568385315e53b::t_232127fbf36fa4 52-53
+app/assets/legal/privacy_policy.md
+  s_5568385315e53b::t_eb94a655ef42d4 1-42
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_5568385315e53b::t_6b6c5bf4dcb9c6 31,87,148,271
+app/lib/core/l10n/arb/app_en.arb
+  s_5568385315e53b::t_a838e013b19e8c 368-371,584-586
+app/lib/core/l10n/gen/app_localizations.dart
+  s_5568385315e53b::t_962364e397a654 1963-1986,3037-3054
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_5568385315e53b::t_eefd586c0ae864 1128-1140,1774-1783
+app/lib/features/onboarding/data/onboarding_providers.dart
+  s_5568385315e53b::t_3a0cf637bdfeed 40-46
+app/lib/features/recording/data/recording_screen_providers.dart
+  s_5568385315e53b::t_1c6511374ccdd9 59-60
+app/lib/features/recording/data/recording_session_service.dart
+  s_5568385315e53b::t_3fbdd617c7ce3b 85-96
+app/lib/features/recording/domain/recording_session.dart
+  s_5568385315e53b::t_2cdbb0373f3525 16,25-28
+app/lib/features/recording/presentation/recording_screen.dart
+  s_5568385315e53b::t_1eeb18f12b2782 14,64-67,89,106-116,166-184,186-187,190,192-195,673-682,684-686,693,696,699-704,707,714-739
+app/lib/features/settings/presentation/privacy_policy_screen.dart
+  s_5568385315e53b::t_c1a412e9df61d6 1-41
+app/lib/features/settings/presentation/settings_screen.dart
+  s_5568385315e53b::t_95f0f0ff9e88c2 15,101-111
+app/pubspec.yaml
+  s_5568385315e53b::t_20c528fca7dbd8 74-75
+app/test/unit/recording/recording_session_test.dart
+  s_5568385315e53b::t_b092e2f6386295 84-108
+app/test/unit/templates/template_note_renderer_test.dart
+  s_5568385315e53b::t_a5f5d12046382f 19,30,77-86
+app/test/widget/privacy_policy_test.dart
+  s_5568385315e53b::t_fc5a506b987cf7 1-55
+app/test/widget/record_screen_test.dart
+  s_5568385315e53b::t_e3c075c507b36f 106-107,111,121-124,147-153,343-426
+app/test/widget/settings_screen_test.dart
+  s_5568385315e53b::t_362b303bb32d55 300-305
+docs/ci.md
+  s_5568385315e53b::t_2c177a59f19af2 8
+tasks/10-security-privacy/SEC-06-store-privacy-compliance.md
+  s_5568385315e53b::t_354f8eaf80ff16 4,11-17,21-34
+tasks/10-security-privacy/SEC-07-recording-consent-features.md
+  s_5568385315e53b::t_98791a78b00140 4,11-16,22-35
+tools/ci/check_store_privacy.sh
+  s_5568385315e53b::t_59e97d9e4a5ac6 1-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b5b303ed413c8a3f2591177803e47f9389caba4f",
+  "prompts": {},
+  "sessions": {
+    "s_5568385315e53b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f2a8133d-d95c-4ea9-afeb-d867f5d4c63f",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
