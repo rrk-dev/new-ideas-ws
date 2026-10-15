@@ -23,7 +23,12 @@ enum PostProcessor {
   sortByTimestamp('sort_by_timestamp'),
 
   /// Nulls `t` values that do not exist in the transcript.
-  dropUngroundedTimestamps('drop_ungrounded_timestamps');
+  dropUngroundedTimestamps('drop_ungrounded_timestamps'),
+
+  /// Removes repeated items from every list (same text after
+  /// normalization: case, punctuation, whitespace) — small models sometimes
+  /// repeat one item until `maxItems`. Keeps the first occurrence.
+  dedupeLists('dedupe_lists');
 
   PostProcessor(this.wireName);
 
@@ -100,6 +105,10 @@ String? postProcessorRequirement(PostProcessor processor, ObjectSchema root) {
       return anyField((n, node) => n == 't' && node is StringSchema)
           ? null
           : 'needs a string field named t (hh:mm:ss timestamp)';
+    case PostProcessor.dedupeLists:
+      return anyField((_, node) => node is ArraySchema)
+          ? null
+          : 'needs a list field';
   }
 }
 

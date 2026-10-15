@@ -14,6 +14,7 @@ import 'package:vaultvoice/features/pipeline/data/steps/step_support.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
 import 'package:vaultvoice/features/profiles/domain/extraction_prompts.dart';
+import 'package:vaultvoice/features/profiles/domain/post_processing.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
 import 'package:vaultvoice/features/profiles/domain/prompt_inputs.dart';
 
@@ -125,29 +126,36 @@ class ExtractStep implements PipelineStep {
         modelId: modelId,
         metadata: metadata,
       );
+      final p = prompts(profile, metadata: metadata);
+      // PRF-03/04/05: the profile's deterministic Dart post-processors run
+      // on every valid result (dates, expiry, serials, owners, timestamps).
+      Map<String, Object?> postProcess(Map<String, Object?> data) =>
+          applyPostProcessors(
+            profile,
+            data,
+            PostProcessContext.fromTranscriptLines(
+              p.transcriptLines(promptSegments(segments)),
+              recordedAt: metadata.recordedAt,
+              speakers: metadata.speakers,
+            ),
+          );
       if (long != null) {
         switch (long) {
           case Err(:final failure):
             return StepFailed(failure);
           case Ok(value: final d):
             valid = d.valid;
-            json = d.json;
+            json = d.valid ? postProcess(d.json) : d.json;
         }
       } else {
-        final outcome = await _structured(
-          ctx,
-          prompts(profile, metadata: metadata),
-          profile,
-          grammar,
-          segments,
-        );
+        final outcome = await _structured(ctx, p, profile, grammar, segments);
         switch (outcome) {
           case Err(:final failure):
             return StepFailed(failure);
           case Ok(value: final o):
             valid = o.valid;
             json = o.valid
-                ? o.data!
+                ? postProcess(o.data!)
                 : fallbackExtractionJson(o.fallbackSummary);
         }
       }
