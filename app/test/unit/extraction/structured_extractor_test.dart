@@ -193,9 +193,8 @@ void main() {
           '{"t":"00:00:07"}',
           'Title\nSummary.',
         ]);
-        final o = (await StructuredExtractor(
-          engine,
-        ).extract(req(rootT))).valueOrNull!;
+        final o = (await StructuredExtractor(engine).extract(req(rootT)))
+            .valueOrNull!;
         expect(o.valid, isFalse);
         expect(o.data, isNull);
         expect(o.repairUsed, isTrue);
@@ -209,18 +208,20 @@ void main() {
         expect(o.issues.join(), isNot(contains('00:00:07')));
       });
 
-      test('[LLM-05/AC1] repair with verifiable evidence is accepted', () async {
-        final engine = ScriptedLlmEngine([
-          '{"t":"00:00:09"}',
-          '{"t":"00:00:05"}',
-        ]);
-        final o = (await StructuredExtractor(
-          engine,
-        ).extract(req(rootT))).valueOrNull!;
-        expect(o.valid, isTrue);
-        expect(o.repairUsed, isTrue);
-        expect(o.data, {'t': '00:00:05'});
-      });
+      test(
+        '[LLM-05/AC1] repair with verifiable evidence is accepted',
+        () async {
+          final engine = ScriptedLlmEngine([
+            '{"t":"00:00:09"}',
+            '{"t":"00:00:05"}',
+          ]);
+          final o = (await StructuredExtractor(engine).extract(req(rootT)))
+              .valueOrNull!;
+          expect(o.valid, isTrue);
+          expect(o.repairUsed, isTrue);
+          expect(o.data, {'t': '00:00:05'});
+        },
+      );
 
       test('[LLM-05/AC1] dropping items below minItems is not valid', () async {
         const schema = <String, Object?>{
@@ -245,17 +246,16 @@ void main() {
           '{"items":[{"text":"a","t":"00:00:09"}]}',
           '{"items":[{"text":"a","t":"00:00:08"}]}',
         ]);
-        final o =
-            (await StructuredExtractor(engine).extract(
-              ExtractionRequest(
-                systemPrompt: 's',
-                userPrompt: 'u',
-                schema: schema,
-                grammar: 'g',
-                transcriptTimestamps: const {'00:00:05'},
-                summaryFallback: false,
-              ),
-            )).valueOrNull!;
+        final o = (await StructuredExtractor(engine).extract(
+          ExtractionRequest(
+            systemPrompt: 's',
+            userPrompt: 'u',
+            schema: schema,
+            grammar: 'g',
+            transcriptTimestamps: const {'00:00:05'},
+            summaryFallback: false,
+          ),
+        )).valueOrNull!;
         expect(o.valid, isFalse);
         expect(o.data, isNull);
         expect(o.issues, contains(r'$.items: fewer than minItems 1'));
@@ -277,23 +277,24 @@ void main() {
         };
         const optionalNested = <String, Object?>{
           'type': 'object',
-          'properties': {'obj': inner, 'n': {'type': 'integer'}},
+          'properties': {
+            'obj': inner,
+            'n': {'type': 'integer'},
+          },
         };
         final bad = ScriptedLlmEngine([
           '{"obj":{"t":"00:00:09"}}',
           '{"obj":{"t":"00:00:09"}}',
           'T\nS.',
         ]);
-        final o1 = (await StructuredExtractor(
-          bad,
-        ).extract(req(requiredNested))).valueOrNull!;
+        final o1 = (await StructuredExtractor(bad).extract(req(requiredNested)))
+            .valueOrNull!;
         expect(o1.valid, isFalse);
         expect(o1.data, isNull);
 
         final ok = ScriptedLlmEngine(['{"obj":{"t":"00:00:09"},"n":1}']);
-        final o2 = (await StructuredExtractor(
-          ok,
-        ).extract(req(optionalNested))).valueOrNull!;
+        final o2 = (await StructuredExtractor(ok).extract(req(optionalNested)))
+            .valueOrNull!;
         expect(o2.valid, isTrue);
         expect(o2.data, {'n': 1});
         expect(
