@@ -172,6 +172,55 @@ final class ClockProvider extends $FunctionalProvider<Clock, Clock, Clock>
 
 String _$clockHash() => r'55214d6539f7396a3ae1aa23b06eea79fdac0ebe';
 
+/// `libvv_native` outside an app bundle (host tests and tools); null on
+/// devices, where the library is bundled with the app.
+
+@ProviderFor(nativeLibraryPath)
+final nativeLibraryPathProvider = NativeLibraryPathProvider._();
+
+/// `libvv_native` outside an app bundle (host tests and tools); null on
+/// devices, where the library is bundled with the app.
+
+final class NativeLibraryPathProvider
+    extends $FunctionalProvider<String?, String?, String?>
+    with $Provider<String?> {
+  /// `libvv_native` outside an app bundle (host tests and tools); null on
+  /// devices, where the library is bundled with the app.
+  NativeLibraryPathProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'nativeLibraryPathProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$nativeLibraryPathHash();
+
+  @$internal
+  @override
+  $ProviderElement<String?> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  String? create(Ref ref) {
+    return nativeLibraryPath(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(String? value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<String?>(value),
+    );
+  }
+}
+
+String _$nativeLibraryPathHash() => r'1fbf8c594a50e3bab3c25ce2aefb56388f563af1';
+
 /// Allowlist config: model catalog/CDN hosts only (MDL-01).
 
 @ProviderFor(networkConfig)

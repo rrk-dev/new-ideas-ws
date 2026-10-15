@@ -30,6 +30,11 @@ VaultWriter vaultWriter(Ref ref) =>
 @Riverpod(keepAlive: true)
 Clock clock(Ref ref) => const SystemClock();
 
+/// `libvv_native` outside an app bundle (host tests and tools); null on
+/// devices, where the library is bundled with the app.
+@Riverpod(keepAlive: true)
+String? nativeLibraryPath(Ref ref) => null;
+
 /// Allowlist config: model catalog/CDN hosts only (MDL-01).
 @Riverpod(keepAlive: true)
 NetworkConfig networkConfig(Ref ref) => const NetworkConfig(

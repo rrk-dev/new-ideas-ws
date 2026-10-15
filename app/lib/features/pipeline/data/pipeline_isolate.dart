@@ -35,12 +35,19 @@ class _Request {
   final SendPort reply;
 }
 
+Object? _forward(void Function() notify) {
+  notify();
+  return null;
+}
+
 Future<void> _workerMain(_WorkerArgs args) async {
   final db = VaultVoiceDatabase(await args.database.connect());
+  final paths = StoragePaths(args.storageRoot);
+  final engines = args.engines(PipelineWorkerContext(db: db, paths: paths));
   final orchestrator = PipelineOrchestrator.withEngines(
     db: db,
-    paths: StoragePaths(args.storageRoot),
-    engines: args.engines(),
+    paths: paths,
+    engines: engines,
     config: args.config,
   );
   final commands = ReceivePort('vv-pipeline commands');
@@ -51,7 +58,7 @@ Future<void> _workerMain(_WorkerArgs args) async {
   await for (final message in commands) {
     final req = message as _Request;
     final a = req.args;
-    final Object? reply = switch (req.op) {
+    final reply = switch (req.op) {
       'enqueue' => await orchestrator.enqueue(
         a[0]! as String,
         userInitiated: a[1]! as bool,
@@ -68,11 +75,16 @@ Future<void> _workerMain(_WorkerArgs args) async {
       'pause' => await orchestrator.pause(a[0]! as String),
       'resume' => await orchestrator.resume(a[0]! as String),
       'resolveWaiting' => await orchestrator.resolveWaiting(a[0]! as String),
+      'foreground' => _forward(
+        () => engines.onForeground?.call(foreground: a[0]! as bool),
+      ),
+      'memoryPressure' => _forward(() => engines.onMemoryPressure?.call()),
       'dispose' => null,
       _ => const Err<void>(UnexpectedFailure('unknown command')),
     };
     if (req.op == 'dispose') {
       await orchestrator.dispose();
+      await engines.dispose?.call();
       await db.close();
       commands.close();
     }
@@ -80,11 +92,21 @@ Future<void> _workerMain(_WorkerArgs args) async {
   }
 }
 
+/// Device conditions the UI isolate forwards to the worker's engines
+/// (FND-11; FND-08 adds pausing/background tasks on top).
+abstract interface class PipelineConditions {
+  /// The app moved to the foreground (`resumed`) or away from it.
+  Future<void> setForeground({required bool foreground});
+
+  /// The OS reported memory pressure.
+  Future<void> memoryPressure();
+}
+
 /// Runs the [PipelineOrchestrator] and its engines on a long-lived
 /// background isolate so no pipeline work ever runs on the UI isolate. The
 /// UI sends commands through this client and observes `jobs` through drift
 /// streams (or [events]).
-class PipelineIsolateClient implements PipelineClient {
+class PipelineIsolateClient implements PipelineClient, PipelineConditions {
   PipelineIsolateClient._(
     this._isolate,
     this._fromWorker,
@@ -207,6 +229,18 @@ class PipelineIsolateClient implements PipelineClient {
   @override
   Future<Result<void>> resolveWaiting(String jobId) =>
       _call<Result<void>>('resolveWaiting', [jobId]);
+
+  @override
+  Future<void> setForeground({required bool foreground}) async {
+    if (_disposed) return;
+    await _call<Object?>('foreground', [foreground]);
+  }
+
+  @override
+  Future<void> memoryPressure() async {
+    if (_disposed) return;
+    await _call<Object?>('memoryPressure', const []);
+  }
 
   @override
   Future<void> dispose() async {

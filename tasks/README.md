@@ -37,6 +37,7 @@ review | done`) and a `**Skills:**` line listing the skills to load. Find unbloc
 | [FND-06](01-foundation/FND-06-native-build-infrastructure.md) | Native C/C++ build infrastructure | 1 | M | Plan |
 | [FND-07](01-foundation/FND-07-local-logging-diagnostics.md) | Local-only logging & diagnostics | 1 | S | Gap |
 | [FND-08](01-foundation/FND-08-background-processing-guardrails.md) | Background processing guardrails | 4 | L | Plan |
+| [FND-11](01-foundation/FND-11-production-engine-wiring.md) | Production engine wiring | 2–3 | L | Gap |
 
 ### 02 — Audio
 | ID | Task | Phase | Size | Source |

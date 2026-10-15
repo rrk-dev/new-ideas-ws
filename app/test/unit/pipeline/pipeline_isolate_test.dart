@@ -19,7 +19,7 @@ import 'pipeline_test_utils.dart';
 /// Records the isolate the engines were built in.
 String? enginesIsolate;
 
-PipelineEngines fakeEngines() {
+PipelineEngines fakeEngines(PipelineWorkerContext _) {
   enginesIsolate = Isolate.current.debugName;
   return PipelineEngines(
     stt: ScriptedStt(),
@@ -27,6 +27,18 @@ PipelineEngines fakeEngines() {
     vault: FakeVaultWriter(),
   );
 }
+
+/// Engines whose condition hooks write to the shared DB (observable from
+/// the test isolate).
+PipelineEngines conditionEngines(PipelineWorkerContext ctx) => PipelineEngines(
+  stt: ScriptedStt(),
+  llm: ScriptedLlm(),
+  vault: FakeVaultWriter(),
+  onForeground: ({required foreground}) =>
+      ctx.db.settingsRepository.set('test.foreground', foreground),
+  onMemoryPressure: () => ctx.db.settingsRepository.set('test.pressure', true),
+  dispose: () => ctx.db.settingsRepository.set('test.disposed', true),
+);
 
 void main() {
   test('[FND-05/AC3] the worker runs on its own isolate; commands and events '
@@ -89,7 +101,7 @@ void main() {
     final container = createContainer(
       overrides: [
         storagePathsProvider.overrideWith((ref) async => paths),
-        pipelineEnginesFactoryProvider.overrideWithValue(fakeEngines),
+        pipelineEnginesFactoryProvider.overrideWith((ref) async => fakeEngines),
       ],
     );
     final db = container.read(vaultVoiceDatabaseProvider);
@@ -117,11 +129,36 @@ void main() {
     expect(jobs.single.priority, 10);
   });
 
-  test('the engines factory has no default', () {
-    final container = createContainer();
-    expect(
-      () => container.read(pipelineEnginesFactoryProvider),
-      throwsA(anything),
+  test('[FND-11/AC1] lifecycle and memory pressure reach the worker '
+      'engines; dispose frees them', () async {
+    final db = memoryDb();
+    final client = await PipelineIsolateClient.spawn(
+      database: await db.serializableConnection(),
+      storageRoot: tempPaths().root,
+      engines: conditionEngines,
     );
+    Future<Object?> setting(String key) async =>
+        (await db.settingsRepository.get(key)).valueOrNull;
+    // The hooks are fire-and-forget in the worker: poll the shared DB.
+    Future<void> expectSetting(String key, Object value) async {
+      final sw = Stopwatch()..start();
+      while (await setting(key) != value) {
+        if (sw.elapsed > const Duration(seconds: 5)) fail('$key != $value');
+        await Future<void>.delayed(const Duration(milliseconds: 5));
+      }
+    }
+
+    await client.setForeground(foreground: false);
+    await expectSetting('test.foreground', false);
+    await client.setForeground(foreground: true);
+    await expectSetting('test.foreground', true);
+    await client.memoryPressure();
+    await expectSetting('test.pressure', true);
+    await client.dispose();
+    expect(await setting('test.disposed'), isTrue);
+    // After dispose the calls are no-ops.
+    await client.setForeground(foreground: false);
+    await client.memoryPressure();
+    expect(await setting('test.foreground'), isTrue);
   });
 }
