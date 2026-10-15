@@ -1,0 +1,124 @@
+app/lib/core/routing/app_routes.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 6-7,57-66,227-250
+app/lib/features/export/data/routing_providers.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1-125
+app/lib/features/export/domain/routing_rule.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1-166
+app/test/widget/settings_screen_test.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 9-10,305-318,366-367
+app/lib/core/routing/app_routes.g.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 88-94,100-106,359-383,404-414,416-417,419-420,422-424,426-428
+  s_9f6fcf8c1840a0::t_e67fdb091bc52d 415,418,421,425
+app/lib/features/export/data/saf_vault_writer.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 29-48
+app/lib/features/export/domain/vault_target_options.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1-114
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_611349c9120500 448
+  s_9f6fcf8c1840a0::t_85d59fc6131def 449-493
+app/lib/features/export/data/pigeon/saf_api.g.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 391-413
+app/lib/features/export/presentation/vault_target_options_screen.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1-189
+app/lib/features/pipeline/data/pipeline_orchestrator.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 13,69,71-79
+  s_9f6fcf8c1840a0::t_8af0063ec06c5a 70
+app/pigeons/saf_api.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 93-97
+app/test/widget/routing_rules_editor_test.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1-270
+app/lib/features/settings/presentation/vault_settings_screens.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 9,14-15,17-22,46-57,155-156,161-166,180-182,186-198,201-203,209-228,230-236,239,243-245,247-253,255-294
+app/lib/features/pipeline/data/production_engines.dart
+  s_9f6fcf8c1840a0::t_4eb7d1e7e9bdb6 12,167-170,217-222
+app/lib/features/settings/domain/setting_keys.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 50-57
+app/lib/features/export/domain/routing_engine.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1-67,69-84,89-92,96-172,182-262
+  s_9f6fcf8c1840a0::t_4eb7d1e7e9bdb6 68,85-88,93-95,173-181
+app/lib/features/pipeline/data/steps/render_write_steps.dart
+  s_9f6fcf8c1840a0::t_4eb7d1e7e9bdb6 14-15
+  s_9f6fcf8c1840a0::t_8af0063ec06c5a 365
+  s_9f6fcf8c1840a0::t_85d59fc6131def 194-195,211-216,228,366-398
+  s_9f6fcf8c1840a0::t_9cb52d7689527f 399
+app/ios/Runner/BookmarkHostApiImpl.swift
+  s_9f6fcf8c1840a0::t_85d59fc6131def 167-194
+app/lib/features/export/data/pigeon/bookmark_api.g.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 401-423
+app/lib/features/pipeline/presentation/processing_services_host.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 44-45
+  s_9f6fcf8c1840a0::t_4eb7d1e7e9bdb6 5
+app/lib/features/export/data/app_local_vault_writer.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 3,41-75,79
+app/test/widget/accessibility_test.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 17-18,53-55,122-130
+  s_9f6fcf8c1840a0::t_634b57a34bd059 131-132
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/saf/SafHostApiImpl.kt
+  s_9f6fcf8c1840a0::t_85d59fc6131def 215-230
+app/ios/Runner/BookmarkApi.g.swift
+  s_9f6fcf8c1840a0::t_85d59fc6131def 393-395,491-509
+  s_9f6fcf8c1840a0::t_665dc503cf2433 510
+app/test/fakes/fake_bookmark_host_api.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 98-109
+  s_9f6fcf8c1840a0::t_64673f078a62af 97
+app/lib/features/export/data/vault_writer_resolver.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1-51
+app/lib/features/export/data/routing_providers.g.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1-249
+app/pigeons/bookmark_api.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 91-95
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 2377-2633
+  s_9f6fcf8c1840a0::t_611349c9120500 2376
+app/lib/features/pipeline/data/pipeline_engines.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 9,129-130
+  s_9f6fcf8c1840a0::t_8af0063ec06c5a 180-188
+app/lib/features/export/data/vault_exporter.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1-481
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_611349c9120500 1358-1359
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1360-1503
+app/lib/features/export/data/export_request_builder.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1-5,8-42,46-64,66-118
+  s_9f6fcf8c1840a0::t_4eb7d1e7e9bdb6 6-7,43-45,65
+app/lib/core/platform/vault_writer.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1-2,58-69
+  s_9f6fcf8c1840a0::t_e69423e65939ac 70
+app/lib/features/export/presentation/routing_rule_editor_screen.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1-358
+app/test/unit/export/vault_exporter_test.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1-490
+app/test/fakes/fake_vault_writer.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 4-6,12-13,16-19,53,56,58,63-97,102,120-122,133
+docs/test-plans/device/EXP-05.md
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1-23
+tasks/07-export/EXP-05-vault-writer-routing-rules.md
+  s_9f6fcf8c1840a0::t_85d59fc6131def 4,11-15,20-56
+app/test/unit/export/routing_engine_test.dart
+  s_9f6fcf8c1840a0::t_5bc5121ebf4132 40-65
+  s_9f6fcf8c1840a0::t_85d59fc6131def 1-39,66-371
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/saf/SafApi.g.kt
+  s_9f6fcf8c1840a0::t_85d59fc6131def 362-366,502-509
+  s_9f6fcf8c1840a0::t_e7c3b936db436a 510-522
+app/test/fakes/fake_saf_host_api.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 94-102
+  s_9f6fcf8c1840a0::t_20cba64959d1e3 93
+app/lib/features/export/data/bookmark_vault_writer.dart
+  s_9f6fcf8c1840a0::t_85d59fc6131def 51-70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0ef17d7abf23d80019eef2e97d3821b5ba7a2720",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
