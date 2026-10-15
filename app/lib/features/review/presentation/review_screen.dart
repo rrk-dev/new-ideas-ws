@@ -110,6 +110,7 @@ class _ReviewEditorState extends ConsumerState<_ReviewEditor> {
           emptyValueFor(widget.profile.schema.properties[k]!),
   };
   bool _busy = false;
+  bool _inputValid = true;
 
   void _openSource(int atMs) => ref
       .read(transcriptNavigatorProvider)
@@ -170,6 +171,8 @@ class _ReviewEditorState extends ConsumerState<_ReviewEditor> {
                   value: _data,
                   onChanged: (v) => setState(() => _data = v),
                   onSourceTap: _openSource,
+                  onInputValidityChanged: (ok) =>
+                      setState(() => _inputValid = ok),
                 ),
               ],
             ),
@@ -200,7 +203,9 @@ class _ReviewEditorState extends ConsumerState<_ReviewEditor> {
                   ),
                 FilledButton.icon(
                   key: const ValueKey('review-export'),
-                  onPressed: _busy || issues.isNotEmpty ? null : _export,
+                  onPressed: _busy || !_inputValid || issues.isNotEmpty
+                      ? null
+                      : _export,
                   icon: const Icon(Icons.upload_file),
                   label: Text(l10n.reviewExport),
                 ),

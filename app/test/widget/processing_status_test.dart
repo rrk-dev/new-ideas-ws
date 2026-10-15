@@ -12,6 +12,7 @@ import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
+import 'package:vaultvoice/features/export/data/note_sharing_providers.dart';
 import 'package:vaultvoice/features/library/presentation/recording_detail_screen.dart';
 import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_progress.dart';
@@ -68,7 +69,12 @@ Future<void> pumpScreen(
   await t.pumpWidget(
     ProviderScope(
       key: UniqueKey(),
-      overrides: viewsOverride(views),
+      overrides: [
+        ...viewsOverride(views),
+        recordingNoteChangesProvider.overrideWith(
+          (ref, id) => const Stream<int>.empty(),
+        ),
+      ],
       child: MaterialApp(home: screen),
     ),
   );

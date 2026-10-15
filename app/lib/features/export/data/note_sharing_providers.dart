@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/app_info.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
@@ -25,12 +27,39 @@ Future<NoteSharing> noteSharing(Ref ref) async => NoteSharing(
   appVersion: kAppVersion,
 );
 
+/// Ticks whenever the extractions or jobs of [recordingId] change, so share
+/// availability is recomputed once processing finishes.
+@riverpod
+Stream<int> recordingNoteChanges(Ref ref, String recordingId) {
+  final db = ref.watch(vaultVoiceDatabaseProvider);
+  final extractions = (db.select(
+    db.extractions,
+  )..where((e) => e.recordingId.equals(recordingId))).watch();
+  final jobs = (db.select(
+    db.jobs,
+  )..where((j) => j.recordingId.equals(recordingId))).watch();
+  var n = 0;
+  final out = StreamController<int>();
+  final subs = [
+    extractions.listen((_) => out.add(n++)),
+    jobs.listen((_) => out.add(n++)),
+  ];
+  ref.onDispose(() {
+    for (final s in subs) {
+      unawaited(s.cancel());
+    }
+    unawaited(out.close());
+  });
+  return out.stream;
+}
+
 /// Formats the note of [recordingId] can be shared in (empty: no note).
 @riverpod
 Future<Set<TemplateFlavor>> shareableFormats(
   Ref ref,
   String recordingId,
 ) async {
+  ref.watch(recordingNoteChangesProvider(recordingId));
   final sharing = await ref.watch(noteSharingProvider.future);
   return await sharing.available(recordingId);
 }

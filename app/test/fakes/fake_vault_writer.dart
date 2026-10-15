@@ -25,6 +25,9 @@ class FakeVaultWriter implements VaultWriter {
 
   void failWith(Failure failure) => _failure = failure;
 
+  /// When set, only [read] fails with it.
+  Failure? readFailure;
+
   Result<VaultPath> _guard(String raw, {bool allowRoot = false}) {
     if (_failure case final failure?) return Err(failure);
     switch (access) {
@@ -84,6 +87,7 @@ class FakeVaultWriter implements VaultWriter {
 
   @override
   Future<Result<Uint8List?>> read(String relativePath) async {
+    if (readFailure case final failure?) return Err(failure);
     switch (_guard(relativePath)) {
       case Err(:final failure):
         return Err(failure);

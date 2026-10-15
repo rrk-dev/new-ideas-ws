@@ -75,7 +75,8 @@ class PreviewRecording {
   final Map<String, Object?> data;
 }
 
-/// The latest valid extractions of [profileId] (newest first, ≤ 10).
+/// The latest valid extractions of [profileId] (newest first, one per
+/// recording, ≤ 10).
 @riverpod
 Future<List<PreviewRecording>> templatePreviewRecordings(
   Ref ref,
@@ -93,15 +94,16 @@ Future<List<PreviewRecording>> templatePreviewRecordings(
           db.extractions.profileId.equals(profileId) &
               db.extractions.valid.equals(true),
         )
-        ..orderBy([OrderingTerm.desc(db.extractions.createdAt)])
-        ..limit(10);
+        ..orderBy([OrderingTerm.desc(db.extractions.createdAt)]);
+  final seen = <String>{};
   return [
     for (final row in await q.get())
-      PreviewRecording(
-        recordingId: row.readTable(db.recordings).id,
-        title: row.readTable(db.recordings).title,
-        createdAt: row.readTable(db.recordings).createdAt,
-        data: row.readTable(db.extractions).json,
-      ),
-  ];
+      if (seen.add(row.readTable(db.recordings).id))
+        PreviewRecording(
+          recordingId: row.readTable(db.recordings).id,
+          title: row.readTable(db.recordings).title,
+          createdAt: row.readTable(db.recordings).createdAt,
+          data: row.readTable(db.extractions).json,
+        ),
+  ].take(10).toList();
 }

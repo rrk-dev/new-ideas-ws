@@ -53,4 +53,5 @@ Route each rendered note to the right destination(s) based on rules.
   applies; EXP-11 (proposed): `AudioAttachmentSource` implementation (m4a/AAC encode of the WAV
   chunks) and per-target `audio_link` rendering; FND-11: pass `platformVaultWriterResolver` in the
   real engines factory + `BackgroundIsolateBinaryMessenger` in the pipeline isolate.
-
+- Codex review 2026-10-15 (open): audio export silently succeeds without attachment when no audio source is wired (needs encoder/source, product decision on failure reporting)
+- Codex review 2026-10-15 (open): `classifiedProfileId` never populated (export_request_builder.dart:61); persist classification result (schema/migration)

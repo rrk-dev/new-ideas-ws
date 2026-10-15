@@ -929,6 +929,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get reviewNumberInvalid => 'Enter a valid number.';
+
+  @override
   String get reviewPreviewFailed => 'The preview couldn’t be rendered.';
 
   @override

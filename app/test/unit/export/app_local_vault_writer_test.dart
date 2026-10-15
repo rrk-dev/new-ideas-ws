@@ -57,6 +57,16 @@ void main() {
     },
   );
 
+  test(
+    '[EXP-05] a maximum-length (255-byte) filename can be written',
+    () async {
+      final name = '${'a' * 252}.md';
+      final r = await w.write(NoteDraft(relativePath: name, markdown: 'x'));
+      expect(r.isOk, isTrue);
+      expect(read(name), 'x');
+    },
+  );
+
   test('list hides temp files, sorts, marks folders; delete', () async {
     await w.mkdirs('B');
     await w.write(const NoteDraft(relativePath: 'a.md', markdown: 'a'));

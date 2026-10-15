@@ -1612,6 +1612,12 @@ abstract class AppLocalizations {
   /// **'{count, plural, =1{1 field doesn’t match the profile (too long, missing or wrong type).} other{{count} fields don’t match the profile (too long, missing or wrong type).}}'**
   String reviewInvalid(int count);
 
+  /// No description provided for @reviewNumberInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid number.'**
+  String get reviewNumberInvalid;
+
   /// No description provided for @reviewPreviewFailed.
   ///
   /// In en, this message translates to:

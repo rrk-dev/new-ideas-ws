@@ -20,7 +20,7 @@ enum ProfileSource { builtin, user, enterprise }
 enum VaultPlatform { androidSaf, iosBookmark, appLocal }
 
 /// State of one Markdown export (EXP-06 outbox).
-enum ExportStatus { pending, writing, written, failed }
+enum ExportStatus { pending, writing, written, failed, skipped }
 
 /// Kind of installed model file.
 enum ModelType { stt, llm, vad, diarization }

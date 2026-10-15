@@ -12,7 +12,7 @@ import 'package:vaultvoice/core/platform/vault_writer.dart';
 ///
 /// Root: Android `filesDir/vault` (app-private), iOS `Documents/` (visible in
 /// Files under "On My iPhone › VaultVoice", EXP-04). Writes are atomic: the
-/// note goes to `.<name>.vvtmp` first and is renamed over the target.
+/// note goes to `.<timestamp>.vvtmp` first and is renamed over the target.
 class AppLocalVaultWriter implements VaultWriter {
   /// The resolver returns the vault directory lazily (from a host API).
   AppLocalVaultWriter(this._resolveRoot);
@@ -60,7 +60,8 @@ class AppLocalVaultWriter implements VaultWriter {
     }
     await target.parent.create(recursive: true);
     final tmp = File(
-      '${target.parent.path}${Platform.pathSeparator}.${path.name}.vvtmp',
+      '${target.parent.path}${Platform.pathSeparator}'
+      '.${DateTime.now().microsecondsSinceEpoch}.vvtmp',
     );
     await tmp.writeAsBytes(bytes, flush: true);
     await tmp.rename(target.path);
