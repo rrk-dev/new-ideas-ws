@@ -31,6 +31,7 @@ import 'package:vaultvoice/features/profiles/data/profile_registry.dart';
 import 'package:vaultvoice/features/profiles/domain/builtin_profiles.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
 import 'package:vaultvoice/features/profiles/domain/profile_validator.dart';
+import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 import 'package:vaultvoice/features/templates/data/template_note_renderer.dart';
 import 'package:vaultvoice/features/templates/domain/builtin_templates.dart';
 import 'package:vaultvoice/features/transcription/data/ffi_vad_engine.dart';
@@ -255,9 +256,10 @@ final class _LazyNative {
 }
 
 /// A [TemplateNoteRenderer] over the built-ins plus a snapshot of the user
-/// profiles and templates stored now (FND-11: taken at job start, so edits
-/// apply to the next job, never mid-render). Stored profiles that no longer
-/// validate are left out (their notes fall back to `summary-only`).
+/// profiles, templates and EXP-07 template bindings stored now (FND-11:
+/// taken at job start, so edits apply to the next job, never mid-render).
+/// Stored profiles that no longer validate are left out (their notes fall
+/// back to `summary-only`).
 Future<NoteRenderer> loadNoteRenderer(
   VaultVoiceDatabase db, {
   required BuiltinProfiles builtins,
@@ -275,12 +277,24 @@ Future<NoteRenderer> loadNoteRenderer(
     for (final t in await db.profilesRepository.watchTemplates().first)
       t.id: t.body,
   };
+  // EXP-07: profile id → custom template id (`templates.bindings`).
+  final bindings = (await db.settingsRepository.get(
+    SettingKeys.templatesBindings,
+  )).valueOrNull;
   return TemplateNoteRenderer(
     profiles: builtins,
     templates: templates,
     appVersion: appVersion,
     userProfiles: userProfiles,
     userTemplates: userTemplates,
+    templateOverrides: {
+      if (bindings is Map)
+        for (final e in bindings.entries)
+          if (e.key is String &&
+              e.value is String &&
+              userTemplates.containsKey(e.value))
+            e.key as String: e.value as String,
+    },
   ).call;
 }
 

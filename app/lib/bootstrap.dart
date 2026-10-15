@@ -24,6 +24,7 @@ import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/core/security/key_vault.dart';
 import 'package:vaultvoice/core/security/security_providers.dart';
 import 'package:vaultvoice/core/security/storage_protection.dart';
+import 'package:vaultvoice/features/extraction/data/preview_llm_engine.dart';
 import 'package:vaultvoice/features/pipeline/data/flutter_local_notifier.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_services_host.dart';
@@ -35,9 +36,14 @@ import 'package:vv_native/vv_native.dart';
 ///
 /// Real engine implementations are added to [overrides] by the features that
 /// own them.
+///
+/// [productionLlm]: back `llmEngineProvider` with the active installed LLM
+/// (PRF-07 profile preview, integration wave 3); the dev flavor passes false
+/// when `VV_DEV_LLM_MODEL` supplies its own engine in [overrides].
 Future<void> bootstrap(
   Flavor flavor, {
   List<Override> overrides = const [],
+  bool productionLlm = true,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
   registerBundledLicenses();
@@ -98,6 +104,10 @@ Future<void> bootstrap(
         crashReportStoreProvider.overrideWithValue(crash.store),
         nativeCrashCaptureProvider.overrideWithValue(nativeCrash),
         ...security,
+        if (productionLlm)
+          llmEngineProvider.overrideWith(
+            (ref) => ref.watch(previewLlmEngineProvider),
+          ),
         ...overrides,
       ],
       child: const ProcessingServicesHost(child: RetentionHost(child: App())),
