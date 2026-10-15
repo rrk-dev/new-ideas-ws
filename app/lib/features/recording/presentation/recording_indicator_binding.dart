@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/features/recording/data/recording_providers.dart';
@@ -27,6 +29,7 @@ class RecordingIndicatorBinding {
     required this._controller,
     required this._indicator,
     required this._clock,
+    required this._l10n,
   }) {
     _states = _controller.states.listen(_onState);
   }
@@ -34,13 +37,14 @@ class RecordingIndicatorBinding {
   final RecordingController _controller;
   final RecordingIndicator _indicator;
   final Clock _clock;
+  final AppLocalizations Function() _l10n;
   late final StreamSubscription<RecordingState> _states;
   // Button taps are only listened to while the indicator is shown.
   StreamSubscription<IndicatorAction>? _actions;
   bool _shown = false;
 
   void _onState(RecordingState state) {
-    final content = indicatorContentFor(state, _clock.now());
+    final content = indicatorContentFor(state, _clock.now(), _l10n());
     if (content == null) {
       if (_shown) {
         _shown = false;
@@ -87,6 +91,7 @@ RecordingIndicatorBinding recordingIndicatorBinding(Ref ref) {
     controller: ref.watch(recordingControllerProvider),
     indicator: ref.watch(recordingIndicatorProvider),
     clock: ref.watch(clockProvider),
+    l10n: () => l10nFor(PlatformDispatcher.instance.locale),
   );
   ref.onDispose(binding.dispose);
   return binding;

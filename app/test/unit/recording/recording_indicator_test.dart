@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/platform/call_guard.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_recording_indicator.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
@@ -24,6 +25,7 @@ class _Background {
       controller: rig.controller,
       indicator: indicator,
       clock: rig.clock,
+      l10n: () => l10n,
     );
     addTearDown(binding.dispose);
   }
@@ -45,6 +47,8 @@ class _Background {
   }
 }
 
+final AppLocalizations l10n = l10nFor(kFallbackLocale);
+
 void main() {
   group('notification content', () {
     final now = DateTime.utc(2026, 10, 13, 10);
@@ -56,6 +60,7 @@ void main() {
           elapsed: Duration(minutes: 2),
         ),
         now,
+        l10n,
       )!;
       expect(c.recording, isTrue);
       expect(c.chronometerBase, now.subtract(const Duration(minutes: 2)));
@@ -70,6 +75,7 @@ void main() {
           pauseCause: PauseCause.call,
         ),
         now,
+        l10n,
       )!;
       expect(c.recording, isFalse);
       expect(c.title, 'Recording paused because a call started');
@@ -80,7 +86,10 @@ void main() {
 
     test('idle / stopped: no indicator', () {
       for (final p in [RecordingPhase.idle, RecordingPhase.stopped]) {
-        expect(indicatorContentFor(RecordingState(phase: p), now), isNull);
+        expect(
+          indicatorContentFor(RecordingState(phase: p), now, l10n),
+          isNull,
+        );
       }
     });
   });

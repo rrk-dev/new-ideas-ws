@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/features/recording/domain/recording_indicator.dart';
 import 'package:vaultvoice/features/recording/domain/recording_limits.dart';
 
@@ -14,13 +15,15 @@ class MethodChannelRecordingIndicator implements RecordingIndicator {
   MethodChannelRecordingIndicator({
     this._methods = const MethodChannel(methodChannelName),
     this._events = const EventChannel(eventChannelName),
-  });
+    AppLocalizations Function()? l10n,
+  }) : _l10n = l10n ?? (() => l10nFor(kFallbackLocale));
 
   static const methodChannelName = 'vaultvoice/recording_indicator';
   static const eventChannelName = 'vaultvoice/recording_indicator/actions';
 
   final MethodChannel _methods;
   final EventChannel _events;
+  final AppLocalizations Function() _l10n;
   Stream<IndicatorAction>? _actions;
 
   /// Wire format of [content].
@@ -42,8 +45,9 @@ class MethodChannelRecordingIndicator implements RecordingIndicator {
   }
 
   @override
-  void stillRecording(Duration elapsed) =>
-      unawaited(_call('remind', {'text': stillRecordingText(elapsed)}));
+  void stillRecording(Duration elapsed) => unawaited(
+    _call('remind', {'text': stillRecordingText(_l10n(), elapsed)}),
+  );
 
   @override
   Stream<IndicatorAction> get actions => _actions ??= _events

@@ -7,6 +7,7 @@ import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/platform/call_guard.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
@@ -358,7 +359,10 @@ void main() {
         async.elapse(const Duration(minutes: 1, seconds: 1));
         expect(h.reminders.shown, hasLength(1));
         expect(
-          stillRecordingText(h.reminders.shown.single),
+          stillRecordingText(
+            l10nFor(kFallbackLocale),
+            h.reminders.shown.single,
+          ),
           'Still recording (1h 00m)',
         );
 
@@ -370,7 +374,7 @@ void main() {
         async.elapse(const Duration(hours: 1));
         expect(h.reminders.shown, hasLength(2));
         expect(
-          stillRecordingText(h.reminders.shown.last),
+          stillRecordingText(l10nFor(kFallbackLocale), h.reminders.shown.last),
           startsWith('Still recording (3h 00m'),
         );
       });

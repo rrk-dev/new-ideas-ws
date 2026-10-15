@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -8,6 +9,7 @@ import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/db/repositories/models_repository.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
+import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/platform/call_guard.dart';
 import 'package:vaultvoice/core/platform/id_generator.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
@@ -176,7 +178,9 @@ CaptureBackend captureBackend(Ref ref) =>
 /// service notification — AUD-05; iOS — AUD-04).
 @Riverpod(keepAlive: true)
 MethodChannelRecordingIndicator platformRecordingIndicator(Ref ref) =>
-    MethodChannelRecordingIndicator();
+    MethodChannelRecordingIndicator(
+      l10n: () => l10nFor(PlatformDispatcher.instance.locale),
+    );
 
 /// The always-visible OS recording indicator; tests override it.
 @Riverpod(keepAlive: true)

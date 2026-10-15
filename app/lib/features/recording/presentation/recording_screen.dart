@@ -78,10 +78,6 @@ class _RecordScreenState extends ConsumerState<RecordScreen>
         setState(() => _storageWarning = true);
       }
     });
-    // Hang-up (or returning from the dialer) must lift the call block.
-    _callEvents = ref.read(callGuardProvider).events.listen((_) {
-      unawaited(_checkCallState(clearOnly: true));
-    });
     WidgetsBinding.instance.addObserver(this);
     unawaited(_checkCallState());
     unawaited(_loadMicPrimed());
@@ -119,8 +115,14 @@ class _RecordScreenState extends ConsumerState<RecordScreen>
       if (value) {
         if (clearOnly) return;
         setState(() => _blocked = _Blocked.inCall);
+        // Hang-up must lift the block: listen only while it is shown.
+        _callEvents ??= ref.read(callGuardProvider).events.listen((_) {
+          unawaited(_checkCallState(clearOnly: true));
+        });
       } else if (_blocked == _Blocked.inCall) {
         setState(() => _blocked = null);
+        unawaited(_callEvents?.cancel());
+        _callEvents = null;
       }
     }
   }
