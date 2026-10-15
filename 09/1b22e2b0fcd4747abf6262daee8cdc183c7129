@@ -1,0 +1,77 @@
+app/lib/features/profiles/domain/profile_classifier.dart
+  s_64781eb60f7b87::t_82f1bc26bd6774 1-226
+app/assets/templates/engineering-default.mustache
+  s_64781eb60f7b87::t_8e2c1e77c0cd6d 40
+app/lib/features/pipeline/data/pipeline_engines.dart
+  s_64781eb60f7b87::t_a65eb031330558 26-27,46-48,122,157-160
+app/lib/features/pipeline/data/pipeline_orchestrator.dart
+  s_64781eb60f7b87::t_3d33475f59c973 16,30-31,46,49-55
+app/lib/features/pipeline/data/production_engines.dart
+  s_64781eb60f7b87::t_a5776b72a1c81c 211
+app/lib/features/pipeline/data/steps/classify_step.dart
+  s_64781eb60f7b87::t_bcecbede18d54b 1-124
+app/lib/features/pipeline/data/steps/transcribe_step.dart
+  s_64781eb60f7b87::t_2271cfc99cb6ec 18,58,74-76,92-117,169,171-178,181,233,304,325-326,400-403
+app/lib/features/profiles/domain/classification_keys.dart
+  s_64781eb60f7b87::t_4ebc6e3005eb8a 1-7
+app/lib/features/profiles/domain/template_variables.dart
+  s_64781eb60f7b87::t_941434336cc44f 29-34
+app/lib/features/profiles/domain/vocabulary_hints.dart
+  s_64781eb60f7b87::t_bd8633f9075070 1-55
+app/lib/features/settings/domain/setting_keys.dart
+  s_64781eb60f7b87::t_bf6c92de3a0f33 75-78
+app/lib/features/templates/domain/template_lambdas.dart
+  s_64781eb60f7b87::t_02b221d1fa6d1d 60-63
+app/test/fixtures/markdown/golden/engineering-default.adversarial.md
+  s_64781eb60f7b87::t_3dda9332da60b5 30-33
+app/test/fixtures/markdown/golden/engineering-default.full.md
+  s_64781eb60f7b87::t_775ded68c32f2f 30-33
+app/test/unit/pipeline/classify_step_test.dart
+  s_64781eb60f7b87::t_0426bff2cedd60 1-213
+app/test/unit/profiles/builtin_profile_acceptance_test.dart
+  s_64781eb60f7b87::t_18ecef4fc8d642 1-323
+app/test/unit/profiles/post_processing_test.dart
+  s_64781eb60f7b87::t_c38952843e6ac4 259
+app/test/unit/profiles/profile_classifier_test.dart
+  s_64781eb60f7b87::t_7b8f05230a2cec 1-191
+app/test/unit/profiles/vocabulary_hints_test.dart
+  s_64781eb60f7b87::t_44d8f3ab371cad 1-29
+docs/profile-spec.md
+  s_64781eb60f7b87::t_c1b2c782d1a0c1 128
+docs/templates.md
+  s_64781eb60f7b87::t_32272bf03d61b6 61
+docs/test-plans/device/PRF-03.md
+  s_64781eb60f7b87::t_dc1b49b8565f01 1-8
+docs/test-plans/device/PRF-04.md
+  s_64781eb60f7b87::t_23387fad22232f 1-7
+docs/test-plans/device/PRF-05.md
+  s_64781eb60f7b87::t_13134b974a98d9 1-8
+docs/test-plans/device/PRF-06.md
+  s_64781eb60f7b87::t_4a810d3cab1ae9 1-8
+tasks/06-profiles/PRF-03-meeting-action-items-profile.md
+  s_64781eb60f7b87::t_8e50507092ed23 4,11-14,19-31
+tasks/06-profiles/PRF-04-warranty-receipt-profile.md
+  s_64781eb60f7b87::t_2022d89fa92864 4,11-15,20-31
+tasks/06-profiles/PRF-05-engineering-brainstorm-profile.md
+  s_64781eb60f7b87::t_9ef92c2b8c7edc 4,11-13,18-31
+tasks/06-profiles/PRF-06-auto-profile-context-routing.md
+  s_64781eb60f7b87::t_0c5e58bbd5f326 4,11-14,19-30
+tools/bench/eval/meeting/scoring.json
+  s_64781eb60f7b87::t_393f8b3109ff0b 29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "091b22e2b0fcd4747abf6262daee8cdc183c7129",
+  "prompts": {},
+  "sessions": {
+    "s_64781eb60f7b87": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "6c497edc-f7a9-431a-88c5-4dfc614958b7",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
