@@ -6,6 +6,7 @@ import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
+import 'package:vaultvoice/core/platform/call_guard.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/features/onboarding/data/onboarding_providers.dart';
@@ -43,8 +44,10 @@ class RecordScreen extends ConsumerStatefulWidget {
 /// Why a start was refused (shown until the next attempt).
 enum _Blocked { inCall, callStateUnknown, permission, storage, failed }
 
-class _RecordScreenState extends ConsumerState<RecordScreen> {
+class _RecordScreenState extends ConsumerState<RecordScreen>
+    with WidgetsBindingObserver {
   StreamSubscription<RecordingState>? _states;
+  StreamSubscription<CallGuardEvent>? _callEvents;
   StreamSubscription<CaptureNotice>? _notices;
   RecordingState? _state;
   RecordingSetup _setup = const RecordingSetup();
@@ -75,8 +78,18 @@ class _RecordScreenState extends ConsumerState<RecordScreen> {
         setState(() => _storageWarning = true);
       }
     });
+    // Hang-up (or returning from the dialer) must lift the call block.
+    _callEvents = ref.read(callGuardProvider).events.listen((_) {
+      unawaited(_checkCallState(clearOnly: true));
+    });
+    WidgetsBinding.instance.addObserver(this);
     unawaited(_checkCallState());
     unawaited(_loadMicPrimed());
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) unawaited(_checkCallState());
   }
 
   Future<void> _loadMicPrimed() async {
@@ -90,6 +103,8 @@ class _RecordScreenState extends ConsumerState<RecordScreen> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    unawaited(_callEvents?.cancel());
     unawaited(_states?.cancel());
     unawaited(_notices?.cancel());
     super.dispose();
@@ -97,10 +112,17 @@ class _RecordScreenState extends ConsumerState<RecordScreen> {
 
   /// "Recording unavailable during calls" before the user even taps — only
   /// asks the call guard; never touches the microphone.
-  Future<void> _checkCallState() async {
+  Future<void> _checkCallState({bool clearOnly = false}) async {
     final r = await ref.read(callGuardProvider).isInCall();
     if (!mounted) return;
-    if (r case Ok(value: true)) setState(() => _blocked = _Blocked.inCall);
+    if (r case Ok(:final value)) {
+      if (value) {
+        if (clearOnly) return;
+        setState(() => _blocked = _Blocked.inCall);
+      } else if (_blocked == _Blocked.inCall) {
+        setState(() => _blocked = null);
+      }
+    }
   }
 
   void _onState(RecordingState s) {

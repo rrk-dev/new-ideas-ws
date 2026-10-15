@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:vaultvoice/core/errors/result.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/features/recording/data/recording_providers.dart';

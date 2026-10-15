@@ -215,6 +215,17 @@ void main() {
     expect(capture.calls, isEmpty);
   });
 
+  testWidgets('[AUD-08/AC3] the call block clears after hang-up', (t) async {
+    guard.inCall = true;
+    await pump(t);
+    expect(t.widget<FilledButton>(main()).onPressed, isNull);
+    guard.emit(CallGuardSignal.callEnded, DateTime.now());
+    await t.pump();
+    await t.pump();
+    expect(find.text('Recording is unavailable during calls'), findsNothing);
+    expect(t.widget<FilledButton>(main()).onPressed, isNotNull);
+  });
+
   testWidgets('[AUD-08/AC3] a call while recording pauses with the call '
       'message and never resumes by itself', (t) async {
     await pump(t);
@@ -388,10 +399,11 @@ void main() {
     await t.pump();
     await t.tap(find.byKey(const ValueKey('record-stop')));
     await t.pumpAndSettle();
-    expect(session.finished, 1);
-    expect(find.byKey(const ValueKey('details-queued')), findsOneWidget);
+    // Auto-process waits until the sheet has saved the user's edits.
+    expect(session.finished, 0);
     await t.tap(find.text('Later'));
     await t.pumpAndSettle();
+    expect(session.finished, 1);
 
     session.autoProcess = false;
     active.recordingId = null;
