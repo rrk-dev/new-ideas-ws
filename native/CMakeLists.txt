@@ -232,6 +232,11 @@ if(NOT ANDROID AND NOT IOS AND PROJECT_IS_TOP_LEVEL)
   target_link_libraries(vv_grammar_test PRIVATE vv_native)
   add_test(NAME vv_grammar COMMAND vv_grammar_test)
   set_tests_properties(vv_grammar PROPERTIES SKIP_RETURN_CODE 77)
+  # [LLM-06] KV prefix reuse across map-reduce chunk prompts (+ timing).
+  add_executable(vv_llm_prefix_test tests/llm_prefix_test.c)
+  target_link_libraries(vv_llm_prefix_test PRIVATE vv_native)
+  add_test(NAME vv_llm_prefix COMMAND vv_llm_prefix_test)
+  set_tests_properties(vv_llm_prefix PROPERTIES SKIP_RETURN_CODE 77)
   # [LLM-03] big.LITTLE perf-core detection (fake sysfs) + CPU feature guard.
   add_executable(vv_cpu_test tests/cpu_test.c bridge/vv_cpu.c)
   target_include_directories(vv_cpu_test PRIVATE bridge)

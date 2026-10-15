@@ -28,6 +28,31 @@ void main() {
     onStats: stats?.add,
   );
 
+  group('LlmService as LlmTokenizer (LLM-06)', () {
+    test('counts tokens / templated prompts on the loaded session and '
+        'forwards reusePrefix', () async {
+      final rt = FakeLlmRuntime();
+      final s = service(rt);
+      expect((await s.countTokens('a b c')).valueOrNull, 3);
+      expect(
+        (await s.countPromptTokens('u v', systemPrompt: 'sys')).valueOrNull,
+        // '<system>sys<user>u v' -> 2 words in the fake
+        2,
+      );
+      expect((await s.contextWindow()).valueOrNull, 2048);
+      expect(rt.loads, hasLength(1), reason: 'one load for all counts');
+      await s.generate(const LlmRequest(prompt: 'x', reusePrefix: true));
+      await s.generate(const LlmRequest(prompt: 'y'));
+      expect(rt.sessions.single.reusePrefix, [true, false]);
+    });
+
+    test('a refused load surfaces as the failure', () async {
+      final rt = FakeLlmRuntime(loadError: -3);
+      final r = await service(rt).countTokens('a');
+      expect(r.failureOrNull, isA<OutOfMemoryFailure>());
+    });
+  });
+
   group('LlmService (LLM-04)', () {
     test('loads lazily, applies the chat template, streams tokens', () async {
       final rt = FakeLlmRuntime();

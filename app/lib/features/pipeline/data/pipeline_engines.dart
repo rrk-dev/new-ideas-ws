@@ -73,6 +73,9 @@ abstract interface class ExtractionStrategy {
     required String grammar,
     required List<TranscriptSegmentRow> segments,
     required int maxTokens,
+
+    /// The step's resolved model id (part of the map checkpoint key).
+    required String modelId,
   });
 }
 

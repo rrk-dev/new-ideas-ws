@@ -150,6 +150,7 @@ void main() {
             profiles: (id) async => _builtins[id],
             grammars: (_) async => 'root ::= x',
             extraction: strategy,
+            activeModel: (_) async => 'llm-x',
           ),
         );
         addTearDown(o.dispose);
@@ -161,6 +162,8 @@ void main() {
 
       final id = await run('r1');
       expect(strategy.calls, 1);
+      // Integration W3: the strategy gets the step's resolved model id.
+      expect(strategy.modelIds, ['llm-x']);
       expect(llm.requests, isEmpty);
       final ext = expectOk(
         await db.extractionsRepository.get(extractionIdFor(id)),
@@ -296,6 +299,7 @@ class _Strategy implements ExtractionStrategy {
 
   ExtractedData? result;
   int calls = 0;
+  final List<String> modelIds = [];
 
   @override
   Future<Result<ExtractedData>?> extract(
@@ -304,8 +308,10 @@ class _Strategy implements ExtractionStrategy {
     required String grammar,
     required List<TranscriptSegmentRow> segments,
     required int maxTokens,
+    required String modelId,
   }) async {
     calls++;
+    modelIds.add(modelId);
     final r = result;
     return r == null ? null : Ok(r);
   }

@@ -130,8 +130,9 @@ final class ActiveSttEngine implements SttEngine {
 
 /// [LlmEngine] over the active LLM: one [LlmService] per (model, context),
 /// rebuilt when the selection changes. Foreground/background and memory
-/// pressure are forwarded to the current service.
-final class ActiveLlmEngine implements LlmEngine {
+/// pressure are forwarded to the current service. Also the exact
+/// [LlmTokenizer] of the active model (LLM-06 token budgets).
+final class ActiveLlmEngine implements LlmEngine, LlmTokenizer {
   ActiveLlmEngine({
     required this.resolve,
     required this.create,
@@ -151,14 +152,11 @@ final class ActiveLlmEngine implements LlmEngine {
   /// The current service (diagnostics/tests).
   LlmService? get service => _service;
 
-  @override
-  Future<Result<String>> generate(
-    LlmRequest request, {
-    CancelToken? cancel,
-    void Function(String token)? onToken,
-  }) async {
+  /// The service of the active model (rebuilt when the selection changed),
+  /// or null when no usable LLM is installed.
+  Future<LlmService?> _current() async {
     final model = await resolve();
-    if (model == null) return const Err(ModelMissingFailure('llm'));
+    if (model == null) return null;
     final current = _model;
     if (current == null ||
         current.id != model.id ||
@@ -169,7 +167,42 @@ final class ActiveLlmEngine implements LlmEngine {
       _model = model;
       if (!_foreground) service.onBackgrounded();
     }
-    return await _service!.generate(request, cancel: cancel, onToken: onToken);
+    return _service;
+  }
+
+  @override
+  Future<Result<String>> generate(
+    LlmRequest request, {
+    CancelToken? cancel,
+    void Function(String token)? onToken,
+  }) async {
+    final service = await _current();
+    if (service == null) return const Err(ModelMissingFailure('llm'));
+    return await service.generate(request, cancel: cancel, onToken: onToken);
+  }
+
+  @override
+  Future<Result<int>> countTokens(String text) async {
+    final service = await _current();
+    if (service == null) return const Err(ModelMissingFailure('llm'));
+    return await service.countTokens(text);
+  }
+
+  @override
+  Future<Result<int>> countPromptTokens(
+    String user, {
+    String? systemPrompt,
+  }) async {
+    final service = await _current();
+    if (service == null) return const Err(ModelMissingFailure('llm'));
+    return await service.countPromptTokens(user, systemPrompt: systemPrompt);
+  }
+
+  @override
+  Future<Result<int>> contextWindow() async {
+    final service = await _current();
+    if (service == null) return const Err(ModelMissingFailure('llm'));
+    return await service.contextWindow();
   }
 
   /// Frees the model (a running generation is cancelled first).

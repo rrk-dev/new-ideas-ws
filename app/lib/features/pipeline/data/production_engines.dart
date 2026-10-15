@@ -17,11 +17,15 @@ import 'package:vaultvoice/features/export/data/saf_vault_writer.dart';
 import 'package:vaultvoice/features/extraction/data/ffi_llm_runtime.dart';
 import 'package:vaultvoice/features/extraction/data/native_device_capabilities.dart';
 import 'package:vaultvoice/features/extraction/data/native_schema_grammar_converter.dart';
+import 'package:vaultvoice/features/extraction/domain/device_tiering.dart';
 import 'package:vaultvoice/features/extraction/domain/llm_backend_policy.dart';
 import 'package:vaultvoice/features/extraction/domain/llm_service.dart';
+import 'package:vaultvoice/features/extraction/domain/long_transcript/extraction_prompts.dart';
+import 'package:vaultvoice/features/extraction/domain/long_transcript/map_reduce_extractor.dart';
 import 'package:vaultvoice/features/extraction/domain/memory_planner.dart';
 import 'package:vaultvoice/features/extraction/domain/model_residency.dart';
 import 'package:vaultvoice/features/pipeline/data/active_engines.dart';
+import 'package:vaultvoice/features/pipeline/data/long_transcript_strategy.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/render_write_steps.dart';
 import 'package:vaultvoice/features/pipeline/domain/heavy_model_gate.dart';
@@ -166,6 +170,27 @@ final class ProductionEngineSpec {
     Future<Profile?> profile(String id) async =>
         (await registry.get(id)).valueOrNull;
 
+    // LLM-06 long-transcript map-reduce behind FND-11's ExtractionStrategy
+    // seam (integration W3): exact token budgets from the active model,
+    // device tier from total RAM, checkpoint key = model + profile version.
+    final longTranscript = LongTranscriptStrategy(
+      LongTranscriptExtraction(
+        extractor: MapReduceExtractor(engine: llm, tokenizer: llm),
+        inputFor: (p, lines, {required modelId, required maxTokens}) async {
+          final grammars = (await registry.grammarsFor(p)).valueOrNull;
+          if (grammars == null) return null;
+          return LongExtractionInput(
+            lines: lines,
+            prompts: ProfilePromptSource(p),
+            spec: MapReduceSpec.fromProfile(p, grammars),
+            tier: tierForRam(native.value.deviceMemory.$1),
+            maxTokens: maxTokens,
+            paramsKey: '$modelId|${p.id}@${p.version}',
+          );
+        },
+      ),
+    );
+
     return PipelineEngines(
       stt: stt,
       llm: llm,
@@ -175,6 +200,7 @@ final class ProductionEngineSpec {
       profiles: profile,
       grammars: (p) async =>
           (await registry.grammarsFor(p)).valueOrNull?.schema,
+      extraction: longTranscript,
       rendererLoader: () => loadNoteRenderer(
         db,
         builtins: builtins,

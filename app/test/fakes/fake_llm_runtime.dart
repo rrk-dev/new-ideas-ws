@@ -56,6 +56,7 @@ class FakeLlmSession implements LlmSession {
   bool disposed = false;
   final List<String> prompts = [];
   final List<String?> grammars = [];
+  final List<bool> reusePrefix = [];
 
   @override
   int countTokens(String text) => text.split(' ').length;
@@ -70,12 +71,14 @@ class FakeLlmSession implements LlmSession {
     required LlmSampling sampling,
     required int maxTokens,
     String? grammar,
+    bool reusePrefix = false,
   }) {
     if (grammar == 'bad') {
       throw const LlmRequestException(LlmRejection.invalidGrammar);
     }
     prompts.add(prompt);
     grammars.add(grammar);
+    this.reusePrefix.add(reusePrefix);
     final run = FakeLlmRun(
       _rt.chunks,
       _rt.perChunk,

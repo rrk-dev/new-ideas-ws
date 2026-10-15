@@ -130,6 +130,7 @@ class ExtractStep implements PipelineStep {
         grammar: grammar,
         segments: segments,
         maxTokens: config.maxLlmTokens,
+        modelId: modelId,
       );
       if (long != null) {
         switch (long) {

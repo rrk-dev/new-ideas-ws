@@ -20,6 +20,8 @@ final class ExtractionRequest {
     this.transcriptTimestamps = const {},
     this.maxTokens = 1024,
     this.summaryPrompt,
+    this.summaryFallback = true,
+    this.reusePrefix = false,
   });
 
   final String systemPrompt;
@@ -36,6 +38,13 @@ final class ExtractionRequest {
   /// Fallback prompt (title + 2–4 sentence summary); defaults to a generic
   /// instruction around [userPrompt].
   final String? summaryPrompt;
+
+  /// False: after a failed repair return `valid = false` without the
+  /// free-text summary call (LLM-06 map chunks — the reduce copes).
+  final bool summaryFallback;
+
+  /// Keep the KV cache of the shared prompt prefix (LLM-06 map chunks).
+  final bool reusePrefix;
 }
 
 /// Result of [StructuredExtractor.extract].
@@ -88,6 +97,7 @@ final class StructuredExtractor {
   Future<Result<ExtractionOutcome>> extract(
     ExtractionRequest req, {
     CancelToken? cancel,
+    void Function(String token)? onToken,
   }) async {
     final first = await _engine.generate(
       LlmRequest(
@@ -95,8 +105,10 @@ final class StructuredExtractor {
         systemPrompt: req.systemPrompt,
         grammar: req.grammar,
         maxTokens: req.maxTokens,
+        reusePrefix: req.reusePrefix,
       ),
       cancel: cancel,
+      onToken: onToken,
     );
     if (first case Err(:final failure)) return Err(failure);
     var output = first.valueOrNull!;
@@ -115,6 +127,7 @@ final class StructuredExtractor {
         grammar: req.grammar,
         maxTokens: req.maxTokens,
         sampling: const LlmSampling(preset: LlmPreset.deterministic),
+        reusePrefix: req.reusePrefix,
       ),
       cancel: cancel,
     );
@@ -126,6 +139,12 @@ final class StructuredExtractor {
       output = repair.valueOrNull!;
       (data, issues) = _parse(output, req.schema);
       if (data != null) return Ok(_accept(data, req, repairUsed: true));
+    }
+
+    if (!req.summaryFallback) {
+      return Ok(
+        ExtractionOutcome(valid: false, repairUsed: true, issues: issues),
+      );
     }
 
     // Fallback: free-text summary (title + 2–4 sentences).
