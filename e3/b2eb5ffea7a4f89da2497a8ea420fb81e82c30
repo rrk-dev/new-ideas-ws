@@ -1,0 +1,114 @@
+tools/ci/tests/test_stt_native_build.py
+  s_9f6fcf8c1840a0::t_9dccde00162ea9 22-23,40-41
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_9f6fcf8c1840a0::t_ad894e3e15425c 412,468,669,727,780,838
+app/test/unit/models/catalog_verifier_test.dart
+  s_9f6fcf8c1840a0::t_633b16b1a029a2 380-395
+packages/vv_native/ios/vv_native.podspec
+  s_9f6fcf8c1840a0::t_ad894e3e15425c 17
+app/test/unit/models/coreml_companion_test.dart
+  s_9f6fcf8c1840a0::t_a14623090bc379 18,253-260
+  s_9f6fcf8c1840a0::t_403fda32c40bfe 1-17,19-87,89-111,113,115-132,134-232,234-252,261-286
+  s_9f6fcf8c1840a0::t_f36efb307d6509 88,112,114,133,233
+app/lib/features/device_support/presentation/unsupported_device_screen.dart
+  s_9f6fcf8c1840a0::t_c32abaa0a583ed 1-60
+native/build.sh
+  s_9f6fcf8c1840a0::t_a61d197df35acd 8,100
+  s_9f6fcf8c1840a0::t_ad894e3e15425c 19
+tools/model-catalog/catalog.schema.json
+  s_9f6fcf8c1840a0::t_adf8dc296c9786 3
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_fead6583429118 841-847
+CONTRIBUTING.md
+  s_9f6fcf8c1840a0::t_ad894e3e15425c 50-51,59
+  s_9f6fcf8c1840a0::t_a4d35ad50c038b 56-58
+native/bridge/vv_llama.h
+  s_9f6fcf8c1840a0::t_b07431fbb760d2 83-86
+app/lib/features/models/domain/coreml_companions.dart
+  s_9f6fcf8c1840a0::t_8415c6b440e8fb 1-34
+app/lib/features/models/data/model_downloader.dart
+  s_9f6fcf8c1840a0::t_cc1c34040c11e8 14,16,24-30,57,59-65,79-80,99-103,180-208,210,214-233,272-282,289-302,308,406,480-500
+  s_9f6fcf8c1840a0::t_ebbeff2e41ea3f 58,501
+native/CMakeLists.txt
+  s_9f6fcf8c1840a0::t_d2def73fac60be 57-64,130-137,139-147
+tools/model-catalog/models.json
+  s_9f6fcf8c1840a0::t_f77266fa41eedc 2,23-25,45-47,67-69,89-91,111-113,133-135,155-157,177-179,199-201,204-213,215-233,235-253,255-273,275-293,295-313,315-323
+  s_9f6fcf8c1840a0::t_c8316248c2d187 214,234,254,274,294,314
+native/VERSIONS.md
+  s_9f6fcf8c1840a0::t_ad894e3e15425c 10
+app/test/widget/unsupported_device_test.dart
+  s_9f6fcf8c1840a0::t_e95e012a30b0b7 1-33
+app/test/unit/network/egress_capture_test.dart
+  s_9f6fcf8c1840a0::t_633b16b1a029a2 33,88-90,92,152-153,157
+app/lib/bootstrap.dart
+  s_9f6fcf8c1840a0::t_fead6583429118 27-29,73-89,152-159
+  s_9f6fcf8c1840a0::t_6ad95f8688e185 160-161
+app/lib/features/device_support/data/device_support_providers.dart
+  s_9f6fcf8c1840a0::t_c32abaa0a583ed 1-9
+app/test/unit/repo_standards_test.dart
+  s_9f6fcf8c1840a0::t_a4d35ad50c038b 26-27,35-38,40-52
+  s_9f6fcf8c1840a0::t_92e6d5c288fb4d 39,53
+app/lib/features/device_support/domain/device_support.dart
+  s_9f6fcf8c1840a0::t_c32abaa0a583ed 1-19
+native/bridge/vv_llama.cpp
+  s_9f6fcf8c1840a0::t_b07431fbb760d2 417-420
+  s_9f6fcf8c1840a0::t_4633cf787856fe 416
+native/bridge/vv_cpu.h
+  s_9f6fcf8c1840a0::t_b07431fbb760d2 23-28
+app/lib/features/models/data/coreml_encoder_installer.dart
+  s_9f6fcf8c1840a0::t_c674286e69bef0 1-48,51-56,60-106
+  s_9f6fcf8c1840a0::t_cc1c34040c11e8 49-50,57-59
+app/test/helpers/model_download_server.dart
+  s_9f6fcf8c1840a0::t_be201beda4e12c 252,267
+AGENTS.md
+  s_9f6fcf8c1840a0::t_ad894e3e15425c 120
+native/tests/cpu_test.c
+  s_9f6fcf8c1840a0::t_b07431fbb760d2 109-115
+tools/ci/tests/test_product_decisions.py
+  s_9f6fcf8c1840a0::t_e46bfb433fc4fa 1-72
+app/lib/app.dart
+  s_9f6fcf8c1840a0::t_fead6583429118 9-10,20-32
+app/test/unit/device_support/device_support_test.dart
+  s_9f6fcf8c1840a0::t_5b6c7d77ca2cd5 1-33
+app/test/fakes/fake_model_downloader.dart
+  s_9f6fcf8c1840a0::t_2f2b6b44cae342 69-79
+  s_9f6fcf8c1840a0::t_23d7d23de4619b 68
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_deb5e9f6533a73 4440-4463
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_b45601974c3d87 2588-2601
+app/lib/core/network/model_hosts.dart
+  s_9f6fcf8c1840a0::t_9702a240fa8f73 2,5-8,11-12,14-15
+app/lib/features/device_support/data/device_support_providers.g.dart
+  s_9f6fcf8c1840a0::t_b42042c354d040 1-61
+app/lib/features/models/data/catalog_config.dart
+  s_9f6fcf8c1840a0::t_ac156fcc055d3c 8-10,12-17
+app/lib/features/models/data/download_providers.dart
+  s_9f6fcf8c1840a0::t_a510b015a66080 51-55
+app/lib/features/models/domain/model_management.dart
+  s_9f6fcf8c1840a0::t_daae5376435a81 129-138
+app/test/widget/accessibility_test.dart
+  s_9f6fcf8c1840a0::t_0d66d4fb841a96 23-24,404-438
+docs/adr/ADR-FND-06-native-build.md
+  s_9f6fcf8c1840a0::t_93a58641257ecc 3-6,8,15-16,28-38,40-46,67
+docs/adr/ADR-LLM-03-android-cpu-gpu.md
+  s_9f6fcf8c1840a0::t_9d96f4a21dff75 6-7,24-31,79-80,85-86,106-107,110
+docs/adr/ADR-STT-02-android-backends.md
+  s_9f6fcf8c1840a0::t_5d5beb6d45a240 9-11,14-15,87-92
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e3b2eb5ffea7a4f89da2497a8ea420fb81e82c30",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}

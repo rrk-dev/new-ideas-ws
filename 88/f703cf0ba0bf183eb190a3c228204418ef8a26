@@ -1,0 +1,19 @@
+app/lib/features/pipeline/data/pipeline_providers.g.dart
+  s_9f6fcf8c1840a0::t_d7d4ae43be1627 156
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "88f703cf0ba0bf183eb190a3c228204418ef8a26",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
