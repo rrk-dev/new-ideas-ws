@@ -291,7 +291,12 @@ Future<SttLiveReport> runLiveAndCancel(
       pumped += frame;
     }
     sw.stop();
-    latency = sw.elapsed > pumped ? sw.elapsed : pumped;
+    // On a device (live binding) pump waits real time, so wall clock is the
+    // truth and also catches work beyond the pumped frames. Under the host's
+    // fake-async binding only pumped time is meaningful (wall clock there
+    // measures test-runner load, not the engine).
+    final live = tester.binding is LiveTestWidgetsFlutterBinding;
+    latency = live && sw.elapsed > pumped ? sw.elapsed : pumped;
   }
   if (done) await run;
   return SttLiveReport(

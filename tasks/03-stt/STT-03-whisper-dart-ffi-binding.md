@@ -104,3 +104,13 @@ A Dart `SttEngine` implementation that transcribes audio with progress, cancella
   Devices needed: iPhone 13 (iOS 17/18, Metal) and an Android arm64 mid-range phone (Android 14/15).
 - **Acceptance evidence (unchanged lines above remain valid):** AC1 ⏳ device (host ✅ `[STT-03/AC1]`),
   AC2 ⏳ device (host ✅ `[STT-03/AC2]`), AC3 ⏳ device.
+- **Cancel latency clock:** on a device (`LiveTestWidgetsFlutterBinding`) the harness uses wall clock
+  (≥ pumped time); under the host fake-async binding it uses pumped time only, so the host self-test is not
+  sensitive to runner load.
+- **Gates (2026-10-15, macOS host, load average ~55 from parallel agents):** `dart format` 0 changed ·
+  `flutter analyze` / `dart analyze --fatal-infos` 0 issues · `check_codegen.sh` clean · `check_recording_policy.sh`
+  OK · `check_egress.sh` OK · `tasks.py validate` 0 problems · `pytest tools/ci/tests` 90 passed, 1 skipped ·
+  `flutter test`: 1360 passed, 52 skipped, 4 failed — 1 was this harness's cancel latency (wall clock under load,
+  fixed above; file now 7/7), the other 3 are pre-existing wall-clock budget tests outside this task
+  (`[AUD-08/AC1]` < 300 ms, `[APP-02/AC1]` < 200 ms, `[AUD-05/AC1]` background recording) that fail only
+  under this load (no code they exercise changed here).
