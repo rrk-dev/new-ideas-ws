@@ -1,0 +1,133 @@
+.github/workflows/release.yml
+  s_82d5aced1a47c9::t_8bf2a23f86b380 106-107
+app/android/app/build.gradle.kts
+  s_82d5aced1a47c9::t_660699293914f6 22-25,53,78,103-109
+app/android/app/proguard-rules.pro
+  s_82d5aced1a47c9::t_bdbe5d1b760085 1-4
+app/android/app/src/main/AndroidManifest.xml
+  s_82d5aced1a47c9::t_ba95ad40c39bb8 2
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/MainActivity.kt
+  s_82d5aced1a47c9::t_9b09f939611dfa 3,43
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/billing/PurchaseApi.g.kt
+  s_82d5aced1a47c9::t_7d4eae86c52d03 1-449
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/billing/PurchasePlugin.kt
+  s_82d5aced1a47c9::t_5591e94d921c84 1-213
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_82d5aced1a47c9::t_9ef045675c2b52 31-32,88-89,164-165,339-340,420,476,677,735,788,846
+app/ios/Runner/AppDelegate.swift
+  s_82d5aced1a47c9::t_f9cede7a936237 9,60-62
+app/ios/Runner/PurchaseApi.g.swift
+  s_82d5aced1a47c9::t_cfc2859e10f183 1-439
+app/ios/Runner/PurchaseHostApiImpl.swift
+  s_82d5aced1a47c9::t_a13fb2de4dbcfc 1-113
+app/ios/Runner/VaultVoice.storekit
+  s_82d5aced1a47c9::t_80655ec548ad85 1-64
+app/lib/bootstrap.dart
+  s_82d5aced1a47c9::t_ce00f0428220bc 28,114-116
+app/lib/core/l10n/arb/app_en.arb
+  s_82d5aced1a47c9::t_ef0ccadfbd6837 854-881
+app/lib/core/l10n/gen/app_localizations.dart
+  s_a241c786a3b76f::t_26a5d7cceef636 4500-4577
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_a241c786a3b76f::t_036d4f2fdd9595 2623-2671
+app/lib/core/routing/app_routes.dart
+  s_82d5aced1a47c9::t_886f45780cc76f 11,98,355-361
+app/lib/core/routing/app_routes.g.dart
+  s_82d5aced1a47c9::t_ecd10b4750b792 172-176,665-684
+app/lib/features/licensing/data/entitlement_license_port.dart
+  s_82d5aced1a47c9::t_440e52d065a645 13-15,21,24-25,46-48
+app/lib/features/licensing/data/licensing_providers.dart
+  s_82d5aced1a47c9::t_4bdd09daae14cb 6,13,110,112-113
+app/lib/features/licensing/data/licensing_providers.g.dart
+  s_82d5aced1a47c9::t_3f6cc253500c04 404,409,419,453
+app/lib/features/licensing/data/platform_purchase_store.dart
+  s_82d5aced1a47c9::t_5f97edc14cdcb7 1-89
+app/lib/features/licensing/data/purchase_api.g.dart
+  s_82d5aced1a47c9::t_1c9a267656127e 1-377
+app/lib/features/licensing/data/purchase_providers.dart
+  s_82d5aced1a47c9::t_9d0f6876f88ab4 1-35
+app/lib/features/licensing/data/purchase_providers.g.dart
+  s_82d5aced1a47c9::t_44ede6e1e9bafd 1-134
+app/lib/features/licensing/data/purchase_service.dart
+  s_82d5aced1a47c9::t_1611adf39a4c77 1-130
+app/lib/features/licensing/domain/feature_matrix.dart
+  s_82d5aced1a47c9::t_cf126f0a4074af 6-8
+app/lib/features/licensing/domain/store_purchase.dart
+  s_82d5aced1a47c9::t_5f8694ed73aeab 1-120
+app/lib/features/licensing/presentation/paywall_screen.dart
+  s_82d5aced1a47c9::t_0aa6c901b71e3d 1-114
+app/lib/features/licensing/presentation/purchase_host.dart
+  s_82d5aced1a47c9::t_09983966e86b34 1-46
+app/lib/features/licensing/presentation/router_paywall_presenter.dart
+  s_82d5aced1a47c9::t_597566681af6e4 1-13
+app/lib/features/settings/presentation/settings_providers.dart
+  s_82d5aced1a47c9::t_cc2bedeca7325f 9,32
+app/lib/features/settings/presentation/settings_providers.g.dart
+  s_a241c786a3b76f::t_4e9854e35baf55 157
+app/lib/features/settings/presentation/settings_screen.dart
+  s_82d5aced1a47c9::t_1e6bbb24e5fa0e 10-11,301-307
+app/pigeons/purchase_api.dart
+  s_82d5aced1a47c9::t_5f4e6362fa5102 1-44
+app/test/fakes/fake_purchase_store.dart
+  s_82d5aced1a47c9::t_03779a51a23423 1-45
+app/test/golden/paywall_golden_test.dart
+  s_82d5aced1a47c9::t_1332224efb1e28 1-23
+app/test/unit/licensing/README.md
+  s_82d5aced1a47c9::t_22bc230cf4611e 1-4
+app/test/unit/licensing/platform_purchase_store_test.dart
+  s_82d5aced1a47c9::t_ab181fa7155b56 1-131
+app/test/unit/licensing/purchase_service_test.dart
+  s_82d5aced1a47c9::t_1d6cd2d418effd 1-246
+app/test/widget/accessibility_test.dart
+  s_82d5aced1a47c9::t_a3e3ff0dc323a9 27,29,93,161-166
+app/test/widget/paywall_test.dart
+  s_82d5aced1a47c9::t_2c869e322a756f 1-109
+docs/adr/ADR-LIC-02-store-verification.md
+  s_82d5aced1a47c9::t_ebdfa0cef25a80 1-80
+docs/billing-sdk-audit.md
+  s_82d5aced1a47c9::t_f4ecf5ea92a7e3 1-53
+docs/in-app-purchases.md
+  s_82d5aced1a47c9::t_c0cd2c98dbcc1f 1-72
+docs/privacy-audit.md
+  s_82d5aced1a47c9::t_0bcddcccb0a834 294-307
+docs/release-secrets.md
+  s_82d5aced1a47c9::t_5adfde1bffcbd8 51-56
+docs/test-plans/device/LIC-02.md
+  s_82d5aced1a47c9::t_99dc2f8936326e 1-20
+tasks/09-licensing/LIC-02-in-app-purchases.md
+  s_82d5aced1a47c9::t_8a37b5fb747071 4
+tasks/README.md
+  s_82d5aced1a47c9::t_c7b02cd47a389d 194
+tools/ci/check_egress.sh
+  s_82d5aced1a47c9::t_7f3d9b34fea278 49-57
+tools/ci/tests/test_egress_guard.py
+  s_82d5aced1a47c9::t_14218e31f8d399 66-85
+tools/release/build_release.sh
+  s_82d5aced1a47c9::t_325873cb01da40 35,44
+tools/release/tests/test_purchase_build.py
+  s_82d5aced1a47c9::t_18abffb5c4c860 1-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "08f0e29187ff86931f0155dbee54fabb0460619b",
+  "prompts": {},
+  "sessions": {
+    "s_82d5aced1a47c9": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b2039aa9-d7cb-47b2-bcc8-4bcf8dbdcf11",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_a241c786a3b76f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "10924bfa-4490-4854-867b-a5f460f1ba0a",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
