@@ -222,6 +222,19 @@ void main() {
       expect(navigated, ['/library/recordings/rec-1']);
     });
 
+    test('[APP-04/AC1] cold-start Retry tap retries a failed job that '
+        'predates the first snapshot', () async {
+      await put0(db, JobState.failed);
+      monitor = build(
+        launch: const NotificationTap(
+          payload: '/library/recordings/rec-1',
+          actionId: NotificationActions.retry,
+        ),
+      );
+      await monitor.start();
+      expect(retried, hasLength(1));
+    });
+
     test('[APP-04/AC1] a notification that launched the app is followed; '
         'foreign payloads are ignored', () async {
       monitor = build(

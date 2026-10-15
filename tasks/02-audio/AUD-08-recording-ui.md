@@ -59,3 +59,4 @@ One-tap recording with clear state, live feedback and profile pre-selection.
 - **AUD-12 (proposed): Per-recording destination column** — move `recording.destination.<id>`
   from the settings table into `recordings.target_id` with the next schema migration; delete it
   with the recording (SEC-04) and let EXP-05/06 routing respect it.
+- Codex review 2026-10-15 (open): call state checked once in recording_screen.dart and never cleared after hang-up (Record stays disabled): observe call-state changes / refresh on foreground and test call-ended recovery

@@ -279,7 +279,8 @@ class TranscribeStep implements PipelineStep {
             endMs: c.endMs,
           ),
       ],
-      speech: speech.valueOrNull!,
+      speech: speech.valueOrNull!.spans,
+      vadRan: speech.valueOrNull!.known,
       config: windowConfig,
     );
     final windows = plan.windows;
@@ -413,20 +414,29 @@ class TranscribeStep implements PipelineStep {
   /// Stored speech spans, or VAD's (stored for next time), or none (chunk
   /// boundaries are then the cut points: no VAD model, or silence skipping
   /// off).
-  Future<Result<List<SpeechSpan>>> _speechSpans(
+  Future<Result<({List<SpeechSpan> spans, bool known})>> _speechSpans(
     String recordingId,
     List<AudioChunkRow> chunks,
     StepContext ctx,
     String? vadModel,
   ) async {
+    // Silence skipping off: stored spans from an earlier run must not apply.
+    if (!await _skipSilenceOn()) {
+      return const Ok((spans: <SpeechSpan>[], known: false));
+    }
     final stored = await db.recordingsRepository
         .watchSpeechSegments(recordingId)
         .first;
     if (stored.isNotEmpty) {
-      return Ok([for (final s in stored) SpeechSpan(s.startMs, s.endMs)]);
+      return Ok((
+        spans: [for (final s in stored) SpeechSpan(s.startMs, s.endMs)],
+        known: true,
+      ));
     }
     final engine = vad;
-    if (engine == null || vadModel == null) return const Ok([]);
+    if (engine == null || vadModel == null) {
+      return const Ok((spans: <SpeechSpan>[], known: false));
+    }
     final detected = await engine.detect(
       [
         for (final c in chunks)
@@ -435,21 +445,26 @@ class TranscribeStep implements PipelineStep {
       modelPath: vadModel,
       cancel: ctx.cancel,
     );
-    if (detected case Ok(:final value) when value.isNotEmpty) {
-      final saved = await db.recordingsRepository.replaceSpeechSegments(
-        recordingId,
-        [
-          for (final s in value)
-            SpeechSegmentsCompanion.insert(
-              recordingId: recordingId,
-              startMs: s.startMs,
-              endMs: s.endMs,
-            ),
-        ],
-      );
-      if (saved case Err(:final failure)) return Err(failure);
+    switch (detected) {
+      case Err(:final failure):
+        return Err(failure);
+      case Ok(:final value):
+        if (value.isNotEmpty) {
+          final saved = await db.recordingsRepository.replaceSpeechSegments(
+            recordingId,
+            [
+              for (final s in value)
+                SpeechSegmentsCompanion.insert(
+                  recordingId: recordingId,
+                  startMs: s.startMs,
+                  endMs: s.endMs,
+                ),
+            ],
+          );
+          if (saved case Err(:final failure)) return Err(failure);
+        }
+        return Ok((spans: value, known: true));
     }
-    return detected;
   }
 
   Future<String?> _lastText(String transcriptId, int window) async {

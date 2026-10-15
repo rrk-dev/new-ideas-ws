@@ -57,3 +57,5 @@ Process audio the user recorded elsewhere (e.g. Voice Memos, a dictaphone, a mee
   flavor, deployment target iOS 16, embed in Runner via "Embed Foundation Extensions"), add the App
   Group `group.<app id>` entitlement to Runner and the extension (register both in the developer
   portal / provisioning profiles), and run the AUD-06 AC2 device row. Needs Xcode + signing.
+- Codex review 2026-10-15 (open): Android CAF import rejected (audio_import.dart) although AC1 lists CAF: implement or approve AC change; tagged format test omits Android CAF
+- Codex review 2026-10-15 (open): no iOS ShareExtension target built/embedded and Runner lacks App Group entitlement (project.pbxproj): wire extension target, embedding and entitlements (AC2)
