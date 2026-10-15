@@ -1,0 +1,83 @@
+app/lib/features/transcription/data/recording_audio_source.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-102
+app/test/unit/transcription/transcript_view_test.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-158
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_9e8afcb0cf7030 1872
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1873-2033
+app/lib/features/pipeline/presentation/recording_status_screen.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 4,58-67
+app/test/unit/transcription/transcript_editor_test.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-191
+app/test/widget/accessibility_test.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 22-25,28,52,55-80,82-90
+app/test/widget/transcript_screen_test.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-298
+app/lib/core/db/repositories/transcripts_repository.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 76-85,87-92,95-111
+app/test/fakes/fake_transcript_player.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-52
+docs/test-plans/device/STT-06.md
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-17
+app/android/app/src/main/res/xml/network_security_config.xml
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-11
+app/pubspec.yaml
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 27
+app/lib/features/transcription/domain/playback_timeline.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-112
+app/lib/core/routing/app_routes.g.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 39-45,187-200,203,206,209
+  s_9f6fcf8c1840a0::t_2dfc483b5fa316 201-202,204-205,207-208,210-211
+app/lib/features/transcription/presentation/transcript_screen.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-516
+app/lib/features/transcription/domain/transcript_player.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-58
+docs/privacy-audit.md
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 13,110-112
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_fa08424a2da25c 363,366,371,374,385
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 354-362,364-365,367-370,372-373,375-384
+  s_9f6fcf8c1840a0::t_c0b1002ad39433 353
+app/lib/features/transcription/data/just_audio_transcript_player.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-49
+app/test/golden/transcript_golden_test.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-64
+app/lib/core/routing/app_routes.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 15,30-33,143-151
+  s_9f6fcf8c1840a0::t_e3550023358f2e 152-153
+tasks/03-stt/STT-06-transcript-viewer-editor.md
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 4,11-15,21-60
+app/lib/features/transcription/domain/transcript_view.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-267
+app/lib/features/transcription/presentation/transcript_providers.g.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-677
+app/test/unit/transcription/playback_test.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-159
+app/ios/Runner/Info.plist
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 126-132
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1065-1170
+  s_9f6fcf8c1840a0::t_9e8afcb0cf7030 1063-1064
+app/android/app/src/main/AndroidManifest.xml
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 25-26
+app/lib/features/transcription/presentation/transcript_providers.dart
+  s_9f6fcf8c1840a0::t_d90a8d8d067fc3 1-227
+app/pubspec.lock
+  s_9f6fcf8c1840a0::t_affd0f88b757a3 76-83,631-654,1031-1038,1164-1171
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ba5d75acdfa787831e9ef7181813bacab8b6b874",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
