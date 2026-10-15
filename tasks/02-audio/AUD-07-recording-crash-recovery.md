@@ -44,4 +44,3 @@ A crash, OS kill or battery death during recording never loses the captured audi
 - **Skill/rule compliance:** Recovery uses `AudioChunkCodec.recover` (WAV header from file length). Prompt is `RecoveredRecordingsPrompt` on the Record screen; Process now enqueues with `userInitiated: true`. Matches the crash-recovery section of `vv-audio-capture`.
 - **Issues found:** none
 - **Pending for done:** AC1: still pending (⏳) — cannot be done; AC1: device row in docs/test-plans/device/AUD-07.md has no PASS result with a date; dependency AUD-01 is not done; dependency FND-04 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task
-- Codex review 2026-10-15 (open): tagged crash test drains all queued writes before the simulated kill (recording_recovery_test.dart): simulate abrupt loss of pending writes, reopen persisted state, and verify disabling periodic flushes fails

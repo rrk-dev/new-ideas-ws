@@ -56,4 +56,3 @@ App is usable with screen readers and ready for translation.
 - **Skill/rule compliance:** `flutter_localizations` + ARB as required by `vv-flutter-architecture`. Dev-only debug screens are allowlisted with reasons. No credentials or certificates.
 - **Issues found:** none
 - **Pending for done:** AC1: still pending (⏳) — cannot be done; AC1: device row in docs/test-plans/device/APP-06.md has no PASS result with a date; dependency FND-02 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task
-- Codex review 2026-10-15 (open): recording reminder text in recording_limits.dart is hard-coded English: move to ARB and extend the AC2 localization guard to notification text
