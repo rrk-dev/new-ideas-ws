@@ -23,9 +23,19 @@ class PlatformPurchaseStore implements PurchaseStore, PurchaseFlutterApi {
     if (!_changes.isClosed) _changes.add(null);
   }
 
-  Future<Result<T>> _call<T>(Future<T> Function() action) async {
+  Future<Result<T>> _call<T>(
+    Future<T> Function() action, {
+    bool interactive = false,
+  }) async {
     try {
-      return Ok(await action().timeout(const Duration(seconds: 30)));
+      final operation = action();
+      // Store sheets can wait for authentication or payment approval. A query
+      // timeout must not report failure while the user is still purchasing.
+      return Ok(
+        await (interactive
+            ? operation
+            : operation.timeout(const Duration(seconds: 30))),
+      );
     } on PlatformException catch (e) {
       return Err(
         e.code == 'verification_failed'
@@ -67,9 +77,10 @@ class PlatformPurchaseStore implements PurchaseStore, PurchaseFlutterApi {
       StorePurchaseOutcome.pending => PurchaseOutcome.pending,
       StorePurchaseOutcome.cancelled => PurchaseOutcome.cancelled,
     },
+    interactive: true,
   );
   @override
-  Future<Result<void>> restore() => _call(_api.restore);
+  Future<Result<void>> restore() => _call(_api.restore, interactive: true);
   @override
   Future<void> dispose() async {
     PurchaseFlutterApi.setUp(null);

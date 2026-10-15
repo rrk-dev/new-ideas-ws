@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
@@ -30,6 +32,26 @@ void main() {
       messenger.setMockDecodedMessageHandler<Object?>(channel(method), null);
     }
     await store.dispose();
+  });
+
+  testWidgets('[LIC-02/AC1] purchase sheet can wait beyond query timeout', (
+    tester,
+  ) async {
+    final response = Completer<Object?>();
+    messenger.setMockDecodedMessageHandler<Object?>(
+      channel('purchase'),
+      (_) => response.future,
+    );
+    Result<PurchaseOutcome>? result;
+    final purchase = store.purchase(annualProductId).then((value) {
+      result = value;
+    });
+    await tester.pump(const Duration(seconds: 31));
+    expect(result, isNull);
+    response.complete([StorePurchaseOutcome.purchased]);
+    await tester.pump();
+    await purchase;
+    expect(result!.valueOrNull, PurchaseOutcome.purchased);
   });
 
   test('[LIC-02/AC1] typed bridge preserves store price and verified expiration; filters unknown products', () async {
