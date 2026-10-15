@@ -18,6 +18,8 @@ for p in sorted(deps['packages'], key=lambda p: p['name']):
         continue
     base = paths[p['name']]
     files = sorted(f for f in base.iterdir() if f.is_file() and f.name.upper().startswith(('LICENSE', 'COPYING')))
+    if not files and p['source'] == 'sdk':
+        files = [base.parents[1] / 'LICENSE']
     # vv_native is first-party code, covered by the app distribution terms.
     if not files and p['name'] != 'vv_native':
         raise RuntimeError(f"Missing license: {p['name']}")
