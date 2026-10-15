@@ -1,0 +1,37 @@
+app/lib/features/templates/domain/template_lambdas.dart
+  s_a241c786a3b76f::t_ad30a2117de022 62
+app/test/fixtures/markdown/golden/engineering-default.adversarial.md
+  s_c75835e9bfff2d::t_1432589597a4c5 30
+app/test/fixtures/markdown/golden/engineering-default.full.md
+  s_c75835e9bfff2d::t_2cf2ba333f3f76 30
+docs/templates.md
+  s_a241c786a3b76f::t_bb17f4b57dd39f 61
+tools/bench/eval/run.py
+  s_a241c786a3b76f::t_2c10ed01888728 211-212,288
+tools/ci/eval.sh
+  s_a241c786a3b76f::t_35189ec780fa02 63-67,72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3d13c6c5fabe4fb3c739b208de53f4aa9a7cfbb7",
+  "prompts": {},
+  "sessions": {
+    "s_a241c786a3b76f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "10924bfa-4490-4854-867b-a5f460f1ba0a",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_c75835e9bfff2d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f15764af-6d0c-4490-8300-309d0bfc5fc5",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
