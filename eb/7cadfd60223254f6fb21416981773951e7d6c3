@@ -1,0 +1,21 @@
+.github/workflows/release.yml
+  s_9f6fcf8c1840a0::t_1e9ed6991993ef 5-8
+tasks/12-release/REL-04-beta-program.md
+  s_9f6fcf8c1840a0::t_48f720aaf09cb9 11-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "eb7cadfd60223254f6fb21416981773951e7d6c3",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
