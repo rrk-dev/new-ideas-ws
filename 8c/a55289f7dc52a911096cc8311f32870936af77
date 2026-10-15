@@ -1,0 +1,93 @@
+app/lib/features/pipeline/presentation/recording_status_screen.dart
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 7,36-40
+app/test/fixtures/markdown/golden/warranty-logseq.full.md
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-31
+app/lib/features/templates/domain/builtin_templates.dart
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 51-60,66-75,79-84
+  s_9f6fcf8c1840a0::t_2a893e206121a5 85
+app/test/fixtures/markdown/golden/engineering-plain.full.md
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-45
+app/test/unit/templates/alternate_outputs_test.dart
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-93
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 2977-3053
+  s_9f6fcf8c1840a0::t_dc04a21b9b3dce 2976
+app/test/unit/pipeline/production_engines_test.dart
+  s_9f6fcf8c1840a0::t_54288f3bced92a 30
+  s_9f6fcf8c1840a0::t_bd5a66381177dd 101-102
+app/lib/features/settings/data/share_plus_share_service.dart
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 36-59
+app/test/widget/share_note_sheet_test.dart
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-139
+tasks/07-export/EXP-08-share-and-alternate-outputs.md
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 4,11-14,18-35
+app/lib/core/l10n/arb/app_en.arb
+  s_9f6fcf8c1840a0::t_dc04a21b9b3dce 558
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 559-571
+app/lib/features/export/data/note_sharing_providers.g.dart
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-178
+app/test/fixtures/markdown/golden/engineering-logseq.empty.md
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-11
+app/lib/core/platform/share_service.dart
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 17-19
+app/lib/features/export/presentation/share_note_sheet.dart
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-186
+app/test/unit/export/note_sharing_test.dart
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-126
+app/test/fixtures/markdown/golden/warranty-logseq.adversarial.md
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-31
+app/test/fixtures/markdown/golden/engineering-plain.empty.md
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-8
+app/test/fixtures/markdown/golden/warranty-logseq.empty.md
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-9
+app/assets/templates/warranty-logseq.mustache
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-72
+app/assets/templates/engineering-logseq.mustache
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-68
+app/lib/features/export/data/note_sharing_providers.dart
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-36
+app/test/fixtures/markdown/golden/warranty-plain.adversarial.md
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-21
+app/test/fixtures/markdown/golden/engineering-logseq.full.md
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-35
+app/test/fixtures/markdown/golden/engineering-logseq.adversarial.md
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-35
+app/assets/templates/warranty-plain.mustache
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-47
+docs/templates.md
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 100-101,103-104,107-110
+  s_9f6fcf8c1840a0::t_4a132eccb492b5 111
+app/assets/templates/engineering-plain.mustache
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-76
+app/lib/features/export/data/note_sharing.dart
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-177
+docs/test-plans/device/EXP-08.md
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-18
+app/test/fixtures/markdown/golden/engineering-plain.adversarial.md
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-45
+app/test/fixtures/markdown/golden/warranty-plain.empty.md
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-3
+app/test/fixtures/markdown/golden/warranty-plain.full.md
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1-21
+app/test/fakes/fake_share_service.dart
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 22-33
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9f6fcf8c1840a0::t_7edf26b3a05ba6 1707-1744
+  s_9f6fcf8c1840a0::t_dc04a21b9b3dce 1705-1706
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8ca55289f7dc52a911096cc8311f32870936af77",
+  "prompts": {},
+  "sessions": {
+    "s_9f6fcf8c1840a0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d1ba68a-f96a-46dc-9da7-c006ec406595",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
