@@ -53,9 +53,9 @@ CLI: Python `cryptography` 46.0.3 (pyca, Apache-2.0/BSD) — the only non-stdlib
 ## Evidence
 - Seeded entries verified 2026-10-12: `ggml-tiny.en.bin` downloaded from
   `huggingface.co/ggerganov/whisper.cpp` @ `5359861c…` — size 77 704 715, sha256 `921e4cf8…b1f`,
-  computed locally and equal to the HF LFS oid. `qwen2.5-0.5b-instruct-q4_k_m.gguf` @ `9217f5db…`
-  — size 491 400 032, sha256 `74a4da8c…a9db` from HF LFS metadata (the local download was
-  blocked by the corporate proxy; re-hash is a follow-up, MDL-05).
+  computed locally and equal to the HF LFS oid. `llama-3.2-1b-instruct-q4_k_m` (`Llama-3.2-1B-Instruct-Q4_K_M.gguf`, bartowski, @ `067b946c…`)
+  — size 807 694 464, sha256 `6f85a640…df83`, computed locally and equal to the HF LFS oid. It
+  replaced `qwen2.5-0.5b-instruct-q4_k_m`, whose download is blocked by corporate proxies.
 - HF `resolve` URLs answer `302 Found` → `us.aws.cdn.hf.co/xet-bridge-us/…` (observed
   2026-10-12 for `ggml-tiny.en.bin`; headers `X-Linked-Size` / `X-Linked-ETag` = size / sha256),
   a different host that the gateway deliberately does not follow → HF works as a mirror only if MDL-02 resolves redirects

@@ -8,6 +8,11 @@ const int kDownloadSpaceMarginBytes = 200 * 1024 * 1024;
 /// file is kept for a later resume).
 const int kMaxDownloadRetries = 8;
 
+/// Retry budget once another URL was refused permanently (e.g. a proxy
+/// block page): the remaining URL is most likely blocked too, so give up
+/// sooner with an actionable message.
+const int kMaxDownloadRetriesWithRejectedUrl = 2;
+
 /// Free space required before downloading [remainingBytes] more bytes:
 /// `remaining × 1.1 + 200 MB` (rounded up). For a fresh download
 /// `remaining` is the full model size; a resume only needs room for what is
@@ -29,3 +34,6 @@ Duration retryDelay(int retry) {
   final seconds = 1 << (retry - 1);
   return Duration(seconds: seconds > 60 ? 60 : seconds);
 }
+
+/// Failure message marking a response that a network proxy/firewall replaced.
+const kBlockedByNetwork = 'blocked by network';

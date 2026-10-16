@@ -65,17 +65,17 @@ void main() {
           'SQLite',
           'Silero VAD v6.2.0',
           'Whisper model weights (OpenAI)',
-          'Qwen2.5-0.5B-Instruct (model)',
+          'Llama-3.2-1B-Instruct (model)',
           'drift',
           'record',
         ]),
       );
       for (final entry in entries.where(
-        (e) => e.packages.contains('Qwen2.5-0.5B-Instruct (model)'),
+        (e) => e.packages.contains('Llama-3.2-1B-Instruct (model)'),
       )) {
         expect(
           entry.paragraphs.map((p) => p.text).join('\n'),
-          contains('TERMS AND CONDITIONS'),
+          contains('LLAMA 3.2 COMMUNITY LICENSE AGREEMENT'),
         );
       }
     },

@@ -14,6 +14,7 @@ import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/features/export/data/note_sharing_providers.dart';
 import 'package:vaultvoice/features/library/presentation/recording_detail_screen.dart';
+import 'package:vaultvoice/features/models/domain/model_catalog.dart';
 import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_progress.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
@@ -177,7 +178,7 @@ void main() {
 
     testWidgets('waiting, failed and done states', (t) async {
       await pumpCard(t, sampleQueue()[2]);
-      expect(find.text('Waiting for a model download'), findsOneWidget);
+      expect(find.text('Waiting for a Note writer (AI) model'), findsOneWidget);
       expect(find.text('Untitled recording'), findsOneWidget);
       await pumpCard(t, sampleQueue()[3]);
       expect(find.text('Processing failed — you can retry'), findsOneWidget);
@@ -189,6 +190,69 @@ void main() {
       );
       expect(find.text('Note ready'), findsOneWidget);
       expect(find.text('Cancel'), findsNothing);
+    });
+  });
+
+  group('[APP-04/AC1] waiting for a model names it', () {
+    Future<void> pump(
+      WidgetTester t,
+      JobProgressView v, {
+      MissingModel? missing,
+      List<String> taps = const [],
+    }) => t.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: ProcessingStatusCard(
+            view: v,
+            missingModel: missing,
+            onDownloadModel: () => taps.add('download'),
+            onUseInstalledModel: () => taps.add('use'),
+            onChooseModel: () => taps.add('choose'),
+          ),
+        ),
+      ),
+    );
+
+    testWidgets('[APP-04/AC1] names the LLM model and offers download, '
+        'use-installed and choose', (t) async {
+      final taps = <String>[];
+      await pump(
+        t,
+        sampleQueue()[2],
+        missing: const MissingModel(
+          type: ModelType.llm,
+          name: 'Llama 3.2 1B Instruct (Q4_K_M)',
+          installedName: 'Llama 3.2 1B',
+        ),
+        taps: taps,
+      );
+      expect(
+        find.text(
+          'Waiting for the Note writer (AI) model: '
+          'Llama 3.2 1B Instruct (Q4_K_M)',
+        ),
+        findsOneWidget,
+      );
+      await t.tap(find.byKey(const ValueKey('job-model-download')));
+      await t.tap(find.byKey(const ValueKey('job-model-use')));
+      await t.tap(find.byKey(const ValueKey('job-model-choose')));
+      expect(taps, ['download', 'use', 'choose']);
+      expect(find.text('Use Llama 3.2 1B'), findsOneWidget);
+    });
+
+    testWidgets('[APP-04/AC1] transcription waits for a speech model', (
+      t,
+    ) async {
+      await pump(
+        t,
+        progressView(
+          id: 's',
+          state: JobState.waiting,
+          waitingReason: WaitingReason.modelMissing,
+        ),
+      );
+      expect(find.text('Waiting for a Speech to text model'), findsOneWidget);
+      expect(find.byKey(const ValueKey('job-model-download')), findsNothing);
     });
   });
 

@@ -37,7 +37,7 @@ def mit(copyright_line):
 
 
 ggml = (TEXTS / 'ggml-mit.txt').read_text()
-apache = (TEXTS / 'apache-2.0.txt').read_text()
+llama = (TEXTS / 'llama-3.2-community-license.txt').read_text()
 
 rows = [
     {'packages': ['whisper.cpp', 'ggml'], 'license_text': ggml},
@@ -65,8 +65,8 @@ rows = [
         'license_text': mit('Copyright (c) 2022 OpenAI'),
     },
     {
-        'packages': ['Qwen2.5-0.5B-Instruct (model)'],
-        'license_text': 'Copyright 2024 Alibaba Cloud\n\n' + apache,
+        'packages': ['Llama-3.2-1B-Instruct (model)'],
+        'license_text': 'Built with Llama\n\nLlama 3.2 is licensed under the Llama 3.2 Community License, Copyright (c) Meta Platforms, Inc. All Rights Reserved.\n\n' + llama,
     },
 ]
 out = ROOT / 'app/assets/licenses/native_models.json'

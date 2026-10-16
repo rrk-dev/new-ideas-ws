@@ -380,6 +380,8 @@ class _ModelCard extends ConsumerWidget {
           'download',
           entry.isInstalled
               ? l10n.modelActionUpdate
+              : progress?.phase == DownloadPhase.failed
+              ? l10n.commonRetry
               : progress?.phase == DownloadPhase.paused
               ? l10n.modelActionResume
               : l10n.modelActionDownload,

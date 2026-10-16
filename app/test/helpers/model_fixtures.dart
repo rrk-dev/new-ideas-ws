@@ -42,9 +42,9 @@ final CatalogModel seedStt = catalogModel(
   displayName: 'Whisper Tiny (English)',
 );
 final CatalogModel seedLlm = catalogModel(
-  'qwen2.5-0.5b',
+  'llama-3.2-1b-instruct-q4_k_m',
   type: ModelType.llm,
-  size: 491400032,
+  size: 807694464,
   minRamMb: 3072,
-  displayName: 'Qwen2.5 0.5B Instruct',
+  displayName: 'Llama 3.2 1B Instruct (Q4_K_M)',
 );

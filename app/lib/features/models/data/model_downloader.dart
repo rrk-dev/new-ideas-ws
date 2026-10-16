@@ -246,6 +246,11 @@ class ModelDownloader {
       await _keepAlive.start(model.displayName);
       var retry = 0;
       var integrityRetried = false;
+      // URLs refused permanently (4xx, redirect to a non-allowlisted host,
+      // e.g. a proxy block page) are not contacted again; their failure is
+      // the one shown, and it caps the retries for the other URLs.
+      final rejected = <Uri>{};
+      Failure? permanentCause;
       while (true) {
         if (control.isStopped) return await _stopped(model, control);
         var offset = await _length(_partial(id));
@@ -259,6 +264,7 @@ class ModelDownloader {
         var lastEmitted = offset;
         for (final uri in model.urls) {
           if (completed) break;
+          if (rejected.contains(uri)) continue;
           _emit(model, DownloadPhase.downloading, offset, retry: retry);
           final outcome = await _transport.fetch(
             TransportRequest(
@@ -305,6 +311,10 @@ class ModelDownloader {
             case TransportFailed(:final failure, :final retryable):
               last = failure;
               anyRetryable |= retryable;
+              if (!retryable) {
+                rejected.add(uri);
+                permanentCause = failure;
+              }
           }
           offset = await _length(_partial(id));
         }
@@ -335,19 +345,22 @@ class ModelDownloader {
             ModelDownloadFailure(
               id,
               ModelDownloadBlock.allUrlsRejected,
-              cause: last,
+              cause: permanentCause ?? last,
             ),
             have,
           );
         }
         retry++;
-        if (retry > kMaxDownloadRetries) {
+        if (retry >
+            (permanentCause != null
+                ? kMaxDownloadRetriesWithRejectedUrl
+                : kMaxDownloadRetries)) {
           return _fail(
             model,
             ModelDownloadFailure(
               id,
               ModelDownloadBlock.retriesExhausted,
-              cause: last,
+              cause: permanentCause ?? last,
             ),
             have,
           );

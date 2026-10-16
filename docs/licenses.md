@@ -8,7 +8,7 @@ Engineering inventory reviewed by Codex against the resolved package sources and
 - SQLite3 Multiple Ciphers 2.5.0 / SQLite 3.53.4: MIT wrapper and cipher implementation notices plus SQLite public-domain dedication. sqlite3 Dart hook pins the binary and hashes. Preserve bundled third-party notices (AES, ChaCha20, Ascon and Argon2 where included); source: https://github.com/utelle/SQLite3MultipleCiphers/blob/v2.5.0/LICENSE .
 - Whisper weights (including quantizations and Core ML encoder conversions): MIT, OpenAI copyright; conversion does not remove original obligations. https://github.com/openai/whisper/blob/main/LICENSE
 - Silero VAD v6.2.0: MIT, Silero Team copyright; ggml conversion by ggml-org. https://github.com/snakers4/silero-vad/blob/v6.2.0/LICENSE
-- Qwen2.5 **0.5B Instruct**: Apache-2.0, preserve license, attribution and any upstream NOTICE; mark modifications. This does not grant a license for every Qwen size or generation. The exact catalog revision is listed below.
+- Llama 3.2 **1B Instruct** (Q4_K_M GGUF by bartowski, llama.cpp quantization of Meta's weights): Llama 3.2 Community License (https://www.llama.com/llama3_2/license/). Obligations: ship a copy of the agreement (bundled in the notices screen), show "Built with Llama" in the product UI/docs, pass through the Acceptable Use Policy (https://www.llama.com/llama3_2/use-policy), the 700 M monthly-active-user clause does not apply to us today, and any AI model trained/fine-tuned with its outputs must start with "Llama". Replaces Qwen2.5-0.5B, which was removed because corporate proxies block its download. The exact catalog revision is listed below.
 - SmolLM2 (135M/360M/1.7B): Apache-2.0, preserve license and any NOTICE and describe quantization modifications. Not currently in the bundled catalog; adding weights requires a pinned model card and notice. Source: https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct .
 - No diarization weights are currently shipped. Do not infer redistribution rights from a framework license: pyannote gated/non-commercial variants need individual review.
 
@@ -72,7 +72,7 @@ Preserve full upstream notices in the shipped app and with redistributed model f
 - `file_selector_windows` 0.9.3+6 (transitive, hosted): notice SHA-256 `420f7739f169097f0aad1242045169cd643c8f1d94e62866fad265ae4c369b7d`.
 - `fixnum` 1.1.1 (transitive, hosted): notice SHA-256 `ff0b91d4f3c32b25cb6ec84985e8da89b0ba2a2b2f7eef353cda5e5423a20390`.
 - `flutter` 0.0.0 (direct, sdk): notice SHA-256 `a598db94b6290ffbe10b5ecf911057b6a943351c727fdda9e5f2891d68700a20`.
-- `flutter_driver` 0.0.0 (transitive, sdk): notice SHA-256 `a598db94b6290ffbe10b5ecf911057b6a943351c727fdda9e5f2891d68700a20`.
+- `flutter_driver` 0.0.0 (dev, sdk): notice SHA-256 `a598db94b6290ffbe10b5ecf911057b6a943351c727fdda9e5f2891d68700a20`.
 - `flutter_launcher_icons` 0.14.4 (dev, hosted): notice SHA-256 `02c454256448927423b4c0e517a083cadf78a8d9467a9d31ad3b4f4ff48ff7ca`.
 - `flutter_local_notifications` 22.3.1 (direct, hosted): notice SHA-256 `d6885e4633e08ec3a52cd90299b97831444d487f16721e5d092289bcfedfc511`.
 - `flutter_local_notifications_linux` 8.0.2 (transitive, hosted): notice SHA-256 `d6885e4633e08ec3a52cd90299b97831444d487f16721e5d092289bcfedfc511`.
@@ -214,5 +214,5 @@ Preserve full upstream notices in the shipped app and with redistributed model f
 - `whisper-base-q5_1`: [MIT](https://github.com/openai/whisper/blob/main/LICENSE); attribution: upstream copyright retained in bundled notice.
 - `whisper-small-q5_1`: [MIT](https://github.com/openai/whisper/blob/main/LICENSE); attribution: upstream copyright retained in bundled notice.
 - `whisper-large-v3-turbo-q5_0`: [MIT](https://github.com/openai/whisper/blob/main/LICENSE); attribution: upstream copyright retained in bundled notice.
-- `qwen2.5-0.5b-instruct-q4_k_m`: [Apache-2.0](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/blob/9217f5db79a29953eb74d5343926648285ec7e67/LICENSE); attribution: upstream copyright retained in bundled notice.
+- `llama-3.2-1b-instruct-q4_k_m`: [Llama 3.2 Community License](https://www.llama.com/llama3_2/license/); attribution: Built with Llama.
 - `silero-vad-v6.2.0`: [MIT](https://github.com/snakers4/silero-vad/blob/master/LICENSE); attribution: Silero VAD by Silero Team (MIT), ggml conversion by ggml-org.

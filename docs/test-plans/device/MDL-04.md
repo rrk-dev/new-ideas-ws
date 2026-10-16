@@ -10,7 +10,7 @@ end-to-end criterion is a device row.
 Prepare a "USB" folder (Files app / Android `Download/` or a USB-C stick) with, for each
 model, `<file>` + `<id>.json` + `<id>.json.sig` built with
 `tools/model-catalog/catalog.py build --only <id>` and signed with the key pinned in the dev
-build. Use `whisper-tiny.en` and `qwen2.5-0.5b-instruct-q4_k_m` (files from
+build. Use `whisper-tiny.en` and `llama-3.2-1b-instruct-q4_k_m` (files from
 `tools/ci/fetch_test_models.sh`).
 
 | AC | Steps | Expected | Device | OS | Result | Date | Tester |

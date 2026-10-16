@@ -562,6 +562,42 @@ abstract class AppLocalizations {
   /// **'Connection lost, retrying…'**
   String get downloadPhaseRetrying;
 
+  /// No description provided for @downloadPhaseRetryingN.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection problem, retrying ({retry} of {max})…'**
+  String downloadPhaseRetryingN(int retry, int max);
+
+  /// No description provided for @downloadFailOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed: you appear to be offline. Check your connection, then retry.'**
+  String get downloadFailOffline;
+
+  /// No description provided for @downloadFailServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed: the download server had a problem. Retry in a few minutes.'**
+  String get downloadFailServer;
+
+  /// No description provided for @downloadFailChecksum.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed: the file is damaged (checksum mismatch). Retry to download it again.'**
+  String get downloadFailChecksum;
+
+  /// No description provided for @downloadFailBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Download blocked by your network (proxy or firewall). Retry, choose an installed model, or import a model file.'**
+  String get downloadFailBlocked;
+
+  /// No description provided for @downloadFailSpace.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed: not enough free space.'**
+  String get downloadFailSpace;
+
   /// No description provided for @downloadPhasePaused.
   ///
   /// In en, this message translates to:
@@ -663,12 +699,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Download anyway'**
   String get downloadAnyway;
-
-  /// No description provided for @downloadFailed.
-  ///
-  /// In en, this message translates to:
-  /// **'Downloading {name} failed. Try again from Settings › Models.'**
-  String downloadFailed(String name);
 
   /// No description provided for @onboardingStepOf.
   ///
@@ -2302,12 +2332,6 @@ abstract class AppLocalizations {
   /// **'Paused'**
   String get jobPaused;
 
-  /// No description provided for @jobWaitingModel.
-  ///
-  /// In en, this message translates to:
-  /// **'Waiting for a model download'**
-  String get jobWaitingModel;
-
   /// No description provided for @jobWaitingProfile.
   ///
   /// In en, this message translates to:
@@ -2331,6 +2355,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Waiting'**
   String get jobWaiting;
+
+  /// No description provided for @jobWaitingModelNamed.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for the {type} model: {name}'**
+  String jobWaitingModelNamed(String type, String name);
+
+  /// No description provided for @jobWaitingModelType.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for a {type} model'**
+  String jobWaitingModelType(String type);
+
+  /// No description provided for @jobModelDownload.
+  ///
+  /// In en, this message translates to:
+  /// **'Download {name}'**
+  String jobModelDownload(String name);
+
+  /// No description provided for @jobModelUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Use {name}'**
+  String jobModelUse(String name);
+
+  /// No description provided for @jobModelChoose.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose model'**
+  String get jobModelChoose;
 
   /// No description provided for @etaEstimating.
   ///

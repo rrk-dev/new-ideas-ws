@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
+import 'package:vaultvoice/features/models/domain/download_policy.dart';
 import 'package:vaultvoice/features/models/domain/download_state.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
 
@@ -36,10 +38,39 @@ abstract final class ModelTexts {
         DownloadPhase.downloading => l.downloadPhaseDownloading(
           (p!.fraction * 100).round(),
         ),
-        DownloadPhase.retrying => l.downloadPhaseRetrying,
+        DownloadPhase.retrying =>
+          p!.retry > 0
+              ? l.downloadPhaseRetryingN(p.retry, kMaxDownloadRetries)
+              : l.downloadPhaseRetrying,
         DownloadPhase.paused => l.downloadPhasePaused,
         DownloadPhase.verifying => l.downloadPhaseVerifying,
         DownloadPhase.installing => l.downloadPhaseInstalling,
-        DownloadPhase.failed => l.downloadPhaseFailed,
+        DownloadPhase.failed => failureReason(l, p!.failure),
       };
+
+  /// Actionable text for a failed download: offline, server error, checksum
+  /// mismatch or a host the egress allowlist refused.
+  static String failureReason(AppLocalizations l, Failure? failure) {
+    final f = failure is ModelDownloadFailure
+        ? (failure.cause ?? failure)
+        : failure;
+    if (failure is ModelDownloadFailure &&
+        failure.block == ModelDownloadBlock.offline) {
+      return l.downloadFailOffline;
+    }
+    if (failure is ModelDownloadFailure &&
+        failure.block == ModelDownloadBlock.insufficientSpace) {
+      return l.downloadFailSpace;
+    }
+    return switch (f) {
+      ModelIntegrityFailure() => l.downloadFailChecksum,
+      EgressDeniedFailure() => l.downloadFailBlocked,
+      NetworkFailure(message: kBlockedByNetwork) => l.downloadFailBlocked,
+      NetworkFailure(:final message) =>
+        RegExp(r'^http \d{3}$').hasMatch(message)
+            ? l.downloadFailServer
+            : l.downloadFailOffline,
+      _ => l.downloadPhaseFailed,
+    };
+  }
 }

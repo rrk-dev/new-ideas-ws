@@ -290,7 +290,7 @@ redirects natively without a hook and brings its own HTTP client outside the gat
 | Model | Source (pinned revision) | License | Redistribution on our CDN |
 |---|---|---|---|
 | `ggml-tiny.en.bin` (Whisper tiny.en) | `huggingface.co/ggerganov/whisper.cpp` @ `5359861c739e955e79d9a303bcbc70fb988958b1` | MIT (OpenAI Whisper weights; whisper.cpp MIT) | allowed (keep license notice) |
-| `qwen2.5-0.5b-instruct-q4_k_m.gguf` | `huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF` @ `9217f5db79a29953eb74d5343926648285ec7e67` | Apache-2.0 | allowed (keep LICENSE + NOTICE) — SEC-05 to confirm |
+| `Llama-3.2-1B-Instruct-Q4_K_M.gguf` | `huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF` @ `067b946cf014b7c697f3654f621d577a3e3afd1c` | Llama 3.2 Community License | allowed with the agreement copy + "Built with Llama" + AUP pass-through — SEC-05 to confirm |
 
 ## LIC-02 store billing dependency review (2026-10-14)
 

@@ -49,7 +49,7 @@ needs ToU pass-through; Qwen2.5-0.5B/1.5B, Qwen3, SmolLM2 Apache-2.0; Phi-4-mini
 - **Free / Low:** Llama-3.2-1B-Instruct Q4_K_M — the only measured eligible model, but it misses
   the PRF-04 targets (action-item P/R 60/52%, 96.7% valid), so the repair path and prompt work
   (PRF-02) matter more than a model swap; re-rank once Gemma-3-1B and Qwen2.5-1.5B (1066 MiB,
-  just under the Free cap) are measured. Fallback: Qwen2.5-0.5B (in the catalog).
+  just under the Free cap) are measured. The Qwen2.5-0.5B fallback was removed from the catalog (blocked by corporate proxies); `llama-3.2-1b-instruct-q4_k_m` is the catalog LLM.
 - **Mid / High:** Llama-3.2-3B-Instruct Q4_K_M is the expected default (the plan's §4.2
   candidate; fits the Mid budget at ≈ 2.4 GiB). This is an expectation, **not** a measured result.
   Gemma-3-4B / Qwen3-4B / Phi-4-mini exceed the Mid budget (> 2.8 GiB) and are High candidates only.

@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/network/network_gateway.dart';
+import 'package:vaultvoice/features/models/domain/download_policy.dart';
 import 'package:vaultvoice/features/models/domain/download_transport.dart';
 
 /// In-process transport: a streamed GET through the [NetworkGateway]
@@ -50,6 +51,20 @@ class GatewayDownloadTransport implements DownloadTransport {
     }
 
     final status = response.statusCode;
+    // A proxy/firewall block page answers 200/206 with HTML, or refuses
+    // ranged requests with 403/405/451; none of these is model data.
+    final contentType = (response.headers['content-type'] ?? '').toLowerCase();
+    if (status == 403 ||
+        status == 405 ||
+        status == 451 ||
+        ((status == 200 || status == 206) &&
+            contentType.startsWith('text/html'))) {
+      await _discard(response);
+      return const TransportFailed(
+        NetworkFailure(kBlockedByNetwork),
+        retryable: false,
+      );
+    }
     int start;
     if (status == 200) {
       // Server ignored Range (or If-Range did not match): start over.
