@@ -9,6 +9,7 @@ import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/export/domain/routing_rule.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
+import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/setting_texts.dart';
 import 'package:vaultvoice/features/settings/presentation/setting_tiles.dart';
@@ -315,11 +316,16 @@ void main() {
       Widget screen, {
       required Stream<List<VaultTargetInfo>> targets,
       Stream<List<RoutingRuleInfo>>? rules,
+      Object? savedDefault,
+      SettingsStore? store,
     }) => t.pumpWidget(
       ProviderScope(
         key: UniqueKey(),
         overrides: [
           vaultTargetsProvider.overrideWith((ref) => targets),
+          storedSettingProvider(SettingKeys.exportDefaultTarget)
+              .overrideWith((ref) => Stream.value(savedDefault)),
+          if (store != null) settingsStoreProvider.overrideWithValue(store),
           routingRulesProvider.overrideWith(
             (ref) => rules ?? Stream.value(const []),
           ),
@@ -369,6 +375,57 @@ void main() {
       );
       await t.pumpAndSettle();
       expect(find.text('Could not load your vault folders.'), findsOneWidget);
+    });
+
+    const docs = VaultTargetInfo(
+      id: 'v2',
+      name: 'Docs',
+      platform: VaultPlatform.appLocal,
+      handle: '/y',
+    );
+
+    testWidgets('[EXP-05/AC1] vault folders: no saved default marks the '
+        'newest as Default; Make default saves the choice', (t) async {
+      final store = FakeSettingsStore();
+      await pumpSub(
+        t,
+        const VaultFoldersScreen(),
+        targets: Stream.value([notes, docs]),
+        store: store,
+      );
+      await t.pumpAndSettle();
+      expect(find.text('Default · new notes go here'), findsOneWidget);
+      expect(
+        find.descendant(
+          of: find.byKey(const ValueKey('vault-v2')),
+          matching: find.text('Default · new notes go here'),
+        ),
+        findsOneWidget,
+      );
+      expect(find.byKey(const ValueKey('make-default-v2')), findsNothing);
+      await t.tap(find.byKey(const ValueKey('make-default-v1')));
+      await t.pumpAndSettle();
+      expect(store.values[SettingKeys.exportDefaultTarget], 'v1');
+    });
+
+    testWidgets('[EXP-05/AC1] vault folders: a saved default is the one '
+        'badged', (t) async {
+      await pumpSub(
+        t,
+        const VaultFoldersScreen(),
+        targets: Stream.value([notes, docs]),
+        savedDefault: 'v1',
+      );
+      await t.pumpAndSettle();
+      expect(
+        find.descendant(
+          of: find.byKey(const ValueKey('vault-v1')),
+          matching: find.text('Default · new notes go here'),
+        ),
+        findsOneWidget,
+      );
+      expect(find.byKey(const ValueKey('make-default-v1')), findsNothing);
+      expect(find.byKey(const ValueKey('make-default-v2')), findsOneWidget);
     });
 
     testWidgets('routing rules: empty and ordered list', (t) async {

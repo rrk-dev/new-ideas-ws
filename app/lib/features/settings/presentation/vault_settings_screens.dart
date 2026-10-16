@@ -23,6 +23,7 @@ import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
 import 'package:vaultvoice/features/licensing/domain/entitlement.dart';
 import 'package:vaultvoice/features/licensing/domain/paywall.dart';
 import 'package:vaultvoice/features/licensing/presentation/feature_gate.dart';
+import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 
 VaultTargetKind _kindOf(VaultPlatform p) => switch (p) {
@@ -79,11 +80,12 @@ Future<VaultFolderPick> pickAndSaveVaultFolder(
         return const VaultFolderPickCancelled();
       case Ok(value: final VaultFolder folder):
         final name = folder.displayName ?? l10n.vaultFolderDefaultName;
+        final id = newUuidV4();
         final saved = await ref
             .read(vaultRepositoryProvider)
             .upsertTarget(
               VaultTargetsCompanion.insert(
-                id: newUuidV4(),
+                id: id,
                 platform: _platformOf(folder.kind),
                 displayName: name,
                 handle: folder.handle,
@@ -96,6 +98,10 @@ Future<VaultFolderPick> pickAndSaveVaultFolder(
               .failure('vault', failure, level: LogLevel.warning);
           return const VaultFolderPickFailed();
         }
+        // The folder the user just chose is where notes go by default.
+        await ref
+            .read(settingsStoreProvider)
+            .set(SettingKeys.exportDefaultTarget, id);
         return VaultFolderPicked(name);
     }
   } on Object catch (e) {
@@ -177,6 +183,7 @@ class VaultFoldersScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final targets = ref.watch(vaultTargetsProvider);
+    final defaultId = ref.watch(defaultVaultTargetIdProvider);
     return Scaffold(
       appBar: AppBar(title: Text(context.l10n.settingsVaultFolders)),
       floatingActionButton: FloatingActionButton.extended(
@@ -208,20 +215,38 @@ class VaultFoldersScreen extends ConsumerWidget {
                   final t = rows[i];
                   final max = ref.watch(routingPolicyProvider).maxTargets;
                   final disabled = max != null && i >= max;
+                  final isDefault = t.id == defaultId;
                   return ListTile(
                     key: ValueKey('vault-${t.id}'),
                     leading: const Icon(Icons.folder_outlined),
                     title: Text(t.name),
                     subtitle: disabled
                         ? Text(context.l10n.vaultTargetDisabled)
+                        : isDefault
+                        ? Text(context.l10n.vaultFoldersDefaultBadge)
                         : null,
                     onTap: () =>
                         VaultTargetOptionsRoute(targetId: t.id)
                             .push<void>(context),
-                    trailing: IconButton(
-                      tooltip: context.l10n.vaultFoldersRemoveTooltip(t.name),
-                      icon: const Icon(Icons.delete_outline),
-                      onPressed: () => _remove(context, ref, t),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (!isDefault && !disabled)
+                          TextButton(
+                            key: ValueKey('make-default-${t.id}'),
+                            onPressed: () => ref
+                                .read(settingsStoreProvider)
+                                .set(SettingKeys.exportDefaultTarget, t.id),
+                            child: Text(context.l10n.vaultFoldersMakeDefault),
+                          ),
+                        IconButton(
+                          tooltip: context.l10n.vaultFoldersRemoveTooltip(
+                            t.name,
+                          ),
+                          icon: const Icon(Icons.delete_outline),
+                          onPressed: () => _remove(context, ref, t),
+                        ),
+                      ],
                     ),
                   );
                 },

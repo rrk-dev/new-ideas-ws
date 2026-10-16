@@ -182,6 +182,38 @@ void main() {
     },
   );
 
+  test('[EXP-05/AC1] no default setting + no rules (the upgrade case): the '
+      'newest target gets the note, not the oldest', () async {
+    await f.target('dbgvault');
+    await f.target('VV', order: 1);
+    await f.policy(RoutingPolicy.unlimited);
+    expect(await f.exporter.export(request()), isA<ExportDone>());
+    expect(f.writers['VV']!.notes.keys, [_notePath]);
+    expect(f.writers['dbgvault']!.notes, isEmpty);
+  });
+
+  test('[EXP-05/AC1] the saved default target wins; once it is deleted the '
+      'newest remaining target is used', () async {
+    await f.target('a');
+    await f.target('b', order: 1);
+    await f.target('c', order: 2);
+    await f.policy(RoutingPolicy.unlimited);
+    expectOk(
+      await db.settingsRepository.set(SettingKeys.exportDefaultTarget, 'a'),
+    );
+    expect(await f.exporter.export(request()), isA<ExportDone>());
+    expect(f.writers['a']!.notes.keys, [_notePath]);
+    expect(f.writers['c']!.notes, isEmpty);
+
+    expectOk(await db.vaultRepository.deleteTarget('a'));
+    expect(
+      await f.exporter.export(request(recordingId: 'r2')),
+      isA<ExportDone>(),
+    );
+    expect(f.writers['c']!.notes, isNotEmpty);
+    expect(f.writers['b']!.notes, isEmpty);
+  });
+
   test('re-export is idempotent: same path, unchanged content not '
       'rewritten, new content updated in place', () async {
     await f.target('v');

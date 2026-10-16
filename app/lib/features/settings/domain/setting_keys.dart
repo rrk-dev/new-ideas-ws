@@ -55,6 +55,10 @@ abstract final class SettingKeys {
   /// from the UI isolate for the pipeline worker (EXP-05, LIC-01).
   static const exportRoutingPolicy = 'export.routing_policy';
 
+  /// String, the id of the default vault target: the folder the user most
+  /// recently chose or confirmed. Unset/stale ⇒ the newest active target.
+  static const exportDefaultTarget = 'export.default_target';
+
   // Templates (EXP-07).
   /// `{templateId: {profile, base}}` — schema profile and built-in origin of
   /// each custom template (built-in profiles cannot be `templates.profile_id`).

@@ -614,6 +614,8 @@
   "privacyPolicyLoadFailed": "The privacy policy could not be shown.",
   "aboutLicenses": "Open-source & model licenses",
   "vaultFoldersAdd": "Add folder",
+  "vaultFoldersDefaultBadge": "Default · new notes go here",
+  "vaultFoldersMakeDefault": "Make default",
   "vaultFoldersAddFailed": "Could not add the folder.",
   "vaultFolderDefaultName": "Vault folder",
   "vaultFoldersRemoveTitle": "Remove this folder?",

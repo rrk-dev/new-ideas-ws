@@ -118,6 +118,24 @@ RoutingPolicy routingPolicyOf(FeatureAccess access) => RoutingPolicy(
 RoutingPolicy routingPolicy(Ref ref) =>
     routingPolicyOf(ref.watch(featureAccessStateProvider));
 
+/// The id of the default vault target as the export resolves it (see
+/// [resolveDefaultTarget]): the folder the user last chose while it is
+/// active, else the newest active one. Null while loading or without a
+/// target. Settings shows this target as "Default".
+@riverpod
+String? defaultVaultTargetId(Ref ref) {
+  final targets = ref.watch(vaultTargetsProvider).value;
+  if (targets == null) return null;
+  final saved = ref
+      .watch(storedSettingProvider(SettingKeys.exportDefaultTarget))
+      .value;
+  return resolveDefaultTarget(
+    targetIds: [for (final t in targets) t.id],
+    policy: ref.watch(routingPolicyProvider),
+    savedId: saved is String ? saved : null,
+  );
+}
+
 /// Mirrors [routingPolicy] into `export.routing_policy` for the pipeline
 /// worker isolate (it has no `EntitlementService`). Read once at startup
 /// (`ProcessingServicesHost`); stays subscribed for the app's lifetime.

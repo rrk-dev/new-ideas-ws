@@ -195,6 +195,62 @@ final class RoutingPolicyProvider
 
 String _$routingPolicyHash() => r'6ed2b4685d4e42ad3b72c47288c0c49965b4f4b8';
 
+/// The id of the default vault target as the export resolves it (see
+/// [resolveDefaultTarget]): the folder the user last chose while it is
+/// active, else the newest active one. Null while loading or without a
+/// target. Settings shows this target as "Default".
+
+@ProviderFor(defaultVaultTargetId)
+final defaultVaultTargetIdProvider = DefaultVaultTargetIdProvider._();
+
+/// The id of the default vault target as the export resolves it (see
+/// [resolveDefaultTarget]): the folder the user last chose while it is
+/// active, else the newest active one. Null while loading or without a
+/// target. Settings shows this target as "Default".
+
+final class DefaultVaultTargetIdProvider
+    extends $FunctionalProvider<String?, String?, String?>
+    with $Provider<String?> {
+  /// The id of the default vault target as the export resolves it (see
+  /// [resolveDefaultTarget]): the folder the user last chose while it is
+  /// active, else the newest active one. Null while loading or without a
+  /// target. Settings shows this target as "Default".
+  DefaultVaultTargetIdProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'defaultVaultTargetIdProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$defaultVaultTargetIdHash();
+
+  @$internal
+  @override
+  $ProviderElement<String?> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  String? create(Ref ref) {
+    return defaultVaultTargetId(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(String? value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<String?>(value),
+    );
+  }
+}
+
+String _$defaultVaultTargetIdHash() =>
+    r'f925e84d30ff96e35738e4fbdd0aeed0fa49c084';
+
 /// Mirrors [routingPolicy] into `export.routing_policy` for the pipeline
 /// worker isolate (it has no `EntitlementService`). Read once at startup
 /// (`ProcessingServicesHost`); stays subscribed for the app's lifetime.

@@ -155,6 +155,9 @@ class VaultExporter {
       rules: rules,
       targetIds: [for (final t in targets) t.id],
       policy: policy,
+      defaultTargetId: _string(
+        (await settings.get(SettingKeys.exportDefaultTarget)).valueOrNull,
+      ),
     );
     if (decisions.isEmpty) return const ExportNeedsDestination([]);
 

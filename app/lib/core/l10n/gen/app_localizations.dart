@@ -3202,6 +3202,18 @@ abstract class AppLocalizations {
   /// **'Add folder'**
   String get vaultFoldersAdd;
 
+  /// No description provided for @vaultFoldersDefaultBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Default · new notes go here'**
+  String get vaultFoldersDefaultBadge;
+
+  /// No description provided for @vaultFoldersMakeDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Make default'**
+  String get vaultFoldersMakeDefault;
+
   /// No description provided for @vaultFoldersAddFailed.
   ///
   /// In en, this message translates to:

@@ -49,6 +49,12 @@ Route each rendered note to the right destination(s) based on rules.
   (`waiting(destination)`, rendered note stays in app storage) instead of silently writing to the
   app-local folder; profile `default_target: ask` treated as unset; a target is used once per note
   (first matching rule wins, exports are keyed recording × target); audio sidecar off by default.
+  Default target (fix/export-target): the routing fallback is the default vault target — setting
+  `export.default_target` (set when a folder is picked/added or via Settings → Vault folders →
+  "Make default"), else the newest active target (it used to be the oldest, which sent notes to a
+  stale target). `resolveDefaultTarget` is shared by the exporter and Settings so the "Default"
+  badge always matches where notes go. Tests: [EXP-05/AC1] in routing_engine_test,
+  vault_exporter_test, settings_screen_test, vault_folder_pick_test.
 - **Follow-ups:** EXP-10 (proposed; renumbered in integration wave 3 — EXP-09 is taken by the macOS work): persist PRF-06 classification result so `classification_any`
   applies; EXP-11 (proposed): `AudioAttachmentSource` implementation (m4a/AAC encode of the WAV
   chunks) and per-target `audio_link` rendering; FND-11: pass `platformVaultWriterResolver` in the
