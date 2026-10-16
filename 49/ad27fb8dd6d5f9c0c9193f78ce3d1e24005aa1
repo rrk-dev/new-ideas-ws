@@ -1,0 +1,105 @@
+app/test/unit/profiles/extraction_grounding_test.dart
+  s_a4482ba63e1623::t_996fa95c59790d 263,267
+  s_5a534bed398a49::t_a3fd42fe6f7b99 331-366
+app/test/widget/settings_screen_test.dart
+  s_a4482ba63e1623::t_463b0657a277f5 269-270
+  s_a4482ba63e1623::t_e6b5a149cd34c2 11-12,23,71-78,258-268
+  s_a4482ba63e1623::t_74549a3fe3f9ad 271-272
+tasks/10-security-privacy/SEC-05-model-and-oss-license-compliance.md
+  s_a4482ba63e1623::t_ca65fa224b847f 21
+app/test/unit/onboarding/onboarding_logic_test.dart
+  s_a4482ba63e1623::t_f1d454622ccfe3 102
+  s_a4482ba63e1623::t_5ee5a9b2b4000f 83-101,103-104
+app/lib/features/models/presentation/models_screen.dart
+  s_a4482ba63e1623::t_37872152966b0b 311-316
+app/macos/Runner/MacHostChannels.swift
+  s_a4482ba63e1623::t_96f796b023d930 94-95,99-106,113
+app/macos/Runner/BookmarkHostApiImpl.swift
+  s_a4482ba63e1623::t_6ec9294490bf58 292-293,303-309
+tasks/06-profiles/PRF-05-engineering-brainstorm-profile.md
+  s_a4482ba63e1623::t_ca65fa224b847f 20
+app/lib/core/l10n/gen/app_localizations.dart
+  s_a4482ba63e1623::t_05f1d9c4258e91 3199-3204
+app/lib/features/onboarding/data/onboarding_readiness_providers.dart
+  s_a4482ba63e1623::t_fb6c770940d90a 73
+app/lib/features/models/data/model_state_providers.g.dart
+  s_a4482ba63e1623::t_71435ca102ab03 209
+app/lib/features/models/data/model_state_providers.dart
+  s_a4482ba63e1623::t_f6a36421ac959b 13,80-110,112-115
+app/test/unit/models/model_downloader_test.dart
+  s_a4482ba63e1623::t_9c08bfa0982561 588-589,599-600,605-618,624
+app/test/widget/models_screen_test.dart
+  s_a4482ba63e1623::t_37872152966b0b 61,205-207,215-216
+  s_a4482ba63e1623::t_463b0657a277f5 208-214
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_a4482ba63e1623::t_05f1d9c4258e91 1877-1878
+  s_a4482ba63e1623::t_e6399c5ffab523 1876
+app/lib/features/onboarding/presentation/onboarding_screen.dart
+  s_a4482ba63e1623::t_297499aac28a9c 214-222
+  s_a4482ba63e1623::t_0757ca12b60cf9 85
+  s_a4482ba63e1623::t_1434bf0b749882 56
+app/lib/features/models/data/retired_model_cleanup.dart
+  s_a4482ba63e1623::t_f6a36421ac959b 1-46
+app/lib/features/profiles/domain/post_processing.dart
+  s_a4482ba63e1623::t_440179a423a5c4 774
+app/lib/features/models/data/model_downloader.dart
+  s_a4482ba63e1623::t_9c08bfa0982561 251-253,356,362
+app/lib/core/routing/app_router.dart
+  s_a4482ba63e1623::t_0757ca12b60cf9 9-18,20-25,31,38-44,48-53
+app/lib/features/profiles/domain/transcript_grounding.dart
+  s_a4482ba63e1623::t_440179a423a5c4 38-40,68-70,75-76,86,89-98,100-106,125-135,137,143-195,197-201
+  s_a4482ba63e1623::t_f1d454622ccfe3 196
+  s_a4482ba63e1623::t_cc2ac6dcb6410a 202
+app/lib/features/settings/presentation/settings_screen.dart
+  s_a4482ba63e1623::t_37872152966b0b 12-13,129-138,167-172,174-178
+  s_a4482ba63e1623::t_f1d454622ccfe3 173
+  s_a4482ba63e1623::t_cc90d91e32ed4d 179-181
+app/test/helpers/model_fixtures.dart
+  s_a4482ba63e1623::t_37872152966b0b 13,29
+tasks/05-models/MDL-03-model-management-ui.md
+  s_a4482ba63e1623::t_ca65fa224b847f 20
+app/lib/features/onboarding/data/onboarding_providers.dart
+  s_a4482ba63e1623::t_0757ca12b60cf9 24-25,28-37,40
+tasks/07-export/EXP-04-ios-security-scoped-bookmarks.md
+  s_a4482ba63e1623::t_ca65fa224b847f 22
+app/test/unit/models/retired_model_cleanup_test.dart
+  s_a4482ba63e1623::t_71435ca102ab03 1-108,111-114
+  s_a4482ba63e1623::t_033849da56ec57 109-110
+app/lib/core/l10n/arb/app_en.arb
+  s_a4482ba63e1623::t_37872152966b0b 616
+app/test/widget/onboarding_test.dart
+  s_a4482ba63e1623::t_5ee5a9b2b4000f 12,511-512,515-525,527-531
+  s_a4482ba63e1623::t_46548ad6c920b7 498-510,513-514,526,532-533
+tasks/05-models/MDL-02-model-downloader.md
+  s_a4482ba63e1623::t_ca65fa224b847f 24
+tasks/08-app-ux/APP-01-onboarding-permissions.md
+  s_a4482ba63e1623::t_ca65fa224b847f 24
+app/lib/core/routing/app_router.g.dart
+  s_a4482ba63e1623::t_3d77c80230df2d 51
+app/lib/features/onboarding/data/onboarding_providers.g.dart
+  s_a4482ba63e1623::t_08d05456af8237 89-90,95-96,101-102,129-179
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "49ad27fb8dd6d5f9c0c9193f78ce3d1e24005aa1",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_a4482ba63e1623": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "fb5efd9d-4c8e-4f62-9a60-ca901b928263",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
