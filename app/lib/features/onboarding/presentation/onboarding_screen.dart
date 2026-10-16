@@ -53,6 +53,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
   bool? _notificationsGranted;
   VaultFolderPick? _folder;
   bool _busy = false;
+  bool _completedBefore = false;
 
   static const List<OnboardingStep> _steps = OnboardingStep.values;
 
@@ -81,6 +82,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
   Future<void> _resumeAtFailingStep() async {
     try {
       if (!await ref.read(onboardingStoreProvider).isCompleted()) return;
+      if (mounted) setState(() => _completedBefore = true);
       final readiness = await ref.read(onboardingReadinessProvider.future);
       final step = readiness.firstMissingStep;
       if (mounted && step != null && _step == OnboardingStep.privacy) {
@@ -209,6 +211,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                   onPressed: _busy ? null : _back,
                 ),
           title: Text(l10n.onboardingStepOf(index + 1, _steps.length)),
+          actions: [
+            if (_completedBefore)
+              IconButton(
+                key: const ValueKey('onboarding-open-library'),
+                tooltip: l10n.tabLibrary,
+                icon: const Icon(Icons.library_books_outlined),
+                onPressed: () => const LibraryRoute().go(context),
+              ),
+          ],
         ),
         body: SafeArea(
           child: Column(

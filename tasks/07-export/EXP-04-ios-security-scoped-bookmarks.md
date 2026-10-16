@@ -19,6 +19,7 @@ User picks a folder in Files (On My iPhone, iCloud Drive, third-party providers)
 - Written notes appear in Obsidian iOS without manual refresh in both local and iCloud vaults.
 
 ## Completion Notes
+- **Review gaps (macOS host):** `ModelDownloadHost` now reads `NWPathMonitor.currentPath` on demand (no shared `latestPath`) and cancels the monitor on teardown; `BookmarkHostApiImpl.child` rejects symlink escapes (resolved path must stay under the resolved vault root). Limitation: the Pigeon `BookmarkHostApi` only carries a refreshed bookmark in `checkAccess` (`BookmarkAccess.refreshedBookmark`, which the Dart writer adopts); the other operations return plain values, so a stale bookmark discovered during a write is refreshed on the next `checkAccess` instead of being forwarded without a breaking API change. Swift was only syntax-checked (`swiftc -parse`); a full macOS build is deferred (CI jobs do not build macOS).
 - **Agent:** Claude Code · **Branch:** task/EXP-04-ios-bookmarks (stacked on EXP-03: shares the extended
   `VaultWriter` interface, `VaultPath`, `VaultAccessGuard`, error mapping and the pigeon dev dependency) ·
   **Date:** 2026-10-12

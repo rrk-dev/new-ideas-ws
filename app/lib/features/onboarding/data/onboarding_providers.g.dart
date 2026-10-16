@@ -86,32 +86,20 @@ final class OnboardingNotesInAppProvider
 String _$onboardingNotesInAppHash() =>
     r'96b282e87835b1e25ad378d38f3a742d14af8123';
 
-/// Whether onboarding still has to run. Drives the router redirect to
-/// `/onboarding`: not completed, or completed but the readiness check now
-/// fails (model deleted, microphone revoked…) — so a stale
-/// `onboarding.completed` from an older build is re-evaluated on every
-/// launch. Unknown (loading) never redirects; a failing readiness probe
-/// does not lock the user out either.
+/// Whether first-run onboarding still has to run (drives the router
+/// redirect to `/onboarding`). Unknown (loading) never redirects.
 
 @ProviderFor(onboardingRequired)
 final onboardingRequiredProvider = OnboardingRequiredProvider._();
 
-/// Whether onboarding still has to run. Drives the router redirect to
-/// `/onboarding`: not completed, or completed but the readiness check now
-/// fails (model deleted, microphone revoked…) — so a stale
-/// `onboarding.completed` from an older build is re-evaluated on every
-/// launch. Unknown (loading) never redirects; a failing readiness probe
-/// does not lock the user out either.
+/// Whether first-run onboarding still has to run (drives the router
+/// redirect to `/onboarding`). Unknown (loading) never redirects.
 
 final class OnboardingRequiredProvider
     extends $FunctionalProvider<AsyncValue<bool>, bool, Stream<bool>>
     with $FutureModifier<bool>, $StreamProvider<bool> {
-  /// Whether onboarding still has to run. Drives the router redirect to
-  /// `/onboarding`: not completed, or completed but the readiness check now
-  /// fails (model deleted, microphone revoked…) — so a stale
-  /// `onboarding.completed` from an older build is re-evaluated on every
-  /// launch. Unknown (loading) never redirects; a failing readiness probe
-  /// does not lock the user out either.
+  /// Whether first-run onboarding still has to run (drives the router
+  /// redirect to `/onboarding`). Unknown (loading) never redirects.
   OnboardingRequiredProvider._()
     : super(
         from: null,
@@ -138,7 +126,57 @@ final class OnboardingRequiredProvider
 }
 
 String _$onboardingRequiredHash() =>
-    r'2c960e9b46ab7df1df28cd16eab5d099b96d00e6';
+    r'6706e82fe183d6b92890053dacb924cb4a8196bd';
+
+/// Whether recording must be refused although onboarding was completed once:
+/// the readiness check now fails (model deleted, microphone revoked…). Only
+/// the Record route is gated on this; read-only routes (Library, Settings,
+/// export, delete) stay reachable. Unknown, or a failing readiness probe,
+/// never blocks.
+
+@ProviderFor(recordingBlocked)
+final recordingBlockedProvider = RecordingBlockedProvider._();
+
+/// Whether recording must be refused although onboarding was completed once:
+/// the readiness check now fails (model deleted, microphone revoked…). Only
+/// the Record route is gated on this; read-only routes (Library, Settings,
+/// export, delete) stay reachable. Unknown, or a failing readiness probe,
+/// never blocks.
+
+final class RecordingBlockedProvider
+    extends $FunctionalProvider<AsyncValue<bool>, bool, Stream<bool>>
+    with $FutureModifier<bool>, $StreamProvider<bool> {
+  /// Whether recording must be refused although onboarding was completed once:
+  /// the readiness check now fails (model deleted, microphone revoked…). Only
+  /// the Record route is gated on this; read-only routes (Library, Settings,
+  /// export, delete) stay reachable. Unknown, or a failing readiness probe,
+  /// never blocks.
+  RecordingBlockedProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'recordingBlockedProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$recordingBlockedHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<bool> create(Ref ref) {
+    return recordingBlocked(ref);
+  }
+}
+
+String _$recordingBlockedHash() => r'd8c3fb855ca548ff324578679117c84a21b59d20';
 
 /// Whether the first-run recording-consent explainer was acknowledged.
 

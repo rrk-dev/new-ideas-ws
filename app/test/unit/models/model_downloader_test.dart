@@ -585,8 +585,8 @@ void main() {
       },
     );
 
-    test('[MDL-02/AC3] a blocked mirror caps the retries, is not contacted '
-        'again and its failure is the one reported', () async {
+    test('[MDL-02/AC3] a blocked mirror is not contacted again; the retries '
+        'continue for the other URL and its failure is reported', () async {
       server.routes['$_cdn/stt/ggml-tiny.en.bin'] = StatusRoute(503);
       server.routes['$_hf$_hfPath'] = const RedirectRoute(
         'https://$_evil/block?x=1',
@@ -596,11 +596,24 @@ void main() {
       );
       final f = r.failureOrNull! as ModelDownloadFailure;
       expect(f.block, ModelDownloadBlock.retriesExhausted);
-      expect(f.cause, isA<EgressDeniedFailure>());
-      expect((f.cause! as EgressDeniedFailure).host, _evil);
-      expect(delays, hasLength(kMaxDownloadRetriesWithRejectedUrl));
+      expect(f.cause, isA<NetworkFailure>());
+      expect(delays, hasLength(kMaxDownloadRetries));
       expect(server.to(_hf), hasLength(1));
       expect(server.to(_evil), isEmpty);
+    });
+
+    test('[MDL-02/AC3] a rejected first URL does not shrink the retry budget '
+        'of the mirror and the mirror failure is reported', () async {
+      server.routes['$_cdn/stt/ggml-tiny.en.bin'] = StatusRoute(404);
+      server.routes['$_hf$_hfPath'] = StatusRoute(503);
+      final r = await downloader().download(
+        model(urls: const [_cdnUrl, _hfUrl]),
+      );
+      final f = r.failureOrNull! as ModelDownloadFailure;
+      expect(f.block, ModelDownloadBlock.retriesExhausted);
+      expect((f.cause! as NetworkFailure).message, contains('503'));
+      expect(delays, hasLength(kMaxDownloadRetries));
+      expect(server.to(_cdn), hasLength(1));
     });
 
     test('[MDL-02/AC3] an HTML block page is not retried or stored', () async {
@@ -608,10 +621,7 @@ void main() {
       final r = await downloader().download(model());
       final f = r.failureOrNull! as ModelDownloadFailure;
       expect((f.cause! as NetworkFailure).message, kBlockedByNetwork);
-      expect(
-        delays.length,
-        lessThanOrEqualTo(kMaxDownloadRetriesWithRejectedUrl),
-      );
+      expect(delays, isEmpty);
     });
 
     test('[MDL-02/AC3] 405 on the ranged GET is reported as blocked', () async {

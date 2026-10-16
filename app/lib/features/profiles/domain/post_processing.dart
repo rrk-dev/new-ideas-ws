@@ -771,7 +771,7 @@ void _groundNode(Object? node, TranscriptGrounding g, GroundingStats stats) {
     }
     if (node.every((e) => e is String || e is Map)) {
       final before = node.length;
-      node.retainWhere((e) => g.supports(g.claimText(e)));
+      node.retainWhere((e) => g.keepsItem(g.claimText(e)));
       stats.itemsDropped += before - node.length;
     }
   }

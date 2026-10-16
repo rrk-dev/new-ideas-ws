@@ -86,14 +86,22 @@ final class StorageInfoHost: NSObject, FlutterPlugin {
 final class ModelDownloadHost: NSObject, FlutterPlugin {
   static let channelName = "vaultvoice/model_download"
   private let monitor = NWPathMonitor()
-  private var latestPath: NWPath?
 
   static func register(with registrar: FlutterPluginRegistrar) {
     let host = ModelDownloadHost()
     let channel = FlutterMethodChannel(name: channelName, binaryMessenger: registrar.messenger)
     registrar.addMethodCallDelegate(host, channel: channel)
-    host.monitor.pathUpdateHandler = { [weak host] path in host?.latestPath = path }
+    // `currentPath` is read on demand (thread-safe), so no handler state is
+    // shared between the monitor queue and the main thread.
     host.monitor.start(queue: DispatchQueue(label: "vaultvoice.model-download.reachability"))
+  }
+
+  func detachFromEngine(for registrar: FlutterPluginRegistrar) {
+    monitor.cancel()
+  }
+
+  deinit {
+    monitor.cancel()
   }
 
   func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -102,7 +110,7 @@ final class ModelDownloadHost: NSObject, FlutterPlugin {
     case "freeBytes":
       result(MacHostChannels.freeBytes(at: args["path"] as? String))
     case "networkStatus":
-      let path = latestPath ?? monitor.currentPath
+      let path = monitor.currentPath
       let connected = path.status == .satisfied
       result([
         "connected": connected,

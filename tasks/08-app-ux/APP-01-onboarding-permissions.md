@@ -21,6 +21,7 @@ New users go from install to first exported note in under 5 minutes, understandi
 - Denying any permission leaves the app functional with clear recovery path.
 
 ## Completion Notes
+- **Review gaps:** an existing app-local vault target now counts as a notes destination. After completion, a failing readiness check (e.g. microphone revoked) gates only the Record route (`recordingBlockedProvider` + `onboardingRedirect(recordingBlocked:)`); Library/Settings/export/delete stay reachable, and the onboarding app bar offers a Library shortcut for completed users. First-run onboarding still blocks everything. Tests: `onboarding_test.dart`, `onboarding_logic_test.dart`.
 - **Agent:** Claude Code · **Branch:** task/APP-01-onboarding · **Date:** 2026-10-14
 - **Summary:** First-launch flow `app/lib/features/onboarding/` — `OnboardingScreen` (route
   `/onboarding`, outside the tab shell; `appRouter` redirects there until

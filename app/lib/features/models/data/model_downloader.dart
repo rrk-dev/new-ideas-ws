@@ -248,7 +248,9 @@ class ModelDownloader {
       var integrityRetried = false;
       // URLs refused permanently (4xx, redirect to a non-allowlisted host,
       // e.g. a proxy block page) are not contacted again; their failure is
-      // the one shown, and it caps the retries for the other URLs.
+      // the one shown only when every URL is refused. While another URL is
+      // still being tried, that URL's own failure is the reported cause and
+      // the full retry budget applies.
       final rejected = <Uri>{};
       Failure? permanentCause;
       while (true) {
@@ -351,16 +353,13 @@ class ModelDownloader {
           );
         }
         retry++;
-        if (retry >
-            (permanentCause != null
-                ? kMaxDownloadRetriesWithRejectedUrl
-                : kMaxDownloadRetries)) {
+        if (retry > kMaxDownloadRetries) {
           return _fail(
             model,
             ModelDownloadFailure(
               id,
               ModelDownloadBlock.retriesExhausted,
-              cause: permanentCause ?? last,
+              cause: last ?? permanentCause,
             ),
             have,
           );

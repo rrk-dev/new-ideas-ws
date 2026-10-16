@@ -308,6 +308,12 @@ class _ModelCard extends ConsumerWidget {
                   ? (status ?? l10n.modelStatusInstalled)
                   : (status ?? l10n.modelStatusNotDownloaded),
             ),
+            if (_model.attribution case final attribution?)
+              Text(
+                attribution,
+                key: ValueKey('model-attribution-${_model.id}'),
+                style: theme.textTheme.bodySmall,
+              ),
             if (!entry.compatible)
               Text(
                 l10n.modelIncompatible(

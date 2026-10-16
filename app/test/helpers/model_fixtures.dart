@@ -10,6 +10,7 @@ CatalogModel catalogModel(
   List<DeviceTier> tiers = DeviceTier.values,
   String version = '1',
   String? displayName,
+  String? attribution,
 }) => CatalogModel(
   id: id,
   type: type,
@@ -25,6 +26,7 @@ CatalogModel catalogModel(
   licenseUrl: Uri.parse('https://example.com/license'),
   urls: [Uri.parse('https://example.com/$id')],
   companions: const [],
+  attribution: attribution,
 );
 
 ModelCatalog catalogOf(List<CatalogModel> models, {DateTime? issuedAt}) =>

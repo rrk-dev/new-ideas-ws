@@ -9,6 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/app.dart';
 import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
+import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
@@ -492,6 +493,42 @@ void main() {
       expect(find.text(_l.onboardingPermissionsTitle), findsOneWidget);
       expect(find.text(_l.readinessMicMissing), findsOneWidget);
       expect(rig.mic.permissionRequests, 0);
+    });
+
+    testWidgets('[APP-01/AC2] a completed user with a missing item can still '
+        'read the Library; only Record is gated', (t) async {
+      final rig = await relaunch(t, mic: false);
+      expect(rig.location, '/onboarding');
+      await _tap(t, find.byKey(const ValueKey('onboarding-open-library')));
+      expect(rig.location, '/library');
+      rig.container.read(appRouterProvider).go('/record');
+      await t.pumpAndSettle();
+      expect(rig.location, '/onboarding');
+    });
+
+    testWidgets('[APP-01/AC2] an existing app-local vault target counts as '
+        'a notes destination', (t) async {
+      final rig = await relaunch(t, notes: false);
+      expect(rig.location, '/onboarding');
+      await t.runAsync(
+        () => rig.container
+            .read(vaultVoiceDatabaseProvider)
+            .vaultRepository
+            .upsertTarget(
+              VaultTargetsCompanion.insert(
+                id: 'local',
+                platform: VaultPlatform.appLocal,
+                displayName: 'In app',
+                handle: '/vault',
+                createdAt: DateTime.utc(2026),
+              ),
+            ),
+      );
+      final sub = rig.container.listen(onboardingReadinessProvider, (_, _) {});
+      addTearDown(sub.close);
+      rig.container.invalidate(onboardingReadinessProvider);
+      await _Rig.settle(t);
+      expect(sub.read().requireValue.notesDestinationChosen, isTrue);
     });
 
     testWidgets('[APP-01/AC2] no notes destination → folder step; '

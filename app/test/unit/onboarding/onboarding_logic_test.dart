@@ -80,6 +80,28 @@ void main() {
       expect(onboardingRedirect(required: true, path: '/onboarding'), isNull);
     });
 
+    test('completed but not ready → only Record is gated', () {
+      expect(
+        onboardingRedirect(
+          required: false,
+          path: '/record',
+          recordingBlocked: true,
+        ),
+        '/onboarding',
+      );
+      for (final path in ['/library', '/settings', '/library/recordings/x']) {
+        expect(
+          onboardingRedirect(
+            required: false,
+            path: path,
+            recordingBlocked: true,
+          ),
+          isNull,
+        );
+      }
+      expect(onboardingRedirect(required: false, path: '/record'), isNull);
+    });
+
     test('completed or unknown → no redirect', () {
       expect(onboardingRedirect(required: false, path: '/record'), isNull);
       expect(onboardingRedirect(required: null, path: '/record'), isNull);

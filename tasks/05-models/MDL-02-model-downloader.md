@@ -21,6 +21,7 @@ Download multi-GB models reliably on first launch and on demand.
 - 2 GB model downloads in background on both platforms.
 
 ## Completion Notes
+- **Review gaps (PR #58-#64 review):** a permanently rejected URL (e.g. the placeholder CDN) no longer shrinks the retry budget of the remaining mirror: `kMaxDownloadRetriesWithRejectedUrl` was removed, the full `kMaxDownloadRetries` applies while any URL is still retryable, and the reported cause is the failure of the URL still being tried (`allUrlsRejected` is reported when every URL is refused). Tests: `[MDL-02/AC3]` in `model_downloader_test.dart`.
 - **Agent:** Claude Code · **Branch:** task/MDL-02-model-downloader · **Date:** 2026-10-13
 - **Summary:** `ModelDownloader` (`app/lib/features/models/data/model_downloader.dart`):
   `models/.partial/<id>` + sidecar (partial length = resume offset), preconditions (free space

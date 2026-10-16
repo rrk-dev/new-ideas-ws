@@ -1,6 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
-import 'package:vaultvoice/core/db/enums.dart' show VaultPlatform;
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/features/models/data/model_state_providers.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
@@ -71,8 +70,7 @@ Future<OnboardingReadiness> computeOnboardingReadiness(Ref ref) async {
   return OnboardingReadiness(
     sttInstalled: sttInstalled,
     llmInstalled: llmInstalled,
-    notesDestinationChosen:
-        notesInApp || targets.any((t) => t.platform != VaultPlatform.appLocal),
+    notesDestinationChosen: notesInApp || targets.isNotEmpty,
     microphoneGranted: microphone,
     requiredBytes: requiredBytes,
     freeBytes: freeBytes,

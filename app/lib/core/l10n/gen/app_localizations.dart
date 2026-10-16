@@ -3196,6 +3196,12 @@ abstract class AppLocalizations {
   /// **'Open-source & model licenses'**
   String get aboutLicenses;
 
+  /// No description provided for @aboutModelAttributions.
+  ///
+  /// In en, this message translates to:
+  /// **'Model attributions'**
+  String get aboutModelAttributions;
+
   /// No description provided for @vaultFoldersAdd.
   ///
   /// In en, this message translates to:
