@@ -1,0 +1,69 @@
+app/lib/features/pipeline/presentation/processing_texts.dart
+  s_6f33b549e63fe9::t_2481fbf07689ea 2-3,44-51,91-118
+  s_102b2c43222056::t_a6d5a7c43e91a0 52-79
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_6f33b549e63fe9::t_10b02e9a8c47c0 288-312,1362-1383
+  s_6f33b549e63fe9::t_61a816cba7f577 1384
+app/lib/core/l10n/gen/app_localizations.dart
+  s_6f33b549e63fe9::t_10b02e9a8c47c0 565-600,2371-2399
+  s_6f33b549e63fe9::t_e29ff7ed321bd0 2400
+app/lib/features/pipeline/presentation/job_commands.dart
+  s_6f33b549e63fe9::t_10b02e9a8c47c0 5-8,14,50-53,55-56,58-60,62-64,68-85,98-106
+  s_6f33b549e63fe9::t_cb58cc642cdd10 54,57,61
+  s_6f33b549e63fe9::t_74ca5cdab27c6e 107
+app/lib/features/models/domain/download_policy.dart
+  s_6f33b549e63fe9::t_4f8177da91cc5e 11-15
+app/lib/core/l10n/arb/app_en.arb
+  s_6f33b549e63fe9::t_2481fbf07689ea 453-461
+  s_6f33b549e63fe9::t_f6a03d9bb9cccf 98-105
+app/test/widget/processing_status_test.dart
+  s_6f33b549e63fe9::t_d9b5efe0b6f1a4 196,216,243
+  s_102b2c43222056::t_5747384d2aa90c 17,181,197-215,217-242,244-256
+  s_6f33b549e63fe9::t_6d2a8fc2658938 257-258
+app/lib/features/onboarding/presentation/onboarding_models_step.dart
+  s_102b2c43222056::t_a6d5a7c43e91a0 196-198
+  s_6f33b549e63fe9::t_99496fb6416bdd 102-104,149,152,190-195,199-206
+app/lib/features/models/presentation/models_screen.dart
+  s_6f33b549e63fe9::t_99496fb6416bdd 383-384
+app/lib/features/models/presentation/model_download_actions.dart
+  s_6f33b549e63fe9::t_b92c169ca0f0c2 14
+  s_102b2c43222056::t_b5e3815843c184 162-163
+app/lib/features/models/data/model_downloader.dart
+  s_6f33b549e63fe9::t_4f8177da91cc5e 249-253,267,314-317,348,354-357,363
+app/lib/features/models/presentation/model_texts.dart
+  s_6f33b549e63fe9::t_f6a03d9bb9cccf 2,4,41-44,48,50-68,70-74
+  s_6f33b549e63fe9::t_0700f2c37c20e4 69
+app/lib/features/pipeline/presentation/processing_status_card.dart
+  s_6f33b549e63fe9::t_10b02e9a8c47c0 17-20,24-35,63,124-131,185-230
+  s_6f33b549e63fe9::t_57aa4733175bed 231-235
+app/test/unit/models/model_downloader_test.dart
+  s_6f33b549e63fe9::t_0eae4716801418 588-605
+app/test/unit/models/model_texts_test.dart
+  s_6f33b549e63fe9::t_0eae4716801418 1-17,20-30,32-42,44-49,51-60,63-69,71-79
+  s_6f33b549e63fe9::t_d9b5efe0b6f1a4 18,31,43,50,61-62,70
+  s_102b2c43222056::t_5747384d2aa90c 19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ede3fa3d03ff56bbeae317441505e3e6e1feac22",
+  "prompts": {},
+  "sessions": {
+    "s_102b2c43222056": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "0eb5d527-5021-44a2-9707-b4c4503b2b05",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_6f33b549e63fe9": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "ff27057e-cce2-4ed3-91e4-d5f3b233bf8c",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
