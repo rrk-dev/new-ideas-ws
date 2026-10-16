@@ -34,3 +34,6 @@ Duration retryDelay(int retry) {
   final seconds = 1 << (retry - 1);
   return Duration(seconds: seconds > 60 ? 60 : seconds);
 }
+
+/// Failure message marking a response that a network proxy/firewall replaced.
+const kBlockedByNetwork = 'blocked by network';

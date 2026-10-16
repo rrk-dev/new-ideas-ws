@@ -89,8 +89,8 @@ final class TierDefaults {
   final int contextSize;
 }
 
-/// "1B class" = LLM files up to 1.2 GB (Llama-3.2-1B Q4_K_M ≈ 0.8 GB,
-/// Qwen2.5-0.5B ≈ 0.5 GB); 3B Q4 ≈ 1.9–2.0 GB is "large".
+/// "1B class" = LLM files up to 1.2 GB (Llama-3.2-1B Q4_K_M ≈ 0.8 GB);
+/// 3B Q4 ≈ 1.9–2.0 GB is "large".
 const int kSmallLlmMaxBytes = 1200 * 1000 * 1000;
 
 bool isLargeLlm(CatalogModel m) =>

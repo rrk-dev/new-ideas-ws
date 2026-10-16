@@ -303,9 +303,8 @@ class AppLocalizationsEn extends AppLocalizations {
       'Download failed: the file is damaged (checksum mismatch). Retry to download it again.';
 
   @override
-  String downloadFailHost(String host) {
-    return 'Download failed: $host is not an allowed download host. A proxy or firewall on this network may be blocking it.';
-  }
+  String get downloadFailBlocked =>
+      'Download blocked by your network (proxy or firewall). Retry, choose an installed model, or import a model file.';
 
   @override
   String get downloadFailSpace => 'Download failed: not enough free space.';

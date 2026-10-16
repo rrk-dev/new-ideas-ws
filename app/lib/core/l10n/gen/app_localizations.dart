@@ -586,11 +586,11 @@ abstract class AppLocalizations {
   /// **'Download failed: the file is damaged (checksum mismatch). Retry to download it again.'**
   String get downloadFailChecksum;
 
-  /// No description provided for @downloadFailHost.
+  /// No description provided for @downloadFailBlocked.
   ///
   /// In en, this message translates to:
-  /// **'Download failed: {host} is not an allowed download host. A proxy or firewall on this network may be blocking it.'**
-  String downloadFailHost(String host);
+  /// **'Download blocked by your network (proxy or firewall). Retry, choose an installed model, or import a model file.'**
+  String get downloadFailBlocked;
 
   /// No description provided for @downloadFailSpace.
   ///

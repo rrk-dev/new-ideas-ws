@@ -93,6 +93,11 @@ class StatusRoute extends Route {
   final Route? then;
 }
 
+/// A proxy "Site Blocked" page: 200 with an HTML body.
+class HtmlRoute extends Route {
+  const HtmlRoute();
+}
+
 /// Local HTTP server that plays catalog hosts / mirrors / CDNs.
 class ModelFileServer {
   ModelFileServer._(this._server) {
@@ -172,6 +177,11 @@ class ModelFileServer {
         } else {
           await _answer(then, req, res, index);
         }
+      case HtmlRoute():
+        res.statusCode = 200;
+        res.headers.contentType = ContentType.html;
+        res.write('<html><body>Site Blocked</body></html>');
+        await res.close();
       case FileRoute():
         await _serveFile(route, req, res, index);
     }

@@ -64,7 +64,8 @@ abstract final class ModelTexts {
     }
     return switch (f) {
       ModelIntegrityFailure() => l.downloadFailChecksum,
-      EgressDeniedFailure(:final host) => l.downloadFailHost(host),
+      EgressDeniedFailure() => l.downloadFailBlocked,
+      NetworkFailure(message: kBlockedByNetwork) => l.downloadFailBlocked,
       NetworkFailure(:final message) =>
         RegExp(r'^http \d{3}$').hasMatch(message)
             ? l.downloadFailServer

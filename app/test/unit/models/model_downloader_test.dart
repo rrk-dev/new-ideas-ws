@@ -603,6 +603,24 @@ void main() {
       expect(server.to(_evil), isEmpty);
     });
 
+    test('[MDL-02/AC3] an HTML block page is not retried or stored', () async {
+      server.routes['$_cdn/stt/ggml-tiny.en.bin'] = const HtmlRoute();
+      final r = await downloader().download(model());
+      final f = r.failureOrNull! as ModelDownloadFailure;
+      expect((f.cause! as NetworkFailure).message, kBlockedByNetwork);
+      expect(
+        delays.length,
+        lessThanOrEqualTo(kMaxDownloadRetriesWithRejectedUrl),
+      );
+    });
+
+    test('[MDL-02/AC3] 405 on the ranged GET is reported as blocked', () async {
+      server.routes['$_cdn/stt/ggml-tiny.en.bin'] = StatusRoute(405);
+      final r = await downloader().download(model());
+      final f = r.failureOrNull! as ModelDownloadFailure;
+      expect((f.cause! as NetworkFailure).message, kBlockedByNetwork);
+    });
+
     test(
       '404 on the primary falls back to the mirror without backoff',
       () async {

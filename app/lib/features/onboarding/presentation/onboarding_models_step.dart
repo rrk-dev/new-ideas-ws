@@ -111,6 +111,8 @@ class OnboardingModelsStep extends ConsumerWidget {
         const ModelImportTile(),
       ] else ...[
         Text(l10n.onboardingModelsTotal(formatBytes(l10n, remaining))),
+        if (missing.any((m) => progress[m.id]?.phase == DownloadPhase.failed))
+          const ModelImportTile(),
         const SizedBox(height: AppSpacing.sm),
         Align(
           alignment: AlignmentDirectional.centerStart,

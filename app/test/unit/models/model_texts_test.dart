@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/l10n/gen/app_localizations.dart';
+import 'package:vaultvoice/features/models/domain/download_policy.dart';
 import 'package:vaultvoice/features/models/domain/download_state.dart';
 import 'package:vaultvoice/features/models/presentation/model_texts.dart';
 
@@ -54,8 +55,18 @@ void main() {
         const EgressDeniedFailure('block.example'),
       ),
     );
-    expect(text, contains('block.example'));
-    expect(text, contains('not an allowed'));
+    expect(text, contains('blocked by your network'));
+  });
+
+  test('[MDL-03/AC1] failed downloads say why: proxy block page', () {
+    final text = reason(
+      wrap(
+        ModelDownloadBlock.allUrlsRejected,
+        const NetworkFailure(kBlockedByNetwork),
+      ),
+    );
+    expect(text, contains('blocked by your network'));
+    expect(text, contains('import a model file'));
   });
 
   test('[MDL-03/AC1] retrying shows the attempt, failed shows the reason', () {

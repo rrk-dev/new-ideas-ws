@@ -221,7 +221,7 @@ void main() {
         sampleQueue()[2],
         missing: const MissingModel(
           type: ModelType.llm,
-          name: 'Qwen2.5 0.5B Instruct (Q4_K_M)',
+          name: 'Llama 3.2 1B Instruct (Q4_K_M)',
           installedName: 'Llama 3.2 1B',
         ),
         taps: taps,
@@ -229,7 +229,7 @@ void main() {
       expect(
         find.text(
           'Waiting for the Note writer (AI) model: '
-          'Qwen2.5 0.5B Instruct (Q4_K_M)',
+          'Llama 3.2 1B Instruct (Q4_K_M)',
         ),
         findsOneWidget,
       );

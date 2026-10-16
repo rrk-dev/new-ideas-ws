@@ -147,8 +147,8 @@ results (`make eval-all MODEL=<gguf>` per candidate).
 
 | Tier | Default (today) | Fallback | Status |
 |---|---|---|---|
-| Free (any device) | Llama-3.2-1B-Instruct Q4_K_M | Qwen2.5-0.5B Q4_K_M (in catalog) | provisional |
-| Low (< 5 GiB) | Llama-3.2-1B-Instruct Q4_K_M | Qwen2.5-0.5B | provisional |
+| Free (any device) | Llama-3.2-1B-Instruct Q4_K_M | none in catalog (Qwen2.5-0.5B removed: blocked by corporate proxies) | provisional |
+| Low (< 5 GiB) | Llama-3.2-1B-Instruct Q4_K_M | — | provisional |
 | Mid (5–7 GiB) | Llama-3.2-3B-Instruct Q4_K_M *(unmeasured; expected, see ADR)* | Llama-3.2-1B | needs-eval |
 | High (≥ 7 GiB) | Llama-3.2-3B-Instruct Q4_K_M *(unmeasured)* | Llama-3.2-1B | needs-eval |
 
