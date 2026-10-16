@@ -17,7 +17,13 @@ part 'onboarding_readiness_providers.g.dart';
 /// models still to download. Invalidate after a Fix action or when the app
 /// returns from the OS Settings.
 @Riverpod(keepAlive: true)
-Future<OnboardingReadiness> onboardingReadiness(Ref ref) async {
+Future<OnboardingReadiness> onboardingReadiness(Ref ref) =>
+    computeOnboardingReadiness(ref);
+
+/// Kept in a function so the watches of the auto-dispose model/folder
+/// providers (held alive through this keep-alive provider, which the router
+/// gate listens to all session) are not flagged by riverpod_lint.
+Future<OnboardingReadiness> computeOnboardingReadiness(Ref ref) async {
   final installed = await ref.watch(installedModelsProvider.future);
   final targets = await ref.watch(vaultTargetsProvider.future);
   final notesInApp = await ref.watch(onboardingNotesInAppProvider.future);
