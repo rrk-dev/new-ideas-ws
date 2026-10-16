@@ -28,9 +28,11 @@ final class LlmGenParams {
   });
 
   /// Structured extraction (default): grammar + temp 0.2, min_p 0.05,
-  /// top_k 40, no repeat penalty, fixed seed.
+  /// top_k 40, mild repeat penalty (1.05 over the last 64 generated tokens —
+  /// the grammar keeps the JSON valid; small models loop without it), fixed
+  /// seed. Evidence: tools/bench/results/2026-10-15-extraction-quality.md.
   const LlmGenParams.extraction({String? grammar, int nPredict = 1024})
-    : this(grammar: grammar, nPredict: nPredict);
+    : this(grammar: grammar, nPredict: nPredict, repeatPenalty: 1.05);
 
   /// Deterministic tests: greedy, seed 42.
   const LlmGenParams.deterministic({String? grammar, int nPredict = 256})

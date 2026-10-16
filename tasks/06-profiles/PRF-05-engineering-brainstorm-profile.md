@@ -25,7 +25,8 @@ Extract architectural concepts, API designs, trade-offs, and immediate TODOs fro
 - **Follow-ups:** see below.
 
 ## Follow-ups
-- Real-model eval numbers need a 3B-class model and the device lab (PRF-10); only SmolLM2-135M is available locally and the PRF-09 1B baselines are below target (prompts/examples were not re-tuned — a change would bump the profile version and invalidate golden prompts).
+- **Extraction-quality fix (profile v2):** no few-shot example, `api_designs`/`tradeoffs` only when discussed, caps ≤ 12, implicit dedupe + `ground_to_transcript`. Llama-3.2-1B engineering eval (30 cases, app prompt path): hallucination 69 % → 6 %, schema-valid 90 % → 100 %, TODO recall 16 % → 78 % (precision 15 % → 40 %), decisions recall 4 % → 85 %, title similarity 30 % → 73 %. 1B still over-extracts (precision ≤ 40 %, API-design recall 22 %): recommend a Llama-3.2-3B-class catalog model for this profile (not added here).
+- Real-model eval numbers need a 3B-class model and the device lab (PRF-10); only SmolLM2-135M is available locally and the PRF-09 1B baselines are below target (prompts were re-tuned in fix/extraction-quality (profile v2, see below)).
 - Settings UI to edit the per-profile vocabulary is not built (domain, key and transcribe wiring exist).
 - Run `tools/ci/markdownlint.sh` (needs npx) on the engineering goldens; CI lints goldens.
 - LIC-01: engineering tier is a placeholder `pro`.

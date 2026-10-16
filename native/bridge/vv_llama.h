@@ -181,7 +181,7 @@ typedef struct vv_gen_params {
   int32_t top_k;      /* <= 0 disables */
   float top_p;        /* >= 1 disables */
   float min_p;        /* <= 0 disables */
-  float repeat_penalty; /* 1.0 disables (never for JSON) */
+  float repeat_penalty; /* 1.0 disables; extraction uses 1.05 (grammar keeps JSON valid) */
   int32_t repeat_last_n;
   /* GBNF grammar (root rule "root") or NULL = unconstrained. Copied. */
   const char* grammar;

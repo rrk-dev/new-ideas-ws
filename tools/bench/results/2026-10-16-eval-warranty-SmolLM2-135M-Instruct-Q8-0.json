@@ -1,0 +1,3001 @@
+{
+ "env": {
+  "date": "2026-10-16",
+  "host": "Darwin arm64",
+  "backend": "gpu",
+  "model": "SmolLM2-135M-Instruct-Q8_0.gguf",
+  "model_sha256": "5a1395716f7913741cc51d98581b9b1228d80987a9f7d3664106742eb06bba83",
+  "n_ctx": 4096,
+  "max_tokens": 1024,
+  "commit": "ebf4ff7",
+  "llama": "ebf4ff7",
+  "profile_version": 2,
+  "scored": "post-processed"
+ },
+ "perf": {
+  "wall_s": 25.400152333982987,
+  "peak_rss": 555417600,
+  "prefill_tps": 21715.393753677337,
+  "decode_tps": 245.08951525461765,
+  "latency_med_s": 0.625,
+  "latency_max_s": 1044.939,
+  "prompt_tokens_med": 776,
+  "prompt_tokens_max": 889
+ },
+ "aggregate": {
+  "cases": 30,
+  "schema_valid": 1.0,
+  "scalars": {
+   "product": {
+    "exact": 0.2,
+    "fuzzy": 0.3333333333333333
+   },
+   "brand": {
+    "exact": 0.13333333333333333,
+    "fuzzy": 0.26666666666666666
+   },
+   "model": {
+    "exact": 0.13333333333333333,
+    "fuzzy": 0.43333333333333335
+   },
+   "serial_number": {
+    "exact": 0.06666666666666667,
+    "fuzzy": 0.06666666666666667
+   },
+   "purchase_date": {
+    "exact": 0.0,
+    "fuzzy": 0.0
+   },
+   "retailer": {
+    "exact": 0.36666666666666664,
+    "fuzzy": 0.7
+   },
+   "price": {
+    "exact": 0.03333333333333333,
+    "fuzzy": 0.43333333333333335
+   },
+   "warranty_period": {
+    "exact": 0.03333333333333333,
+    "fuzzy": 0.03333333333333333
+   },
+   "accuracy": 0.2833333333333333,
+   "exact_accuracy": 0.12083333333333333
+  },
+  "lists": {
+   "support_contacts": {
+    "precision": 0.09615384615384616,
+    "recall": 0.5555555555555556,
+    "f1": 0.1639344262295082,
+    "tp": 5,
+    "expected": 9,
+    "predicted": 52
+   }
+  },
+  "prose": {
+   "notes": 0.36996416147007316
+  },
+  "hallucination_rate": 0.3667953667953668
+ },
+ "cases": [
+  {
+   "id": "warranty-001",
+   "valid": true,
+   "prompt_tokens": 798,
+   "latency_ms": 727,
+   "n_prompt": 798,
+   "n_gen": 150,
+   "prefill_ms": 48.138083,
+   "decode_ms": 671.537708,
+   "raw_output": {
+    "product": "Fabrikum Series 6",
+    "brand": "Fabrikum",
+    "model": "Fabrikum Series 6",
+    "serial_number": "4",
+    "purchase_date": "2026-03-02",
+    "retailer": "Sam, M4",
+    "price": "€649",
+    "warranty_period": {
+     "value": 2,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "email@fabrikum.com"
+    ],
+    "notes": "Fabrikum Series 6 kitchen depot for €649"
+   },
+   "output": {
+    "product": "Fabrikum Series 6",
+    "brand": "Fabrikum",
+    "model": "Fabrikum Series 6",
+    "serial_number": "4",
+    "purchase_date": "2026-03-02",
+    "retailer": "Sam, M4",
+    "price": "€649",
+    "warranty_period": {
+     "value": 2,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "email@fabrikum.com"
+    ],
+    "notes": "Fabrikum Series 6 kitchen depot for €649",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-04"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 8,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-002",
+   "valid": true,
+   "prompt_tokens": 757,
+   "latency_ms": 510,
+   "n_prompt": 757,
+   "n_gen": 123,
+   "prefill_ms": 35.298417,
+   "decode_ms": 472.481292,
+   "raw_output": {
+    "product": "Coffee Grinder",
+    "brand": "Contoso",
+    "model": "Bur 3",
+    "serial_number": "000012",
+    "purchase_date": "2026-03-02",
+    "retailer": "Northwind Market",
+    "price": "$89",
+    "warranty_period": {
+     "value": 3,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": null
+   },
+   "output": {
+    "product": "Coffee Grinder",
+    "brand": "Contoso",
+    "model": "Bur 3",
+    "serial_number": "000012",
+    "purchase_date": "2026-03-02",
+    "retailer": "Northwind Market",
+    "price": "$89",
+    "warranty_period": {
+     "value": 3,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": null,
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-05"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 9,
+    "ungrounded": 3
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-003",
+   "valid": true,
+   "prompt_tokens": 802,
+   "latency_ms": 821,
+   "n_prompt": 802,
+   "n_gen": 194,
+   "prefill_ms": 33.716459,
+   "decode_ms": 784.902125,
+   "raw_output": {
+    "product": "Laptop Charger",
+    "brand": "T-6-5-9-9-0-1",
+    "model": "PD-65",
+    "serial_number": "T-6-5-9-9-0-1",
+    "purchase_date": "2026-03-02",
+    "retailer": "Wingtip Store",
+    "price": "$45.00",
+    "warranty_period": {
+     "value": 18,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "0800 555 0199",
+     "0800 555 0200",
+     "0800 555 0300"
+    ],
+    "notes": null
+   },
+   "output": {
+    "product": "Laptop Charger",
+    "brand": "T-6-5-9-9-0-1",
+    "model": "PD-65",
+    "serial_number": "T659901",
+    "purchase_date": "2026-03-02",
+    "retailer": "Wingtip Store",
+    "price": "$45.00",
+    "warranty_period": {
+     "value": 18,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "0800 555 0199",
+     "0800 555 0200",
+     "0800 555 0300"
+    ],
+    "notes": null,
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-20"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 10,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-004",
+   "valid": true,
+   "prompt_tokens": 770,
+   "latency_ms": 1019100,
+   "n_prompt": 770,
+   "n_gen": 165,
+   "prefill_ms": 35.322041,
+   "decode_ms": 1019061.587708,
+   "raw_output": {
+    "product": "Litware Studio Pro",
+    "brand": "Litware",
+    "model": "Litware",
+    "serial_number": "1990-02-02",
+    "purchase_date": "2026-03-02",
+    "retailer": "Adventure Audio",
+    "price": "$199.00",
+    "warranty_period": {
+     "value": 30,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "Help@litware.example."
+    ],
+    "notes": "They are Litware Studio Pro, bought today at Adventure Audio for $199.00, and have a warranty of 3 years."
+   },
+   "output": {
+    "product": "Litware Studio Pro",
+    "brand": "Litware",
+    "model": "Litware",
+    "serial_number": "19900202",
+    "purchase_date": "2026-03-02",
+    "retailer": "Adventure Audio",
+    "price": "$199.00",
+    "warranty_period": {
+     "value": 30,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "Help@litware.example."
+    ],
+    "notes": "They are Litware Studio Pro, bought today at Adventure Audio for $199.00, and have a warranty of 3 years.",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-04-01"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 8,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-005",
+   "valid": true,
+   "prompt_tokens": 788,
+   "latency_ms": 793,
+   "n_prompt": 788,
+   "n_gen": 172,
+   "prefill_ms": 36.322291,
+   "decode_ms": 754.149875,
+   "raw_output": {
+    "product": "Wash 8",
+    "brand": "P",
+    "model": "W",
+    "serial_number": "3",
+    "purchase_date": "2026-03-02",
+    "retailer": "Home Hub",
+    "price": ".52",
+    "warranty_period": {
+     "value": 3,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "Kilo",
+     "3"
+    ],
+    "notes": "The cereal is P as in Peter, W as in William, 8, 0, 0, 0, K as in Kilo, 3. Bought on February 10th at Home Hub for 520 Euros, 3 year warranty."
+   },
+   "output": {
+    "product": "Wash 8",
+    "brand": "P",
+    "model": "W",
+    "serial_number": "3",
+    "purchase_date": "2026-03-02",
+    "retailer": "Home Hub",
+    "price": ".52",
+    "warranty_period": {
+     "value": 3,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "Kilo",
+     "3"
+    ],
+    "notes": "The cereal is P as in Peter, W as in William, 8, 0, 0, 0, K as in Kilo, 3. Bought on February 10th at Home Hub for 520 Euros, 3 year warranty.",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-05"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 9,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-006",
+   "valid": true,
+   "prompt_tokens": 759,
+   "latency_ms": 549,
+   "n_prompt": 759,
+   "n_gen": 137,
+   "prefill_ms": 35.127625,
+   "decode_ms": 512.192458,
+   "raw_output": {
+    "product": "401",
+    "brand": "Fourth Coffee",
+    "model": "401",
+    "serial_number": "401",
+    "purchase_date": "2026-03-02",
+    "retailer": "Fourth Coffee",
+    "price": "$12",
+    "warranty_period": {
+     "value": 30,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone numbers",
+     "emails",
+     "websites"
+    ],
+    "notes": "This is a note about the phone case from Fourth Coffee."
+   },
+   "output": {
+    "product": "401",
+    "brand": "Fourth Coffee",
+    "model": "401",
+    "serial_number": "401",
+    "purchase_date": "2026-03-02",
+    "retailer": "Fourth Coffee",
+    "price": "$12",
+    "warranty_period": {
+     "value": 30,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone numbers",
+     "emails",
+     "websites"
+    ],
+    "notes": "This is a note about the phone case from Fourth Coffee.",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-04-01"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": true,
+      "fuzzy": true
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 10,
+    "ungrounded": 6
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-007",
+   "valid": true,
+   "prompt_tokens": 776,
+   "latency_ms": 613,
+   "n_prompt": 776,
+   "n_gen": 132,
+   "prefill_ms": 34.965375,
+   "decode_ms": 575.792125,
+   "raw_output": {
+    "product": "Electric Kettle, Contazzo Boil Max.",
+    "brand": "Electro-Kettle",
+    "model": "Contazzo Boil Max",
+    "serial_number": "35",
+    "purchase_date": "2026-03-02",
+    "retailer": "North Wind Market",
+    "price": ".35",
+    "warranty_period": {
+     "value": 12,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": null
+   },
+   "output": {
+    "product": "Electric Kettle, Contazzo Boil Max.",
+    "brand": "Electro-Kettle",
+    "model": "Contazzo Boil Max",
+    "serial_number": "35",
+    "purchase_date": "2026-03-02",
+    "retailer": "North Wind Market",
+    "price": ".35",
+    "warranty_period": {
+     "value": 12,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": null,
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-14"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 9,
+    "ungrounded": 3
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-008",
+   "valid": true,
+   "prompt_tokens": 807,
+   "latency_ms": 663,
+   "n_prompt": 807,
+   "n_gen": 150,
+   "prefill_ms": 38.048083,
+   "decode_ms": 620.04175,
+   "raw_output": {
+    "product": "Fabric and Clean Bot 2",
+    "brand": "Fabric and Clean Bot",
+    "model": "Fabric and Clean Bot",
+    "serial_number": "2",
+    "purchase_date": "2026-03-02",
+    "retailer": "Fabric and Clean Bot",
+    "price": "$299",
+    "warranty_period": {
+     "value": 3,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "<email>",
+     "<phone>"
+    ],
+    "notes": "Notifications for support on sale at home hub on Saturday for $299"
+   },
+   "output": {
+    "product": "Fabric and Clean Bot 2",
+    "brand": "Fabric and Clean Bot",
+    "model": "Fabric and Clean Bot",
+    "serial_number": "2",
+    "purchase_date": "2026-03-02",
+    "retailer": "Fabric and Clean Bot",
+    "price": "$299",
+    "warranty_period": {
+     "value": 3,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "<email>",
+     "<phone>"
+    ],
+    "notes": "Notifications for support on sale at home hub on Saturday for $299",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-05"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.375
+    },
+    "extracted": 9,
+    "ungrounded": 3
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-009",
+   "valid": true,
+   "prompt_tokens": 712,
+   "latency_ms": 621,
+   "n_prompt": 712,
+   "n_gen": 152,
+   "prefill_ms": 34.872833,
+   "decode_ms": 584.675541,
+   "raw_output": {
+    "product": "What was bought",
+    "brand": "Milk",
+    "model": "Lemon Milk",
+    "serial_number": "1234567890",
+    "purchase_date": "2026-03-02",
+    "retailer": "Amazon",
+    "price": ",$1,299.99",
+    "warranty_period": {
+     "value": 40,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": "This is a note about the product, and I'm not sure if it's useful."
+   },
+   "output": {
+    "product": "What was bought",
+    "brand": "Milk",
+    "model": "Lemon Milk",
+    "serial_number": "1234567890",
+    "purchase_date": "2026-03-02",
+    "retailer": "Amazon",
+    "price": ",$1,299.99",
+    "warranty_period": {
+     "value": 40,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": "This is a note about the product, and I'm not sure if it's useful.",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-04-11"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 9,
+    "ungrounded": 9
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-010",
+   "valid": true,
+   "prompt_tokens": 776,
+   "latency_ms": 610,
+   "n_prompt": 776,
+   "n_gen": 139,
+   "prefill_ms": 34.369583,
+   "decode_ms": 573.252625,
+   "raw_output": {
+    "product": "TV",
+    "brand": "Lumina Vision",
+    "model": "55",
+    "serial_number": "899",
+    "purchase_date": "2026-03-02",
+    "retailer": "Adventure Electronics",
+    "price": "1,499.99",
+    "warranty_period": {
+     "value": 2,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "<email>"
+    ],
+    "notes": "I bought a 3-year extended warranty for 99 euros."
+   },
+   "output": {
+    "product": "TV",
+    "brand": "Lumina Vision",
+    "model": "55",
+    "serial_number": "899",
+    "purchase_date": "2026-03-02",
+    "retailer": "Adventure Electronics",
+    "price": "1,499.99",
+    "warranty_period": {
+     "value": 2,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "<email>"
+    ],
+    "notes": "I bought a 3-year extended warranty for 99 euros.",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-04"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 8,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-011",
+   "valid": true,
+   "prompt_tokens": 758,
+   "latency_ms": 1002129,
+   "n_prompt": 758,
+   "n_gen": 176,
+   "prefill_ms": 35.65925,
+   "decode_ms": 1002091.218042,
+   "raw_output": {
+    "product": "T10",
+    "brand": "T10",
+    "model": "T10",
+    "serial_number": "10532",
+    "purchase_date": "2026-03-02",
+    "retailer": "Wingtip",
+    "price": "$150",
+    "warranty_period": {
+     "value": 0,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "<email>@wingtip.com</email>",
+     "<phone>+44(781) 236-955-555"
+    ],
+    "notes": "Wingtip has a warranty of 3 years and 00:00:16."
+   },
+   "output": {
+    "product": "T10",
+    "brand": "T10",
+    "model": "T10",
+    "serial_number": "10532",
+    "purchase_date": "2026-03-02",
+    "retailer": "Wingtip",
+    "price": "$150",
+    "warranty_period": {
+     "value": 0,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "<email>@wingtip.com</email>",
+     "<phone>+44(781) 236-955-555"
+    ],
+    "notes": "Wingtip has a warranty of 3 years and 00:00:16.",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-02"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.14814814814814814
+    },
+    "extracted": 9,
+    "ungrounded": 4
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-012",
+   "valid": true,
+   "prompt_tokens": 773,
+   "latency_ms": 656,
+   "n_prompt": 773,
+   "n_gen": 136,
+   "prefill_ms": 39.440792,
+   "decode_ms": 612.803041,
+   "raw_output": {
+    "product": "500",
+    "brand": "500",
+    "model": "500",
+    "serial_number": "500",
+    "purchase_date": "2026-03-02",
+    "retailer": "500",
+    "price": ".1999999999999999",
+    "warranty_period": {
+     "value": 0,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": null
+   },
+   "output": {
+    "product": "500",
+    "brand": "500",
+    "model": "500",
+    "serial_number": "500",
+    "purchase_date": "2026-03-02",
+    "retailer": "500",
+    "price": ".1999999999999999",
+    "warranty_period": {
+     "value": 0,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": null,
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-02"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 9,
+    "ungrounded": 4
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-013",
+   "valid": true,
+   "prompt_tokens": 785,
+   "latency_ms": 500,
+   "n_prompt": 785,
+   "n_gen": 115,
+   "prefill_ms": 36.115,
+   "decode_ms": 459.717042,
+   "raw_output": {
+    "product": "Contoso",
+    "brand": "Mesh 3",
+    "model": "A",
+    "serial_number": "4",
+    "purchase_date": "2026-03-02",
+    "retailer": "North Wind Market",
+    "price": "$129",
+    "warranty_period": {
+     "value": 3,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "<email>"
+    ],
+    "notes": null
+   },
+   "output": {
+    "product": "Contoso",
+    "brand": "Mesh 3",
+    "model": "A",
+    "serial_number": "4",
+    "purchase_date": "2026-03-02",
+    "retailer": "North Wind Market",
+    "price": "$129",
+    "warranty_period": {
+     "value": 3,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "<email>"
+    ],
+    "notes": null,
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-05"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 8,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-014",
+   "valid": true,
+   "prompt_tokens": 767,
+   "latency_ms": 785,
+   "n_prompt": 767,
+   "n_gen": 185,
+   "prefill_ms": 35.519875,
+   "decode_ms": 747.278875,
+   "raw_output": {
+    "product": "Electric toothbrush",
+    "brand": "Fabricum Smile 9",
+    "model": "Fabrikum Smile 9",
+    "serial_number": "79",
+    "purchase_date": "2026-03-02",
+    "retailer": "1-800-555-0142",
+    "price": "€14.99",
+    "warranty_period": {
+     "value": 2,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "1-800-555-0142"
+    ],
+    "notes": "Fabrikum Smile 9 is a great toothbrush for all your brushing needs. It's made with high-quality materials and comes with a warranty of 2 years."
+   },
+   "output": {
+    "product": "Electric toothbrush",
+    "brand": "Fabricum Smile 9",
+    "model": "Fabrikum Smile 9",
+    "serial_number": "79",
+    "purchase_date": "2026-03-02",
+    "retailer": "1-800-555-0142",
+    "price": "€14.99",
+    "warranty_period": {
+     "value": 2,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "1-800-555-0142"
+    ],
+    "notes": "Fabrikum Smile 9 is a great toothbrush for all your brushing needs. It's made with high-quality materials and comes with a warranty of 2 years.",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-04"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 8,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-015",
+   "valid": true,
+   "prompt_tokens": 804,
+   "latency_ms": 563,
+   "n_prompt": 804,
+   "n_gen": 130,
+   "prefill_ms": 36.379834,
+   "decode_ms": 522.956917,
+   "raw_output": {
+    "product": "Wingtip Cycles",
+    "brand": "7",
+    "model": "7",
+    "serial_number": "7",
+    "purchase_date": "2026-03-02",
+    "retailer": "Wingtip Cycles downtown on April 2",
+    "price": "$740 at Wingtip Cycles",
+    "warranty_period": {
+     "value": 5,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": null
+   },
+   "output": {
+    "product": "Wingtip Cycles",
+    "brand": "7",
+    "model": "7",
+    "serial_number": "7",
+    "purchase_date": "2026-03-02",
+    "retailer": "Wingtip Cycles downtown on April 2",
+    "price": "$740 at Wingtip Cycles",
+    "warranty_period": {
+     "value": 5,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": null,
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-07"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 9,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-016",
+   "valid": true,
+   "prompt_tokens": 804,
+   "latency_ms": 612,
+   "n_prompt": 804,
+   "n_gen": 137,
+   "prefill_ms": 35.490042,
+   "decode_ms": 573.986209,
+   "raw_output": {
+    "product": "X2",
+    "brand": "L",
+    "model": "X2",
+    "serial_number": "0",
+    "purchase_date": "12 March for £1,150",
+    "retailer": "Adventure Photo on 12 March for £1,150",
+    "price": "£1,150",
+    "warranty_period": {
+     "value": 30,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "support@support.litware.example."
+    ],
+    "notes": null
+   },
+   "output": {
+    "product": "X2",
+    "brand": "L",
+    "model": "X2",
+    "serial_number": "0",
+    "purchase_date": "12 March for £1,150",
+    "retailer": "Adventure Photo on 12 March for £1,150",
+    "price": "£1,150",
+    "warranty_period": {
+     "value": 30,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "support@support.litware.example."
+    ],
+    "notes": null,
+    "purchase_date_iso": null,
+    "warranty_expiry": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 8,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-017",
+   "valid": true,
+   "prompt_tokens": 889,
+   "latency_ms": 827,
+   "n_prompt": 889,
+   "n_gen": 204,
+   "prefill_ms": 35.667791,
+   "decode_ms": 789.370375,
+   "raw_output": {
+    "product": "Proseo Acool 300",
+    "brand": "Home Hub",
+    "model": "Home Hub",
+    "serial_number": "300-555-0177",
+    "purchase_date": "2026-03-02",
+    "retailer": "Home Hub",
+    "price": "€1,299",
+    "warranty_period": {
+     "value": 2,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "P:C:3:0, 0:7, 2:2"
+    ],
+    "notes": "The fridge is a Proseo Acool 300, the big one with the ice makeup. The cereal is on the back, P, C, 3, 0, 0, 7, 2, 2, 1."
+   },
+   "output": {
+    "product": "Proseo Acool 300",
+    "brand": "Home Hub",
+    "model": "Home Hub",
+    "serial_number": "3005550177",
+    "purchase_date": "2026-03-02",
+    "retailer": "Home Hub",
+    "price": "€1,299",
+    "warranty_period": {
+     "value": 2,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "P:C:3:0, 0:7, 2:2"
+    ],
+    "notes": "The fridge is a Proseo Acool 300, the big one with the ice makeup. The cereal is on the back, P, C, 3, 0, 0, 7, 2, 2, 1.",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-04"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.28169014084507044
+    },
+    "extracted": 8,
+    "ungrounded": 2
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-018",
+   "valid": true,
+   "prompt_tokens": 755,
+   "latency_ms": 1001924,
+   "n_prompt": 755,
+   "n_gen": 151,
+   "prefill_ms": 35.139584,
+   "decode_ms": 1001884.792125,
+   "raw_output": {
+    "product": "Borta Contoso Air Fryer, Model CRISP 4",
+    "brand": "Borta Contoso Air Fryer",
+    "model": "CRISP 4",
+    "serial_number": "4",
+    "purchase_date": "2026-03-02",
+    "retailer": "Northwind Market",
+    "price": "$99.00",
+    "warranty_period": {
+     "value": 1,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": "Not sure about the warranty, need to check the manual."
+   },
+   "output": {
+    "product": "Borta Contoso Air Fryer, Model CRISP 4",
+    "brand": "Borta Contoso Air Fryer",
+    "model": "CRISP 4",
+    "serial_number": "4",
+    "purchase_date": "2026-03-02",
+    "retailer": "Northwind Market",
+    "price": "$99.00",
+    "warranty_period": {
+     "value": 1,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": "Not sure about the warranty, need to check the manual.",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-03"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 9,
+    "ungrounded": 3
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-019",
+   "valid": true,
+   "prompt_tokens": 779,
+   "latency_ms": 616,
+   "n_prompt": 779,
+   "n_gen": 116,
+   "prefill_ms": 35.784,
+   "decode_ms": 578.294875,
+   "raw_output": {
+    "product": "Product",
+    "brand": "Brand",
+    "model": "Model",
+    "serial_number": "Serial Number",
+    "purchase_date": "Purchase Date",
+    "retailer": "Retailer",
+    "price": "Price with currency as spoken",
+    "warranty_period": {
+     "value": 30,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone numbers",
+     "emails"
+    ],
+    "notes": "Other useful details"
+   },
+   "output": {
+    "product": "Product",
+    "brand": "Brand",
+    "model": "Model",
+    "serial_number": null,
+    "purchase_date": "Purchase Date",
+    "retailer": "Retailer",
+    "price": "Price with currency as spoken",
+    "warranty_period": {
+     "value": 30,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone numbers",
+     "emails"
+    ],
+    "notes": "Other useful details",
+    "purchase_date_iso": null,
+    "warranty_expiry": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.24561403508771928
+    },
+    "extracted": 8,
+    "ungrounded": 8
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-020",
+   "valid": true,
+   "prompt_tokens": 774,
+   "latency_ms": 651,
+   "n_prompt": 774,
+   "n_gen": 149,
+   "prefill_ms": 35.946417,
+   "decode_ms": 613.13225,
+   "raw_output": {
+    "product": "Wintip",
+    "brand": "Wintip",
+    "model": "Wintip",
+    "serial_number": "1234567890",
+    "purchase_date": "2026-03-02",
+    "retailer": "Wintip",
+    "price": "$329",
+    "warranty_period": {
+     "value": 3,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": "Buy on October 1 from Wintip and have a warranty of 3 years."
+   },
+   "output": {
+    "product": "Wintip",
+    "brand": "Wintip",
+    "model": "Wintip",
+    "serial_number": "1234567890",
+    "purchase_date": "2026-03-02",
+    "retailer": "Wintip",
+    "price": "$329",
+    "warranty_period": {
+     "value": 3,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": "Buy on October 1 from Wintip and have a warranty of 3 years.",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-05"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 9,
+    "ungrounded": 4
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-021",
+   "valid": true,
+   "prompt_tokens": 748,
+   "latency_ms": 569,
+   "n_prompt": 748,
+   "n_gen": 140,
+   "prefill_ms": 35.990625,
+   "decode_ms": 531.55575,
+   "raw_output": {
+    "product": "SmartWatch",
+    "brand": "Litwa Pals 3",
+    "model": "Lumina 2",
+    "serial_number": "1234567890",
+    "purchase_date": "2026-03-02",
+    "retailer": "International",
+    "price": ".00",
+    "warranty_period": {
+     "value": 1,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email",
+     "website"
+    ],
+    "notes": "This is a note about the product."
+   },
+   "output": {
+    "product": "SmartWatch",
+    "brand": "Litwa Pals 3",
+    "model": "Lumina 2",
+    "serial_number": "1234567890",
+    "purchase_date": "2026-03-02",
+    "retailer": "International",
+    "price": ".00",
+    "warranty_period": {
+     "value": 1,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email",
+     "website"
+    ],
+    "notes": "This is a note about the product.",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-03"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.25925925925925924
+    },
+    "extracted": 10,
+    "ungrounded": 6
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-022",
+   "valid": true,
+   "prompt_tokens": 813,
+   "latency_ms": 751,
+   "n_prompt": 813,
+   "n_gen": 173,
+   "prefill_ms": 35.777833,
+   "decode_ms": 713.147417,
+   "raw_output": {
+    "product": "Espresso Machine",
+    "brand": "Kitchen Depot",
+    "model": "Contazzo Barista Pro",
+    "serial_number": "P5",
+    "purchase_date": "2026-03-02",
+    "retailer": "Kitchen Depot on Monday for 459 euros, 2 years warranty",
+    "price": "459 euros",
+    "warranty_period": null,
+    "support_contacts": [
+     "0800 555 0111",
+     "0800 555 0111",
+     "0800 555 0111"
+    ],
+    "notes": null
+   },
+   "output": {
+    "product": "Espresso Machine",
+    "brand": "Kitchen Depot",
+    "model": "Contazzo Barista Pro",
+    "serial_number": "P5",
+    "purchase_date": "2026-03-02",
+    "retailer": "Kitchen Depot on Monday for 459 euros, 2 years warranty",
+    "price": "459 euros",
+    "warranty_period": null,
+    "support_contacts": [
+     "0800 555 0111"
+    ],
+    "notes": null,
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 8,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-023",
+   "valid": true,
+   "prompt_tokens": 774,
+   "latency_ms": 543,
+   "n_prompt": 774,
+   "n_gen": 134,
+   "prefill_ms": 34.991583,
+   "decode_ms": 506.428208,
+   "raw_output": {
+    "product": "Fabricum Hairdryer",
+    "brand": "Fabricum",
+    "model": "Bloom",
+    "serial_number": "2026-03-02",
+    "purchase_date": "2026-03-02",
+    "retailer": "Home Hub",
+    "price": "$49.00",
+    "warranty_period": {
+     "value": 99,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "email@homehub.com"
+    ],
+    "notes": null
+   },
+   "output": {
+    "product": "Fabricum Hairdryer",
+    "brand": "Fabricum",
+    "model": "Bloom",
+    "serial_number": "20260302",
+    "purchase_date": "2026-03-02",
+    "retailer": "Home Hub",
+    "price": "$49.00",
+    "warranty_period": {
+     "value": 99,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "email@homehub.com"
+    ],
+    "notes": null,
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-06-09"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 8,
+    "ungrounded": 4
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-024",
+   "valid": true,
+   "prompt_tokens": 752,
+   "latency_ms": 638,
+   "n_prompt": 752,
+   "n_gen": 164,
+   "prefill_ms": 36.878125,
+   "decode_ms": 599.066333,
+   "raw_output": {
+    "product": "Proseo Asleep",
+    "brand": "Proseo Asleep",
+    "model": "Proseo Asleep",
+    "serial_number": "00000000000000000000000000000000",
+    "purchase_date": "2026-03-02",
+    "retailer": "North Wind Furniture",
+    "price": "$800.10 year warranty",
+    "warranty_period": {
+     "value": 30,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": null
+   },
+   "output": {
+    "product": "Proseo Asleep",
+    "brand": "Proseo Asleep",
+    "model": "Proseo Asleep",
+    "serial_number": "00000000000000000000000000000000",
+    "purchase_date": "2026-03-02",
+    "retailer": "North Wind Furniture",
+    "price": "$800.10 year warranty",
+    "warranty_period": {
+     "value": 30,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": null,
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-04-01"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 1.0
+    },
+    "extracted": 9,
+    "ungrounded": 4
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-025",
+   "valid": true,
+   "prompt_tokens": 760,
+   "latency_ms": 512,
+   "n_prompt": 760,
+   "n_gen": 120,
+   "prefill_ms": 35.6165,
+   "decode_ms": 474.332791,
+   "raw_output": {
+    "product": "printer",
+    "brand": "tailspinjet200",
+    "model": "seven",
+    "serial_number": "seven",
+    "purchase_date": "2026-03-02",
+    "retailer": "wingtip store",
+    "price": "",
+    "warranty_period": {
+     "value": 119,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "one year warranty"
+    ],
+    "notes": "not known"
+   },
+   "output": {
+    "product": "printer",
+    "brand": "tailspinjet200",
+    "model": "seven",
+    "serial_number": "7",
+    "purchase_date": "2026-03-02",
+    "retailer": "wingtip store",
+    "price": "",
+    "warranty_period": {
+     "value": 119,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "one year warranty"
+    ],
+    "notes": "not known",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-06-29"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 7,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-026",
+   "valid": true,
+   "prompt_tokens": 809,
+   "latency_ms": 1044939,
+   "n_prompt": 809,
+   "n_gen": 145,
+   "prefill_ms": 1044066.018917,
+   "decode_ms": 870.05675,
+   "raw_output": {
+    "product": "Lumina 15",
+    "brand": "Litware",
+    "model": "Orange",
+    "serial_number": "5",
+    "purchase_date": "2026-03-02",
+    "retailer": "Adventure Mobile",
+    "price": "$699",
+    "warranty_period": {
+     "value": 1,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": "This is a new phone, and it's one year old. The store adds another year to the warranty period."
+   },
+   "output": {
+    "product": "Lumina 15",
+    "brand": "Litware",
+    "model": "Orange",
+    "serial_number": "5",
+    "purchase_date": "2026-03-02",
+    "retailer": "Adventure Mobile",
+    "price": "$699",
+    "warranty_period": {
+     "value": 1,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": "This is a new phone, and it's one year old. The store adds another year to the warranty period.",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-03"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.7659574468085106
+    },
+    "extracted": 9,
+    "ungrounded": 3
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-027",
+   "valid": true,
+   "prompt_tokens": 778,
+   "latency_ms": 616,
+   "n_prompt": 778,
+   "n_gen": 130,
+   "prefill_ms": 35.778583,
+   "decode_ms": 577.951334,
+   "raw_output": {
+    "product": "winter tyres",
+    "brand": "wingtip tyres",
+    "model": "snow grip",
+    "serial_number": "480",
+    "purchase_date": "2026-03-02",
+    "retailer": "North Wind Auto",
+    "price": "",
+    "warranty_period": {
+     "value": 4,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": "1234567890"
+   },
+   "output": {
+    "product": "winter tyres",
+    "brand": "wingtip tyres",
+    "model": "snow grip",
+    "serial_number": "480",
+    "purchase_date": "2026-03-02",
+    "retailer": "North Wind Auto",
+    "price": "",
+    "warranty_period": {
+     "value": 4,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": "1234567890",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-03-06"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.023255813953488372
+    },
+    "extracted": 8,
+    "ungrounded": 3
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-028",
+   "valid": true,
+   "prompt_tokens": 780,
+   "latency_ms": 584,
+   "n_prompt": 780,
+   "n_gen": 143,
+   "prefill_ms": 35.672625,
+   "decode_ms": 546.367459,
+   "raw_output": {
+    "product": "Fabrikum Type 87",
+    "brand": "Fabrikum",
+    "model": "Type 87",
+    "serial_number": "109",
+    "purchase_date": "2026-03-02",
+    "retailer": "Contoso",
+    "price": "$109.00",
+    "warranty_period": {
+     "value": 30,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": "Sorry, unwinked it online, two days ago."
+   },
+   "output": {
+    "product": "Fabrikum Type 87",
+    "brand": "Fabrikum",
+    "model": "Type 87",
+    "serial_number": "109",
+    "purchase_date": "2026-03-02",
+    "retailer": "Contoso",
+    "price": "$109.00",
+    "warranty_period": {
+     "value": 30,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone number",
+     "email"
+    ],
+    "notes": "Sorry, unwinked it online, two days ago.",
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-04-01"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 9,
+    "ungrounded": 3
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-029",
+   "valid": true,
+   "prompt_tokens": 810,
+   "latency_ms": 597,
+   "n_prompt": 810,
+   "n_gen": 148,
+   "prefill_ms": 35.47425,
+   "decode_ms": 559.391,
+   "raw_output": {
+    "product": "Sierrael P. B. 6",
+    "brand": "Sierrael",
+    "model": "Sierrael",
+    "serial_number": "020-555-0166",
+    "purchase_date": "2 February, 750 euros",
+    "retailer": "Botat Kitchen Depot",
+    "price": "30 euros",
+    "warranty_period": {
+     "value": 5,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "botat.com"
+    ],
+    "notes": "This is a note about the warranty period of the product."
+   },
+   "output": {
+    "product": "Sierrael P. B. 6",
+    "brand": "Sierrael",
+    "model": "Sierrael",
+    "serial_number": "0205550166",
+    "purchase_date": "2 February, 750 euros",
+    "retailer": "Botat Kitchen Depot",
+    "price": "30 euros",
+    "warranty_period": {
+     "value": 5,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "botat.com"
+    ],
+    "notes": "This is a note about the warranty period of the product.",
+    "purchase_date_iso": null,
+    "warranty_expiry": null
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "brand": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": true
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 8,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "warranty-030",
+   "valid": true,
+   "prompt_tokens": 757,
+   "latency_ms": 629,
+   "n_prompt": 757,
+   "n_gen": 159,
+   "prefill_ms": 34.812875,
+   "decode_ms": 592.296791,
+   "raw_output": {
+    "product": "Bluetooth speaker",
+    "brand": "Contoso",
+    "model": "Bluetooth speaker",
+    "serial_number": "00000000000000000000000000000000",
+    "purchase_date": "2026-03-02",
+    "retailer": "Adventure Audio",
+    "price": "$19.99",
+    "warranty_period": {
+     "value": 30,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone numbers",
+     "emails"
+    ],
+    "notes": null
+   },
+   "output": {
+    "product": "Bluetooth speaker",
+    "brand": "Contoso",
+    "model": "Bluetooth speaker",
+    "serial_number": "00000000000000000000000000000000",
+    "purchase_date": "2026-03-02",
+    "retailer": "Adventure Audio",
+    "price": "$19.99",
+    "warranty_period": {
+     "value": 30,
+     "unit": "days"
+    },
+    "support_contacts": [
+     "phone numbers",
+     "emails"
+    ],
+    "notes": null,
+    "purchase_date_iso": "2026-03-02",
+    "warranty_expiry": "2026-04-01"
+   },
+   "score": {
+    "scalars": {
+     "product": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "brand": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "model": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "serial_number": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "purchase_date": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "retailer": {
+      "exact": true,
+      "fuzzy": true
+     },
+     "price": {
+      "exact": false,
+      "fuzzy": false
+     },
+     "warranty_period": {
+      "exact": false,
+      "fuzzy": false
+     }
+    },
+    "lists": {
+     "support_contacts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "notes": 0.0
+    },
+    "extracted": 9,
+    "ungrounded": 5
+   },
+   "issues": []
+  }
+ ]
+}

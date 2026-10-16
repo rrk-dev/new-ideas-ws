@@ -1,13 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/features/profiles/data/profile_providers.dart';
 import 'package:vaultvoice/features/profiles/domain/extraction_prompts.dart';
+import 'package:vaultvoice/features/profiles/domain/profile.dart';
 import 'package:vaultvoice/features/profiles/domain/prompt_builder.dart';
 
 import '../../helpers/test_container.dart';
 import 'profile_fixtures.dart';
 
 void main() {
-  final meeting = builtinProfile('meeting');
+  final meeting = Profile.fromJson(builtinMapWithExample('meeting'));
   final meta = PromptMetadata(
     recordedAt: DateTime(2026, 3, 2),
     duration: const Duration(minutes: 2),

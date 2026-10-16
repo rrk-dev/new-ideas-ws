@@ -186,7 +186,7 @@ void main() {
         expect(fm['type'], 'meeting', reason: c.id);
         expect(fm['date'], isNotNull, reason: c.id);
         expect(fm['tags'], isA<YamlList>(), reason: c.id);
-        final items = (c.expected['action_items']! as List).length;
+        final items = (processed(p, c)['action_items']! as List).length;
         final tasks = RegExp(r'^- \[ \] ', multiLine: true).allMatches(md);
         expect(tasks.length, items, reason: '${c.id} task lines');
         if (items == 0) expect(md, contains('_No action items._'));
@@ -305,12 +305,15 @@ void main() {
       for (final c in casesOf('engineering')) {
         final md = renderCase(p, c);
         expectLintClean(md, c.id);
-        final hasTradeoffs = (c.expected['tradeoffs']! as List).isNotEmpty;
+        final out = processed(p, c);
+        final hasTradeoffs = (out['tradeoffs']! as List).isNotEmpty;
         if (hasTradeoffs) {
           expect(md, contains('| Option |'), reason: c.id);
           tables++;
         }
-        if ((c.expected['api_designs']! as List).isNotEmpty) {
+        if ((out['api_designs']! as List).any(
+          (a) => ((a as Map)['endpoints_or_signatures'] as List).isNotEmpty,
+        )) {
           expect(md, contains('```'), reason: c.id);
           fenced++;
         }

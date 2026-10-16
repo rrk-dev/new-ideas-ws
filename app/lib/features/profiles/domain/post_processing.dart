@@ -9,6 +9,10 @@ import 'package:vaultvoice/features/profiles/domain/post_processors.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
 import 'package:vaultvoice/features/profiles/domain/profile_schema.dart';
 import 'package:vaultvoice/features/profiles/domain/prompt_inputs.dart';
+import 'package:vaultvoice/features/profiles/domain/transcript_grounding.dart';
+
+export 'package:vaultvoice/features/profiles/domain/transcript_grounding.dart'
+    show GroundingStats;
 
 /// What the post-processors may look at besides the extraction JSON.
 /// Immutable; plain Dart (also used by the `dart run` eval tool).
@@ -18,6 +22,7 @@ final class PostProcessContext {
     this.speakerNames = const [],
     this.speakerAliases = const {},
     this.lineSpeakers = const {},
+    this.transcriptText = '',
   });
 
   /// From the `[hh:mm:ss] Name: text` transcript lines the prompt showed
@@ -30,7 +35,9 @@ final class PostProcessContext {
   }) {
     final bySecond = <String, String?>{};
     final names = <String>{};
+    final text = <String>[];
     for (final raw in lines.split('\n')) {
+      text.add(raw.trim().replaceFirst(_stamp, ''));
       final m = _line.firstMatch(raw.trim());
       if (m == null) continue;
       final name = m.group(2)?.trim();
@@ -50,6 +57,7 @@ final class PostProcessContext {
       speakerNames: names.toList(),
       speakerAliases: aliases,
       lineSpeakers: bySecond,
+      transcriptText: text.join('\n'),
     );
   }
 
@@ -65,20 +73,37 @@ final class PostProcessContext {
   /// `hh:mm:ss` of every transcript line → its speaker (null = unlabelled).
   final Map<String, String?> lineSpeakers;
 
+  /// Transcript lines without their `[hh:mm:ss]` stamps (speaker names
+  /// kept): what `ground_to_transcript` checks the output against. Empty =
+  /// grounding is skipped.
+  final String transcriptText;
+
   Set<String> get timestamps => lineSpeakers.keys.toSet();
 }
+
+final _stamp = RegExp(r'^\[\d{2}:\d{2}:\d{2}\]\s*');
 
 final _line = RegExp(r'^\[(\d{2}:\d{2}:\d{2})\]\s*(?:([^:\]]{1,60}):\s)?');
 
 /// Applies [profile]'s `post_process` list, in order, to a copy of
 /// [extraction] (a schema-valid result). Unknown shapes are left alone —
 /// a post-processor never throws on model output.
+///
+/// `dedupe_lists` always runs first, whether listed or not: small models
+/// sometimes repeat one item until `maxItems`. Counts of removed content go
+/// to [stats] (numbers only — never log item text).
 Map<String, Object?> applyPostProcessors(
   Profile profile,
   Map<String, Object?> extraction,
-  PostProcessContext context,
-) {
+  PostProcessContext context, {
+  GroundingStats? stats,
+}) {
   final out = _deepCopy(extraction)! as Map<String, Object?>;
+  _visitLists(out, (list) {
+    final before = list.length;
+    dedupeList(list);
+    stats?.duplicatesDropped += before - list.length;
+  });
   for (final p in profile.postProcess) {
     switch (p) {
       case PostProcessor.normalizeSerial:
@@ -113,6 +138,14 @@ Map<String, Object?> applyPostProcessors(
         out[kWarrantyExpiryField] = _expiryOf(out, context.recordedAt);
       case PostProcessor.dedupeLists:
         _visitLists(out, dedupeList);
+      case PostProcessor.groundToTranscript:
+        final grounding = TranscriptGrounding(
+          context.transcriptText,
+          names: context.speakerNames,
+        );
+        if (!grounding.isEmpty) {
+          _ground(out, profile.schema, grounding, stats ?? GroundingStats());
+        }
     }
   }
   return out;
@@ -680,6 +713,68 @@ String _dedupeKey(Object? item) => switch (item) {
 void dedupeList(List<Object?> list) {
   final seen = <String>{};
   list.retainWhere((item) => seen.add(_dedupeKey(item)));
+}
+
+// ---------------------------------------------------------------- grounding
+
+/// Root prose fields checked by `ground_to_transcript` besides lists.
+const _titleKey = 'title';
+const _proseKeys = {'summary', 'context'};
+
+void _ground(
+  Map<String, Object?> root,
+  ObjectSchema schema,
+  TranscriptGrounding g,
+  GroundingStats stats,
+) {
+  _groundNode(root, g, stats);
+  for (final key in [_titleKey, ..._proseKeys]) {
+    final value = root[key];
+    final node = schema.properties[key];
+    if (value is! String || value.trim().isEmpty || node is! StringSchema) {
+      continue;
+    }
+    final isTitle = key == _titleKey;
+    if (g.supports(
+      value,
+      minShare: isTitle ? kGroundedShare : kProseGroundedShare,
+    )) {
+      continue;
+    }
+    stats.proseReplaced++;
+    if (node.nullable) {
+      root[key] = null;
+    } else {
+      root[key] = g.leadingText(
+        maxSentences: isTitle ? 1 : 3,
+        maxLength: node.maxLength,
+      );
+    }
+  }
+}
+
+/// Prunes lists bottom-up (so an option whose pros/cons were all invented
+/// loses its text support) and clears owners nobody named.
+void _groundNode(Object? node, TranscriptGrounding g, GroundingStats stats) {
+  if (node is Map<String, Object?>) {
+    for (final v in node.values) {
+      _groundNode(v, g, stats);
+    }
+    if (node['owner'] case final String owner
+        when owner.trim().isNotEmpty && !g.supports(owner)) {
+      node['owner'] = null;
+      stats.ownersCleared++;
+    }
+  } else if (node is List<Object?>) {
+    for (final v in node) {
+      _groundNode(v, g, stats);
+    }
+    if (node.every((e) => e is String || e is Map)) {
+      final before = node.length;
+      node.retainWhere((e) => g.supports(g.claimText(e)));
+      stats.itemsDropped += before - node.length;
+    }
+  }
 }
 
 // ---------------------------------------------------------------- helpers

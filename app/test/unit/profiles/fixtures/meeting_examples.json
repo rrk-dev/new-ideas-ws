@@ -1,0 +1,30 @@
+[
+ {
+  "transcript": "[00:00:05] Priya: Let's lock the API version today. We go with v2.\n[00:00:12] Sam: Fine. I'll update the client SDK by Friday.\n[00:00:20] Priya: Still unclear who owns the migration guide.\n",
+  "output": {
+   "title": "API version decision",
+   "summary": "The team agreed to standardize on API v2. Sam will update the client SDK. Ownership of the migration guide is still open.",
+   "attendees": [
+    "Priya",
+    "Sam"
+   ],
+   "decisions": [
+    "Use API v2"
+   ],
+   "action_items": [
+    {
+     "task": "Update the client SDK to API v2",
+     "owner": "Sam",
+     "due": "Friday",
+     "t": "00:00:12"
+    }
+   ],
+   "open_questions": [
+    "Who owns the migration guide?"
+   ],
+   "topics": [
+    "API versioning"
+   ]
+  }
+ }
+]

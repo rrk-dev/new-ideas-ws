@@ -37,7 +37,9 @@ void main() {
   });
 
   Map<String, Object?> userDef({String id = 'team-sync'}) =>
-      builtinMap('meeting')..['id'] = id;
+      builtinMap('meeting')
+        ..['id'] = id
+        ..['version'] = 1;
 
   test('built-ins come from assets and are never written to the DB', () async {
     final all = await StreamProbe(registry.watchAll()).settled;

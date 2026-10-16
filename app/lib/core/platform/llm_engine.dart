@@ -3,7 +3,8 @@ import 'package:vaultvoice/core/platform/cancel_token.dart';
 
 /// Sampling presets (vv-llm-inference → "Sampling presets").
 enum LlmPreset {
-  /// Grammar + temp 0.2, min_p 0.05, top_k 40, no repeat penalty, seed 42.
+  /// Grammar + temp 0.2, min_p 0.05, top_k 40, repeat penalty 1.05 (last 64
+  /// tokens), seed 42.
   extraction,
 
   /// Greedy (temperature 0), seed 42 — tests and repair attempts.

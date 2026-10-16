@@ -27,6 +27,17 @@ final BuiltinProfiles _builtins = BuiltinProfiles.parse({
   for (final a in kBuiltinProfileAssets) a: File(a).readAsStringSync(),
 });
 
+/// The built-in without `ground_to_transcript`: these wiring tests script
+/// the model's answer, while the fake STT transcript is just `chunk_0`
+/// (grounding is covered by `extraction_grounding_test.dart`).
+Profile? _ungrounded(String id) {
+  final p = _builtins[id];
+  if (p == null) return null;
+  final json = p.toJson();
+  (json['post_process']! as List).remove('ground_to_transcript');
+  return Profile.fromJson(json);
+}
+
 const Map<String, Object?> _validMeeting = {
   'title': 'Release sync',
   'summary': 'We agreed on the date.',
@@ -64,7 +75,7 @@ class _Run {
         stt: stt,
         llm: llm,
         vault: vault,
-        profiles: withProfiles ? (id) async => _builtins[id] : null,
+        profiles: withProfiles ? (id) async => _ungrounded(id) : null,
         grammars: withProfiles ? (p) async => 'root ::= "${p.id}"' : null,
       ),
     );
@@ -150,7 +161,7 @@ void main() {
             stt: ScriptedStt(),
             llm: llm,
             vault: FakeVaultWriter(),
-            profiles: (id) async => _builtins[id],
+            profiles: (id) async => _ungrounded(id),
             grammars: (_) async => 'root ::= x',
             extraction: strategy,
             activeModel: (_) async => 'llm-x',
@@ -195,7 +206,7 @@ void main() {
           stt: r.stt,
           llm: llm,
           vault: r.vault,
-          profiles: (id) async => _builtins[id],
+          profiles: (id) async => _ungrounded(id),
           grammars: (_) async => 'root ::= x',
         ),
       );

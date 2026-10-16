@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart' show immutable;
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
 import 'package:vaultvoice/features/profiles/domain/profile_issue.dart';
+import 'package:vaultvoice/features/profiles/domain/profile_schema.dart';
 import 'package:vaultvoice/features/profiles/domain/render_context.dart';
 import 'package:vaultvoice/features/profiles/domain/template_variables.dart';
 import 'package:vaultvoice/features/templates/domain/note_context.dart';
@@ -169,10 +170,29 @@ Map<String, Object?> sampleTranscript() => buildNoteTranscript(const [
   (startMs: 12000, speaker: 'Sam', text: 'The preview uses made-up data.'),
 ]);
 
-/// The profile's first few-shot example output, or `{}` (every field then
-/// renders as empty / absent).
-Map<String, Object?> sampleDataFor(Profile profile) =>
-    profile.examples.isEmpty ? const {} : profile.examples.first.output;
+/// The profile's first few-shot example output, else neutral placeholder
+/// data shaped like its schema (built-in profiles ship no examples), so the
+/// preview exercises every field.
+Map<String, Object?> sampleDataFor(Profile profile) => profile.examples.isEmpty
+    ? _sampleObject(profile.schema)
+    : profile.examples.first.output;
+
+Map<String, Object?> _sampleObject(ObjectSchema schema) => {
+  for (final e in schema.properties.entries)
+    e.key: _sampleValue(e.key, e.value),
+};
+
+Object? _sampleValue(String key, SchemaNode node) => switch (node) {
+  ObjectSchema() => _sampleObject(node),
+  ArraySchema() => [_sampleValue(key, node.items)],
+  NumberSchema() => node.enumValues?.first ?? 1,
+  BooleanSchema() => true,
+  StringSchema() when node.enumValues != null => node.enumValues!.first,
+  StringSchema() when node.format == 'date' || key.endsWith('date') =>
+    '2026-01-15',
+  StringSchema() when key == 't' => '00:00:04',
+  StringSchema() => 'Sample $key',
+};
 
 /// Validates and renders [source] for [profile] with [data] (sample or a
 /// past recording's extraction). Never throws.

@@ -300,7 +300,9 @@ vv_gen_params vv_llm_default_gen_params(void) {
   memset(&g, 0, sizeof g);
   g.struct_size = (int32_t)sizeof g;
   // Structured-extraction preset (vv-llm-inference): grammar + temp 0.2,
-  // min_p 0.05, top_k 40, no repeat penalty (breaks JSON), fixed seed.
+  // min_p 0.05, top_k 40, fixed seed. The C default keeps repeat_penalty 1.0;
+  // the Dart extraction preset (LlmGenParams.extraction) sets 1.05 — the grammar
+  // keeps the JSON valid and small models loop without a penalty.
   g.n_predict = 1024;
   g.seed = 42;
   g.temperature = 0.2f;

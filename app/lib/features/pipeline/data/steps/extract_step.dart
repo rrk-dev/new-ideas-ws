@@ -5,6 +5,7 @@ import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/core/logging/logger.dart';
 import 'package:vaultvoice/core/platform/cancel_token.dart';
 import 'package:vaultvoice/core/platform/clock.dart';
 import 'package:vaultvoice/core/platform/llm_engine.dart';
@@ -53,7 +54,9 @@ class ExtractStep implements PipelineStep {
     this.grammars,
     this.strategy,
     this.prompts = ExtractionPrompts.new,
-  }) : promptBuilder = promptBuilder ?? _placeholderPrompt;
+    Logger? logger,
+  }) : logger = logger ?? Logger(sinks: const [DeveloperLogSink()]),
+       promptBuilder = promptBuilder ?? _placeholderPrompt;
 
   final VaultVoiceDatabase db;
   final LlmEngine llm;
@@ -71,6 +74,9 @@ class ExtractStep implements PipelineStep {
   /// PRF-02 prompts of the profile path (`extractionPromptsProvider`'s
   /// factory; the worker has no Riverpod scope, so it is passed in).
   final ExtractionPromptsFactory prompts;
+
+  /// Receives post-processing counts only (never item text).
+  final Logger logger;
 
   @override
   PipelineStepId get id => PipelineStepId.extract;
@@ -129,16 +135,28 @@ class ExtractStep implements PipelineStep {
       final p = prompts(profile, metadata: metadata);
       // PRF-03/04/05: the profile's deterministic Dart post-processors run
       // on every valid result (dates, expiry, serials, owners, timestamps).
-      Map<String, Object?> postProcess(Map<String, Object?> data) =>
-          applyPostProcessors(
-            profile,
-            data,
-            PostProcessContext.fromTranscriptLines(
-              p.transcriptLines(promptSegments(segments)),
-              recordedAt: metadata.recordedAt,
-              speakers: metadata.speakers,
-            ),
+      Map<String, Object?> postProcess(Map<String, Object?> data) {
+        final stats = GroundingStats();
+        final out = applyPostProcessors(
+          profile,
+          data,
+          PostProcessContext.fromTranscriptLines(
+            p.transcriptLines(promptSegments(segments)),
+            recordedAt: metadata.recordedAt,
+            speakers: metadata.speakers,
+          ),
+          stats: stats,
+        );
+        if (!stats.isEmpty) {
+          logger.info(
+            'extract',
+            'post-processing removed model output',
+            fields: stats.toJson(),
           );
+        }
+        return out;
+      }
+
       if (long != null) {
         switch (long) {
           case Err(:final failure):

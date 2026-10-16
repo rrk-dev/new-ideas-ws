@@ -45,14 +45,15 @@ void expectIssue(
 
 void main() {
   late Map<String, Object?> def;
-  setUp(() => def = builtinMap('meeting'));
+  setUp(() => def = builtinMapWithExample('meeting'));
 
   test('the meeting reference profile is valid', () {
+    expect(issuesOf(builtinMap('meeting')), isEmpty);
     expect(issuesOf(def), isEmpty);
-    final p = validator.validate(def).profile!;
+    final p = validator.validate(builtinMap('meeting')).profile!;
     expect(p.id, 'meeting');
     expect(p.consentConfirmation, ConsentConfirmation.required);
-    expect(p.examples, hasLength(1));
+    expect(p.examples, isEmpty, reason: 'built-ins ship no few-shot examples');
   });
 
   group('[PRF-01/AC2] validator rejects malformed profiles with actionable '
@@ -196,7 +197,7 @@ void main() {
       final example = (def['examples']! as List).first as Map<String, Object?>;
       sub(example, 'output')['title'] = 'x' * 81;
       expectIssue(def, 'examples[0].output.title', ['81 chars, maxLength']);
-      def = builtinMap('warranty');
+      def = builtinMapWithExample('warranty');
       final w = (def['examples']! as List).first as Map<String, Object?>;
       sub(sub(w, 'output'), 'warranty_period')['unit'] = 'decades';
       expectIssue(def, 'examples[0].output.warranty_period.unit', [
@@ -231,8 +232,8 @@ void main() {
     });
 
     test('unknown post-processor names are errors', () {
-      (def['post_process']! as List).add('translate_to_french');
-      expectIssue(def, 'post_process[4]', [
+      final list = def['post_process']! as List..add('translate_to_french');
+      expectIssue(def, 'post_process[${list.length - 1}]', [
         'unknown post-processor "translate_to_french"',
         'resolve_relative_dates',
       ]);
@@ -371,7 +372,7 @@ void main() {
     final builtin = validator.validate(def, source: ProfileSource.builtin);
     expect(builtin.profile!.isReadOnly, isTrue);
     expect(p.isReadOnly, isFalse);
-    expect(p.ref, (id: 'meeting', version: 1));
+    expect(p.ref, (id: 'meeting', version: 2));
   });
 
   test('reduce defaults follow the spec', () {

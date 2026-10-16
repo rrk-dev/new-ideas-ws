@@ -28,7 +28,14 @@ enum PostProcessor {
   /// Removes repeated items from every list (same text after
   /// normalization: case, punctuation, whitespace) — small models sometimes
   /// repeat one item until `maxItems`. Keeps the first occurrence.
-  dedupeLists('dedupe_lists');
+  dedupeLists('dedupe_lists'),
+
+  /// Drops list items whose key terms (< 50 %) do not occur in the transcript
+  /// (inventions, or example text copied from the prompt), clears `owner`
+  /// values nobody in the transcript matches, and replaces a `title` /
+  /// `summary` / `context` that is not derived from the transcript (null when
+  /// nullable, else the transcript's leading sentences).
+  groundToTranscript('ground_to_transcript');
 
   PostProcessor(this.wireName);
 
@@ -109,6 +116,11 @@ String? postProcessorRequirement(PostProcessor processor, ObjectSchema root) {
       return anyField((_, node) => node is ArraySchema)
           ? null
           : 'needs a list field';
+    case PostProcessor.groundToTranscript:
+      return anyField((_, node) => node is ArraySchema) ||
+              root.properties['title'] is StringSchema
+          ? null
+          : 'needs a list field or a string field named title';
   }
 }
 

@@ -17,6 +17,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:vaultvoice/features/extraction/domain/output_schema_validator.dart';
+import 'package:vaultvoice/features/profiles/domain/extraction_prompts.dart';
 import 'package:vaultvoice/features/profiles/domain/post_processing.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
 import 'package:vaultvoice/features/profiles/domain/prompt_builder.dart';
@@ -64,6 +65,14 @@ Future<void> main(List<String> argv) async {
       ? const ApproxTokenizer()
       : _VvTokenizer(llm) as PromptTokenizer;
   final builder = PromptBuilder(tokenizer);
+  final appPath = args.containsKey('app-path');
+  final sampler = _SamplerOverrides(
+    temperature: double.tryParse(args['temp'] ?? ''),
+    topK: int.tryParse(args['top-k'] ?? ''),
+    minP: double.tryParse(args['min-p'] ?? ''),
+    repeatPenalty: double.tryParse(args['repeat-penalty'] ?? ''),
+    repeatLastN: int.tryParse(args['repeat-last-n'] ?? ''),
+  );
 
   try {
     if (args['cases'] case final casesPath?) {
@@ -78,7 +87,14 @@ Future<void> main(List<String> argv) async {
       for (final line in File(casesPath).readAsLinesSync()) {
         if (line.trim().isEmpty) continue;
         final c = PromptCase.fromJson(jsonDecode(line) as Map<String, Object?>);
-        final record = _render(profile, c, builder, budget, llm != null);
+        final record = _render(
+          profile,
+          c,
+          builder,
+          budget,
+          llm != null,
+          appPath: appPath,
+        );
         if (generate && record['prompt'] is String) {
           record.addAll(
             await _generate(
@@ -92,6 +108,7 @@ Future<void> main(List<String> argv) async {
                 recordedAt: c.metadata.recordedAt,
                 speakers: c.metadata.speakers,
               ),
+              sampler,
             ),
           );
         }
@@ -108,7 +125,14 @@ Future<void> main(List<String> argv) async {
     final c = PromptCase.fromJson(
       jsonDecode(File(casePath).readAsStringSync()) as Map<String, Object?>,
     );
-    final record = _render(profile, c, builder, budget, llm != null);
+    final record = _render(
+      profile,
+      c,
+      builder,
+      budget,
+      llm != null,
+      appPath: appPath,
+    );
     if (args['format'] == 'json') {
       stdout.writeln(const JsonEncoder.withIndent('  ').convert(record));
     } else {
@@ -124,8 +148,10 @@ Map<String, Object?> _render(
   PromptCase c,
   PromptBuilder builder,
   PromptBudget budget,
-  bool exact,
-) {
+  bool exact, {
+  bool appPath = false,
+}) {
+  if (appPath) return _renderAppPath(profile, c, builder, budget, exact);
   final base = <String, Object?>{
     'id': c.id,
     'profile_id': profile.id,
@@ -159,6 +185,39 @@ Map<String, Object?> _render(
   }
 }
 
+/// The prompt the app's extract step sends (`ExtractionPrompts`: system +
+/// one user message, few-shot examples inlined) — not the chat-pair form of
+/// [PromptBuilder.build].
+Map<String, Object?> _renderAppPath(
+  Profile profile,
+  PromptCase c,
+  PromptBuilder builder,
+  PromptBudget budget,
+  bool exact,
+) {
+  final p = ExtractionPrompts(profile, metadata: c.metadata);
+  final messages = <ChatMessage>[
+    ('system', p.systemPrompt),
+    ('user', p.singleUser(p.transcriptLines(c.segments))),
+  ];
+  final text = builder.tokenizer.applyChatTemplate(messages);
+  return {
+    'id': c.id,
+    'profile_id': profile.id,
+    'profile_version': profile.version,
+    'exact': exact,
+    'n_ctx': budget.contextSize,
+    'max_tokens': budget.maxTokens,
+    'plan': 'single',
+    'prompt_tokens': builder.tokenizer.countTokens(text),
+    'messages': [
+      for (final (role, content) in messages)
+        {'role': role, 'content': content},
+    ],
+    'prompt': text,
+  };
+}
+
 Future<Map<String, Object?>> _generate(
   VvLlm llm,
   String prompt,
@@ -166,11 +225,27 @@ Future<Map<String, Object?>> _generate(
   Profile profile,
   PromptBudget budget,
   PostProcessContext postContext,
+  _SamplerOverrides sampler,
 ) async {
   final watch = Stopwatch()..start();
+  final base = LlmGenParams.extraction(
+    grammar: grammar,
+    nPredict: budget.maxTokens,
+  );
   final gen = llm.generate(
     prompt,
-    LlmGenParams.extraction(grammar: grammar, nPredict: budget.maxTokens),
+    LlmGenParams(
+      nPredict: base.nPredict,
+      seed: base.seed,
+      temperature: sampler.temperature ?? base.temperature,
+      topK: sampler.topK ?? base.topK,
+      topP: base.topP,
+      minP: sampler.minP ?? base.minP,
+      repeatPenalty: sampler.repeatPenalty ?? base.repeatPenalty,
+      repeatLastN: sampler.repeatLastN ?? base.repeatLastN,
+      grammar: grammar,
+      tokenBatch: base.tokenBatch,
+    ),
   );
   final text = StringBuffer();
   await gen.text.forEach(text.write);
@@ -205,6 +280,24 @@ Future<Map<String, Object?>> _generate(
   };
 }
 
+/// Sampler experiments (`--temp`, `--repeat-penalty`, …); unset = the
+/// `LlmGenParams.extraction` preset the app uses.
+final class _SamplerOverrides {
+  const _SamplerOverrides({
+    this.temperature,
+    this.topK,
+    this.minP,
+    this.repeatPenalty,
+    this.repeatLastN,
+  });
+
+  final double? temperature;
+  final int? topK;
+  final double? minP;
+  final double? repeatPenalty;
+  final int? repeatLastN;
+}
+
 final class _VvTokenizer implements PromptTokenizer {
   const _VvTokenizer(this._llm);
 
@@ -222,7 +315,7 @@ String _defaultLib(String appDir) =>
     '$appDir/../native/build/host/'
     'libvv_native.${Platform.isMacOS ? 'dylib' : 'so'}';
 
-const _flags = {'generate', 'gpu', 'help'};
+const _flags = {'generate', 'gpu', 'help', 'app-path'};
 const _options = {
   'profile',
   'case',
@@ -234,6 +327,11 @@ const _options = {
   'max-tokens',
   'threads',
   'format',
+  'temp',
+  'top-k',
+  'min-p',
+  'repeat-penalty',
+  'repeat-last-n',
 };
 
 Map<String, String> _parse(List<String> argv) {
@@ -259,4 +357,5 @@ Map<String, String> _parse(List<String> argv) {
 const _usage = '''
 render_prompt.dart --profile <id|file.yaml> (--case <case.json> | --cases <cases.jsonl> [--out <results.jsonl>])
   [--lib <libvv_native>] [--model <model.gguf>] [--n-ctx 4096] [--max-tokens 1024]
-  [--threads N] [--gpu] [--generate] [--format text|json]''';
+  [--threads N] [--gpu] [--generate] [--app-path] [--format text|json]
+  [--temp T] [--top-k K] [--min-p P] [--repeat-penalty R] [--repeat-last-n N]''';

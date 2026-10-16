@@ -730,7 +730,8 @@ void main() {
       expect(a, contains('<transcript>\n[00:01:01] S1: A\n</transcript>'));
       expect(
         prompts.singleUser('B', withExamples: true),
-        contains('Example JSON'),
+        isNot(contains('Example JSON')),
+        reason: 'built-ins ship no few-shot examples',
       );
       expect(
         prompts.singleUser('B', withExamples: false),

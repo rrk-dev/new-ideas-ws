@@ -105,6 +105,11 @@ def run_model(cases: list[dict], args) -> tuple[list[dict], float, int | None]:
                             "--cases", str(cin), "--out", str(cout), "--generate",
                             "--model", args.model, "--lib", args.lib,
                             "--n-ctx", str(args.n_ctx), "--max-tokens", str(args.max_tokens)]
+        if args.prompt_path == "app":
+            cmd.append("--app-path")
+        for flag in ("temp", "repeat_penalty", "repeat_last_n", "top_k", "min_p"):
+            if getattr(args, flag) is not None:
+                cmd += ["--" + flag.replace("_", "-"), str(getattr(args, flag))]
         if args.gpu:
             cmd.append("--gpu")
         if args.threads:
@@ -140,7 +145,7 @@ def render_report(profile, model, agg, perf, env, cases, diff, problems, targets
     lines = [f"# Extraction eval — `{profile}` × `{Path(model).name}`", "",
              f"- Date: {env['date']} · host: {env['host']} · backend: {env['backend']}",
              f"- Model sha256: `{env['model_sha256'][:16]}` · n_ctx {env['n_ctx']} · max_tokens "
-             f"{env['max_tokens']} · sampling: extraction preset (grammar, temp 0.2, seed 42)",
+             f"{env['max_tokens']} · sampling: extraction preset (grammar, temp 0.2, repeat penalty 1.05, seed 42)",
              f"- Commit: `{env['commit']}` · llama.cpp `{env['llama']}` · profile version {env['profile_version']}"
              f" · scored: {env.get('scored', 'raw')} output",
              f"- Cases: {agg['cases']} (synthetic TTS → whisper transcripts, `tools/bench/eval/{profile}/`)",
@@ -202,6 +207,14 @@ def main() -> int:
     p.add_argument("--max-tokens", type=int, default=1024)
     p.add_argument("--threads", type=int, default=0)
     p.add_argument("--gpu", action="store_true")
+    p.add_argument("--prompt-path", choices=["app", "builder"], default="app",
+                   help="app = prompts exactly as the extract step sends them (ExtractionPrompts); "
+                        "builder = PromptBuilder.build chat pairs")
+    p.add_argument("--temp", type=float, help="sampler overrides for experiments (default: app preset)")
+    p.add_argument("--repeat-penalty", type=float)
+    p.add_argument("--repeat-last-n", type=int)
+    p.add_argument("--top-k", type=int)
+    p.add_argument("--min-p", type=float)
     p.add_argument("--limit", type=int)
     p.add_argument("--case", action="append")
     p.add_argument("--baseline")

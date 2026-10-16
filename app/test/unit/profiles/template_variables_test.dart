@@ -32,7 +32,7 @@ void main() {
     });
 
     test('a field removed from the schema breaks the template', () {
-      final def = builtinMap('meeting');
+      final def = builtinMapWithExample('meeting');
       props(def).remove('topics');
       sub(def, 'reduce').remove('topics');
       (sub(def, 'schema')['required']! as List).remove('topics');
