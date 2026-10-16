@@ -757,7 +757,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingPermissionMic.
   ///
   /// In en, this message translates to:
-  /// **'Microphone: your phone asks the first time you tap Record — never before, and never in the background.'**
+  /// **'Microphone (required): your phone asks when you tap Allow microphone below — never at launch, and VaultVoice never listens in the background.'**
   String get onboardingPermissionMic;
 
   /// No description provided for @onboardingPermissionNotifications.
@@ -951,6 +951,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Explore first'**
   String get onboardingExplore;
+
+  /// No description provided for @readinessSttMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'A speech-to-text model is required to turn your recordings into text. Download or import one to continue.'**
+  String get readinessSttMissing;
+
+  /// No description provided for @readinessLlmMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'A language model is required to write your notes. Download or import one to continue.'**
+  String get readinessLlmMissing;
+
+  /// No description provided for @readinessMicMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone access is required to record. Your phone asks once; VaultVoice only listens after you tap Record.'**
+  String get readinessMicMissing;
+
+  /// No description provided for @readinessFolderMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a folder for your notes, or choose to keep them in the app. One of the two is required to continue.'**
+  String get readinessFolderMissing;
+
+  /// No description provided for @readinessSpaceMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough free space for the models: {needed} needed, {free} free. Free up space, then check again.'**
+  String readinessSpaceMissing(String needed, String free);
+
+  /// No description provided for @readinessFixModels.
+  ///
+  /// In en, this message translates to:
+  /// **'Download models'**
+  String get readinessFixModels;
+
+  /// No description provided for @readinessFixModelsUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Models can’t be downloaded right now. Import the model files instead, or try again later.'**
+  String get readinessFixModelsUnavailable;
+
+  /// No description provided for @readinessFixMic.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow microphone'**
+  String get readinessFixMic;
+
+  /// No description provided for @readinessFixFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose folder'**
+  String get readinessFixFolder;
+
+  /// No description provided for @readinessFixSpace.
+  ///
+  /// In en, this message translates to:
+  /// **'Check again'**
+  String get readinessFixSpace;
+
+  /// No description provided for @readinessBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Setup isn’t finished: something required is still missing. Fix it on this step to continue.'**
+  String get readinessBlocked;
+
+  /// No description provided for @readinessChecking.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking your setup'**
+  String get readinessChecking;
+
+  /// No description provided for @readinessError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t check your setup.'**
+  String get readinessError;
+
+  /// No description provided for @readinessRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get readinessRetry;
 
   /// No description provided for @modelsCheckUpdates.
   ///

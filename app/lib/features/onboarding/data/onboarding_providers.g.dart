@@ -8,20 +8,110 @@ part of 'onboarding_providers.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Whether the first-launch flow still has to run. Drives the router
-/// redirect to `/onboarding`; unknown (loading/error) never redirects.
+/// The persisted `onboarding.completed` flag.
+
+@ProviderFor(onboardingCompleted)
+final onboardingCompletedProvider = OnboardingCompletedProvider._();
+
+/// The persisted `onboarding.completed` flag.
+
+final class OnboardingCompletedProvider
+    extends $FunctionalProvider<AsyncValue<bool>, bool, Stream<bool>>
+    with $FutureModifier<bool>, $StreamProvider<bool> {
+  /// The persisted `onboarding.completed` flag.
+  OnboardingCompletedProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'onboardingCompletedProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$onboardingCompletedHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<bool> create(Ref ref) {
+    return onboardingCompleted(ref);
+  }
+}
+
+String _$onboardingCompletedHash() =>
+    r'e2c3ac7b86f4a1ab78f1dada572b0692d2a121c4';
+
+/// Whether the user explicitly chose to keep notes in the app.
+
+@ProviderFor(onboardingNotesInApp)
+final onboardingNotesInAppProvider = OnboardingNotesInAppProvider._();
+
+/// Whether the user explicitly chose to keep notes in the app.
+
+final class OnboardingNotesInAppProvider
+    extends $FunctionalProvider<AsyncValue<bool>, bool, Stream<bool>>
+    with $FutureModifier<bool>, $StreamProvider<bool> {
+  /// Whether the user explicitly chose to keep notes in the app.
+  OnboardingNotesInAppProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'onboardingNotesInAppProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$onboardingNotesInAppHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<bool> create(Ref ref) {
+    return onboardingNotesInApp(ref);
+  }
+}
+
+String _$onboardingNotesInAppHash() =>
+    r'96b282e87835b1e25ad378d38f3a742d14af8123';
+
+/// Whether onboarding still has to run. Drives the router redirect to
+/// `/onboarding`: not completed, or completed but the readiness check now
+/// fails (model deleted, microphone revoked…) — so a stale
+/// `onboarding.completed` from an older build is re-evaluated on every
+/// launch. Unknown (loading) never redirects; a failing readiness probe
+/// does not lock the user out either.
 
 @ProviderFor(onboardingRequired)
 final onboardingRequiredProvider = OnboardingRequiredProvider._();
 
-/// Whether the first-launch flow still has to run. Drives the router
-/// redirect to `/onboarding`; unknown (loading/error) never redirects.
+/// Whether onboarding still has to run. Drives the router redirect to
+/// `/onboarding`: not completed, or completed but the readiness check now
+/// fails (model deleted, microphone revoked…) — so a stale
+/// `onboarding.completed` from an older build is re-evaluated on every
+/// launch. Unknown (loading) never redirects; a failing readiness probe
+/// does not lock the user out either.
 
 final class OnboardingRequiredProvider
     extends $FunctionalProvider<AsyncValue<bool>, bool, Stream<bool>>
     with $FutureModifier<bool>, $StreamProvider<bool> {
-  /// Whether the first-launch flow still has to run. Drives the router
-  /// redirect to `/onboarding`; unknown (loading/error) never redirects.
+  /// Whether onboarding still has to run. Drives the router redirect to
+  /// `/onboarding`: not completed, or completed but the readiness check now
+  /// fails (model deleted, microphone revoked…) — so a stale
+  /// `onboarding.completed` from an older build is re-evaluated on every
+  /// launch. Unknown (loading) never redirects; a failing readiness probe
+  /// does not lock the user out either.
   OnboardingRequiredProvider._()
     : super(
         from: null,
@@ -48,7 +138,7 @@ final class OnboardingRequiredProvider
 }
 
 String _$onboardingRequiredHash() =>
-    r'95653c2327c5520dd96c205dde523bb644d0ce9c';
+    r'2c960e9b46ab7df1df28cd16eab5d099b96d00e6';
 
 /// Whether the first-run recording-consent explainer was acknowledged.
 

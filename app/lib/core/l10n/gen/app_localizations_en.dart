@@ -403,7 +403,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingPermissionMic =>
-      'Microphone: your phone asks the first time you tap Record — never before, and never in the background.';
+      'Microphone (required): your phone asks when you tap Allow microphone below — never at launch, and VaultVoice never listens in the background.';
 
   @override
   String get onboardingPermissionNotifications =>
@@ -522,6 +522,56 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingExplore => 'Explore first';
+
+  @override
+  String get readinessSttMissing =>
+      'A speech-to-text model is required to turn your recordings into text. Download or import one to continue.';
+
+  @override
+  String get readinessLlmMissing =>
+      'A language model is required to write your notes. Download or import one to continue.';
+
+  @override
+  String get readinessMicMissing =>
+      'Microphone access is required to record. Your phone asks once; VaultVoice only listens after you tap Record.';
+
+  @override
+  String get readinessFolderMissing =>
+      'Choose a folder for your notes, or choose to keep them in the app. One of the two is required to continue.';
+
+  @override
+  String readinessSpaceMissing(String needed, String free) {
+    return 'Not enough free space for the models: $needed needed, $free free. Free up space, then check again.';
+  }
+
+  @override
+  String get readinessFixModels => 'Download models';
+
+  @override
+  String get readinessFixModelsUnavailable =>
+      'Models can’t be downloaded right now. Import the model files instead, or try again later.';
+
+  @override
+  String get readinessFixMic => 'Allow microphone';
+
+  @override
+  String get readinessFixFolder => 'Choose folder';
+
+  @override
+  String get readinessFixSpace => 'Check again';
+
+  @override
+  String get readinessBlocked =>
+      'Setup isn’t finished: something required is still missing. Fix it on this step to continue.';
+
+  @override
+  String get readinessChecking => 'Checking your setup';
+
+  @override
+  String get readinessError => 'Couldn’t check your setup.';
+
+  @override
+  String get readinessRetry => 'Try again';
 
   @override
   String get modelsCheckUpdates => 'Check for model updates';

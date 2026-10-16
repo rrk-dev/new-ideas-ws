@@ -52,6 +52,18 @@ New users go from install to first exported note in under 5 minutes, understandi
 - **Privacy checklist:** no network code added (downloads go through the existing MDL-02
   downloader/gateway); no logging added; no new dependencies; the microphone is never opened or
   requested by onboarding (recording policy check passes); new settings keys hold no content.
+- **Readiness gate (fix/onboarding-readiness):** onboarding no longer completes (`onboarding.completed`)
+  nor routes to Record/Library until `onboardingReadinessProvider` reports all of: speech model and
+  language model installed, notes folder picked or "Keep in app" explicitly chosen
+  (`onboarding.notes_in_app`, a skipped step is not a choice), microphone granted (queried without
+  prompting), and free space >= size of the recommended models still to download. A missing item
+  keeps/returns the user on its step with a message and a Fix button (download/import models, mic
+  priming then OS prompt only on tap or Open settings when permanently denied, folder picker, needed
+  vs free space + Check again). Relaunch design (least invasive): `onboardingRequired` is true when
+  not completed OR completed-but-readiness-fails, so the existing router redirect sends users with a
+  stale flag (old build, deleted model, revoked mic) back to onboarding at the first missing step; an
+  unknown/failed probe never locks the user out. Tests: [APP-01/AC2] widget tests for all-ready,
+  each single missing item, and relaunch re-check. No new native channels. Device runs still ⏳.
 
 ## Follow-ups
 - **AUD-08 note:** the Record button should `await primeMicrophonePermission(context, ref)`
