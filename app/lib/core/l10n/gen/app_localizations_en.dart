@@ -286,6 +286,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get downloadPhaseRetrying => 'Connection lost, retrying…';
 
   @override
+  String downloadPhaseRetryingN(int retry, int max) {
+    return 'Connection problem, retrying ($retry of $max)…';
+  }
+
+  @override
+  String get downloadFailOffline =>
+      'Download failed: you appear to be offline. Check your connection, then retry.';
+
+  @override
+  String get downloadFailServer =>
+      'Download failed: the download server had a problem. Retry in a few minutes.';
+
+  @override
+  String get downloadFailChecksum =>
+      'Download failed: the file is damaged (checksum mismatch). Retry to download it again.';
+
+  @override
+  String downloadFailHost(String host) {
+    return 'Download failed: $host is not an allowed download host. A proxy or firewall on this network may be blocking it.';
+  }
+
+  @override
+  String get downloadFailSpace => 'Download failed: not enough free space.';
+
+  @override
   String get downloadPhasePaused => 'Paused';
 
   @override
@@ -1333,6 +1358,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get jobWaiting => 'Waiting';
+
+  @override
+  String jobWaitingModelNamed(String type, String name) {
+    return 'Waiting for the $type model: $name';
+  }
+
+  @override
+  String jobWaitingModelType(String type) {
+    return 'Waiting for a $type model';
+  }
+
+  @override
+  String jobModelDownload(String name) {
+    return 'Download $name';
+  }
+
+  @override
+  String jobModelUse(String name) {
+    return 'Use $name';
+  }
+
+  @override
+  String get jobModelChoose => 'Choose model';
 
   @override
   String get etaEstimating => 'Estimating time…';

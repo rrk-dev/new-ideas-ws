@@ -99,6 +99,9 @@ class OnboardingModelsStep extends ConsumerWidget {
           model: m,
           installed: installed.contains(m.id),
           progress: progress[m.id],
+          onRetry: offline
+              ? null
+              : () => startModelDownloads(context, ref, [m]),
         ),
       const SizedBox(height: AppSpacing.md),
       if (missing.isEmpty)
@@ -143,8 +146,10 @@ class _ModelRow extends StatelessWidget {
     required this.model,
     required this.installed,
     required this.progress,
+    this.onRetry,
   });
 
+  final VoidCallback? onRetry;
   final CatalogModel model;
   final bool installed;
   final DownloadProgress? progress;
@@ -182,7 +187,23 @@ class _ModelRow extends StatelessWidget {
                 formatBytes(l10n, model.size),
               ),
             ),
-            Text(status),
+            Text(
+              status,
+              style: !installed && p?.phase == DownloadPhase.failed
+                  ? TextStyle(color: Theme.of(context).colorScheme.error)
+                  : null,
+            ),
+            if (!installed &&
+                p?.phase == DownloadPhase.failed &&
+                onRetry != null)
+              Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: TextButton(
+                  key: ValueKey('onboarding-retry-${model.id}'),
+                  onPressed: onRetry,
+                  child: Text(l10n.commonRetry),
+                ),
+              ),
             if (!installed && p != null && p.phase == DownloadPhase.downloading)
               Padding(
                 padding: const EdgeInsets.only(top: AppSpacing.sm),

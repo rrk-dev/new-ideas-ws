@@ -11,6 +11,7 @@ import 'package:vaultvoice/features/models/data/model_downloader.dart';
 import 'package:vaultvoice/features/models/domain/download_policy.dart';
 import 'package:vaultvoice/features/models/domain/download_state.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
+import 'package:vaultvoice/features/models/presentation/model_texts.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
@@ -147,7 +148,6 @@ Future<DownloadStart> startModelDownloads(
     await _askNotificationsOnce(ref);
   }
   for (final model in models) {
-    final failedText = l10n.downloadFailed(model.displayName);
     unawaited(
       downloader
           .download(
@@ -159,7 +159,8 @@ Future<DownloadStart> startModelDownloads(
             final failure = result.failureOrNull;
             // Paused / cancelled downloads are the user's choice.
             if (failure != null && failure is! CancelledFailure) {
-              say(failedText);
+              final reason = ModelTexts.failureReason(l10n, failure);
+              say('${model.displayName}: $reason');
             }
           }),
     );

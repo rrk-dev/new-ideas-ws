@@ -585,6 +585,24 @@ void main() {
       },
     );
 
+    test('[MDL-02/AC3] a blocked mirror caps the retries, is not contacted '
+        'again and its failure is the one reported', () async {
+      server.routes['$_cdn/stt/ggml-tiny.en.bin'] = StatusRoute(503);
+      server.routes['$_hf$_hfPath'] = const RedirectRoute(
+        'https://$_evil/block?x=1',
+      );
+      final r = await downloader().download(
+        model(urls: const [_cdnUrl, _hfUrl]),
+      );
+      final f = r.failureOrNull! as ModelDownloadFailure;
+      expect(f.block, ModelDownloadBlock.retriesExhausted);
+      expect(f.cause, isA<EgressDeniedFailure>());
+      expect((f.cause! as EgressDeniedFailure).host, _evil);
+      expect(delays, hasLength(kMaxDownloadRetriesWithRejectedUrl));
+      expect(server.to(_hf), hasLength(1));
+      expect(server.to(_evil), isEmpty);
+    });
+
     test(
       '404 on the primary falls back to the mirror without backoff',
       () async {

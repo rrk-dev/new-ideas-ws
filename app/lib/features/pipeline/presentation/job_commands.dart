@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
+import 'package:vaultvoice/core/routing/app_routes.dart';
+import 'package:vaultvoice/features/models/data/model_management_providers.dart';
+import 'package:vaultvoice/features/models/domain/model_management.dart';
+import 'package:vaultvoice/features/models/presentation/model_download_actions.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_providers.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_progress.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_client.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_status_card.dart';
+import 'package:vaultvoice/features/pipeline/presentation/processing_texts.dart';
 
 /// Sends a command to the pipeline worker; a failure shows a snack bar.
 Future<void> runJobCommand(
@@ -42,9 +47,42 @@ class ConnectedProcessingStatusCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final id = view.job.id;
     final state = view.job.state;
+    final waitingForModel =
+        state == JobState.waiting &&
+        view.job.waitingReason == WaitingReason.modelMissing;
+    final entries = waitingForModel
+        ? ref.watch(modelEntriesProvider).value
+        : null;
+    final type = modelTypeForStep(view.job.step);
+    final download = _firstOrNull(
+      entries,
+      (e) => e.model.type == type && !e.isInstalled && e.recommended,
+    );
+    final installed = _firstOrNull(
+      entries,
+      (e) => e.model.type == type && e.usable,
+    );
     return ProcessingStatusCard(
       view: view,
       onTap: onTap,
+      missingModel: waitingForModel
+          ? MissingModel(
+              type: type,
+              name: download?.model.displayName,
+              installedName: installed?.model.displayName,
+            )
+          : null,
+      onDownloadModel: download == null
+          ? null
+          : () => startModelDownload(context, ref, download.model),
+      onUseInstalledModel: installed == null
+          ? null
+          : () => ref
+                .read(modelManagerProvider)
+                .setActive(installed.model.type, installed.model.id),
+      onChooseModel: waitingForModel
+          ? () => const ModelsSettingsRoute().push<void>(context)
+          : null,
       onCancel: state.isTerminal
           ? null
           : () => runJobCommand(context, ref, (c) => c.cancel(id)),
@@ -56,4 +94,14 @@ class ConnectedProcessingStatusCard extends ConsumerWidget {
           : null,
     );
   }
+}
+
+ModelEntry? _firstOrNull(
+  List<ModelEntry>? entries,
+  bool Function(ModelEntry) test,
+) {
+  for (final e in entries ?? const <ModelEntry>[]) {
+    if (test(e)) return e;
+  }
+  return null;
 }

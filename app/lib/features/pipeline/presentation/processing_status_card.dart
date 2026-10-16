@@ -14,8 +14,24 @@ class ProcessingStatusCard extends StatelessWidget {
     this.onCancel,
     this.onRetry,
     this.onProcessNow,
+    this.missingModel,
+    this.onDownloadModel,
+    this.onUseInstalledModel,
+    this.onChooseModel,
     super.key,
   });
+
+  /// What a job waiting for a model needs (named in the status line).
+  final MissingModel? missingModel;
+
+  /// Starts downloading [MissingModel.name].
+  final VoidCallback? onDownloadModel;
+
+  /// Switches to the installed [MissingModel.installedName].
+  final VoidCallback? onUseInstalledModel;
+
+  /// Opens the models screen.
+  final VoidCallback? onChooseModel;
 
   final JobProgressView view;
   final VoidCallback? onTap;
@@ -44,7 +60,7 @@ class ProcessingStatusCard extends StatelessWidget {
     final title = view.recordingTitle.isEmpty
         ? l10n.untitledRecording
         : view.recordingTitle;
-    final status = jobStatusLabel(l10n, job);
+    final status = jobStatusLabel(l10n, job, missingModel: missingModel);
     final percent = (view.overallProgress() * 100).round();
     final showProgress = !job.state.isTerminal;
     final detail = <String>[
@@ -105,6 +121,14 @@ class ProcessingStatusCard extends StatelessWidget {
                 onRetry: onRetry,
                 onProcessNow: onProcessNow,
               ),
+              if (job.state == JobState.waiting &&
+                  job.waitingReason == WaitingReason.modelMissing)
+                _ModelActions(
+                  model: missingModel,
+                  onDownload: onDownloadModel,
+                  onUseInstalled: onUseInstalledModel,
+                  onChoose: onChooseModel,
+                ),
             ],
           ),
         ),
@@ -153,6 +177,57 @@ class _Actions extends StatelessWidget {
           spacing: AppSpacing.sm,
           runSpacing: AppSpacing.xs,
           children: buttons,
+        ),
+      ),
+    );
+  }
+}
+
+class _ModelActions extends StatelessWidget {
+  const _ModelActions({
+    required this.model,
+    this.onDownload,
+    this.onUseInstalled,
+    this.onChoose,
+  });
+
+  final MissingModel? model;
+  final VoidCallback? onDownload;
+  final VoidCallback? onUseInstalled;
+  final VoidCallback? onChoose;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final m = model;
+    return Padding(
+      padding: const EdgeInsets.only(top: AppSpacing.sm),
+      child: SizedBox(
+        width: double.infinity,
+        child: Wrap(
+          alignment: WrapAlignment.end,
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.xs,
+          children: [
+            if (m?.installedName != null && onUseInstalled != null)
+              FilledButton.tonal(
+                key: const ValueKey('job-model-use'),
+                onPressed: onUseInstalled,
+                child: Text(l10n.jobModelUse(m!.installedName!)),
+              ),
+            if (m?.name != null && onDownload != null)
+              FilledButton.tonal(
+                key: const ValueKey('job-model-download'),
+                onPressed: onDownload,
+                child: Text(l10n.jobModelDownload(m!.name!)),
+              ),
+            if (onChoose != null)
+              TextButton(
+                key: const ValueKey('job-model-choose'),
+                onPressed: onChoose,
+                child: Text(l10n.jobModelChoose),
+              ),
+          ],
         ),
       ),
     );
