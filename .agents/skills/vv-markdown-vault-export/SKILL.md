@@ -72,7 +72,9 @@ this recording — check `exports.rel_path` + `content_hash`), `skip`.
 - Rules (`routing_rules`, ordered by priority): match on `profile_id`, `tags_any`,
   `keywords_any` (in title/summary), `speakers_any`; action → target + sub_path + filename
   pattern. Mode per rule: `stop` (first match) or `continue` (multi-target). No match → profile
-  default target → app-local fallback.
+  default target → the **default vault target** (setting `export.default_target` = the folder
+  the user last picked in onboarding/Settings or marked "Make default"; if unset, deleted or
+  inactive: the newest active target). Settings shows the same resolved target as "Default".
 - Free tier: 1 target + no rules; Pro: unlimited (`EntitlementService`).
 - Optional sidecars per target: transcript note (`<name>.transcript.md`), audio copy into
   `attachments/` (m4a). Off by default (size, privacy).

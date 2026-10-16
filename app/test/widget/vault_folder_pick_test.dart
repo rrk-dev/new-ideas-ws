@@ -12,6 +12,7 @@ import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/logging/logger.dart';
 import 'package:vaultvoice/features/export/data/export_providers.dart';
 import 'package:vaultvoice/features/export/domain/vault_folder.dart';
+import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 import 'package:vaultvoice/features/settings/presentation/vault_settings_screens.dart';
 
 import '../fakes/fake_permission_hosts.dart';
@@ -87,6 +88,32 @@ void main() {
     final rows = await t.runAsync(() => db.select(db.vaultTargets).get());
     expect(rows, hasLength(1));
     expect(rows!.single.handle, 'Ym9va21hcms=');
+  });
+
+  testWidgets('[EXP-05/AC1] a picked folder becomes the default target', (
+    t,
+  ) async {
+    for (final name in ['First', 'Second']) {
+      await pick(
+        t,
+        Ok(
+          VaultFolder(
+            kind: VaultTargetKind.bookmark,
+            handle: 'h-$name',
+            displayName: name,
+          ),
+        ),
+      );
+    }
+    final (rows, saved) = (await t.runAsync(
+      () async => (
+        await db.select(db.vaultTargets).get(),
+        (await db.settingsRepository.get(SettingKeys.exportDefaultTarget))
+            .valueOrNull,
+      ),
+    ))!;
+    expect(rows, hasLength(2));
+    expect(saved, rows.firstWhere((r) => r.displayName == 'Second').id);
   });
 
   testWidgets('[EXP-04/AC1] a refused pick is diagnosable without leaking '

@@ -161,7 +161,7 @@ void main() {
       expect(d.single.source, RouteSource.profileDefault);
     });
 
-    test('[EXP-05/AC1] no match and no (usable) profile default → first '
+    test('[EXP-05/AC1] no match and no (usable) profile default → newest '
         'active target', () {
       for (final def in [null, 'ask', 'deleted-target']) {
         final d = routeNote(
@@ -170,7 +170,7 @@ void main() {
           targetIds: targets,
           policy: RoutingPolicy.unlimited,
         );
-        expect(d.single.targetId, 'a', reason: '$def');
+        expect(d.single.targetId, 'c', reason: '$def');
         expect(d.single.source, RouteSource.fallback);
       }
     });
@@ -196,7 +196,58 @@ void main() {
         policy: RoutingPolicy.unlimited,
       );
       expect(d.single.source, RouteSource.fallback);
-      expect(d.single.targetId, 'a');
+      expect(d.single.targetId, 'c');
+    });
+
+    RouteDecision route({
+      String? def,
+      List<String> ids = targets,
+      RoutingPolicy policy = RoutingPolicy.unlimited,
+    }) => routeNote(
+      input: const RoutingInput(profileId: 'x'),
+      rules: const [],
+      targetIds: ids,
+      policy: policy,
+      defaultTargetId: def,
+    ).single;
+
+    test('[EXP-05/AC1] the default target wins over a newer one', () {
+      final d = route(def: 'a');
+      expect(d.targetId, 'a');
+      expect(d.source, RouteSource.fallback);
+    });
+
+    test('[EXP-05/AC1] a removed or inactive default falls back to the '
+        'newest active target', () {
+      expect(route(def: 'deleted').targetId, 'c');
+      // 'c' is beyond the 2-target limit: inactive, newest active is 'b'.
+      const two = RoutingPolicy(rulesEnabled: true, maxTargets: 2);
+      expect(route(def: 'c', policy: two).targetId, 'b');
+      expect(route(def: 'a', ids: ['b', 'c']).targetId, 'c');
+    });
+
+    test('[EXP-05/AC1] no default setting (existing installs) → newest, '
+        'matching resolveDefaultTarget (what Settings shows)', () {
+      expect(route().targetId, 'c');
+      expect(
+        resolveDefaultTarget(targetIds: targets, policy: RoutingPolicy.free),
+        'a',
+      );
+      expect(
+        resolveDefaultTarget(
+          targetIds: targets,
+          policy: RoutingPolicy.unlimited,
+          savedId: 'b',
+        ),
+        'b',
+      );
+      expect(
+        resolveDefaultTarget(
+          targetIds: const [],
+          policy: RoutingPolicy.unlimited,
+        ),
+        isNull,
+      );
     });
   });
 

@@ -13,6 +13,7 @@ import 'package:vaultvoice/features/export/domain/vault_folder.dart';
 import 'package:vaultvoice/features/pipeline/data/job_mapper.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_client.dart';
+import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 
 /// Id of the app's own folder when used as a vault target ("Save on this
 /// device").
@@ -186,6 +187,10 @@ class ExportOutbox {
     }
   }
 
+  /// The folder the user just chose becomes the default target.
+  Future<void> _makeDefault(String targetId) =>
+      db.settingsRepository.set(SettingKeys.exportDefaultTarget, targetId);
+
   /// Adds a picked folder as a vault target and retries the notes that
   /// had no destination. `Ok(false)` = cancelled.
   Future<Result<bool>> addFolder() async {
@@ -198,9 +203,10 @@ class ExportOutbox {
       case Ok(value: null):
         return const Ok(false);
       case Ok(value: final VaultFolder folder):
+        final newId = newUuidV4();
         final saved = await db.vaultRepository.upsertTarget(
           VaultTargetsCompanion.insert(
-            id: newUuidV4(),
+            id: newId,
             platform: platformOfKind(folder.kind),
             displayName: folder.displayName ?? kAppName,
             handle: folder.handle,
@@ -208,6 +214,7 @@ class ExportOutbox {
           ),
         );
         if (saved case Err(:final failure)) return Err(failure);
+        await _makeDefault(newId);
         await retryWhere(
           (p) => p.reason == PendingReason.noDestination,
           items: before,
@@ -234,6 +241,7 @@ class ExportOutbox {
       );
       if (saved case Err()) return saved;
     }
+    await _makeDefault(kAppLocalTargetId);
     return await retryWhere(
       (p) => p.reason == PendingReason.noDestination,
       items: before,

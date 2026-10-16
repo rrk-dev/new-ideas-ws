@@ -1877,6 +1877,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get vaultFoldersAdd => 'Add folder';
 
   @override
+  String get vaultFoldersDefaultBadge => 'Default · new notes go here';
+
+  @override
+  String get vaultFoldersMakeDefault => 'Make default';
+
+  @override
   String get vaultFoldersAddFailed => 'Could not add the folder.';
 
   @override

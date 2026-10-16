@@ -99,7 +99,8 @@ enum RouteSource {
   /// No rule matched: the profile's default target.
   profileDefault,
 
-  /// No rule / profile default applied: the first active target.
+  /// No rule / profile default applied: the default vault target (the
+  /// folder the user last chose), else the newest active target.
   fallback,
 }
 
@@ -140,7 +141,7 @@ class RouteDecision {
 }
 
 /// PRODUCT-DECISION: a profile's `default_target: ask` is treated as "no
-/// default" (first active target) until a destination prompt exists.
+/// default" (the default vault target) until a destination prompt exists.
 const String kAskTarget = 'ask';
 
 String _fold(String s) => unorm.nfc(s).toLowerCase().trim();
@@ -156,13 +157,14 @@ String _tag(String s) => _fold(s.replaceFirst(RegExp('^#+'), ''));
 /// evaluation; `continue` rules add a destination and go on. A target is
 /// used at most once per note (the first matching rule wins — exports are
 /// keyed by recording × target). No match ⇒ the profile default target (if
-/// active) ⇒ the first active target. No active target ⇒ an empty list
-/// (the pipeline then waits for a destination).
+/// active) ⇒ the default vault target (see [resolveDefaultTarget]). No active
+/// target ⇒ an empty list (the pipeline then waits for a destination).
 List<RouteDecision> routeNote({
   required RoutingInput input,
   required List<RoutingRule> rules,
   required List<String> targetIds,
   required RoutingPolicy policy,
+  String? defaultTargetId,
 }) {
   final max = policy.maxTargets;
   final active = (max == null || targetIds.length <= max)
@@ -218,7 +220,36 @@ List<RouteDecision> routeNote({
       ),
     ];
   }
-  return [RouteDecision(targetId: active.first, source: RouteSource.fallback)];
+  return [
+    RouteDecision(
+      targetId: resolveDefaultTarget(
+        targetIds: targetIds,
+        policy: policy,
+        savedId: defaultTargetId,
+      )!,
+      source: RouteSource.fallback,
+    ),
+  ];
+}
+
+/// The default vault target: where notes go when no rule, profile default or
+/// per-recording choice applies. It is [savedId] (the folder the user last
+/// chose, setting `export.default_target`) while that target exists and is
+/// active under [policy]; otherwise the newest active target. [targetIds] are
+/// in display order (oldest first). Settings shows exactly this target as the
+/// default, so the UI and the export never disagree. Null = no active target.
+String? resolveDefaultTarget({
+  required List<String> targetIds,
+  required RoutingPolicy policy,
+  String? savedId,
+}) {
+  final max = policy.maxTargets;
+  final active = (max == null || targetIds.length <= max)
+      ? targetIds
+      : targetIds.sublist(0, max);
+  if (active.isEmpty) return null;
+  if (savedId != null && active.contains(savedId)) return savedId;
+  return active.last;
 }
 
 /// Whether every non-empty condition of [match] holds for [input].
