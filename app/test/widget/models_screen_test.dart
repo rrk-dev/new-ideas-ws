@@ -58,6 +58,7 @@ final CatalogModel _bigLlm = catalogModel(
   size: 2000 * 1000 * 1000,
   minRamMb: 8192,
   displayName: 'Llama Large',
+  attribution: 'Built with Llama',
 );
 
 InstalledModel _installed(CatalogModel m, {String? version}) => InstalledModel(
@@ -201,6 +202,18 @@ Future<void> _tap(WidgetTester t, Finder f) async {
 }
 
 void main() {
+  testWidgets('[SEC-05/AC1] the catalog attribution is shown on the cards '
+      'of the models that have one', (t) async {
+    await _Rig().pump(t);
+    await t.scrollUntilVisible(
+      _card(_bigLlm),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(_inCard(_bigLlm, find.text('Built with Llama')), findsOneWidget);
+    expect(find.text('Built with Llama'), findsOneWidget);
+  });
+
   testWidgets('[MDL-03] lists models by type with size, tier, device fit, '
       'status and storage totals', (t) async {
     final rig = _Rig(installed: [_installed(_tiny), _installed(_llm)]);

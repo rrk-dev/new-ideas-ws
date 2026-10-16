@@ -1874,6 +1874,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aboutLicenses => 'Open-source & model licenses';
 
   @override
+  String get aboutModelAttributions => 'Model attributions';
+
+  @override
   String get vaultFoldersAdd => 'Add folder';
 
   @override

@@ -260,11 +260,11 @@ void main() {
       final out = applyPostProcessors(builtinProfile('meeting'), {
         'title': 'Sprint demo',
         'summary': 'Quarterly revenue grew and the team shipped dashboards.',
-        'attendees': ['Omar'],
+        'attendees': ['Omar Haddad'],
         'decisions': <Object?>[],
         'action_items': <Object?>[],
         'open_questions': <Object?>[],
-        'topics': ['revenue'],
+        'topics': ['revenue growth'],
       }, _context());
       expect(out['title'], 'Tenancy commitment for review');
       expect(
@@ -326,6 +326,42 @@ void main() {
 
     test('text without key terms is not judged', () {
       expect(g.share('it is a'), 1);
+    });
+
+    test('[PRF-05/AC1] unspaced scripts are never judged or dropped', () {
+      final cjk = TranscriptGrounding('我们今天讨论了预算和发布计划。下周开始实施。');
+      expect(cjk.isUnspaced, isTrue);
+      expect(cjk.keepsItem('预算审批流程 完全不同的内容'), isTrue);
+      expect(cjk.supports('任何内容'), isTrue);
+      expect(g.isUnspaced, isFalse);
+    });
+
+    test('[PRF-05/AC1] items with fewer than 2 key terms are kept', () {
+      expect(g.keepsItem('zeppelin'), isTrue);
+      expect(g.keepsItem('zeppelin hangar'), isFalse);
+      expect(g.keepsItem('namespace policy'), isTrue);
+    });
+
+    test('[PRF-05/AC1] spoken numbers and digits do not cause drops', () {
+      final n = TranscriptGrounding('We agreed on twelve seats for the pilot.');
+      expect(n.keepsItem('12 seats pilot'), isTrue);
+      final d = TranscriptGrounding('Budget is 12 seats for the pilot.');
+      expect(d.keepsItem('twelve seats pilot'), isTrue);
+      final none = TranscriptGrounding('We agreed on seats for the pilot.');
+      expect(none.keepsItem('12 widgets launch'), isFalse);
+    });
+
+    test('[PRF-05/AC1] leadingText strips speaker labels, splits lines and '
+        'always clips', () {
+      final t = TranscriptGrounding(
+        'Alice: We should ship the beta on Friday\nBob: Agreed. Then we test.',
+      );
+      expect(t.leadingText(), 'We should ship the beta on Friday');
+      expect(t.leadingText(maxSentences: 2), contains('Agreed'));
+      expect(t.leadingText(maxSentences: 2), isNot(contains('Bob:')));
+      final long = TranscriptGrounding('word ' * 500);
+      expect(long.leadingText().length, lessThanOrEqualTo(200));
+      expect(long.leadingText(maxLength: 40).length, lessThanOrEqualTo(40));
     });
 
     test('stats serialise as counts only', () {

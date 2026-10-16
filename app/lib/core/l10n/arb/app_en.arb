@@ -613,6 +613,7 @@
   "privacyPolicyTitle": "Privacy policy",
   "privacyPolicyLoadFailed": "The privacy policy could not be shown.",
   "aboutLicenses": "Open-source & model licenses",
+  "aboutModelAttributions": "Model attributions",
   "vaultFoldersAdd": "Add folder",
   "vaultFoldersDefaultBadge": "Default · new notes go here",
   "vaultFoldersMakeDefault": "Make default",

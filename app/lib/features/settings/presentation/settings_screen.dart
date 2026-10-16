@@ -9,6 +9,8 @@ import 'package:vaultvoice/core/security/security_providers.dart';
 import 'package:vaultvoice/features/extraction/presentation/llm_debug_screen.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_matrix.dart';
+import 'package:vaultvoice/features/models/data/model_state_providers.dart';
+import 'package:vaultvoice/features/models/domain/model_catalog.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 import 'package:vaultvoice/features/settings/presentation/crash_reports.dart';
@@ -124,11 +126,16 @@ class SettingsScreen extends ConsumerWidget {
             leading: const Icon(Icons.description_outlined),
             title: Text(l10n.aboutLicenses),
             trailing: const Icon(Icons.chevron_right),
-            onTap: () => showLicensePage(
-              context: context,
-              applicationName: kAppName,
-              applicationVersion: kAppVersion,
-            ),
+            onTap: () async {
+              final legalese = await _modelAttributions(ref, l10n);
+              if (!context.mounted) return;
+              showLicensePage(
+                context: context,
+                applicationName: kAppName,
+                applicationVersion: kAppVersion,
+                applicationLegalese: legalese,
+              );
+            },
           ),
           // Dev flavor only (renders nothing in prod) — LLM-04.
           const LlmDebugTile(),
@@ -154,6 +161,21 @@ class _VaultFoldersTile extends ConsumerWidget {
       trailing: const Icon(Icons.chevron_right),
       onTap: () => const VaultFoldersRoute().push<void>(context),
     );
+  }
+}
+
+/// Attribution lines the model licenses require (e.g. "Built with Llama"),
+/// taken from the catalog; null when the catalog is unavailable or has none.
+Future<String?> _modelAttributions(WidgetRef ref, AppLocalizations l10n) async {
+  try {
+    final catalog = await ref.read(activeCatalogProvider.future);
+    final lines = <String>{
+      for (final m in catalog?.models ?? const <CatalogModel>[]) ?m.attribution,
+    };
+    if (lines.isEmpty) return null;
+    return '${l10n.aboutModelAttributions}\n${lines.join('\n')}';
+  } on Object {
+    return null;
   }
 }
 

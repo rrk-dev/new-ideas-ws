@@ -17,6 +17,7 @@ Extract architectural concepts, API designs, trade-offs, and immediate TODOs fro
 - Rendered Markdown passes markdownlint.
 
 ## Completion Notes
+- **Review gaps:** grounding skips (keeps everything) for mostly non-space-delimited scripts (CJK/Thai…), needs >= 2 key terms before dropping an item, and treats spoken-number vs digit mismatches as supported when the transcript has any number; `leadingText` strips `Name:` speaker labels, splits on newlines and always clips at a sentence/word boundary. Tests in `extraction_grounding_test.dart`.
 - **Agent:** GitHub Copilot CLI · **Branch:** fix/prf · **Date:** 2026-10-15
 - **Summary:** Built-in `engineering` profile verified by tests. New: user-configurable STT vocabulary (`VocabularyHints`, setting key `vocabulary.<profileId>`) merged with the profile vocabulary into the Whisper initial prompt (≤ 200 chars) by the transcribe step; new `code_lines` template lambda so API designs render as fenced code blocks (goldens + docs/templates.md updated); trade-offs render as `md_table`.
 - **Acceptance evidence:**

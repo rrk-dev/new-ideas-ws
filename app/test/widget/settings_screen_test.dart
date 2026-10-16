@@ -8,6 +8,8 @@ import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/export/domain/routing_rule.dart';
+import 'package:vaultvoice/features/models/data/model_state_providers.dart';
+import 'package:vaultvoice/features/models/domain/model_catalog.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
 import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
@@ -18,6 +20,7 @@ import 'package:vaultvoice/features/settings/presentation/settings_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/vault_settings_screens.dart';
 
 import '../fakes/fake_settings_store.dart';
+import '../helpers/model_fixtures.dart';
 import '../helpers/settings_values.dart';
 
 class _Managed implements ManagedSettingsSource {
@@ -63,6 +66,14 @@ class _Wiper implements DataWiper {
     calls++;
     return const Ok(null);
   }
+}
+
+class _Catalog extends ActiveCatalog {
+  @override
+  Future<ModelCatalog?> build() async => catalogOf([
+    catalogModel('llama', attribution: 'Built with Llama'),
+    catalogModel('whisper'),
+  ]);
 }
 
 final AppLocalizations en = lookupAppLocalizations(kFallbackLocale);
@@ -242,6 +253,21 @@ void main() {
     await t.tap(find.text('Cancel'));
     await t.pumpAndSettle();
     expect(await stored(t, AppSettings.filenamePattern.key), isNull);
+  });
+
+  testWidgets('[SEC-05/AC1] the licenses page carries the model '
+      'attribution from the catalog', (t) async {
+    await pump(
+      t,
+      overrides: [activeCatalogProvider.overrideWith(_Catalog.new)],
+    );
+    await t.pumpAndSettle();
+    await show(t, find.byKey(const ValueKey('about-licenses')));
+    await t.tap(find.byKey(const ValueKey('about-licenses')));
+    await t.pumpAndSettle();
+    expect(find.byType(LicensePage), findsOneWidget);
+    expect(find.textContaining('Built with Llama'), findsOneWidget);
+    expect(find.textContaining(en.aboutModelAttributions), findsOneWidget);
   });
 
   testWidgets('sections, links, license, encryption, delete all and about', (

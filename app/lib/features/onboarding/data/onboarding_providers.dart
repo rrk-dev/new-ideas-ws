@@ -21,17 +21,23 @@ Stream<bool> onboardingNotesInApp(Ref ref) => ref
     .watch(OnboardingKeys.notesInApp)
     .map((v) => v == true);
 
-/// Whether onboarding still has to run. Drives the router redirect to
-/// `/onboarding`: not completed, or completed but the readiness check now
-/// fails (model deleted, microphone revoked…) — so a stale
-/// `onboarding.completed` from an older build is re-evaluated on every
-/// launch. Unknown (loading) never redirects; a failing readiness probe
-/// does not lock the user out either.
+/// Whether first-run onboarding still has to run (drives the router
+/// redirect to `/onboarding`). Unknown (loading) never redirects.
 @Riverpod(keepAlive: true)
 Stream<bool> onboardingRequired(Ref ref) async* {
+  yield !await ref.watch(onboardingCompletedProvider.future);
+}
+
+/// Whether recording must be refused although onboarding was completed once:
+/// the readiness check now fails (model deleted, microphone revoked…). Only
+/// the Record route is gated on this; read-only routes (Library, Settings,
+/// export, delete) stay reachable. Unknown, or a failing readiness probe,
+/// never blocks.
+@Riverpod(keepAlive: true)
+Stream<bool> recordingBlocked(Ref ref) async* {
   final completed = await ref.watch(onboardingCompletedProvider.future);
   if (!completed) {
-    yield true;
+    yield false;
     return;
   }
   try {

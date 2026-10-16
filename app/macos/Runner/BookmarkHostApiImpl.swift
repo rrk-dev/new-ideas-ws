@@ -289,7 +289,8 @@ final class BookmarkHostApiImpl: NSObject, BookmarkHostApi {
     }
   }
 
-  /// Defense in depth: Dart already validated the path with VaultPath.
+  /// Defense in depth: Dart already validated the path with VaultPath; this
+  /// also rejects symlink escapes.
   private static func child(_ root: URL, _ relativePath: String) throws -> URL {
     let segments = relativePath.split(separator: "/", omittingEmptySubsequences: false)
     guard !relativePath.isEmpty,
@@ -299,6 +300,13 @@ final class BookmarkHostApiImpl: NSObject, BookmarkHostApi {
     for (i, s) in segments.enumerated() {
       url.appendPathComponent(String(s), isDirectory: i < segments.count - 1)
     }
+    // A symlink inside the vault must not lead outside of it: the resolved
+    // path (existing ancestors resolved, the rest appended) has to stay
+    // under the resolved vault root.
+    let rootPath = root.resolvingSymlinksInPath().standardizedFileURL.path
+    let resolved = url.resolvingSymlinksInPath().standardizedFileURL.path
+    let prefix = rootPath.hasSuffix("/") ? rootPath : rootPath + "/"
+    guard resolved.hasPrefix(prefix) else { throw err("invalid", "path escapes the folder") }
     return url
   }
 

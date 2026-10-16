@@ -10,6 +10,7 @@ import 'package:vaultvoice/features/extraction/domain/device_tiering.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
 import 'package:vaultvoice/features/models/data/catalog_providers.dart';
 import 'package:vaultvoice/features/models/data/download_providers.dart';
+import 'package:vaultvoice/features/models/data/retired_model_cleanup.dart';
 import 'package:vaultvoice/features/models/domain/download_state.dart';
 import 'package:vaultvoice/features/models/domain/installed_model.dart';
 import 'package:vaultvoice/features/models/domain/model_bundle.dart';
@@ -76,26 +77,42 @@ Future<ModelBundle?> recommendedModelBundle(Ref ref) async {
 
 /// Every installed model file (`models_installed`).
 @riverpod
-Stream<List<InstalledModel>> installedModels(Ref ref) => ref
-    .watch(modelsRepositoryProvider)
-    .watchAll()
-    .map(
-      (rows) => [
-        for (final r in rows)
-          InstalledModel(
-            id: r.id,
-            version: r.version,
-            size: r.size,
-            relativePath: r.path,
-            installedAt: r.installedAt,
-            type: switch (r.type) {
-              db.ModelType.stt => ModelType.stt,
-              db.ModelType.llm => ModelType.llm,
-              _ => null,
-            },
-          ),
-      ],
+Stream<List<InstalledModel>> installedModels(Ref ref) async* {
+  await _purgeRetired(ref);
+  yield* ref
+      .watch(modelsRepositoryProvider)
+      .watchAll()
+      .map(
+        (rows) => [
+          for (final r in rows)
+            InstalledModel(
+              id: r.id,
+              version: r.version,
+              size: r.size,
+              relativePath: r.path,
+              installedAt: r.installedAt,
+              type: switch (r.type) {
+                db.ModelType.stt => ModelType.stt,
+                db.ModelType.llm => ModelType.llm,
+                _ => null,
+              },
+            ),
+        ],
+      );
+}
+
+/// One-time cleanup of models no build ships any more; never blocks the list.
+Future<void> _purgeRetired(Ref ref) async {
+  try {
+    await purgeRetiredModels(
+      models: ref.read(modelsRepositoryProvider),
+      settings: ref.read(settingsRepositoryProvider),
+      paths: await ref.read(storagePathsProvider.future),
     );
+  } on Object {
+    // Retried on the next launch.
+  }
+}
 
 /// Latest progress of every download started in this process, by model id.
 @Riverpod(keepAlive: true)

@@ -17,6 +17,7 @@ Users see installed/available models, disk usage and can swap or delete them.
 - Deleting the active model prompts for a replacement and never leaves the pipeline without a usable model.
 
 ## Completion Notes
+- **Review gaps:** the Models cards render the catalog `attribution` (e.g. "Built with Llama"); one-time idempotent purge of retired models (`kRetiredModelIds`, currently the old Qwen default) runs when `installedModelsProvider` first builds: row, `models/<id>/` and a matching `models.active_*` setting are removed; sideloaded `custom-…` models and ids from newer catalogs are never touched (only the explicit retired list is purged). Tests: `retired_model_cleanup_test.dart`, `models_screen_test.dart`. Golden fixtures carry no attribution, so goldens are unchanged.
 - **Agent:** Claude Code · **Branch:** task/MDL-03-model-management (stacked on
   task/APP-01-onboarding: reuses its `model_state_providers.dart` and `startModelDownloads`)
   · **Date:** 2026-10-14
