@@ -13,6 +13,7 @@ enum MacHostChannels {
     ModelDownloadHost.register(with: registrar)
     CallGuardHost.register(with: registrar)
     RecordingIndicatorHost.register(with: registrar)
+    ProcessingHost.register(with: registrar)
   }
 
   fileprivate static func freeBytes(at path: String?) -> NSNumber? {
@@ -194,6 +195,57 @@ final class RecordingIndicatorHost: NSObject, FlutterPlugin, FlutterStreamHandle
   func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
     case "show", "hide", "remind":
+      result(nil)
+    default:
+      result(FlutterMethodNotImplemented)
+    }
+  }
+
+  func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink)
+    -> FlutterError?
+  {
+    nil
+  }
+
+  func onCancel(withArguments arguments: Any?) -> FlutterError? {
+    nil
+  }
+}
+
+/// `vaultvoice/processing` (+ `/events`), macOS side. A Mac app keeps
+/// running in the background, so begin/progress/end are no-ops and there is
+/// no deferred-processing scheduler; only the thermal state is reported.
+final class ProcessingHost: NSObject, FlutterPlugin, FlutterStreamHandler {
+  static let methodChannelName = "vaultvoice/processing"
+  static let eventChannelName = "vaultvoice/processing/events"
+
+  static func register(with registrar: FlutterPluginRegistrar) {
+    let host = ProcessingHost()
+    let methods = FlutterMethodChannel(
+      name: methodChannelName, binaryMessenger: registrar.messenger)
+    registrar.addMethodCallDelegate(host, channel: methods)
+    let events = FlutterEventChannel(
+      name: eventChannelName, binaryMessenger: registrar.messenger)
+    events.setStreamHandler(host)
+  }
+
+  func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    switch call.method {
+    case "conditions":
+      let thermal: String
+      switch ProcessInfo.processInfo.thermalState {
+      case .nominal: thermal = "nominal"
+      case .fair: thermal = "fair"
+      case .serious: thermal = "serious"
+      case .critical: thermal = "critical"
+      @unknown default: thermal = "unknown"
+      }
+      result([
+        "charging": false,
+        "lowPower": ProcessInfo.processInfo.isLowPowerModeEnabled,
+        "thermal": thermal,
+      ])
+    case "begin", "progress", "end", "scheduleDeferred", "completeDeferred":
       result(nil)
     default:
       result(FlutterMethodNotImplemented)
