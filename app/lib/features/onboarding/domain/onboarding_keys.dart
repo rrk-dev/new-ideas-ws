@@ -11,6 +11,10 @@ abstract final class OnboardingKeys {
   /// bool: the microphone priming explanation was shown before the OS
   /// prompt (first Record tap).
   static const micPrimed = 'permissions.mic_primed';
+
+  /// bool: the user explicitly chose to keep notes in the app's own folder
+  /// instead of picking a vault folder (a skipped step is not a choice).
+  static const notesInApp = 'onboarding.notes_in_app';
 }
 
 /// Onboarding pages in order. The microphone is only *explained* here — the

@@ -5,7 +5,9 @@ import 'package:vaultvoice/app.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/features/library/presentation/library_screen.dart';
+import 'package:vaultvoice/features/onboarding/data/onboarding_readiness_providers.dart';
 import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
+import 'package:vaultvoice/features/onboarding/domain/onboarding_readiness.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/profiles/presentation/profiles_screen.dart';
 import 'package:vaultvoice/features/recording/data/recording_screen_providers.dart';
@@ -26,6 +28,9 @@ void main() {
         // APP-01: past onboarding, so the router does not redirect.
         settingsStoreProvider.overrideWithValue(
           FakeSettingsStore({OnboardingKeys.completed: true}),
+        ),
+        onboardingReadinessProvider.overrideWith(
+          (ref) async => OnboardingReadiness.allReady,
         ),
         vaultTargetsProvider.overrideWith((ref) => Stream.value(const [])),
         routingRulesProvider.overrideWith((ref) => Stream.value(const [])),

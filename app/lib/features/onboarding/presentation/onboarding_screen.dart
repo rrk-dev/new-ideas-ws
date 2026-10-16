@@ -1,14 +1,23 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
+import 'package:vaultvoice/features/models/data/model_import_providers.dart';
+import 'package:vaultvoice/features/models/data/model_state_providers.dart';
+import 'package:vaultvoice/features/models/domain/model_catalog.dart';
+import 'package:vaultvoice/features/models/presentation/model_download_actions.dart';
 import 'package:vaultvoice/features/onboarding/data/onboarding_providers.dart';
+import 'package:vaultvoice/features/onboarding/data/onboarding_readiness_providers.dart';
 import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
+import 'package:vaultvoice/features/onboarding/domain/onboarding_readiness.dart';
 import 'package:vaultvoice/features/onboarding/presentation/onboarding_models_step.dart';
 import 'package:vaultvoice/features/onboarding/presentation/permission_priming.dart';
 import 'package:vaultvoice/features/onboarding/presentation/recording_consent_explainer.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
+import 'package:vaultvoice/features/recording/data/recording_providers.dart';
 import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 import 'package:vaultvoice/features/settings/presentation/vault_settings_screens.dart';
@@ -18,9 +27,15 @@ import 'package:vaultvoice/features/settings/presentation/vault_settings_screens
 /// recommended models with download progress → default vault folder →
 /// optional first recording.
 ///
-/// Nothing here opens the microphone or starts recording: the microphone is
-/// only explained, the OS asks on the first Record tap. Every permission
-/// can be declined and the flow still finishes.
+/// Readiness gate: the flow only completes once models (speech + language),
+/// a notes destination, microphone access and enough disk space are in
+/// place (`OnboardingReadiness`). A step with something missing shows what
+/// and a Fix button; Continue stays disabled until it is fixed. The
+/// microphone is explained first and only requested when the user taps the
+/// Fix/Allow button (SEC-09: never at launch); nothing here records. On a
+/// relaunch with `onboarding.completed` already set, the router sends the
+/// user back here when the check now fails and this screen opens on the
+/// first failing step.
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -28,8 +43,10 @@ class OnboardingScreen extends ConsumerStatefulWidget {
   ConsumerState<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
+class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
+    with WidgetsBindingObserver {
   OnboardingStep _step = OnboardingStep.privacy;
+  bool _micDenied = false;
   bool _consentChecked = false;
 
   /// Result of the notification prompt (null = not asked in this flow).
@@ -38,6 +55,70 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   bool _busy = false;
 
   static const List<OnboardingStep> _steps = OnboardingStep.values;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    unawaited(_resumeAtFailingStep());
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  // Back from the OS Settings: the microphone may have been allowed there.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      ref.invalidate(onboardingReadinessProvider);
+    }
+  }
+
+  /// Relaunch after completion: open on the first step that fails the check.
+  Future<void> _resumeAtFailingStep() async {
+    try {
+      if (!await ref.read(onboardingStoreProvider).isCompleted()) return;
+      final readiness = await ref.read(onboardingReadinessProvider.future);
+      final step = readiness.firstMissingStep;
+      if (mounted && step != null && _step == OnboardingStep.privacy) {
+        _go(step);
+      }
+    } on Object {
+      // Stay on the first page; the gate still blocks on every step.
+    }
+  }
+
+  OnboardingReadiness? get _readiness =>
+      ref.watch(onboardingReadinessProvider).value;
+
+  List<ReadinessItem> _missingFor(OnboardingStep step) =>
+      _readiness?.missingFor(step) ?? const [];
+
+  /// Gated steps stay blocked while the check is loading or failed.
+  bool _stepReady(OnboardingStep step) =>
+      _readiness != null && _missingFor(step).isEmpty;
+
+  Future<void> _fixMicrophone() => _guard(() async {
+    final go = await primeMicrophonePermission(context, ref);
+    if (!go || !mounted) return;
+    final granted = await ref.read(pcmMicSourceProvider).hasPermission();
+    if (mounted) setState(() => _micDenied = !granted);
+    ref.invalidate(onboardingReadinessProvider);
+  });
+
+  Future<void> _keepInApp() => _guard(() async {
+    await ref.read(onboardingStoreProvider).chooseNotesInApp();
+    ref.invalidate(onboardingReadinessProvider);
+    _next();
+  });
+
+  Future<void> _fixModels(List<CatalogModel> missing) async {
+    await startModelDownloads(context, ref, missing);
+    ref.invalidate(onboardingReadinessProvider);
+  }
 
   void _go(OnboardingStep step) => setState(() => _step = step);
 
@@ -83,6 +164,22 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   });
 
   Future<void> _finish({required bool record}) => _guard(() async {
+    // Re-check right now: nothing may have been revoked since the steps.
+    ref.invalidate(onboardingReadinessProvider);
+    final OnboardingReadiness readiness;
+    try {
+      readiness = await ref.read(onboardingReadinessProvider.future);
+    } on Object {
+      return;
+    }
+    if (!mounted) return;
+    final step = readiness.firstMissingStep;
+    if (step != null) {
+      _go(step);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(context.l10n.readinessBlocked)));
+      return;
+    }
     await ref.read(onboardingStoreProvider).complete();
     if (!mounted) return;
     if (record) {
@@ -124,7 +221,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 child: SingleChildScrollView(
                   key: ValueKey('onboarding-${_step.name}'),
                   padding: const EdgeInsets.all(AppSpacing.lg),
-                  child: _page(context),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [_page(context), _gate(context)],
+                  ),
                 ),
               ),
               Padding(
@@ -248,6 +348,120 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     };
   }
 
+  /// What is missing on the current step, each with a Fix button.
+  Widget _gate(BuildContext context) {
+    final l10n = context.l10n;
+    final gated = const {
+      OnboardingStep.permissions,
+      OnboardingStep.models,
+      OnboardingStep.folder,
+    }.contains(_step);
+    if (!gated) return const SizedBox.shrink();
+    final async = ref.watch(onboardingReadinessProvider);
+    final readiness = async.value;
+    if (readiness == null) {
+      return Padding(
+        padding: const EdgeInsets.only(top: AppSpacing.md),
+        child: async.hasError
+            ? _FixCard(
+                message: l10n.readinessError,
+                label: l10n.readinessRetry,
+                fixKey: const ValueKey('onboarding-fix-retry'),
+                onFix: () => ref.invalidate(onboardingReadinessProvider),
+              )
+            : Center(
+                child: CircularProgressIndicator(
+                  semanticsLabel: l10n.readinessChecking,
+                ),
+              ),
+      );
+    }
+    final cards = <Widget>[];
+    var modelFixShown = false;
+    for (final item in readiness.missingFor(_step)) {
+      switch (item) {
+        case ReadinessItem.microphone:
+          cards.add(
+            _micDenied
+                ? PermissionDeniedNotice.microphone(
+                    key: const ValueKey('onboarding-mic-denied'),
+                  )
+                : _FixCard(
+                    message: l10n.readinessMicMissing,
+                    label: l10n.readinessFixMic,
+                    fixKey: const ValueKey('onboarding-fix-microphone'),
+                    onFix: _busy ? null : _fixMicrophone,
+                  ),
+          );
+        case ReadinessItem.sttModel || ReadinessItem.llmModel:
+          final stt = item == ReadinessItem.sttModel;
+          final offer = !modelFixShown;
+          modelFixShown = true;
+          cards.add(
+            _FixCard(
+              message: stt
+                  ? l10n.readinessSttMissing
+                  : l10n.readinessLlmMissing,
+              label: offer ? l10n.readinessFixModels : null,
+              fixKey: ValueKey('onboarding-fix-${item.name}'),
+              onFix: offer ? _downloadMissingModels : null,
+            ),
+          );
+        case ReadinessItem.diskSpace:
+          cards.add(
+            _FixCard(
+              message: l10n.readinessSpaceMissing(
+                formatBytes(l10n, readiness.requiredBytes),
+                formatBytes(l10n, readiness.freeBytes ?? 0),
+              ),
+              label: l10n.readinessFixSpace,
+              fixKey: const ValueKey('onboarding-fix-diskSpace'),
+              onFix: () => ref.invalidate(onboardingReadinessProvider),
+            ),
+          );
+        case ReadinessItem.notesFolder:
+          cards.add(
+            _FixCard(
+              message: l10n.readinessFolderMissing,
+              label: l10n.readinessFixFolder,
+              fixKey: const ValueKey('onboarding-fix-notesFolder'),
+              onFix: _busy ? null : _pickFolder,
+            ),
+          );
+      }
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (final c in cards)
+          Padding(
+            padding: const EdgeInsets.only(top: AppSpacing.md),
+            child: c,
+          ),
+      ],
+    );
+  }
+
+  Future<void> _downloadMissingModels() async {
+    final l10n = context.l10n;
+    final messenger = ScaffoldMessenger.of(context);
+    final bundle = await ref.read(recommendedModelBundleProvider.future);
+    final installed = ref.read(installedModelsProvider).value ?? const [];
+    final offline = ref.read(networkDisabledProvider).value ?? false;
+    final missing = [
+      for (final m in bundle?.models ?? const <CatalogModel>[])
+        if (!installed.any((i) => i.type == m.type)) m,
+    ];
+    if (offline || missing.isEmpty) {
+      messenger.showSnackBar(
+        SnackBar(content: Text(l10n.readinessFixModelsUnavailable)),
+      );
+      return;
+    }
+    if (!mounted) return;
+    await _fixModels(missing);
+  }
+
   List<Widget> _actions(BuildContext context) {
     final l10n = context.l10n;
     Widget primary(String label, VoidCallback? onPressed, {Key? key}) =>
@@ -264,16 +478,27 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           _consentChecked ? _acknowledgeConsent : null,
         ),
       ],
-      OnboardingStep.permissions => [primary(l10n.commonContinue, _next)],
-      OnboardingStep.models => [primary(l10n.commonContinue, _next)],
+      OnboardingStep.permissions => [
+        primary(
+          l10n.commonContinue,
+          _stepReady(OnboardingStep.permissions) ? _next : null,
+        ),
+      ],
+      OnboardingStep.models => [
+        primary(
+          l10n.commonContinue,
+          _stepReady(OnboardingStep.models) ? _next : null,
+        ),
+      ],
       OnboardingStep.folder => [
-        if (_folder is! VaultFolderPicked)
+        if (!_stepReady(OnboardingStep.folder))
           TextButton(
             key: const ValueKey('onboarding-keep-in-app'),
-            onPressed: _busy ? null : _next,
+            onPressed: _busy ? null : _keepInApp,
             child: Text(l10n.onboardingFolderKeepInApp),
-          ),
-        if (_folder is VaultFolderPicked) primary(l10n.commonContinue, _next),
+          )
+        else
+          primary(l10n.commonContinue, _next),
       ],
       OnboardingStep.ready => [
         TextButton(
@@ -340,6 +565,64 @@ class _Point extends StatelessWidget {
           const SizedBox(width: AppSpacing.md),
           Expanded(child: Text(text, style: theme.textTheme.bodyLarge)),
         ],
+      ),
+    );
+  }
+}
+
+/// A missing requirement: message plus an optional Fix button.
+class _FixCard extends StatelessWidget {
+  const _FixCard({
+    required this.message,
+    required this.label,
+    required this.fixKey,
+    required this.onFix,
+  });
+
+  final String message;
+  final String? label;
+  final Key fixKey;
+  final VoidCallback? onFix;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    return Card(
+      color: scheme.errorContainer,
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.error_outline, color: scheme.onErrorContainer),
+                const SizedBox(width: AppSpacing.md),
+                Expanded(
+                  child: Text(
+                    message,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: scheme.onErrorContainer,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            if (label != null) ...[
+              const SizedBox(height: AppSpacing.sm),
+              Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: FilledButton(
+                  key: fixKey,
+                  onPressed: onFix,
+                  child: Text(label!),
+                ),
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }
