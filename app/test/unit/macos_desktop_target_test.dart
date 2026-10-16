@@ -219,6 +219,14 @@ void main() {
         .readAsStringSync();
     expect(bookmark, contains('NSOpenPanel'));
     expect(bookmark, contains('.withSecurityScope'));
+    // The panel's grant belongs to the picked URL: the bookmark is created
+    // inside the panel completion, never hopped to another queue first.
+    final pick = bookmark.substring(
+      bookmark.indexOf('func pickFolder'),
+      bookmark.indexOf('// MARK: - Access'),
+    );
+    expect(pick, contains('bookmarkForPicked(url)'));
+    expect(pick, isNot(contains('ioQueue')));
     final settings = File('macos/Runner/MacHostChannels.swift')
         .readAsStringSync();
     expect(settings, contains('Privacy_Microphone'));

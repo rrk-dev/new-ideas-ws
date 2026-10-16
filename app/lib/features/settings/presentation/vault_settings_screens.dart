@@ -3,8 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/db/enums.dart';
+import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
+import 'package:vaultvoice/core/logging/logger.dart';
+import 'package:vaultvoice/core/logging/redaction.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
@@ -66,7 +69,11 @@ Future<VaultFolderPick> pickAndSaveVaultFolder(
   try {
     final picked = await ref.read(vaultFolderAccessProvider).pick();
     switch (picked) {
-      case Err():
+      case Err(:final failure):
+        // Failure messages are content-free (type + reason, never a path).
+        ref
+            .read(loggerProvider)
+            .failure('vault', failure, level: LogLevel.warning);
         return const VaultFolderPickFailed();
       case Ok(value: null):
         return const VaultFolderPickCancelled();
@@ -83,11 +90,22 @@ Future<VaultFolderPick> pickAndSaveVaultFolder(
                 createdAt: ref.read(clockProvider).now(),
               ),
             );
-        return saved.isOk
-            ? VaultFolderPicked(name)
-            : const VaultFolderPickFailed();
+        if (saved case Err(:final failure)) {
+          ref
+              .read(loggerProvider)
+              .failure('vault', failure, level: LogLevel.warning);
+          return const VaultFolderPickFailed();
+        }
+        return VaultFolderPicked(name);
     }
-  } on Object {
+  } on Object catch (e) {
+    ref
+        .read(loggerProvider)
+        .warning(
+          'vault',
+          'folder pick threw',
+          fields: {'type': LogId(e.runtimeType.toString())},
+        );
     return const VaultFolderPickFailed();
   }
 }
