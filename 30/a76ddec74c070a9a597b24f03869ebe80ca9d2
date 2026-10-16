@@ -1,0 +1,79 @@
+docs/adr/ADR-LLM-08-default-llm.md
+  s_6f33b549e63fe9::t_52091e73eaae51 52
+tools/licenses/native_models.py
+  s_6f33b549e63fe9::t_5aee86438faa27 40,68-69
+tools/licenses/inventory-header.md
+  s_6f33b549e63fe9::t_52091e73eaae51 11
+app/lib/core/l10n/gen/app_localizations.dart
+  s_6f33b549e63fe9::t_4be31feeda9cda 589,592-593
+docs/test-plans/device/MDL-04.md
+  s_6f33b549e63fe9::t_52091e73eaae51 13
+app/assets/licenses/native_models.json
+  s_6f33b549e63fe9::t_5aee86438faa27 41,43
+app/lib/features/extraction/domain/device_tiering.dart
+  s_6f33b549e63fe9::t_5aee86438faa27 92-93
+app/test/helpers/model_download_server.dart
+  s_6f33b549e63fe9::t_4be31feeda9cda 96-100,180-184
+docs/models.md
+  s_6f33b549e63fe9::t_52091e73eaae51 150-151
+app/lib/features/models/presentation/model_texts.dart
+  s_6f33b549e63fe9::t_671984e91072f1 67-68
+docs/licenses.md
+  s_6f33b549e63fe9::t_52091e73eaae51 11
+  s_6f33b549e63fe9::t_1c1bd631d02330 75,217
+app/test/widget/processing_status_test.dart
+  s_6f33b549e63fe9::t_5aee86438faa27 224,232
+app/test/unit/models/model_texts_test.dart
+  s_6f33b549e63fe9::t_fde61bf4771513 58-69
+  s_6f33b549e63fe9::t_6fcbd4f85d5506 5
+app/lib/features/models/data/gateway_download_transport.dart
+  s_6f33b549e63fe9::t_671984e91072f1 54-67
+  s_6f33b549e63fe9::t_66a521d3307b59 8
+tools/licenses/texts/llama-3.2-community-license.txt
+  s_6f33b549e63fe9::t_5aee86438faa27 1-70
+app/test/unit/security/license_compliance_test.dart
+  s_6f33b549e63fe9::t_5aee86438faa27 68,74,78
+app/lib/core/l10n/arb/app_en.arb
+  s_6f33b549e63fe9::t_671984e91072f1 103
+docs/privacy-audit.md
+  s_6f33b549e63fe9::t_52091e73eaae51 293
+app/test/unit/models/model_downloader_test.dart
+  s_102b2c43222056::t_7a81f51f37a952 608,619
+  s_6f33b549e63fe9::t_4be31feeda9cda 606-607,609-618,620-623
+docs/adr/ADR-MDL-01-model-hosting.md
+  s_6f33b549e63fe9::t_52091e73eaae51 56-58
+app/test/helpers/model_fixtures.dart
+  s_6f33b549e63fe9::t_a3ed158a2435ba 45,47,49
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_6f33b549e63fe9::t_4be31feeda9cda 306-307
+app/lib/features/onboarding/presentation/onboarding_models_step.dart
+  s_6f33b549e63fe9::t_fde61bf4771513 114-115
+tools/model-catalog/models.json
+  s_6f33b549e63fe9::t_087749962878cd 196,199,201-203,206-208,210-211,214
+app/lib/features/models/domain/download_policy.dart
+  s_6f33b549e63fe9::t_66a521d3307b59 37-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "30a76ddec74c070a9a597b24f03869ebe80ca9d2",
+  "prompts": {},
+  "sessions": {
+    "s_102b2c43222056": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "0eb5d527-5021-44a2-9707-b4c4503b2b05",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_6f33b549e63fe9": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "ff27057e-cce2-4ed3-91e4-d5f3b233bf8c",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
