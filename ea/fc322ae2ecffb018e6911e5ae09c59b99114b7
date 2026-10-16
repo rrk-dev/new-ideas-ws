@@ -1,0 +1,62 @@
+app/lib/features/settings/presentation/vault_settings_screens.dart
+  s_e85a8447019978::t_1cc94e5a80687f 26,83,88,101-104,186,218,225-226,231-249
+app/test/unit/export/routing_engine_test.dart
+  s_eb09ac918125fa::t_c245fea002412c 164,173,199-250
+app/test/widget/vault_folder_pick_test.dart
+  s_e85a8447019978::t_b7b0b32275208e 15,93-110,112-116
+  s_e85a8447019978::t_ff693c038272d9 111,117-118
+app/lib/core/l10n/arb/app_en.arb
+  s_e85a8447019978::t_1cc94e5a80687f 617-618
+app/lib/features/export/data/export_outbox.dart
+  s_e85a8447019978::t_9acedb286578f1 191-192
+  s_e85a8447019978::t_1cc94e5a80687f 190,193,206,209,217,244
+  s_e85a8447019978::t_540872680345ad 16
+app/test/widget/settings_screen_test.dart
+  s_eb09ac918125fa::t_c245fea002412c 319-320,327-328,380-388,390-429
+  s_e85a8447019978::t_01444d16e18450 12,389
+  s_e85a8447019978::t_72666dc344fc05 326,430
+app/test/unit/export/vault_exporter_test.dart
+  s_eb09ac918125fa::t_5e5cce8234bc20 185-216
+app/lib/features/export/data/routing_providers.dart
+  s_e85a8447019978::t_1cc94e5a80687f 121-138
+tasks/07-export/EXP-05-vault-writer-routing-rules.md
+  s_e85a8447019978::t_8840266eace3bb 52-57
+app/lib/features/export/domain/routing_engine.dart
+  s_e85a8447019978::t_98286c8f069f29 102-103,144,160-161,167,223-252
+.agents/skills/vv-markdown-vault-export/SKILL.md
+  s_e85a8447019978::t_8840266eace3bb 75-77
+app/lib/features/settings/domain/setting_keys.dart
+  s_e85a8447019978::t_98286c8f069f29 58-61
+app/lib/features/export/data/vault_exporter.dart
+  s_e85a8447019978::t_98286c8f069f29 158-160
+app/lib/core/l10n/gen/app_localizations.dart
+  s_e85a8447019978::t_f7b21d2d2b21e8 3204-3215
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_e85a8447019978::t_d47d815cc2a341 1879-1884
+app/lib/features/export/data/routing_providers.g.dart
+  s_eb09ac918125fa::t_72fd4c2f966a4c 198-253
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "eafc322ae2ecffb018e6911e5ae09c59b99114b7",
+  "prompts": {},
+  "sessions": {
+    "s_e85a8447019978": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "a2d9de1a-82be-41ee-8446-35de94e26a92",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_eb09ac918125fa": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "9cb7914f-8e50-4cdb-9425-5e755e64dab1",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
