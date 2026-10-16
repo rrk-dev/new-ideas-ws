@@ -1,0 +1,19 @@
+app/test/golden/processing_status_golden_test.dart
+  s_102b2c43222056::t_1e679d2a34c8ed 2,13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ff6684c395db6e6b533bef4e459bb1a696db62db",
+  "prompts": {},
+  "sessions": {
+    "s_102b2c43222056": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "0eb5d527-5021-44a2-9707-b4c4503b2b05",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
