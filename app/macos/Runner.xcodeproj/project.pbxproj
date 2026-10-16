@@ -31,6 +31,15 @@
 		78A318202AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 78A3181F2AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage */; };
 		7E4D6DB404D370D632C38FCC /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9DF8D01697654095A84B93C /* Pods_Runner.framework */; };
 		A0D09A0000000000000000B1 /* MacAudioRouteObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A0000000000000000F1 /* MacAudioRouteObserver.swift */; };
+		A0D09A000000000000000030 /* MacHostChannels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000010 /* MacHostChannels.swift */; };
+		A0D09A000000000000000031 /* AppLockPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000011 /* AppLockPlugin.swift */; };
+		A0D09A000000000000000032 /* SecureStoragePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000012 /* SecureStoragePlugin.swift */; };
+		A0D09A000000000000000033 /* BookmarkHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000013 /* BookmarkHostApiImpl.swift */; };
+		A0D09A000000000000000034 /* AudioImportHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000014 /* AudioImportHostApiImpl.swift */; };
+		A0D09A000000000000000035 /* PurchaseHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000015 /* PurchaseHostApiImpl.swift */; };
+		A0D09A000000000000000036 /* BookmarkApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000016 /* BookmarkApi.g.swift */; };
+		A0D09A000000000000000037 /* AudioImportApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000017 /* AudioImportApi.g.swift */; };
+		A0D09A000000000000000038 /* PurchaseApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000018 /* PurchaseApi.g.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +107,15 @@
 		F0A1A1593D385A704109E3B3 /* Pods-RunnerTests.debug-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug-prod.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug-prod.xcconfig"; sourceTree = "<group>"; };
 		F1501348FB2B337D404C781B /* Pods-Runner.debug-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug-prod.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug-prod.xcconfig"; sourceTree = "<group>"; };
 		F9DF8D01697654095A84B93C /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0D09A000000000000000010 /* MacHostChannels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MacHostChannels.swift"; sourceTree = "<group>"; };
+		A0D09A000000000000000011 /* AppLockPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppLockPlugin.swift"; sourceTree = "<group>"; };
+		A0D09A000000000000000012 /* SecureStoragePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SecureStoragePlugin.swift"; sourceTree = "<group>"; };
+		A0D09A000000000000000013 /* BookmarkHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookmarkHostApiImpl.swift"; sourceTree = "<group>"; };
+		A0D09A000000000000000014 /* AudioImportHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioImportHostApiImpl.swift"; sourceTree = "<group>"; };
+		A0D09A000000000000000015 /* PurchaseHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PurchaseHostApiImpl.swift"; sourceTree = "<group>"; };
+		A0D09A000000000000000016 /* BookmarkApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../../ios/Runner/BookmarkApi.g.swift"; sourceTree = "<group>"; };
+		A0D09A000000000000000017 /* AudioImportApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../../ios/Runner/AudioImportApi.g.swift"; sourceTree = "<group>"; };
+		A0D09A000000000000000018 /* PurchaseApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../../ios/Runner/PurchaseApi.g.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +208,15 @@
 				33CC10F02044A3C60003C045 /* AppDelegate.swift */,
 				33CC11122044BFA00003C045 /* MainFlutterWindow.swift */,
 				A0D09A0000000000000000F1 /* MacAudioRouteObserver.swift */,
+				A0D09A000000000000000010 /* MacHostChannels.swift */,
+				A0D09A000000000000000011 /* AppLockPlugin.swift */,
+				A0D09A000000000000000012 /* SecureStoragePlugin.swift */,
+				A0D09A000000000000000013 /* BookmarkHostApiImpl.swift */,
+				A0D09A000000000000000014 /* AudioImportHostApiImpl.swift */,
+				A0D09A000000000000000015 /* PurchaseHostApiImpl.swift */,
+				A0D09A000000000000000016 /* BookmarkApi.g.swift */,
+				A0D09A000000000000000017 /* AudioImportApi.g.swift */,
+				A0D09A000000000000000018 /* PurchaseApi.g.swift */,
 				33E51913231747F40026EE4D /* DebugProfile.entitlements */,
 				33E51914231749380026EE4D /* Release.entitlements */,
 				33CC11242044D66E0003C045 /* Resources */,
@@ -446,6 +473,15 @@
 			files = (
 				33CC11132044BFA00003C045 /* MainFlutterWindow.swift in Sources */,
 				A0D09A0000000000000000B1 /* MacAudioRouteObserver.swift in Sources */,
+				A0D09A000000000000000030 /* MacHostChannels.swift in Sources */,
+				A0D09A000000000000000031 /* AppLockPlugin.swift in Sources */,
+				A0D09A000000000000000032 /* SecureStoragePlugin.swift in Sources */,
+				A0D09A000000000000000033 /* BookmarkHostApiImpl.swift in Sources */,
+				A0D09A000000000000000034 /* AudioImportHostApiImpl.swift in Sources */,
+				A0D09A000000000000000035 /* PurchaseHostApiImpl.swift in Sources */,
+				A0D09A000000000000000036 /* BookmarkApi.g.swift in Sources */,
+				A0D09A000000000000000037 /* AudioImportApi.g.swift in Sources */,
+				A0D09A000000000000000038 /* PurchaseApi.g.swift in Sources */,
 				33CC10F12044A3C60003C045 /* AppDelegate.swift in Sources */,
 				335BBD1B22A9A15E00E9071D /* GeneratedPluginRegistrant.swift in Sources */,
 			);

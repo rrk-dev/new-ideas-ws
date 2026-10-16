@@ -154,6 +154,76 @@ void main() {
       contains('iOS 16+, Android API 26+ (arm64-v8a only), macOS 13+ arm64.'),
     );
   });
+
+  test('[FND-09/AC2] macOS host answers every channel the app calls', () {
+    // Dart-side channel names -> the macOS Swift file that must answer them.
+    const hosts = {
+      'vaultvoice/app_settings': 'MacHostChannels.swift',
+      'vaultvoice/storage_info': 'MacHostChannels.swift',
+      'vaultvoice/model_download': 'MacHostChannels.swift',
+      'vaultvoice/call_guard': 'MacHostChannels.swift',
+      'vaultvoice/recording_indicator': 'MacHostChannels.swift',
+      'vaultvoice/device_auth': 'AppLockPlugin.swift',
+      'vaultvoice/privacy_screen': 'AppLockPlugin.swift',
+      'vaultvoice/secure_storage': 'SecureStoragePlugin.swift',
+      'vaultvoice/audio_session/events': 'MacAudioRouteObserver.swift',
+    };
+    final pbxproj = File('macos/Runner.xcodeproj/project.pbxproj')
+        .readAsStringSync();
+    for (final MapEntry(key: channel, value: file) in hosts.entries) {
+      final swift = File('macos/Runner/$file').readAsStringSync();
+      expect(swift, contains(channel), reason: '$file answers $channel');
+      expect(pbxproj, contains('$file in Sources'), reason: file);
+    }
+    for (final file in [
+      'BookmarkHostApiImpl.swift',
+      'AudioImportHostApiImpl.swift',
+      'PurchaseHostApiImpl.swift',
+      'BookmarkApi.g.swift',
+      'AudioImportApi.g.swift',
+      'PurchaseApi.g.swift',
+    ]) {
+      expect(pbxproj, contains('$file in Sources'), reason: file);
+    }
+    final window = File('macos/Runner/MainFlutterWindow.swift')
+        .readAsStringSync();
+    for (final registration in [
+      'MacHostChannels.register',
+      'AppLockPlugin.register',
+      'SecureStoragePlugin.register',
+      'AudioImportPlugin.register',
+      'BookmarkHostApiSetup.setUp',
+      'PurchaseHostApiSetup.setUp',
+    ]) {
+      expect(window, contains(registration));
+    }
+  });
+
+  test('[FND-09/AC2] folder access entitlements and bookmark scope', () {
+    for (final name in [
+      'macos/Runner/DebugProfile.entitlements',
+      'macos/Runner/Release.entitlements',
+    ]) {
+      final entitlements = File(name).readAsStringSync();
+      expect(
+        entitlements,
+        contains('com.apple.security.files.user-selected.read-write'),
+      );
+      expect(
+        entitlements,
+        contains('com.apple.security.files.bookmarks.app-scope'),
+      );
+      expect(entitlements, isNot(contains('files.all')));
+    }
+    final bookmark = File('macos/Runner/BookmarkHostApiImpl.swift')
+        .readAsStringSync();
+    expect(bookmark, contains('NSOpenPanel'));
+    expect(bookmark, contains('.withSecurityScope'));
+    final settings = File('macos/Runner/MacHostChannels.swift')
+        .readAsStringSync();
+    expect(settings, contains('Privacy_Microphone'));
+    expect(settings, contains('volumeAvailableCapacityForImportantUsage'));
+  });
 }
 
 final class _Config {

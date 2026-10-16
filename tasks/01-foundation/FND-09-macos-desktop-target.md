@@ -31,4 +31,4 @@ FND-01 deliberately disabled desktop targets. This task is the exception the use
   - AC2: ⏳ device: docs/test-plans/device/FND-09.md
   - AC3: ✅ artifact: CONTRIBUTING.md
 - **Decisions:** none
-- **Follow-ups:** none
+- **Follow-ups:** none. Post-merge fix `fix/macos-host`: macOS Runner had no platform channels (onboarding settings/folder/space and Record call-state failed). Hosts now live in `app/macos/Runner` (see `docs/test-plans/device/FND-09.md`, `integration_test/macos_host_channels_test.dart`).
