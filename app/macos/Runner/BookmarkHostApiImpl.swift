@@ -50,25 +50,31 @@ final class BookmarkHostApiImpl: NSObject, BookmarkHostApi {
         completion(.success(nil))
         return
       }
-      self.ioQueue.async {
-        let result: Result<BookmarkFolder?, Error>
-        do {
-          // The panel's URL carries the user's grant; no explicit start needed.
-          let bookmark = try url.bookmarkData(
-            options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
-          result = .success(
-            BookmarkFolder(
-              bookmark: bookmark.base64EncodedString(), displayName: url.lastPathComponent))
-        } catch {
-          result = .failure(Self.map(error))
-        }
-        DispatchQueue.main.async { completion(result) }
-      }
+      // The panel's grant is tied to this URL object: create the bookmark
+      // right here, inside the access window, not on another queue.
+      completion(Self.bookmarkForPicked(url))
     }
     if let window = NSApp.keyWindow ?? NSApp.mainWindow {
       panel.beginSheetModal(for: window, completionHandler: finish)
     } else {
       panel.begin(completionHandler: finish)
+    }
+  }
+
+  /// Builds the stored bookmark for a panel URL. Failures are content-free:
+  /// the Cocoa error code only, never the path.
+  private static func bookmarkForPicked(_ url: URL) -> Result<BookmarkFolder?, Error> {
+    let scoped = url.startAccessingSecurityScopedResource()
+    defer { if scoped { url.stopAccessingSecurityScopedResource() } }
+    do {
+      let bookmark = try url.bookmarkData(
+        options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
+      return .success(
+        BookmarkFolder(bookmark: bookmark.base64EncodedString(), displayName: url.lastPathComponent))
+    } catch {
+      let ns = error as NSError
+      // A refused grant is "revoked" (re-pick), not a transient outage.
+      return .failure(err("revoked", "bookmark refused \(ns.domain) \(ns.code)"))
     }
   }
 
