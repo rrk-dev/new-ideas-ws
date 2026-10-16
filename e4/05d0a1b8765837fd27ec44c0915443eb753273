@@ -1,0 +1,153 @@
+tools/bench/results/2026-10-16-eval-engineering-SmolLM2-135M-Instruct-Q8-0.md
+  s_eb09ac918125fa::t_e6ccb4be4a7020 1-77
+tools/bench/results/2026-10-16-eval-engineering-Llama-3.2-1B-Instruct-Q4-K-M.md
+  s_eb09ac918125fa::t_7b22da72469b35 1-77
+app/test/golden_prompts/engineering.single_pass.txt
+  s_eb09ac918125fa::t_2a889d050b05ae 1,3,5-6,9-16,20,25-26,29-30,32-35,39,55
+native/bridge/vv_llama.h
+  s_eb09ac918125fa::t_703b98cdf0b82d 184
+app/lib/features/profiles/domain/post_processors.dart
+  s_eb09ac918125fa::t_fedab3a4ab1b60 31-38,119-123
+.agents/skills/vv-llm-inference/SKILL.md
+  s_eb09ac918125fa::t_ad986824f95e21 54
+app/test/golden_prompts/meeting.single_pass.txt
+  s_eb09ac918125fa::t_2a889d050b05ae 1,3,5-6,9,13,16-17,22-24,29-30,46
+app/test/unit/profiles/extraction_grounding_test.dart
+  s_eb09ac918125fa::t_e12f65dcfe04ce 54-57,333-334
+  s_eb09ac918125fa::t_638c62547814df 1-5,7-50,53,58-73,75-90,93-94,104-124,127-135,140-144,148-160,170-196,207-209,215-221,227-232,238,240-259,269-287,294-307,312-332,335-338
+  s_5a534bed398a49::t_7e0c09f37638fa 239
+  s_eb09ac918125fa::t_26038f557a8390 91-92,125-126,136-139,145-147,161-169,197-206,210-214,222-226,233-237,260-268,288-293,308-311
+  s_eb09ac918125fa::t_502da868df49c4 51-52,74
+  s_eb09ac918125fa::t_810d960bf68eb8 6,95-103
+app/test/unit/extraction/long_transcript_test.dart
+  s_eb09ac918125fa::t_e279b6a1dc7e46 733-734
+app/lib/features/templates/domain/template_editing.dart
+  s_eb09ac918125fa::t_7cc702ca7b904b 5,173-195
+app/test/unit/profiles/fixtures/warranty_examples.json
+  s_eb09ac918125fa::t_ca64c63e0486c8 1-20
+app/lib/features/profiles/domain/transcript_grounding.dart
+  s_eb09ac918125fa::t_3f831899ca9bd3 1-208
+app/lib/features/pipeline/data/steps/extract_step.dart
+  s_eb09ac918125fa::t_358039d4c6cc4f 8,57-59,78-80,138-154,156-159
+tools/bench/results/2026-10-16-eval-engineering-Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_eb09ac918125fa::t_7b22da72469b35 1-6401
+docs/profile-spec.md
+  s_eb09ac918125fa::t_993056f0f6aeea 83-113,256,264,276,280,283-284,293,297,301,312,316,326-329,342
+app/test/golden_prompts/warranty.single_pass.txt
+  s_eb09ac918125fa::t_2a889d050b05ae 1,3,5-6,9-11,13,47
+tools/bench/results/2026-10-16-eval-warranty-Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_eb09ac918125fa::t_e6ccb4be4a7020 1-3019
+app/test/unit/profiles/profile_fixtures.dart
+  s_eb09ac918125fa::t_aad82cb1235d87 37-47
+tools/bench/eval/baselines/warranty.SmolLM2-135M-Instruct-Q8-0.json
+  s_eb09ac918125fa::t_e6ccb4be4a7020 3,5,10-13,16-23,30-31,34-35,39,42-43,46-47,50-51,54-55,58-59,61-62,66-69,71,75,77
+tools/bench/eval/baselines/engineering.Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_eb09ac918125fa::t_7b22da72469b35 3,10-13,16-23,27,31-34,36,39,41,44,47-50,52,55-58,60,63-66,68-69,72-75,77,81-82,84
+app/test/unit/profiles/fixtures/meeting_examples.json
+  s_eb09ac918125fa::t_ca64c63e0486c8 1-30
+app/test/unit/profiles/profile_validator_test.dart
+  s_eb09ac918125fa::t_aad82cb1235d87 48,56,200
+  s_eb09ac918125fa::t_47ea6c30896369 51,53,235-236,375
+native/bridge/vv_llama_engine.cpp
+  s_eb09ac918125fa::t_703b98cdf0b82d 303-305
+app/tool/render_prompt.dart
+  s_eb09ac918125fa::t_fedab3a4ab1b60 90-97,128-135,214-215
+  s_eb09ac918125fa::t_c245fea002412c 69-75,111,228,231-234,237-248,283-298,330-334,360-361
+  s_eb09ac918125fa::t_1246ff0243a874 20,68,151-154,188-213,216-218,318
+  s_eb09ac918125fa::t_b640cde7a7c967 219-220,299-300
+tools/bench/results/2026-10-16-eval-meeting-Llama-3.2-1B-Instruct-Q4-K-M.md
+  s_eb09ac918125fa::t_e6ccb4be4a7020 1-77
+tools/bench/results/2026-10-16-eval-warranty-SmolLM2-135M-Instruct-Q8-0.json
+  s_eb09ac918125fa::t_e6ccb4be4a7020 1-3001
+app/assets/profiles/engineering.yaml
+  s_eb09ac918125fa::t_094d3295a3da19 26-30
+  s_eb09ac918125fa::t_2eaf955bdf5007 1,8,23-25,34,43,47,56,60,68,72,76,80,90,94-97
+app/lib/core/platform/llm_engine.dart
+  s_eb09ac918125fa::t_ad986824f95e21 6-7
+tools/bench/results/2026-10-16-eval-meeting-Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_eb09ac918125fa::t_e6ccb4be4a7020 1-4123
+tools/bench/eval/README.md
+  s_eb09ac918125fa::t_d79e3da72603f6 86-96
+tools/bench/eval/baselines/meeting.Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_eb09ac918125fa::t_e6ccb4be4a7020 3,10-13,16-23,27,32-34,36,39-42,44,47-50,52-54,57-60,62,65-68,70,74-75,77
+app/test/unit/profiles/template_variables_test.dart
+  s_eb09ac918125fa::t_aad82cb1235d87 35
+tools/bench/eval/baselines/engineering.SmolLM2-135M-Instruct-Q8-0.json
+  s_eb09ac918125fa::t_e6ccb4be4a7020 3,5,10-13,16-23,27,31-34,36,39-42,44,47-50,52,55-58,60,63,65,68-69,72-75,77,81-82,84
+app/test/unit/profiles/prompt_builder_test.dart
+  s_eb09ac918125fa::t_aad82cb1235d87 225
+  s_eb09ac918125fa::t_de4e209b7ea948 90
+  s_eb09ac918125fa::t_47ea6c30896369 128
+app/test/golden_prompts/meeting.chunk_1_of_2.txt
+  s_eb09ac918125fa::t_2a889d050b05ae 1,3,5-6,9,13,16-17,22-24,29-30,45
+app/lib/features/profiles/domain/post_processing.dart
+  s_eb09ac918125fa::t_fedab3a4ab1b60 12-15,25,38,40,60,76-80,84-85,91-94,98-100,102-106,141-148,718-778
+  s_eb09ac918125fa::t_5f0d812973134e 779
+app/test/unit/templates/template_editing_test.dart
+  s_eb09ac918125fa::t_7cc702ca7b904b 120-122
+tools/bench/results/2026-10-15-extraction-quality.md
+  s_eb09ac918125fa::t_4710996b2985cc 1-58
+tools/bench/results/2026-10-16-eval-warranty-SmolLM2-135M-Instruct-Q8-0.md
+  s_eb09ac918125fa::t_e6ccb4be4a7020 1-86
+tools/bench/eval/baselines/warranty.Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_eb09ac918125fa::t_e6ccb4be4a7020 3,10-13,16-23,30-31,34-35,38-39,42-43,46-47,50-51,54-55,58-59,61-62,66-69,71,75,77
+.agents/skills/vv-extraction-profiles/references/meeting-profile.example.yaml
+  s_eb09ac918125fa::t_fec509ff103da5 3,15,19,22-23,32,36,40,51,55,65-68
+app/assets/profiles/warranty.yaml
+  s_eb09ac918125fa::t_2eaf955bdf5007 8,22-24,26,60-62
+app/test/unit/profiles/extraction_prompts_test.dart
+  s_eb09ac918125fa::t_5612ebcddf0caf 4,11
+tools/bench/results/2026-10-16-eval-warranty-Llama-3.2-1B-Instruct-Q4-K-M.md
+  s_eb09ac918125fa::t_e6ccb4be4a7020 1-86
+tools/bench/results/2026-10-16-eval-engineering-SmolLM2-135M-Instruct-Q8-0.json
+  s_eb09ac918125fa::t_e6ccb4be4a7020 1-4574
+tasks/06-profiles/PRF-03-meeting-action-items-profile.md
+  s_eb09ac918125fa::t_d79e3da72603f6 29-30
+tools/bench/eval/run.py
+  s_eb09ac918125fa::t_06dfef814d3873 108-112,210-217
+  s_eb09ac918125fa::t_b645f65e4449e9 148
+tasks/06-profiles/PRF-04-warranty-receipt-profile.md
+  s_eb09ac918125fa::t_d79e3da72603f6 30-31
+app/test/unit/pipeline/production_steps_test.dart
+  s_eb09ac918125fa::t_e279b6a1dc7e46 30-40,78,164,209
+tasks/06-profiles/PRF-05-engineering-brainstorm-profile.md
+  s_eb09ac918125fa::t_d79e3da72603f6 28-29
+app/lib/features/profiles/domain/prompt_builder.dart
+  s_eb09ac918125fa::t_e605633d762e08 30-31,33-36,38,363-364
+packages/vv_native/lib/src/llm_engine.dart
+  s_eb09ac918125fa::t_ad986824f95e21 31-33,35
+tools/bench/eval/baselines/meeting.SmolLM2-135M-Instruct-Q8-0.json
+  s_eb09ac918125fa::t_e6ccb4be4a7020 3,5,10-13,16-23,27,31-34,36,39-42,44,47-50,52,54,57-60,62,65-68,70,74-75,77
+app/test/unit/profiles/builtin_profile_acceptance_test.dart
+  s_eb09ac918125fa::t_47ea6c30896369 314-316
+  s_eb09ac918125fa::t_7fc16181be1781 189
+  s_eb09ac918125fa::t_e9845052f755cf 308-309
+app/assets/profiles/meeting.yaml
+  s_eb09ac918125fa::t_2eaf955bdf5007 7,19,23,26-27,36,40,44,55,59,69-72
+app/test/db/repositories/profile_registry_test.dart
+  s_5a534bed398a49::t_eb0db0595786fe 40-42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e405d0a1b8765837fd27ec44c0915443eb753273",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_eb09ac918125fa": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "9cb7914f-8e50-4cdb-9425-5e755e64dab1",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
