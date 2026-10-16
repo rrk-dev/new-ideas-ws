@@ -700,12 +700,6 @@ abstract class AppLocalizations {
   /// **'Download anyway'**
   String get downloadAnyway;
 
-  /// No description provided for @downloadFailed.
-  ///
-  /// In en, this message translates to:
-  /// **'Downloading {name} failed. Try again from Settings › Models.'**
-  String downloadFailed(String name);
-
   /// No description provided for @onboardingStepOf.
   ///
   /// In en, this message translates to:
@@ -2337,12 +2331,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Paused'**
   String get jobPaused;
-
-  /// No description provided for @jobWaitingModel.
-  ///
-  /// In en, this message translates to:
-  /// **'Waiting for a model download'**
-  String get jobWaitingModel;
 
   /// No description provided for @jobWaitingProfile.
   ///

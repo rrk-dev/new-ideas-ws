@@ -370,11 +370,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get downloadAnyway => 'Download anyway';
 
   @override
-  String downloadFailed(String name) {
-    return 'Downloading $name failed. Try again from Settings › Models.';
-  }
-
-  @override
   String onboardingStepOf(int step, int total) {
     return 'Step $step of $total';
   }
@@ -1343,9 +1338,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get jobPaused => 'Paused';
-
-  @override
-  String get jobWaitingModel => 'Waiting for a model download';
 
   @override
   String get jobWaitingProfile => 'Choose a profile to continue';
