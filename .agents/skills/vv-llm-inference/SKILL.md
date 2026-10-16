@@ -51,7 +51,7 @@ Q4_K_M; verify the mechanism at the pinned commit.
 ## Sampling presets
 | Use | Preset |
 |---|---|
-| Structured extraction (default) | grammar + temp 0.2, min_p 0.05, top_k 40, **no repeat penalty** (breaks JSON), seed fixed |
+| Structured extraction (default) | grammar + temp 0.2, min_p 0.05, top_k 40, **repeat penalty 1.05 / last 64** (the grammar keeps JSON valid; ≥ 1.1 starts distorting copied names/serials — measured, see `tools/bench/results/2026-10-15-extraction-quality.md`), seed fixed; the Dart post-processors still dedupe and ground the result |
 | Deterministic tests | temp 0 (greedy) + grammar, seed 42 |
 | Free-text summary field | temp 0.5, min_p 0.05, top_p 0.95, repeat penalty 1.05 (last 64) |
 | Classification (PRF-06) | grammar enum, temp 0, max 16 tokens |

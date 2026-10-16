@@ -27,7 +27,6 @@ void main() {
       expect(result.issues.map((i) => '$i'), isEmpty);
       final example = result.profile!;
       // Uses every major section of the spec.
-      expect(example.examples, isNotEmpty);
       expect(example.postProcess, isNotEmpty);
       expect(example.reduce, isNotEmpty);
       expect(example.classifyKeywords, isNotEmpty);

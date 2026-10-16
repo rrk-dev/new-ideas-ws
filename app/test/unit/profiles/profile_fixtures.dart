@@ -34,3 +34,14 @@ Map<String, Object?> props(Map<String, Object?> def) =>
 String meetingTemplate() => File(
   '../.agents/skills/vv-markdown-vault-export/assets/meeting-default.mustache',
 ).readAsStringSync();
+
+/// [builtinMap] plus the retired few-shot example of [id] (the shipped
+/// built-ins have none; custom profiles may still carry up to two), so the
+/// example validation and example trimming keep their coverage.
+Map<String, Object?> builtinMapWithExample(String id) {
+  final def = builtinMap(id);
+  def['examples'] = jsonDecode(
+    File('test/unit/profiles/fixtures/${id}_examples.json').readAsStringSync(),
+  );
+  return def;
+}

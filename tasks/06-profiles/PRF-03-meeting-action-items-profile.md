@@ -26,6 +26,7 @@ Turn an in-person meeting transcript into attendees, decisions, assigned tasks (
 - **Follow-ups:** see below.
 
 ## Follow-ups
-- Tune prompt/few-shot for ≥ 80 % P/R once a 3B-class model and PRF-10 exist; Real-model eval numbers need a 3B-class model and the device lab (PRF-10); only SmolLM2-135M is available locally and the PRF-09 1B baselines are below target (prompts/examples were not re-tuned — a change would bump the profile version and invalidate golden prompts).
+- **Extraction-quality fix (fix/extraction-quality, profile v2):** the app inlined the few-shot example into the user message and Llama-3.2-1B copied it ("Sync strategy", Omar/Lena) into unrelated notes, then looped to `maxItems`. v2 ships no examples, "use only the transcript" instructions, lower `maxItems`, implicit `dedupe_lists` and `ground_to_transcript`; extraction preset repeat penalty 1.05. Llama-3.2-1B meeting eval (app prompt path, 30 cases): hallucination 75.5 % → 0 %, action-item recall 2 % → 88 %, precision 3 % → 54 %, owner accuracy 68 %, title similarity 32 % → 75 %. Precision is still below the 80 % target; see docs/profile-spec.md "Examples and leakage" and tools/bench/results/2026-10-15-extraction-quality.md.
+- Tune prompt/few-shot for ≥ 80 % P/R once a 3B-class model and PRF-10 exist; Real-model eval numbers need a 3B-class model and the device lab (PRF-10); only SmolLM2-135M is available locally and the PRF-09 1B baselines are below target (prompts were re-tuned in fix/extraction-quality (profile v2, see below)).
 - Confirm in Obsidian that the Tasks plugin recognises the exported tasks (device row).
 - LIC-01: confirm meeting stays Free and whether any field is Pro-only.

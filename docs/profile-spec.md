@@ -80,7 +80,37 @@ pass and map-reduce) and by the eval harness (`render_prompt.dart --generate` �
 | `map_owner_to_speaker` | a string field `owner` | – |
 | `sort_by_timestamp` | a list of objects with a string field `t` | – |
 | `drop_ungrounded_timestamps` | a string field `t` | – (nulls `t` values not present in the transcript) |
-| `dedupe_lists` | a list field | – (drops repeated items: same text ignoring case/punctuation; objects compared without `t`) |
+| `dedupe_lists` | a list field | – (drops repeated items: same text ignoring case/punctuation; objects compared without `t`). **Always applied first**, whether or not the profile lists it: a small model that loops repeats one item up to `maxItems`. |
+| `ground_to_transcript` | – | – (see "Grounding" below) |
+
+### Grounding (`ground_to_transcript`)
+
+Applied by the built-in `meeting` and `engineering` profiles (not `warranty`: spelled serials and
+contacts would be dropped). It compares the extraction with the transcript text (timestamps
+removed, speaker names counted) using 5-character word stems, ignoring stopwords:
+
+- a list item (string, or object by all its text values but `owner`/`due`/`t`/`*_iso`) is dropped
+  when fewer than half of its key terms occur in the transcript;
+- an `owner` naming nobody in the transcript or the speaker list is set to `null`;
+- a `title`/`summary`/`context` with under 40 % of its key terms in the transcript is replaced by
+  `null` when the field is nullable, else by the transcript's leading sentences.
+
+It is a no-op when there is no transcript text. `GroundingStats` (duplicates, ungrounded items,
+owners cleared, prose replaced) is the only thing logged: counts, never content. Measured on
+the 30 gold outputs per profile of the eval corpus, it drops 3/4 gold items and replaces 4/2
+titles for meeting/engineering (paraphrased gold), 0 for warranty.
+
+### Examples and leakage
+
+Built-in profiles ship **no few-shot `examples`** (`examples: []`, version 2). In the app the
+example was inlined into the single user message right before the real transcript
+(`ExtractionPrompts.singleUser`), and Llama-3.2-1B copied it verbatim — a note about a tenancy
+review came out titled "Sync strategy" with the example's owners. Instructions therefore also
+avoid concrete sample values. `examples` stays available for custom profiles (0–2, validated),
+but a profile author should expect small models to copy them; prefer abstract instructions.
+Regression: `[PRF-02/AC1]` in `app/test/unit/profiles/extraction_grounding_test.dart`.
+
+Array `maxItems` caps are deliberately small (≤ 12 for built-ins) so a looping model is bounded.
 
 A schema field that collides with an added field (e.g. a declared `due_iso`) is an error.
 
@@ -223,7 +253,7 @@ higher → update offered; lower → refused. Custom imports need `Feature.custo
 `Feature.managedProfiles`. File type: extension `vvprofile`, UTI `com.vaultvoice.profile`, MIME
 `application/vnd.vaultvoice.profile+zip`.
 
-## Full example (built-in `meeting`, version 1)
+## Full example (built-in `meeting`, version 2)
 
 This block is validated by `[PRF-01/AC1]` in `app/test/unit/profiles/profile_spec_doc_test.dart`
 and must stay identical (as data) to `app/assets/profiles/meeting.yaml`.
@@ -231,7 +261,7 @@ and must stay identical (as data) to `app/assets/profiles/meeting.yaml`.
 ```yaml
 format: 1
 id: meeting
-version: 1
+version: 2
 name: Meeting Action Items
 description: In-person meetings with decisions, action items, owners and open questions.
 icon: groups
@@ -243,15 +273,15 @@ stt:
 classify:
   keywords: [meeting, agenda, action item, follow up, next steps, standup, sync]
 instructions: |
-  - Extract only what is explicitly said in the transcript. Never invent people, tasks or dates.
+  - Use only what is stated in the transcript; leave out anything that is not there. Never invent people, tasks or dates.
   - attendees: names of people who speak or are clearly present. Use speaker names as given.
   - decisions: things the group agreed on, one short sentence each.
   - action_items: concrete tasks. owner = the person responsible if stated, else null.
-    due = the due date exactly as spoken (e.g. "next Friday"), else null.
+    due = the due date exactly as spoken, else null.
     t = the [hh:mm:ss] timestamp of the line where the task was stated.
   - open_questions: questions raised but not answered.
-  - summary: 2-4 sentences, neutral tone.
-  - If a field has nothing, return an empty list or null.
+  - summary: 2-4 sentences, neutral tone, about this meeting only.
+  - Every list holds each item once. If a field has nothing, return an empty list or null.
 schema:
   type: object
   required: [title, summary, attendees, decisions, action_items, open_questions, topics]
@@ -260,15 +290,15 @@ schema:
     summary: {type: string, maxLength: 600, description: 2-4 sentence summary}
     attendees:
       type: array
-      maxItems: 20
+      maxItems: 12
       items: {type: string, maxLength: 60}
     decisions:
       type: array
-      maxItems: 30
+      maxItems: 10
       items: {type: string, maxLength: 200}
     action_items:
       type: array
-      maxItems: 50
+      maxItems: 15
       items:
         type: object
         required: [task, owner, due, t]
@@ -279,11 +309,11 @@ schema:
           t: {type: [string, "null"], maxLength: 8, description: "hh:mm:ss timestamp of the source line"}
     open_questions:
       type: array
-      maxItems: 20
+      maxItems: 6
       items: {type: string, maxLength: 200}
     topics:
       type: array
-      maxItems: 10
+      maxItems: 6
       items: {type: string, maxLength: 40}
 reduce:
   summary: llm_summarize
@@ -293,21 +323,10 @@ reduce:
   action_items: union_dedupe
   open_questions: union_dedupe
   topics: union_dedupe
-post_process: [map_owner_to_speaker, resolve_relative_dates, drop_ungrounded_timestamps, sort_by_timestamp]
-examples:
-  - transcript: |
-      [00:00:05] Priya: Let's lock the API version today. We go with v2.
-      [00:00:12] Sam: Fine. I'll update the client SDK by Friday.
-      [00:00:20] Priya: Still unclear who owns the migration guide.
-    output:
-      title: API version decision
-      summary: The team agreed to standardize on API v2. Sam will update the client SDK. Ownership of the migration guide is still open.
-      attendees: [Priya, Sam]
-      decisions: [Use API v2]
-      action_items:
-        - {task: Update the client SDK to API v2, owner: Sam, due: Friday, t: "00:00:12"}
-      open_questions: ["Who owns the migration guide?"]
-      topics: [API versioning]
+post_process: [map_owner_to_speaker, resolve_relative_dates, drop_ungrounded_timestamps, ground_to_transcript, sort_by_timestamp]
+# No few-shot examples: small models copy example content into the output
+# (docs/profile-spec.md, "Examples and leakage").
+examples: []
 template_id: meeting-default
 filename_pattern: "{{date:YYYY-MM-DD}}-Meeting-{{slug}}.md"
 routing:
@@ -320,5 +339,5 @@ Its default template (`vv-markdown-vault-export/assets/meeting-default.mustache`
 template variable check against this profile (`due_iso` comes from `resolve_relative_dates`).
 
 The drafts `warranty.yaml` and `engineering.yaml` follow the field tables in
-`vv-extraction-profiles`; PRF-04/PRF-05 tune their instructions and examples against the eval
+`vv-extraction-profiles`; PRF-04/PRF-05 tune their instructions against the eval
 harness (PRF-09) and bump `version`. Their `tier` is a PRODUCT-DECISION pending LIC-01.

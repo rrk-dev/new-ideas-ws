@@ -27,5 +27,6 @@ From a short spoken note, extract product name, purchase date, serial number, wa
 - **Follow-ups:** see below.
 
 ## Follow-ups
-- Real-model eval numbers need a 3B-class model and the device lab (PRF-10); only SmolLM2-135M is available locally and the PRF-09 1B baselines are below target (prompts/examples were not re-tuned — a change would bump the profile version and invalidate golden prompts).
+- **Extraction-quality fix (profile v2):** no few-shot example, no sample values in the instructions, `ground_to_transcript` not used (it would drop spelled serials/contacts). Llama-3.2-1B warranty eval (30 cases): hallucination 39 % → 34 %, serial exact 13 % → 33 %, exact-field accuracy 35 % → 45 %, support contacts recall 0 % → 89 %. See tools/bench/results/2026-10-15-extraction-quality.md.
+- Real-model eval numbers need a 3B-class model and the device lab (PRF-10); only SmolLM2-135M is available locally and the PRF-09 1B baselines are below target (prompts were re-tuned in fix/extraction-quality (profile v2, see below)).
 - LIC-01: warranty tier is a placeholder `pro` (PRODUCT-DECISION).

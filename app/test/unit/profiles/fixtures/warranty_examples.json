@@ -1,0 +1,20 @@
+[
+ {
+  "transcript": "[00:00:02] Bought a Contoso air purifier, model AP 200, at Northwind Electronics last Saturday for 149 euros.\n[00:00:11] Serial is X as in x-ray, 7, 4, B as in boy, 2, 9. Two year warranty.\n",
+  "output": {
+   "product": "air purifier",
+   "brand": "Contoso",
+   "model": "AP 200",
+   "serial_number": "X74B29",
+   "purchase_date": "last Saturday",
+   "retailer": "Northwind Electronics",
+   "price": "149 euros",
+   "warranty_period": {
+    "value": 2,
+    "unit": "years"
+   },
+   "support_contacts": [],
+   "notes": null
+  }
+ }
+]

@@ -117,7 +117,9 @@ void main() {
     });
 
     test('sample data is the profile example; positions parse', () {
-      expect(sampleDataFor(profile('meeting')), isNotEmpty);
+      final sample = sampleDataFor(profile('meeting'));
+      expect(sample.keys, profile('meeting').schema.properties.keys);
+      expect(sample['action_items'], hasLength(1));
       expect(issuePosition(const ProfileIssue('x', 'm')), isNull);
     });
   });

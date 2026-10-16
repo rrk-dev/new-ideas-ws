@@ -5,7 +5,7 @@
 # instructions or examples.
 format: 1
 id: warranty
-version: 1
+version: 2
 name: Warranty & Receipt Logger
 description: Spoken notes about a purchase - product, serial number, purchase date, warranty and support contacts.
 icon: receipt_long
@@ -19,11 +19,11 @@ stt:
 classify:
   keywords: [warranty, receipt, serial number, purchased, bought, model number, guarantee]
 instructions: |
-  - Extract only what is explicitly said. Never invent products, numbers or dates.
-  - product: what was bought (e.g. "dishwasher"). brand and model as spoken, else null.
-  - serial_number: the serial exactly as spelled. "S as in Sam" means the letter S.
+  - Use only what is stated in the transcript; leave out anything that is not there. Never invent products, numbers or dates.
+  - product: what was bought. brand and model as spoken, else null.
+  - serial_number: the serial exactly as spelled. Spelling aids ("<letter> as in <word>") mean just that letter.
     Write letters and digits only, no spaces. If no serial is given, null.
-  - purchase_date: the date exactly as spoken (e.g. "last Tuesday", "March 3rd"), else null.
+  - purchase_date: the date exactly as spoken, else null.
   - retailer: the shop or website, else null. price: the amount with currency as spoken, else null.
   - warranty_period: value and unit (days, weeks, months, years) if stated, else null.
   - support_contacts: phone numbers, emails or websites for support, as spoken.
@@ -57,21 +57,9 @@ reduce:
   notes: llm_summarize
   support_contacts: union_dedupe
 post_process: [normalize_serial, resolve_relative_dates, compute_warranty_expiry]
-examples:
-  - transcript: |
-      [00:00:02] Bought a Contoso air purifier, model AP 200, at Northwind Electronics last Saturday for 149 euros.
-      [00:00:11] Serial is X as in x-ray, 7, 4, B as in boy, 2, 9. Two year warranty.
-    output:
-      product: air purifier
-      brand: Contoso
-      model: AP 200
-      serial_number: X74B29
-      purchase_date: last Saturday
-      retailer: Northwind Electronics
-      price: 149 euros
-      warranty_period: {value: 2, unit: years}
-      support_contacts: []
-      notes: null
+# No few-shot examples: small models copy example content into the output
+# (docs/profile-spec.md, "Examples and leakage").
+examples: []
 template_id: warranty-default
 filename_pattern: "{{date:YYYY-MM-DD}}-Warranty-{{slug}}.md"
 routing:

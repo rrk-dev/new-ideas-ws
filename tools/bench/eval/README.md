@@ -83,3 +83,14 @@ skips. Step to add to `.github/workflows/ci.yml` (in the native host job, after
         with: {name: extraction-eval, path: build/eval, if-no-files-found: ignore}
 ```
 (The checkout needs `fetch-depth: 0` for the change detection.)
+
+## Prompt path and sampler (extraction-quality fix)
+
+`run.py` renders prompts with `--prompt-path app` (default): `render_prompt.dart --app-path`
+builds exactly what the app sends (`ExtractionPrompts`: system message + one user message).
+`--prompt-path builder` keeps the old chat-pair `PromptBuilder` path. The older baselines
+used the builder path, which hid the production few-shot leakage (engineering hallucination
+19 % there vs 69 % in the app). Sampler overrides for experiments: `--temp`, `--top-k`,
+`--min-p`, `--repeat-penalty`, `--repeat-last-n` (default = the app's extraction preset:
+temp 0.2, min_p 0.05, top_k 40, repeat penalty 1.05 over the last 64 tokens, seed 42).
+Baselines were re-recorded with the app path (macOS, Metal).

@@ -87,7 +87,7 @@ List<BuiltPrompt> chunkAll(MapReducePrompt plan) {
 }
 
 void main() {
-  final meeting = builtinProfile('meeting');
+  final meeting = Profile.fromJson(builtinMapWithExample('meeting'));
   final tok = FakePromptTokenizer();
   final builder = PromptBuilder(tok);
 
@@ -125,7 +125,7 @@ void main() {
         endsWith(
           '</transcript>\nReturn one compact JSON object with the keys title, '
           'summary, attendees, decisions, action_items, open_questions, '
-          'topics. Return the JSON now.',
+          'topics, using only the transcript above. Return the JSON now.',
         ),
       );
       // The example answer is canonical JSON in schema order.
@@ -222,7 +222,7 @@ void main() {
 
   group('[PRF-02/AC1] token budget never exceeded', () {
     test('[PRF-02/AC1] examples are trimmed first, last example first', () {
-      final def = builtinMap('meeting');
+      final def = builtinMapWithExample('meeting');
       final examples = def['examples']! as List<Object?>;
       def['examples'] = [examples.first, examples.first];
       final two = Profile.fromJson(def);
