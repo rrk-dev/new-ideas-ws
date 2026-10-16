@@ -1,0 +1,36 @@
+app/test/widget/vault_folder_pick_test.dart
+  s_102b2c43222056::t_5402206f584618 8
+  s_102b2c43222056::t_20507064ff20b3 1-7,9-67,69-101
+  s_102b2c43222056::t_0b4c8cbdbb7b45 68
+app/test/unit/macos_desktop_target_test.dart
+  s_6f33b549e63fe9::t_98e9d17c491b13 222-229
+app/macos/Runner/BookmarkHostApiImpl.swift
+  s_102b2c43222056::t_6ab762b1dedac3 53-55,64-77
+  s_102b2c43222056::t_532c2b60543304 78-80
+app/lib/features/settings/presentation/vault_settings_screens.dart
+  s_102b2c43222056::t_a91a519fe1cd65 6,9-10,72-76,93-99,101-108
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d9070acf5ed2ddd4b75afba3f43dfee54fd49d73",
+  "prompts": {},
+  "sessions": {
+    "s_102b2c43222056": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "0eb5d527-5021-44a2-9707-b4c4503b2b05",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_6f33b549e63fe9": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "ff27057e-cce2-4ed3-91e4-d5f3b233bf8c",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
