@@ -1,0 +1,23 @@
+app/ios/Runner.xcworkspace/contents.xcworkspacedata
+  s_5a534bed398a49::t_760112229845b8 7-9
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_5a534bed398a49::t_760112229845b8 11-12,15-18,21-24,27,30-32,62,65-67,71-73,77,82,88-101,103-107,111-118,124,131-139,167-168,212-231,239,242,258,265-266,310,345-361,378-394,410-453,519,521,523-524,526-539,541,593-594,599,601,603-608,611,613,615,619,636,638,640,652,654,656,668,670,672,674-685,687,689,693,749,751,782-784,796,799-803,805,807,809-827,875-876,883,885,916,918,921,923-927,935-936,941,943,945,964,966,968,970-975,977,980,984-1000,1004-1005,1015,1021,1023,1026-1084,1094,1097,1101,1148
+app/test/widget/live_waveform_test.dart
+  s_5a534bed398a49::t_aed11c52d40164 49-71,102,121,137
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e6ccbad9ed7db4a77bc4260312bbb90868f79978",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
