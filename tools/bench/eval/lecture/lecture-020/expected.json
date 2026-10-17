@@ -1,0 +1,35 @@
+{
+  "title": "The Laws of Thermodynamics",
+  "summary": "Thermodynamics links heat, work and entropy.",
+  "key_concepts": [
+    {
+      "term": "Entropy",
+      "explanation": "A measure of the number of microscopic arrangements of a system."
+    },
+    {
+      "term": "Heat engine",
+      "explanation": "A device that turns heat flow into work."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "First and second law",
+      "points": [
+        "Energy is conserved.",
+        "Entropy of an isolated system never decreases."
+      ]
+    },
+    {
+      "heading": "Engines",
+      "points": [
+        "No engine can be perfectly efficient.",
+        "The Carnot cycle sets the upper limit."
+      ]
+    }
+  ],
+  "assignments": [],
+  "questions": [
+    "Why can a fridge cool without breaking the second law?"
+  ],
+  "references": []
+}

@@ -1,0 +1,43 @@
+{
+  "title": "Introduction to Graph Algorithms",
+  "summary": "The lecture introduced breadth-first search and Dijkstra shortest paths.",
+  "key_concepts": [
+    {
+      "term": "Breadth-first search",
+      "explanation": "Visits vertices in order of their distance from the source."
+    },
+    {
+      "term": "Relaxation",
+      "explanation": "Updating a distance estimate when a shorter path is found."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Graph basics",
+      "points": [
+        "A graph is a set of vertices joined by edges.",
+        "Adjacency lists store neighbours compactly."
+      ]
+    },
+    {
+      "heading": "Shortest paths",
+      "points": [
+        "Breadth-first search finds shortest paths in unweighted graphs.",
+        "Dijkstra handles non-negative edge weights."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Finish problem set one",
+      "due": "next Friday",
+      "t": null
+    }
+  ],
+  "questions": [
+    "Why does Dijkstra fail with negative edge weights?"
+  ],
+  "references": [
+    "the graph chapter of the course reader"
+  ]
+}

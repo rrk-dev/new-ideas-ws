@@ -1,0 +1,40 @@
+[00:00:00] Good morning everyone, I am Professor Ravi Menon, and welcome to ECON 305 Game Theory at Tailspin College. Today's topic is game theory and nash equilibrium. Game theory studies strategic choices; a Nash equilibrium is a stable set of strategies.
+[00:00:16] Let me define a term first: nash equilibrium means a set of strategies where no player gains by changing alone. Let me define a term first: dominant strategy means a strategy that is best whatever the others do.
+[00:00:31] Now let us look at the prisoner's dilemma. Both players do better if they cooperate. Do not worry if it is not obvious yet; it gets easier with practice.
+[00:00:43] Several of you asked about this last time, so I want to be clear. That point is worth pausing on for a moment.
+[00:00:52] It is easy to rush past this, so let me say it again slowly. Each player is tempted to defect. Take a second to let that sink in before we move on.
+[00:01:05] Take a second to let that sink in before we move on. Do not worry if it is not obvious yet; it gets easier with practice.
+[00:01:15] We will keep coming back to this idea as the term goes on. Now let us look at repeated games. Future rounds make cooperation sustainable.
+[00:01:25] We will keep coming back to this idea as the term goes on. Take a second to let that sink in before we move on.
+[00:01:35] Several of you asked about this last time, so I want to be clear. I know that can feel abstract, so hold on to it.
+[00:01:45] Trigger strategies punish defection. Several of you asked about this last time, so I want to be clear. That point is worth pausing on for a moment.
+[00:01:56] Take a second to let that sink in before we move on. I know that can feel abstract, so hold on to it.
+[00:02:05] Now let us look at worked example. We walk through one complete example on the board. Do not worry if it is not obvious yet; it gets easier with practice.
+[00:02:17] Take a second to let that sink in before we move on. Do not worry if it is not obvious yet; it gets easier with practice.
+[00:02:27] We will keep coming back to this idea as the term goes on. Check each step against the definition. Several of you asked about this last time, so I want to be clear.
+[00:02:40] Several of you asked about this last time, so I want to be clear. I know that can feel abstract, so hold on to it.
+[00:02:50] We will keep coming back to this idea as the term goes on. Now let us look at common mistakes. Students often skip the setup.
+[00:03:00] It is easy to rush past this, so let me say it again slowly. We will keep coming back to this idea as the term goes on.
+[00:03:11] Take a second to let that sink in before we move on. Several of you asked about this last time, so I want to be clear.
+[00:03:21] Units and signs cause most errors. I know that can feel abstract, so hold on to it. We will keep coming back to this idea as the term goes on.
+[00:03:33] We will keep coming back to this idea as the term goes on. It is easy to rush past this, so let me say it again slowly.
+[00:03:44] Now let us look at historical background. The idea developed over several decades. We will keep coming back to this idea as the term goes on.
+[00:03:54] Several of you asked about this last time, so I want to be clear. Several of you asked about this last time, so I want to be clear.
+[00:04:05] That point is worth pausing on for a moment. Early versions were much simpler. That point is worth pausing on for a moment.
+[00:04:14] Several of you asked about this last time, so I want to be clear. We will keep coming back to this idea as the term goes on.
+[00:04:25] I know that can feel abstract, so hold on to it. Now let us look at applications. The method is used in industry every day.
+[00:04:35] Do not worry if it is not obvious yet; it gets easier with practice. We will keep coming back to this idea as the term goes on.
+[00:04:46] That point is worth pausing on for a moment. Several of you asked about this last time, so I want to be clear.
+[00:04:55] Smaller projects benefit as well. We will keep coming back to this idea as the term goes on. I know that can feel abstract, so hold on to it.
+[00:05:07] Take a second to let that sink in before we move on. Take a second to let that sink in before we move on.
+[00:05:17] Now let us look at limits. Every model has assumptions. Do not worry if it is not obvious yet; it gets easier with practice.
+[00:05:27] Do not worry if it is not obvious yet; it gets easier with practice. Several of you asked about this last time, so I want to be clear.
+[00:05:38] We will keep coming back to this idea as the term goes on. Know when they fail. I know that can feel abstract, so hold on to it.
+[00:05:49] Take a second to let that sink in before we move on. We will keep coming back to this idea as the term goes on.
+[00:05:59] That point is worth pausing on for a moment. Now let us look at related topics. We will connect this to earlier weeks.
+[00:06:08] Do not worry if it is not obvious yet; it gets easier with practice. Several of you asked about this last time, so I want to be clear.
+[00:06:19] I know that can feel abstract, so hold on to it. Do not worry if it is not obvious yet; it gets easier with practice.
+[00:06:29] Later lectures extend it. Several of you asked about this last time, so I want to be clear. I know that can feel abstract, so hold on to it.
+[00:06:41] We will keep coming back to this idea as the term goes on. Take a second to let that sink in before we move on.
+[00:06:51] Here is a question to think about before next time. Why does repetition help cooperation? Your assignment: solve the three games on problem set two, due March 30th.
+[00:07:02] The reading for this is Osborne's An Introduction to Game Theory. That is all for today, see you next time.

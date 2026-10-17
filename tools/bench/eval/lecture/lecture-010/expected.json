@@ -1,0 +1,48 @@
+{
+  "title": "Linear Regression",
+  "summary": "Linear regression fits a line that predicts one variable from another.",
+  "key_concepts": [
+    {
+      "term": "Residual",
+      "explanation": "The difference between an observed and a predicted value."
+    },
+    {
+      "term": "Least squares",
+      "explanation": "Choosing the line that minimises the sum of squared residuals."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Fitting a line",
+      "points": [
+        "The slope shows the change in the outcome per unit of the input.",
+        "The intercept is the prediction when the input is zero."
+      ]
+    },
+    {
+      "heading": "Checking the fit",
+      "points": [
+        "Plot the residuals to look for patterns.",
+        "R squared measures the share of variance explained."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Fit a regression to the housing data set",
+      "due": "next Monday",
+      "t": null
+    },
+    {
+      "task": "Plot the residuals",
+      "due": null,
+      "t": null
+    }
+  ],
+  "questions": [
+    "When is R squared misleading?"
+  ],
+  "references": [
+    "the regression chapter in the lab manual"
+  ]
+}

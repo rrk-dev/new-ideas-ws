@@ -1,0 +1,58 @@
+{{! Built-in plain Markdown variant of the lecture template (TPL-01): no
+    front-matter, wikilinks, callouts or plugin syntax. }}
+# {{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}
+
+- Date: {{meta.date}} {{meta.time}}
+- Duration: {{meta.duration_human}}
+
+{{#has_summary}}
+## Summary
+
+{{data.summary}}
+
+{{/has_summary}}
+{{#has_key_concepts}}
+## Key Concepts
+
+{{#data.key_concepts}}
+- {{term}}: {{explanation}}
+{{/data.key_concepts}}
+
+{{/has_key_concepts}}
+{{#has_outline}}
+## Outline
+
+{{#data.outline}}
+### {{heading}}
+
+{{#has_points}}
+{{#bullets}}points{{/bullets}}
+
+{{/has_points}}
+{{/data.outline}}
+{{/has_outline}}
+## Assignments
+
+{{#data.assignments}}
+- [ ] {{task}}{{#has_due_iso}} — due: {{due_iso}}{{/has_due_iso}}{{^has_due_iso}}{{#has_due}} — due: {{due}}{{/has_due}}{{/has_due_iso}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.assignments}}
+{{^has_assignments}}
+No assignments.
+{{/has_assignments}}
+
+{{#has_questions}}
+## Review Questions
+
+{{#data.questions}}
+- {{.}}
+{{/data.questions}}
+
+{{/has_questions}}
+{{#has_references}}
+## References
+
+{{#data.references}}
+- {{.}}
+{{/data.references}}
+
+{{/has_references}}

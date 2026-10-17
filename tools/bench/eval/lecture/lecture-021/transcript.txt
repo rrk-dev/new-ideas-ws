@@ -1,0 +1,39 @@
+[00:00:00] Good morning everyone, I am professor Alder, and welcome to CS 340 databases at fabrikam institute Today's topic is database normalisation. Normalisation remoes redundancy by splitting tables along dependencies
+[00:00:12] let me define a term first: functional dependency means a rule that right one attribute determines another. Let me define a term first: third normal form means a table where non-key attributes depend only on um the key
+[00:00:26] Now let us look at anomalies. Update anomalies apper when data repeats. Several of you asked about this last time, so I want to be clear.
+[00:00:36] That point is worth pausing on for a moment. That point is worth pausing on for a mment. Several of you asked about this last time, so i want to be clear.
+[00:00:49] Deletion can remove unrelted facts. that point is worth pausing on for a moment. It is easy to rush past this, so let me say it again slowly
+[00:01:00] It is easy to rush past this, so let me say it again slowly. take a second to let that sink in before we move on.
+[00:01:10] Now let us look at normal forms First normal form needs atomic values. Do not worry if uh it is not obvious yet; it gets easier with practice.
+[00:01:21] Do not worry if it is not obvious yet; it gets easier with practice. Several of you asked about this last time, so I want to be clear.
+[00:01:32] Take a second to let okay so that sink in before we move on. Second normal form removes partial dependencies. do not worry if it is not obvious yet; it gets easier with practice.
+[00:01:45] we will keep coming back to this idea as the term goes on. I know that can feel abstract, so hold on to it.
+[00:01:55] Take a second to let that sink in before we move on Now let us look at worked example. We walk trough one complete example on the board.
+[00:02:06] Do not worry if it is not obvious yet; it gets easier with practice. Take a second to let that sink in before we move on
+[00:02:16] Take a second to let that sink in before we move on. Several of you asked about this last you know time so I want to be clear.
+[00:02:26] check each step against the definition That point is worth pausing on for a moment. We will keep coming back to this idea as the term goes on.
+[00:02:37] That point is worth pausing on for a moment. We um will keep coming back to this idea as the term goes on.
+[00:02:46] Now let us look at common mistakes. Students often skip the setup. It is easy to rush past this, so let me say it again slowly.
+[00:02:56] Do not worry if it is not obvious you know yet; it gets easier with practice. We will keep coming back to this idea as the term goes on.
+[00:03:07] It is easy to rush past this, so let me say it again slowly. units and signs um cause most errors. Take a second to let that sink in before we move on.
+[00:03:20] We will keep coming back to this idea as the term goes on. Do not worry if it is not obvious yet; it gets easier with practice.
+[00:03:31] Several of you okay so asked about this last time, so i want to be clear. Now let us look at historical background. so The idea developed over several decades.
+[00:03:42] We will keep coming back to this idea as the term goes on That point is worth pausing on for a moment.
+[00:03:51] it um is easy to rush past this, so let me say it again slowly we will keep coming back to this uh idea as uh the term goes on.
+[00:04:02] early versions were much simpler. We will keep coming back to this idea as the term goes on. That point is worth pausing on for a moment.
+[00:04:13] that point is worth pasing on for a moment. we will so keep coming back to this idea as the term so goes on.
+[00:04:22] Now let us look at applications. The metod is used in industry every day Do not worry if it is not obvious yet; it gets easier with practice.
+[00:04:33] Take a second to let that sink in before so we move on. Take a second to let that sink so in before we move on
+[00:04:43] do not worry if it is not obvious yet; it gets easier with practice. Smaller projects benefit as well. take a second to let that sink in beore we move on.
+[00:04:55] Do not worry if it is not obvious yet; it um gets easier with practice. Take a second to let that sink in befoe you know we move on.
+[00:05:05] Do not worry if it is not obvious yet; it gets easier with practice Now let us look at limits. Every model has assumptions.
+[00:05:15] We will keep coming back to this idea as the term goes on. Do not worry if okay so it you know is not obvious yet; it gets easier with practice.
+[00:05:26] Do not worry if it is not obvious yet; it gets easier with practice. Several of you asked about this last time, so I want to be clear.
+[00:05:37] Know when they fail Take a second okay so to let that sink in before we move on. It is easy to rush past this, so let me say it again slowly.
+[00:05:49] I so know okay so that can feel abstract, so hold on to it. That point is worth pausing on for a moment. Now let us look at related topics.
+[00:06:00] We will connect this to earlier weeks. It is easy to rush past this, so so let me say it again slowly. Several of you asked about this last time, so i want to be clear.
+[00:06:14] take a second to let that sink in before we move on. That point is worth pausing on for um a moment Later you know lectures extend it.
+[00:06:24] That point is worth pausing on for a moment Take a second to let that sink in before we move on. It is easy to rush past this, so let me say it right again slowly.
+[00:06:38] We will keep coming back to this idea as the term goes on. Here is a question to think about before next time. When is denormalisation justified?
+[00:06:49] Your assignment: normalise the orders schema to third normal form due April 9th. The reading for this is the schma design chapter of the coarse reader.
+[00:06:59] That is all for today, see you next time

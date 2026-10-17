@@ -43,7 +43,12 @@ void main() {
 
   test('built-ins come from assets and are never written to the DB', () async {
     final all = await StreamProbe(registry.watchAll()).settled;
-    expect(all.map((p) => p.id), ['meeting', 'warranty', 'engineering']);
+    expect(all.map((p) => p.id), [
+      'meeting',
+      'warranty',
+      'engineering',
+      'lecture',
+    ]);
     expect(await db.profilesRepository.watchProfiles().first, isEmpty);
     final meeting = expectOk(await registry.get('meeting'));
     expect(meeting.source, ProfileSource.builtin);

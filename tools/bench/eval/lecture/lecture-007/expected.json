@@ -1,0 +1,41 @@
+{
+  "title": "Mitosis and Cell Division",
+  "summary": "Mitosis divides one cell into two genetically identical daughter cells.",
+  "key_concepts": [
+    {
+      "term": "Chromosome",
+      "explanation": "A tightly packed structure of DNA."
+    },
+    {
+      "term": "Spindle",
+      "explanation": "The protein fibres that pull chromosomes apart."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Phases of mitosis",
+      "points": [
+        "Prophase condenses the chromosomes.",
+        "Metaphase lines them up in the middle."
+      ]
+    },
+    {
+      "heading": "Cytokinesis",
+      "points": [
+        "The cell membrane pinches in two.",
+        "Each daughter cell gets one full set of chromosomes."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Label the phases on the worksheet",
+      "due": "tomorrow",
+      "t": null
+    }
+  ],
+  "questions": [
+    "What would go wrong if the spindle failed?"
+  ],
+  "references": []
+}

@@ -1,0 +1,68 @@
+---
+title: {{#yaml}}{{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}{{/yaml}}
+date: {{meta.date}}
+time: {{#yaml}}{{meta.time}}{{/yaml}}
+duration: {{#yaml}}{{meta.duration_human}}{{/yaml}}
+type: {{#yaml}}{{meta.profile_id}}{{/yaml}}
+tags: {{#yaml_list}}meta.tags{{/yaml_list}}
+source: vaultvoice
+recording_id: {{#yaml}}{{meta.recording_id}}{{/yaml}}
+{{#meta.has_consent_at}}
+consent_at: {{#yaml}}{{meta.consent_at}}{{/yaml}}
+{{/meta.has_consent_at}}
+---
+
+# {{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}
+
+{{#has_summary}}
+## Summary
+
+{{data.summary}}
+
+{{/has_summary}}
+{{#has_key_concepts}}
+## Key Concepts
+
+{{#data.key_concepts}}
+- **{{term}}**: {{explanation}}
+{{/data.key_concepts}}
+
+{{/has_key_concepts}}
+{{#has_outline}}
+## Outline
+
+{{#data.outline}}
+### {{heading}}
+
+{{#has_points}}
+{{#bullets}}points{{/bullets}}
+
+{{/has_points}}
+{{/data.outline}}
+{{/has_outline}}
+## Assignments
+
+{{#data.assignments}}
+- [ ] {{task}}{{#has_due_iso}} 📅 {{due_iso}}{{/has_due_iso}}{{^has_due_iso}}{{#has_due}} — due: {{due}}{{/has_due}}{{/has_due_iso}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.assignments}}
+{{^has_assignments}}
+_No assignments._
+{{/has_assignments}}
+
+{{#has_questions}}
+## Review Questions
+
+{{#bullets}}data.questions{{/bullets}}
+
+{{/has_questions}}
+{{#has_references}}
+## References
+
+{{#bullets}}data.references{{/bullets}}
+
+{{/has_references}}
+{{audio_link}}
+
+---
+
+_Generated on-device by Lumen · {{meta.duration_human}}._

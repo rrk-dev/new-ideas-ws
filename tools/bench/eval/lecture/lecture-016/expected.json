@@ -1,0 +1,37 @@
+{
+  "title": "Perspective in Renaissance Painting",
+  "summary": "Renaissance painters used linear perspective to create the illusion of depth.",
+  "key_concepts": [
+    {
+      "term": "Vanishing point",
+      "explanation": "The point where parallel lines appear to meet."
+    },
+    {
+      "term": "Chiaroscuro",
+      "explanation": "Strong contrast between light and dark."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Linear perspective",
+      "points": [
+        "Brunelleschi demonstrated it in Florence.",
+        "Alberti wrote the first treatise on it."
+      ]
+    },
+    {
+      "heading": "Use in painting",
+      "points": [
+        "Masaccio's Trinity uses a single vanishing point.",
+        "Leonardo combined perspective with chiaroscuro."
+      ]
+    }
+  ],
+  "assignments": [],
+  "questions": [
+    "How does perspective change what a viewer notices first?"
+  ],
+  "references": [
+    "Alberti's On Painting"
+  ]
+}

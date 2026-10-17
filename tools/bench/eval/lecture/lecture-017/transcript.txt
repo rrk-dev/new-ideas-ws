@@ -1,0 +1,6 @@
+[00:00:00] Good morning everyone, I am Professor Tobias wren and welcome to CS 330 Operating systems at Wingtip Institute. Today's topic is cpu scheduling. Schedulers decide which process runs next to balance throughput and responsiveness.
+[00:00:14] let me define a term first: context sitch means okay so saving one process's state and loading another's. Let me define a term first: time you know slice means the maximum time a process runs uh before being preempted.
+[00:00:28] Now let us look at basic policies. First come first served is simple but can starve you know short jobs. Shortest job first minimises average waiting time.
+[00:00:38] Now let us look so at interactive systems. Round robin gives each prcess a time slice Multilevel feedback queues adapt to process behaviour.
+[00:00:47] um Here is a question to think about before okay so next time. What is the cost of a very short time slice? Your assignment: simulae round robin for the given workload, due bfore the midterm.
+[00:01:00] The reading for this is the scheduling chapter of the os textbook. That is all for today, see you next time.

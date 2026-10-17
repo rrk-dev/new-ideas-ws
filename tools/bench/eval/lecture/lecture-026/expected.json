@@ -1,0 +1,41 @@
+{
+  "title": "Double-Entry Bookkeeping",
+  "summary": "Double-entry bookkeeping records every transaction as equal debits and credits.",
+  "key_concepts": [
+    {
+      "term": "Debit",
+      "explanation": "An entry that increases assets or expenses."
+    },
+    {
+      "term": "Ledger",
+      "explanation": "The book that collects all accounts."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "The accounting equation",
+      "points": [
+        "Assets equal liabilities plus equity.",
+        "Every transaction keeps the equation balanced."
+      ]
+    },
+    {
+      "heading": "Recording entries",
+      "points": [
+        "Each entry has a debit and a credit of equal value.",
+        "A trial balance checks that totals match."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Complete the journal entries exercise",
+      "due": "April 16th",
+      "t": null
+    }
+  ],
+  "questions": [
+    "Why must debits always equal credits?"
+  ],
+  "references": []
+}

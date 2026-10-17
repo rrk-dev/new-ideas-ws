@@ -103,6 +103,9 @@ templates have no row, and a user template written for a built-in profile keeps
 | `engineering-default` | engineering | Obsidian | API designs, trade-off table (`md_table`), TODO checkboxes |
 | `engineering-logseq` | engineering | Logseq | nested outline (API designs, pros/cons per option), `TODO` tasks (EXP-08) |
 | `engineering-plain` | engineering | plain | trade-offs as nested lists instead of a table (EXP-08) |
+| `lecture-default` | lecture | Obsidian | summary, key-concept definitions, outline, assignment checkboxes with `📅 due`, review questions, references (TPL-01) |
+| `lecture-logseq` | lecture | Logseq | page properties, nested outline, `TODO` assignments (TPL-01) |
+| `lecture-plain` | lecture | plain | same sections, no front-matter / wikilinks (TPL-01) |
 | `summary-only` | any | Obsidian | fallback: `extraction: failed`, summary or notice, `transcript_block` |
 
 Alternate outputs (EXP-08): the recording screen's share action renders the note as Obsidian

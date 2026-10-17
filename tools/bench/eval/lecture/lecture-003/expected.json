@@ -1,0 +1,48 @@
+{
+  "title": "Supply and Demand",
+  "summary": "Prices settle where the quantity supplied equals the quantity demanded.",
+  "key_concepts": [
+    {
+      "term": "Equilibrium price",
+      "explanation": "The price at which supply equals demand."
+    },
+    {
+      "term": "Price elasticity",
+      "explanation": "How strongly demand responds to a change in price."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "The demand curve",
+      "points": [
+        "Demand falls as the price rises.",
+        "Income and tastes shift the whole curve."
+      ]
+    },
+    {
+      "heading": "Market equilibrium",
+      "points": [
+        "A shortage pushes the price up.",
+        "A surplus pushes the price down."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Read chapter four",
+      "due": "Monday",
+      "t": null
+    },
+    {
+      "task": "Write a one page memo on a price shock",
+      "due": "March 20th",
+      "t": null
+    }
+  ],
+  "questions": [
+    "What happens to the equilibrium when demand and supply both rise?"
+  ],
+  "references": [
+    "chapter four of the course textbook"
+  ]
+}

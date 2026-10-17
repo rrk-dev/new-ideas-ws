@@ -1,0 +1,43 @@
+{
+  "title": "CPU Scheduling",
+  "summary": "Schedulers decide which process runs next to balance throughput and responsiveness.",
+  "key_concepts": [
+    {
+      "term": "Context switch",
+      "explanation": "Saving one process's state and loading another's."
+    },
+    {
+      "term": "Time slice",
+      "explanation": "The maximum time a process runs before being preempted."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Basic policies",
+      "points": [
+        "First come first served is simple but can starve short jobs.",
+        "Shortest job first minimises average waiting time."
+      ]
+    },
+    {
+      "heading": "Interactive systems",
+      "points": [
+        "Round robin gives each process a time slice.",
+        "Multilevel feedback queues adapt to process behaviour."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Simulate round robin for the given workload",
+      "due": "before the midterm",
+      "t": null
+    }
+  ],
+  "questions": [
+    "What is the cost of a very short time slice?"
+  ],
+  "references": [
+    "the scheduling chapter of the OS textbook"
+  ]
+}

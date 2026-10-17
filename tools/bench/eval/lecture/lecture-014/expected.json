@@ -1,0 +1,41 @@
+{
+  "title": "Covalent Bonds and Molecular Shape",
+  "summary": "Covalent bonds share electrons and their geometry sets a molecule's shape.",
+  "key_concepts": [
+    {
+      "term": "Covalent bond",
+      "explanation": "A bond formed by sharing a pair of electrons."
+    },
+    {
+      "term": "Electronegativity",
+      "explanation": "An atom's pull on shared electrons."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Bonding",
+      "points": [
+        "Single, double and triple bonds share one, two or three pairs.",
+        "Unequal sharing makes a bond polar."
+      ]
+    },
+    {
+      "heading": "Shape",
+      "points": [
+        "Electron pairs repel each other.",
+        "Methane is tetrahedral."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Draw the Lewis structures on the handout",
+      "due": "Thursday",
+      "t": null
+    }
+  ],
+  "questions": [
+    "Why is carbon dioxide nonpolar although its bonds are polar?"
+  ],
+  "references": []
+}

@@ -1,0 +1,35 @@
+{
+  "title": "Newton's Laws of Motion",
+  "summary": "Newton's three laws describe how forces change the motion of objects.",
+  "key_concepts": [
+    {
+      "term": "Inertia",
+      "explanation": "The tendency of an object to keep its state of motion."
+    },
+    {
+      "term": "Net force",
+      "explanation": "The vector sum of all forces acting on an object."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "First and second law",
+      "points": [
+        "An object keeps moving at constant velocity without a net force.",
+        "Force equals mass times acceleration."
+      ]
+    },
+    {
+      "heading": "Third law",
+      "points": [
+        "Forces come in equal and opposite pairs.",
+        "The pairs act on different objects."
+      ]
+    }
+  ],
+  "assignments": [],
+  "questions": [
+    "Why does a rocket accelerate in empty space?"
+  ],
+  "references": []
+}

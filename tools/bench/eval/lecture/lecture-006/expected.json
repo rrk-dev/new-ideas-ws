@@ -1,0 +1,89 @@
+{
+  "title": "Hash Tables",
+  "summary": "Hash tables give near constant time lookups by mapping keys to buckets.",
+  "key_concepts": [
+    {
+      "term": "Hash function",
+      "explanation": "A function that maps a key to a bucket index."
+    },
+    {
+      "term": "Collision",
+      "explanation": "Two different keys that map to the same bucket."
+    },
+    {
+      "term": "Load factor",
+      "explanation": "The ratio of stored items to buckets."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Chaining",
+      "points": [
+        "Each bucket holds a linked list of items.",
+        "Lookups walk the list in the bucket."
+      ]
+    },
+    {
+      "heading": "Open addressing",
+      "points": [
+        "Collisions probe for the next free slot.",
+        "Deletion needs a tombstone marker."
+      ]
+    },
+    {
+      "heading": "Worked example",
+      "points": [
+        "We walk through one complete example on the board.",
+        "Check each step against the definition."
+      ]
+    },
+    {
+      "heading": "Common mistakes",
+      "points": [
+        "Students often skip the setup.",
+        "Units and signs cause most errors."
+      ]
+    },
+    {
+      "heading": "Historical background",
+      "points": [
+        "The idea developed over several decades.",
+        "Early versions were much simpler."
+      ]
+    },
+    {
+      "heading": "Applications",
+      "points": [
+        "The method is used in industry every day.",
+        "Smaller projects benefit as well."
+      ]
+    },
+    {
+      "heading": "Limits",
+      "points": [
+        "Every model has assumptions.",
+        "Know when they fail."
+      ]
+    },
+    {
+      "heading": "Related topics",
+      "points": [
+        "We will connect this to earlier weeks.",
+        "Later lectures extend it."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Implement a hash table with chaining",
+      "due": "Friday March 20th",
+      "t": null
+    }
+  ],
+  "questions": [
+    "How does the load factor affect lookup time?"
+  ],
+  "references": [
+    "the hashing chapter of the course reader"
+  ]
+}

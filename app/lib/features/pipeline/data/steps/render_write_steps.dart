@@ -65,6 +65,9 @@ String _placeholderRenderer(NoteInput input) {
   ].join('\n');
 }
 
+/// Profiles whose action items live in a differently named list.
+const Map<String, String> kActionItemSourceFields = {'lecture': 'assignments'};
+
 /// One action item of an extraction (`action_items` row content).
 typedef ActionItemData = ({
   String text,
@@ -77,8 +80,15 @@ typedef ActionItemData = ({
 /// objects whose text is `task` (built-in Meeting/Engineering schemas) or
 /// `text`, with optional `owner`, `due_iso` (date post-processor) and `t`
 /// (`hh:mm:ss` evidence).
-List<ActionItemData> actionItemsOf(Map<String, Object?> json) {
-  final raw = json['action_items'];
+///
+/// Profile-aware (TPL-01): the Lecture profile's `assignments` list is the
+/// action-item source of profile `lecture`; every other profile (incl.
+/// unknown/null) keeps reading `action_items`.
+List<ActionItemData> actionItemsOf(
+  Map<String, Object?> json, {
+  String? profileId,
+}) {
+  final raw = json[kActionItemSourceFields[profileId] ?? 'action_items'];
   if (raw is! List<Object?>) return const [];
   String? str(Object? v) => v is String && v.trim().isNotEmpty ? v : null;
   return [
@@ -176,7 +186,7 @@ class RenderStep implements PipelineStep {
     await writeFileAtomic(paths.renderedFile(job.recordingId), markdown);
     ctx.reportProgress(1);
     final items = [
-      for (final item in actionItemsOf(ext.json))
+      for (final item in actionItemsOf(ext.json, profileId: ext.profileId))
         ActionItemsCompanion.insert(
           recordingId: job.recordingId,
           extractionId: ext.id,

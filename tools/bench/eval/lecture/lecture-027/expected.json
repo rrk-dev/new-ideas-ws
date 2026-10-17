@@ -1,0 +1,43 @@
+{
+  "title": "Ocean Currents",
+  "summary": "Wind and density differences drive the circulation of the oceans.",
+  "key_concepts": [
+    {
+      "term": "Gyre",
+      "explanation": "A large circular system of ocean currents."
+    },
+    {
+      "term": "Thermohaline circulation",
+      "explanation": "Circulation driven by differences in temperature and salt."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Surface currents",
+      "points": [
+        "Winds drive the major gyres.",
+        "The Coriolis effect bends the flow."
+      ]
+    },
+    {
+      "heading": "Deep circulation",
+      "points": [
+        "Cold salty water sinks near the poles.",
+        "The overturning takes centuries."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Map the major gyres on the blank chart",
+      "due": "Friday",
+      "t": null
+    }
+  ],
+  "questions": [
+    "What would slowing the overturning do to Europe's climate?"
+  ],
+  "references": [
+    "the ocean circulation chapter"
+  ]
+}

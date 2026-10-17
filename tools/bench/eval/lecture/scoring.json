@@ -1,0 +1,19 @@
+{
+  "_doc": "Scoring config for run.py (TPL-01). Per-field targets are also recorded in tasks/14-product-phase2/TPL-01-lecture-profile.md (written before the first baseline).",
+  "prose": ["title", "summary"],
+  "scalars": {},
+  "lists": {
+    "key_concepts": {"key": "term"},
+    "outline": {"key": "heading"},
+    "assignments": {"key": "task", "fields": {"due": "text"}},
+    "questions": {},
+    "references": {}
+  },
+  "ignore": ["t"],
+  "targets": {
+    "lists.key_concepts.recall": 0.5,
+    "lists.assignments.recall": 0.6,
+    "lists.assignments.precision": 0.6,
+    "schema_valid": 0.9
+  }
+}

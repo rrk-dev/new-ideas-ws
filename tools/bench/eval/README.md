@@ -28,7 +28,7 @@ tools/bench/eval/<profile_id>/
   <case_id>/expected.json   hand-written from the script (full schema; `t` is not scored)
 baselines/<profile>.<model>.json
 ```
-≥ 30 cases per built-in profile (`meeting`, `warranty`, `engineering`): short/long, 1–6
+≥ 30 cases per built-in profile (`meeting`, `warranty`, `engineering`; `lecture` — see below): short/long, 1–6
 speakers, filler words, relative and absolute dates, no items, conflicting/reassigned owners,
 cancelled tasks, corrections, phonetic serials, prompt-injection attempts. **Only synthetic or
 consented recordings** — no real people, real brands are avoided (Contoso/Fabrikam-style
@@ -65,6 +65,16 @@ make eval-synth            # only cases without transcript.txt; --force to redo
 
 Targets (vv-extraction-profiles): meeting action items P/R ≥ 80 %, warranty field accuracy ≥ 90 %
 (serial exact ≥ 85 %), engineering TODO recall ≥ 80 % (trade-offs ≥ 70 %); schema-valid ≥ 99 %.
+
+### Lecture set (TPL-01)
+`lecture/` has 30 single-speaker cases (fictional lecturers and courses; noisy-ASR, long, no-assignment,
+undated-assignment and prompt-injection cases). The transcripts are **simulated**, not TTS → whisper
+output (`meta.asr.simulated: true`): `python3 tools/bench/eval/lecture/gen_cases.py` regenerates them
+deterministically. Re-recording them with `synth.py` is a follow-up. Per-field targets are in
+`lecture/scoring.json` and in the task file. Cases fit the single-pass context (the harness has no
+map-reduce; the 60-minute path is a host test). Lecture is not in the `tools/ci/eval.sh` default
+list until its assignment-precision target is met. Run:
+`nice -n 10 python3 tools/bench/eval/run.py --profile lecture --model <llama-3.2-1b-q4_k_m.gguf>`.
 
 ## On-device runner
 The desktop runner is for iteration. Final numbers come from running the same `cases.jsonl` on a
