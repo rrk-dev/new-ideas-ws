@@ -9,7 +9,7 @@ review | done`) and a `**Skills:**` line listing the skills to load. Find unbloc
 `python3 .agents/skills/vv-task-workflow/scripts/tasks.py ready`; check consistency with `… validate`.
 
 **Sizes:** S ≤ 2 days · M 3–5 days · L 1–2 weeks · XL > 2 weeks
-**Phases (from §5):** 1 Foundation & Audio (W1–3) · 2 STT & LLM (W4–7) · 3 Profiles & Markdown (W8–10) · 4 Polish, Testing & Launch (W11–12) · 4+ post-launch / Enterprise
+**Phases (from §5):** 1 Foundation & Audio (W1–3) · 2 STT & LLM (W4–7) · 3 Profiles & Markdown (W8–10) · 4 Polish, Testing & Launch (W11–12) · 4+ post-launch / Enterprise · 5 Product Phase 2 (user decision 2026-10-16: quick capture, more templates, ask-your-notes, mind maps, task export). Phase 5 is *engineering* phase 5; "Phase 2" in the engineering numbering above still means STT & LLM.
 
 ## How we know a task really works (verification)
 1. **Acceptance tags** — every automatable criterion has a test named `[<ID>/ACn]`; device-only
@@ -131,6 +131,7 @@ review | done`) and a `**Skills:**` line listing the skills to load. Find unbloc
 | [LIC-02](09-licensing/LIC-02-in-app-purchases.md) | In-app purchases + offline entitlement | 3–4 | M | Plan + Gap |
 | [LIC-03](09-licensing/LIC-03-enterprise-offline-license.md) | Enterprise offline license keys | 4+ | L | Plan + Gap |
 | [LIC-04](09-licensing/LIC-04-enterprise-managed-configuration.md) | Enterprise MDM configuration | 4+ | M | Gap |
+| [LIC-05](09-licensing/LIC-05-phase2-feature-tiers.md) | Free / Pro placement for Phase 2 features | 5 | S | User decision 2026-10-16 |
 
 ### 10 — Security & Privacy
 | ID | Task | Phase | Size | Source |
@@ -144,6 +145,7 @@ review | done`) and a `**Skills:**` line listing the skills to load. Find unbloc
 | [SEC-07](10-security-privacy/SEC-07-recording-consent-features.md) | Recording consent features | 3–4 | S | Gap |
 | [SEC-08](10-security-privacy/SEC-08-threat-model-security-review.md) | Threat model & security review | 2/4 | M | Gap |
 | [SEC-09](10-security-privacy/SEC-09-recording-safeguards-no-call-capture.md) | Recording safeguards: user-started only, never record calls | 1 | M | Requirement |
+| [SEC-11](10-security-privacy/SEC-11-phase2-privacy-threat-update.md) | Phase 2 privacy, egress and threat-model update | 5 | M | Gap |
 
 ### 11 — Quality
 | ID | Task | Phase | Size | Source |
@@ -170,6 +172,30 @@ review | done`) and a `**Skills:**` line listing the skills to load. Find unbloc
 | [GATE-02](13-milestones/GATE-02-phase2-on-device-ai.md) | Phase 2 gate: on-device transcription & extraction | 2 | M | Verification |
 | [GATE-03](13-milestones/GATE-03-phase3-notes-in-vault.md) | Phase 3 gate: full pipeline to the vault | 3 | M | Verification |
 | [GATE-04](13-milestones/GATE-04-release-candidate.md) | Phase 4 gate: release candidate | 4 | M | Verification |
+| [GATE-05](13-milestones/GATE-05-product-phase2.md) | Phase 5 gate: quick capture, templates, ask, mind maps, task export | 5 | M | Verification |
+
+### 14 — Product Phase 2 (user decision 2026-10-16)
+Scope confirmed by the user: quick capture, more summary templates, ask-your-notes, mind maps, Reminders/Todoist export, reference-driven UI refresh. English only, no hardware device, no Apple Watch app, no call recording. Priority order: QCP → TPL → ASK → MAP → TSK (UIX-01 early, it shapes the screens). Free/Pro placement is decided in LIC-05; the policy and privacy follow-ups are SEC-11 and GATE-05.
+
+| ID | Task | Phase | Size | Source |
+|---|---|---|---|---|
+| [QCP-01](14-product-phase2/QCP-01-quick-capture-decision.md) | Quick-capture decision (widget, control, Action Button, tile) | 5 | S | User decision 2026-10-16 |
+| [QCP-02](14-product-phase2/QCP-02-ios-quick-capture.md) | iOS quick capture | 5 | L | User decision 2026-10-16 |
+| [QCP-03](14-product-phase2/QCP-03-android-quick-capture.md) | Android quick capture | 5 | M | User decision 2026-10-16 |
+| [TPL-01](14-product-phase2/TPL-01-lecture-profile.md) | Lecture profile | 5 | M | User decision 2026-10-16 |
+| [TPL-02](14-product-phase2/TPL-02-sales-conversation-profile.md) | Sales conversation profile | 5 | M | User decision 2026-10-16 |
+| [TPL-03](14-product-phase2/TPL-03-interview-profile.md) | Interview profile | 5 | M | User decision 2026-10-16 |
+| [TPL-04](14-product-phase2/TPL-04-template-picker-classification.md) | Template picker, auto-classification and eval | 5 | M | User decision 2026-10-16 |
+| [ASK-01](14-product-phase2/ASK-01-llama-3b-catalog-model.md) | Llama 3.2 3B in the model catalog | 5 | M | User decision 2026-10-16 |
+| [ASK-02](14-product-phase2/ASK-02-retrieval-decision.md) | Ask-your-notes retrieval decision | 5 | M | User decision 2026-10-16 |
+| [ASK-03](14-product-phase2/ASK-03-ask-engine.md) | Ask-your-notes engine | 5 | L | User decision 2026-10-16 |
+| [ASK-04](14-product-phase2/ASK-04-ask-ui.md) | Ask-your-notes UI | 5 | M | User decision 2026-10-16 |
+| [MAP-01](14-product-phase2/MAP-01-mind-map-generation.md) | Mind-map generation | 5 | M | User decision 2026-10-16 |
+| [MAP-02](14-product-phase2/MAP-02-mind-map-viewer-export.md) | Mind-map viewer and export | 5 | M | User decision 2026-10-16 |
+| [TSK-01](14-product-phase2/TSK-01-task-export-decision.md) | Action-item export decision (Reminders, Todoist, egress) | 5 | S | User decision 2026-10-16 |
+| [TSK-02](14-product-phase2/TSK-02-apple-reminders-export.md) | Apple Reminders export | 5 | M | User decision 2026-10-16 |
+| [TSK-03](14-product-phase2/TSK-03-todoist-export.md) | Todoist export (opt-in, only if approved) | 5 | M | User decision 2026-10-16 |
+| [UIX-01](14-product-phase2/UIX-01-reference-driven-ui-refresh.md) | Reference-driven UI refresh | 5 | M | User decision 2026-10-16 |
 
 ## Critical Path
 
@@ -207,6 +233,10 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 | Cloud device farm (Firebase Test Lab / BrowserStack) | QA-05 | Proposed: physical lab only, no cloud farm (ADR-QA-05). Human accepts or rejects |
 | Ship a macOS desktop app | FND-09, FND-10, AUD-09, EXP-09 | Decided by the user on 2026-10-14: yes, arm64 macOS desktop alongside iOS and Android. Web, Linux, and Windows stay off. |
 | `small.en` Whisper in Free tier? | LIC-01 | Product decision (§7 says Free gets small/tiny) |
+| Free vs Pro for quick capture, new profiles, ask-your-notes, mind maps, task export | LIC-05 | Product decision; 3B model is already Pro by the size rule |
+| Todoist integration: ship / opt-in / no-go | TSK-01 | Needs user approval; adds a third-party network host |
+| Quick capture: start-now vs open-and-arm; Action Button `StartSource` | QCP-01 | SEC-09 ADR amendment, human approval |
+| Ask-your-notes retrieval: FTS5 vs embeddings | ASK-02 | Decide from measured recall |
 
 ## Schedule Risk
 The master plan targets 12 weeks. This breakdown (89 tasks incl. 4 phase gates, several L-sized gaps: pipeline orchestrator, diarization, map-reduce extraction, eval harness, enterprise licensing) sums to roughly **59–64 engineer-weeks** (27 S ≈ 1.5 d, 49 M ≈ 4 d, 9 L ≈ 7.5 d). Hitting 12 calendar weeks needs a team of ~5 engineers working in parallel (native/AI, audio/platform, Flutter UI, export/licensing, QA). With a smaller team, keep the 12-week target for a Free + Pro MVP and move diarization (STT-05), the custom profile editor (PRF-07) and Enterprise (LIC-03/04, PRF-08 signing) to v1.1.
