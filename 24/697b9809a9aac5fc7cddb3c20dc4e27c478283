@@ -1,0 +1,23 @@
+tasks/README.md
+  s_5a534bed398a49::t_faa1d624972d61 123-124
+tasks/08-app-ux/APP-07-lumen-brand-logo.md
+  s_5a534bed398a49::t_8fe53add2b57ef 1-22
+tasks/08-app-ux/APP-08-modern-ui-theme.md
+  s_5a534bed398a49::t_9c67cd60a8c447 1-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "24697b9809a9aac5fc7cddb3c20dc4e27c478283",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
