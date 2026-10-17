@@ -122,6 +122,7 @@ review | done`) and a `**Skills:**` line listing the skills to load. Find unbloc
 | [APP-06](08-app-ux/APP-06-accessibility-localization.md) | Accessibility & localization | 4 | S | Gap |
 | [APP-07](08-app-ux/APP-07-lumen-brand-logo.md) | Lumen brand: name and logo | 4 | M | User request |
 | [APP-08](08-app-ux/APP-08-modern-ui-theme.md) | Modern UI: design system and screen restyle | 4 | L | User request |
+| [APP-09](08-app-ux/APP-09-live-waveform.md) | Live waveform while recording | 4 | S | User request |
 
 ### 09 — Licensing
 | ID | Task | Phase | Size | Source |
