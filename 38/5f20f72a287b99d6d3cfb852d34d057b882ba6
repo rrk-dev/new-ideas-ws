@@ -1,0 +1,38 @@
+app/test/widget/live_waveform_test.dart
+  s_5a534bed398a49::t_bae83cf3fabab8 32
+  s_5a534bed398a49::t_3e8897d2e58c45 31
+app/lib/core/widgets/field_helper.dart
+  s_f19df70c271bcf::t_09a4eee3f01b9e 1-18
+app/lib/features/export/presentation/routing_rule_editor_screen.dart
+  s_f19df70c271bcf::t_a3f5021edc58cd 7,223
+app/lib/features/recording/presentation/recording_details_sheet.dart
+  s_f19df70c271bcf::t_a3f5021edc58cd 6,173
+app/lib/features/review/presentation/schema_form.dart
+  s_f19df70c271bcf::t_a3f5021edc58cd 5,220
+app/lib/features/export/presentation/vault_target_options_screen.dart
+  s_f19df70c271bcf::t_a3f5021edc58cd 6,163
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "385f20f72a287b99d6d3cfb852d34d057b882ba6",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_f19df70c271bcf": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "29da61d8-c376-4673-8665-fc84f650707d",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
