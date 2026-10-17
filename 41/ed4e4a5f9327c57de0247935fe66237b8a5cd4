@@ -1,0 +1,19 @@
+app/test/unit/branding/lumen_brand_test.dart
+  s_5a534bed398a49::t_3711080d837937 102-103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "41ed4e4a5f9327c57de0247935fe66237b8a5cd4",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
