@@ -81,20 +81,21 @@ Needed, and **nothing else**:
 - No new network host, no `network` entitlement change, no Android permission.
 
 This is a user-visible permission (full read/write of all reminders, E2), which is wider than
-the feature needs. It is requested **only on the first tap of "Add to Reminders"**, never at
+the feature needs; the wording was **approved by the human on 2026-10-17**. It is requested **only on the first tap of "Add to Reminders"**, never at
 launch. This is outside what `AGENTS.md` lists as allowed ("permission beyond the Reminders
-usage description"): it is exactly the Reminders usage description, so no stop is required,
-but the human reviewer must approve the entitlement line and the E2 wording before the
-implementing task (TSK-02, to be created) starts.
+usage description"): it is exactly the Reminders usage description, so no stop is required.
+The permission wording is approved; the macOS entitlement line stays subject to D3 before the
+implementing task (TSK-02, to be created) ships on macOS.
 
 ### 3. Platform positions
 - **iOS 17+:** `requestFullAccessToReminders`. **iOS 16:** the deprecated
   `requestAccess(to: .reminder)` — implement behind an availability check; device row D2. If
   D2 fails, the fallback is to hide the feature on iOS 16 (the Markdown note is unaffected).
 - **macOS:** supported, **same plugin and rules**, macOS 14 API with the macOS 13 fallback
-  (E3). Requires the sandbox entitlement (E9/D3). The macOS build is currently a
-  developer/test target (`app/macos`); if the product ships it, the feature ships with it,
-  otherwise it is simply unreachable there. Not a store gate.
+  (E3). **macOS is a shipped target (human decision 2026-10-17)**, so the feature ships there.
+  It requires the sandbox entitlement (E9). **Release gate: D3 (entitlement covers reminders)
+  must PASS before macOS ships with this feature**; if it fails, the exact entitlement named by
+  the spike replaces it via a new human approval.
 - **Android: no Apple Reminders; Android users get nothing from this task.** The button is not
   shown (`Platform` capability check, not an error). Their action items remain in the Markdown
   note (EXP-01) and the in-app task list (APP-02). Any Android task integration (e.g. Google
@@ -116,7 +117,7 @@ Source: table `action_items` (`app/lib/core/db/tables/extraction_tables.dart`: `
 | `title` | `body.trim()`, whitespace-collapsed, truncated to 255 characters at a grapheme boundary (limit is **our** choice, not an Apple fact) |
 | `notes` | `Owner: <owner>` only if `owner` non-empty (text, never resolved to a contact, never assigned); then `From Lumen, <recording date>`. **No transcript text, no source `t`, no recording title/filename** (content-minimal). |
 | `dueDateComponents` | only when `dueIso` is non-null **and** parses as a strict ISO-8601 calendar date or date-time; date-only → `year/month/day` components (no time, no alert); date-time → plus hour/minute. Unparseable → no due date. **Never inferred from spoken text** ("next Friday"). |
-| `calendar` | the user's chosen Reminders list (default `defaultCalendarForNewReminders()`); remembered in settings as its calendar identifier, falling back to the default if it is gone |
+| `calendar` | a dedicated **"Lumen" Reminders list created by us** on first export (human decision 2026-10-17): look up by the stored calendar identifier, else by title among `calendars(for: .reminder)`, else create with `saveCalendar(_:commit:)` using the source of `defaultCalendarForNewReminders()`. If creation fails or is unavailable (D8 unverified) → fall back to `defaultCalendarForNewReminders()` and tell the user. The list id is remembered in settings; if the user deletes the list it is recreated on the next export, never silently re-adding items already linked (§6). |
 | `priority`, alarms, URL, location, recurrence, assignee | not set |
 
 `owner`, `body` are untrusted strings from the LLM (T5): they are passed as data to
@@ -203,9 +204,14 @@ belongs to the user; LIC-05 records it.
   `reminder_exports` migration, UI, tests tagged `[TSK-02/ACn]`, final plist/entitlement
   change after approval); SEC-11 final privacy/threat updates; LIC-05 tier.
 
+## Human decisions (2026-10-17)
+1. Full-access permission wording: **approved**.
+2. Shipping targets: **iOS, macOS and Android**. macOS is shipped; D3 must PASS before macOS ships.
+3. List: **dedicated "Lumen" list created by us**, with fallback to the default list if creation
+   fails (D8).
+
+Status stays **Proposed**: the repo rule (`vv-decision-records`) keeps an ADR Proposed while its
+claims are unmeasured on a device (D1–D8); it is promoted once those rows PASS.
+
 ## Open product questions
-1. Free vs Pro (§8).
-2. Approve the full-access permission wording and the macOS entitlement (§2)?
-3. Is macOS a shipped target, or only a development host?
-4. Default list: system default, or a dedicated "Lumen" list created by us (creating a
-   list needs `saveCalendar`; not verified/decided)?
+1. Free vs Pro (§8) — PRODUCT-DECISION for LIC-05, still open.

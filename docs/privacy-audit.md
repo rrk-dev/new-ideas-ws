@@ -313,9 +313,9 @@ Decision: [ADR-TSK-01](adr/ADR-TSK-01-task-export.md) (Proposed). Nothing is imp
 | Question | Answer |
 |---|---|
 | Network use / host | **None added.** EventKit is an OS framework writing to the on-device Reminders store. `kModelHosts` and `tools/ci/check_egress.sh` unchanged. |
-| Data written | Per user-selected action item: title (item text), optional `Owner: <text>`, optional due date from the extracted `due_iso`, and "From VaultVoice, <date>". No transcript, audio name, timestamp or recording title. |
+| Data written | Per user-selected action item: title (item text), optional `Owner: <text>`, optional due date from the extracted `due_iso`, and "From Lumen, <date>". No transcript, audio name, timestamp or recording title. |
 | Trigger | Explicit tap and explicit item selection only. No automatic or background export. |
-| Permission | Reminders full read/write (iOS/macOS offer no write-only level for reminders — ADR E2); requested on first use. Info.plist `NSRemindersFullAccessUsageDescription` + legacy `NSRemindersUsageDescription`; macOS sandbox entitlement `com.apple.security.personal-information.calendars` (reminder coverage unverified — D3). |
+| Permission | Reminders full read/write (iOS/macOS offer no write-only level for reminders — ADR E2); requested on first use. Items go into a dedicated "Lumen" Reminders list created by us (fallback: the default list). Targets: iOS, macOS, Android (no feature). Info.plist `NSRemindersFullAccessUsageDescription` + legacy `NSRemindersUsageDescription`; macOS sandbox entitlement `com.apple.security.personal-information.calendars` (reminder coverage unverified — D3 must PASS before macOS ships). |
 | iCloud / Exchange sync | If the user's Reminders list syncs, that is the user's own OS account setting, done by the OS outside our client. The UI must say so. Exported items then exist on the user's Apple servers, outside our control. |
 | Stored by us | Link table `reminder_exports` (hash key, EventKit item id, list id, timestamp) in the encrypted DB; deleted with the recording. |
 | Logging | Ids hashed only; never item text. |
