@@ -225,9 +225,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
         body: SafeArea(
           child: Column(
             children: [
-              LinearProgressIndicator(
-                value: (index + 1) / _steps.length,
-                semanticsLabel: l10n.onboardingStepOf(index + 1, _steps.length),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                child: LinearProgressIndicator(
+                  value: (index + 1) / _steps.length,
+                  semanticsLabel: l10n.onboardingStepOf(
+                    index + 1,
+                    _steps.length,
+                  ),
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -238,7 +244,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                     children: [
                       if (index == 0) ...const [
                         LumenWordmark(),
-                        SizedBox(height: AppSpacing.lg),
+                        SizedBox(height: AppSpacing.xl),
                       ],
                       _page(context),
                       _gate(context),
@@ -552,11 +558,24 @@ class _Page extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 48, color: theme.colorScheme.primary),
-        const SizedBox(height: AppSpacing.md),
+        DecoratedBox(
+          decoration: BoxDecoration(
+            color: theme.colorScheme.primaryContainer,
+            shape: BoxShape.circle,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.md),
+            child: Icon(
+              icon,
+              size: AppSizes.iconLg,
+              color: theme.colorScheme.onPrimaryContainer,
+            ),
+          ),
+        ),
+        const SizedBox(height: AppSpacing.lg),
         Semantics(
           header: true,
-          child: Text(title, style: theme.textTheme.headlineSmall),
+          child: Text(title, style: theme.textTheme.headlineMedium),
         ),
         const SizedBox(height: AppSpacing.lg),
         ...children,

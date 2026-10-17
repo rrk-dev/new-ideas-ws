@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
+import 'package:vaultvoice/core/widgets/lumen_card.dart';
 import 'package:vaultvoice/core/widgets/status_message.dart';
 import 'package:vaultvoice/features/library/data/library_providers.dart';
 import 'package:vaultvoice/features/library/domain/library_models.dart';
@@ -82,7 +83,6 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.search),
                 hintText: l10n.librarySearchHint,
-                border: const OutlineInputBorder(),
                 suffixIcon: filter.query.isEmpty
                     ? null
                     : IconButton(
@@ -127,6 +127,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                 }
                 return ListView.builder(
                   key: const ValueKey('library-list'),
+                  padding: const EdgeInsets.only(bottom: AppSpacing.lg),
                   itemCount: r.items.length,
                   itemBuilder: (context, i) =>
                       LibraryTile(item: r.items[i], hit: r.hits[r.items[i].id]),
@@ -288,33 +289,35 @@ class LibraryTile extends ConsumerWidget {
     ].join(' · ');
     final status = LibraryTexts.status(l10n, item.status);
     final exported = item.exportedTo;
-    return ListTile(
-      key: ValueKey('library-item-${item.id}'),
-      leading: Icon(
-        LibraryTexts.statusIcon(item.status),
-        color: item.status == LibraryStatus.failed
-            ? theme.colorScheme.error
-            : theme.colorScheme.primary,
-      ),
-      title: Text(LibraryTexts.title(l10n, item.title)),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(facts),
-          Text(
-            exported.isEmpty
-                ? status
-                : l10n.libraryExportedTo(status, exported.join(', ')),
-          ),
-          if (hit case final h?)
-            Padding(
-              padding: const EdgeInsets.only(top: AppSpacing.xs),
-              child: SnippetText(h.snippet),
+    return LumenCard(
+      child: ListTile(
+        key: ValueKey('library-item-${item.id}'),
+        leading: Icon(
+          LibraryTexts.statusIcon(item.status),
+          color: item.status == LibraryStatus.failed
+              ? theme.colorScheme.error
+              : theme.colorScheme.primary,
+        ),
+        title: Text(LibraryTexts.title(l10n, item.title)),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(facts),
+            Text(
+              exported.isEmpty
+                  ? status
+                  : l10n.libraryExportedTo(status, exported.join(', ')),
             ),
-        ],
+            if (hit case final h?)
+              Padding(
+                padding: const EdgeInsets.only(top: AppSpacing.xs),
+                child: SnippetText(h.snippet),
+              ),
+          ],
+        ),
+        isThreeLine: true,
+        onTap: () => RecordingStatusRoute(recordingId: item.id).go(context),
       ),
-      isThreeLine: true,
-      onTap: () => RecordingStatusRoute(recordingId: item.id).go(context),
     );
   }
 }
@@ -336,7 +339,7 @@ class SnippetText extends StatelessWidget {
       spans.add(
         TextSpan(
           text: buffer.toString(),
-          style: bold ? const TextStyle(fontWeight: FontWeight.bold) : null,
+          style: bold ? const TextStyle(fontWeight: FontWeight.w600) : null,
         ),
       );
       buffer.clear();

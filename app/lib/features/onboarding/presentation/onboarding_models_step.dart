@@ -36,7 +36,11 @@ class OnboardingModelsStep extends ConsumerWidget {
     final offline = ref.watch(networkDisabledProvider).value ?? false;
 
     final header = [
-      Icon(Icons.memory, size: 48, color: theme.colorScheme.primary),
+      Icon(
+        Icons.memory,
+        size: AppSizes.illustration,
+        color: theme.colorScheme.primary,
+      ),
       const SizedBox(height: AppSpacing.md),
       Semantics(
         header: true,

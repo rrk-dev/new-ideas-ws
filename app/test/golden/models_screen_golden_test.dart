@@ -37,7 +37,7 @@ ModelEntry _entry(
 
 void main() {
   goldenTest(
-    '[MDL-03] Models screen',
+    '[MDL-03] Models screen [APP-08/AC4]',
     fileName: 'models_screen',
     overrides: [
       settingsStoreProvider.overrideWith((ref) => FakeSettingsStore()),

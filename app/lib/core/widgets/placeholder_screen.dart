@@ -30,7 +30,11 @@ class PlaceholderScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(icon, size: 48, color: theme.colorScheme.primary),
+                Icon(
+                  icon,
+                  size: AppSizes.illustration,
+                  color: theme.colorScheme.primary,
+                ),
                 const SizedBox(height: AppSpacing.md),
                 Text(title, style: theme.textTheme.titleLarge),
               ],

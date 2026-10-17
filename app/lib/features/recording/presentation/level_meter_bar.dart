@@ -38,11 +38,11 @@ class LevelMeterView extends StatelessWidget {
             label: l10n.recordingLevelLabel,
             excludeSemantics: true,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(AppSpacing.xs),
+              borderRadius: BorderRadius.circular(AppRadius.pill),
               child: LinearProgressIndicator(
                 key: const ValueKey('level-meter'),
                 value: level.normalized(),
-                minHeight: AppSpacing.sm,
+                minHeight: AppSizes.meterHeight,
                 color: level.clipping ? scheme.error : scheme.primary,
                 backgroundColor: scheme.surfaceContainerHighest,
               ),

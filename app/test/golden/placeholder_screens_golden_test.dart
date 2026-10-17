@@ -14,7 +14,7 @@ import '../helpers/library_fixtures.dart';
 
 void main() {
   goldenTest(
-    'Record screen',
+    'Record screen [APP-08/AC4]',
     fileName: 'record_screen',
     builder: (_) => const RecordScreen(),
     // Hermetic: fake capture/call guard, no profiles or vault folders yet.
@@ -34,7 +34,7 @@ void main() {
   );
   // APP-02: the real Library (was a placeholder until then).
   goldenTest(
-    '[APP-02] Library screen',
+    '[APP-02] Library screen [APP-08/AC4]',
     fileName: 'library_screen',
     overrides: libraryOverrides(),
     builder: (_) => const LibraryScreen(),
