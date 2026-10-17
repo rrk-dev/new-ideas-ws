@@ -1,0 +1,19 @@
+tasks/14-product-phase2/TPL-02-sales-conversation-profile.md
+  s_5a534bed398a49::t_93ce3c6ec5e607 14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ad722d6a6a368793c0d909adef8d9054cc3cff47",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
