@@ -1,0 +1,51 @@
+app/lib/features/library/presentation/library_screen.dart
+  s_61ae747bb8fc8d::t_8b83761bc118f0 7-9,12,52,55,62,133-135,137,139-164,323
+  s_61ae747bb8fc8d::t_3b5bebb169e4a2 324-344,346,348-349
+  s_61ae747bb8fc8d::t_df78aac4a4441e 4,136,138
+app/lib/core/widgets/circle_icon_button.dart
+  s_61ae747bb8fc8d::t_2b16f2848ec40b 1-35
+app/test/widget/library_screen_test.dart
+  s_61ae747bb8fc8d::t_6bc92c012cc804 241-246,283-353
+  s_61ae747bb8fc8d::t_dac73036f4c026 231-238
+  s_61ae747bb8fc8d::t_5f8193f796ca81 14-15,19
+  s_61ae747bb8fc8d::t_50d3755ac07035 240
+app/lib/features/library/domain/library_grouping.dart
+  s_61ae747bb8fc8d::t_df78aac4a4441e 5
+  s_61ae747bb8fc8d::t_44244823cc4d9a 1-4,6-32
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_61ae747bb8fc8d::t_3b5bebb169e4a2 761-772,875-882
+  s_61ae747bb8fc8d::t_9089fc54db266c 883
+app/test/widget/modern_ui_scale_test.dart
+  s_61ae747bb8fc8d::t_5da06035992a52 7-8,71-77,110
+app/lib/core/l10n/arb/app_en.arb
+  s_61ae747bb8fc8d::t_924a96402073ef 246-249,285-287
+app/lib/features/library/presentation/library_texts.dart
+  s_61ae747bb8fc8d::t_8b83761bc118f0 4,29-33
+  s_61ae747bb8fc8d::t_685bb9892ed8e7 34-35
+app/lib/features/library/presentation/recording_detail_screen.dart
+  s_61ae747bb8fc8d::t_3b5bebb169e4a2 9-11,95-109,112-128,137,163,166-184,186-202,204-237,239-248,250,252-253,364-566
+  s_61ae747bb8fc8d::t_f1db81cacc068d 567
+app/lib/core/widgets/grouped_card.dart
+  s_61ae747bb8fc8d::t_667f143bfc3398 1-24
+app/lib/core/l10n/gen/app_localizations.dart
+  s_61ae747bb8fc8d::t_3b5bebb169e4a2 1345-1368,1549-1565
+  s_61ae747bb8fc8d::t_813cd4a4318cee 1566
+app/ios/Podfile
+  s_61ae747bb8fc8d::t_33eabe93d560cd 1-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "491b6ecd0a1dc9baf07d47aa65255b49204a3526",
+  "prompts": {},
+  "sessions": {
+    "s_61ae747bb8fc8d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "039e7df0-df1d-4aa0-ae96-c86616ea8007",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
