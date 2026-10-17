@@ -1,0 +1,19 @@
+app/test/widget/network_activity_screen_test.dart
+  s_f19df70c271bcf::t_dbaf06a73a3a2c 54-55,62-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "67e1ef40a9d582051e130e9a1c208a24f5f364c7",
+  "prompts": {},
+  "sessions": {
+    "s_f19df70c271bcf": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "29da61d8-c376-4673-8665-fc84f650707d",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
