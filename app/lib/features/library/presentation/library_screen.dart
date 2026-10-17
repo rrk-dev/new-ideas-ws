@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
+import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
-import 'package:vaultvoice/core/widgets/lumen_card.dart';
+import 'package:vaultvoice/core/widgets/circle_icon_button.dart';
+import 'package:vaultvoice/core/widgets/grouped_card.dart';
+import 'package:vaultvoice/core/widgets/section_header.dart';
 import 'package:vaultvoice/core/widgets/status_message.dart';
 import 'package:vaultvoice/features/library/data/library_providers.dart';
+import 'package:vaultvoice/features/library/domain/library_grouping.dart';
 import 'package:vaultvoice/features/library/domain/library_models.dart';
 import 'package:vaultvoice/features/library/presentation/library_texts.dart';
 
@@ -45,16 +49,17 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
       appBar: AppBar(
         title: Text(l10n.tabLibrary),
         actions: [
-          IconButton(
+          CircleIconButton(
             key: const ValueKey('library-action-items'),
             tooltip: l10n.actionItemsTitle,
-            icon: const Icon(Icons.checklist),
+            icon: Icons.checklist,
             onPressed: () => const ActionItemsRoute().go(context),
           ),
           PopupMenuButton<LibrarySort>(
             key: const ValueKey('library-sort'),
             tooltip: l10n.librarySort,
             icon: const Icon(Icons.sort),
+            style: circleMenuStyle(context),
             initialValue: filter.sort,
             onSelected: (s) => _update((f) => f.copyWith(sort: s)),
             itemBuilder: (context) => [
@@ -125,12 +130,38 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                         : l10n.libraryNoMatches,
                   );
                 }
-                return ListView.builder(
-                  key: const ValueKey('library-list'),
-                  padding: const EdgeInsets.only(bottom: AppSpacing.lg),
-                  itemCount: r.items.length,
-                  itemBuilder: (context, i) =>
-                      LibraryTile(item: r.items[i], hit: r.hits[r.items[i].id]),
+                final dated =
+                    filter.sort == LibrarySort.newest ||
+                    filter.sort == LibrarySort.oldest;
+                final sections = dated
+                    ? groupLibraryItems(r.items, ref.watch(clockProvider).now())
+                    : <LibrarySection>[(group: null, items: r.items)];
+                return Align(
+                  alignment: Alignment.topCenter,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxWidth: AppSizes.maxContentWidth,
+                    ),
+                    child: ListView(
+                      key: const ValueKey('library-list'),
+                      padding: const EdgeInsets.only(bottom: AppSpacing.lg),
+                      children: [
+                        for (final s in sections) ...[
+                          if (s.group case final g?)
+                            SectionHeader(
+                              LibraryTexts.group(l10n, g),
+                              key: ValueKey('library-group-${g.name}'),
+                            ),
+                          GroupedCard(
+                            children: [
+                              for (final item in s.items)
+                                LibraryTile(item: item, hit: r.hits[item.id]),
+                            ],
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
                 );
               },
             ),
@@ -289,35 +320,33 @@ class LibraryTile extends ConsumerWidget {
     ].join(' · ');
     final status = LibraryTexts.status(l10n, item.status);
     final exported = item.exportedTo;
-    return LumenCard(
-      child: ListTile(
-        key: ValueKey('library-item-${item.id}'),
-        leading: Icon(
-          LibraryTexts.statusIcon(item.status),
-          color: item.status == LibraryStatus.failed
-              ? theme.colorScheme.error
-              : theme.colorScheme.primary,
-        ),
-        title: Text(LibraryTexts.title(l10n, item.title)),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(facts),
-            Text(
-              exported.isEmpty
-                  ? status
-                  : l10n.libraryExportedTo(status, exported.join(', ')),
-            ),
-            if (hit case final h?)
-              Padding(
-                padding: const EdgeInsets.only(top: AppSpacing.xs),
-                child: SnippetText(h.snippet),
-              ),
-          ],
-        ),
-        isThreeLine: true,
-        onTap: () => RecordingStatusRoute(recordingId: item.id).go(context),
+    return ListTile(
+      key: ValueKey('library-item-${item.id}'),
+      leading: Icon(
+        LibraryTexts.statusIcon(item.status),
+        color: item.status == LibraryStatus.failed
+            ? theme.colorScheme.error
+            : theme.colorScheme.primary,
       ),
+      title: Text(LibraryTexts.title(l10n, item.title)),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(facts),
+          Text(
+            exported.isEmpty
+                ? status
+                : l10n.libraryExportedTo(status, exported.join(', ')),
+          ),
+          if (hit case final h?)
+            Padding(
+              padding: const EdgeInsets.only(top: AppSpacing.xs),
+              child: SnippetText(h.snippet),
+            ),
+        ],
+      ),
+      isThreeLine: true,
+      onTap: () => RecordingStatusRoute(recordingId: item.id).go(context),
     );
   }
 }
