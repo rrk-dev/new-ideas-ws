@@ -1,0 +1,41 @@
+app/test/widget/live_waveform_test.dart
+  s_f19df70c271bcf::t_717f8b39ea9e0c 49,53-54,105,109
+  s_f19df70c271bcf::t_1f1216fd941b6b 8,38-40,45-46,172,216-217
+  s_f19df70c271bcf::t_5061f4cc3c7b36 50-52
+  s_f19df70c271bcf::t_0ce63651990aeb 48
+  s_f19df70c271bcf::t_33e44262066002 104,108,121
+  s_f19df70c271bcf::t_1bab3d4becc482 33,211-212
+  s_f19df70c271bcf::t_5bd1c9dfd99ed1 129-142
+  s_f19df70c271bcf::t_8ae70417fc4ba0 1-7,9-32,34-37,41-44,47,55-103,106-107,110-120,122-128,143-171,173-210,213-215,218-229
+tasks/08-app-ux/APP-09-live-waveform.md
+  s_f19df70c271bcf::t_6fa7c5486aaf1c 4,11-14,22-33
+app/lib/features/recording/presentation/live_waveform.dart
+  s_f19df70c271bcf::t_8966b929daf5ed 164,176,179
+  s_f19df70c271bcf::t_1f1216fd941b6b 189-190,201-204
+  s_f19df70c271bcf::t_d296a5799c18e1 1-163,165-175,177-178,180-188,191-200,205-215
+app/test/widget/record_screen_test.dart
+  s_f19df70c271bcf::t_ce663d52257324 190-193,197
+  s_f19df70c271bcf::t_92fac44ae899a9 18
+app/lib/core/theme/app_tokens.dart
+  s_f19df70c271bcf::t_867eab1731aedd 46
+  s_f19df70c271bcf::t_4a4ec2957e6cdf 47-50
+app/lib/features/recording/presentation/recording_screen.dart
+  s_f19df70c271bcf::t_220668285470d1 356-359
+  s_f19df70c271bcf::t_cb1a4b0e509205 23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0e5d0f9c57febf45649ca0e2ff2d2136df75abb1",
+  "prompts": {},
+  "sessions": {
+    "s_f19df70c271bcf": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "29da61d8-c376-4673-8665-fc84f650707d",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
