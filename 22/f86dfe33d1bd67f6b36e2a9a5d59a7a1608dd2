@@ -1,0 +1,396 @@
+tools/bench/eval/interview/interview-013/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-13
+tools/bench/eval/interview/interview-032/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-39
+tools/bench/results/2026-10-17-eval-interview-Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_44eec72710a6b1::t_ac762123fc53b8 1-6259
+tools/bench/eval/interview/interview-010/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-34
+tools/bench/eval/interview/interview-022/script.md
+  s_44eec72710a6b1::t_7181c8aa746f39 6
+  s_44eec72710a6b1::t_3b47341df97d53 1-5,7-17
+app/lib/features/profiles/domain/post_processors.dart
+  s_44eec72710a6b1::t_62575034c5b9df 38-44,125-132
+app/test/unit/templates/alternate_outputs_test.dart
+  s_44eec72710a6b1::t_f535352d93fe8b 45
+app/test/unit/pipeline/production_engines_test.dart
+  s_44eec72710a6b1::t_f535352d93fe8b 140
+tools/bench/eval/interview/interview-005/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-15
+tools/bench/eval/interview/interview-013/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-17
+tools/bench/eval/interview/interview-026/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-13
+tools/bench/eval/interview/interview-002/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-13
+tools/bench/eval/interview/interview-029/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-93
+tools/bench/eval/interview/interview-030/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-2,4-63
+  s_44eec72710a6b1::t_7181c8aa746f39 3
+app/test/fixtures/markdown/golden/interview-logseq.empty.md
+  s_44eec72710a6b1::t_a5e07171817af6 1-11
+tools/bench/eval/interview/interview-031/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1,3-11
+  s_44eec72710a6b1::t_7181c8aa746f39 2
+tools/bench/results/2026-10-17-eval-interview-Llama-3.2-1B-Instruct-Q4-K-M.md
+  s_44eec72710a6b1::t_ac762123fc53b8 1-85
+tools/bench/eval/interview/interview-016/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-11
+tools/bench/eval/interview/interview-001/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-30
+tools/bench/eval/interview/interview-006/script.md
+  s_44eec72710a6b1::t_7181c8aa746f39 6
+  s_44eec72710a6b1::t_3b47341df97d53 1-5,7-19
+tools/bench/eval/interview/interview-009/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-16
+tools/bench/eval/interview/interview-029/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-34
+app/test/fixtures/markdown/golden/interview-logseq.adversarial.md
+  s_44eec72710a6b1::t_a5e07171817af6 1-31
+tools/bench/eval/interview/interview-002/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-63
+tools/bench/eval/interview/interview-029/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-30
+tools/bench/eval/interview/interview-031/expected.json
+  s_44eec72710a6b1::t_7181c8aa746f39 3
+  s_44eec72710a6b1::t_3b47341df97d53 1-2,4-52
+app/test/unit/profiles/interview_profile_test.dart
+  s_44eec72710a6b1::t_23572d79bad060 9,151-152,309,352
+  s_44eec72710a6b1::t_2a8ff92c2defd1 306-308
+  s_44eec72710a6b1::t_35cced56fc8d87 1-8,10-150,153-192,195-256,267-305,310-351,353-403,419-420,459
+  s_44eec72710a6b1::t_fe11b2ed9c808b 193-194,257-266,404-418,421-458
+app/test/fixtures/markdown/golden/interview-plain.empty.md
+  s_44eec72710a6b1::t_a5e07171817af6 1-8
+tools/bench/eval/interview/interview-027/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-48
+app/test/unit/templates/builtin_templates_golden_test.dart
+  s_44eec72710a6b1::t_f535352d93fe8b 24
+app/test/fixtures/markdown/golden/interview-plain.adversarial.md
+  s_44eec72710a6b1::t_a5e07171817af6 1-41
+tools/bench/eval/interview/interview-001/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1,3-13
+  s_44eec72710a6b1::t_7181c8aa746f39 2
+tools/bench/eval/interview/interview-011/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-15
+tools/bench/eval/interview/interview-014/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-32
+tools/bench/eval/interview/interview-024/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-31
+tools/bench/eval/interview/interview-025/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-32
+tools/bench/eval/interview/interview-031/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-30
+tools/bench/eval/interview/interview-018/script.md
+  s_44eec72710a6b1::t_7181c8aa746f39 6
+  s_44eec72710a6b1::t_3b47341df97d53 1-5,7-17
+app/test/fixtures/markdown/golden/interview-plain.full.md
+  s_44eec72710a6b1::t_a5e07171817af6 1-41
+tools/bench/eval/interview/interview-018/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1,3-13
+  s_44eec72710a6b1::t_7181c8aa746f39 2
+tools/bench/eval/interview/interview-003/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-5,7-25
+  s_44eec72710a6b1::t_7181c8aa746f39 6
+app/lib/features/pipeline/data/steps/render_write_steps.dart
+  s_44eec72710a6b1::t_f535352d93fe8b 72,91-92
+app/test/fixtures/markdown/golden/interview-logseq.full.md
+  s_44eec72710a6b1::t_a5e07171817af6 1-31
+tools/bench/eval/interview/interview-023/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-74
+tools/bench/eval/interview/interview-017/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-96
+tools/bench/eval/interview/interview-004/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-26
+app/lib/features/templates/domain/builtin_templates.dart
+  s_44eec72710a6b1::t_9f35307aa26ab2 106-120
+tools/bench/eval/interview/interview-006/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-31
+tasks/14-product-phase2/TPL-03-interview-profile.md
+  s_44eec72710a6b1::t_db47f209af39a6 27-41,44-45
+  s_44eec72710a6b1::t_fe11b2ed9c808b 11-17,46-63
+  s_44eec72710a6b1::t_88dbeb98ea3bd4 4
+tools/bench/eval/interview/interview-007/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-11
+tools/bench/eval/interview/interview-016/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-15
+tools/bench/eval/interview/interview-027/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-15
+tools/bench/eval/interview/interview-012/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-5,7-17
+  s_44eec72710a6b1::t_7181c8aa746f39 6
+tools/bench/eval/interview/interview-018/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-2,4-68
+  s_44eec72710a6b1::t_7181c8aa746f39 3
+tools/bench/eval/interview/interview-026/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-17
+docs/profile-spec.md
+  s_44eec72710a6b1::t_b921763d16e4a9 12,23,44,85,104-114
+  s_44eec72710a6b1::t_6ab9aef2d032f5 115
+tools/bench/eval/interview/interview-007/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-56
+tools/bench/eval/interview/interview-016/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-19
+tools/bench/eval/interview/interview-004/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-30
+tools/bench/eval/interview/interview-005/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-19
+docs/templates.md
+  s_44eec72710a6b1::t_b921763d16e4a9 112-114
+tools/bench/eval/interview/interview-028/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-52
+tools/bench/eval/interview/interview-012/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-2,4-57
+  s_44eec72710a6b1::t_7181c8aa746f39 3
+tools/bench/eval/interview/interview-018/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-30
+tools/bench/eval/interview/interview-032/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-9
+tools/bench/eval/interview/interview-007/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-15
+app/test/unit/profiles/prompt_snapshot_test.dart
+  s_44eec72710a6b1::t_a6c2b65b5faf6f 118
+  s_44eec72710a6b1::t_f535352d93fe8b 75-85
+tools/bench/eval/interview/interview-025/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-28
+tools/bench/eval/interview/interview-030/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-31
+tools/bench/eval/interview/interview-024/transcript.txt
+  s_44eec72710a6b1::t_7181c8aa746f39 2
+  s_44eec72710a6b1::t_3b47341df97d53 1,3-13
+tools/bench/eval/interview/interview-004/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-31
+tools/bench/eval/interview/interview-015/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-25
+tools/bench/eval/interview/interview-005/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-31
+tools/bench/eval/interview/gen_cases.py
+  s_44eec72710a6b1::t_7181c8aa746f39 160-163,181,223
+  s_44eec72710a6b1::t_ebad8783f9075e 1-159,164-180,182-222,224-288
+tools/bench/eval/interview/interview-017/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-28
+tools/bench/eval/interview/interview-026/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-30
+tools/bench/eval/interview/interview-027/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-31
+tools/bench/eval/interview/interview-011/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-19
+tools/bench/eval/interview/interview-019/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-10
+app/test/fixtures/markdown/golden/interview-default.full.md
+  s_44eec72710a6b1::t_a5e07171817af6 1-57
+tools/bench/eval/interview/interview-009/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-12
+tools/bench/eval/interview/interview-024/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-5,7-17
+  s_44eec72710a6b1::t_7181c8aa746f39 6
+app/assets/profiles/interview.yaml
+  s_44eec72710a6b1::t_3086d3bea85ccb 1-125
+tools/bench/eval/interview/interview-002/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-30
+tools/bench/eval/interview/interview-008/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-30
+tools/bench/eval/interview/interview-013/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-30
+app/lib/features/profiles/domain/post_processing.dart
+  s_44eec72710a6b1::t_cab046979d37e5 168
+  s_44eec72710a6b1::t_fe11b2ed9c808b 172-175
+  s_44eec72710a6b1::t_62575034c5b9df 141-153,167,169-171,176-180
+  s_44eec72710a6b1::t_2010b574eff42b 181-182
+tools/bench/eval/interview/interview-003/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-2,4-69
+  s_44eec72710a6b1::t_7181c8aa746f39 3
+app/lib/features/profiles/domain/builtin_profiles.dart
+  s_44eec72710a6b1::t_9f35307aa26ab2 13
+tools/bench/eval/interview/interview-008/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-58
+tools/bench/eval/interview/interview-021/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-31
+tools/bench/eval/interview/interview-028/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-11
+app/test/unit/pipeline/interview_action_items_test.dart
+  s_44eec72710a6b1::t_1e99d67d74f936 1-50,57-127,135-147
+  s_44eec72710a6b1::t_fe11b2ed9c808b 51-56,128-134
+tools/bench/eval/interview/interview-011/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-31
+tools/bench/eval/interview/interview-023/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-19
+tools/bench/eval/interview/interview-020/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-32
+tools/bench/eval/interview/interview-020/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-53
+tools/bench/eval/interview/interview-031/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-5,7-15
+  s_44eec72710a6b1::t_7181c8aa746f39 6
+app/test/golden_prompts/interview.single_pass.txt
+  s_44eec72710a6b1::t_78abfe9a33bdad 1-62
+tools/bench/eval/run.py
+  s_44eec72710a6b1::t_3b47341df97d53 151,159-160,270-280
+tools/bench/eval/interview/interview-014/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-13
+tools/bench/eval/interview/interview-008/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-13
+tools/bench/eval/interview/interview-020/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-19
+tools/bench/eval/interview/scoring.json
+  s_44eec72710a6b1::t_ca6d7b05a55215 1-51
+tools/bench/eval/interview/interview-019/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-14
+app/test/unit/templates/template_fixtures.dart
+  s_44eec72710a6b1::t_f535352d93fe8b 420-468
+tools/bench/eval/interview/interview-030/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-5,7-18
+  s_44eec72710a6b1::t_7181c8aa746f39 6
+tools/bench/eval/interview/interview-028/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-15
+tools/bench/eval/interview/interview-025/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-96
+tools/bench/eval/interview/interview-021/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-2,4-45
+  s_44eec72710a6b1::t_7181c8aa746f39 3
+tools/bench/eval/interview/interview-010/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-38
+app/test/db/repositories/profile_registry_test.dart
+  s_44eec72710a6b1::t_f535352d93fe8b 52
+tools/bench/eval/interview/interview-014/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-53
+tools/bench/eval/interview/interview-012/transcript.txt
+  s_44eec72710a6b1::t_7181c8aa746f39 2
+  s_44eec72710a6b1::t_3b47341df97d53 1,3-13
+tools/bench/eval/interview/interview-001/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-2,4-63
+  s_44eec72710a6b1::t_7181c8aa746f39 3
+tools/bench/eval/interview/interview-022/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-30
+tools/bench/eval/interview/interview-010/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-32
+tools/bench/eval/interview/interview-006/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1,3-15
+  s_44eec72710a6b1::t_7181c8aa746f39 2
+tools/bench/eval/interview/interview-021/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-5,7-13
+  s_44eec72710a6b1::t_7181c8aa746f39 6
+tools/bench/eval/interview/interview-006/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-2,4-32
+  s_44eec72710a6b1::t_7181c8aa746f39 3
+tools/bench/eval/interview/interview-015/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-31
+tools/bench/eval/interview/interview-013/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-68
+tools/bench/eval/interview/interview-015/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-21
+tools/bench/eval/interview/interview-029/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-32
+tools/bench/eval/interview/interview-016/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-32
+tools/bench/eval/README.md
+  s_44eec72710a6b1::t_78abfe9a33bdad 31,117-126
+tools/bench/eval/interview/interview-022/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1,3-13
+  s_44eec72710a6b1::t_7181c8aa746f39 2
+tools/bench/eval/interview/interview-009/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-31
+tools/bench/eval/interview/interview-010/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-96
+tools/bench/eval/interview/interview-017/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-31
+tools/bench/eval/interview/interview-032/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-13
+app/test/fixtures/markdown/golden/interview-default.adversarial.md
+  s_44eec72710a6b1::t_a5e07171817af6 1-57
+tools/bench/eval/interview/interview-023/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-31
+tools/bench/eval/interview/interview-027/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-11
+tools/bench/eval/interview/interview-008/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-17
+tools/bench/eval/interview/interview-012/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-32
+tools/bench/eval/interview/interview-020/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-15
+tools/bench/eval/interview/interview-021/transcript.txt
+  s_44eec72710a6b1::t_7181c8aa746f39 2
+  s_44eec72710a6b1::t_3b47341df97d53 1,3-9
+tools/bench/eval/interview/interview-003/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1,3-21
+  s_44eec72710a6b1::t_7181c8aa746f39 2
+tools/bench/eval/interview/interview-011/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-75
+tools/bench/eval/interview/interview-014/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-17
+tools/bench/eval/interview/interview-026/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-52
+tools/bench/eval/interview/interview-005/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-74
+app/test/fixtures/markdown/golden/interview-default.empty.md
+  s_44eec72710a6b1::t_a5e07171817af6 1-21
+tools/bench/eval/interview/interview-028/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-31
+tools/bench/eval/interview/interview-032/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-33
+tools/bench/eval/baselines/interview.Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_44eec72710a6b1::t_c9ff20436b9565 1-93
+app/test/unit/pipeline/sales_call_action_items_test.dart
+  s_44eec72710a6b1::t_fe11b2ed9c808b 138-151
+app/test/unit/profiles/builtin_profiles_test.dart
+  s_44eec72710a6b1::t_f535352d93fe8b 45,60
+  s_44eec72710a6b1::t_fe11b2ed9c808b 122-128
+tools/bench/eval/interview/interview-025/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-32
+app/assets/templates/interview-default.mustache
+  s_44eec72710a6b1::t_9f35307aa26ab2 1-83
+app/assets/templates/interview-logseq.mustache
+  s_44eec72710a6b1::t_9f35307aa26ab2 1-57
+app/assets/templates/interview-plain.mustache
+  s_44eec72710a6b1::t_9f35307aa26ab2 1-64
+tools/bench/eval/interview/interview-002/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-17
+tools/bench/eval/interview/interview-003/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-31
+tools/bench/eval/interview/interview-019/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-51
+tools/bench/eval/interview/interview-015/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-79
+tools/bench/eval/interview/interview-001/script.md
+  s_44eec72710a6b1::t_7181c8aa746f39 6
+  s_44eec72710a6b1::t_3b47341df97d53 1-5,7-17
+tools/bench/eval/interview/interview-007/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-31
+tools/bench/eval/interview/interview-019/meta.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-32
+tools/bench/eval/interview/interview-023/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1-15
+tools/bench/eval/interview/interview-009/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-57
+tools/bench/eval/interview/interview-024/expected.json
+  s_44eec72710a6b1::t_7181c8aa746f39 3
+  s_44eec72710a6b1::t_3b47341df97d53 1-2,4-26
+tools/bench/eval/interview/interview-030/transcript.txt
+  s_44eec72710a6b1::t_3b47341df97d53 1,3-14
+  s_44eec72710a6b1::t_7181c8aa746f39 2
+tools/bench/eval/interview/interview-004/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-85
+tools/bench/eval/interview/interview-022/expected.json
+  s_44eec72710a6b1::t_3b47341df97d53 1-2,4-63
+  s_44eec72710a6b1::t_7181c8aa746f39 3
+tools/bench/eval/scoring.py
+  s_44eec72710a6b1::t_3b47341df97d53 160-180
+tools/bench/eval/interview/interview-017/script.md
+  s_44eec72710a6b1::t_3b47341df97d53 1-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "22f86dfe33d1bd67f6b36e2a9a5d59a7a1608dd2",
+  "prompts": {},
+  "sessions": {
+    "s_44eec72710a6b1": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "0691032f-c087-409e-aad6-29e8d0d3afe9",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
