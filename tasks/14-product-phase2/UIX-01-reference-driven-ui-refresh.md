@@ -1,7 +1,7 @@
 # UIX-01 — Reference-driven UI refresh (Pocket-style structure on the Lumen design system)
 
 **Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** M | **Depends on:** APP-08, APP-09, APP-02, APP-05 | **Source:** User decision 2026-10-16 (product Phase 2: enhance the UI by observing the heypocket mobile app)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-testing, vv-decision-records
 
 ## Goal
