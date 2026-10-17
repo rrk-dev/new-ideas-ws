@@ -28,6 +28,8 @@ Widget _host(
   bool disableAnimations = false,
   Brightness brightness = Brightness.light,
 }) => ProviderScope(
+  // Test helper builds its own root scope; the provider has no dependencies.
+  // ignore: scoped_providers_should_specify_dependencies
   overrides: [recordingLevelsProvider.overrideWith((ref) => levels)],
   child: MaterialApp(
     theme: brightness == Brightness.light ? AppTheme.light : AppTheme.dark,

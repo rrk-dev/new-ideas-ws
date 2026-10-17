@@ -4,6 +4,7 @@ import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/core/utils/ids.dart';
+import 'package:vaultvoice/core/widgets/field_helper.dart';
 import 'package:vaultvoice/core/widgets/status_message.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/export/domain/filename_pattern.dart';
@@ -219,8 +220,7 @@ class _RuleFormState extends ConsumerState<_RuleForm> {
         InputDecoration(
           labelText: label,
           hintText: hint,
-          helperText: helper,
-          helperMaxLines: 4,
+          helper: helper == null ? null : FieldHelper(helper),
           border: const OutlineInputBorder(),
         );
     const gap = SizedBox(height: AppSpacing.md);

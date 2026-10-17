@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
+import 'package:vaultvoice/core/widgets/field_helper.dart';
 import 'package:vaultvoice/features/library/domain/extraction_summary.dart';
 import 'package:vaultvoice/features/profiles/domain/profile_schema.dart';
 import 'package:vaultvoice/features/review/domain/review_policy.dart';
@@ -216,9 +217,8 @@ class _SchemaFormState extends State<SchemaForm> {
             : null,
         decoration: InputDecoration(
           labelText: label,
-          helperText: helper,
+          helper: helper == null ? null : FieldHelper(helper),
           errorText: errorText,
-          helperMaxLines: 2,
           counterText: '',
           suffixIcon: source == null || tap == null
               ? null
