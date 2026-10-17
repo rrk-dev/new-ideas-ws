@@ -1,0 +1,21 @@
+docs/adr/ADR-TSK-01-task-export.md
+  s_5a534bed398a49::t_4d5b748a3daaef 76,117,210
+docs/test-plans/device/TSK-01.md
+  s_5a534bed398a49::t_06efc2d24253bd 15,17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ca7040c88a636f21f802a5b6c753b7b6cc23ca52",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
