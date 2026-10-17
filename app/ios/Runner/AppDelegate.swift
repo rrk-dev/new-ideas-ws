@@ -43,7 +43,9 @@ import UserNotifications
       AppLockPlugin.register(with: registrar)
     }
     // AUD-04: audio route / engine / media-services events; recording reminder.
-    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "AudioSessionPlugin") {
+    // The key must differ from the audio_session pub package's own
+    // "AudioSessionPlugin"; Flutter asserts on duplicate registrar keys.
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "VVAudioSessionPlugin") {
       AudioSessionPlugin.register(with: registrar)
     }
     // FND-08: background processing (background task, BGProcessingTask, power/thermal).
