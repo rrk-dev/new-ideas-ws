@@ -53,6 +53,8 @@ review | done`) and a `**Skills:**` line listing the skills to load. Find unbloc
 | [AUD-07](02-audio/AUD-07-recording-crash-recovery.md) | In-progress recording crash recovery | 1 | S | Gap |
 | [AUD-08](02-audio/AUD-08-recording-ui.md) | Recording screen UI | 1 | M | Plan |
 | [AUD-09](02-audio/AUD-09-macos-microphone.md) | macOS microphone capture | 1 | M | User decision 2026-10-14 |
+| [AUD-13](02-audio/AUD-13-ios-live-activity.md) | iOS Live Activity for recording state | 5 | M | AUD-04 follow-up; ADR-QCP-01 |
+| [AUD-14](02-audio/AUD-14-ios-share-extension-wiring.md) | iOS ShareExtension target wiring | 1 | S | AUD-06 follow-up |
 
 ### 03 — Speech-to-Text
 | ID | Task | Phase | Size | Source |
@@ -179,7 +181,7 @@ Scope confirmed by the user: quick capture, more summary templates, ask-your-not
 
 | ID | Task | Phase | Size | Source |
 |---|---|---|---|---|
-| [QCP-01](14-product-phase2/QCP-01-quick-capture-decision.md) | Quick-capture decision (widget, control, Action Button, tile) | 5 | S | User decision 2026-10-16 |
+| [QCP-01](14-product-phase2/QCP-01-quick-capture-decision.md) | Quick-capture decision (widget, control, tile; Action Button deferred) | 5 | S | User decision 2026-10-16 |
 | [QCP-02](14-product-phase2/QCP-02-ios-quick-capture.md) | iOS quick capture | 5 | L | User decision 2026-10-16 |
 | [QCP-03](14-product-phase2/QCP-03-android-quick-capture.md) | Android quick capture | 5 | M | User decision 2026-10-16 |
 | [TPL-01](14-product-phase2/TPL-01-lecture-profile.md) | Lecture profile | 5 | M | User decision 2026-10-16 |
@@ -236,7 +238,7 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 | Todoist integration | TSK-01 | **Decided 2026-10-17: no Todoist, no Apple Notes** (no public write API); Apple Reminders only |
 | Phase 2 tiers | LIC-05 | **Decided 2026-10-17: no Pro for now.** All features unlocked; Pro gating suppressed behind one switch, enable later |
 | Lecture consent | TPL-01 | 2026-10-17: consent always required; personal use is fine |
-| Quick capture: start-now vs open-and-arm; Action Button `StartSource` | QCP-01 | SEC-09 ADR amendment, human approval |
+| Quick capture: start-now vs open-and-arm; Action Button `StartSource` | QCP-01 | **Decided 2026-10-17** (ADR-QCP-01 Accepted): navigate-only everywhere, no start-now, Action Button deferred, Live Activity not required (AUD-13) |
 | Ask-your-notes retrieval: FTS5 vs embeddings | ASK-02 | Decide from measured recall |
 
 ## Schedule Risk

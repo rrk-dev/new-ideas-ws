@@ -12,7 +12,7 @@ One-tap recording with clear state, live feedback and profile pre-selection.
 - [x] Pre-select extraction profile (or "Auto" — PRF-06) and destination before or after recording.
 - [x] Add bookmarks/markers during recording ("important moment") stored as timestamps, surfaced to the LLM prompt.
 - [x] Title/tags entry post-recording.
-- [~] deferred → AUD-11 (nice-to-have; needs native widget/tile/Control targets and devices) — Quick-start entry points (nice-to-have): home-screen widget, Android quick-settings tile, iOS Control Center control — each must be a deliberate user tap. **No** Shortcuts/App Intents that can run unattended in automations, no scheduled/timer/location starts (SEC-09).
+- [~] deferred → QCP-02 / QCP-03 (quick capture; ADR-QCP-01, navigate-only) — Quick-start entry points (nice-to-have): home-screen widget, Android quick-settings tile, iOS Control Center control — each must be a deliberate user tap. **No** Shortcuts/App Intents that can run unattended in automations, no scheduled/timer/location starts (SEC-09).
 - [x] Consent confirmation step before recording (SEC-07) and "Recording unavailable during calls" state (SEC-09).
 - [x] Do not open the microphone before the user taps Record (no pre-capture).
 
@@ -50,10 +50,10 @@ One-tap recording with clear state, live feedback and profile pre-selection.
   with origin/main. Merge note: AUD-06 (import button on the Record app bar) and AUD-03
   (`silenceWatcherProvider` watched in the Record screen, `PauseCause.silence` text) edit the same
   screen — keep both when integrating (the status switch already has a default branch).
-- **Follow-ups:** AUD-11, AUD-12 (proposed).
+- **Follow-ups:** QCP-02, QCP-03 (filed; were AUD-11), AUD-12 (proposed).
 
 ## Follow-ups
-- **AUD-11 (proposed): Quick-start entry points** — home-screen widget, Android quick-settings
+- **QCP-02 / QCP-03 (filed; was proposed as AUD-11, absorbed per ADR-QCP-01): Quick-start entry points** — home-screen widget, Android quick-settings
   tile, iOS Control (`openAppWhenRun = true`, `isDiscoverable = false`) that only *navigate* to the
   Record tab; the start stays the in-app tap (SEC-09 §4). Needs native targets + devices.
 - **AUD-12 (proposed): Per-recording destination column** — move `recording.destination.<id>`

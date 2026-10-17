@@ -25,3 +25,6 @@ Acceptance criterion: [QCP-01/AC6] — items that cannot be verified without har
 
 ## Notes / evidence
 Evidence under `docs/test-plans/device/evidence/QCP-01/`.
+
+
+> **2026-10-17 human decision:** Action Button support is deferred and no entry point starts recording (navigate-only). Rows covering the Action Button (D2, D3) and start-now behaviour (D7) are **deferred**, kept for a later task; they do not block QCP-01.

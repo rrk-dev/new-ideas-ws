@@ -13,7 +13,7 @@ Recording continues with the app backgrounded or the device locked, and recovers
 - [x] Use SEC-09 `CallGuard` (`CXCallObserver`) so a ringing/active call stops capture even if no interruption arrives; refuse to start while a call is active.
 - [x] Handle route changes (AirPods connect/disconnect, wired headset). — `AudioSessionPlugin.swift` → `inputRestartRequired` → `RecordingController._restartInput` (call re-check, fail closed, never while paused).
 - [x] Handle media services reset. — same restart path into a new chunk.
-- [~] deferred → AUD-10 Live Activity / lock-screen indicator showing recording state (required where supported — SEC-09 visibility rule). — reason: needs a new WidgetKit/ActivityKit extension target that cannot be created or validated without Xcode here; meanwhile the OS microphone/recording indicator is always shown for background recording and the 60-min reminder is a local notification (ADR-AUD-04).
+- [~] deferred → AUD-13 Live Activity / lock-screen indicator showing recording state (required where supported — SEC-09 visibility rule). — reason: needs a new WidgetKit/ActivityKit extension target that cannot be created or validated without Xcode here; meanwhile the OS microphone/recording indicator is always shown for background recording and the 60-min reminder is a local notification (ADR-AUD-04).
 
 ## Acceptance Criteria
 - 60-min locked-screen recording completes without loss.
@@ -45,10 +45,10 @@ Recording continues with the app backgrounded or the device locked, and recovers
   Live Activity deferred.
 - **Stacking:** branched from task/AUD-05-android-background-recording → task/AUD-07-recording-
   crash-recovery → task/AUD-01-recording-service → origin/main.
-- **Follow-ups:** AUD-10 (proposed).
+- **Follow-ups:** AUD-13 (filed).
 
 ## Follow-ups
-- **AUD-10 (proposed): iOS Live Activity for recording state** — WidgetKit/ActivityKit extension
+- **AUD-13 (filed, tasks/02-audio/AUD-13-ios-live-activity.md; was proposed as AUD-10): iOS Live Activity for recording state** — WidgetKit/ActivityKit extension
   (`NSSupportsLiveActivities`, App Group for state), started from the in-app Record tap, showing
   recording/paused + timer, updated from `RecordingIndicatorBinding` via the existing
   `vaultvoice/recording_indicator` channel; buttons only open the app (no start from the Activity).
@@ -63,6 +63,6 @@ Recording continues with the app backgrounded or the device locked, and recovers
   - AC2: ✅ re-ran `[AUD-04/AC2]`. Ringing pauses immediately, post-event audio is not kept (1750 ms of 2000), a `call_interruption` marker is written, and `interruptionEnded` plus `callEnded` leave the mic closed. Device call row is blank.
   - AC3: ✅ re-ran `[AUD-04/AC3]`. A plain route change does not reopen; an engine-configuration change reopens into a new chunk and the recording stays in `recording` with a `route_change` marker. Media-services reset continues in a second chunk. Checked it fails when `_restartInput` is replaced with `return`. Bluetooth device row is blank.
 - **Adversarial checks:** Route/engine restart while `inCall` pauses instead of reopening (fail closed). A paused recording is not reopened by an engine change. Controller drops `callEnded` and `interruptionEnded` (`blocksCapture` is false), so `.shouldResume` cannot resume. `UIBackgroundModes` is `audio` only. CallKit is the SEC-09 observer, not a call provider. `tasks.py verify AUD-04 --run` short-circuits on pending evidence; tagged tests passed in the full suite.
-- **Skill/rule compliance:** No auto-resume. Live Activity is `[~] deferred → AUD-10` with a reason (needs a WidgetKit target and Xcode). Input reopen is a route recovery, not a resume, and fails closed on calls (ADR-AUD-04).
+- **Skill/rule compliance:** No auto-resume. Live Activity is `[~] deferred → AUD-13` with a reason (needs a WidgetKit target and Xcode). Input reopen is a route recovery, not a resume, and fails closed on calls (ADR-AUD-04).
 - **Issues found:** none
 - **Pending for done:** AC1: still pending (⏳) — cannot be done; AC1: device row in docs/test-plans/device/AUD-04.md has no PASS result with a date; AC2: still pending (⏳) — cannot be done; AC2: device row in docs/test-plans/device/AUD-04.md has no PASS result with a date; AC3: still pending (⏳) — cannot be done; AC3: device row in docs/test-plans/device/AUD-04.md has no PASS result with a date; dependency AUD-01 is not done; dependency SEC-09 is not done; FND-03 (CI / test framework) must be done before any non-bootstrap task; QA-01 (CI / test framework) must be done before any non-bootstrap task

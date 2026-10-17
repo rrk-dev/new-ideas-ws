@@ -11,7 +11,7 @@ everyone in it consented to being recorded."* (SEC-09), stored as `recordings.im
 | both | Record tab → **Import audio file** | `file_selector` system picker (Android `ACTION_OPEN_DOCUMENT` `audio/*`, iOS document picker `public.audio`, copy mode) |
 | Android | Share sheet / "Open with" | `ACTION_SEND`, `ACTION_SEND_MULTIPLE`, `ACTION_VIEW` intent filters (`audio/*`, `application/ogg`) on `MainActivity`; the content URI is copied into `cacheDir/shared_audio` immediately (grants are temporary) |
 | iOS | "Open in" / "Copy to Lumen" | `CFBundleDocumentTypes` (`public.audio` + listed UTIs) → `openURLContexts` via `FlutterSceneLifeCycleDelegate` → copied into `tmp/shared_audio` |
-| iOS | Share extension | `ios/ShareExtension/` copies into the App Group inbox `group.<app id>/Inbox/Audio`, drained by the app on the next `takePendingShares`. **Target wiring (Xcode target, App Group entitlement on both targets, embedding) is follow-up AUD-10.** |
+| iOS | Share extension | `ios/ShareExtension/` copies into the App Group inbox `group.<app id>/Inbox/Audio`, drained by the app on the next `takePendingShares`. **Target wiring (Xcode target, App Group entitlement on both targets, embedding) is follow-up AUD-14.** |
 
 Nothing is decoded or processed before the user ticks the attestation; a cancelled import deletes
 the private copy.

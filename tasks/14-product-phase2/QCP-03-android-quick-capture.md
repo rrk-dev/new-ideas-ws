@@ -5,19 +5,19 @@
 **Skills:** vv-task-workflow, vv-audio-capture, vv-background-execution, vv-flutter-architecture, vv-privacy-security, vv-testing
 
 ## Goal
-On Android (API 26+, arm64-v8a), a user can start a recording with one deliberate tap from a home-screen widget, the Quick Settings tile or an app shortcut, as decided in ADR-QCP-01.
+On Android (API 26+, arm64-v8a), a user can open the app straight to the Record screen from a home-screen widget, the Quick Settings tile or a launcher shortcut. Entry points are navigate-only (ADR-QCP-01 Accepted 2026-10-17): the recording starts only with the in-app Record tap.
 
 ## Scope
-- [ ] Home-screen widget (technology per ADR-QCP-01) with a record action and static text only.
-- [ ] Quick Settings tile (`TileService`) and a launcher app shortcut, following the ADR's start-now vs navigate-only decision and the Android 14+ microphone foreground-service start rules it recorded.
-- [ ] Hand-off to Flutter with the same single-use expiring token contract as QCP-02 (shared Pigeon definition if the ADR allows), then, only for entry points ADR-QCP-01 marked start-now, the same shared consent/setup flow as QCP-02 and `RecordingController.start(StartSource.homeScreenWidget | androidQuickSettingsTile)`; navigate-only entry points never call `start`. Stale or replayed tokens are ignored.
-- [ ] Reuse the AUD-05 foreground service, ongoing notification and CallGuard. No new permission; manifest additions limited to the widget receiver, tile service and shortcut metadata.
+- [ ] Home-screen widget (RemoteViews, per ADR-QCP-01) with an open-Record-screen action and static text only.
+- [ ] Quick Settings tile (`TileService`, always inactive state; on API 34+ open the app with the `startActivityAndCollapse(PendingIntent)` overload) and a static launcher shortcut, both navigate-only.
+- [ ] Hand-off to Flutter with the same single-use, memory-only, 10 s request contract as QCP-02 (shared Pigeon definition). It never calls `RecordingController.start` and no `StartSource.homeScreenWidget` / `androidQuickSettingsTile` call is made. Stale, replayed or missing requests are ignored; a test asserts the hand-off never starts recording.
+- [ ] Recording itself reuses the AUD-05 foreground service, ongoing notification and CallGuard through the normal in-app start. No new permission; manifest additions limited to the widget receiver, tile service and shortcut metadata.
 - [ ] The merged-manifest check in `tools/ci/check_recording_policy.sh` still passes (no `READ_PHONE_STATE`, call audio sources, `SYSTEM_ALERT_WINDOW`, Accessibility service).
-- [ ] Tests: Dart unit tests for token validation and source mapping; Android tests where the toolchain allows; device rows on the QA-05 matrix.
+- [ ] Tests: Dart unit tests for request validation and the never-calls-start check; Android tests where the toolchain allows; device rows on the QA-05 matrix.
 
 ## Acceptance Criteria
-- Widget, tile and shortcut each start (or open ready to start, per the ADR) a recording on a physical Android device with the ongoing notification visible (device row `docs/test-plans/device/QCP-03.md`; separate rows for API 26–30, API 31–33 and API 34+; the API 34+ row covers the tile-to-visible-activity hand-off and microphone foreground-service start).
-- Expired, reused or missing tokens never start recording, and missing consent or cancelled permission never opens the microphone (automated Dart tests, `[QCP-03/ACn]`).
-- During a ringing or active call none of the entry points records (device row; same CallGuard path as AUD-05).
+- Widget, tile and shortcut each open the app on the Record screen without recording, and the in-app Record tap then records with the ongoing notification visible, on a physical Android device (device row `docs/test-plans/device/QCP-03.md`; separate rows for API 26–30, API 31–33 and API 34+; the API 34+ row covers the tile-to-visible-activity hand-off).
+- Expired, reused or missing requests never start recording and the hand-off never calls `RecordingController.start` (automated Dart tests, `[QCP-03/ACn]`).
+- During a ringing or active call the in-app Record tap after a quick-capture open refuses (device row; same CallGuard path as AUD-05).
 - The merged release manifest adds only the components named in the ADR and no forbidden permission (CI script output).
 - No widget text derives from recordings (automated test of the widget data).

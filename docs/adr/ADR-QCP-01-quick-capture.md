@@ -1,10 +1,20 @@
-# ADR-QCP-01 — Quick capture from outside the app (widget, Lock Screen control, Action Button, Android tile)
+# ADR-QCP-01 — Quick capture from outside the app (widget, Lock Screen control, Android tile; Action Button deferred)
 
-- **Status:** Proposed — product/legal decision; QCP-02 and QCP-03 must not start until a human marks this Accepted
+- **Status:** Accepted — decided by the human on 2026-10-17 (see Decisions below); QCP-02 and QCP-03 may start
 - **Date:** 2026-10-17
 - **Task:** QCP-01
-- **Deciders:** Copilot (author); human approval required (SEC-09 amendments below)
-- **Supersedes:** the *proposals* AUD-11 (AUD-08 follow-up), AUD-10 Live Activity (AUD-04 follow-up) and AUD-10 share-extension wiring (AUD-06 follow-up). None is a filed task. No Accepted ADR is edited; ADR-SEC-09 changes are written as amendments for approval.
+- **Deciders:** human (2026-10-17); Copilot (author)
+- **Supersedes:** the *proposals* AUD-11 (AUD-08 follow-up), AUD-10 Live Activity (AUD-04 follow-up) and AUD-10 share-extension wiring (AUD-06 follow-up). AUD-10 Live Activity is now filed as AUD-13, AUD-10 share-extension wiring as AUD-14, and AUD-11 is absorbed by QCP-02/QCP-03. No Accepted ADR is edited; ADR-SEC-09 changes are written as amendments for approval.
+
+## Decisions (human, 2026-10-17)
+1. **Accepted: Option A**, navigate-only for every entry point (iOS widget, iOS Lock Screen/Control Center control, Android widget, tile, launcher shortcut), with SEC-09 **Amendment 1** (applied to ADR-SEC-09). Cost: two taps (entry point, then in-app Record).
+2. **No start-now anywhere.** Amendments 2 and 3 are **not adopted**; no new `StartSource` value is added. `homeScreenWidget`, `androidQuickSettingsTile` and `iosControl` stay allowlisted but unused.
+3. **Action Button deferred.** Not needed now; removed from the in-scope entry points, no App Intent for Shortcuts. The verified findings below (Action Button, provenance, Controls iOS 18, `openAppWhenRun`, `isDiscoverable`) and device rows D2/D3 are kept for a later task and amendment.
+4. **Live Activity not required** before quick capture ships: **Amendment 4** applied to ADR-SEC-09 §5.
+5. **AUD-13 (iOS Live Activity) and AUD-14 (ShareExtension wiring) filed** as tasks in `tasks/02-audio/`; QCP-02/QCP-03 absorb AUD-11.
+6. Defaults recommended in this ADR stand: macOS in-app-only, 10-second memory-only single-use hand-off request, static widget text.
+
+Wherever the text below describes the Action Button as an entry point, Option C, Amendments 2/3 or start-now, it is retained rationale only; the decisions above govern.
 
 ## Question
 How may a user start (or get one step from starting) a recording from outside the app — iOS Home/Lock
@@ -257,7 +267,7 @@ QCP-02:** `tools/ci/check_recording_policy.py` scans Swift sources only under `a
 (line 133–134), so a new extension directory must be added to its scanned roots (plists/entitlements under
 `app/ios` are already scanned).
 
-## Proposed SEC-09 ADR amendments (for human approval; ADR-SEC-09 is not edited by this task)
+## SEC-09 ADR amendments (1 and 4 approved and applied 2026-10-17; 2 and 3 not adopted)
 **Amendment 1 — Option A (recommended). Replace the last two sentences of §4 bullet 1** ("Widget/tile/Control
 open the app first; AUD-08 decides whether they start directly or only navigate (the iOS Control must use
 `openAppWhenRun`).") **with:**
@@ -313,7 +323,7 @@ the human approves Question 4.)
 - Device rows D1–D11 in `docs/test-plans/device/QCP-01.md` must be run during QCP-02/03; results go in the
   QCP-02/03 plans.
 
-## Questions the human must answer
+## Questions the human had to answer (answered 2026-10-17: Q1 yes, Q2 no start-now, Q3 Action Button deferred, Q4 yes, Q5-Q7 defaults accepted via decision 6 and 5)
 1. **Approve Option A** (navigate-only everywhere, two taps) and Amendment 1? (Alternative: Option C.)
 2. If any start-now entry point is wanted: approve Amendment 3 for Android widget/tile? Approve (against the
    recommendation) Amendment 2 / the new value `iosActionButton` for iOS?

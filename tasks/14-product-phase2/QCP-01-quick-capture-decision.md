@@ -46,3 +46,5 @@ Decide, from verified platform facts, how a user starts a recording in one tap f
   - AC6: ✅ artifact: docs/test-plans/device/QCP-01.md
 - **Decisions:** ADR-QCP-01 (Proposed; awaiting human approval, QCP-02/03 stay blocked until Accepted)
 - **Follow-ups:** AUD-13 (Live Activity) and AUD-14 (ShareExtension wiring) proposed; QCP-02 must add its new extension directory to `check_recording_policy.py` source roots.
+
+- 2026-10-17 human decisions recorded: ADR-QCP-01 Accepted (navigate-only everywhere, no start-now, Action Button deferred, Live Activity deferred to AUD-13, AUD-14 filed); SEC-09 Amendments 1 and 4 applied; QCP-02/03 rewritten. Status stays review.
