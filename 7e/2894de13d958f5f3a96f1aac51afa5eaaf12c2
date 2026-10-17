@@ -1,0 +1,360 @@
+tools/bench/eval/lecture/lecture-020/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-25
+tools/bench/eval/lecture/gen_cases.py
+  s_a0aa2df786cbba::t_d5dab0560c1915 309-311
+  s_a0aa2df786cbba::t_5ae53946ed3f48 1-308,312-431
+tools/bench/eval/lecture/lecture-015/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-85
+app/test/unit/profiles/builtin_profiles_test.dart
+  s_a0aa2df786cbba::t_de8e22911b9088 43,52,113
+app/assets/templates/lecture-logseq.mustache
+  s_a0aa2df786cbba::t_4ff222b17ce8be 1-53
+app/test/fixtures/markdown/golden/lecture-default.empty.md
+  s_a0aa2df786cbba::t_de8e22911b9088 1-20
+app/lib/features/profiles/domain/builtin_profiles.dart
+  s_a0aa2df786cbba::t_7ba4373232edfa 11
+app/test/db/repositories/profile_registry_test.dart
+  s_a0aa2df786cbba::t_482384b83d2c4c 46-51
+tools/bench/eval/lecture/lecture-006/script.md
+  s_a0aa2df786cbba::t_d5dab0560c1915 31,62,70,86,97
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-30,32-61,63-69,71-85,87-96,98-101
+tools/bench/eval/lecture/lecture-008/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-26
+tools/bench/eval/lecture/lecture-010/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-6
+tools/bench/eval/lecture/lecture-023/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-43
+tools/bench/eval/lecture/lecture-023/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18
+tools/bench/eval/lecture/lecture-024/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-26
+tools/bench/eval/lecture/lecture-011/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-35
+app/test/fixtures/markdown/golden/lecture-default.full.md
+  s_a0aa2df786cbba::t_de8e22911b9088 1-53
+tools/bench/eval/lecture/lecture-017/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-43
+app/test/fixtures/markdown/golden/lecture-default.adversarial.md
+  s_a0aa2df786cbba::t_de8e22911b9088 1-53
+tools/bench/eval/lecture/lecture-019/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18
+tools/bench/eval/lecture/lecture-006/transcript.txt
+  s_a0aa2df786cbba::t_d5dab0560c1915 6-41
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-5
+tools/bench/eval/lecture/lecture-020/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-17
+tools/bench/eval/lecture/lecture-023/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-5
+tools/bench/eval/lecture/lecture-025/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-23
+tasks/14-product-phase2/TPL-01-lecture-profile.md
+  s_a0aa2df786cbba::t_50a765c655260c 4
+  s_a0aa2df786cbba::t_59cdfac7fa43dd 11-18,41-60
+  s_a0aa2df786cbba::t_74ac8cd5b23875 28-38
+tools/bench/eval/run.py
+  s_a0aa2df786cbba::t_d5dab0560c1915 151
+app/test/unit/extraction/lecture_long_host_test.dart
+  s_a0aa2df786cbba::t_e32e994df028c1 49,61
+  s_a0aa2df786cbba::t_666b71d4e071de 1-48,52-60,62-121,128-129,137-151
+  s_a0aa2df786cbba::t_09802ef69e38cb 123-127,130-136
+  s_a0aa2df786cbba::t_5ce98c770526a6 122
+  s_a0aa2df786cbba::t_bdc7cae2022b69 50-51
+tools/bench/eval/lecture/lecture-012/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-25
+tools/bench/eval/lecture/scoring.json
+  s_a0aa2df786cbba::t_74ac8cd5b23875 1-19
+tools/bench/eval/lecture/lecture-022/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-43
+tools/bench/eval/lecture/lecture-004/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-6
+app/test/unit/templates/builtin_templates_golden_test.dart
+  s_a0aa2df786cbba::t_3611119ce113b7 169
+  s_a0aa2df786cbba::t_de8e22911b9088 22
+tools/bench/eval/lecture/lecture-001/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18
+tools/bench/eval/lecture/lecture-017/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18
+tools/bench/eval/lecture/lecture-030/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-6
+tools/bench/eval/lecture/lecture-002/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-17
+app/test/fixtures/markdown/golden/lecture-plain.adversarial.md
+  s_a0aa2df786cbba::t_de8e22911b9088 1-38
+tools/bench/eval/lecture/lecture-006/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-17,19-25
+  s_a0aa2df786cbba::t_d5dab0560c1915 18
+tools/bench/eval/lecture/lecture-011/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-25
+tools/bench/eval/lecture/lecture-012/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-43
+tools/bench/eval/lecture/lecture-019/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-6
+tools/bench/eval/lecture/lecture-027/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-43
+tools/bench/eval/lecture/lecture-005/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-5
+docs/test-plans/device/TPL-01.md
+  s_a0aa2df786cbba::t_59cdfac7fa43dd 1-8
+tools/bench/eval/lecture/lecture-007/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-5
+tools/bench/eval/lecture/lecture-026/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-25
+app/test/unit/templates/template_fixtures.dart
+  s_a0aa2df786cbba::t_de8e22911b9088 139-177
+tools/bench/eval/lecture/lecture-021/transcript.txt
+  s_a0aa2df786cbba::t_d5dab0560c1915 1-39
+tools/bench/eval/lecture/lecture-013/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-17
+tools/bench/eval/lecture/lecture-024/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-6
+tools/bench/eval/lecture/lecture-009/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18
+tools/bench/eval/lecture/lecture-014/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-41
+tools/bench/eval/lecture/lecture-016/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-5
+tools/bench/eval/lecture/lecture-013/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-23
+tools/bench/eval/lecture/lecture-021/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-30,33-36,38-47,49-69,71-80,82-84,86-88,90-100
+  s_a0aa2df786cbba::t_d5dab0560c1915 31-32,37,48,70,81,85,89
+tools/bench/eval/lecture/lecture-023/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-23
+tools/bench/eval/lecture/lecture-014/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-25
+app/assets/templates/lecture-default.mustache
+  s_a0aa2df786cbba::t_ca130a36ab026d 1-68
+tools/bench/eval/lecture/lecture-005/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-26
+app/lib/features/pipeline/data/steps/render_write_steps.dart
+  s_a0aa2df786cbba::t_67b514a94a39f1 68-70,83-91,189
+tools/bench/eval/lecture/lecture-015/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-17,19-25
+  s_a0aa2df786cbba::t_d5dab0560c1915 18
+tools/bench/eval/lecture/lecture-027/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-5
+tools/bench/eval/lecture/lecture-029/script.md
+  s_a0aa2df786cbba::t_d5dab0560c1915 17,27,37,52,67,80-81
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-16,18-26,28-36,38-51,53-66,68-79,82-100
+tools/bench/eval/lecture/lecture-011/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-5
+tools/bench/eval/lecture/lecture-006/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-89
+tools/bench/eval/lecture/lecture-016/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18
+tools/bench/eval/lecture/lecture-026/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-5
+tools/bench/eval/lecture/lecture-030/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-25
+app/test/golden_prompts/lecture.single_pass.txt
+  s_a0aa2df786cbba::t_abe47018266e65 1-55
+tools/bench/eval/lecture/lecture-012/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18
+tools/bench/eval/lecture/lecture-025/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-19
+tools/bench/eval/lecture/lecture-018/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18
+tools/bench/eval/lecture/lecture-011/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-17
+tools/bench/eval/lecture/lecture-012/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-6
+tools/bench/eval/lecture/lecture-016/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-37
+tools/bench/eval/lecture/lecture-020/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-5
+tools/bench/eval/lecture/lecture-003/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-23
+tools/bench/eval/lecture/lecture-009/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-23
+tools/bench/eval/lecture/lecture-017/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-25
+tools/bench/eval/lecture/lecture-008/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-6
+tools/bench/eval/lecture/lecture-019/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-23
+app/test/unit/profiles/prompt_snapshot_test.dart
+  s_a0aa2df786cbba::t_fef3d3fbdd211a 53-54,60-63
+  s_a0aa2df786cbba::t_482384b83d2c4c 55-59,95-111
+tools/bench/eval/lecture/lecture-022/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18
+app/test/fixtures/markdown/golden/lecture-logseq.adversarial.md
+  s_a0aa2df786cbba::t_de8e22911b9088 1-29
+tools/bench/eval/lecture/lecture-029/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-85
+tools/bench/eval/lecture/lecture-009/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-5
+tools/bench/eval/lecture/lecture-026/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-17
+tools/bench/eval/lecture/lecture-028/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-6
+tools/bench/eval/lecture/lecture-005/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-35
+app/test/fixtures/markdown/golden/lecture-logseq.full.md
+  s_a0aa2df786cbba::t_de8e22911b9088 1-29
+app/test/fixtures/markdown/golden/lecture-plain.empty.md
+  s_a0aa2df786cbba::t_de8e22911b9088 1-8
+tools/bench/eval/lecture/lecture-020/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-35
+tools/bench/eval/lecture/lecture-024/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18
+tools/bench/eval/lecture/lecture-030/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18
+tools/bench/eval/lecture/lecture-025/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-48
+tools/bench/eval/lecture/lecture-001/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-5
+tools/bench/eval/lecture/lecture-024/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-35
+app/test/unit/pipeline/lecture_action_items_test.dart
+  s_a0aa2df786cbba::t_482384b83d2c4c 1-31,33-44,46-81,83-130
+  s_a0aa2df786cbba::t_bdc7cae2022b69 32,45,82
+tools/bench/eval/lecture/lecture-013/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-41
+tools/bench/eval/lecture/lecture-018/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-25
+tools/bench/eval/lecture/lecture-018/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-46
+tools/bench/eval/lecture/lecture-019/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-43
+docs/templates.md
+  s_a0aa2df786cbba::t_395cce4b411a4b 106-108
+tools/bench/eval/lecture/lecture-014/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18
+tools/bench/eval/lecture/lecture-027/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18
+tools/bench/eval/lecture/lecture-015/transcript.txt
+  s_a0aa2df786cbba::t_d5dab0560c1915 5-40
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-4
+tools/bench/eval/lecture/lecture-029/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-4
+  s_a0aa2df786cbba::t_d5dab0560c1915 5-40
+tools/bench/eval/lecture/lecture-001/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-23
+tools/bench/eval/lecture/lecture-007/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-23
+app/lib/features/templates/domain/builtin_templates.dart
+  s_a0aa2df786cbba::t_7ba4373232edfa 76-90
+tools/bench/eval/lecture/lecture-003/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-19
+tools/bench/eval/lecture/lecture-025/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-6
+tools/bench/eval/lecture/lecture-030/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-41
+tools/bench/eval/lecture/lecture-028/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18
+tools/bench/eval/lecture/lecture-002/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-35
+tools/bench/eval/lecture/lecture-014/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-6
+app/test/fixtures/markdown/golden/lecture-logseq.empty.md
+  s_a0aa2df786cbba::t_de8e22911b9088 1-11
+app/assets/profiles/lecture.yaml
+  s_a0aa2df786cbba::t_ef225eb459a77f 1-103
+tools/bench/eval/lecture/lecture-005/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-17
+tools/bench/eval/lecture/lecture-010/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-19
+app/assets/templates/lecture-plain.mustache
+  s_a0aa2df786cbba::t_fd6aa0dd5783da 1-58
+tools/bench/eval/lecture/lecture-009/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-43
+tools/bench/eval/lecture/lecture-002/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-25
+tools/bench/eval/lecture/lecture-022/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-25
+app/test/fixtures/markdown/golden/lecture-plain.full.md
+  s_a0aa2df786cbba::t_de8e22911b9088 1-38
+tools/bench/eval/lecture/lecture-010/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-48
+tools/bench/eval/lecture/lecture-022/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-5
+tools/bench/results/2026-10-17-eval-lecture-Llama-3.2-1B-Instruct-Q4-K-M.md
+  s_a0aa2df786cbba::t_1e10e1ff912679 52
+  s_a0aa2df786cbba::t_d5dab0560c1915 6-7,13,15-19,25-29,31,37-40,46-51,53-75
+  s_a0aa2df786cbba::t_b2fc65a364f10d 1-5,8-12,14,20-24,30,32-36,41-45,76-77
+tools/bench/eval/lecture/lecture-003/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-48
+tools/bench/eval/lecture/lecture-007/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-41
+tools/bench/eval/lecture/lecture-004/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-19
+tools/bench/eval/lecture/lecture-026/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-41
+tools/bench/eval/lecture/lecture-013/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-5
+tools/bench/eval/lecture/lecture-017/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-6
+tools/bench/eval/lecture/lecture-028/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-23
+tools/bench/eval/lecture/lecture-016/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-25
+tools/bench/results/2026-10-17-eval-lecture-Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_a0aa2df786cbba::t_b2fc65a364f10d 1-15,24-25,28-30,37-38,45-46,54-55,62-63,70-72,75,77-82,84-85,88-229,4874-4879
+  s_a0aa2df786cbba::t_d5dab0560c1915 16-21,23,27,31-34,36,39-42,44,47-50,52-53,56-59,61,64-67,69,73-74,76,83,86-87,238,241-242,407,410-411,558,561-562,686,689-690,844-997,1002,1004,1008,1010,1014,1016,1019-1020,1025,1027,1031,1033,1038-1039,1041,1044,1050,1053-1054,1193,1196-1197,1344,1347-1348,1499,1502-1503,1643,1646-1647,1783,1786-1787,1938,1941-1942,2127,2130-2131,2300-2421,2426,2428,2432,2434,2438,2440,2443-2444,2449,2451,2455,2457,2462-2463,2465,2468,2474,2477-2478,2629,2632-2633,2784,2787-2788,2910,2913-2914,3078,3081-3082,3192-3290,3295,3297,3301,3303,3307,3309,3312-3313,3318,3320,3331-3332,3334,3337,3343,3346-3347,3528,3531-3532,3690,3693-3694,3892,3895-3896,4055,4058-4059,4242,4245-4246,4409,4412-4413,4576-4680,4685,4687,4693,4697,4699,4702-4703,4708,4710,4714,4716,4721-4722,4724,4727,4733,4736-4737
+  s_a0aa2df786cbba::t_1e10e1ff912679 22,26,35,43,51,60,68,230-237,239-240,243-406,408-409,412-557,559-560,563-685,687-688,691-843,998-1001,1003,1005-1007,1009,1011-1013,1015,1017-1018,1021-1024,1026,1028-1030,1032,1034-1037,1040,1042-1043,1045-1049,1051-1052,1055-1192,1194-1195,1198-1343,1345-1346,1349-1498,1500-1501,1504-1642,1644-1645,1648-1782,1784-1785,1788-1937,1939-1940,1943-2126,2128-2129,2132-2299,2422-2425,2427,2429-2431,2433,2435-2437,2439,2441-2442,2445-2448,2450,2452-2454,2456,2458-2461,2464,2466-2467,2469-2473,2475-2476,2479-2628,2630-2631,2634-2783,2785-2786,2789-2909,2911-2912,2915-3077,3079-3080,3083-3191,3291-3294,3296,3298-3300,3302,3304-3306,3308,3310-3311,3314-3317,3319,3321-3330,3333,3335-3336,3338-3342,3344-3345,3348-3527,3529-3530,3533-3689,3691-3692,3695-3891,3893-3894,3897-4054,4056-4057,4060-4241,4243-4244,4247-4408,4410-4411,4414-4575,4681-4684,4686,4688-4692,4694-4696,4698,4700-4701,4704-4707,4709,4711-4713,4715,4717-4720,4723,4725-4726,4728-4732,4734-4735,4738-4873
+tools/bench/eval/README.md
+  s_a0aa2df786cbba::t_395cce4b411a4b 31,69-77
+  s_a0aa2df786cbba::t_15845e0e56629a 78
+tools/bench/eval/baselines/lecture.Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_a0aa2df786cbba::t_d5dab0560c1915 16-21,23,27,31-34,36,39-42,44,47-50,52-53,56-59,61,64-67,69,73-74,76
+  s_a0aa2df786cbba::t_1e10e1ff912679 1-15,22,24-26,28-30,35,37-38,43,45-46,51,54-55,60,62-63,68,70-72,75,77-78
+tools/bench/eval/lecture/lecture-021/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-85
+tools/bench/eval/lecture/lecture-010/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-25
+app/test/unit/profiles/lecture_profile_test.dart
+  s_a0aa2df786cbba::t_bdc7cae2022b69 78
+  s_a0aa2df786cbba::t_c00a963ba56063 99-100
+  s_a0aa2df786cbba::t_b4d50ef8a1c6f4 21,62,125
+  s_a0aa2df786cbba::t_482384b83d2c4c 39-45,72-75,111-113,119-120,128-151
+  s_a0aa2df786cbba::t_ab72e0f1a91002 1-20,22-38,46-61,63-71,76-77,79-98,101-110,114-118,121-124,126-127,152-154
+tools/bench/eval/lecture/lecture-002/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-5
+tools/bench/eval/lecture/lecture-008/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18
+tools/bench/eval/lecture/lecture-003/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-6
+tools/bench/eval/lecture/lecture-028/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-43
+tools/bench/eval/lecture/lecture-015/script.md
+  s_a0aa2df786cbba::t_d5dab0560c1915 26,51,57,84
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-25,27-50,52-56,58-83,85-100
+tools/bench/eval/lecture/lecture-021/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-18,20-26
+  s_a0aa2df786cbba::t_d5dab0560c1915 19
+tools/bench/eval/lecture/lecture-018/transcript.txt
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-5
+tools/bench/eval/lecture/lecture-008/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-37
+tools/bench/eval/lecture/lecture-029/meta.json
+  s_a0aa2df786cbba::t_d5dab0560c1915 18
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-17,19-25
+docs/profile-spec.md
+  s_a0aa2df786cbba::t_395cce4b411a4b 12,23,44
+tools/bench/eval/lecture/lecture-004/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-44
+tools/bench/eval/lecture/lecture-007/script.md
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-17
+tools/bench/eval/lecture/lecture-001/expected.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-43
+tools/bench/eval/lecture/lecture-004/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-25
+tools/bench/eval/lecture/lecture-027/meta.json
+  s_a0aa2df786cbba::t_e5f25ed3fa0ab3 1-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7e2894de13d958f5f3a96f1aac51afa5eaaf12c2",
+  "prompts": {},
+  "sessions": {
+    "s_a0aa2df786cbba": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "337b3c66-ffab-4add-99da-761a0390ee13",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
