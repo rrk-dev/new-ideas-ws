@@ -1,0 +1,39 @@
+{
+  "title": "Woodgrove Foods inventory scanner discussion",
+  "summary": "Omar from Tailspin Software met Chloe from Woodgrove Foods to discuss the inventory scanner.",
+  "participants": [
+    "Omar",
+    "Chloe"
+  ],
+  "needs": [
+    "Single sign-on for all staff"
+  ],
+  "objections": [
+    {
+      "objection": "Worried the migration will take too long",
+      "response": "The seller's team handles the data migration"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Omar",
+      "what": "Delete the data on request within thirty days",
+      "t": null
+    },
+    {
+      "who": "Chloe",
+      "what": "Not sign with anyone else before hearing back",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Prepare a custom quote",
+      "owner": "Omar",
+      "due": "the end of the month",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [],
+  "open_questions": []
+}

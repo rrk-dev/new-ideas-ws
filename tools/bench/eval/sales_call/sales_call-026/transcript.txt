@@ -1,0 +1,14 @@
+[00:00:00] Ana: Hi everyone, thanks for meeting. I am Ana from Adatum Tools.
+[00:00:04] Ben: Good to meet you, I am Ben from Trey Research.
+[00:00:08] Ana: Today I would like to talk about our training platform and what matters most to you.
+[00:00:14] Ana: What is most important for you right now?
+[00:00:17] Ben: We want single sign-on for all of our staff.
+[00:00:21] Ben: We want the invoices to sync with our accounting system.
+[00:00:25] Ben: We are also looking at Globex Analytics for this.
+[00:00:29] Ben: I do not see how this fits with our current system.
+[00:00:33] Ana: There is a ready made connector for your system.
+[00:00:37] Ana: I will personally join the first training session.
+[00:00:40] Ben: I will make sure our technical lead attends the demo.
+[00:00:44] Ana: I will schedule a technical demo for the team by Friday.
+[00:00:48] Ben: Sounds good, thank you.
+[00:00:50] Ana: Thanks everyone, talk soon.

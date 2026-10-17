@@ -1,0 +1,19 @@
+[00:00:00] Priya: Hi everyone, thanks for meeting. I am Priya from Contoso Cloud.
+[00:00:04] Iris: Good to meet you, I am Iris from Proseware Retail.
+[00:00:08] Elena: Good to meet you, I am Elena from Proseware Retail.
+[00:00:12] Mina: Good to meet you, I am Mina from Proseware Retail.
+[00:00:16] Priya: Today I would like to talk about our scheduling tool and what matters most to you.
+[00:00:22] Priya: What is most important for you right now?
+[00:00:25] Mina: We want a dashboard that the board can read at a glance.
+[00:00:30] Elena: We want single sign-on for all of our staff.
+[00:00:34] Iris: We need role based access so interns cannot see salaries.
+[00:00:38] Elena: Our security team has not approved cloud tools yet.
+[00:00:42] Priya: We can share our security documentation for their review.
+[00:00:46] Iris: I am not sure the reports are detailed enough.
+[00:00:50] Priya: You can build custom reports with the built in editor.
+[00:00:54] Mina: I will bring the finance lead into the next discussion.
+[00:00:58] Elena: I will share the list of required integrations by next Tuesday.
+[00:01:02] Priya: Sounds good, thank you.
+[00:01:04] Priya: I will prepare a custom quote by next Tuesday.
+[00:01:08] Iris: Sounds good, thank you.
+[00:01:10] Priya: Thanks everyone, talk soon.

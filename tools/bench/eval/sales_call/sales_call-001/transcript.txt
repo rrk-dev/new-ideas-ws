@@ -1,0 +1,18 @@
+[00:00:00] Marcus: Hi everyone, thanks for meeting. I am Marcus from Contoso Cloud.
+[00:00:04] Dev: Good to meet you, I am Dev from Proseware Retail.
+[00:00:08] Marcus: Today I would like to talk about our backup service and what matters most to you.
+[00:00:14] Marcus: What is most important for you right now?
+[00:00:17] Dev: We need training for about forty new users.
+[00:00:20] Dev: Our team needs a mobile app for field technicians.
+[00:00:24] Dev: We want single sign-on for all of our staff.
+[00:00:28] Dev: Support hours seem too short for our night shift.
+[00:00:32] Marcus: We offer an extended support plan around the clock.
+[00:00:36] Dev: I am not sure the reports are detailed enough.
+[00:00:40] Marcus: You can build custom reports with the built in editor.
+[00:00:44] Marcus: We guarantee ninety nine point nine percent uptime in the contract.
+[00:00:48] Dev: We will not sign with anyone else before we hear back from you.
+[00:00:53] Marcus: I will send two customer references by tomorrow.
+[00:00:56] Dev: Sounds good, thank you.
+[00:00:58] Dev: I will confirm the budget with finance by next Tuesday.
+[00:01:02] Marcus: Sounds good, thank you.
+[00:01:04] Marcus: Thanks everyone, talk soon.

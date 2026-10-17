@@ -1,0 +1,51 @@
+{
+  "title": "Woodgrove Foods fleet tracker discussion",
+  "summary": "Tomas from Adatum Tools met Farid from Woodgrove Foods to discuss the fleet tracker.",
+  "participants": [
+    "Tomas",
+    "Farid"
+  ],
+  "needs": [
+    "Work offline in the warehouse",
+    "Training for about forty new users",
+    "Role based access so interns cannot see salaries"
+  ],
+  "objections": [
+    {
+      "objection": "Worried the migration will take too long",
+      "response": "The seller's team handles the data migration"
+    },
+    {
+      "objection": "Not sure the reports are detailed enough",
+      "response": "Custom reports can be built with the editor"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Tomas",
+      "what": "Guarantee ninety nine point nine percent uptime in the contract",
+      "t": null
+    },
+    {
+      "who": "Farid",
+      "what": "Bring the finance lead into the next discussion",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Prepare a custom quote",
+      "owner": "Tomas",
+      "due": null,
+      "t": null
+    },
+    {
+      "task": "Send the pilot proposal",
+      "owner": "Tomas",
+      "due": "Friday",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [],
+  "open_questions": []
+}

@@ -28,7 +28,7 @@ tools/bench/eval/<profile_id>/
   <case_id>/expected.json   hand-written from the script (full schema; `t` is not scored)
 baselines/<profile>.<model>.json
 ```
-≥ 30 cases per built-in profile (`meeting`, `warranty`, `engineering`; `lecture` — see below): short/long, 1–6
+≥ 30 cases per built-in profile (`meeting`, `warranty`, `engineering`; `lecture`, `sales_call` — see below): short/long, 1–6
 speakers, filler words, relative and absolute dates, no items, conflicting/reassigned owners,
 cancelled tasks, corrections, phonetic serials, prompt-injection attempts. **Only synthetic or
 consented recordings** — no real people, real brands are avoided (Contoso/Fabrikam-style
@@ -75,6 +75,16 @@ deterministically. Re-recording them with `synth.py` is a follow-up. Per-field t
 map-reduce; the 60-minute path is a host test). Lecture is not in the `tools/ci/eval.sh` default
 list until its assignment-precision target is met. Run:
 `nice -n 10 python3 tools/bench/eval/run.py --profile lecture --model <llama-3.2-1b-q4_k_m.gguf>`.
+
+### Sales conversation set (TPL-02)
+`sales_call/` has 32 diarized cases with 2–4 speakers (fictional people, companies and products): objections
+answered and dropped, commitments from both sides, conversations with no next steps or no objections,
+noisy ASR, long and prompt-injection cases. Like the lecture set the transcripts are **simulated**
+(`meta.asr.simulated: true`); `python3 tools/bench/eval/sales_call/gen_cases.py` regenerates them
+deterministically and re-recording with `synth.py` is a follow-up. Per-field targets are in
+`sales_call/scoring.json` and in the task file (written before the first baseline). Not in the
+`tools/ci/eval.sh` default list until the missed targets are met. Run:
+`nice -n 10 python3 tools/bench/eval/run.py --profile sales_call --model <llama-3.2-1b-q4_k_m.gguf>`.
 
 ## On-device runner
 The desktop runner is for iteration. Final numbers come from running the same `cases.jsonl` on a

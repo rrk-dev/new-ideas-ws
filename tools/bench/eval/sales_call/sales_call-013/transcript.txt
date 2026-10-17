@@ -1,0 +1,22 @@
+[00:00:00] Sofia: Hi everyone, thanks for meeting. I am Sofia from Fabrikam Systems.
+[00:00:04] Dev: Good to meet you, I am Dev from Litware Clinics.
+[00:00:08] Sofia: Today I would like to talk about our reporting dashboard and what matters most to you.
+[00:00:14] Sofia: What is most important for you right now?
+[00:00:17] Dev: We must keep all customer data inside the country.
+[00:00:21] Dev: We need to cut the time spent on month-end closing.
+[00:00:25] Dev: It has to work offline in the warehouse.
+[00:00:28] Dev: I do not see how this fits with our current system.
+[00:00:32] Sofia: There is a ready made connector for your system.
+[00:00:36] Dev: Our security team has not approved cloud tools yet.
+[00:00:40] Sofia: We can share our security documentation for their review.
+[00:00:44] Sofia: We will assign a dedicated onboarding engineer to your team.
+[00:00:48] Dev: I will bring the finance lead into the next discussion.
+[00:00:52] Dev: How does the pricing change if we add more branches?
+[00:00:56] Sofia: Good question, let us come back to that another time.
+[00:01:00] Sofia: I will schedule a technical demo for the team by Friday.
+[00:01:04] Dev: Sounds good, thank you.
+[00:01:06] Dev: I will confirm the budget with finance by next Tuesday.
+[00:01:10] Sofia: Sounds good, thank you.
+[00:01:12] Sofia: I will prepare a custom quote by the end of the month.
+[00:01:17] Dev: Sounds good, thank you.
+[00:01:19] Sofia: Thanks everyone, talk soon.

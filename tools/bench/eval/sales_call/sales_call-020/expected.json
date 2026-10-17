@@ -1,0 +1,44 @@
+{
+  "title": "Litware Clinics reporting dashboard discussion",
+  "summary": "Marcus from Contoso Cloud met Hugo, Iris, Mina from Litware Clinics to discuss the reporting dashboard.",
+  "participants": [
+    "Marcus",
+    "Hugo",
+    "Iris",
+    "Mina"
+  ],
+  "needs": [
+    "Keep all customer data inside the country"
+  ],
+  "objections": [
+    {
+      "objection": "Worried the migration will take too long",
+      "response": "The seller's team handles the data migration"
+    },
+    {
+      "objection": "Staff is not used to new software",
+      "response": null
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Mina",
+      "what": "Not sign with anyone else before hearing back",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Arrange access to the test environment",
+      "owner": "Hugo",
+      "due": "the end of the month",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [
+    "Umbrella Metrics"
+  ],
+  "open_questions": [
+    "When would a pilot be able to start?"
+  ]
+}

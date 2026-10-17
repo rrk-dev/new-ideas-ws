@@ -37,7 +37,12 @@ List<String> logseqProblems(String md) {
 void main() {
   test('every built-in profile has an Obsidian, a Logseq and a plain '
       'variant', () {
-    for (final profileId in ['meeting', 'warranty', 'engineering']) {
+    for (final profileId in [
+      'meeting',
+      'warranty',
+      'engineering',
+      'sales_call',
+    ]) {
       for (final f in TemplateFlavor.values) {
         expect(
           builtinVariant(profileId, f),

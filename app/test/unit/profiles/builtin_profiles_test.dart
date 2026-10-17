@@ -41,6 +41,7 @@ void main() {
         'warranty',
         'engineering',
         'lecture',
+        'sales_call',
       ]);
       for (final p in builtins.all) {
         expect(p.source, ProfileSource.builtin);
@@ -49,7 +50,13 @@ void main() {
       }
       expect(builtins.lookup((id: 'meeting', version: 99)), isNull);
       expect(builtins['nope'], isNull);
-      expect(builtins.ids, {'meeting', 'warranty', 'engineering', 'lecture'});
+      expect(builtins.ids, {
+        'meeting',
+        'warranty',
+        'engineering',
+        'lecture',
+        'sales_call',
+      });
     });
 
     test('meeting.yaml is the skill reference profile', () {
@@ -110,7 +117,7 @@ void main() {
     test('meeting keeps the Free tier; warranty/engineering tiers are a '
         'marked PRODUCT-DECISION', () {
       expect(builtins['meeting']!.tier, ProfileTier.free);
-      for (final id in ['warranty', 'engineering', 'lecture']) {
+      for (final id in ['warranty', 'engineering', 'lecture', 'sales_call']) {
         expect(builtinYaml(id), contains('PRODUCT-DECISION'));
       }
     });

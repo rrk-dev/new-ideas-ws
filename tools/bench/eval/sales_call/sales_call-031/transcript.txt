@@ -1,0 +1,20 @@
+[00:00:00] Omar: Hi everyone, thanks for meeting. I am Omar from Adatum Tools.
+[00:00:04] Chloe: Good to meet you, I am Chloe from Wingtip Logistics.
+[00:00:08] Liam: Good to meet you, I am Liam from Wingtip Logistics.
+[00:00:12] Omar: Today I would like to talk about our backup service and what matters most to you.
+[00:00:18] Omar: What is most important for you right now?
+[00:00:21] Chloe: We need training for about forty new users.
+[00:00:24] Liam: We want a dashboard that the board can read at a glance.
+[00:00:29] Liam: We want single sign-on for all of our staff.
+[00:00:33] Chloe: Support hours seem too short for our night shift.
+[00:00:37] Omar: We offer an extended support plan around the clock.
+[00:00:41] Chloe: The contract term of three years is too long for us.
+[00:00:45] Omar: We can offer a one year term with a renewal option.
+[00:00:49] Omar: I will keep the quoted price valid until the end of the quarter.
+[00:00:54] Chloe: How does the pricing change if we add more branches?
+[00:00:58] Omar: Good question, let us come back to that another time.
+[00:01:02] Omar: I will share the migration plan by Friday.
+[00:01:05] Chloe: Sounds good, thank you.
+[00:01:07] Chloe: I will confirm the budget with finance by the end of the month.
+[00:01:12] Omar: Sounds good, thank you.
+[00:01:14] Omar: Thanks everyone, talk soon.

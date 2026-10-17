@@ -1,0 +1,48 @@
+{
+  "title": "Lucerne Publishing payroll module discussion",
+  "summary": "Lena from Tailspin Software met Hugo, Gita from Lucerne Publishing to discuss the payroll module.",
+  "participants": [
+    "Lena",
+    "Hugo",
+    "Gita"
+  ],
+  "needs": [
+    "Work offline in the warehouse",
+    "Single sign-on for all staff"
+  ],
+  "objections": [
+    {
+      "objection": "The security team has not approved cloud tools",
+      "response": "Share the security documentation for review"
+    },
+    {
+      "objection": "Does not see how it fits the current system",
+      "response": null
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Lena",
+      "what": "Personally join the first training session",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Schedule a technical demo for the team",
+      "owner": "Lena",
+      "due": null,
+      "t": null
+    },
+    {
+      "task": "Review the contract draft",
+      "owner": "Gita",
+      "due": "Monday",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [
+    "Stark Data"
+  ],
+  "open_questions": []
+}

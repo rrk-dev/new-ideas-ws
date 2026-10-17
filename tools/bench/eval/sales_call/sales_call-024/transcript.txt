@@ -1,0 +1,14 @@
+[00:00:00] Marcus: Hi everyone, thanks for meeting. I am Marcus from Contoso Cloud.
+[00:00:04] Kira: Good to meet you, I am Kira from Woodgrove Foods.
+[00:00:08] Liam: Good to meet you, I am Liam from Woodgrove Foods.
+[00:00:12] Marcus: Today I would like to talk about our fleet tracker and what matters most to you.
+[00:00:18] Marcus: What is most important for you right now?
+[00:00:21] Liam: We are looking for a way to track deliveries in real time.
+[00:00:26] Liam: We are also looking at Umbrella Metrics for this.
+[00:00:30] Kira: I am not sure the reports are detailed enough.
+[00:00:34] Marcus: You can build custom reports with the built in editor.
+[00:00:38] Marcus: We will assign a dedicated onboarding engineer to your team.
+[00:00:42] Kira: I will make sure our technical lead attends the demo.
+[00:00:46] Kira: How does the pricing change if we add more branches?
+[00:00:50] Marcus: Good question, let us come back to that another time.
+[00:00:54] Marcus: Thank you for your time, let us leave it there for now.

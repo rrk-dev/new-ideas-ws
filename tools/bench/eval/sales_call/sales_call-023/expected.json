@@ -1,0 +1,49 @@
+{
+  "title": "Litware Clinics payroll module discussion",
+  "summary": "Omar from Fabrikam Systems met Ben from Litware Clinics to discuss the payroll module.",
+  "participants": [
+    "Omar",
+    "Ben"
+  ],
+  "needs": [
+    "Cut the time spent on month-end closing"
+  ],
+  "objections": [
+    {
+      "objection": "The setup fee feels too high",
+      "response": "Waive half of the setup fee for a signed pilot"
+    },
+    {
+      "objection": "Support hours are too short for the night shift",
+      "response": "Offer an extended support plan around the clock"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Omar",
+      "what": "Guarantee ninety nine point nine percent uptime in the contract",
+      "t": null
+    },
+    {
+      "who": "Ben",
+      "what": "Not sign with anyone else before hearing back",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Send the pilot proposal",
+      "owner": "Omar",
+      "due": "the end of the month",
+      "t": null
+    },
+    {
+      "task": "Send two customer references",
+      "owner": "Omar",
+      "due": "the end of the month",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [],
+  "open_questions": []
+}

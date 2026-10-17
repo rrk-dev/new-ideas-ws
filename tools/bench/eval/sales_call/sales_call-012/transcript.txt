@@ -1,0 +1,15 @@
+[00:00:00] Ana: Hi everyne thanks four meeting. I am ana from Tailspin Software.
+[00:00:04] Liam: Good to meet you, I am liam from proseware retail
+[00:00:08] Kira: Good to meet you, i am Kira from Proseware Retail.
+[00:00:12] Ana: Today i okay so would like to talk about hour reporting dashboard and what matters most to you
+[00:00:18] Ana: What is most important four you right now?
+[00:00:21] Kira: It has to work offline in the warehouse.
+[00:00:24] Liam: We are also looking at Initech reports four this.
+[00:00:28] Liam: I am not sure the reports are detailed enough.
+[00:00:32] Ana: You uh can build custom reports with the built in editor.
+[00:00:36] Ana: I will keep the quoted price valid until the end of the quarter.
+[00:00:41] Liam: i will send the current report samples by friday
+[00:00:45] Ana: Sounds good thank you.
+[00:00:47] Ana: I will send two customer references.
+[00:00:49] Liam: Sounds good, thank you
+[00:00:51] Ana: Thnks everyone, talk soon.

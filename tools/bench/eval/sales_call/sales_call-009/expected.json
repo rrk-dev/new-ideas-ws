@@ -1,0 +1,39 @@
+{
+  "title": "Litware Clinics backup service discussion",
+  "summary": "Priya from Adatum Tools met Kira from Litware Clinics to discuss the backup service.",
+  "participants": [
+    "Priya",
+    "Kira"
+  ],
+  "needs": [
+    "Role based access so interns cannot see salaries",
+    "A dashboard the board can read at a glance"
+  ],
+  "objections": [
+    {
+      "objection": "The security team has not approved cloud tools",
+      "response": "Share the security documentation for review"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Kira",
+      "what": "Not sign with anyone else before hearing back",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Introduce us to the finance lead",
+      "owner": "Kira",
+      "due": "tomorrow",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [
+    "Vandelay Tools"
+  ],
+  "open_questions": [
+    "What happens to our data if we cancel?"
+  ]
+}

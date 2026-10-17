@@ -1,0 +1,44 @@
+{
+  "title": "Litware Clinics training platform discussion",
+  "summary": "Priya from Contoso Cloud met Dev from Litware Clinics to discuss the training platform.",
+  "participants": [
+    "Priya",
+    "Dev"
+  ],
+  "needs": [
+    "Role based access so interns cannot see salaries"
+  ],
+  "objections": [],
+  "commitments": [
+    {
+      "who": "Priya",
+      "what": "Delete the data on request within thirty days",
+      "t": null
+    },
+    {
+      "who": "Dev",
+      "what": "Commit to a decision by the middle of next month",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Schedule a technical demo for the team",
+      "owner": "Priya",
+      "due": "Monday",
+      "t": null
+    },
+    {
+      "task": "Share the migration plan",
+      "owner": "Priya",
+      "due": "next week",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [
+    "Initech Reports"
+  ],
+  "open_questions": [
+    "Is there a limit on the number of users?"
+  ]
+}

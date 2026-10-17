@@ -88,6 +88,21 @@ const List<BuiltinTemplateInfo> kBuiltinTemplates = [
     flavor: TemplateFlavor.plain,
     profileId: 'lecture',
   ),
+  BuiltinTemplateInfo(
+    'sales-call-default',
+    flavor: TemplateFlavor.obsidian,
+    profileId: 'sales_call',
+  ),
+  BuiltinTemplateInfo(
+    'sales-call-logseq',
+    flavor: TemplateFlavor.logseq,
+    profileId: 'sales_call',
+  ),
+  BuiltinTemplateInfo(
+    'sales-call-plain',
+    flavor: TemplateFlavor.plain,
+    profileId: 'sales_call',
+  ),
   BuiltinTemplateInfo(kSummaryOnlyTemplateId, flavor: TemplateFlavor.obsidian),
 ];
 

@@ -106,6 +106,9 @@ templates have no row, and a user template written for a built-in profile keeps
 | `lecture-default` | lecture | Obsidian | summary, key-concept definitions, outline, assignment checkboxes with `📅 due`, review questions, references (TPL-01) |
 | `lecture-logseq` | lecture | Logseq | page properties, nested outline, `TODO` assignments (TPL-01) |
 | `lecture-plain` | lecture | plain | same sections, no front-matter / wikilinks (TPL-01) |
+| `sales-call-default` | sales_call | Obsidian | summary, participants, needs, objections with responses, commitments, next-step checkboxes with `(@owner)` and `📅 due`, competitors, open questions (TPL-02) |
+| `sales-call-logseq` | sales_call | Logseq | page properties, nested outline, `TODO` next steps (TPL-02) |
+| `sales-call-plain` | sales_call | plain | same sections, no front-matter / wikilinks (TPL-02) |
 | `summary-only` | any | Obsidian | fallback: `extraction: failed`, summary or notice, `transcript_block` |
 
 Alternate outputs (EXP-08): the recording screen's share action renders the note as Obsidian

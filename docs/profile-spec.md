@@ -9,7 +9,7 @@ routing. **The LLM fills JSON; Dart renders Markdown.** Anything computable dete
   `profile_schema.dart`, `ProfileValidator`, post-processor contract `post_processors.dart`,
   render-context shape + normalizer `render_context.dart`, template check
   `template_variables.dart`), storage `app/lib/features/profiles/data/profile_registry.dart`.
-- Built-ins: `app/assets/profiles/{meeting,warranty,engineering,lecture}.yaml`.
+- Built-ins: `app/assets/profiles/{meeting,warranty,engineering,lecture,sales_call}.yaml`.
 - Owner task: PRF-01. Tests: `app/test/unit/profiles/`, `app/test/db/repositories/profile_registry_test.dart`.
 
 A profile is YAML (built-in assets, `.vvprofile` bundles) or the equivalent JSON (DB
@@ -20,7 +20,7 @@ A profile is YAML (built-in assets, `.vvprofile` bundles) or the equivalent JSON
 | Key | Type | Required | Rules |
 |---|---|---|---|
 | `format` | int | ✅ | Always `1`. |
-| `id` | string | ✅ | `^[a-z][a-z0-9_-]{1,39}$`, unique across built-in, user and enterprise profiles. Built-ins: `meeting`, `warranty`, `engineering`, `lecture`. |
+| `id` | string | ✅ | `^[a-z][a-z0-9_-]{1,39}$`, unique across built-in, user and enterprise profiles. Built-ins: `meeting`, `warranty`, `engineering`, `lecture`, `sales_call`. |
 | `version` | int ≥ 1 | ✅ | Increment on any change to `schema`, `map_schema`, `instructions`, `examples`, `reduce`, `post_process` (the *extraction fingerprint*). The app bumps it automatically when a user edit changes the fingerprint without a bump. |
 | `name` | string | ✅ | ≤ 60 chars. Display name (localizable key allowed: `@l10n:profile_meeting`). |
 | `description` | string | ✅ | One line, ≤ 200 chars; used by auto-classification (PRF-06). |
@@ -41,7 +41,7 @@ A profile is YAML (built-in assets, `.vvprofile` bundles) or the equivalent JSON
 | `filename_pattern` | string | – | Ends in `.md`, relative, no `..`. Tokens: `{{date:FMT}}` (FMT from `YYYY MM DD HH mm ss` and `- _ .`), `{{time}}`, `{{title}}`, `{{slug}}`, `{{profile}}`, `{{id}}` (`vv-markdown-vault-export`). |
 | `routing.default_target` | string | – | Vault target id or `ask`. |
 | `review_before_export` | bool | – | Default `false` (APP-05). |
-| `consent_confirmation` | enum | ✅ | `required` \| `optional` \| `none` (SEC-07). `required` for multi-person profiles (`meeting`, `engineering`, Auto) and for `lecture` (a lecturer and audience are recorded; wording is owned by SEC-07); `none` for personal notes / `warranty`. A profile with `stt.diarization: true` may not use `none`. |
+| `consent_confirmation` | enum | ✅ | `required` \| `optional` \| `none` (SEC-07). `required` for multi-person profiles (`meeting`, `engineering`, Auto) and for `lecture` (a lecturer and audience are recorded; wording is owned by SEC-07) and `sales_call` (other parties are recorded); `none` for personal notes / `warranty`. A profile with `stt.diarization: true` may not use `none`. |
 
 Any other top-level key (or unknown key under `stt`, `classify`, `routing`, an example) is a
 validation error, so typos never pass silently.

@@ -1,0 +1,19 @@
+[00:00:00] Sofia: Hi everyone, thanks for meeting. I am Sofia from Tailspin Software.
+[00:00:04] Dev: Good to meet you, I am Dev from Northwind Traders.
+[00:00:08] Kira: Good to meet you, I am Kira from Northwind Traders.
+[00:00:12] Hugo: Good to meet you, I am Hugo from Northwind Traders.
+[00:00:16] Sofia: Today I would like to talk about our fleet tracker and what matters most to you.
+[00:00:22] Sofia: What is most important for you right now?
+[00:00:25] Dev: It has to work offline in the warehouse.
+[00:00:28] Hugo: We need to cut the time spent on month-end closing.
+[00:00:32] Hugo: We had a bad experience with a previous vendor.
+[00:00:36] Sofia: We can arrange a reference conversation with a current customer.
+[00:00:40] Hugo: Our security team has not approved cloud tools yet.
+[00:00:44] Sofia: We can share our security documentation for their review.
+[00:00:48] Sofia: We will assign a dedicated onboarding engineer to your team.
+[00:00:52] Kira: We will give you an answer after our board meeting.
+[00:00:56] Kira: When would a pilot be able to start?
+[00:00:59] Sofia: Good question, let us come back to that another time.
+[00:01:03] Dev: I will introduce us to the finance lead by Monday.
+[00:01:07] Sofia: Sounds good, thank you.
+[00:01:09] Sofia: Thanks everyone, talk soon.

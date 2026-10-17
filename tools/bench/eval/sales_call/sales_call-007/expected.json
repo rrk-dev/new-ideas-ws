@@ -1,0 +1,36 @@
+{
+  "title": "Litware Clinics backup service discussion",
+  "summary": "Sofia from Tailspin Software met Gita from Litware Clinics to discuss the backup service.",
+  "participants": [
+    "Sofia",
+    "Gita"
+  ],
+  "needs": [
+    "Training for about forty new users",
+    "Cut the time spent on month-end closing",
+    "Weekly reports without exporting spreadsheets by hand"
+  ],
+  "objections": [
+    {
+      "objection": "The price is higher than the budget allows",
+      "response": "Start with a smaller pilot tier"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Sofia",
+      "what": "Assign a dedicated onboarding engineer to the team",
+      "t": null
+    },
+    {
+      "who": "Gita",
+      "what": "Make sure the technical lead attends the demo",
+      "t": null
+    }
+  ],
+  "next_steps": [],
+  "competitors_mentioned": [
+    "Initech Reports"
+  ],
+  "open_questions": []
+}

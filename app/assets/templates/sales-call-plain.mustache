@@ -1,0 +1,73 @@
+{{! Built-in plain Markdown variant of the Sales conversation template
+    (TPL-02): no front-matter, wikilinks, callouts or plugin syntax. }}
+# {{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}
+
+- Date: {{meta.date}} {{meta.time}}
+- Duration: {{meta.duration_human}}
+
+{{#has_summary}}
+## Summary
+
+{{data.summary}}
+
+{{/has_summary}}
+{{#has_participants}}
+## Participants
+
+{{#data.participants}}
+- {{.}}
+{{/data.participants}}
+
+{{/has_participants}}
+{{#has_needs}}
+## Needs
+
+{{#data.needs}}
+- {{.}}
+{{/data.needs}}
+
+{{/has_needs}}
+{{#has_objections}}
+## Objections
+
+{{#data.objections}}
+- {{objection}}
+{{#has_response}}
+  - Response: {{response}}
+{{/has_response}}
+{{/data.objections}}
+
+{{/has_objections}}
+{{#has_commitments}}
+## Commitments
+
+{{#data.commitments}}
+- {{who}}: {{what}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.commitments}}
+
+{{/has_commitments}}
+## Next Steps
+
+{{#data.next_steps}}
+- [ ] {{task}}{{#has_owner}} ({{owner}}){{/has_owner}}{{#has_due_iso}} — due: {{due_iso}}{{/has_due_iso}}{{^has_due_iso}}{{#has_due}} — due: {{due}}{{/has_due}}{{/has_due_iso}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.next_steps}}
+{{^has_next_steps}}
+No next steps.
+{{/has_next_steps}}
+
+{{#has_competitors_mentioned}}
+## Competitors Mentioned
+
+{{#data.competitors_mentioned}}
+- {{.}}
+{{/data.competitors_mentioned}}
+
+{{/has_competitors_mentioned}}
+{{#has_open_questions}}
+## Open Questions
+
+{{#data.open_questions}}
+- {{.}}
+{{/data.open_questions}}
+
+{{/has_open_questions}}

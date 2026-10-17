@@ -1,0 +1,18 @@
+[00:00:00] Tomas: Hi everyone, thanks for meeting. I am Tomas from Adatum Tools.
+[00:00:04] Farid: Good to meet you, I am Farid from Woodgrove Foods.
+[00:00:08] Tomas: Today I would like to talk about our fleet tracker and what matters most to you.
+[00:00:14] Tomas: What is most important for you right now?
+[00:00:17] Farid: It has to work offline in the warehouse.
+[00:00:20] Farid: We need training for about forty new users.
+[00:00:23] Farid: We need role based access so interns cannot see salaries.
+[00:00:27] Farid: I am worried the migration will take too long.
+[00:00:31] Tomas: Our team handles the data migration for you.
+[00:00:34] Farid: I am not sure the reports are detailed enough.
+[00:00:38] Tomas: You can build custom reports with the built in editor.
+[00:00:42] Tomas: We guarantee ninety nine point nine percent uptime in the contract.
+[00:00:46] Farid: I will bring the finance lead into the next discussion.
+[00:00:50] Tomas: I will prepare a custom quote.
+[00:00:52] Farid: Sounds good, thank you.
+[00:00:54] Tomas: I will send the pilot proposal by Friday.
+[00:00:57] Farid: Sounds good, thank you.
+[00:00:59] Tomas: Thanks everyone, talk soon.

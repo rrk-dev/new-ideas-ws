@@ -1,0 +1,42 @@
+{
+  "title": "Lucerne Publishing fleet tracker discussion",
+  "summary": "Marcus from Tailspin Software met Liam, Jon, Elena from Lucerne Publishing to discuss the fleet tracker.",
+  "participants": [
+    "Marcus",
+    "Liam",
+    "Jon",
+    "Elena"
+  ],
+  "needs": [
+    "Keep all customer data inside the country"
+  ],
+  "objections": [
+    {
+      "objection": "Not sure the reports are detailed enough",
+      "response": "Custom reports can be built with the editor"
+    },
+    {
+      "objection": "A bad experience with a previous vendor",
+      "response": "Arrange a reference conversation with a current customer"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Liam",
+      "what": "Bring the finance lead into the next discussion",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Confirm the budget with finance",
+      "owner": "Elena",
+      "due": "Friday",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [],
+  "open_questions": [
+    "How does the pricing change if we add more branches?"
+  ]
+}

@@ -131,7 +131,13 @@ void main() {
     );
 
     // Every built-in profile resolves.
-    for (final id in ['meeting', 'warranty', 'engineering']) {
+    for (final id in [
+      'meeting',
+      'warranty',
+      'engineering',
+      'lecture',
+      'sales_call',
+    ]) {
       expect((await engines.profiles!(id))?.id, id);
     }
     expect(await engines.profiles!('nope'), isNull);

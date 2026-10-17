@@ -1,0 +1,18 @@
+[00:00:00] Marcus: Hi everyone, thanks for meeting. I am Marcus from Contoso Cloud.
+[00:00:04] Hugo: Good to meet you, I am Hugo from Litware Clinics.
+[00:00:08] Iris: Good to meet you, I am Iris from Litware Clinics.
+[00:00:12] Mina: Good to meet you, I am Mina from Litware Clinics.
+[00:00:16] Marcus: Today I would like to talk about our reporting dashboard and what matters most to you.
+[00:00:22] Marcus: What is most important for you right now?
+[00:00:25] Iris: We must keep all customer data inside the country.
+[00:00:29] Mina: We are also looking at Umbrella Metrics for this.
+[00:00:33] Hugo: I am worried the migration will take too long.
+[00:00:37] Marcus: Our team handles the data migration for you.
+[00:00:40] Hugo: Our staff is not used to new software.
+[00:00:43] Hugo: Actually, never mind, that is not a real concern for us.
+[00:00:47] Mina: We will not sign with anyone else before we hear back from you.
+[00:00:52] Iris: When would a pilot be able to start?
+[00:00:55] Marcus: Good question, let us come back to that another time.
+[00:00:59] Hugo: I will arrange access to the test environment by the end of the month.
+[00:01:05] Marcus: Sounds good, thank you.
+[00:01:07] Marcus: Thanks everyone, talk soon.

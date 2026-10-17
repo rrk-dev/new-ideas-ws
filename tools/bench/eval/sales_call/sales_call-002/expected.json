@@ -1,0 +1,55 @@
+{
+  "title": "Wingtip Logistics fleet tracker discussion",
+  "summary": "Lena from Adatum Tools met Elena from Wingtip Logistics to discuss the fleet tracker.",
+  "participants": [
+    "Lena",
+    "Elena"
+  ],
+  "needs": [
+    "Cut the time spent on month-end closing"
+  ],
+  "objections": [
+    {
+      "objection": "Not sure the reports are detailed enough",
+      "response": "Custom reports can be built with the editor"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Lena",
+      "what": "Assign a dedicated onboarding engineer to the team",
+      "t": null
+    },
+    {
+      "who": "Elena",
+      "what": "Not sign with anyone else before hearing back",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Share the list of required integrations",
+      "owner": "Elena",
+      "due": "Monday",
+      "t": null
+    },
+    {
+      "task": "Arrange access to the test environment",
+      "owner": "Elena",
+      "due": "Monday",
+      "t": null
+    },
+    {
+      "task": "Send two customer references",
+      "owner": "Lena",
+      "due": "Monday",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [
+    "Vandelay Tools"
+  ],
+  "open_questions": [
+    "When would a pilot be able to start?"
+  ]
+}

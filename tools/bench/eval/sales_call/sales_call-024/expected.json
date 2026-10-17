@@ -1,0 +1,37 @@
+{
+  "title": "Woodgrove Foods fleet tracker discussion",
+  "summary": "Marcus from Contoso Cloud met Kira, Liam from Woodgrove Foods to discuss the fleet tracker.",
+  "participants": [
+    "Marcus",
+    "Kira",
+    "Liam"
+  ],
+  "needs": [
+    "Track deliveries in real time"
+  ],
+  "objections": [
+    {
+      "objection": "Not sure the reports are detailed enough",
+      "response": "Custom reports can be built with the editor"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Marcus",
+      "what": "Assign a dedicated onboarding engineer to the team",
+      "t": null
+    },
+    {
+      "who": "Kira",
+      "what": "Make sure the technical lead attends the demo",
+      "t": null
+    }
+  ],
+  "next_steps": [],
+  "competitors_mentioned": [
+    "Umbrella Metrics"
+  ],
+  "open_questions": [
+    "How does the pricing change if we add more branches?"
+  ]
+}

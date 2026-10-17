@@ -1,0 +1,21 @@
+[00:00:00] Marcus: Hi everone, thanks for meeting I am Marcus from adatum Tools.
+[00:00:04] Hugo: good to meet you, I am Hugo from um Proseware retail
+[00:00:08] Marcus: Today I would like to talk about our support desk and what matters most to you.
+[00:00:14] Marcus: What um is most important four you right now?
+[00:00:17] Hugo: We want the invoices to sync with our accounting system.
+[00:00:21] Hugo: we want a dashboard that the board can read at a glance.
+[00:00:26] Hugo: We need weekly reports without exporting spreadsheets buy hand
+[00:00:30] Hugo: We are also looking at Initech Reports four this.
+[00:00:34] Hugo: The setup fee feels too high.
+[00:00:36] Marcus: We can waive half of the setup fee for a signed pilot.
+[00:00:41] Marcus: I promise that your data will be deleted on request within thirty days.
+[00:00:46] Hugo: We will not sign with anyone else before we hear back uh from you.
+[00:00:51] Hugo: Can the tool handle two different currencies?
+[00:00:54] Marcus: Good question, let us come back to that another time.
+[00:00:58] Hugo: I will arrange access to the test environment by next weak
+[00:01:02] Marcus: Sounds good, thank you.
+[00:01:04] Hugo: I will send the current report samples buy tomorrow.
+[00:01:08] Marcus: Sounds good thank you.
+[00:01:10] Marcus: I will schedule a so technical demo for the team by the end of the month.
+[00:01:16] Hugo: Sounds good, thank you.
+[00:01:18] Marcus: Thanks everyone, talk soon

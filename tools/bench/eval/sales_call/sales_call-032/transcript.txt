@@ -1,0 +1,15 @@
+[00:00:00] Kwame: Hi everyone, thanks for meeting. I am Kwame from Contoso Cloud.
+[00:00:04] Elena: Good to meet you, I am Elena from Lucerne Publishing.
+[00:00:08] Kwame: Today I would like to talk about hour scheduling tool and what matters most to you.
+[00:00:14] Kwame: What is most important for you right now?
+[00:00:17] Elena: We need to cut the time spent on month-end closing
+[00:00:21] Elena: We are also looking at Vandelay tools for this.
+[00:00:25] Elena: Support hours seem too short four our night shift.
+[00:00:29] Elena: Actually, never mind, that is not a real concern four us.
+[00:00:33] Kwame: i will keep the quoted price valid until the end of the quarter
+[00:00:38] Elena: we will give you an answer after hour board meeting.
+[00:00:42] Elena: How does the pricing change if we add more brances?
+[00:00:46] Kwame: Good um question, let us come back to that another time.
+[00:00:50] Elena: I will arrange access to the test environent
+[00:00:53] Kwame: sounds good, thank you.
+[00:00:55] Kwame: Thanks everyone, talk soon

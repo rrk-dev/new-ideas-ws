@@ -1,0 +1,13 @@
+[00:00:00] Sofia: Hi everyone, thanks for meeting. I am Sofia from Tailspin Software.
+[00:00:04] Gita: Good to meet you, I am Gita from Litware Clinics.
+[00:00:08] Sofia: Today I would like to talk about our backup service and what matters most to you.
+[00:00:14] Sofia: What is most important for you right now?
+[00:00:17] Gita: We need training for about forty new users.
+[00:00:20] Gita: We need to cut the time spent on month-end closing.
+[00:00:24] Gita: We need weekly reports without exporting spreadsheets by hand.
+[00:00:28] Gita: We are also looking at Initech Reports for this.
+[00:00:32] Gita: The price is higher than our budget allows.
+[00:00:35] Sofia: We can start with a smaller pilot tier.
+[00:00:38] Sofia: We will assign a dedicated onboarding engineer to your team.
+[00:00:42] Gita: I will make sure our technical lead attends the demo.
+[00:00:46] Sofia: Thank you for your time, let us leave it there for now.

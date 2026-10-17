@@ -1,0 +1,43 @@
+{
+  "title": "Wingtip Logistics support desk discussion",
+  "summary": "Marcus from Adatum Tools met Iris, Kira, Liam from Wingtip Logistics to discuss the support desk.",
+  "participants": [
+    "Marcus",
+    "Iris",
+    "Kira",
+    "Liam"
+  ],
+  "needs": [
+    "Weekly reports without exporting spreadsheets by hand"
+  ],
+  "objections": [
+    {
+      "objection": "Worried the migration will take too long",
+      "response": "The seller's team handles the data migration"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Marcus",
+      "what": "Delete the data on request within thirty days",
+      "t": null
+    },
+    {
+      "who": "Liam",
+      "what": "Commit to a decision by the middle of next month",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Send the pilot proposal",
+      "owner": "Marcus",
+      "due": "the end of the month",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [
+    "Hooli Suite"
+  ],
+  "open_questions": []
+}

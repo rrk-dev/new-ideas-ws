@@ -1,0 +1,11 @@
+[00:00:00] Lena: Hi everyone, thanks for meeting. I am Lena from Contoso Cloud.
+[00:00:04] Ben: Good to meet you, I am Ben from Northwind Traders.
+[00:00:08] Iris: Good to meet you, I am Iris from Northwind Traders.
+[00:00:12] Lena: Today I would like to talk about our reporting dashboard and what matters most to you.
+[00:00:18] Lena: What is most important for you right now?
+[00:00:21] Iris: We must keep all customer data inside the country.
+[00:00:25] Ben: We are also looking at Hooli Suite for this.
+[00:00:29] Lena: We will assign a dedicated onboarding engineer to your team.
+[00:00:33] Iris: I will arrange access to the test environment by the end of the month.
+[00:00:39] Lena: Sounds good, thank you.
+[00:00:41] Lena: Thanks everyone, talk soon.

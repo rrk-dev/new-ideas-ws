@@ -1,0 +1,52 @@
+{
+  "title": "Coho Vineyards reporting dashboard discussion",
+  "summary": "Omar from Contoso Cloud met Dev, Jon from Coho Vineyards to discuss the reporting dashboard.",
+  "participants": [
+    "Omar",
+    "Dev",
+    "Jon"
+  ],
+  "needs": [
+    "Work offline in the warehouse"
+  ],
+  "objections": [
+    {
+      "objection": "The security team has not approved cloud tools",
+      "response": "Share the security documentation for review"
+    },
+    {
+      "objection": "Worried the migration will take too long",
+      "response": "The seller's team handles the data migration"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Omar",
+      "what": "Keep the quoted price valid until the end of the quarter",
+      "t": null
+    },
+    {
+      "who": "Dev",
+      "what": "Make sure the technical lead attends the demo",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Review the contract draft",
+      "owner": "Jon",
+      "due": null,
+      "t": null
+    },
+    {
+      "task": "Arrange access to the test environment",
+      "owner": "Dev",
+      "due": "Monday",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [
+    "Initech Reports"
+  ],
+  "open_questions": []
+}

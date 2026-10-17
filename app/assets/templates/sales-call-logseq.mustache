@@ -1,0 +1,65 @@
+{{! Built-in Logseq variant of the Sales conversation template
+    (TPL-02): page properties in the first block, outline bullets with
+    2-space nesting, next steps as TODO. }}
+title:: {{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}
+type:: {{meta.profile_id}}
+date:: [[{{meta.date}}]]
+time:: {{meta.time}}
+duration:: {{meta.duration_human}}
+{{#meta.has_tags}}
+tags:: {{#meta.tags}}[[{{.}}]] {{/meta.tags}}
+{{/meta.has_tags}}
+source:: vaultvoice
+recording-id:: {{meta.recording_id}}
+
+{{#has_summary}}
+- **Summary**
+  - {{data.summary}}
+{{/has_summary}}
+{{#has_participants}}
+- **Participants**
+{{#data.participants}}
+  - {{.}}
+{{/data.participants}}
+{{/has_participants}}
+{{#has_needs}}
+- **Needs**
+{{#data.needs}}
+  - {{.}}
+{{/data.needs}}
+{{/has_needs}}
+{{#has_objections}}
+- **Objections**
+{{#data.objections}}
+  - {{objection}}
+{{#has_response}}
+    - Response: {{response}}
+{{/has_response}}
+{{/data.objections}}
+{{/has_objections}}
+{{#has_commitments}}
+- **Commitments**
+{{#data.commitments}}
+  - **{{who}}**: {{what}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.commitments}}
+{{/has_commitments}}
+- **Next Steps**
+{{#data.next_steps}}
+  - TODO {{task}}{{#has_owner}} (@{{owner}}){{/has_owner}}{{#has_due_iso}} — due: [[{{due_iso}}]]{{/has_due_iso}}{{^has_due_iso}}{{#has_due}} — due: {{due}}{{/has_due}}{{/has_due_iso}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.next_steps}}
+{{^has_next_steps}}
+  - No next steps.
+{{/has_next_steps}}
+{{#has_competitors_mentioned}}
+- **Competitors Mentioned**
+{{#data.competitors_mentioned}}
+  - {{.}}
+{{/data.competitors_mentioned}}
+{{/has_competitors_mentioned}}
+{{#has_open_questions}}
+- **Open Questions**
+{{#data.open_questions}}
+  - {{.}}
+{{/data.open_questions}}
+{{/has_open_questions}}
+- Generated on-device by Lumen · {{meta.duration_human}}

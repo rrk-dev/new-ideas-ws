@@ -1,0 +1,52 @@
+{
+  "title": "Coho Vineyards inventory scanner discussion",
+  "summary": "Tomas from Contoso Cloud met Liam, Chloe from Coho Vineyards to discuss the inventory scanner.",
+  "participants": [
+    "Tomas",
+    "Liam",
+    "Chloe"
+  ],
+  "needs": [
+    "Role based access so interns cannot see salaries"
+  ],
+  "objections": [
+    {
+      "objection": "The price is higher than the budget allows",
+      "response": "Start with a smaller pilot tier"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Tomas",
+      "what": "Assign a dedicated onboarding engineer to the team",
+      "t": null
+    },
+    {
+      "who": "Liam",
+      "what": "Commit to a decision by the middle of next month",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Confirm the budget with finance",
+      "owner": "Chloe",
+      "due": null,
+      "t": null
+    },
+    {
+      "task": "Book a security review session",
+      "owner": "Tomas",
+      "due": "tomorrow",
+      "t": null
+    },
+    {
+      "task": "Send the current report samples",
+      "owner": "Chloe",
+      "due": "next week",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [],
+  "open_questions": []
+}
