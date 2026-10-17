@@ -20,4 +20,4 @@ container with Xcode → Devices → Download Container; check chunks with `soxi
 | [AUD-04/AC3] | Settings → Developer → "Reset Media Services" (or trigger via a crash of mediaserverd) while recording. | Recording continues in a new chunk (`route_change` marker); no crash. | iPhone (developer mode) | iOS 16+ | | | |
 
 ## Notes / evidence
-Evidence under `docs/test-plans/device/evidence/AUD-04/`. Live Activity rows will be added by AUD-10.
+Evidence under `docs/test-plans/device/evidence/AUD-04/`. Live Activity rows will be added by AUD-13.

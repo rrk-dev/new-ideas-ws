@@ -1,6 +1,6 @@
 # ADR-AUD-04 — iOS background recording, interruptions and route changes
 
-- **Status:** Accepted (engineering); Live Activity deferred (AUD-10, proposed); device rows pending
+- **Status:** Accepted (engineering); Live Activity deferred (AUD-13, filed); device rows pending
   (docs/test-plans/device/AUD-04.md)
 - **Date:** 2026-10-13
 - **Task:** AUD-04
@@ -41,7 +41,7 @@ connect or the route's format changes, the engine stops and the stream silently 
    The SEC-09 60-min "Still recording" reminder is a local notification
    (`RecordingIndicatorPlugin.swift`; authorization requested once at the first recording — no
    push, no network).
-5. **Live Activity: deferred → AUD-10 (proposed).** It needs a new WidgetKit/ActivityKit extension
+5. **Live Activity: deferred → AUD-13 (filed).** It needs a new WidgetKit/ActivityKit extension
    target (pbxproj target, embed phase, `NSSupportsLiveActivities`, signing/App Group), which cannot
    be created or validated without Xcode in this environment; a hand-edited target that might break
    the Runner build is a worse trade than the OS indicator in the meantime.

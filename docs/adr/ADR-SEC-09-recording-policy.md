@@ -5,6 +5,7 @@
 - **Task:** SEC-09
 - **Deciders:** Claude Code (implementer); pending independent verifier; product/legal for wording
 - **Supersedes:** —
+- **Amendments:** 2026-10-17 (human decision, ADR-QCP-01): §4 bullet 1 quick-capture entry points are navigate-only (Amendment 1); §5 Live Activity requirement satisfied by OS + AUD-04 indicators until AUD-13 (Amendment 4). No `StartSource` value added.
 
 ## Context
 VaultVoice records audio. The product/legal requirement (user directive) is that the app can only
@@ -103,8 +104,14 @@ Interface `CallGuard` (`app/lib/core/platform/call_guard.dart`): `isInCall()` + 
 - `StartSource` = {`inAppButton`, `homeScreenWidget`, `androidQuickSettingsTile`, `iosControl`} —
   user taps only; the enum is the allowlist (`allowedStartSources`, pinned by a test). There is no
   way to express a scheduled/automated, voice-activated, push/MDM/remote, app-launch or
-  background/headless start. Widget/tile/Control open the app first; AUD-08 decides whether they
-  start directly or only navigate (the iOS Control must use `openAppWhenRun`).
+  background/headless start. Widgets, Lock Screen/Control Center controls, the Android widget
+  and the Quick Settings tile are *navigate-only* (ADR-QCP-01, amended 2026-10-17): they open the app on
+  the Record screen and never call `RecordingController.start`. The recording starts only with the in-app
+  Record tap (`StartSource.inAppButton`) after the same first-run acknowledgement, profile consent and
+  microphone priming as any in-app start. No App Intent that opens or starts recording is discoverable by
+  Siri, Spotlight or Shortcuts, and no Shortcuts action or automation for recording is provided.
+  `StartSource.homeScreenWidget`, `.androidQuickSettingsTile` and `.iosControl` remain allowlisted but are
+  unused until a later amendment makes an entry point start-now.
 - Refuses when: source not allowlisted, app not in the foreground (`AppLifecycleState.resumed`
   only; unknown = not foreground), a call rings/is active, the guard is unavailable, wrong phase.
 - **No pre-capture:** `CaptureBackend.openMicrophone()` is called only after all checks pass; the
@@ -125,7 +132,7 @@ Only `RecordingController` may call `openMicrophone`/`resumeCapture` (or a recor
 enforced by `app/test/unit/recording/recording_policy_source_test.dart`.
 
 ### 5. Always visible, permission, imports, copy (owned by later tasks)
-OS indicators + Android ongoing notification (AUD-05) + iOS Live Activity where supported (AUD-04);
+OS indicators + Android ongoing notification (AUD-05) + iOS Live Activity where supported (AUD-04; until AUD-13 ships this is satisfied by the OS microphone indicator plus the AUD-04 recording indicator, amended 2026-10-17);
 no hidden/discreet mode, no option to suppress indicators. Mic permission just-in-time on the first
 Record tap with a priming screen, never at launch, never worked around (APP-01/AUD-08). Imports
 require the rights/consent attestation (AUD-06); no call-recorder marketing (SEC-06/REL-05). MDM

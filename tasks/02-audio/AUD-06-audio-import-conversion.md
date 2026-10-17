@@ -8,7 +8,7 @@
 Process audio the user recorded elsewhere (e.g. Voice Memos, a dictaphone, a meeting recording they are entitled to) through the same pipeline. The app does not offer, market or special-case importing from call-recorder apps.
 
 ## Scope
-- [x] Import via file picker and OS share sheet / "Open in" (iOS share extension, Android `ACTION_SEND` intent filter). (iOS share-extension sources + App Group inbox drain are in; adding the extension *target* to the Xcode project → AUD-10.)
+- [x] Import via file picker and OS share sheet / "Open in" (iOS share extension, Android `ACTION_SEND` intent filter). (iOS share-extension sources + App Group inbox drain are in; adding the extension *target* to the Xcode project → AUD-14.)
 - [x] Decode m4a/AAC, mp3, wav, ogg/opus, flac using native decoders (AVFoundation / MediaCodec) — avoid bundling full ffmpeg (size).
 - [x] Resample to 16 kHz mono PCM; write into the same chunked layout as AUD-01.
 - [x] Extract original creation date for filename templates.
@@ -49,10 +49,10 @@ Process audio the user recorded elsewhere (e.g. Voice Memos, a dictaphone, a mee
   build / a device run. Host perf: the Dart resampler converts 60 s of 44.1 kHz stereo in ~0.3 s
   (JIT, M-series Mac) ⇒ ~20 s/hour before decoding — AC3 is tight on Android and must be measured.
 - **Stacking:** based on origin/main (AUD-01, FND-05, SEC-09 in `review`).
-- **Follow-ups:** AUD-10 (proposed).
+- **Follow-ups:** AUD-14 (filed).
 
 ## Follow-ups
-- **AUD-10 (proposed): iOS share-extension target wiring** — add `ios/ShareExtension/` as an app
+- **AUD-14 (filed, tasks/02-audio/AUD-14-ios-share-extension-wiring.md; was proposed as AUD-10): iOS share-extension target wiring** — add `ios/ShareExtension/` as an app
   extension target in `Runner.xcodeproj` (bundle id `$(APP_BUNDLE_IDENTIFIER).ShareExtension` per
   flavor, deployment target iOS 16, embed in Runner via "Embed Foundation Extensions"), add the App
   Group `group.<app id>` entitlement to Runner and the extension (register both in the developer
