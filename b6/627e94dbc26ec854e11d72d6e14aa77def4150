@@ -1,0 +1,21 @@
+tasks/08-app-ux/APP-09-live-waveform.md
+  s_5a534bed398a49::t_05a4b66fdaa4bd 1-21
+tasks/README.md
+  s_5a534bed398a49::t_5259ba30699669 125
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b6627e94dbc26ec854e11d72d6e14aa77def4150",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
