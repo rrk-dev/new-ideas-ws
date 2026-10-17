@@ -1,0 +1,261 @@
+app/lib/features/settings/presentation/settings_screen.dart
+  s_c564ea41597f0a::t_0fe33cd6efc7ce 101-111
+  s_c564ea41597f0a::t_ebc791474dab96 4,10
+design/brand/lumen-wordmark-light.svg
+  s_c564ea41597f0a::t_bef793ed5e3f2b 1-15
+app/test/unit/repo_standards_test.dart
+  s_c564ea41597f0a::t_8ad9127058eaf7 17
+tasks/08-app-ux/APP-07-lumen-brand-logo.md
+  s_c564ea41597f0a::t_6e5f28ea619b27 11-16,23-28,30-33
+  s_c564ea41597f0a::t_9042f40469497c 4,29
+packages/vv_native/macos/Info.plist
+  s_c564ea41597f0a::t_8295ad1fa7c795 6
+design/brand/lumen-wordmark-dark.svg
+  s_c564ea41597f0a::t_bef793ed5e3f2b 1-15
+tools/brand/make_icons.py
+  s_c564ea41597f0a::t_3c8b6c1e06bb32 1-159,162-235
+  s_c564ea41597f0a::t_d1a9b6b7e5db29 160-161
+app/lib/core/branding/lumen_logo.dart
+  s_c564ea41597f0a::t_4432d11d8d7cae 49
+  s_c564ea41597f0a::t_02202af297d58d 1-48,50-120
+design/brand/lumen-icon-dark.svg
+  s_c564ea41597f0a::t_bef793ed5e3f2b 1-12
+app/test/widget/crash_reports_test.dart
+  s_c564ea41597f0a::t_8ad9127058eaf7 110,126,175
+app/ios/Runner/Base.lproj/LaunchScreen.storyboard
+  s_c564ea41597f0a::t_d1a9b6b7e5db29 36
+design/brand/lumen-icon.svg
+  s_c564ea41597f0a::t_bef793ed5e3f2b 1-12
+app/test/unit/beta/beta_feedback_test.dart
+  s_c564ea41597f0a::t_8ad9127058eaf7 26,33,61,103
+  s_c564ea41597f0a::t_0fe33cd6efc7ce 87
+app/test/widget/model_import_tile_test.dart
+  s_c564ea41597f0a::t_0fe33cd6efc7ce 79
+app/test/unit/branding/lumen_brand_test.dart
+  s_c564ea41597f0a::t_017dbaa242df14 1-15,17-98,101-102,105-117,125-148,153-169,172-210,213-241,243-247,249-272
+  s_c564ea41597f0a::t_4432d11d8d7cae 16,121,242,248
+  s_c564ea41597f0a::t_b258e583662284 99-100,103-104,118-120,122-124,149-152,170-171,211-212
+app/test/unit/macos_desktop_target_test.dart
+  s_c564ea41597f0a::t_0fe33cd6efc7ce 87
+design/brand/README.md
+  s_c564ea41597f0a::t_4bb8b2b3444768 1-23
+app/android/app/src/main/res/values/colors.xml
+  s_c564ea41597f0a::t_649330f5974cb8 5-6
+app/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+  s_c564ea41597f0a::t_f0a42a781b1ee5 1-6
+design/brand/lumen-mark-light.svg
+  s_c564ea41597f0a::t_bef793ed5e3f2b 1-11
+design/brand/lumen-mark-dark.svg
+  s_c564ea41597f0a::t_bef793ed5e3f2b 1-11
+app/test/unit/diagnostics_test.dart
+  s_c564ea41597f0a::t_8ad9127058eaf7 195
+app/lib/features/onboarding/presentation/onboarding_screen.dart
+  s_c564ea41597f0a::t_ebc791474dab96 5
+  s_c564ea41597f0a::t_0fe33cd6efc7ce 238-245
+CONTRIBUTING.md
+  s_c564ea41597f0a::t_6e03eb5c83e01f 1,37-38,56
+app/android/app/build.gradle.kts
+  s_c564ea41597f0a::t_b6e1c66fd3ac65 61,65
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/RecordingService.kt
+  s_c564ea41597f0a::t_b1fdf42f55de2e 243
+app/android/fastlane/Fastfile
+  s_c564ea41597f0a::t_3727711c2cd05e 1
+app/android/fastlane/Fastfile.beta
+  s_c564ea41597f0a::t_0f36f71f9e7b0d 1
+app/android/fastlane/metadata/android/en-US/full_description.txt
+  s_c564ea41597f0a::t_8e67ee9195c6b2 3
+app/android/fastlane/metadata/android/en-US/review_notes.txt
+  s_c564ea41597f0a::t_f4b0c81a27fecb 1
+app/android/fastlane/metadata/android/en-US/title.txt
+  s_c564ea41597f0a::t_17d3f163db313a 1
+app/assets/legal/privacy_policy.md
+  s_c564ea41597f0a::t_b88219c2460a9e 6,8,26
+app/assets/licenses/pub_inventory.json
+  s_c564ea41597f0a::t_397bc2e589384f 1359
+app/assets/templates/engineering-default.mustache
+  s_c564ea41597f0a::t_ece3f2dcc348ed 76
+app/assets/templates/engineering-logseq.mustache
+  s_c564ea41597f0a::t_2c3ef2b8d7ac8b 65
+app/assets/templates/meeting-default.mustache
+  s_c564ea41597f0a::t_4618d26bd156b2 69
+app/assets/templates/meeting-logseq.mustache
+  s_c564ea41597f0a::t_2660fde0f9c452 47
+app/assets/templates/warranty-default.mustache
+  s_c564ea41597f0a::t_530028f649fcaf 80
+app/assets/templates/warranty-logseq.mustache
+  s_c564ea41597f0a::t_20a2b762294e52 68
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_c564ea41597f0a::t_76ae4015a5442a 496,519,868,892,916,939
+app/ios/Runner/AudioImportHostApiImpl.swift
+  s_c564ea41597f0a::t_cff84bf629d3c8 15,122
+app/ios/Runner/BookmarkApi.g.swift
+  s_c564ea41597f0a::t_02a559b21e398b 403,569
+app/ios/Runner/Info.plist
+  s_c564ea41597f0a::t_5c8d70b5b4e0db 47-48,125,144
+app/ios/Runner/PrivacyInfo.xcprivacy
+  s_c564ea41597f0a::t_c2a0c72097afb0 5
+app/ios/ShareExtension/Info.plist
+  s_c564ea41597f0a::t_5d512332c9e3a1 8
+app/ios/ShareExtension/ShareViewController.swift
+  s_c564ea41597f0a::t_accf16f8bddf33 4,13
+app/ios/fastlane/Fastfile
+  s_c564ea41597f0a::t_a4bb99ebfcfb6b 1
+app/ios/fastlane/Fastfile.beta
+  s_c564ea41597f0a::t_31178518d7ec53 1
+app/ios/fastlane/beta_review_notes.txt
+  s_c564ea41597f0a::t_3263bc35c28f8c 1
+app/ios/fastlane/metadata/en-US/description.txt
+  s_c564ea41597f0a::t_c3c7228158a44a 3
+app/ios/fastlane/metadata/en-US/name.txt
+  s_c564ea41597f0a::t_8a9751461541d9 1
+app/ios/fastlane/metadata/review_information/notes.txt
+  s_c564ea41597f0a::t_9edd9553662c0e 1
+app/lib/core/app_info.dart
+  s_c564ea41597f0a::t_300fca7d83ebab 2
+app/lib/core/l10n/arb/app_en.arb
+  s_c564ea41597f0a::t_756463ef6f3210 47-50,63,65,67,130,135-136,138-139,144,148-149,164,178,234,504,716,886,913,917
+app/lib/core/l10n/gen/app_localizations.dart
+  s_c564ea41597f0a::t_c80e6969dbd857 304,310,316,322,388,400,412,736,766,772,784,790,820,844,850,922,1000,1288,2584,3748,4672,4810,4828
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_c564ea41597f0a::t_2108e1c90f9c62 131,135,139,143,182,189,196,390,409,413,420,424,442,456,460,507,554,729,1506,2182,2727,2809,2821
+app/lib/features/export/data/app_local_vault_writer.dart
+  s_c564ea41597f0a::t_b2eb66abdf92b3 14
+app/lib/features/export/data/export_outbox.dart
+  s_c564ea41597f0a::t_edffc93c3fb208 227
+app/lib/features/export/data/export_providers.dart
+  s_c564ea41597f0a::t_d558b2b16440f8 37
+app/lib/features/export/data/export_providers.g.dart
+  s_c564ea41597f0a::t_bdfa6f921b5b19 131,138,145
+app/lib/features/export/data/pigeon/bookmark_api.g.dart
+  s_c564ea41597f0a::t_39e3540dc54ec8 490
+app/lib/features/onboarding/domain/onboarding_readiness.dart
+  s_c564ea41597f0a::t_30ad5c0a4c2a4c 3
+app/lib/features/pipeline/data/flutter_local_notifier.dart
+  s_c564ea41597f0a::t_4bbbbb2f697a87 14
+app/lib/features/profiles/data/profile_transfer_providers.dart
+  s_c564ea41597f0a::t_a46cb603dceaf7 40
+app/lib/features/recording/domain/macos_microphone_policy.dart
+  s_c564ea41597f0a::t_bc66f2a20ecb07 12
+app/lib/features/templates/domain/template_generator.dart
+  s_c564ea41597f0a::t_020ce54a24cd6b 107
+app/macos/Runner.xcodeproj/project.pbxproj
+  s_c564ea41597f0a::t_fc165821a7a7f1 522,775,814,854,1054,1086
+app/macos/Runner/Info.plist
+  s_c564ea41597f0a::t_7d201dfd3d68b6 32
+app/pigeons/bookmark_api.dart
+  s_c564ea41597f0a::t_5d49966c710dbc 109
+app/test/fixtures/markdown/golden/engineering-default.adversarial.md
+  s_c564ea41597f0a::t_a9b848626b3303 58
+app/test/fixtures/markdown/golden/engineering-default.empty.md
+  s_c564ea41597f0a::t_98878da10991e9 20
+app/test/fixtures/markdown/golden/engineering-default.full.md
+  s_c564ea41597f0a::t_b053f75873cab1 58
+app/test/fixtures/markdown/golden/engineering-logseq.adversarial.md
+  s_c564ea41597f0a::t_5a94360c1d1f2c 35
+app/test/fixtures/markdown/golden/engineering-logseq.empty.md
+  s_c564ea41597f0a::t_b3e81673e0b4a0 11
+app/test/fixtures/markdown/golden/engineering-logseq.full.md
+  s_c564ea41597f0a::t_5d7d955b9e3495 35
+app/test/fixtures/markdown/golden/meeting-default.adversarial.md
+  s_c564ea41597f0a::t_21e7e8b4c216e7 49
+app/test/fixtures/markdown/golden/meeting-default.empty.md
+  s_c564ea41597f0a::t_c4e06c2cbda473 21
+app/test/fixtures/markdown/golden/meeting-default.full.md
+  s_c564ea41597f0a::t_72069efc64dd29 49
+app/test/fixtures/markdown/golden/meeting-logseq.adversarial.md
+  s_c564ea41597f0a::t_96acea76d49e8f 27
+app/test/fixtures/markdown/golden/meeting-logseq.empty.md
+  s_c564ea41597f0a::t_916fd722a4f316 11
+app/test/fixtures/markdown/golden/meeting-logseq.full.md
+  s_c564ea41597f0a::t_b088a746e67aaf 27
+app/test/fixtures/markdown/golden/warranty-default.adversarial.md
+  s_c564ea41597f0a::t_15986e97ac63a9 47
+app/test/fixtures/markdown/golden/warranty-default.empty.md
+  s_c564ea41597f0a::t_2e99afe53e1299 18
+app/test/fixtures/markdown/golden/warranty-default.full.md
+  s_c564ea41597f0a::t_501ecbd23500d9 47
+app/test/fixtures/markdown/golden/warranty-logseq.adversarial.md
+  s_c564ea41597f0a::t_356683e8f32659 31
+app/test/fixtures/markdown/golden/warranty-logseq.empty.md
+  s_c564ea41597f0a::t_7b836cf48360a1 9
+app/test/fixtures/markdown/golden/warranty-logseq.full.md
+  s_c564ea41597f0a::t_f05dfc94458448 31
+docs/audio-import.md
+  s_c564ea41597f0a::t_e8ef247bb51a2f 13
+docs/beta.md
+  s_c564ea41597f0a::t_7822d7110e86b0 16,74
+docs/crash-triage.md
+  s_c564ea41597f0a::t_4b860188f8b56f 3,13
+docs/device-matrix.md
+  s_c564ea41597f0a::t_8550a787515d8c 3
+docs/iap-products.md
+  s_c564ea41597f0a::t_5a1fef29b0c093 13,18
+docs/in-app-purchases.md
+  s_c564ea41597f0a::t_ad4c4e5a671b07 34
+docs/long-transcripts.md
+  s_c564ea41597f0a::t_171f58b9f116f1 4
+docs/models.md
+  s_c564ea41597f0a::t_ff2ee4a1443630 3
+docs/parity.md
+  s_c564ea41597f0a::t_936977020db1b3 3
+docs/play-console/fgs-declaration.md
+  s_c564ea41597f0a::t_5bc6eebb12583c 25
+docs/privacy-audit.md
+  s_c564ea41597f0a::t_cc5caca2e8f462 205
+docs/profile-spec.md
+  s_c564ea41597f0a::t_fdfcf3ec1fe91f 1
+docs/store/listing.md
+  s_c564ea41597f0a::t_2ec8126c4b9a4c 10,17,31
+docs/store/privacy-manifest.md
+  s_c564ea41597f0a::t_9a22bb1d578f7f 57
+docs/store/reviewer-notes.md
+  s_c564ea41597f0a::t_17ef7b35e15d0a 7
+docs/templates.md
+  s_c564ea41597f0a::t_3d69372e7c399f 3
+docs/test-plans/device/APP-01.md
+  s_c564ea41597f0a::t_3a36eefd4460b0 10,20-21
+docs/test-plans/device/APP-04.md
+  s_c564ea41597f0a::t_219eb1bb78361a 19
+docs/test-plans/device/AUD-06.md
+  s_c564ea41597f0a::t_c4e593b8b215d5 23-25
+docs/test-plans/device/EXP-03.md
+  s_c564ea41597f0a::t_c0641a46f9ee2c 13,15
+docs/test-plans/device/EXP-04.md
+  s_c564ea41597f0a::t_6b7faf553c062a 22
+docs/test-plans/device/EXP-06.md
+  s_c564ea41597f0a::t_a509befefa2ee7 11
+docs/test-plans/device/FND-01.md
+  s_c564ea41597f0a::t_5fe5490216d25c 10-11
+docs/test-plans/device/FND-09.md
+  s_c564ea41597f0a::t_ab0b0117f23348 9-10
+docs/test-plans/device/FND-11.md
+  s_c564ea41597f0a::t_535f81a827a46a 14
+docs/test-plans/device/LIC-02.md
+  s_c564ea41597f0a::t_a5f8d96b1f5979 9
+docs/test-plans/device/MDL-04.md
+  s_c564ea41597f0a::t_a4b8f7a7a0e3ef 23
+docs/test-plans/device/PRF-08.md
+  s_c564ea41597f0a::t_1d31febcdd66e6 11
+docs/test-plans/device/SEC-03.md
+  s_c564ea41597f0a::t_f640138d9b89f0 10
+docs/testing.md
+  s_c564ea41597f0a::t_af2a0fff404e7e 3
+tools/licenses/generate.py
+  s_c564ea41597f0a::t_06f52c13ac20bf 26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e231008cd86265592f1b4c321b970f0df0e991bc",
+  "prompts": {},
+  "sessions": {
+    "s_c564ea41597f0a": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "ea8c8b8d-6ded-4a13-adc8-330a1e255abf",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
