@@ -1,0 +1,20 @@
+app/test/unit/pipeline/production_engines_test.dart
+  s_a0aa2df786cbba::t_c5ea9a65fe212b 101
+  s_a0aa2df786cbba::t_6a6557e1842860 30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c287d315c6ad9c3defe88945e7d39be770d35ec1",
+  "prompts": {},
+  "sessions": {
+    "s_a0aa2df786cbba": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "337b3c66-ffab-4add-99da-761a0390ee13",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
