@@ -1,0 +1,41 @@
+{
+  "title": "Work and Energy",
+  "summary": "Work transfers energy; kinetic and potential energy trade off in a closed system.",
+  "key_concepts": [
+    {
+      "term": "Work",
+      "explanation": "Force applied over a distance."
+    },
+    {
+      "term": "Kinetic energy",
+      "explanation": "The energy of motion."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Work",
+      "points": [
+        "Work is the force times the distance moved along it.",
+        "Work done changes the energy of an object."
+      ]
+    },
+    {
+      "heading": "Conservation",
+      "points": [
+        "Without friction, mechanical energy is conserved.",
+        "Friction turns some energy into heat."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Solve problems one to six on the worksheet",
+      "due": "Tuesday",
+      "t": null
+    }
+  ],
+  "questions": [
+    "Where does the energy go when a ball stops bouncing?"
+  ],
+  "references": []
+}

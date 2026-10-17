@@ -148,7 +148,7 @@ def render_report(profile, model, agg, perf, env, cases, diff, problems, targets
              f"{env['max_tokens']} · sampling: extraction preset (grammar, temp 0.2, repeat penalty 1.05, seed 42)",
              f"- Commit: `{env['commit']}` · llama.cpp `{env['llama']}` · profile version {env['profile_version']}"
              f" · scored: {env.get('scored', 'raw')} output",
-             f"- Cases: {agg['cases']} (synthetic TTS → whisper transcripts, `tools/bench/eval/{profile}/`)",
+             f"- Cases: {agg['cases']} ({'simulated transcripts (no TTS/whisper run)' if profile == 'lecture' else 'synthetic TTS → whisper transcripts'}, `tools/bench/eval/{profile}/`)",
              f"- Wall time: {perf['wall_s']:.0f} s incl. model load + Dart compile · peak RSS: "
              f"{rss_text}",
              "", "## Summary", "",

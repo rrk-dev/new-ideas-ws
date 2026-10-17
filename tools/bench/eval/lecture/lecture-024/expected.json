@@ -1,0 +1,35 @@
+{
+  "title": "The Immune System",
+  "summary": "The immune system has a fast innate response and a slower adaptive one.",
+  "key_concepts": [
+    {
+      "term": "Antibody",
+      "explanation": "A protein that binds a specific antigen."
+    },
+    {
+      "term": "T cell",
+      "explanation": "A white blood cell that coordinates or kills infected cells."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Innate immunity",
+      "points": [
+        "Barriers and phagocytes respond within minutes.",
+        "It is the same for every pathogen."
+      ]
+    },
+    {
+      "heading": "Adaptive immunity",
+      "points": [
+        "Lymphocytes recognise specific antigens.",
+        "Memory cells give lasting protection."
+      ]
+    }
+  ],
+  "assignments": [],
+  "questions": [
+    "Why do vaccines need boosters?"
+  ],
+  "references": []
+}

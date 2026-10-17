@@ -1,0 +1,43 @@
+{
+  "title": "Stoic Philosophy",
+  "summary": "The Stoics taught that virtue and control of one's judgements bring a good life.",
+  "key_concepts": [
+    {
+      "term": "Dichotomy of control",
+      "explanation": "Separating what is up to us from what is not."
+    },
+    {
+      "term": "Virtue",
+      "explanation": "Excellence of character, the only true good for the Stoics."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Epictetus",
+      "points": [
+        "He was born a slave and taught in Rome.",
+        "He stressed attitude over circumstance."
+      ]
+    },
+    {
+      "heading": "Practice",
+      "points": [
+        "Evening reflection reviews the day's choices.",
+        "Negative visualisation prepares us for loss."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Write a reflection on the dichotomy of control",
+      "due": "next Tuesday",
+      "t": null
+    }
+  ],
+  "questions": [
+    "Is Stoic acceptance the same as passivity?"
+  ],
+  "references": [
+    "Epictetus's Enchiridion"
+  ]
+}

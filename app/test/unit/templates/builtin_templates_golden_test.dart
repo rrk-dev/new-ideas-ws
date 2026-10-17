@@ -19,6 +19,7 @@ enum Case { full, empty, adversarial }
 Map<String, Object?> fullData(String profileId) => switch (profileId) {
   'warranty' => warrantyFull(),
   'engineering' => engineeringFull(),
+  'lecture' => lectureFull(),
   _ => meetingFull(),
 };
 
@@ -165,7 +166,7 @@ String _lineKind(String line) {
 }
 
 void main() {
-  group('[EXP-01/AC1] golden files for each built-in template', () {
+  group('[EXP-01/AC1][TPL-01/AC3] golden files for each built-in template', () {
     for (final t in kBuiltinTemplates) {
       for (final c in Case.values) {
         test('${t.id} × ${c.name}', () {

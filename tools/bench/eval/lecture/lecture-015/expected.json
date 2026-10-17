@@ -1,0 +1,85 @@
+{
+  "title": "Game Theory and Nash Equilibrium",
+  "summary": "Game theory studies strategic choices; a Nash equilibrium is a stable set of strategies.",
+  "key_concepts": [
+    {
+      "term": "Nash equilibrium",
+      "explanation": "A set of strategies where no player gains by changing alone."
+    },
+    {
+      "term": "Dominant strategy",
+      "explanation": "A strategy that is best whatever the others do."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "The prisoner's dilemma",
+      "points": [
+        "Both players do better if they cooperate.",
+        "Each player is tempted to defect."
+      ]
+    },
+    {
+      "heading": "Repeated games",
+      "points": [
+        "Future rounds make cooperation sustainable.",
+        "Trigger strategies punish defection."
+      ]
+    },
+    {
+      "heading": "Worked example",
+      "points": [
+        "We walk through one complete example on the board.",
+        "Check each step against the definition."
+      ]
+    },
+    {
+      "heading": "Common mistakes",
+      "points": [
+        "Students often skip the setup.",
+        "Units and signs cause most errors."
+      ]
+    },
+    {
+      "heading": "Historical background",
+      "points": [
+        "The idea developed over several decades.",
+        "Early versions were much simpler."
+      ]
+    },
+    {
+      "heading": "Applications",
+      "points": [
+        "The method is used in industry every day.",
+        "Smaller projects benefit as well."
+      ]
+    },
+    {
+      "heading": "Limits",
+      "points": [
+        "Every model has assumptions.",
+        "Know when they fail."
+      ]
+    },
+    {
+      "heading": "Related topics",
+      "points": [
+        "We will connect this to earlier weeks.",
+        "Later lectures extend it."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Solve the three games on problem set two",
+      "due": "March 30th",
+      "t": null
+    }
+  ],
+  "questions": [
+    "Why does repetition help cooperation?"
+  ],
+  "references": [
+    "Osborne's An Introduction to Game Theory"
+  ]
+}

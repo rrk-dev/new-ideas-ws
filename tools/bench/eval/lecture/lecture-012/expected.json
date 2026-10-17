@@ -1,0 +1,43 @@
+{
+  "title": "Shakespeare's Sonnets",
+  "summary": "The sonnets explore love, time and mortality in tightly structured verse.",
+  "key_concepts": [
+    {
+      "term": "Volta",
+      "explanation": "The turn in argument or mood in a sonnet."
+    },
+    {
+      "term": "Iambic pentameter",
+      "explanation": "A line of ten syllables in five unstressed-stressed pairs."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Form",
+      "points": [
+        "A Shakespearean sonnet has fourteen lines.",
+        "It ends with a rhyming couplet."
+      ]
+    },
+    {
+      "heading": "Themes",
+      "points": [
+        "Many poems argue that verse can outlast time.",
+        "Others examine jealousy and doubt."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Write a close reading of sonnet 18",
+      "due": "April 2nd",
+      "t": null
+    }
+  ],
+  "questions": [
+    "Does the couplet resolve or undercut the poem?"
+  ],
+  "references": [
+    "the Arden edition of the sonnets"
+  ]
+}

@@ -73,6 +73,21 @@ const List<BuiltinTemplateInfo> kBuiltinTemplates = [
     flavor: TemplateFlavor.plain,
     profileId: 'engineering',
   ),
+  BuiltinTemplateInfo(
+    'lecture-default',
+    flavor: TemplateFlavor.obsidian,
+    profileId: 'lecture',
+  ),
+  BuiltinTemplateInfo(
+    'lecture-logseq',
+    flavor: TemplateFlavor.logseq,
+    profileId: 'lecture',
+  ),
+  BuiltinTemplateInfo(
+    'lecture-plain',
+    flavor: TemplateFlavor.plain,
+    profileId: 'lecture',
+  ),
   BuiltinTemplateInfo(kSummaryOnlyTemplateId, flavor: TemplateFlavor.obsidian),
 ];
 

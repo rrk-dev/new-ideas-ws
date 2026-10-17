@@ -1,0 +1,85 @@
+{
+  "title": "Database Normalisation",
+  "summary": "Normalisation removes redundancy by splitting tables along dependencies.",
+  "key_concepts": [
+    {
+      "term": "Functional dependency",
+      "explanation": "A rule that one attribute determines another."
+    },
+    {
+      "term": "Third normal form",
+      "explanation": "A table where non-key attributes depend only on the key."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Anomalies",
+      "points": [
+        "Update anomalies appear when data repeats.",
+        "Deletion can remove unrelated facts."
+      ]
+    },
+    {
+      "heading": "Normal forms",
+      "points": [
+        "First normal form needs atomic values.",
+        "Second normal form removes partial dependencies."
+      ]
+    },
+    {
+      "heading": "Worked example",
+      "points": [
+        "We walk through one complete example on the board.",
+        "Check each step against the definition."
+      ]
+    },
+    {
+      "heading": "Common mistakes",
+      "points": [
+        "Students often skip the setup.",
+        "Units and signs cause most errors."
+      ]
+    },
+    {
+      "heading": "Historical background",
+      "points": [
+        "The idea developed over several decades.",
+        "Early versions were much simpler."
+      ]
+    },
+    {
+      "heading": "Applications",
+      "points": [
+        "The method is used in industry every day.",
+        "Smaller projects benefit as well."
+      ]
+    },
+    {
+      "heading": "Limits",
+      "points": [
+        "Every model has assumptions.",
+        "Know when they fail."
+      ]
+    },
+    {
+      "heading": "Related topics",
+      "points": [
+        "We will connect this to earlier weeks.",
+        "Later lectures extend it."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Normalise the orders schema to third normal form",
+      "due": "April 9th",
+      "t": null
+    }
+  ],
+  "questions": [
+    "When is denormalisation justified?"
+  ],
+  "references": [
+    "the schema design chapter of the course reader"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "title": "Climate Feedbacks",
+  "summary": "Feedbacks amplify or damp the warming caused by greenhouse gases.",
+  "key_concepts": [
+    {
+      "term": "Albedo",
+      "explanation": "The fraction of sunlight a surface reflects."
+    },
+    {
+      "term": "Positive feedback",
+      "explanation": "A process that amplifies an initial change."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Ice albedo",
+      "points": [
+        "Melting ice exposes darker surfaces.",
+        "Darker surfaces absorb more sunlight."
+      ]
+    },
+    {
+      "heading": "Water vapour",
+      "points": [
+        "Warmer air holds more water vapour.",
+        "Water vapour is itself a greenhouse gas."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Summarise the three feedback papers",
+      "due": "April 15th",
+      "t": null
+    }
+  ],
+  "questions": [
+    "Which feedback is hardest to measure?"
+  ],
+  "references": [
+    "the IPCC summary chapter on feedbacks"
+  ]
+}

@@ -1,0 +1,5 @@
+[00:00:00] Good morning everyone, I am Dr. Wanjiru Kamau, and welcome to ENV 220 Climate Science at Northwind University. Today's topic is climate feedbacks. Feedbacks amplify or damp the warming caused by greenhouse gases.
+[00:00:13] Let me define a term first: albedo means the fraction of sunlight a surface reflects. Let me define a term first: positive feedback means a process that amplifies an initial change.
+[00:00:25] Now let us look at ice albedo. Melting ice exposes darker surfaces. Darker surfaces absorb more sunlight. Now let us look at water vapour.
+[00:00:35] Warmer air holds more water vapour. Water vapour is itself a greenhouse gas. Here is a question to think about before next time. Which feedback is hardest to measure?
+[00:00:47] Your assignment: summarise the three feedback papers, due April 15th. The reading for this is the IPCC summary chapter on feedbacks. That is all for today, see you next time.

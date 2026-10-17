@@ -1,0 +1,41 @@
+{
+  "title": "Recursion",
+  "summary": "Recursion solves a problem by solving smaller copies of it.",
+  "key_concepts": [
+    {
+      "term": "Base case",
+      "explanation": "The input where the function stops calling itself."
+    },
+    {
+      "term": "Call stack",
+      "explanation": "The memory that tracks active function calls."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Writing recursive functions",
+      "points": [
+        "Always define the base case first.",
+        "Each call must move toward the base case."
+      ]
+    },
+    {
+      "heading": "Costs",
+      "points": [
+        "Deep recursion can overflow the stack.",
+        "Memoisation avoids repeated work."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Write a recursive Fibonacci with memoisation",
+      "due": "Wednesday",
+      "t": null
+    }
+  ],
+  "questions": [
+    "What is the time complexity of naive Fibonacci?"
+  ],
+  "references": []
+}

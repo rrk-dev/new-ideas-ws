@@ -1,0 +1,43 @@
+{
+  "title": "Phonemes and Phonology",
+  "summary": "Phonology studies how sounds are organised into meaningful units.",
+  "key_concepts": [
+    {
+      "term": "Phoneme",
+      "explanation": "The smallest sound unit that distinguishes meaning."
+    },
+    {
+      "term": "Minimal pair",
+      "explanation": "Two words that differ in only one sound."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Phonemes and allophones",
+      "points": [
+        "The p in pin and spin is pronounced differently.",
+        "Speakers still hear both as one phoneme."
+      ]
+    },
+    {
+      "heading": "Finding phonemes",
+      "points": [
+        "Minimal pairs reveal contrasts.",
+        "Complementary distribution reveals allophones."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Find five minimal pairs in your first language",
+      "due": "next Friday",
+      "t": null
+    }
+  ],
+  "questions": [
+    "Are tone differences phonemic in English?"
+  ],
+  "references": [
+    "the phonology chapter of the course reader"
+  ]
+}

@@ -136,6 +136,45 @@ Map<String, Object?> engineeringFull() => {
   'open_questions': ['How large do tombstones get?'],
 };
 
+/// Lecture data with every optional field non-null.
+Map<String, Object?> lectureFull() => {
+  'title': 'Introduction to Graph Algorithms',
+  'summary':
+      'The lecture introduced breadth-first search and Dijkstra shortest '
+      'paths, and set the first problem set.',
+  'key_concepts': [
+    {
+      'term': 'Breadth-first search',
+      'explanation': 'Visits vertices in order of distance from the source.',
+    },
+    {
+      'term': 'Relaxation',
+      'explanation': 'Updating a distance when a shorter path is found.',
+    },
+  ],
+  'outline': [
+    {
+      'heading': 'Graph basics',
+      'points': ['Vertices and edges', 'Adjacency lists'],
+    },
+    {
+      'heading': 'Shortest paths',
+      'points': ['BFS for unweighted graphs', 'Dijkstra for weights'],
+    },
+  ],
+  'assignments': [
+    {
+      'task': 'Finish problem set 1',
+      'due': 'next Friday',
+      'due_iso': '2026-10-23',
+      't': '00:41:10',
+    },
+    {'task': 'Read chapter 22', 'due': null, 'due_iso': null, 't': '00:42:30'},
+  ],
+  'questions': ['Why does Dijkstra fail with negative edges?'],
+  'references': ['Introduction to Algorithms, chapter 22'],
+};
+
 /// Fills every string of the value (recursively) with adversarial text.
 Object? adversarial(Object? value, [int seed = 0]) {
   var i = seed;

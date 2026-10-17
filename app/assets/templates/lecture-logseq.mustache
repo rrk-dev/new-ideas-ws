@@ -1,0 +1,53 @@
+{{! Built-in Logseq variant of the lecture template (TPL-01): page
+    properties in the first block, outline bullets with 2-space nesting,
+    tasks as TODO. }}
+title:: {{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}
+type:: {{meta.profile_id}}
+date:: [[{{meta.date}}]]
+time:: {{meta.time}}
+duration:: {{meta.duration_human}}
+{{#meta.has_tags}}
+tags:: {{#meta.tags}}[[{{.}}]] {{/meta.tags}}
+{{/meta.has_tags}}
+source:: vaultvoice
+recording-id:: {{meta.recording_id}}
+
+{{#has_summary}}
+- **Summary**
+  - {{data.summary}}
+{{/has_summary}}
+{{#has_key_concepts}}
+- **Key Concepts**
+{{#data.key_concepts}}
+  - **{{term}}**: {{explanation}}
+{{/data.key_concepts}}
+{{/has_key_concepts}}
+{{#has_outline}}
+- **Outline**
+{{#data.outline}}
+  - **{{heading}}**
+{{#points}}
+    - {{.}}
+{{/points}}
+{{/data.outline}}
+{{/has_outline}}
+- **Assignments**
+{{#data.assignments}}
+  - TODO {{task}}{{#has_due_iso}} — due: [[{{due_iso}}]]{{/has_due_iso}}{{^has_due_iso}}{{#has_due}} — due: {{due}}{{/has_due}}{{/has_due_iso}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.assignments}}
+{{^has_assignments}}
+  - No assignments.
+{{/has_assignments}}
+{{#has_questions}}
+- **Review Questions**
+{{#data.questions}}
+  - {{.}}
+{{/data.questions}}
+{{/has_questions}}
+{{#has_references}}
+- **References**
+{{#data.references}}
+  - {{.}}
+{{/data.references}}
+{{/has_references}}
+- Generated on-device by Lumen · {{meta.duration_human}}

@@ -1,0 +1,44 @@
+{
+  "title": "Fall of the Roman Republic",
+  "summary": "The Roman Republic gave way to one-man rule after a century of civil conflict.",
+  "key_concepts": [
+    {
+      "term": "Triumvirate",
+      "explanation": "An informal alliance of three powerful men."
+    },
+    {
+      "term": "Proscription",
+      "explanation": "The public listing of enemies who could be killed and their property seized."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Causes of instability",
+      "points": [
+        "Land reform split the senate.",
+        "Generals relied on loyal armies rather than the state."
+      ]
+    },
+    {
+      "heading": "The end of the republic",
+      "points": [
+        "Caesar crossed the Rubicon in 49 BC.",
+        "Augustus held power after the civil wars."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Submit your source analysis essay",
+      "due": "the end of the month",
+      "t": null
+    }
+  ],
+  "questions": [
+    "Was the republic doomed or did individuals decide its fate?"
+  ],
+  "references": [
+    "Plutarch's Lives",
+    "the lecture reader on the late republic"
+  ]
+}

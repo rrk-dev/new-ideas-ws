@@ -1,0 +1,85 @@
+{
+  "title": "Agile Project Management",
+  "summary": "Agile teams deliver in short iterations and adapt to feedback.",
+  "key_concepts": [
+    {
+      "term": "Sprint",
+      "explanation": "A fixed short period in which the team builds a slice of work."
+    },
+    {
+      "term": "Backlog",
+      "explanation": "The ordered list of work still to do."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Agile principles",
+      "points": [
+        "Working software is the main measure of progress.",
+        "Requirements change and teams welcome it."
+      ]
+    },
+    {
+      "heading": "Ceremonies",
+      "points": [
+        "Planning sets the sprint goal.",
+        "The retrospective improves the process."
+      ]
+    },
+    {
+      "heading": "Worked example",
+      "points": [
+        "We walk through one complete example on the board.",
+        "Check each step against the definition."
+      ]
+    },
+    {
+      "heading": "Common mistakes",
+      "points": [
+        "Students often skip the setup.",
+        "Units and signs cause most errors."
+      ]
+    },
+    {
+      "heading": "Historical background",
+      "points": [
+        "The idea developed over several decades.",
+        "Early versions were much simpler."
+      ]
+    },
+    {
+      "heading": "Applications",
+      "points": [
+        "The method is used in industry every day.",
+        "Smaller projects benefit as well."
+      ]
+    },
+    {
+      "heading": "Limits",
+      "points": [
+        "Every model has assumptions.",
+        "Know when they fail."
+      ]
+    },
+    {
+      "heading": "Related topics",
+      "points": [
+        "We will connect this to earlier weeks.",
+        "Later lectures extend it."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Write a sprint plan for the case study",
+      "due": "the end of the month",
+      "t": null
+    }
+  ],
+  "questions": [
+    "When does agile fit poorly?"
+  ],
+  "references": [
+    "the Agile Manifesto"
+  ]
+}

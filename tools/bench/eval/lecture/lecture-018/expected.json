@@ -1,0 +1,46 @@
+{
+  "title": "Hypothesis Testing",
+  "summary": "Hypothesis tests ask whether data are surprising under a null hypothesis.",
+  "key_concepts": [
+    {
+      "term": "Null hypothesis",
+      "explanation": "The default claim that there is no effect."
+    },
+    {
+      "term": "P-value",
+      "explanation": "The probability of data at least this extreme if the null is true."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "The procedure",
+      "points": [
+        "State the null and alternative hypotheses.",
+        "Compute a test statistic and its p-value."
+      ]
+    },
+    {
+      "heading": "Errors",
+      "points": [
+        "A type one error rejects a true null.",
+        "A type two error misses a real effect."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Run a t-test on the lab data",
+      "due": "Friday",
+      "t": null
+    },
+    {
+      "task": "Read section six point two",
+      "due": null,
+      "t": null
+    }
+  ],
+  "questions": [
+    "Does a small p-value prove the effect is large?"
+  ],
+  "references": []
+}

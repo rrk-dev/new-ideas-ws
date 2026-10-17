@@ -1,0 +1,48 @@
+{
+  "title": "Neural Network Basics",
+  "summary": "Neural networks stack simple units whose weights are learned by gradient descent.",
+  "key_concepts": [
+    {
+      "term": "Gradient descent",
+      "explanation": "Repeatedly moving the weights downhill on the loss."
+    },
+    {
+      "term": "Activation function",
+      "explanation": "A nonlinearity applied to a unit's output."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Layers",
+      "points": [
+        "Each layer transforms its inputs with learned weights.",
+        "Depth lets networks model complex patterns."
+      ]
+    },
+    {
+      "heading": "Training",
+      "points": [
+        "Backpropagation computes the gradients.",
+        "A learning rate that is too high can diverge."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Train the two layer network on the digits data",
+      "due": "Monday",
+      "t": null
+    },
+    {
+      "task": "Answer the five conceptual questions",
+      "due": "next Wednesday",
+      "t": null
+    }
+  ],
+  "questions": [
+    "Why do we need nonlinear activations?"
+  ],
+  "references": [
+    "the Deep Learning book, chapter six"
+  ]
+}

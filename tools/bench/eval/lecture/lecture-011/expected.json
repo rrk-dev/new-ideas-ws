@@ -1,0 +1,35 @@
+{
+  "title": "Plate Tectonics",
+  "summary": "Plate tectonics explains earthquakes, volcanoes and mountain building.",
+  "key_concepts": [
+    {
+      "term": "Subduction",
+      "explanation": "One plate sinking beneath another."
+    },
+    {
+      "term": "Mid-ocean ridge",
+      "explanation": "A boundary where new crust forms."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Plate boundaries",
+      "points": [
+        "Plates diverge, converge or slide past each other.",
+        "Most earthquakes occur along boundaries."
+      ]
+    },
+    {
+      "heading": "Evidence",
+      "points": [
+        "Matching fossils appear on separated continents.",
+        "Seafloor age increases away from ridges."
+      ]
+    }
+  ],
+  "assignments": [],
+  "questions": [
+    "Why is the Pacific rim called the ring of fire?"
+  ],
+  "references": []
+}

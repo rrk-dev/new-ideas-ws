@@ -1,0 +1,43 @@
+{
+  "title": "Cognitive Biases",
+  "summary": "Cognitive biases are systematic shortcuts that distort judgement.",
+  "key_concepts": [
+    {
+      "term": "Confirmation bias",
+      "explanation": "Favouring information that agrees with what we already believe."
+    },
+    {
+      "term": "Anchoring",
+      "explanation": "Relying too heavily on the first number we hear."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Why biases arise",
+      "points": [
+        "The mind saves effort with heuristics.",
+        "Heuristics work well in familiar settings."
+      ]
+    },
+    {
+      "heading": "Reducing bias",
+      "points": [
+        "Consider the opposite explanation.",
+        "Use checklists for important decisions."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Keep a decision diary for one week",
+      "due": "next Thursday",
+      "t": null
+    }
+  ],
+  "questions": [
+    "Can you think of a time anchoring affected a purchase?"
+  ],
+  "references": [
+    "Kahneman's Thinking, Fast and Slow"
+  ]
+}

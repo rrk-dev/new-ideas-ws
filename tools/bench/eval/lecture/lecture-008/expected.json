@@ -1,0 +1,37 @@
+{
+  "title": "Inflation and Monetary Policy",
+  "summary": "Central banks use interest rates to steer inflation.",
+  "key_concepts": [
+    {
+      "term": "Inflation",
+      "explanation": "A sustained rise in the general price level."
+    },
+    {
+      "term": "Policy rate",
+      "explanation": "The interest rate set by the central bank."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Causes of inflation",
+      "points": [
+        "Demand can outrun supply.",
+        "Rising input costs push prices up."
+      ]
+    },
+    {
+      "heading": "Central bank tools",
+      "points": [
+        "Raising the policy rate cools spending.",
+        "Lower rates encourage borrowing."
+      ]
+    }
+  ],
+  "assignments": [],
+  "questions": [
+    "Why do rate changes take months to work?"
+  ],
+  "references": [
+    "the central bank primer on the course site"
+  ]
+}

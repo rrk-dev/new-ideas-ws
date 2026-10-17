@@ -1,0 +1,43 @@
+{
+  "title": "The French Revolution",
+  "summary": "The French Revolution replaced the monarchy with a republic amid economic crisis.",
+  "key_concepts": [
+    {
+      "term": "Estates General",
+      "explanation": "The assembly of the three social orders of France."
+    },
+    {
+      "term": "Terror",
+      "explanation": "The period of mass executions in 1793 and 1794."
+    }
+  ],
+  "outline": [
+    {
+      "heading": "Origins",
+      "points": [
+        "Debt from foreign wars strained the crown.",
+        "Bread prices rose sharply in 1789."
+      ]
+    },
+    {
+      "heading": "Radicalisation",
+      "points": [
+        "The king was tried and executed.",
+        "The Committee of Public Safety ruled during the Terror."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task": "Read the primary source packet",
+      "due": "in two weeks",
+      "t": null
+    }
+  ],
+  "questions": [
+    "Did the Terror follow from the revolution's ideals?"
+  ],
+  "references": [
+    "Simon Schama's Citizens"
+  ]
+}

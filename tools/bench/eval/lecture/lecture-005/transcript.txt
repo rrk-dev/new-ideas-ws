@@ -1,0 +1,5 @@
+[00:00:00] good you know morning everyone, I am Professor Tobias Wren, and welcome to phy 120 mechanics at Wingtip Institute. Today's topic is newton's laws of motion. Newton's three laws describe how forces change the motion of objects.
+[00:00:14] let me define a term first: inertia means the tedency of an uh object to keep its state of motion. Let me define a term first: net uh force you know means the vector sum of all forces acting on an object.
+[00:00:29] Now let us look at first and second law an object okay so keeps moving at constant velocity without a net force. Force equals mass times aceleration.
+[00:00:39] Now let us look at third law. Forces come in equal and opposite pairs The pairs act on different objects. here is a question to think about before next time Why does a rocket accelerate in empty space?
+[00:00:54] There is no homewok this week, so use the time to review. that is all for today see you next time
