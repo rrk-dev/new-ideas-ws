@@ -1,7 +1,7 @@
 # APP-08 — Modern UI: design system and screen restyle
 
 **Workstream:** App UX | **Phase:** 4 | **Size:** L | **Depends on:** APP-07 | **Source:** User request 2026-10-16
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-testing
 
 ## Goal
