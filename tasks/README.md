@@ -175,7 +175,7 @@ review | done`) and a `**Skills:**` line listing the skills to load. Find unbloc
 | [GATE-05](13-milestones/GATE-05-product-phase2.md) | Phase 5 gate: quick capture, templates, ask, mind maps, task export | 5 | M | Verification |
 
 ### 14 — Product Phase 2 (user decision 2026-10-16)
-Scope confirmed by the user: quick capture, more summary templates, ask-your-notes, mind maps, Reminders/Todoist export, reference-driven UI refresh. English only, no hardware device, no Apple Watch app, no call recording. Priority order: QCP → TPL → ASK → MAP → TSK (UIX-01 early, it shapes the screens). Free/Pro placement is decided in LIC-05; the policy and privacy follow-ups are SEC-11 and GATE-05.
+Scope confirmed by the user: quick capture, more summary templates, ask-your-notes, mind maps, Apple Reminders export (Todoist and Apple Notes dropped 2026-10-17), reference-driven UI refresh. English only, no hardware device, no Apple Watch app, no call recording. Priority order: QCP → TPL → ASK → MAP → TSK (UIX-01 early, it shapes the screens). Free/Pro placement is decided in LIC-05; the policy and privacy follow-ups are SEC-11 and GATE-05.
 
 | ID | Task | Phase | Size | Source |
 |---|---|---|---|---|
@@ -192,9 +192,8 @@ Scope confirmed by the user: quick capture, more summary templates, ask-your-not
 | [ASK-04](14-product-phase2/ASK-04-ask-ui.md) | Ask-your-notes UI | 5 | M | User decision 2026-10-16 |
 | [MAP-01](14-product-phase2/MAP-01-mind-map-generation.md) | Mind-map generation | 5 | M | User decision 2026-10-16 |
 | [MAP-02](14-product-phase2/MAP-02-mind-map-viewer-export.md) | Mind-map viewer and export | 5 | M | User decision 2026-10-16 |
-| [TSK-01](14-product-phase2/TSK-01-task-export-decision.md) | Action-item export decision (Reminders, Todoist, egress) | 5 | S | User decision 2026-10-16 |
+| [TSK-01](14-product-phase2/TSK-01-task-export-decision.md) | Action-item export decision (Apple Reminders) | 5 | S | User decision 2026-10-16 |
 | [TSK-02](14-product-phase2/TSK-02-apple-reminders-export.md) | Apple Reminders export | 5 | M | User decision 2026-10-16 |
-| [TSK-03](14-product-phase2/TSK-03-todoist-export.md) | Todoist export (opt-in, only if approved) | 5 | M | User decision 2026-10-16 |
 | [UIX-01](14-product-phase2/UIX-01-reference-driven-ui-refresh.md) | Reference-driven UI refresh | 5 | M | User decision 2026-10-16 |
 
 ## Critical Path
@@ -233,8 +232,10 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 | Cloud device farm (Firebase Test Lab / BrowserStack) | QA-05 | Proposed: physical lab only, no cloud farm (ADR-QA-05). Human accepts or rejects |
 | Ship a macOS desktop app | FND-09, FND-10, AUD-09, EXP-09 | Decided by the user on 2026-10-14: yes, arm64 macOS desktop alongside iOS and Android. Web, Linux, and Windows stay off. |
 | `small.en` Whisper in Free tier? | LIC-01 | Product decision (§7 says Free gets small/tiny) |
-| Free vs Pro for quick capture, new profiles, ask-your-notes, mind maps, task export | LIC-05 | Product decision; 3B model is already Pro by the size rule |
-| Todoist integration: ship / opt-in / no-go | TSK-01 | Needs user approval; adds a third-party network host |
+| Free vs Pro for Phase 2 features | LIC-05 | Decided 2026-10-17: all unlocked for now |
+| Todoist integration | TSK-01 | **Decided 2026-10-17: no Todoist, no Apple Notes** (no public write API); Apple Reminders only |
+| Phase 2 tiers | LIC-05 | **Decided 2026-10-17: no Pro for now.** All features unlocked; Pro gating suppressed behind one switch, enable later |
+| Lecture consent | TPL-01 | 2026-10-17: consent always required; personal use is fine |
 | Quick capture: start-now vs open-and-arm; Action Button `StartSource` | QCP-01 | SEC-09 ADR amendment, human approval |
 | Ask-your-notes retrieval: FTS5 vs embeddings | ASK-02 | Decide from measured recall |
 
