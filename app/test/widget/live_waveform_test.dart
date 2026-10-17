@@ -1,5 +1,3 @@
-// Test helper builds its own root scope; the provider has no dependencies.
-// ignore_for_file: scoped_providers_should_specify_dependencies
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -23,27 +21,6 @@ import '../fakes/fake_settings_store.dart';
 
 AudioLevel _lv(double db, {bool clipping = false}) =>
     AudioLevel(rmsDbfs: db, peakDbfs: db, clipping: clipping);
-
-Widget _host(
-  Stream<AudioLevel> levels, {
-  bool active = true,
-  bool disableAnimations = false,
-  Brightness brightness = Brightness.light,
-}) => ProviderScope(
-  // Test helper builds its own root scope; the provider has no dependencies.
-  overrides: [recordingLevelsProvider.overrideWith((ref) => levels)],
-  child: MaterialApp(
-    theme: brightness == Brightness.light ? AppTheme.light : AppTheme.dark,
-    localizationsDelegates: AppLocalizations.localizationsDelegates,
-    supportedLocales: AppLocalizations.supportedLocales,
-    home: MediaQuery(
-      data: MediaQueryData(disableAnimations: disableAnimations),
-      child: Scaffold(
-        body: Center(child: LiveWaveform(active: active)),
-      ),
-    ),
-  ),
-);
 
 CustomPaint _paint(WidgetTester t) =>
     t.widget<CustomPaint>(find.byKey(const ValueKey('waveform-paint')));
@@ -69,6 +46,29 @@ class _BuildCounter extends StatelessWidget {
 }
 
 void main() {
+  Future<void> pumpHost(
+    WidgetTester t,
+    Stream<AudioLevel> levels, {
+    bool active = true,
+    bool disableAnimations = false,
+    Brightness brightness = Brightness.light,
+  }) => t.pumpWidget(
+    ProviderScope(
+      overrides: [recordingLevelsProvider.overrideWith((ref) => levels)],
+      child: MaterialApp(
+        theme: brightness == Brightness.light ? AppTheme.light : AppTheme.dark,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: MediaQuery(
+          data: MediaQueryData(disableAnimations: disableAnimations),
+          child: Scaffold(
+            body: Center(child: LiveWaveform(active: active)),
+          ),
+        ),
+      ),
+    ),
+  );
+
   test('[APP-09/AC1] ring buffer keeps the last N readings, newest at the '
       'right edge', () {
     final b = WaveformBuffer(4);
@@ -99,7 +99,7 @@ void main() {
   ) async {
     final levels = StreamController<AudioLevel>();
     addTearDown(levels.close);
-    await t.pumpWidget(_host(levels.stream));
+    await pumpHost(t, levels.stream);
     final scheme = Theme.of(t.element(find.byType(LiveWaveform))).colorScheme;
     final render = t.renderObject(find.byKey(const ValueKey('waveform-paint')));
 
@@ -118,7 +118,7 @@ void main() {
   ) async {
     final levels = StreamController<AudioLevel>();
     addTearDown(levels.close);
-    await t.pumpWidget(_host(levels.stream, disableAnimations: true));
+    await pumpHost(t, levels.stream, disableAnimations: true);
     for (final db in [-50.0, -40.0, -25.0]) {
       levels.add(_lv(db));
       await t.pump(const Duration(milliseconds: 50));
@@ -134,7 +134,7 @@ void main() {
     (t) async {
       final levels = StreamController<AudioLevel>();
       addTearDown(levels.close);
-      await t.pumpWidget(_host(levels.stream, active: false));
+      await pumpHost(t, levels.stream, active: false);
       levels.add(_lv(-10));
       await t.pump(const Duration(milliseconds: 50));
       final painter = _paint(t).painter! as WaveformPainter;
