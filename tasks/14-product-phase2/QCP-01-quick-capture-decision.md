@@ -1,7 +1,7 @@
 # QCP-01 — Quick-capture decision: widget, Lock Screen control, Action Button, Android tile
 
 **Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** S | **Depends on:** SEC-09, AUD-04, AUD-05, AUD-08, AUD-09 | **Source:** User decision 2026-10-16 (product Phase 2: one-tap capture)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-decision-records, vv-audio-capture, vv-privacy-security, vv-flutter-architecture, vv-background-execution
 
 ## Goal
