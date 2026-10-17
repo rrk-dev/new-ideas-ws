@@ -1,0 +1,59 @@
+tasks/14-product-phase2/TPL-02-sales-conversation-profile.md
+  s_5a534bed398a49::t_a9b3ba2bac406e 1-26
+tasks/14-product-phase2/TSK-03-todoist-export.md
+  s_5a534bed398a49::t_68e157e25c6664 1-25
+tasks/10-security-privacy/SEC-11-phase2-privacy-threat-update.md
+  s_5a534bed398a49::t_165da254cff9bc 1-23
+tasks/14-product-phase2/TPL-03-interview-profile.md
+  s_5a534bed398a49::t_f2262c149597e7 1-26
+tasks/README.md
+  s_5a534bed398a49::t_f56fa93c66398a 12,134,148,175-198,236-239
+tasks/14-product-phase2/QCP-01-quick-capture-decision.md
+  s_5a534bed398a49::t_2a8f1ac0525f66 1-31
+tasks/14-product-phase2/QCP-02-ios-quick-capture.md
+  s_5a534bed398a49::t_4ce7360459bbf7 1-30
+tasks/14-product-phase2/QCP-03-android-quick-capture.md
+  s_5a534bed398a49::t_2be5b4cff80553 1-23
+tasks/14-product-phase2/ASK-04-ask-ui.md
+  s_5a534bed398a49::t_ec506241f97df5 1-22
+tasks/14-product-phase2/MAP-01-mind-map-generation.md
+  s_5a534bed398a49::t_f987dfd1d5d126 1-25
+tasks/14-product-phase2/ASK-03-ask-engine.md
+  s_5a534bed398a49::t_74c5c2b04ca90a 1-25
+tasks/14-product-phase2/TPL-01-lecture-profile.md
+  s_5a534bed398a49::t_3ca520e6988186 1-27
+tasks/14-product-phase2/MAP-02-mind-map-viewer-export.md
+  s_5a534bed398a49::t_8312a06831ecfe 1-25
+tasks/14-product-phase2/TSK-02-apple-reminders-export.md
+  s_5a534bed398a49::t_70329557ee41b4 1-25
+tasks/09-licensing/LIC-05-phase2-feature-tiers.md
+  s_5a534bed398a49::t_44ea3ddad72bad 1-22
+tasks/14-product-phase2/UIX-01-reference-driven-ui-refresh.md
+  s_5a534bed398a49::t_d1dbf244c640a6 1-23
+tasks/13-milestones/GATE-05-product-phase2.md
+  s_5a534bed398a49::t_b38c5d1ffa25a8 1-22
+tasks/14-product-phase2/TSK-01-task-export-decision.md
+  s_5a534bed398a49::t_8994d25e1ea22a 1-27
+tasks/14-product-phase2/ASK-01-llama-3b-catalog-model.md
+  s_5a534bed398a49::t_979af92d327672 1-27
+tasks/14-product-phase2/TPL-04-template-picker-classification.md
+  s_5a534bed398a49::t_0308829c53208f 1-22
+tasks/14-product-phase2/ASK-02-retrieval-decision.md
+  s_5a534bed398a49::t_fcda1322a19503 1-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b6fbeacefa77ff46df527950d33548fc8674896c",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
