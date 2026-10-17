@@ -6,6 +6,9 @@ import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
+import 'package:vaultvoice/core/widgets/circle_icon_button.dart';
+import 'package:vaultvoice/core/widgets/grouped_card.dart';
+import 'package:vaultvoice/core/widgets/section_header.dart';
 import 'package:vaultvoice/core/widgets/status_message.dart';
 import 'package:vaultvoice/features/library/data/library_providers.dart';
 import 'package:vaultvoice/features/library/domain/extraction_summary.dart';
@@ -89,23 +92,40 @@ class _Detail extends ConsumerWidget {
       if (header.imported) l10n.recordingImported,
     ].join(' · ');
 
-    Widget section(String title) => Padding(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.md,
-        AppSpacing.lg,
-        AppSpacing.md,
-        AppSpacing.sm,
-      ),
-      child: Semantics(
-        header: true,
-        child: Text(
-          title,
-          style: theme.textTheme.titleSmall?.copyWith(
-            color: theme.colorScheme.primary,
-          ),
+    final actionFields = extraction == null
+        ? const <ExtractionField>[]
+        : summarizeExtraction(extraction.data)
+              .where((f) => f.key == _actionItemsKey)
+              .toList();
+    final slots = ref.watch(recordingHubSlotsProvider);
+    final tabs = <({String id, String label, Widget body})>[
+      (
+        id: 'summary',
+        label: l10n.recordingTabSummary,
+        body: _SummaryTab(
+          header: header,
+          view: view,
+          extraction: extraction,
+          exports: exports,
         ),
       ),
-    );
+      (
+        id: 'transcript',
+        label: l10n.recordingTranscript,
+        body: _TranscriptTab(recordingId: _id, lines: lines),
+      ),
+      (
+        id: 'action-items',
+        label: l10n.recordingTabActionItems,
+        body: _ActionItemsTab(fields: actionFields),
+      ),
+      for (final slot in slots)
+        (
+          id: slot.id,
+          label: slot.label(l10n),
+          body: slot.builder(context, _id),
+        ),
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -114,6 +134,7 @@ class _Detail extends ConsumerWidget {
           PopupMenuButton<_Action>(
             key: const ValueKey('recording-actions'),
             tooltip: l10n.recordingActions,
+            style: circleMenuStyle(context),
             onSelected: (a) => _run(context, ref, a, view, exports),
             itemBuilder: (context) => [
               if (extraction != null)
@@ -139,137 +160,97 @@ class _Detail extends ConsumerWidget {
               ),
             ],
           ),
+          const SizedBox(width: AppSpacing.xs),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.only(bottom: AppSpacing.xl),
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              AppSpacing.md,
-              AppSpacing.md,
-              AppSpacing.md,
-              0,
-            ),
-            child: Text(facts, style: theme.textTheme.bodyMedium),
-          ),
-          if (header.tags.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-              child: Wrap(
-                spacing: AppSpacing.sm,
-                children: [for (final t in header.tags) Chip(label: Text(t))],
-              ),
-            ),
-          if (view?.job.waitingReason == WaitingReason.review)
-            Card(
-              key: const ValueKey('recording-review-banner'),
-              margin: const EdgeInsets.fromLTRB(
-                AppSpacing.md,
-                AppSpacing.md,
-                AppSpacing.md,
-                0,
-              ),
-              color: theme.colorScheme.secondaryContainer,
-              child: ListTile(
-                leading: Icon(
-                  Icons.rate_review_outlined,
-                  color: theme.colorScheme.onSecondaryContainer,
-                ),
-                title: Text(
-                  l10n.reviewBanner,
-                  style: TextStyle(
-                    color: theme.colorScheme.onSecondaryContainer,
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: AppSizes.maxContentWidth),
+          child: DefaultTabController(
+            length: tabs.length,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                    AppSpacing.md,
+                    AppSpacing.sm,
+                    AppSpacing.md,
+                    0,
+                  ),
+                  child: Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(facts, style: theme.textTheme.bodyMedium),
                   ),
                 ),
-                trailing: FilledButton(
-                  onPressed: () =>
-                      RecordingReviewRoute(recordingId: _id).go(context),
-                  child: Text(l10n.reviewOpen),
+                if (header.tags.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                      AppSpacing.md,
+                      AppSpacing.sm,
+                      AppSpacing.md,
+                      0,
+                    ),
+                    child: Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Wrap(
+                        spacing: AppSpacing.sm,
+                        children: [
+                          for (final t in header.tags) Chip(label: Text(t)),
+                        ],
+                      ),
+                    ),
+                  ),
+                if (view?.job.waitingReason == WaitingReason.review)
+                  Card(
+                    key: const ValueKey('recording-review-banner'),
+                    margin: const EdgeInsets.fromLTRB(
+                      AppSpacing.md,
+                      AppSpacing.md,
+                      AppSpacing.md,
+                      0,
+                    ),
+                    color: theme.colorScheme.secondaryContainer,
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.rate_review_outlined,
+                        color: theme.colorScheme.onSecondaryContainer,
+                      ),
+                      title: Text(
+                        l10n.reviewBanner,
+                        style: TextStyle(
+                          color: theme.colorScheme.onSecondaryContainer,
+                        ),
+                      ),
+                      trailing: FilledButton(
+                        onPressed: () =>
+                            RecordingReviewRoute(recordingId: _id).go(context),
+                        child: Text(l10n.reviewOpen),
+                      ),
+                    ),
+                  ),
+                const SizedBox(height: AppSpacing.sm),
+                TabBar(
+                  key: const ValueKey('recording-tabs'),
+                  isScrollable: true,
+                  tabAlignment: TabAlignment.start,
+                  tabs: [for (final t in tabs) Tab(text: t.label)],
                 ),
-              ),
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      for (final t in tabs)
+                        KeyedSubtree(
+                          key: ValueKey('recording-tab-${t.id}'),
+                          child: t.body,
+                        ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          if (view != null)
-            Padding(
-              padding: const EdgeInsets.all(AppSpacing.md),
-              child: ConnectedProcessingStatusCard(view: view),
-            )
-          else
-            Padding(
-              padding: const EdgeInsets.all(AppSpacing.md),
-              child: Text(l10n.processingNotProcessed),
-            ),
-          section(l10n.recordingTranscript),
-          if (lines == null || lines.isEmpty)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-              child: Text(l10n.recordingNoTranscript),
-            )
-          else ...[
-            for (final line in lines.take(kTranscriptPreviewLines))
-              TranscriptLineTile(line: line),
-            Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-                child: TextButton(
-                  key: const ValueKey('recording-open-transcript'),
-                  onPressed: () =>
-                      ref.read(transcriptNavigatorProvider).open(context, _id),
-                  child: Text(l10n.recordingShowTranscript(lines.length)),
-                ),
-              ),
-            ),
-          ],
-          section(l10n.recordingExtracted),
-          if (extraction == null)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-              child: Text(l10n.recordingNoExtraction),
-            )
-          else ...[
-            if (!extraction.valid)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-                child: Text(
-                  l10n.recordingExtractionInvalid,
-                  style: TextStyle(color: theme.colorScheme.error),
-                ),
-              ),
-            for (final f in summarizeExtraction(extraction.data))
-              ListTile(
-                title: Text(humanizeFieldName(f.key)),
-                subtitle: Text(f.values.isEmpty ? '—' : f.values.join('\n')),
-              ),
-          ],
-          section(l10n.recordingExports),
-          if (exports.isEmpty)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-              child: Text(l10n.recordingNoExports),
-            )
-          else
-            for (final e in exports)
-              ListTile(
-                leading: Icon(
-                  e.written
-                      ? Icons.check_circle_outline
-                      : e.failed
-                      ? Icons.error_outline
-                      : Icons.schedule,
-                ),
-                title: Text(
-                  e.targetName.isEmpty
-                      ? l10n.vaultFolderDefaultName
-                      : e.targetName,
-                ),
-                subtitle: Text(
-                  '${e.relPath}\n${_exportStatus(l10n, e)} · '
-                  '${LibraryTexts.date(l10n, e.updatedAt)}',
-                ),
-                isThreeLine: true,
-              ),
-        ],
+          ),
+        ),
       ),
     );
   }
@@ -379,6 +360,210 @@ class _Detail extends ConsumerWidget {
     if (report != null && context.mounted) const LibraryRoute().go(context);
   }
 }
+
+const String _actionItemsKey = 'action_items';
+
+EdgeInsets get _tabPadding =>
+    const EdgeInsets.only(top: AppSpacing.sm, bottom: AppSpacing.xl);
+
+/// Summary tab: processing status, extracted fields and export history.
+class _SummaryTab extends StatelessWidget {
+  const _SummaryTab({
+    required this.header,
+    required this.view,
+    required this.extraction,
+    required this.exports,
+  });
+
+  final RecordingHeader header;
+  final JobProgressView? view;
+  final ExtractionView? extraction;
+  final List<ExportInfo> exports;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final theme = Theme.of(context);
+    final fields = extraction == null
+        ? const <ExtractionField>[]
+        : summarizeExtraction(extraction!.data)
+              .where((f) => f.key != _actionItemsKey)
+              .toList();
+    return ListView(
+      padding: _tabPadding,
+      children: [
+        if (view != null)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+            child: ConnectedProcessingStatusCard(view: view!),
+          )
+        else
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+            child: Text(l10n.processingNotProcessed),
+          ),
+        SectionHeader(l10n.recordingExtracted),
+        if (extraction == null)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            child: Text(l10n.recordingNoExtraction),
+          )
+        else ...[
+          if (!extraction!.valid)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.lg,
+                0,
+                AppSpacing.lg,
+                AppSpacing.sm,
+              ),
+              child: Text(
+                l10n.recordingExtractionInvalid,
+                style: TextStyle(color: theme.colorScheme.error),
+              ),
+            ),
+          if (fields.isNotEmpty)
+            GroupedCard(
+              children: [
+                for (final f in fields)
+                  ListTile(
+                    title: Text(humanizeFieldName(f.key)),
+                    subtitle: Text(
+                      f.values.isEmpty ? '—' : f.values.join('\n'),
+                    ),
+                  ),
+              ],
+            ),
+        ],
+        SectionHeader(l10n.recordingExports),
+        if (exports.isEmpty)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            child: Text(l10n.recordingNoExports),
+          )
+        else
+          GroupedCard(
+            children: [
+              for (final e in exports)
+                ListTile(
+                  leading: Icon(
+                    e.written
+                        ? Icons.check_circle_outline
+                        : e.failed
+                        ? Icons.error_outline
+                        : Icons.schedule,
+                  ),
+                  title: Text(
+                    e.targetName.isEmpty
+                        ? l10n.vaultFolderDefaultName
+                        : e.targetName,
+                  ),
+                  subtitle: Text(
+                    '${e.relPath}\n'
+                    '${_Detail._exportStatus(l10n, e)} · '
+                    '${LibraryTexts.date(l10n, e.updatedAt)}',
+                  ),
+                  isThreeLine: true,
+                ),
+            ],
+          ),
+      ],
+    );
+  }
+}
+
+/// Transcript tab: the first lines and a button for the full transcript.
+class _TranscriptTab extends ConsumerWidget {
+  const _TranscriptTab({required this.recordingId, required this.lines});
+
+  final String recordingId;
+  final List<TranscriptLine>? lines;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final all = lines;
+    return ListView(
+      padding: _tabPadding,
+      children: [
+        if (all == null || all.isEmpty)
+          Padding(
+            padding: const EdgeInsets.all(AppSpacing.md),
+            child: Text(l10n.recordingNoTranscript),
+          )
+        else ...[
+          for (final line in all.take(kTranscriptPreviewLines))
+            TranscriptLineTile(line: line),
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+              child: TextButton(
+                key: const ValueKey('recording-open-transcript'),
+                onPressed: () => ref
+                    .read(transcriptNavigatorProvider)
+                    .open(context, recordingId),
+                child: Text(l10n.recordingShowTranscript(all.length)),
+              ),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+/// Action items extracted from this recording.
+class _ActionItemsTab extends StatelessWidget {
+  const _ActionItemsTab({required this.fields});
+
+  final List<ExtractionField> fields;
+
+  @override
+  Widget build(BuildContext context) {
+    final values = [for (final f in fields) ...f.values];
+    return ListView(
+      padding: _tabPadding,
+      children: [
+        if (values.isEmpty)
+          Padding(
+            padding: const EdgeInsets.all(AppSpacing.md),
+            child: Text(context.l10n.recordingNoActionItems),
+          )
+        else
+          GroupedCard(
+            children: [
+              for (final v in values)
+                ListTile(
+                  leading: const Icon(Icons.radio_button_unchecked),
+                  title: Text(v),
+                ),
+            ],
+          ),
+      ],
+    );
+  }
+}
+
+/// A section a future feature adds to the recording hub (Mind map MAP-02,
+/// Ask ASK-04). No slot is registered yet, so no tab shows.
+class RecordingHubSlot {
+  const RecordingHubSlot({
+    required this.id,
+    required this.label,
+    required this.builder,
+  });
+
+  final String id;
+  final String Function(AppLocalizations l10n) label;
+  final Widget Function(BuildContext context, String recordingId) builder;
+}
+
+/// Extra hub sections, appended after Action items. Empty until the features
+/// exist; override to register one.
+final recordingHubSlotsProvider = Provider<List<RecordingHubSlot>>(
+  (ref) => const [],
+);
 
 enum _Action { review, reExtract, changeProfile, reExport, delete }
 

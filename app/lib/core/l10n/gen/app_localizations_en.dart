@@ -759,6 +759,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get librarySortTitle => 'Title A–Z';
 
   @override
+  String get libraryGroupToday => 'Today';
+
+  @override
+  String get libraryGroupYesterday => 'Yesterday';
+
+  @override
+  String get libraryGroupThisWeek => 'Earlier this week';
+
+  @override
+  String get libraryGroupEarlier => 'Earlier';
+
+  @override
   String get libraryLoadFailed => 'Couldn’t load your recordings.';
 
   @override
@@ -859,6 +871,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String recordingProfileCurrent(String name) {
     return '$name (current)';
   }
+
+  @override
+  String get recordingTabSummary => 'Summary';
+
+  @override
+  String get recordingTabActionItems => 'Action items';
+
+  @override
+  String get recordingNoActionItems => 'No action items found.';
 
   @override
   String get recordingTranscript => 'Transcript';

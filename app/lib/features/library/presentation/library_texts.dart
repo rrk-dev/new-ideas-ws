@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
+import 'package:vaultvoice/features/library/domain/library_grouping.dart';
 import 'package:vaultvoice/features/library/domain/library_models.dart';
 
 /// Localized Library labels.
@@ -23,6 +24,13 @@ abstract final class LibraryTexts {
     LibraryStatus.processed => Icons.description_outlined,
     LibraryStatus.exported => Icons.check_circle_outline,
     LibraryStatus.failed => Icons.error_outline,
+  };
+
+  static String group(AppLocalizations l, LibraryGroup g) => switch (g) {
+    LibraryGroup.today => l.libraryGroupToday,
+    LibraryGroup.yesterday => l.libraryGroupYesterday,
+    LibraryGroup.thisWeek => l.libraryGroupThisWeek,
+    LibraryGroup.earlier => l.libraryGroupEarlier,
   };
 
   static String sort(AppLocalizations l, LibrarySort s) => switch (s) {

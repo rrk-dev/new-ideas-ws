@@ -1342,6 +1342,30 @@ abstract class AppLocalizations {
   /// **'Title A–Z'**
   String get librarySortTitle;
 
+  /// No description provided for @libraryGroupToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get libraryGroupToday;
+
+  /// No description provided for @libraryGroupYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get libraryGroupYesterday;
+
+  /// No description provided for @libraryGroupThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Earlier this week'**
+  String get libraryGroupThisWeek;
+
+  /// No description provided for @libraryGroupEarlier.
+  ///
+  /// In en, this message translates to:
+  /// **'Earlier'**
+  String get libraryGroupEarlier;
+
   /// No description provided for @libraryLoadFailed.
   ///
   /// In en, this message translates to:
@@ -1521,6 +1545,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{name} (current)'**
   String recordingProfileCurrent(String name);
+
+  /// No description provided for @recordingTabSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary'**
+  String get recordingTabSummary;
+
+  /// No description provided for @recordingTabActionItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Action items'**
+  String get recordingTabActionItems;
+
+  /// No description provided for @recordingNoActionItems.
+  ///
+  /// In en, this message translates to:
+  /// **'No action items found.'**
+  String get recordingNoActionItems;
 
   /// No description provided for @recordingTranscript.
   ///

@@ -11,9 +11,12 @@ import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
+import 'package:vaultvoice/core/widgets/grouped_card.dart';
+import 'package:vaultvoice/features/library/domain/library_grouping.dart';
 import 'package:vaultvoice/features/library/domain/library_models.dart';
 import 'package:vaultvoice/features/library/domain/recording_detail.dart';
 import 'package:vaultvoice/features/library/presentation/library_texts.dart';
+import 'package:vaultvoice/features/library/presentation/recording_detail_screen.dart';
 import 'package:vaultvoice/features/library/presentation/transcript_lines_screen.dart';
 import 'package:vaultvoice/features/library/presentation/transcript_navigation.dart';
 import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
@@ -222,16 +225,25 @@ void main() {
       '/library/recordings/rec-a',
       extra: [transcriptNavigatorProvider.overrideWithValue(nav)],
     );
-    expect(find.text('Priya: Let’s lock the API version today.'), findsOne);
     expect(find.text('Attendees'), findsOneWidget);
     expect(find.text('Priya\nSam'), findsOneWidget);
-    expect(find.text('Update the client SDK · Sam · Friday'), findsOneWidget);
-    await t.scrollUntilVisible(find.text('Obsidian'), 200);
-    expect(find.textContaining('Meetings/2026-10-12-planning.md'), findsOne);
     await t.scrollUntilVisible(
-      find.byKey(const ValueKey('recording-open-transcript')),
-      -200,
+      find.text('Obsidian'),
+      200,
+      scrollable: find
+          .descendant(
+            of: find.byKey(const ValueKey('recording-tab-summary')),
+            matching: find.byType(Scrollable),
+          )
+          .first,
     );
+    expect(find.textContaining('Meetings/2026-10-12-planning.md'), findsOne);
+    await t.tap(find.text(_l.recordingTabActionItems));
+    await t.pumpAndSettle();
+    expect(find.text('Update the client SDK · Sam · Friday'), findsOneWidget);
+    await t.tap(find.text(_l.recordingTranscript));
+    await t.pumpAndSettle();
+    expect(find.text('Priya: Let’s lock the API version today.'), findsOne);
     await t.tap(find.byKey(const ValueKey('recording-open-transcript')));
     expect(nav.opened.single, (id: 'rec-a', atMs: null));
   });
@@ -267,5 +279,76 @@ void main() {
     await t.tap(find.byTooltip(_l.actionItemOpenRecording));
     await t.pumpAndSettle();
     expect(_path(c), '/library/recordings/rec-a');
+  });
+
+  testWidgets('[UIX-01/AC2] the detail is a hub: Summary, Transcript and '
+      'Action items; no Mind map / Ask placeholder or PRO badge', (t) async {
+    await _pump(t, '/library/recordings/rec-a');
+    final tabs = find.byKey(const ValueKey('recording-tabs'));
+    for (final label in [
+      _l.recordingTabSummary,
+      _l.recordingTranscript,
+      _l.recordingTabActionItems,
+    ]) {
+      expect(
+        find.descendant(of: tabs, matching: find.text(label)),
+        findsOneWidget,
+      );
+    }
+    expect(t.widget<TabBar>(tabs).tabs, hasLength(3));
+    expect(find.textContaining('PRO'), findsNothing);
+    expect(find.textContaining('Mind map'), findsNothing);
+    expect(find.textContaining('Ask'), findsNothing);
+  });
+
+  testWidgets('[UIX-01/AC2] a registered hub slot appears as a tab', (t) async {
+    await _pump(
+      t,
+      '/library/recordings/rec-a',
+      extra: [
+        recordingHubSlotsProvider.overrideWithValue([
+          RecordingHubSlot(
+            id: 'test-slot',
+            label: (_) => 'Slot label',
+            builder: (_, id) => Text('slot for $id'),
+          ),
+        ]),
+      ],
+    );
+    expect(find.text('Slot label'), findsOneWidget);
+    await t.tap(find.text('Slot label'));
+    await t.pumpAndSettle();
+    expect(find.text('slot for rec-a'), findsOneWidget);
+  });
+
+  testWidgets('[UIX-01/AC2] the library groups date-sorted rows into one '
+      'rounded card per day group', (t) async {
+    await _pump(t, '/library');
+    expect(find.byType(GroupedCard), findsWidgets);
+    expect(find.byKey(const ValueKey('library-group-earlier')), findsOne);
+  });
+
+  test('[UIX-01/AC2] groupLibraryItems buckets by age and keeps order', () {
+    final now = DateTime(2026, 10, 16, 12);
+    LibraryItem at(String id, DateTime d) => LibraryItem(
+      id: id,
+      title: id,
+      createdAt: d,
+      duration: Duration.zero,
+      status: LibraryStatus.exported,
+    );
+    final groups = groupLibraryItems([
+      at('a', DateTime(2026, 10, 16, 9)),
+      at('b', DateTime(2026, 10, 15, 23)),
+      at('c', DateTime(2026, 10, 12)),
+      at('d', DateTime(2026, 9)),
+    ], now);
+    expect(groups.map((g) => g.group), [
+      LibraryGroup.today,
+      LibraryGroup.yesterday,
+      LibraryGroup.thisWeek,
+      LibraryGroup.earlier,
+    ]);
+    expect(groupLibraryItems(const [], now), isEmpty);
   });
 }

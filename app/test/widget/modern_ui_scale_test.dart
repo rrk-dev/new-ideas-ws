@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/misc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/features/library/presentation/library_screen.dart';
+import 'package:vaultvoice/features/library/presentation/recording_detail_screen.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_access.dart';
 import 'package:vaultvoice/features/models/data/model_import_providers.dart';
 import 'package:vaultvoice/features/models/data/model_management_providers.dart';
@@ -14,6 +15,7 @@ import 'package:vaultvoice/features/models/domain/model_management.dart';
 import 'package:vaultvoice/features/models/presentation/models_screen.dart';
 import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
 import 'package:vaultvoice/features/onboarding/presentation/onboarding_screen.dart';
+import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/recording/data/recording_providers.dart';
 import 'package:vaultvoice/features/recording/data/recording_screen_providers.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_screen.dart';
@@ -66,6 +68,13 @@ final _cases = <String, ({Widget screen, List<Override> overrides})>{
     ],
   ),
   'Library': (screen: const LibraryScreen(), overrides: libraryOverrides()),
+  'Recording detail': (
+    screen: const RecordingDetailScreen(recordingId: 'rec-a'),
+    overrides: [
+      ...libraryOverrides(),
+      processingViewsProvider.overrideWith((ref) async => const []),
+    ],
+  ),
   'Settings': (
     screen: const SettingsScreen(),
     overrides: [
@@ -98,7 +107,7 @@ void main() {
   for (final MapEntry(key: name, value: c) in _cases.entries) {
     for (final theme in GoldenTheme.values) {
       testWidgets(
-        '[APP-08/AC3] $name renders at text scale 2.0 without overflow '
+        '[APP-08/AC3][UIX-01/AC3] $name renders at text scale 2.0 without overflow '
         '(${theme.name})',
         (t) async {
           t.view
