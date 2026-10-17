@@ -1,0 +1,48 @@
+{
+  "title": "Northwind Traders fleet tracker discussion",
+  "summary": "Sofia from Tailspin Software met Dev, Kira, Hugo from Northwind Traders to discuss the fleet tracker.",
+  "participants": [
+    "Sofia",
+    "Dev",
+    "Kira",
+    "Hugo"
+  ],
+  "needs": [
+    "Work offline in the warehouse",
+    "Cut the time spent on month-end closing"
+  ],
+  "objections": [
+    {
+      "objection": "A bad experience with a previous vendor",
+      "response": "Arrange a reference conversation with a current customer"
+    },
+    {
+      "objection": "The security team has not approved cloud tools",
+      "response": "Share the security documentation for review"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Sofia",
+      "what": "Assign a dedicated onboarding engineer to the team",
+      "t": null
+    },
+    {
+      "who": "Kira",
+      "what": "Give an answer after the board meeting",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Introduce us to the finance lead",
+      "owner": "Dev",
+      "due": "Monday",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [],
+  "open_questions": [
+    "When would a pilot be able to start?"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "title": "Litware Clinics support desk discussion",
+  "summary": "Kwame from Fabrikam Systems met Farid, Elena from Litware Clinics to discuss the support desk.",
+  "participants": [
+    "Kwame",
+    "Farid",
+    "Elena"
+  ],
+  "needs": [
+    "Invoices that sync with the accounting system",
+    "Keep all customer data inside the country",
+    "Single sign-on for all staff"
+  ],
+  "objections": [
+    {
+      "objection": "The setup fee feels too high",
+      "response": "Waive half of the setup fee for a signed pilot"
+    },
+    {
+      "objection": "Support hours are too short for the night shift",
+      "response": "Offer an extended support plan around the clock"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Kwame",
+      "what": "Keep the quoted price valid until the end of the quarter",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Send two customer references",
+      "owner": "Kwame",
+      "due": "the end of the month",
+      "t": null
+    },
+    {
+      "task": "Confirm the budget with finance",
+      "owner": "Farid",
+      "due": "Monday",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [],
+  "open_questions": [
+    "Can the tool handle two different currencies?"
+  ]
+}

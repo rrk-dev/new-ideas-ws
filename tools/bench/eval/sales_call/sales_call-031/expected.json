@@ -1,0 +1,49 @@
+{
+  "title": "Wingtip Logistics backup service discussion",
+  "summary": "Omar from Adatum Tools met Chloe, Liam from Wingtip Logistics to discuss the backup service.",
+  "participants": [
+    "Omar",
+    "Chloe",
+    "Liam"
+  ],
+  "needs": [
+    "Training for about forty new users",
+    "A dashboard the board can read at a glance",
+    "Single sign-on for all staff"
+  ],
+  "objections": [
+    {
+      "objection": "Support hours are too short for the night shift",
+      "response": "Offer an extended support plan around the clock"
+    },
+    {
+      "objection": "The three year contract term is too long",
+      "response": "Offer a one year term with a renewal option"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Omar",
+      "what": "Keep the quoted price valid until the end of the quarter",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Share the migration plan",
+      "owner": "Omar",
+      "due": "Friday",
+      "t": null
+    },
+    {
+      "task": "Confirm the budget with finance",
+      "owner": "Chloe",
+      "due": "the end of the month",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [],
+  "open_questions": [
+    "How does the pricing change if we add more branches?"
+  ]
+}

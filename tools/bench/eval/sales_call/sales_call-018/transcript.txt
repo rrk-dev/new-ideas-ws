@@ -1,0 +1,12 @@
+[00:00:00] Omar: Hi everyone, thanks for meeting. I am Omar from Tailspin Software.
+[00:00:04] Chloe: Good to meet you, I am Chloe from Woodgrove Foods.
+[00:00:08] Omar: Today I would like to talk about our inventory scanner and what matters most to you.
+[00:00:14] Omar: What is most important for you right now?
+[00:00:17] Chloe: We want single sign-on for all of our staff.
+[00:00:21] Chloe: I am worried the migration will take too long.
+[00:00:25] Omar: Our team handles the data migration for you.
+[00:00:28] Omar: I promise that your data will be deleted on request within thirty days.
+[00:00:33] Chloe: We will not sign with anyone else before we hear back from you.
+[00:00:38] Omar: I will prepare a custom quote by the end of the month.
+[00:00:43] Chloe: Sounds good, thank you.
+[00:00:45] Omar: Thanks everyone, talk soon.

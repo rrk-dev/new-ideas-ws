@@ -1,0 +1,43 @@
+{
+  "title": "Proseware Retail reporting dashboard discussion",
+  "summary": "Ana from Tailspin Software met Liam, Kira from Proseware Retail to discuss the reporting dashboard.",
+  "participants": [
+    "Ana",
+    "Liam",
+    "Kira"
+  ],
+  "needs": [
+    "Work offline in the warehouse"
+  ],
+  "objections": [
+    {
+      "objection": "Not sure the reports are detailed enough",
+      "response": "Custom reports can be built with the editor"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Ana",
+      "what": "Keep the quoted price valid until the end of the quarter",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Send the current report samples",
+      "owner": "Liam",
+      "due": "Friday",
+      "t": null
+    },
+    {
+      "task": "Send two customer references",
+      "owner": "Ana",
+      "due": null,
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [
+    "Initech Reports"
+  ],
+  "open_questions": []
+}

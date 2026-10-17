@@ -175,6 +175,45 @@ Map<String, Object?> lectureFull() => {
   'references': ['Introduction to Algorithms, chapter 22'],
 };
 
+/// Sales conversation data with every optional field non-null.
+Map<String, Object?> salesCallFull() => {
+  'title': 'Northwind pilot discussion',
+  'summary':
+      'Ana from Contoso Cloud met Ben from Northwind to discuss a pilot of '
+      'the reporting product. Ben raised price and migration effort.',
+  'participants': ['Ana', 'Ben'],
+  'needs': ['Weekly reports without manual exports', 'Single sign-on'],
+  'objections': [
+    {
+      'objection': 'The price is above the current budget',
+      'response': 'Ana offered a smaller pilot tier',
+    },
+    {'objection': 'Migration may take too long', 'response': null},
+  ],
+  'commitments': [
+    {'who': 'Ana', 'what': 'Share a migration plan', 't': '00:21:40'},
+    {'who': 'Ben', 'what': 'Ask finance about the budget', 't': '00:22:05'},
+  ],
+  'next_steps': [
+    {
+      'task': 'Send the pilot proposal',
+      'owner': 'Ana',
+      'due': 'Friday',
+      'due_iso': '2026-10-16',
+      't': '00:23:10',
+    },
+    {
+      'task': 'Book a follow-up meeting with finance',
+      'owner': null,
+      'due': null,
+      'due_iso': null,
+      't': '00:24:00',
+    },
+  ],
+  'competitors_mentioned': ['Fabrikam Reports'],
+  'open_questions': ['Which team will own the rollout?'],
+};
+
 /// Fills every string of the value (recursively) with adversarial text.
 Object? adversarial(Object? value, [int seed = 0]) {
   var i = seed;

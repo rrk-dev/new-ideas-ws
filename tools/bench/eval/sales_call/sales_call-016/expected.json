@@ -1,0 +1,37 @@
+{
+  "title": "Northwind Traders fleet tracker discussion",
+  "summary": "Kwame from Adatum Tools met Gita from Northwind Traders to discuss the fleet tracker.",
+  "participants": [
+    "Kwame",
+    "Gita"
+  ],
+  "needs": [
+    "Weekly reports without exporting spreadsheets by hand",
+    "A dashboard the board can read at a glance"
+  ],
+  "objections": [
+    {
+      "objection": "A bad experience with a previous vendor",
+      "response": null
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Kwame",
+      "what": "Guarantee ninety nine point nine percent uptime in the contract",
+      "t": null
+    },
+    {
+      "who": "Gita",
+      "what": "Give an answer after the board meeting",
+      "t": null
+    }
+  ],
+  "next_steps": [],
+  "competitors_mentioned": [
+    "Hooli Suite"
+  ],
+  "open_questions": [
+    "When would a pilot be able to start?"
+  ]
+}

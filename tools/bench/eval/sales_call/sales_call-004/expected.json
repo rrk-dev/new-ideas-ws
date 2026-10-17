@@ -1,0 +1,48 @@
+{
+  "title": "Proseware Retail scheduling tool discussion",
+  "summary": "Priya from Contoso Cloud met Iris, Elena, Mina from Proseware Retail to discuss the scheduling tool.",
+  "participants": [
+    "Priya",
+    "Iris",
+    "Elena",
+    "Mina"
+  ],
+  "needs": [
+    "A dashboard the board can read at a glance",
+    "Single sign-on for all staff",
+    "Role based access so interns cannot see salaries"
+  ],
+  "objections": [
+    {
+      "objection": "The security team has not approved cloud tools",
+      "response": "Share the security documentation for review"
+    },
+    {
+      "objection": "Not sure the reports are detailed enough",
+      "response": "Custom reports can be built with the editor"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Mina",
+      "what": "Bring the finance lead into the next discussion",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Share the list of required integrations",
+      "owner": "Elena",
+      "due": "next Tuesday",
+      "t": null
+    },
+    {
+      "task": "Prepare a custom quote",
+      "owner": "Priya",
+      "due": "next Tuesday",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [],
+  "open_questions": []
+}

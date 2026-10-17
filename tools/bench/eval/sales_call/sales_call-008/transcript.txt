@@ -1,0 +1,20 @@
+[00:00:00] Kwame: Hi everyone, thanks for meeting. I am Kwame from Fabrikam Systems.
+[00:00:04] Farid: Good to meet you, I am Farid from Litware Clinics.
+[00:00:08] Elena: Good to meet you, I am Elena from Litware Clinics.
+[00:00:12] Kwame: Today I would like to talk about our support desk and what matters most to you.
+[00:00:18] Kwame: What is most important for you right now?
+[00:00:21] Farid: We want the invoices to sync with our accounting system.
+[00:00:25] Elena: We must keep all customer data inside the country.
+[00:00:29] Elena: We want single sign-on for all of our staff.
+[00:00:33] Elena: The setup fee feels too high.
+[00:00:35] Kwame: We can waive half of the setup fee for a signed pilot.
+[00:00:40] Farid: Support hours seem too short for our night shift.
+[00:00:44] Kwame: We offer an extended support plan around the clock.
+[00:00:48] Kwame: I will keep the quoted price valid until the end of the quarter.
+[00:00:53] Elena: Can the tool handle two different currencies?
+[00:00:56] Kwame: Good question, let us come back to that another time.
+[00:01:00] Kwame: I will send two customer references by the end of the month.
+[00:01:05] Farid: Sounds good, thank you.
+[00:01:07] Farid: I will confirm the budget with finance by Monday.
+[00:01:11] Kwame: Sounds good, thank you.
+[00:01:13] Kwame: Thanks everyone, talk soon.

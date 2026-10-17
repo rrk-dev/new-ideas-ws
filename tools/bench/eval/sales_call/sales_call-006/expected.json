@@ -1,0 +1,46 @@
+{
+  "title": "Trey Research payroll module discussion",
+  "summary": "Lena from Contoso Cloud met Gita, Liam from Trey Research to discuss the payroll module.",
+  "participants": [
+    "Lena",
+    "Gita",
+    "Liam"
+  ],
+  "needs": [
+    "Weekly reports without exporting spreadsheets by hand",
+    "Cut the time spent on month-end closing"
+  ],
+  "objections": [
+    {
+      "objection": "The three year contract term is too long",
+      "response": null
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Gita",
+      "what": "Bring the finance lead into the next discussion",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Schedule a technical demo for the team",
+      "owner": "Lena",
+      "due": "next week",
+      "t": null
+    },
+    {
+      "task": "Review the contract draft",
+      "owner": "Liam",
+      "due": "tomorrow",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [
+    "Stark Data"
+  ],
+  "open_questions": [
+    "How does the pricing change if we add more branches?"
+  ]
+}

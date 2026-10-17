@@ -1,0 +1,92 @@
+---
+title: {{#yaml}}{{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}{{/yaml}}
+date: {{meta.date}}
+time: {{#yaml}}{{meta.time}}{{/yaml}}
+duration: {{#yaml}}{{meta.duration_human}}{{/yaml}}
+type: {{#yaml}}{{meta.profile_id}}{{/yaml}}
+participants: {{#yaml_list}}data.participants{{/yaml_list}}
+tags: {{#yaml_list}}meta.tags{{/yaml_list}}
+source: vaultvoice
+recording_id: {{#yaml}}{{meta.recording_id}}{{/yaml}}
+{{#meta.has_consent_at}}
+consent_at: {{#yaml}}{{meta.consent_at}}{{/yaml}}
+{{/meta.has_consent_at}}
+---
+
+# {{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}
+
+{{#has_summary}}
+## Summary
+
+{{data.summary}}
+
+{{/has_summary}}
+{{#has_participants}}
+## Participants
+
+{{#data.participants}}
+- {{.}}
+{{/data.participants}}
+
+{{/has_participants}}
+{{#has_needs}}
+## Needs
+
+{{#data.needs}}
+- {{.}}
+{{/data.needs}}
+
+{{/has_needs}}
+{{#has_objections}}
+## Objections
+
+{{#data.objections}}
+- {{objection}}
+{{#has_response}}
+  - Response: {{response}}
+{{/has_response}}
+{{/data.objections}}
+
+{{/has_objections}}
+{{#has_commitments}}
+## Commitments
+
+{{#data.commitments}}
+- **{{who}}**: {{what}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.commitments}}
+
+{{/has_commitments}}
+## Next Steps
+
+{{#data.next_steps}}
+- [ ] {{task}}{{#has_owner}} (@{{owner}}){{/has_owner}}{{#has_due_iso}} 📅 {{due_iso}}{{/has_due_iso}}{{^has_due_iso}}{{#has_due}} — due: {{due}}{{/has_due}}{{/has_due_iso}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.next_steps}}
+{{^has_next_steps}}
+_No next steps._
+{{/has_next_steps}}
+
+{{#has_competitors_mentioned}}
+## Competitors Mentioned
+
+{{#data.competitors_mentioned}}
+- {{.}}
+{{/data.competitors_mentioned}}
+
+{{/has_competitors_mentioned}}
+{{#has_open_questions}}
+## Open Questions
+
+{{#data.open_questions}}
+- {{.}}
+{{/data.open_questions}}
+
+{{/has_open_questions}}
+{{audio_link}}
+
+---
+
+_Generated on-device by Lumen · {{meta.duration_human}}._
+{{! Built-in Obsidian template for the Sales conversation profile (TPL-02).
+    Front-matter must start on line 1. Strict mode: sections only on lists,
+    bools, maps or null; every nullable scalar X has a bool has_X.
+    Reference: docs/templates.md }}

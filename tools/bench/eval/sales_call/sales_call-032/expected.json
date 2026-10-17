@@ -1,0 +1,43 @@
+{
+  "title": "Lucerne Publishing scheduling tool discussion",
+  "summary": "Kwame from Contoso Cloud met Elena from Lucerne Publishing to discuss the scheduling tool.",
+  "participants": [
+    "Kwame",
+    "Elena"
+  ],
+  "needs": [
+    "Cut the time spent on month-end closing"
+  ],
+  "objections": [
+    {
+      "objection": "Support hours are too short for the night shift",
+      "response": null
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Kwame",
+      "what": "Keep the quoted price valid until the end of the quarter",
+      "t": null
+    },
+    {
+      "who": "Elena",
+      "what": "Give an answer after the board meeting",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Arrange access to the test environment",
+      "owner": "Elena",
+      "due": null,
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [
+    "Vandelay Tools"
+  ],
+  "open_questions": [
+    "How does the pricing change if we add more branches?"
+  ]
+}

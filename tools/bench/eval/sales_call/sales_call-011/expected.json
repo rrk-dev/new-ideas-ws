@@ -1,0 +1,43 @@
+{
+  "title": "Northwind Traders fleet tracker discussion",
+  "summary": "Lena from Adatum Tools met Liam from Northwind Traders to discuss the fleet tracker.",
+  "participants": [
+    "Lena",
+    "Liam"
+  ],
+  "needs": [
+    "Duplicate records across branches",
+    "A dashboard the board can read at a glance"
+  ],
+  "objections": [
+    {
+      "objection": "Not sure the reports are detailed enough",
+      "response": "Custom reports can be built with the editor"
+    },
+    {
+      "objection": "Does not see how it fits the current system",
+      "response": null
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Lena",
+      "what": "Personally join the first training session",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Share the list of required integrations",
+      "owner": "Liam",
+      "due": "next Tuesday",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [
+    "Globex Analytics"
+  ],
+  "open_questions": [
+    "How does the pricing change if we add more branches?"
+  ]
+}

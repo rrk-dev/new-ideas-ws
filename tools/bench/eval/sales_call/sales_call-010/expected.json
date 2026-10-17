@@ -1,0 +1,54 @@
+{
+  "title": "Proseware Retail payroll module discussion",
+  "summary": "Sofia from Tailspin Software met Ben, Kira, Iris from Proseware Retail to discuss the payroll module.",
+  "participants": [
+    "Sofia",
+    "Ben",
+    "Kira",
+    "Iris"
+  ],
+  "needs": [
+    "Keep all customer data inside the country",
+    "A dashboard the board can read at a glance"
+  ],
+  "objections": [
+    {
+      "objection": "Not sure the reports are detailed enough",
+      "response": "Custom reports can be built with the editor"
+    },
+    {
+      "objection": "The price is higher than the budget allows",
+      "response": "Start with a smaller pilot tier"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Sofia",
+      "what": "Keep the quoted price valid until the end of the quarter",
+      "t": null
+    },
+    {
+      "who": "Ben",
+      "what": "Give an answer after the board meeting",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Review the contract draft",
+      "owner": "Ben",
+      "due": "tomorrow",
+      "t": null
+    },
+    {
+      "task": "Share the list of required integrations",
+      "owner": "Iris",
+      "due": null,
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [
+    "Umbrella Metrics"
+  ],
+  "open_questions": []
+}

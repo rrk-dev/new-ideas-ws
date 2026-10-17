@@ -1,0 +1,32 @@
+{
+  "title": "Northwind Traders reporting dashboard discussion",
+  "summary": "Lena from Contoso Cloud met Ben, Iris from Northwind Traders to discuss the reporting dashboard.",
+  "participants": [
+    "Lena",
+    "Ben",
+    "Iris"
+  ],
+  "needs": [
+    "Keep all customer data inside the country"
+  ],
+  "objections": [],
+  "commitments": [
+    {
+      "who": "Lena",
+      "what": "Assign a dedicated onboarding engineer to the team",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Arrange access to the test environment",
+      "owner": "Iris",
+      "due": "the end of the month",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [
+    "Hooli Suite"
+  ],
+  "open_questions": []
+}

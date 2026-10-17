@@ -1,0 +1,18 @@
+[00:00:00] Lena: Hi everyone, thanks for meeting. I am Lena from Contoso Cloud.
+[00:00:04] Gita: Good to meet you, I am Gita from Trey Research.
+[00:00:08] Liam: Good to meet you, I am Liam from Trey Research.
+[00:00:12] Lena: Today I would like to talk about our payroll module and what matters most to you.
+[00:00:18] Lena: What is most important for you right now?
+[00:00:21] Liam: We need weekly reports without exporting spreadsheets by hand.
+[00:00:25] Liam: We need to cut the time spent on month-end closing.
+[00:00:29] Liam: We are also looking at Stark Data for this.
+[00:00:33] Liam: The contract term of three years is too long for us.
+[00:00:37] Liam: Actually, never mind, that is not a real concern for us.
+[00:00:41] Gita: I will bring the finance lead into the next discussion.
+[00:00:45] Liam: How does the pricing change if we add more branches?
+[00:00:49] Lena: Good question, let us come back to that another time.
+[00:00:53] Lena: I will schedule a technical demo for the team by next week.
+[00:00:58] Gita: Sounds good, thank you.
+[00:01:00] Liam: I will review the contract draft by tomorrow.
+[00:01:03] Lena: Sounds good, thank you.
+[00:01:05] Lena: Thanks everyone, talk soon.

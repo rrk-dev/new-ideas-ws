@@ -1,0 +1,44 @@
+{
+  "_doc": "Scoring config for run.py (TPL-02). Per-field targets are also recorded in tasks/14-product-phase2/TPL-02-sales-conversation-profile.md (written before the first baseline).",
+  "prose": [
+    "title",
+    "summary"
+  ],
+  "scalars": {},
+  "lists": {
+    "participants": {
+      "match": "name"
+    },
+    "needs": {},
+    "objections": {
+      "key": "objection"
+    },
+    "commitments": {
+      "key": "what",
+      "fields": {
+        "who": "name"
+      }
+    },
+    "next_steps": {
+      "key": "task",
+      "fields": {
+        "owner": "name",
+        "due": "text"
+      }
+    },
+    "competitors_mentioned": {},
+    "open_questions": {}
+  },
+  "ignore": [
+    "t"
+  ],
+  "targets": {
+    "lists.next_steps.recall": 0.6,
+    "lists.next_steps.precision": 0.6,
+    "lists.next_steps.owner_accuracy": 0.5,
+    "lists.objections.recall": 0.5,
+    "lists.commitments.recall": 0.5,
+    "lists.needs.recall": 0.5,
+    "schema_valid": 0.9
+  }
+}

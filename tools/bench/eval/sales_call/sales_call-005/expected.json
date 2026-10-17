@@ -1,0 +1,57 @@
+{
+  "title": "Proseware Retail support desk discussion",
+  "summary": "Marcus from Adatum Tools met Hugo from Proseware Retail to discuss the support desk.",
+  "participants": [
+    "Marcus",
+    "Hugo"
+  ],
+  "needs": [
+    "Invoices that sync with the accounting system",
+    "A dashboard the board can read at a glance",
+    "Weekly reports without exporting spreadsheets by hand"
+  ],
+  "objections": [
+    {
+      "objection": "The setup fee feels too high",
+      "response": "Waive half of the setup fee for a signed pilot"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Marcus",
+      "what": "Delete the data on request within thirty days",
+      "t": null
+    },
+    {
+      "who": "Hugo",
+      "what": "Not sign with anyone else before hearing back",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Arrange access to the test environment",
+      "owner": "Hugo",
+      "due": "next week",
+      "t": null
+    },
+    {
+      "task": "Send the current report samples",
+      "owner": "Hugo",
+      "due": "tomorrow",
+      "t": null
+    },
+    {
+      "task": "Schedule a technical demo for the team",
+      "owner": "Marcus",
+      "due": "the end of the month",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [
+    "Initech Reports"
+  ],
+  "open_questions": [
+    "Can the tool handle two different currencies?"
+  ]
+}

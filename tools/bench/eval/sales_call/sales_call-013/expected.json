@@ -1,0 +1,59 @@
+{
+  "title": "Litware Clinics reporting dashboard discussion",
+  "summary": "Sofia from Fabrikam Systems met Dev from Litware Clinics to discuss the reporting dashboard.",
+  "participants": [
+    "Sofia",
+    "Dev"
+  ],
+  "needs": [
+    "Keep all customer data inside the country",
+    "Cut the time spent on month-end closing",
+    "Work offline in the warehouse"
+  ],
+  "objections": [
+    {
+      "objection": "Does not see how it fits the current system",
+      "response": "There is a ready made connector for the system"
+    },
+    {
+      "objection": "The security team has not approved cloud tools",
+      "response": "Share the security documentation for review"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Sofia",
+      "what": "Assign a dedicated onboarding engineer to the team",
+      "t": null
+    },
+    {
+      "who": "Dev",
+      "what": "Bring the finance lead into the next discussion",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Schedule a technical demo for the team",
+      "owner": "Sofia",
+      "due": "Friday",
+      "t": null
+    },
+    {
+      "task": "Confirm the budget with finance",
+      "owner": "Dev",
+      "due": "next Tuesday",
+      "t": null
+    },
+    {
+      "task": "Prepare a custom quote",
+      "owner": "Sofia",
+      "due": "the end of the month",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [],
+  "open_questions": [
+    "How does the pricing change if we add more branches?"
+  ]
+}

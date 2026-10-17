@@ -1,0 +1,51 @@
+{
+  "title": "Proseware Retail backup service discussion",
+  "summary": "Marcus from Contoso Cloud met Dev from Proseware Retail to discuss the backup service.",
+  "participants": [
+    "Marcus",
+    "Dev"
+  ],
+  "needs": [
+    "Training for about forty new users",
+    "A mobile app for field technicians",
+    "Single sign-on for all staff"
+  ],
+  "objections": [
+    {
+      "objection": "Support hours are too short for the night shift",
+      "response": "Offer an extended support plan around the clock"
+    },
+    {
+      "objection": "Not sure the reports are detailed enough",
+      "response": "Custom reports can be built with the editor"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Marcus",
+      "what": "Guarantee ninety nine point nine percent uptime in the contract",
+      "t": null
+    },
+    {
+      "who": "Dev",
+      "what": "Not sign with anyone else before hearing back",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Send two customer references",
+      "owner": "Marcus",
+      "due": "tomorrow",
+      "t": null
+    },
+    {
+      "task": "Confirm the budget with finance",
+      "owner": "Dev",
+      "due": "next Tuesday",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [],
+  "open_questions": []
+}

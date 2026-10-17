@@ -1,0 +1,15 @@
+[00:00:00] Priya: Hi everyone, thanks for meeting. I am Priya from Contoso Cloud.
+[00:00:04] Dev: Good to meet you, I am Dev from Litware Clinics.
+[00:00:08] Priya: Today I would like to talk about our training platform and what matters most to you.
+[00:00:14] Priya: What is most important for you right now?
+[00:00:17] Dev: We need role based access so interns cannot see salaries.
+[00:00:21] Dev: We are also looking at Initech Reports for this.
+[00:00:25] Priya: I promise that your data will be deleted on request within thirty days.
+[00:00:30] Dev: We commit to a decision by the middle of next month.
+[00:00:34] Dev: Is there a limit on the number of users?
+[00:00:38] Priya: Good question, let us come back to that another time.
+[00:00:42] Priya: I will schedule a technical demo for the team by Monday.
+[00:00:46] Dev: Sounds good, thank you.
+[00:00:48] Priya: I will share the migration plan by next week.
+[00:00:52] Dev: Sounds good, thank you.
+[00:00:54] Priya: Thanks everyone, talk soon.

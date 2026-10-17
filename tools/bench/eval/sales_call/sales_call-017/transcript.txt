@@ -1,0 +1,28 @@
+[00:00:00] Omar: Hi everyone, thanks for meeting. I am Omar from Contoso Cloud.
+[00:00:04] Dev: Good to meet you, I am Dev from Coho Vineyards.
+[00:00:08] Jon: Good to meet you, I am Jon from Coho Vineyards.
+[00:00:12] Omar: Today I would like to talk about our reporting dashboard and what matters most to you.
+[00:00:18] Omar: I know the details can feel like a lot at once.
+[00:00:22] Jon: We see this a lot with teams of your size.
+[00:00:26] Dev: Let me think about how to explain that in a simple way.
+[00:00:31] Jon: Sorry, could you repeat the last part for the notes?
+[00:00:35] Omar: What is most important for you right now?
+[00:00:38] Dev: It has to work offline in the warehouse.
+[00:00:41] Dev: We are also looking at Initech Reports for this.
+[00:00:45] Jon: Our security team has not approved cloud tools yet.
+[00:00:49] Omar: We can share our security documentation for their review.
+[00:00:53] Dev: Let me think about how to explain that in a simple way.
+[00:00:58] Omar: Sorry, could you repeat the last part for the notes?
+[00:01:02] Jon: It helps to have everyone in the room for this.
+[00:01:06] Jon: I am worried the migration will take too long.
+[00:01:10] Omar: Our team handles the data migration for you.
+[00:01:13] Omar: We see this a lot with teams of your size.
+[00:01:17] Dev: I know the details can feel like a lot at once.
+[00:01:21] Dev: Sorry, could you repeat the last part for the notes?
+[00:01:25] Omar: I will keep the quoted price valid until the end of the quarter.
+[00:01:30] Dev: I will make sure our technical lead attends the demo.
+[00:01:34] Jon: I will review the contract draft.
+[00:01:36] Omar: Sounds good, thank you.
+[00:01:38] Dev: I will arrange access to the test environment by Monday.
+[00:01:42] Omar: Sounds good, thank you.
+[00:01:44] Omar: Thanks everyone, talk soon.

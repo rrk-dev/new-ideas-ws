@@ -1,0 +1,42 @@
+{
+  "title": "Trey Research training platform discussion",
+  "summary": "Ana from Adatum Tools met Ben from Trey Research to discuss the training platform.",
+  "participants": [
+    "Ana",
+    "Ben"
+  ],
+  "needs": [
+    "Single sign-on for all staff",
+    "Invoices that sync with the accounting system"
+  ],
+  "objections": [
+    {
+      "objection": "Does not see how it fits the current system",
+      "response": "There is a ready made connector for the system"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Ana",
+      "what": "Personally join the first training session",
+      "t": null
+    },
+    {
+      "who": "Ben",
+      "what": "Make sure the technical lead attends the demo",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Schedule a technical demo for the team",
+      "owner": "Ana",
+      "due": "Friday",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [
+    "Globex Analytics"
+  ],
+  "open_questions": []
+}

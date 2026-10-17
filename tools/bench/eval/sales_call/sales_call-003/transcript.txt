@@ -1,0 +1,17 @@
+[00:00:00] Tomas: Hi everyone, thanks for meeting. I am Tomas from Contoso Cloud.
+[00:00:04] Liam: Good to meet you, I am Liam from Coho Vineyards.
+[00:00:08] Chloe: Good to meet you, I am Chloe from Coho Vineyards.
+[00:00:12] Tomas: Today I would like to talk about our inventory scanner and what matters most to you.
+[00:00:18] Tomas: What is most important for you right now?
+[00:00:21] Chloe: We need role based access so interns cannot see salaries.
+[00:00:25] Chloe: The price is higher than our budget allows.
+[00:00:28] Tomas: We can start with a smaller pilot tier.
+[00:00:31] Tomas: We will assign a dedicated onboarding engineer to your team.
+[00:00:35] Liam: We commit to a decision by the middle of next month.
+[00:00:39] Chloe: I will confirm the budget with finance.
+[00:00:42] Tomas: Sounds good, thank you.
+[00:00:44] Tomas: I will book a security review session by tomorrow.
+[00:00:48] Liam: Sounds good, thank you.
+[00:00:50] Chloe: I will send the current report samples by next week.
+[00:00:54] Tomas: Sounds good, thank you.
+[00:00:56] Tomas: Thanks everyone, talk soon.

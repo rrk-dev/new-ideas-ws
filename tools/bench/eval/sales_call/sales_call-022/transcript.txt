@@ -1,0 +1,17 @@
+[00:00:00] Lena: Hi everyone, thanks for meeting. I am Lena from Tailspin Software.
+[00:00:04] Gita: Good to meet you, I am Gita from Litware Clinics.
+[00:00:08] Iris: Good to meet you, I am Iris from Litware Clinics.
+[00:00:12] Lena: Today I would like to talk about our support desk and what matters most to you.
+[00:00:18] Lena: What is most important for you right now?
+[00:00:21] Gita: We must keep all customer data inside the country.
+[00:00:25] Iris: The price is higher than our budget allows.
+[00:00:28] Lena: We can start with a smaller pilot tier.
+[00:00:31] Gita: Support hours seem too short for our night shift.
+[00:00:35] Lena: We offer an extended support plan around the clock.
+[00:00:39] Lena: I will keep the quoted price valid until the end of the quarter.
+[00:00:44] Gita: We will not sign with anyone else before we hear back from you.
+[00:00:49] Lena: I will send the pilot proposal.
+[00:00:51] Gita: Sounds good, thank you.
+[00:00:53] Lena: I will book a security review session by Friday.
+[00:00:57] Gita: Sounds good, thank you.
+[00:00:59] Lena: Thanks everyone, talk soon.

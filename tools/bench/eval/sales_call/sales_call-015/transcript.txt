@@ -1,0 +1,15 @@
+[00:00:00] Marcus: Hi everyone, thanks for meeting. I am Marcus from Adatum Tools.
+[00:00:04] Iris: Good to meet you, I am Iris from Wingtip Logistics.
+[00:00:08] Kira: Good to meet you, I am Kira from Wingtip Logistics.
+[00:00:12] Liam: Good to meet you, I am Liam from Wingtip Logistics.
+[00:00:16] Marcus: Today I would like to talk about our support desk and what matters most to you.
+[00:00:22] Marcus: What is most important for you right now?
+[00:00:25] Liam: We need weekly reports without exporting spreadsheets by hand.
+[00:00:29] Iris: We are also looking at Hooli Suite for this.
+[00:00:33] Liam: I am worried the migration will take too long.
+[00:00:37] Marcus: Our team handles the data migration for you.
+[00:00:40] Marcus: I promise that your data will be deleted on request within thirty days.
+[00:00:45] Liam: We commit to a decision by the middle of next month.
+[00:00:49] Marcus: I will send the pilot proposal by the end of the month.
+[00:00:54] Iris: Sounds good, thank you.
+[00:00:56] Marcus: Thanks everyone, talk soon.

@@ -1,0 +1,37 @@
+{
+  "title": "Wingtip Logistics backup service discussion",
+  "summary": "Priya from Contoso Cloud met Ben, Hugo from Wingtip Logistics to discuss the backup service.",
+  "participants": [
+    "Priya",
+    "Ben",
+    "Hugo"
+  ],
+  "needs": [
+    "Weekly reports without exporting spreadsheets by hand",
+    "Cut the time spent on month-end closing",
+    "Duplicate records across branches"
+  ],
+  "objections": [
+    {
+      "objection": "The setup fee feels too high",
+      "response": "Waive half of the setup fee for a signed pilot"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Hugo",
+      "what": "Bring the finance lead into the next discussion",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Introduce us to the finance lead",
+      "owner": "Ben",
+      "due": "next week",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [],
+  "open_questions": []
+}

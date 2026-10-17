@@ -1,0 +1,17 @@
+[00:00:00] Lena: Hi everyone, thanks for meeting. I am Lena from Adatum Tools.
+[00:00:04] Liam: Good to meet you, I am Liam from Northwind Traders.
+[00:00:08] Lena: Today I would like to talk about our fleet tracker and what matters most to you.
+[00:00:14] Lena: What is most important for you right now?
+[00:00:17] Liam: Our biggest problem is duplicate records across branches.
+[00:00:20] Liam: We want a dashboard that the board can read at a glance.
+[00:00:25] Liam: We are also looking at Globex Analytics for this.
+[00:00:29] Liam: I am not sure the reports are detailed enough.
+[00:00:33] Lena: You can build custom reports with the built in editor.
+[00:00:37] Liam: I do not see how this fits with our current system.
+[00:00:41] Liam: Actually, never mind, that is not a real concern for us.
+[00:00:45] Lena: I will personally join the first training session.
+[00:00:48] Liam: How does the pricing change if we add more branches?
+[00:00:52] Lena: Good question, let us come back to that another time.
+[00:00:56] Liam: I will share the list of required integrations by next Tuesday.
+[00:01:00] Lena: Sounds good, thank you.
+[00:01:02] Lena: Thanks everyone, talk soon.

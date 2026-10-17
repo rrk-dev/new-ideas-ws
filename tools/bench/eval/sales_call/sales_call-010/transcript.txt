@@ -1,0 +1,30 @@
+[00:00:00] Sofia: Hi everyone, thanks for meeting. I am Sofia from Tailspin Software.
+[00:00:04] Ben: Good to meet you, I am Ben from Proseware Retail.
+[00:00:08] Kira: Good to meet you, I am Kira from Proseware Retail.
+[00:00:12] Iris: Good to meet you, I am Iris from Proseware Retail.
+[00:00:16] Sofia: Today I would like to talk about our payroll module and what matters most to you.
+[00:00:22] Sofia: Let me think about how to explain that in a simple way.
+[00:00:27] Kira: I know the details can feel like a lot at once.
+[00:00:31] Ben: I know the details can feel like a lot at once.
+[00:00:35] Iris: Last quarter we looked at something similar internally.
+[00:00:38] Sofia: What is most important for you right now?
+[00:00:41] Ben: We must keep all customer data inside the country.
+[00:00:45] Iris: We want a dashboard that the board can read at a glance.
+[00:00:50] Ben: We are also looking at Umbrella Metrics for this.
+[00:00:54] Iris: I am not sure the reports are detailed enough.
+[00:00:58] Sofia: You can build custom reports with the built in editor.
+[00:01:02] Ben: Let me think about how to explain that in a simple way.
+[00:01:07] Kira: Sorry, could you repeat the last part for the notes?
+[00:01:11] Kira: The coffee here is much better than at our office.
+[00:01:15] Iris: The price is higher than our budget allows.
+[00:01:18] Sofia: We can start with a smaller pilot tier.
+[00:01:21] Ben: I know the details can feel like a lot at once.
+[00:01:25] Kira: I know the details can feel like a lot at once.
+[00:01:29] Iris: The coffee here is much better than at our office.
+[00:01:33] Sofia: I will keep the quoted price valid until the end of the quarter.
+[00:01:38] Ben: We will give you an answer after our board meeting.
+[00:01:42] Ben: I will review the contract draft by tomorrow.
+[00:01:45] Sofia: Sounds good, thank you.
+[00:01:47] Iris: I will share the list of required integrations.
+[00:01:50] Sofia: Sounds good, thank you.
+[00:01:52] Sofia: Thanks everyone, talk soon.

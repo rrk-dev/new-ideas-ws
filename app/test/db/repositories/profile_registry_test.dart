@@ -48,6 +48,7 @@ void main() {
       'warranty',
       'engineering',
       'lecture',
+      'sales_call',
     ]);
     expect(await db.profilesRepository.watchProfiles().first, isEmpty);
     final meeting = expectOk(await registry.get('meeting'));

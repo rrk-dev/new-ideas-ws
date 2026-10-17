@@ -1,0 +1,27 @@
+[00:00:00] Marcus: Hi everyone, thanks for meeting. I am Marcus from Tailspin Software.
+[00:00:04] Liam: Good to meet you, I am Liam from Lucerne publishing
+[00:00:08] Jon: Good to meet you, I am Jon from Lucerne Publishing.
+[00:00:12] Elena: Good to meet you, okay so I am elena from Lucerne publishing
+[00:00:16] Marcus: Today I would like to talk you know about our fleet tracker and what matters most to you.
+[00:00:22] Liam: it helps to have everyone in the room for this.
+[00:00:26] Liam: We see this a lot with teams of your size.
+[00:00:30] Marcus: That is a fair point and we should keep it in mind.
+[00:00:35] Marcus: uh last quartr we looked at something similar internally
+[00:00:38] Marcus: What is most important four uh you right now?
+[00:00:41] Jon: We must keep all customer data inside the country.
+[00:00:45] Liam: I am not sure the reports are detailed enough
+[00:00:49] Marcus: you okay so can build custom reports with the built in editor.
+[00:00:53] Elena: We see this a lot with teams of your size.
+[00:00:57] Jon: Sorry, could you repeat the last part four the notes?
+[00:01:01] Liam: Sorry, could you repeat the last part for the notes?
+[00:01:05] Liam: We had so a bad experience with a previous vendor.
+[00:01:09] Marcus: We can arrange a refeence conversation with a current cusomer.
+[00:01:13] Elena: Let me think about how to explain that in a simple way.
+[00:01:18] Liam: we see this a lot with teams of your size.
+[00:01:22] Jon: That is a fair point and we should keep it in mind.
+[00:01:27] Liam: I will bring the finance lead into the next discussion.
+[00:01:31] Jon: How does the pricing change if we add more branches?
+[00:01:35] Marcus: Good queston let us come back to that another time
+[00:01:39] Elena: I will confirm the budget with finance buy Friday.
+[00:01:43] Marcus: Sounds good, thank you
+[00:01:45] Marcus: Thanks everyone, talk soon.

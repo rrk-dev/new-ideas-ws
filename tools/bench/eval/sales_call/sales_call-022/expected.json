@@ -1,0 +1,50 @@
+{
+  "title": "Litware Clinics support desk discussion",
+  "summary": "Lena from Tailspin Software met Gita, Iris from Litware Clinics to discuss the support desk.",
+  "participants": [
+    "Lena",
+    "Gita",
+    "Iris"
+  ],
+  "needs": [
+    "Keep all customer data inside the country"
+  ],
+  "objections": [
+    {
+      "objection": "The price is higher than the budget allows",
+      "response": "Start with a smaller pilot tier"
+    },
+    {
+      "objection": "Support hours are too short for the night shift",
+      "response": "Offer an extended support plan around the clock"
+    }
+  ],
+  "commitments": [
+    {
+      "who": "Lena",
+      "what": "Keep the quoted price valid until the end of the quarter",
+      "t": null
+    },
+    {
+      "who": "Gita",
+      "what": "Not sign with anyone else before hearing back",
+      "t": null
+    }
+  ],
+  "next_steps": [
+    {
+      "task": "Send the pilot proposal",
+      "owner": "Lena",
+      "due": null,
+      "t": null
+    },
+    {
+      "task": "Book a security review session",
+      "owner": "Lena",
+      "due": "Friday",
+      "t": null
+    }
+  ],
+  "competitors_mentioned": [],
+  "open_questions": []
+}
