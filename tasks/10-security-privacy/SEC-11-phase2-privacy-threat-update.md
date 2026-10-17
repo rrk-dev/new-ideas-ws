@@ -1,6 +1,6 @@
 # SEC-11 — Phase 2 privacy, egress and threat-model update
 
-**Workstream:** Security & Privacy | **Phase:** 5 | **Size:** M | **Depends on:** SEC-02, SEC-06, SEC-08, QCP-02, QCP-03, ASK-03, MAP-01, TSK-02, TSK-03 | **Source:** User decision 2026-10-16 (product Phase 2); Gap (new data flows need re-audit)
+**Workstream:** Security & Privacy | **Phase:** 5 | **Size:** M | **Depends on:** SEC-02, SEC-06, SEC-08, QCP-02, QCP-03, ASK-03, MAP-01, TSK-02 | **Source:** User decision 2026-10-16 (product Phase 2); Gap (new data flows need re-audit)
 **Status:** todo
 **Skills:** vv-task-workflow, vv-privacy-security, vv-ci-release, vv-testing
 
@@ -8,9 +8,9 @@
 The privacy promise, store disclosures and threat model remain true after quick capture, ask-your-notes, mind maps and task export ship.
 
 ## Scope
-- [ ] Confirm no third-party integration host or credential code ships (Todoist was dropped 2026-10-17); apply any privacy-doc amendments ADR-TSK-01 required (human-approved).
-- [ ] Update `docs/privacy-audit.md`: new native targets and App Group data (what the widget extension can read), stored chat history and mind maps (encryption, backup exclusion, deletion), Reminders access (on-device), Apple Notes export (on-device route per ADR-TSK-01) and exactly which text the user selected for export.
-- [ ] Update `docs/threat-model.md` with: widget/App Intent/tile spoofing or replay of start requests, another app invoking the intent, content leaking onto Lock Screen surfaces, prompt injection through transcripts into Ask answers and mind-map labels (including model output rendered into Markdown), retrieval returning another user profile's data on shared devices, and misuse of the export route (text the user did not select).
+- [ ] Confirm no third-party integration host or credential code ships (Todoist and Apple Notes were dropped 2026-10-17); apply any privacy-doc amendments ADR-TSK-01 required (human-approved).
+- [ ] Update `docs/privacy-audit.md`: new native targets and App Group data (what the widget extension can read), stored chat history and mind maps (encryption, backup exclusion, deletion), Reminders access (on-device), exactly which text the user selected for export to Reminders.
+- [ ] Update `docs/threat-model.md` with: widget/App Intent/tile spoofing or replay of start requests, another app invoking the intent, content leaking onto Lock Screen surfaces, prompt injection through transcripts into Ask answers and mind-map labels (including model output rendered into Markdown), retrieval returning another user profile's data on shared devices, and export of text the user did not select.
 - [ ] Re-run the dependency/licence review for anything added by Phase 2 (`tools/ci` dependency checks, `docs/licenses.md`, Llama 3.2 3B attribution) and the egress test over the full Phase 2 flows.
 - [ ] Extend automated checks where a rule can be machine-checked: the egress script covers any new integration host by name; the recording-policy script covers the new native targets and manifest components; a test asserts widget/control data contains no recording-derived fields.
 - [ ] Update store privacy answers and listings (SEC-06: Apple privacy manifest / App Privacy answers, Google Data Safety) and `docs/store/` text for the new permissions and data flows.
