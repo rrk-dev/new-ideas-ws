@@ -20,7 +20,7 @@ import 'package:vaultvoice/features/recording/domain/start_source.dart';
 import 'package:vaultvoice/features/recording/presentation/audio_import_flow.dart';
 import 'package:vaultvoice/features/recording/presentation/battery_guidance.dart';
 import 'package:vaultvoice/features/recording/presentation/call_guard_debug_screen.dart';
-import 'package:vaultvoice/features/recording/presentation/level_meter_bar.dart';
+import 'package:vaultvoice/features/recording/presentation/live_waveform.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_debug_screen.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_details_sheet.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_indicator_binding.dart';
@@ -353,10 +353,10 @@ class _RecordScreenState extends ConsumerState<RecordScreen>
                   const SizedBox(height: AppSpacing.lg),
                   _Timer(state: state),
                   const SizedBox(height: AppSpacing.md),
-                  if (phase == RecordingPhase.recording)
-                    const LevelMeterBar()
-                  else
-                    const SizedBox(height: AppSpacing.sm),
+                  LiveWaveform(
+                    key: const ValueKey('live-waveform'),
+                    active: phase == RecordingPhase.recording,
+                  ),
                   const SizedBox(height: AppSpacing.xxl),
                   _Controls(
                     phase: phase,

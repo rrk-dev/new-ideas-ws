@@ -15,6 +15,7 @@ import 'package:vaultvoice/features/recording/data/recording_session_service.dar
 import 'package:vaultvoice/features/recording/domain/level_meter.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
 import 'package:vaultvoice/features/recording/domain/recording_session.dart';
+import 'package:vaultvoice/features/recording/presentation/live_waveform.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
 
@@ -186,11 +187,14 @@ void main() {
       'with timer, meter and details sheet', (t) async {
     await pump(t);
     expect(find.text('00:00'), findsOneWidget);
-    expect(find.byKey(const ValueKey('level-meter')), findsNothing);
+    bool waveformActive() => t
+        .widget<LiveWaveform>(find.byKey(const ValueKey('live-waveform')))
+        .active;
+    expect(waveformActive(), isFalse);
     await t.tap(main());
     await t.pump();
     expect(status(t), 'Recording');
-    expect(find.byKey(const ValueKey('level-meter')), findsOneWidget);
+    expect(waveformActive(), isTrue);
     expect(session.applied.single.$1, 'rec-1');
 
     levels.add(const AudioLevel(rmsDbfs: -20, peakDbfs: -10));

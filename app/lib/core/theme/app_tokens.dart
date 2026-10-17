@@ -43,6 +43,11 @@ abstract final class AppSizes {
   static const double recordButton = 112;
   static const double recordRing = 148;
   static const double meterHeight = 12;
+  static const double waveformHeight = 40;
+  static const double waveformBar = 4;
+  static const double waveformGap = 3;
+  static const double waveformMinAlpha = 0.35;
+  static const int waveformCapacity = 96;
   static const double progressHeight = 6;
   static const double stepDot = 8;
   static const double stepDotActive = 24;
