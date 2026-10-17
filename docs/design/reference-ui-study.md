@@ -7,8 +7,8 @@ only**. Lumen keeps its own identity (tokens in `app/lib/core/theme/app_tokens.d
 ## Supplied material (the only source)
 Seven user-supplied screenshots (kept outside the repo; not copied here) of the reference app:
 1. Ask screen (chat) 2. Live transcript 3. Language picker 4. Summary-theme picker
-5. Mind map 6. Transcript with speaker names (a low-resolution thumbnail) 7. Recording detail
-header/app bar. Nothing else about the reference app was inspected; no detail beyond these
+5. Mind map 6. Low-resolution thumbnail (unused) 7. Marketing image with a speaker-labelled
+transcript (coloured names, a tag-participant action, round app-bar buttons) beside the summary-theme picker. Nothing else about the reference app was inspected; no detail beyond these
 screens is assumed.
 
 ## What each screen contains
