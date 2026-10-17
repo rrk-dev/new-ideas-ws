@@ -1,0 +1,357 @@
+tools/bench/results/2026-10-17-eval-sales_call-Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_44eec72710a6b1::t_91faaa78822ee7 1-6699
+tools/bench/eval/sales_call/sales_call-029/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-48
+tools/bench/eval/sales_call/sales_call-031/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-49
+app/test/fixtures/markdown/golden/sales-call-logseq.full.md
+  s_44eec72710a6b1::t_455ee0c28c425c 1-32
+tools/bench/eval/sales_call/sales_call-032/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-19
+docs/templates.md
+  s_44eec72710a6b1::t_59791da6fd546a 109-111
+tools/bench/eval/sales_call/sales_call-027/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-18
+app/test/unit/templates/alternate_outputs_test.dart
+  s_44eec72710a6b1::t_ca6fb346c3fb6e 40-45
+tools/bench/eval/sales_call/sales_call-023/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-16
+tools/bench/eval/sales_call/sales_call-016/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-37
+tools/bench/eval/sales_call/gen_cases.py
+  s_44eec72710a6b1::t_f689f8191bf801 1-286
+tools/bench/eval/sales_call/sales_call-012/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-36
+app/test/fixtures/markdown/golden/sales-call-default.adversarial.md
+  s_44eec72710a6b1::t_455ee0c28c425c 1-58
+app/test/fixtures/markdown/golden/sales-call-default.full.md
+  s_44eec72710a6b1::t_455ee0c28c425c 1-58
+app/assets/templates/sales-call-logseq.mustache
+  s_44eec72710a6b1::t_e81ce6aa9384ca 1-65
+tools/bench/eval/sales_call/sales_call-010/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-41
+tools/bench/eval/sales_call/sales_call-031/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-35
+tools/bench/eval/sales_call/sales_call-022/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-35
+tools/bench/eval/sales_call/sales_call-005/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-31
+tools/bench/eval/sales_call/sales_call-011/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-17
+tools/bench/eval/sales_call/sales_call-007/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-31
+tools/bench/eval/sales_call/sales_call-031/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-20
+app/test/unit/templates/template_fixtures.dart
+  s_44eec72710a6b1::t_455ee0c28c425c 206
+  s_44eec72710a6b1::t_2c82ee8d3acb89 178-205,207-216
+tools/bench/eval/sales_call/sales_call-003/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-17
+tools/bench/eval/sales_call/sales_call-021/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-31
+tools/bench/eval/sales_call/sales_call-032/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-32
+tools/bench/eval/sales_call/sales_call-017/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-36
+tools/bench/eval/sales_call/sales_call-026/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-42
+tools/bench/eval/sales_call/sales_call-003/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-21
+tools/bench/eval/sales_call/sales_call-009/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-31
+tools/bench/eval/sales_call/sales_call-013/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-59
+tools/bench/eval/sales_call/sales_call-028/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-18
+tools/bench/eval/sales_call/sales_call-004/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-23
+app/test/fixtures/markdown/golden/sales-call-plain.empty.md
+  s_44eec72710a6b1::t_455ee0c28c425c 1-8
+tools/bench/eval/sales_call/sales_call-024/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-18
+tools/bench/eval/sales_call/sales_call-006/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-46
+tools/bench/eval/sales_call/sales_call-030/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-31
+tools/bench/eval/sales_call/sales_call-030/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-20
+app/test/unit/profiles/prompt_snapshot_test.dart
+  s_44eec72710a6b1::t_ca6fb346c3fb6e 68-72
+  s_44eec72710a6b1::t_eb13c8a08c3dee 64-67,73-74,107
+tools/bench/eval/sales_call/sales_call-008/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-35
+app/test/fixtures/markdown/golden/sales-call-default.empty.md
+  s_44eec72710a6b1::t_455ee0c28c425c 1-21
+tools/bench/eval/sales_call/sales_call-001/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-22
+tools/bench/eval/sales_call/sales_call-015/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-19
+tools/bench/eval/sales_call/sales_call-006/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-36
+app/test/db/repositories/profile_registry_test.dart
+  s_44eec72710a6b1::t_eb13c8a08c3dee 51
+tools/bench/eval/sales_call/sales_call-005/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-25
+app/test/fixtures/markdown/golden/sales-call-logseq.empty.md
+  s_44eec72710a6b1::t_455ee0c28c425c 1-11
+tools/bench/eval/sales_call/sales_call-015/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-43
+tools/bench/eval/sales_call/sales_call-022/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-17
+tasks/14-product-phase2/TPL-02-sales-conversation-profile.md
+  s_44eec72710a6b1::t_ed0765ad4917fb 4,42-59
+  s_44eec72710a6b1::t_5cdb7cf618ab1b 26-39
+  s_44eec72710a6b1::t_cd195f2bba7796 11-16
+tools/bench/eval/sales_call/sales_call-025/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-27
+tools/bench/eval/sales_call/sales_call-027/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-22
+tools/bench/eval/sales_call/sales_call-005/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-57
+app/test/unit/profiles/builtin_profiles_test.dart
+  s_44eec72710a6b1::t_eb13c8a08c3dee 44,53-59,120
+tools/bench/eval/sales_call/sales_call-024/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-14
+tools/bench/eval/sales_call/sales_call-018/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-12
+tools/bench/eval/sales_call/sales_call-024/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-37
+tools/bench/eval/sales_call/sales_call-030/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-51
+app/test/fixtures/markdown/golden/sales-call-plain.full.md
+  s_44eec72710a6b1::t_455ee0c28c425c 1-42
+tools/bench/eval/sales_call/sales_call-005/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-21
+tools/bench/eval/sales_call/sales_call-014/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-36
+tools/bench/eval/sales_call/sales_call-020/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-22
+tools/bench/eval/sales_call/sales_call-018/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-39
+tools/bench/eval/sales_call/sales_call-010/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-34
+tools/bench/eval/sales_call/sales_call-008/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-49
+tools/bench/eval/sales_call/sales_call-019/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-37
+tools/bench/eval/sales_call/sales_call-001/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-51
+tools/bench/eval/sales_call/sales_call-022/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-50
+tools/bench/eval/sales_call/sales_call-024/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-36
+tools/bench/eval/sales_call/sales_call-026/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-14
+tools/bench/eval/sales_call/sales_call-020/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-18
+tools/bench/eval/sales_call/sales_call-025/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-42
+tools/bench/eval/sales_call/sales_call-011/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-43
+app/test/unit/profiles/sales_call_profile_test.dart
+  s_44eec72710a6b1::t_1cc5f01732db08 55
+  s_44eec72710a6b1::t_ca6fb346c3fb6e 18-19,40-43,177-179,217-219,258-260,282-284,292-302,304-313,315,317-325,327,329-335,337-349
+  s_44eec72710a6b1::t_6b1db7179167bb 285-288
+  s_44eec72710a6b1::t_c9701441b4e721 220
+  s_44eec72710a6b1::t_b6356d601b928a 93-96
+  s_44eec72710a6b1::t_d098ebd5c12b3d 1-17,20-39,44-54,56-92,97-109,112,116,118-120,128-176,180-216,221-257,261-281,289-291,303,314,316,326,328,336,350
+  s_44eec72710a6b1::t_ba25e1c462e10a 110-111,113-115,117,121-127
+tools/bench/eval/sales_call/sales_call-012/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-19
+tools/bench/eval/sales_call/sales_call-017/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-32
+tools/bench/eval/sales_call/sales_call-019/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-37
+tools/bench/eval/sales_call/sales_call-010/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-30
+tools/bench/eval/sales_call/sales_call-022/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-21
+tools/bench/eval/sales_call/sales_call-029/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-40
+tools/bench/eval/sales_call/sales_call-004/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-48
+tools/bench/eval/sales_call/sales_call-023/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-20
+app/lib/features/templates/domain/builtin_templates.dart
+  s_44eec72710a6b1::t_6309036aa999ab 91-105
+tools/bench/eval/sales_call/sales_call-001/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-18
+tools/bench/eval/sales_call/sales_call-021/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-44
+app/assets/templates/sales-call-plain.mustache
+  s_44eec72710a6b1::t_e81ce6aa9384ca 1-73
+tools/bench/eval/sales_call/sales_call-026/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-30
+tools/bench/eval/README.md
+  s_44eec72710a6b1::t_ca6fb346c3fb6e 31
+  s_44eec72710a6b1::t_afe8294b0a2bb3 79-88
+app/lib/features/profiles/domain/builtin_profiles.dart
+  s_44eec72710a6b1::t_6309036aa999ab 12
+tools/bench/eval/sales_call/sales_call-028/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-22
+tools/bench/eval/sales_call/sales_call-025/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-42
+tools/bench/eval/sales_call/sales_call-014/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-15
+tools/bench/eval/sales_call/sales_call-020/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-44
+tools/bench/eval/sales_call/sales_call-007/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-17
+tools/bench/eval/sales_call/sales_call-014/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-32
+tools/bench/eval/sales_call/sales_call-012/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-15
+tools/bench/eval/sales_call/sales_call-015/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-15
+tools/bench/eval/sales_call/sales_call-027/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-48
+tools/bench/eval/sales_call/sales_call-032/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-43
+tools/bench/results/2026-10-17-eval-sales_call-Llama-3.2-1B-Instruct-Q4-K-M.md
+  s_44eec72710a6b1::t_91faaa78822ee7 1-84
+tools/bench/eval/sales_call/sales_call-031/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-24
+app/test/fixtures/markdown/golden/sales-call-logseq.adversarial.md
+  s_44eec72710a6b1::t_455ee0c28c425c 1-32
+app/assets/templates/sales-call-default.mustache
+  s_44eec72710a6b1::t_e81ce6aa9384ca 1-92
+app/test/unit/pipeline/sales_call_action_items_test.dart
+  s_44eec72710a6b1::t_ca6fb346c3fb6e 119-125,143
+  s_44eec72710a6b1::t_bff15da4d30de7 1-118,126-142,144-146
+tools/bench/eval/run.py
+  s_44eec72710a6b1::t_c91733758c3d65 151
+tools/bench/eval/sales_call/sales_call-014/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-11
+tools/bench/eval/sales_call/sales_call-006/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-22
+tools/bench/eval/sales_call/sales_call-012/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-43
+tools/bench/eval/baselines/sales_call.Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_44eec72710a6b1::t_6b1db7179167bb 1-96
+tools/bench/eval/sales_call/sales_call-004/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-19
+app/lib/features/pipeline/data/steps/render_write_steps.dart
+  s_44eec72710a6b1::t_6309036aa999ab 69-72,89-90
+app/test/unit/pipeline/production_engines_test.dart
+  s_44eec72710a6b1::t_ca6fb346c3fb6e 134-140
+tools/bench/eval/sales_call/sales_call-008/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-20
+tools/bench/eval/sales_call/sales_call-009/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-16
+tools/bench/eval/sales_call/sales_call-015/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-40
+tools/bench/eval/sales_call/sales_call-016/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-18
+tools/bench/eval/sales_call/sales_call-003/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-52
+tools/bench/eval/sales_call/sales_call-006/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-18
+tools/bench/eval/sales_call/sales_call-016/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-32
+tools/bench/eval/sales_call/sales_call-017/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-52
+tools/bench/eval/sales_call/sales_call-018/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-30
+tools/bench/eval/sales_call/sales_call-020/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-41
+tools/bench/eval/sales_call/sales_call-023/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-31
+tools/bench/eval/sales_call/sales_call-025/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-31
+tools/bench/eval/sales_call/sales_call-028/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-51
+tools/bench/eval/sales_call/sales_call-028/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-30
+tools/bench/eval/sales_call/sales_call-016/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-14
+tools/bench/eval/sales_call/sales_call-021/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-19
+docs/profile-spec.md
+  s_44eec72710a6b1::t_59791da6fd546a 12,23,44
+app/test/golden_prompts/sales_call.single_pass.txt
+  s_44eec72710a6b1::t_ca6fb346c3fb6e 1-62
+tools/bench/eval/sales_call/sales_call-017/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-28
+tools/bench/eval/sales_call/sales_call-023/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-49
+tools/bench/eval/sales_call/sales_call-030/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-24
+tools/bench/eval/sales_call/sales_call-002/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-55
+tools/bench/eval/sales_call/sales_call-026/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-18
+tools/bench/eval/sales_call/sales_call-002/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-30
+tools/bench/eval/sales_call/sales_call-032/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-15
+tools/bench/eval/sales_call/sales_call-021/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-15
+app/test/fixtures/markdown/golden/sales-call-plain.adversarial.md
+  s_44eec72710a6b1::t_455ee0c28c425c 1-42
+tools/bench/eval/sales_call/sales_call-019/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-15
+tools/bench/eval/sales_call/sales_call-009/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-20
+tools/bench/eval/sales_call/sales_call-002/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-23
+tools/bench/eval/sales_call/sales_call-004/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-40
+tools/bench/eval/sales_call/sales_call-003/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-35
+tools/bench/eval/sales_call/sales_call-013/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-22
+tools/bench/eval/sales_call/sales_call-002/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-19
+tools/bench/eval/sales_call/sales_call-009/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-39
+app/assets/profiles/sales_call.yaml
+  s_44eec72710a6b1::t_d3f0009e2d5a8b 1-121
+app/test/unit/templates/builtin_templates_golden_test.dart
+  s_44eec72710a6b1::t_2c82ee8d3acb89 23,170
+tools/bench/eval/sales_call/sales_call-001/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-30
+tools/bench/eval/sales_call/sales_call-007/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-36
+tools/bench/eval/sales_call/sales_call-013/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-26
+tools/bench/eval/sales_call/sales_call-007/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-13
+tools/bench/eval/sales_call/sales_call-010/expected.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-54
+tools/bench/eval/sales_call/sales_call-018/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-16
+tools/bench/eval/sales_call/sales_call-019/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-19
+tools/bench/eval/sales_call/sales_call-027/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-36
+tools/bench/eval/sales_call/sales_call-011/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-31
+tools/bench/eval/sales_call/scoring.json
+  s_44eec72710a6b1::t_ab83d28bbc8e7e 1-44
+tools/bench/eval/sales_call/sales_call-029/transcript.txt
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-19
+tools/bench/eval/sales_call/sales_call-011/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-21
+tools/bench/eval/sales_call/sales_call-008/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-24
+tools/bench/eval/sales_call/sales_call-013/meta.json
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-30
+tools/bench/eval/sales_call/sales_call-029/script.md
+  s_44eec72710a6b1::t_f5b7cca9976d0b 1-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d5b19090779ab72776f18c8127aeb25cd4435fd7",
+  "prompts": {},
+  "sessions": {
+    "s_44eec72710a6b1": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "0691032f-c087-409e-aad6-29e8d0d3afe9",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
