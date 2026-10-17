@@ -1,7 +1,7 @@
 # TPL-02 — Built-in profile: Sales conversation
 
 **Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** M | **Depends on:** PRF-02, PRF-03, PRF-09, EXP-01, SEC-07, SEC-09 | **Source:** User decision 2026-10-16 (product Phase 2: more summary templates)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-extraction-profiles, vv-markdown-vault-export, vv-llm-inference, vv-benchmark-eval, vv-audio-capture, vv-testing
 
 ## Goal
