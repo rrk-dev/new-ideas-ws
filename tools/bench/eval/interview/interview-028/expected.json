@@ -1,0 +1,52 @@
+{
+  "title": "Interview with Ben",
+  "summary": "Lena interviewed Ben, a pilot, in a research interview.",
+  "participants": [
+    {
+      "name": "Lena",
+      "role": "interviewer"
+    },
+    {
+      "name": "Ben",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Funding",
+    "Tools used"
+  ],
+  "qa_highlights": [
+    {
+      "question": "How did you pay for the first year?",
+      "answer": "A small grant covered the equipment and weekend consulting paid for the rest",
+      "t": null
+    },
+    {
+      "question": "Which tools do you rely on every day?",
+      "answer": "A notebook, a soldering iron and an old spreadsheet",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Ben",
+      "text": "The spreadsheet has survived four migrations.",
+      "t": null
+    }
+  ],
+  "follow_ups": [
+    {
+      "task": "Send the data tables",
+      "owner": "Ben",
+      "due": null,
+      "t": null
+    },
+    {
+      "task": "Introduce the interviewer to their former supervisor",
+      "owner": "Ben",
+      "due": null,
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

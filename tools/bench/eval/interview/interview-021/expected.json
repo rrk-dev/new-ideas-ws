@@ -1,0 +1,45 @@
+{
+  "title": "Interview with Mina",
+  "summary": "Sofia interviewed Mina, an engineer, in an informational interview.",
+  "participants": [
+    {
+      "name": "Sofia",
+      "role": "interviewer"
+    },
+    {
+      "name": "Mina",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Daily routine",
+    "Team size",
+    "Tools used"
+  ],
+  "qa_highlights": [
+    {
+      "question": "What does a normal day look like?",
+      "answer": "Starts with the overnight logs, reviews failures, and writes in the afternoon",
+      "t": null
+    },
+    {
+      "question": "How big was the team at the beginning?",
+      "answer": "Three people in a rented garage sharing a single laptop",
+      "t": null
+    },
+    {
+      "question": "Which tools do you rely on every day?",
+      "answer": "A notebook, a soldering iron and an old spreadsheet",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Mina",
+      "text": "The spreadsheet has survived four migrations.",
+      "t": null
+    }
+  ],
+  "follow_ups": [],
+  "open_questions": []
+}

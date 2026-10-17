@@ -1,0 +1,51 @@
+{
+  "_doc": "Scoring config for run.py (TPL-03). Per-field targets are also recorded in tasks/14-product-phase2/TPL-03-interview-profile.md (written before the first baseline). `verbatim` lists the quote lists checked for fidelity: list field -> text field.",
+  "prose": [
+    "title",
+    "summary"
+  ],
+  "scalars": {},
+  "lists": {
+    "participants": {
+      "key": "name",
+      "match": "name"
+    },
+    "topics": {},
+    "qa_highlights": {
+      "key": "question",
+      "fields": {
+        "answer": "text"
+      }
+    },
+    "quotes": {
+      "key": "text",
+      "fields": {
+        "speaker": "name"
+      }
+    },
+    "follow_ups": {
+      "key": "task",
+      "fields": {
+        "owner": "name",
+        "due": "text"
+      }
+    },
+    "open_questions": {}
+  },
+  "ignore": [
+    "t"
+  ],
+  "verbatim": {
+    "quotes": "text"
+  },
+  "targets": {
+    "quote_fidelity": 1.0,
+    "lists.qa_highlights.recall": 0.5,
+    "lists.qa_highlights.precision": 0.4,
+    "lists.follow_ups.recall": 0.6,
+    "lists.follow_ups.precision": 0.6,
+    "lists.follow_ups.owner_accuracy": 0.5,
+    "lists.topics.recall": 0.5,
+    "schema_valid": 0.9
+  }
+}

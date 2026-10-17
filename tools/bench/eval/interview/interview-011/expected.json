@@ -1,0 +1,75 @@
+{
+  "title": "Interview with Ben",
+  "summary": "Kwame interviewed Ben, a pilot, in an informational interview.",
+  "participants": [
+    {
+      "name": "Kwame",
+      "role": "interviewer"
+    },
+    {
+      "name": "Ben",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Community",
+    "How the project started",
+    "Early mistakes",
+    "Why it matters"
+  ],
+  "qa_highlights": [
+    {
+      "question": "What role does the community play?",
+      "answer": "Volunteers found most of the bugs",
+      "t": null
+    },
+    {
+      "question": "How did the project start?",
+      "answer": "The team noticed the sensors drifted every winter and nobody had measured it before",
+      "t": null
+    },
+    {
+      "question": "What was your biggest early mistake?",
+      "answer": "They trusted the vendor numbers without checking them",
+      "t": null
+    },
+    {
+      "question": "Why does this work matter to you?",
+      "answer": "Small errors add up over years and become wrong decisions",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Ben",
+      "text": "Without them we would still be guessing.",
+      "t": null
+    },
+    {
+      "speaker": "Ben",
+      "text": "Nobody had measured it before.",
+      "t": null
+    },
+    {
+      "speaker": "Ben",
+      "text": "Calibration matters more than hardware.",
+      "t": null
+    },
+    {
+      "speaker": "Ben",
+      "text": "A tiny drift becomes a wrong decision.",
+      "t": null
+    }
+  ],
+  "follow_ups": [
+    {
+      "task": "Share the photos from the field trip",
+      "owner": "Ben",
+      "due": null,
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "When will the final report be ready?"
+  ]
+}

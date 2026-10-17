@@ -417,3 +417,52 @@ Map<String, Object?> customFull() => {
     'emails': ['ana@example.com'],
   },
 };
+
+/// Interview data with every optional field non-null.
+Map<String, Object?> interviewFull() => {
+  'title': 'Sensor drift research interview',
+  'summary':
+      'Dana interviewed Ravi about a research project on seasonal sensor '
+      'drift and what the team learned about calibration.',
+  'participants': [
+    {'name': 'Dana', 'role': 'interviewer'},
+    {'name': 'Ravi', 'role': 'interviewee'},
+  ],
+  'topics': ['Sensor drift', 'Calibration', 'Field deployment'],
+  'qa_highlights': [
+    {
+      'question': 'How did the research project start?',
+      'answer': 'The team noticed the sensors drifted every winter.',
+      't': '00:00:12',
+    },
+    {
+      'question': 'What did you learn?',
+      'answer': 'Calibration matters more than hardware.',
+      't': '00:00:48',
+    },
+  ],
+  'quotes': [
+    {
+      'speaker': 'Ravi',
+      'text': 'Calibration matters more than hardware.',
+      't': '00:00:48',
+    },
+  ],
+  'follow_ups': [
+    {
+      'task': 'Email the written questions',
+      'owner': 'Dana',
+      'due': 'Friday',
+      'due_iso': '2026-10-16',
+      't': '00:01:10',
+    },
+    {
+      'task': 'Share the calibration notes',
+      'owner': null,
+      'due': null,
+      'due_iso': null,
+      't': '00:01:20',
+    },
+  ],
+  'open_questions': ['How often should sensors be recalibrated?'],
+};

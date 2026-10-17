@@ -1,0 +1,26 @@
+{
+  "title": "Interview with Mina",
+  "summary": "Sofia interviewed Mina, an engineer, in a research interview.",
+  "participants": [
+    {
+      "name": "Sofia",
+      "role": "interviewer"
+    },
+    {
+      "name": "Mina",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [],
+  "qa_highlights": [],
+  "quotes": [],
+  "follow_ups": [
+    {
+      "task": "Book a second session",
+      "owner": "Sofia",
+      "due": "next week",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

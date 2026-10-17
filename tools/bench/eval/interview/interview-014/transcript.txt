@@ -1,0 +1,13 @@
+[00:00:00] Lena: Welcome, and thank you for joining me. I am Lena.
+[00:00:04] Chloe: Thanks for having me, I am Chloe, and I work as a musician.
+[00:00:09] Lena: How did you pay for the first year?
+[00:00:12] Chloe: A small grant covered the equipment. Everything else came from weekend consulting work.
+[00:00:17] Lena: What are you working on next?
+[00:00:19] Chloe: A longer field study across three regions. We start collecting data in the spring.
+[00:00:25] Lena: How did people react when it came out?
+[00:00:28] Chloe: Mostly with curiosity. A few critics said the method was too slow, and they were partly right.
+[00:00:35] Lena: What role does the community play?
+[00:00:37] Chloe: Volunteers found most of our bugs. Without them we would still be guessing.
+[00:00:42] Lena: Which region will you visit first?
+[00:00:44] Chloe: Good question, I would rather not answer that today.
+[00:00:48] Lena: Thank you for your time, that was a great conversation.

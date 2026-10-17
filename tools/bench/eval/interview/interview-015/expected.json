@@ -1,0 +1,79 @@
+{
+  "title": "Interview with Iris",
+  "summary": "Marcus interviewed Iris, a teacher, in a podcast conversation.",
+  "participants": [
+    {
+      "name": "Marcus",
+      "role": "interviewer"
+    },
+    {
+      "name": "Iris",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Work and life",
+    "Mentors",
+    "Tools used",
+    "Community"
+  ],
+  "qa_highlights": [
+    {
+      "question": "How do you keep a balance?",
+      "answer": "Protects Sundays with no messages or screens and a long walk",
+      "t": null
+    },
+    {
+      "question": "Who influenced you the most?",
+      "answer": "Their first supervisor, who asked better questions instead of giving answers",
+      "t": null
+    },
+    {
+      "question": "Which tools do you rely on every day?",
+      "answer": "A notebook, a soldering iron and an old spreadsheet",
+      "t": null
+    },
+    {
+      "question": "What role does the community play?",
+      "answer": "Volunteers found most of the bugs",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Iris",
+      "text": "No messages, no screens, just a long walk.",
+      "t": null
+    },
+    {
+      "speaker": "Iris",
+      "text": "She never gave answers, she only asked better questions.",
+      "t": null
+    },
+    {
+      "speaker": "Iris",
+      "text": "The spreadsheet has survived four migrations.",
+      "t": null
+    },
+    {
+      "speaker": "Iris",
+      "text": "Without them we would still be guessing.",
+      "t": null
+    }
+  ],
+  "follow_ups": [
+    {
+      "task": "Book a second session",
+      "owner": "Marcus",
+      "due": "tomorrow",
+      "t": null
+    },
+    {
+      "task": "Email the written questions",
+      "owner": "Marcus",
+      "due": "next week",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

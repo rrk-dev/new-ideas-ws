@@ -42,6 +42,7 @@ void main() {
         'engineering',
         'lecture',
         'sales_call',
+        'interview',
       ]);
       for (final p in builtins.all) {
         expect(p.source, ProfileSource.builtin);
@@ -56,6 +57,7 @@ void main() {
         'engineering',
         'lecture',
         'sales_call',
+        'interview',
       });
     });
 
@@ -117,7 +119,13 @@ void main() {
     test('meeting keeps the Free tier; warranty/engineering tiers are a '
         'marked PRODUCT-DECISION', () {
       expect(builtins['meeting']!.tier, ProfileTier.free);
-      for (final id in ['warranty', 'engineering', 'lecture', 'sales_call']) {
+      for (final id in [
+        'warranty',
+        'engineering',
+        'lecture',
+        'sales_call',
+        'interview',
+      ]) {
         expect(builtinYaml(id), contains('PRODUCT-DECISION'));
       }
     });

@@ -1,0 +1,53 @@
+{
+  "title": "Interview with Jon",
+  "summary": "Priya interviewed Jon, a farmer, in a podcast conversation.",
+  "participants": [
+    {
+      "name": "Priya",
+      "role": "interviewer"
+    },
+    {
+      "name": "Jon",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Tools used",
+    "Advice for beginners"
+  ],
+  "qa_highlights": [
+    {
+      "question": "Which tools do you rely on every day?",
+      "answer": "A notebook, a soldering iron and an old spreadsheet",
+      "t": null
+    },
+    {
+      "question": "What would you tell someone just starting out?",
+      "answer": "Write down what you tried even when it fails",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Jon",
+      "text": "The spreadsheet has survived four migrations.",
+      "t": null
+    },
+    {
+      "speaker": "Jon",
+      "text": "Failed experiments teach you the most.",
+      "t": null
+    }
+  ],
+  "follow_ups": [
+    {
+      "task": "Check the dates in the timeline",
+      "owner": "Jon",
+      "due": "Friday",
+      "t": null
+    }
+  ],
+  "open_questions": [
+    "Who funds the follow-up study?"
+  ]
+}

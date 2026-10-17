@@ -1,0 +1,51 @@
+{
+  "title": "Interview with Chloe",
+  "summary": "Dana interviewed Chloe, a musician, in a research interview.",
+  "participants": [
+    {
+      "name": "Dana",
+      "role": "interviewer"
+    },
+    {
+      "name": "Chloe",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Tools used",
+    "Hardest decision"
+  ],
+  "qa_highlights": [
+    {
+      "question": "Which tools do you rely on every day?",
+      "answer": "A notebook, a soldering iron and an old spreadsheet",
+      "t": null
+    },
+    {
+      "question": "What was the hardest decision you made?",
+      "answer": "Closing the first workshop and keeping the tools",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Chloe",
+      "text": "The spreadsheet has survived four migrations.",
+      "t": null
+    },
+    {
+      "speaker": "Chloe",
+      "text": "We kept the tools and let the lease go.",
+      "t": null
+    }
+  ],
+  "follow_ups": [
+    {
+      "task": "Email the written questions",
+      "owner": "Dana",
+      "due": "Friday",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

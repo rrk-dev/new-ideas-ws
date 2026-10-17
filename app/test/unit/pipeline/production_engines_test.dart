@@ -137,6 +137,7 @@ void main() {
       'engineering',
       'lecture',
       'sales_call',
+      'interview',
     ]) {
       expect((await engines.profiles!(id))?.id, id);
     }

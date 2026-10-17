@@ -1,0 +1,34 @@
+[00:00:00] Lena: Welcome, and thank you for joining me. I am Lena.
+[00:00:04] Gita: Thanks for having me, I am Gita, and I work as a biologist.
+[00:00:09] Lena: Sorry, the microphone moved a little.
+[00:00:11] Gita: I had to look at my notes for that one.
+[00:00:15] Gita: I had to look at my notes for that one.
+[00:00:19] Lena: What are you working on next?
+[00:00:21] Gita: A longer field study across three regions. We start collecting data in the spring.
+[00:00:27] Lena: It is hard to explain without a drawing.
+[00:00:30] Lena: What was your biggest early mistake?
+[00:00:32] Gita: We trusted the vendor numbers without checking them. Calibration matters more than hardware.
+[00:00:37] Gita: That is something people ask me a lot.
+[00:00:40] Lena: How do you keep a balance?
+[00:00:42] Gita: I protect my Sundays —
+[00:00:44] Lena: Okay.
+[00:00:46] Gita: No messages, no screens, just a long walk.
+[00:00:49] Lena: Sorry, the microphone moved a little.
+[00:00:51] Lena: What role does the community play?
+[00:00:53] Gita: Volunteers found most of our bugs. Without them we would still be guessing.
+[00:00:58] Lena: Let me think about how to put that.
+[00:01:01] Lena: What would you tell someone just starting out?
+[00:01:04] Gita: Write down what you tried, even when it fails —
+[00:01:08] Lena: Okay.
+[00:01:10] Gita: Failed experiments teach you the most.
+[00:01:12] Lena: We could talk about this for an hour.
+[00:01:15] Lena: What surprised you most?
+[00:01:17] Gita: People wanted the data far more than the tool itself —
+[00:01:21] Lena: I see.
+[00:01:23] Gita: I did not expect that at all.
+[00:01:26] Lena: We could talk about this for an hour.
+[00:01:29] Gita: I will send you the data tables by next Tuesday.
+[00:01:33] Lena: Sounds good, thank you.
+[00:01:35] Lena: I will email you the written questions by next week.
+[00:01:39] Gita: Sounds good, thank you.
+[00:01:41] Lena: Thank you for your time, that was a great conversation.

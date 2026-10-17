@@ -1,0 +1,57 @@
+{
+  "title": "Interview with Hugo",
+  "summary": "Tomas interviewed Hugo, an author, in a newsroom interview.",
+  "participants": [
+    {
+      "name": "Tomas",
+      "role": "interviewer"
+    },
+    {
+      "name": "Hugo",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Hardest decision",
+    "Early mistakes"
+  ],
+  "qa_highlights": [
+    {
+      "question": "What was the hardest decision you made?",
+      "answer": "Closing the first workshop and keeping the tools",
+      "t": null
+    },
+    {
+      "question": "What was your biggest early mistake?",
+      "answer": "They trusted the vendor numbers without checking them",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Hugo",
+      "text": "We kept the tools and let the lease go.",
+      "t": null
+    },
+    {
+      "speaker": "Hugo",
+      "text": "Calibration matters more than hardware.",
+      "t": null
+    }
+  ],
+  "follow_ups": [
+    {
+      "task": "Check the dates in the timeline",
+      "owner": "Hugo",
+      "due": "tomorrow",
+      "t": null
+    },
+    {
+      "task": "Email the written questions",
+      "owner": "Tomas",
+      "due": "next week",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

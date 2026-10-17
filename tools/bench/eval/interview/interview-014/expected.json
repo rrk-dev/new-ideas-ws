@@ -1,0 +1,53 @@
+{
+  "title": "Interview with Chloe",
+  "summary": "Lena interviewed Chloe, a musician, in a research interview.",
+  "participants": [
+    {
+      "name": "Lena",
+      "role": "interviewer"
+    },
+    {
+      "name": "Chloe",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Funding",
+    "What is next",
+    "Public reaction",
+    "Community"
+  ],
+  "qa_highlights": [
+    {
+      "question": "How did you pay for the first year?",
+      "answer": "A small grant covered the equipment and weekend consulting paid for the rest",
+      "t": null
+    },
+    {
+      "question": "What are you working on next?",
+      "answer": "A longer field study across three regions starting in the spring",
+      "t": null
+    },
+    {
+      "question": "How did people react when it came out?",
+      "answer": "Mostly curiosity, and some critics said the method was too slow",
+      "t": null
+    },
+    {
+      "question": "What role does the community play?",
+      "answer": "Volunteers found most of the bugs",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Chloe",
+      "text": "Without them we would still be guessing.",
+      "t": null
+    }
+  ],
+  "follow_ups": [],
+  "open_questions": [
+    "Which region will you visit first?"
+  ]
+}

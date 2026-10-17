@@ -1,0 +1,69 @@
+{
+  "title": "Interview with Mina",
+  "summary": "Marcus interviewed Mina, an engineer, in a newsroom interview.",
+  "participants": [
+    {
+      "name": "Marcus",
+      "role": "interviewer"
+    },
+    {
+      "name": "Mina",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Funding",
+    "Advice for beginners",
+    "Early mistakes",
+    "Public reaction"
+  ],
+  "qa_highlights": [
+    {
+      "question": "How did you pay for the first year?",
+      "answer": "A small grant covered the equipment and weekend consulting paid for the rest",
+      "t": null
+    },
+    {
+      "question": "What would you tell someone just starting out?",
+      "answer": "Write down what you tried even when it fails",
+      "t": null
+    },
+    {
+      "question": "What was your biggest early mistake?",
+      "answer": "They trusted the vendor numbers without checking them",
+      "t": null
+    },
+    {
+      "question": "How did people react when it came out?",
+      "answer": "Mostly curiosity, and some critics said the method was too slow",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Mina",
+      "text": "Failed experiments teach you the most.",
+      "t": null
+    },
+    {
+      "speaker": "Mina",
+      "text": "Calibration matters more than hardware.",
+      "t": null
+    }
+  ],
+  "follow_ups": [
+    {
+      "task": "Introduce the interviewer to their former supervisor",
+      "owner": "Mina",
+      "due": "tomorrow",
+      "t": null
+    },
+    {
+      "task": "Email the written questions",
+      "owner": "Marcus",
+      "due": "Friday",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

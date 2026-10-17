@@ -1,0 +1,11 @@
+[00:00:00] Lena: Welcome, and thank you for joining me. I am Lena.
+[00:00:04] Ben: Thanks for having me, I am Ben, and I work as a pilot.
+[00:00:09] Lena: How did you pay for the first year?
+[00:00:12] Ben: A small grant covered the equipment. Everything else came from weekend consulting work.
+[00:00:17] Lena: Which tools do you rely on every day?
+[00:00:20] Ben: A notebook, a soldering iron and a very old spreadsheet. The spreadsheet has survived four migrations.
+[00:00:26] Ben: I will send you the data tables.
+[00:00:29] Lena: Sounds good, thank you.
+[00:00:31] Ben: I will introduce you to my former supervisor.
+[00:00:34] Lena: Sounds good, thank you.
+[00:00:36] Lena: Thank you for your time, that was a great conversation.

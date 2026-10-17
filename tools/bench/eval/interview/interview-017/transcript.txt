@@ -1,0 +1,28 @@
+[00:00:00] Dana: Welcome, and thank you for joining me. I am Dana.
+[00:00:04] Liam: Thanks for having me, I am Liam, and I work as a nurse.
+[00:00:09] Liam: Let me think about how to put that.
+[00:00:12] Liam: Sorry, the microphone moved a little.
+[00:00:14] Liam: We could talk about this for an hour.
+[00:00:17] Dana: What would you tell someone just starting out?
+[00:00:20] Liam: Write down what you tried, even when it fails. Failed experiments teach you the most.
+[00:00:26] Liam: I had to look at my notes for that one.
+[00:00:30] Dana: What was your biggest early mistake?
+[00:00:32] Liam: We trusted the vendor numbers without checking them. Calibration matters more than hardware.
+[00:00:37] Dana: We could talk about this for an hour.
+[00:00:40] Dana: Tell me about a project that failed.
+[00:00:43] Liam: We built a mobile version nobody asked for. It cost us six months and taught us to ask first.
+[00:00:51] Dana: It is hard to explain without a drawing.
+[00:00:54] Dana: Which tools do you rely on every day?
+[00:00:57] Liam: A notebook, a soldering iron and a very old spreadsheet. The spreadsheet has survived four migrations.
+[00:01:03] Dana: That is something people ask me a lot.
+[00:01:06] Dana: Who influenced you the most?
+[00:01:08] Liam: My first supervisor. She never gave answers, she only asked better questions.
+[00:01:13] Dana: That is something people ask me a lot.
+[00:01:16] Dana: What are you working on next?
+[00:01:18] Liam: A longer field study across three regions. We start collecting data in the spring.
+[00:01:24] Liam: That is something people ask me a lot.
+[00:01:27] Liam: I will introduce you to my former supervisor by next Tuesday.
+[00:01:31] Dana: Sounds good, thank you.
+[00:01:33] Liam: I will send you the data tables by tomorrow.
+[00:01:37] Dana: Sounds good, thank you.
+[00:01:39] Dana: Thank you for your time, that was a great conversation.

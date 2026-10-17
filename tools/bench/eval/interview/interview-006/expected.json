@@ -1,0 +1,32 @@
+{
+  "title": "Interview with Mina",
+  "summary": "Priya interviewed Mina, an engineer, in an informational interview.",
+  "participants": [
+    {
+      "name": "Priya",
+      "role": "interviewer"
+    },
+    {
+      "name": "Mina",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [],
+  "qa_highlights": [],
+  "quotes": [],
+  "follow_ups": [
+    {
+      "task": "Introduce the interviewer to their former supervisor",
+      "owner": "Mina",
+      "due": "the end of the month",
+      "t": null
+    },
+    {
+      "task": "Send the data tables",
+      "owner": "Mina",
+      "due": "Friday",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

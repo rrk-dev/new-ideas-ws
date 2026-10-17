@@ -1,0 +1,15 @@
+[00:00:00] Kwame: Welcome, and thank you for joining me. I am Kwame.
+[00:00:04] Ben: Thanks for having me, I am Ben, and I work as a pilot.
+[00:00:09] Kwame: What role does the community play?
+[00:00:11] Ben: Volunteers found most of our bugs. Without them we would still be guessing.
+[00:00:16] Kwame: How did the project start?
+[00:00:18] Ben: It began when we noticed the sensors drifted every winter. Nobody had measured it before.
+[00:00:24] Kwame: What was your biggest early mistake?
+[00:00:26] Ben: We trusted the vendor numbers without checking them. Calibration matters more than hardware.
+[00:00:31] Kwame: Why does this work matter to you?
+[00:00:34] Ben: Because small errors add up over years. A tiny drift becomes a wrong decision.
+[00:00:40] Kwame: When will the final report be ready?
+[00:00:43] Ben: Good question, I would rather not answer that today.
+[00:00:47] Ben: I will share the photos from the field trip.
+[00:00:51] Kwame: Sounds good, thank you.
+[00:00:53] Kwame: Thank you for your time, that was a great conversation.

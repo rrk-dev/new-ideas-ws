@@ -1,0 +1,63 @@
+{
+  "title": "Interview with Kira",
+  "summary": "Marcus interviewed Kira, an architect, in a podcast conversation.",
+  "participants": [
+    {
+      "name": "Marcus",
+      "role": "interviewer"
+    },
+    {
+      "name": "Kira",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Advice for beginners",
+    "Why it matters",
+    "Daily routine"
+  ],
+  "qa_highlights": [
+    {
+      "question": "What would you tell someone just starting out?",
+      "answer": "Write down what you tried even when it fails",
+      "t": null
+    },
+    {
+      "question": "Why does this work matter to you?",
+      "answer": "Small errors add up over years and become wrong decisions",
+      "t": null
+    },
+    {
+      "question": "What does a normal day look like?",
+      "answer": "Starts with the overnight logs, reviews failures, and writes in the afternoon",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Kira",
+      "text": "Failed experiments teach you the most.",
+      "t": null
+    },
+    {
+      "speaker": "Kira",
+      "text": "A tiny drift becomes a wrong decision.",
+      "t": null
+    }
+  ],
+  "follow_ups": [
+    {
+      "task": "Share the recording once it is edited",
+      "owner": "Marcus",
+      "due": "Friday",
+      "t": null
+    },
+    {
+      "task": "Email the written questions",
+      "owner": "Marcus",
+      "due": "Monday",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

@@ -1,0 +1,63 @@
+{
+  "title": "Interview with Ben",
+  "summary": "Priya interviewed Ben, a pilot, in a research interview.",
+  "participants": [
+    {
+      "name": "Priya",
+      "role": "interviewer"
+    },
+    {
+      "name": "Ben",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Early mistakes",
+    "Public reaction",
+    "Community",
+    "What is next"
+  ],
+  "qa_highlights": [
+    {
+      "question": "What was your biggest early mistake?",
+      "answer": "They trusted the vendor numbers without checking them",
+      "t": null
+    },
+    {
+      "question": "How did people react when it came out?",
+      "answer": "Mostly curiosity, and some critics said the method was too slow",
+      "t": null
+    },
+    {
+      "question": "What role does the community play?",
+      "answer": "Volunteers found most of the bugs",
+      "t": null
+    },
+    {
+      "question": "What are you working on next?",
+      "answer": "A longer field study across three regions starting in the spring",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Ben",
+      "text": "Calibration matters more than hardware.",
+      "t": null
+    },
+    {
+      "speaker": "Ben",
+      "text": "Without them we would still be guessing.",
+      "t": null
+    }
+  ],
+  "follow_ups": [
+    {
+      "task": "Send the data tables",
+      "owner": "Ben",
+      "due": "Monday",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

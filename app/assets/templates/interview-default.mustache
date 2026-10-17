@@ -1,0 +1,83 @@
+---
+title: {{#yaml}}{{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}{{/yaml}}
+date: {{meta.date}}
+time: {{#yaml}}{{meta.time}}{{/yaml}}
+duration: {{#yaml}}{{meta.duration_human}}{{/yaml}}
+type: {{#yaml}}{{meta.profile_id}}{{/yaml}}
+topics: {{#yaml_list}}data.topics{{/yaml_list}}
+tags: {{#yaml_list}}meta.tags{{/yaml_list}}
+source: vaultvoice
+recording_id: {{#yaml}}{{meta.recording_id}}{{/yaml}}
+{{#meta.has_consent_at}}
+consent_at: {{#yaml}}{{meta.consent_at}}{{/yaml}}
+{{/meta.has_consent_at}}
+---
+
+# {{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}
+
+{{#has_summary}}
+## Summary
+
+{{data.summary}}
+
+{{/has_summary}}
+{{#has_participants}}
+## Participants
+
+{{#data.participants}}
+- {{name}}{{#has_role}} ({{role}}){{/has_role}}
+{{/data.participants}}
+
+{{/has_participants}}
+{{#has_topics}}
+## Topics
+
+{{#data.topics}}
+- {{.}}
+{{/data.topics}}
+
+{{/has_topics}}
+{{#has_qa_highlights}}
+## Question and Answer Highlights
+
+{{#data.qa_highlights}}
+- > **Q:** {{question}}
+  >
+  > **A:** {{answer}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.qa_highlights}}
+
+{{/has_qa_highlights}}
+{{#has_quotes}}
+## Quotes
+
+{{#data.quotes}}
+- "{{text}}" — {{speaker}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.quotes}}
+
+{{/has_quotes}}
+## Follow-ups
+
+{{#data.follow_ups}}
+- [ ] {{task}}{{#has_owner}} (@{{owner}}){{/has_owner}}{{#has_due_iso}} 📅 {{due_iso}}{{/has_due_iso}}{{^has_due_iso}}{{#has_due}} — due: {{due}}{{/has_due}}{{/has_due_iso}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.follow_ups}}
+{{^has_follow_ups}}
+_No follow-ups._
+{{/has_follow_ups}}
+
+{{#has_open_questions}}
+## Open Questions
+
+{{#data.open_questions}}
+- {{.}}
+{{/data.open_questions}}
+
+{{/has_open_questions}}
+{{audio_link}}
+
+---
+
+_Generated on-device by Lumen · {{meta.duration_human}}._
+{{! Built-in Obsidian template for the Interview profile (TPL-03).
+    Front-matter must start on line 1. Strict mode: sections only on lists,
+    bools, maps or null; every nullable scalar X has a bool has_X.
+    Reference: docs/templates.md }}

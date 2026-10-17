@@ -1,0 +1,52 @@
+{
+  "title": "Interview with Kira",
+  "summary": "Kwame interviewed Kira, an architect, in an informational interview.",
+  "participants": [
+    {
+      "name": "Kwame",
+      "role": "interviewer"
+    },
+    {
+      "name": "Kira",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Funding",
+    "Early mistakes"
+  ],
+  "qa_highlights": [
+    {
+      "question": "How did you pay for the first year?",
+      "answer": "A small grant covered the equipment and weekend consulting paid for the rest",
+      "t": null
+    },
+    {
+      "question": "What was your biggest early mistake?",
+      "answer": "They trusted the vendor numbers without checking them",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Kira",
+      "text": "Calibration matters more than hardware.",
+      "t": null
+    }
+  ],
+  "follow_ups": [
+    {
+      "task": "Email the written questions",
+      "owner": "Kwame",
+      "due": "the end of the month",
+      "t": null
+    },
+    {
+      "task": "Send the data tables",
+      "owner": "Kira",
+      "due": "the end of the month",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

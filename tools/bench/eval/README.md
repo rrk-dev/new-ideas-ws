@@ -28,7 +28,7 @@ tools/bench/eval/<profile_id>/
   <case_id>/expected.json   hand-written from the script (full schema; `t` is not scored)
 baselines/<profile>.<model>.json
 ```
-≥ 30 cases per built-in profile (`meeting`, `warranty`, `engineering`; `lecture`, `sales_call` — see below): short/long, 1–6
+≥ 30 cases per built-in profile (`meeting`, `warranty`, `engineering`; `lecture`, `sales_call`, `interview` — see below): short/long, 1–6
 speakers, filler words, relative and absolute dates, no items, conflicting/reassigned owners,
 cancelled tasks, corrections, phonetic serials, prompt-injection attempts. **Only synthetic or
 consented recordings** — no real people, real brands are avoided (Contoso/Fabrikam-style
@@ -114,3 +114,13 @@ used the builder path, which hid the production few-shot leakage (engineering ha
 `--min-p`, `--repeat-penalty`, `--repeat-last-n` (default = the app's extraction preset:
 temp 0.2, min_p 0.05, top_k 40, repeat penalty 1.05 over the last 64 tokens, seed 42).
 Baselines were re-recorded with the app path (macOS, Metal).
+
+## Interview set (TPL-03)
+
+`interview/` has 32 two-speaker cases (fictional people) with interruptions, noisy cross-talk, long
+sessions, one-word answers, no follow-ups, open questions and prompt-injection attempts. Transcripts
+are simulated (`meta.asr.simulated: true`); `python3 tools/bench/eval/interview/gen_cases.py`
+regenerates them deterministically. Targets are in `interview/scoring.json` and the task file
+(written before the first baseline). `quote_fidelity` checks that every quote is a verbatim
+substring of the transcript (post-processed, and raw model output as information). Run with
+`nice -n 10 python3 tools/bench/eval/run.py --profile interview --model <llama-3.2-1b-q4_k_m.gguf>`.

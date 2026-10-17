@@ -21,6 +21,7 @@ Map<String, Object?> fullData(String profileId) => switch (profileId) {
   'engineering' => engineeringFull(),
   'lecture' => lectureFull(),
   'sales_call' => salesCallFull(),
+  'interview' => interviewFull(),
   _ => meetingFull(),
 };
 
