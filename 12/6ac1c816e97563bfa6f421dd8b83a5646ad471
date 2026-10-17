@@ -1,0 +1,27 @@
+docs/design/reference-ui-study.md
+  s_61ae747bb8fc8d::t_2f986c595f9706 1-70
+app/test/widget/modern_ui_scale_test.dart
+  s_61ae747bb8fc8d::t_2d1a8a0b0aab95 18
+docs/test-plans/device/UIX-01.md
+  s_61ae747bb8fc8d::t_2f986c595f9706 1-9
+tasks/14-product-phase2/UIX-01-reference-driven-ui-refresh.md
+  s_61ae747bb8fc8d::t_27ef8f2d4e4369 4,40
+  s_61ae747bb8fc8d::t_2f986c595f9706 11-16,24-25,27-35,42-49
+  s_61ae747bb8fc8d::t_2d1a8a0b0aab95 26,36-39,41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "126ac1c816e97563bfa6f421dd8b83a5646ad471",
+  "prompts": {},
+  "sessions": {
+    "s_61ae747bb8fc8d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "039e7df0-df1d-4aa0-ae96-c86616ea8007",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
