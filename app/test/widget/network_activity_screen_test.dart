@@ -51,12 +51,16 @@ void main() {
 
     final offline = find.text('Offline mode');
     await t.scrollUntilVisible(offline, 200);
+    await t.ensureVisible(offline);
+    await t.pumpAndSettle();
     await t.tap(offline);
     await t.pumpAndSettle();
     expect(store.values[SettingKeys.networkOffline], isTrue);
 
     final tile = find.byKey(const ValueKey('privacy-network-activity'));
     await t.scrollUntilVisible(tile, 200);
+    await t.ensureVisible(tile);
+    await t.pumpAndSettle();
     await t.tap(tile);
     await t.pumpAndSettle();
     expect(find.byType(NetworkActivityScreen), findsOneWidget);
