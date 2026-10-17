@@ -1,0 +1,72 @@
+app/lib/core/theme/app_tokens.dart
+  s_f19df70c271bcf::t_5948682ec919c3 78-80
+  s_f19df70c271bcf::t_f6f78cc6cf1c76 2,4-5,7,13-14,18,22-36,38,40-50,53-65,67-77,81-173
+  s_f19df70c271bcf::t_775757e92c10c8 37,39
+app/test/golden/models_screen_golden_test.dart
+  s_f19df70c271bcf::t_6c9dd07cba6273 40
+app/lib/features/settings/presentation/settings_screen.dart
+  s_f19df70c271bcf::t_347bbdf2295ed0 11,35-39,43,45-66,68-79,81-117,120-163
+tasks/08-app-ux/APP-08-modern-ui-theme.md
+  s_f19df70c271bcf::t_31b8b2b1f30742 34
+  s_f19df70c271bcf::t_2ccb6d1c8aa9e4 11-15,23-33,35-37
+  s_f19df70c271bcf::t_de8a33efb45bd3 4
+app/lib/features/recording/presentation/recording_screen.dart
+  s_f19df70c271bcf::t_775757e92c10c8 399,602,607-608,619-622,660-664
+  s_f19df70c271bcf::t_a27211fadd63bf 340,360
+app/lib/features/onboarding/presentation/onboarding_screen.dart
+  s_f19df70c271bcf::t_7b0983a0ce1158 228-236,247,561-575,578
+app/lib/core/widgets/placeholder_screen.dart
+  s_f19df70c271bcf::t_347bbdf2295ed0 33-37
+app/test/widget/modern_ui_scale_test.dart
+  s_f19df70c271bcf::t_58510089ad0f86 1-136
+app/lib/core/widgets/lumen_card.dart
+  s_f19df70c271bcf::t_d07fa785c32953 35
+  s_f19df70c271bcf::t_a970f8c86c31e6 1-34,36-41
+app/lib/core/widgets/section_header.dart
+  s_f19df70c271bcf::t_a970f8c86c31e6 1-31
+app/test/unit/theme_design_system_test.dart
+  s_f19df70c271bcf::t_79625ef47bf234 130-137
+  s_f19df70c271bcf::t_58510089ad0f86 1-129,138
+app/test/golden/onboarding_golden_test.dart
+  s_f19df70c271bcf::t_6c9dd07cba6273 9
+app/lib/features/onboarding/presentation/onboarding_models_step.dart
+  s_f19df70c271bcf::t_58510089ad0f86 39-43
+app/lib/core/widgets/empty_state.dart
+  s_f19df70c271bcf::t_a970f8c86c31e6 1-28,30-63
+  s_f19df70c271bcf::t_347bbdf2295ed0 29
+app/lib/features/recording/presentation/level_meter_bar.dart
+  s_f19df70c271bcf::t_775757e92c10c8 41,45
+app/lib/core/widgets/primary_action_button.dart
+  s_f19df70c271bcf::t_a970f8c86c31e6 1-24
+app/lib/features/settings/presentation/setting_tiles.dart
+  s_f19df70c271bcf::t_347bbdf2295ed0 4,14-15
+app/lib/core/theme/app_theme.dart
+  s_f19df70c271bcf::t_d07fa785c32953 226
+  s_f19df70c271bcf::t_568fe4821a5f0d 153,157,258
+  s_f19df70c271bcf::t_c5d87670e62210 4-5,7,9,11-96,98-152,154-156,158-219,222-225,227-235,240-257,259-348
+app/lib/features/library/presentation/library_screen.dart
+  s_f19df70c271bcf::t_3722e3ec01a851 6,130,292-293,342
+  s_f19df70c271bcf::t_347bbdf2295ed0 294-309,311-319
+app/lib/core/widgets/status_message.dart
+  s_f19df70c271bcf::t_a970f8c86c31e6 2,20-25
+app/test/golden/placeholder_screens_golden_test.dart
+  s_f19df70c271bcf::t_9b1033bbf1dbe9 17,37
+app/test/golden/settings_screen_golden_test.dart
+  s_f19df70c271bcf::t_8f2252b2d9a120 19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "950f36912db3c2465e60821f31c1c1481c7121f1",
+  "prompts": {},
+  "sessions": {
+    "s_f19df70c271bcf": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "29da61d8-c376-4673-8665-fc84f650707d",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
