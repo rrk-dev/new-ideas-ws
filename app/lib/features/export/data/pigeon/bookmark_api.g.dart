@@ -487,7 +487,7 @@ class BookmarkHostApi {
   }
 
   /// Absolute path of the app's `Documents/` folder (shown in Files under
-  /// "On My iPhone › VaultVoice"): the default/fallback vault target.
+  /// "On My iPhone › Lumen"): the default/fallback vault target.
   Future<String> appDocumentsPath() async {
     final pigeonVar_channelName =
         'dev.flutter.pigeon.vaultvoice.BookmarkHostApi.appDocumentsPath$pigeonVar_messageChannelSuffix';

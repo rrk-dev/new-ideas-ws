@@ -46,4 +46,4 @@ Not a heading
 
 ---
 
-_Generated on-device by VaultVoice · 1h 02m · {\{x}} · \<!--._
+_Generated on-device by Lumen · 1h 02m · {\{x}} · \<!--._

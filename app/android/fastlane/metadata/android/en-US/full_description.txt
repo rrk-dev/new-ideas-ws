@@ -1,5 +1,5 @@
 [PRODUCT] Play Store full description.
 
-VaultVoice records voice notes on your device, transcribes them on-device, and writes Markdown into a folder you choose. Audio and transcripts do not leave the device.
+Lumen records voice notes on your device, transcribes them on-device, and writes Markdown into a folder you choose. Audio and transcripts do not leave the device.
 
 Replace this placeholder with product-owned copy before REL-06 submission.

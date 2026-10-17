@@ -46,4 +46,4 @@ The team agreed on the Q4 roadmap. Sam owns the SDK update and Priya the migrati
 
 ---
 
-_Generated on-device by VaultVoice · 1h 02m · ggml-base · qwen2.5-3b-q4._
+_Generated on-device by Lumen · 1h 02m · ggml-base · qwen2.5-3b-q4._

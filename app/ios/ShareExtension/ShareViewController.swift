@@ -1,7 +1,7 @@
 import UIKit
 import UniformTypeIdentifiers
 
-/// AUD-06 share extension ("Share → VaultVoice" from Voice Memos, Files, …).
+/// AUD-06 share extension ("Share → Lumen" from Voice Memos, Files, …).
 ///
 /// NOT yet part of the Xcode project: wiring the extension target into
 /// `Runner.xcodeproj` (bundle id `<app id>.ShareExtension`, App Group
@@ -10,7 +10,7 @@ import UniformTypeIdentifiers
 ///
 /// The extension never decodes or processes anything: it copies each shared
 /// audio file into the App Group inbox `group.<app id>/Inbox/Audio`, then
-/// asks the user to open VaultVoice, where the import (with the rights /
+/// asks the user to open Lumen, where the import (with the rights /
 /// consent attestation, SEC-09) happens. Files are named by UUID; nothing is
 /// logged.
 final class ShareViewController: UIViewController {

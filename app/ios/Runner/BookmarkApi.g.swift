@@ -400,7 +400,7 @@ protocol BookmarkHostApi {
   /// Lists the direct children of [relativePath] ('' = folder root).
   func list(bookmark: String, relativePath: String, completion: @escaping (Result<[BookmarkEntry], Error>) -> Void)
   /// Absolute path of the app's `Documents/` folder (shown in Files under
-  /// "On My iPhone › VaultVoice"): the default/fallback vault target.
+  /// "On My iPhone › Lumen"): the default/fallback vault target.
   func appDocumentsPath() throws -> String
 }
 
@@ -566,7 +566,7 @@ class BookmarkHostApiSetup {
       listChannel.setMessageHandler(nil)
     }
     /// Absolute path of the app's `Documents/` folder (shown in Files under
-    /// "On My iPhone › VaultVoice"): the default/fallback vault target.
+    /// "On My iPhone › Lumen"): the default/fallback vault target.
     let appDocumentsPathChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.vaultvoice.BookmarkHostApi.appDocumentsPath\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       appDocumentsPathChannel.setMessageHandler { _, reply in

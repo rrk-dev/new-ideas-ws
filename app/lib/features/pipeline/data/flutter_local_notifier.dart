@@ -11,7 +11,7 @@ import 'package:vaultvoice/features/pipeline/domain/processing_notification.dart
 /// Android: channel "Processing", low importance (vv-flutter-architecture →
 /// Local notifications). Generic notifications are `public` on the lock
 /// screen; ones that reveal the recording title are `private`, so the lock
-/// screen shows only "VaultVoice — Contents hidden".
+/// screen shows only "Lumen — Contents hidden".
 /// iOS: a `processing_failed` category with a foreground "Retry" action;
 /// previews on the lock screen follow the system "Show Previews" setting
 /// (default "When Unlocked").

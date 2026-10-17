@@ -23,7 +23,7 @@ for p in sorted(deps['packages'], key=lambda p: p['name']):
     # vv_native is first-party code, covered by the app distribution terms.
     if not files and p['name'] != 'vv_native':
         raise RuntimeError(f"Missing license: {p['name']}")
-    text = '\n\n'.join(f.read_text() for f in files) if files else 'VaultVoice first-party native bridge; app distribution terms apply.'
+    text = '\n\n'.join(f.read_text() for f in files) if files else 'Lumen first-party native bridge; app distribution terms apply.'
     rows.append(dict(name=p['name'], version=p['version'], kind=p['kind'], source=p['source'], license_text=text, sha256=hashlib.sha256(text.encode()).hexdigest()))
 (ROOT / 'app/assets/licenses/pub_inventory.json').write_text(json.dumps(rows, indent=2) + '\n')
 header = (ROOT / 'tools/licenses/inventory-header.md').read_text()

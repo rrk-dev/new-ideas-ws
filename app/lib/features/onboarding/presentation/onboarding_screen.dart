@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vaultvoice/core/branding/lumen_logo.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
@@ -234,7 +235,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                   padding: const EdgeInsets.all(AppSpacing.lg),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [_page(context), _gate(context)],
+                    children: [
+                      if (index == 0) ...const [
+                        LumenWordmark(),
+                        SizedBox(height: AppSpacing.lg),
+                      ],
+                      _page(context),
+                      _gate(context),
+                    ],
                   ),
                 ),
               ),

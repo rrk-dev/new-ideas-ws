@@ -224,7 +224,7 @@ class ExportOutbox {
   }
 
   /// "Save on this device": uses the app's own folder (Android app storage,
-  /// iOS Files › On My iPhone › VaultVoice) as a vault target and retries
+  /// iOS Files › On My iPhone › Lumen) as a vault target and retries
   /// the notes that had no destination.
   Future<Result<void>> saveOnDevice() async {
     final before = await snapshot();

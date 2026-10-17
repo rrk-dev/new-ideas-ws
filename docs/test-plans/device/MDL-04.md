@@ -20,7 +20,7 @@ build. Use `whisper-tiny.en` and `llama-3.2-1b-instruct-q4_k_m` (files from
 
 Negative checks on the same devices (no AC, record in notes): a manifest edited by one byte →
 "signature is not valid"; model file from a different version → "does not match its manifest";
-a GGUF without manifest → "Not a signed VaultVoice model" (custom model disabled).
+a GGUF without manifest → "Not a signed Lumen model" (custom model disabled).
 
 ## Notes / evidence
 `docs/test-plans/device/evidence/MDL-04/`.

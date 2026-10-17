@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <title>Lumen app icon</title>
+  <rect id="bg" width="1024" height="1024" rx="224" fill="#0F766E"/>
+  <g id="mark" fill="#F4F7F6">
+    <rect x="224" y="460" width="76" height="200" rx="38"/>
+    <rect x="349" y="380" width="76" height="360" rx="38"/>
+    <rect x="474" y="310" width="76" height="500" rx="38"/>
+    <rect x="599" y="395" width="76" height="330" rx="38"/>
+    <rect x="724" y="465" width="76" height="190" rx="38"/>
+  </g>
+  <circle id="orb" cx="762" cy="290" r="54" fill="#FFF4C9"/>
+</svg>

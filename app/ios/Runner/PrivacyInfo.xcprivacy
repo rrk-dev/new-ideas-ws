@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- SEC-06: VaultVoice collects no data and does not track. Required-reason
+	<!-- SEC-06: Lumen collects no data and does not track. Required-reason
 	     API declarations below match the app's own code; see
 	     docs/store/privacy-manifest.md for the evidence per reason. -->
 	<key>NSPrivacyTracking</key>

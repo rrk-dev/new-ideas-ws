@@ -9,7 +9,7 @@ import 'package:vaultvoice/features/recording/domain/start_source.dart';
 /// FND-09 merges that file into the runner; this task does not edit
 /// `app/macos`.
 const macosMicrophonePurpose =
-    'VaultVoice uses the microphone to record a note you start, not a call. '
+    'Lumen uses the microphone to record a note you start, not a call. '
     'Audio stays on this Mac.';
 
 /// Start sources that may open the microphone on macOS.

@@ -128,21 +128,21 @@ String _$vaultAccessGuardHash() => r'b9a558eb56cccd19342279fa4a0cf81af46c1b7f';
 
 /// The app's own folder: default/fallback vault target. Android:
 /// app-private `filesDir/vault`; iOS: `Documents/`, visible in Files under
-/// "On My iPhone › VaultVoice" (`UIFileSharingEnabled`).
+/// "On My iPhone › Lumen" (`UIFileSharingEnabled`).
 
 @ProviderFor(appLocalVaultWriter)
 final appLocalVaultWriterProvider = AppLocalVaultWriterProvider._();
 
 /// The app's own folder: default/fallback vault target. Android:
 /// app-private `filesDir/vault`; iOS: `Documents/`, visible in Files under
-/// "On My iPhone › VaultVoice" (`UIFileSharingEnabled`).
+/// "On My iPhone › Lumen" (`UIFileSharingEnabled`).
 
 final class AppLocalVaultWriterProvider
     extends $FunctionalProvider<VaultWriter, VaultWriter, VaultWriter>
     with $Provider<VaultWriter> {
   /// The app's own folder: default/fallback vault target. Android:
   /// app-private `filesDir/vault`; iOS: `Documents/`, visible in Files under
-  /// "On My iPhone › VaultVoice" (`UIFileSharingEnabled`).
+  /// "On My iPhone › Lumen" (`UIFileSharingEnabled`).
   AppLocalVaultWriterProvider._()
     : super(
         from: null,

@@ -8,4 +8,4 @@ recording-id:: rec-empty
 
 - **Action Items**
   - No action items.
-- Generated on-device by VaultVoice · 45s
+- Generated on-device by Lumen · 45s

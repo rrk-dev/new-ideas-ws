@@ -1,4 +1,4 @@
-VaultVoice Play review notes (engineering — not marketing copy)
+Lumen Play review notes (engineering — not marketing copy)
 
 WHAT THE APP DOES
 On-device voice notes: record from the microphone after an explicit tap,

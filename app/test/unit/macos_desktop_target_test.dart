@@ -84,9 +84,7 @@ void main() {
       expect(
         config.body,
         contains(
-          dev
-              ? 'APP_DISPLAY_NAME = "VaultVoice Dev";'
-              : 'APP_DISPLAY_NAME = VaultVoice;',
+          dev ? 'APP_DISPLAY_NAME = "Lumen Dev";' : 'APP_DISPLAY_NAME = Lumen;',
         ),
         reason: config.name,
       );

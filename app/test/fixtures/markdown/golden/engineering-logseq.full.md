@@ -32,4 +32,4 @@ recording-id:: 0f8d2c1e-7a5b-4c3d-9e1f-2a3b4c5d6e7f
   - TODO Benchmark CRDT size (@Lena) [00:03:10]
 - **Open Questions**
   - How large do tombstones get?
-- Generated on-device by VaultVoice · 1h 02m
+- Generated on-device by Lumen · 1h 02m

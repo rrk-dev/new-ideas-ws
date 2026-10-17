@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/app_info.dart';
+import 'package:vaultvoice/core/branding/lumen_logo.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/core/security/security_providers.dart';
+import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/features/extraction/presentation/llm_debug_screen.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_matrix.dart';
@@ -96,6 +98,17 @@ class SettingsScreen extends ConsumerWidget {
           header(SettingSection.license),
           const _LicenseTiles(),
           header(SettingSection.about),
+          const Padding(
+            key: ValueKey('about-logo'),
+            padding: EdgeInsets.symmetric(
+              horizontal: AppSpacing.md,
+              vertical: AppSpacing.sm,
+            ),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: LumenWordmark(),
+            ),
+          ),
           ListTile(
             key: const ValueKey('about-version'),
             leading: const Icon(Icons.info_outline),

@@ -15,4 +15,4 @@ recording_id: "rec-empty"
 
 ---
 
-_Generated on-device by VaultVoice._
+_Generated on-device by Lumen._

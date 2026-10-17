@@ -22,7 +22,7 @@ REL-05 (follow-up from integration wave 2, `docs/adr/ADR-INT-W2-integration.md`)
 ## Declaration text (FOREGROUND_SERVICE_MICROPHONE)
 **Feature:** Voice note recording.
 
-**Description:** VaultVoice records voice notes and meetings that the user starts by tapping
+**Description:** Lumen records voice notes and meetings that the user starts by tapping
 Record. While a recording is running the app uses a microphone foreground service so the recording
 continues when the screen turns off or the user switches apps. An ongoing notification with Pause,
 Resume and Stop is shown for the whole recording, and the recording stops when the user taps Stop

@@ -240,7 +240,7 @@ class RecordingService : Service() {
     private fun createChannels() {
         val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val recording = NotificationChannel(CHANNEL_ID, "Recording", NotificationManager.IMPORTANCE_LOW).apply {
-            description = "Shown while VaultVoice is recording"
+            description = "Shown while Lumen is recording"
             setShowBadge(false)
             lockscreenVisibility = Notification.VISIBILITY_PUBLIC
         }

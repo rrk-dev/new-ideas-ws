@@ -1,6 +1,6 @@
 # Device matrix and lab
 
-Lab inventory for VaultVoice. Maintained by QA-05. Performance, battery, thermal, and
+Lab inventory for Lumen. Maintained by QA-05. Performance, battery, thermal, and
 phase-gate runs use only rows whose **Status** is `In lab`.
 
 Cloud device farms are not part of this lab. See

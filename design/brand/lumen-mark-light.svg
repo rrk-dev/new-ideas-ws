@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="190 250 644 560" width="644" height="560">
+  <title>Lumen mark</title>
+  <g id="mark" fill="#0F766E">
+    <rect x="224" y="460" width="76" height="200" rx="38"/>
+    <rect x="349" y="380" width="76" height="360" rx="38"/>
+    <rect x="474" y="310" width="76" height="500" rx="38"/>
+    <rect x="599" y="395" width="76" height="330" rx="38"/>
+    <rect x="724" y="465" width="76" height="190" rx="38"/>
+  </g>
+  <circle id="orb" cx="762" cy="290" r="54" fill="#0F766E"/>
+</svg>

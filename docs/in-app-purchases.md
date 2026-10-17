@@ -31,7 +31,7 @@ plan per region. Lifetime uses the ordinary one-time purchase offer.
 
 ## Local and sandbox testing
 Open the iOS project in Xcode; Edit Scheme → Run → Options → StoreKit
-Configuration → Runner/VaultVoice.storekit. Add the existing file to the scheme
+Configuration → Runner/Lumen.storekit. Add the existing file to the scheme
 via the file picker if it is not listed. Its 1.00 / 2.00 amounts are synthetic
 local testing data, unrelated to production prices. Enable interrupted/pending,
 renewal/expiry and refund simulations in Xcode's transaction manager. For real

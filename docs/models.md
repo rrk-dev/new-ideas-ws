@@ -1,6 +1,6 @@
 # Models
 
-What VaultVoice offers, why, and how it is chosen per device and plan. Catalog source:
+What Lumen offers, why, and how it is chosen per device and plan. Catalog source:
 `tools/model-catalog/models.json` → signed `app/assets/catalog/catalog.json` (MDL-01). LLM models
 are documented by LLM-07/LLM-08; this page currently covers speech-to-text (STT-07).
 

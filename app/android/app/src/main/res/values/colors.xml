@@ -2,4 +2,6 @@
 <resources>
     <!-- REL-05 launch splash. Flavor overlays override this. -->
     <color name="splash_background">#FFFFFF</color>
+    <!-- APP-07 Lumen teal; matches design/brand/lumen-icon.svg. -->
+    <color name="ic_launcher_background">#0F766E</color>
 </resources>

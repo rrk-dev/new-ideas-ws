@@ -10,12 +10,12 @@ tax categories are product-owned — `[PRODUCT]` placeholders below.
 
 ## App Store Connect
 
-Create both products in the VaultVoice app record **before** the first
+Create both products in the Lumen app record **before** the first
 production submission (REL-06).
 
 1. `vv_pro_annual`
    - Type: Auto-Renewable Subscription
-   - Subscription group: `[PRODUCT] VaultVoice Pro`
+   - Subscription group: `[PRODUCT] Lumen Pro`
    - Duration: 1 year
    - Localization: `[PRODUCT] display name and description`
    - Price: `[PRODUCT]`

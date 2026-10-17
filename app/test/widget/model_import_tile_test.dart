@@ -76,10 +76,7 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(picker.calls, 1);
-    expect(
-      find.textContaining('Not a signed VaultVoice model'),
-      findsOneWidget,
-    );
+    expect(find.textContaining('Not a signed Lumen model'), findsOneWidget);
     expect(file.existsSync(), isTrue, reason: 'host picker returns originals');
   });
 }

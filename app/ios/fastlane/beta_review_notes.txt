@@ -1,4 +1,4 @@
-VaultVoice beta — please read before testing.
+Lumen beta — please read before testing.
 
 This app does not record phone calls or VoIP calls. It records only after
 the tester taps Record, and a visible indicator stays on while the

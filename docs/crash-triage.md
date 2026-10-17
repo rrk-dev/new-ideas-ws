@@ -1,6 +1,6 @@
 # Crash triage (REL-02)
 
-VaultVoice has **no crash SDK and no upload endpoint**. Crash data reaches us in two ways:
+Lumen has **no crash SDK and no upload endpoint**. Crash data reaches us in two ways:
 
 1. **Baseline — OS / store reports.** Users who opted in at OS level ("Share with App
    Developers" on iOS, "Usage & diagnostics" on Android) produce reports in
@@ -10,7 +10,7 @@ VaultVoice has **no crash SDK and no upload endpoint**. Crash data reaches us in
    native debug symbols in Play) — symbolicate store reports locally with the same private
    symbols (below).
 2. **User-shared reports.** The app writes a local report when it crashes; on the next launch it
-   asks "VaultVoice closed unexpectedly — review report?", shows the complete file, and only on
+   asks "Lumen closed unexpectedly — review report?", shows the complete file, and only on
    **Share** hands a `.txt` copy to the OS share sheet (email, Files, AirDrop …). Saved
    reports are also listed under Settings → Crash reports. Design: `docs/adr/ADR-REL-02-crash-capture.md`.
 
