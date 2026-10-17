@@ -99,7 +99,8 @@ void main() {
       final iosProj = File('ios/Runner.xcodeproj/project.pbxproj')
           .readAsStringSync();
       expect(iosProj, contains('APP_DISPLAY_NAME = "Lumen Dev";'));
-      expect(iosProj, contains('APP_DISPLAY_NAME = "Lumen";'));
+      // Xcode rewrites the value unquoted when it has no space.
+      expect(iosProj, contains('APP_DISPLAY_NAME = Lumen;'));
       final macProj = File('macos/Runner.xcodeproj/project.pbxproj')
           .readAsStringSync();
       expect(macProj, contains('APP_DISPLAY_NAME = Lumen;'));
