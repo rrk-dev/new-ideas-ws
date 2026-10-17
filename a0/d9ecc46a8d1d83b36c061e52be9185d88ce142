@@ -1,0 +1,28 @@
+docs/test-plans/device/TSK-01.md
+  s_be3bd159528ee8::t_f47bb279132cf7 1-20
+docs/privacy-audit.md
+  s_be3bd159528ee8::t_f47bb279132cf7 308-324
+tasks/14-product-phase2/TSK-01-task-export-decision.md
+  s_be3bd159528ee8::t_f47bb279132cf7 11-16,28-33
+  s_be3bd159528ee8::t_24eea22540e62d 4,34-39
+docs/adr/ADR-TSK-01-task-export.md
+  s_be3bd159528ee8::t_5c743673a914be 1-211
+docs/threat-model.md
+  s_be3bd159528ee8::t_f47bb279132cf7 151-165
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a0d9ecc46a8d1d83b36c061e52be9185d88ce142",
+  "prompts": {},
+  "sessions": {
+    "s_be3bd159528ee8": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "cb9296d5-237c-47bf-aad5-d052f1d46ceb",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
