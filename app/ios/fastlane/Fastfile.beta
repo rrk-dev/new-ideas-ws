@@ -1,4 +1,4 @@
-# VaultVoice TestFlight external beta + gated production (REL-04).
+# Lumen TestFlight external beta + gated production (REL-04).
 #
 # Separate from Fastfile so the REL-01 internal upload lane stays tag-only.
 # Run from app/ios:

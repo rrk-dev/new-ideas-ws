@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/app_info.dart';
+import 'package:vaultvoice/core/branding/lumen_logo.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/core/security/security_providers.dart';
+import 'package:vaultvoice/core/theme/app_tokens.dart';
+import 'package:vaultvoice/core/widgets/lumen_card.dart';
 import 'package:vaultvoice/features/extraction/presentation/llm_debug_screen.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_matrix.dart';
@@ -29,116 +32,135 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
-    Widget header(SettingSection s) =>
-        SettingsSectionHeader(SettingTexts.section(context.l10n, s));
+    // Each section is a header plus one soft card holding its rows.
+    List<Widget> section(SettingSection s, List<Widget> rows) => [
+      SettingsSectionHeader(SettingTexts.section(context.l10n, s)),
+      LumenCard(child: Column(children: rows)),
+    ];
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settingsTitle)),
       body: ListView(
+        padding: const EdgeInsets.only(bottom: AppSpacing.xl),
         children: [
-          header(SettingSection.audio),
-          const SettingTile(AppSettings.inputDevice),
-          const SettingTile(AppSettings.agc),
-          const SettingTile(AppSettings.noiseSuppression),
-          const SettingTile(AppSettings.softwareAgc),
-          const SettingTile(AppSettings.rawCapture),
-          const SettingTile(AppSettings.autoPauseOnSilence),
-          const SettingTile(AppSettings.silenceAutoStop),
-          const SettingTile(AppSettings.audioRetention),
-          header(SettingSection.processing),
-          const SettingTile(AppSettings.autoProcess),
-          const SettingTile(AppSettings.chargeOnly),
-          const SettingTile(AppSettings.diarizationDefault),
-          const SettingTile(AppSettings.skipSilence),
-          ListTile(
-            key: const ValueKey('link-models'),
-            leading: const Icon(Icons.memory),
-            title: Text(l10n.settingsModels),
-            subtitle: Text(l10n.settingsModelsSubtitle),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => const ModelsSettingsRoute().push<void>(context),
-          ),
-          header(SettingSection.export),
-          const _VaultFoldersTile(),
-          const _RoutingRulesTile(),
-          const _PendingExportsTile(),
-          ListTile(
-            key: const ValueKey('link-templates'),
-            leading: const Icon(Icons.article_outlined),
-            title: Text(l10n.settingsTemplates),
-            subtitle: Text(l10n.settingsTemplatesSubtitle),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => const TemplatesRoute().push<void>(context),
-          ),
-          ListTile(
-            key: const ValueKey('link-review'),
-            leading: const Icon(Icons.rate_review_outlined),
-            title: Text(l10n.reviewSettingsTitle),
-            subtitle: Text(l10n.reviewSettingsSubtitle),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => const ReviewSettingsRoute().push<void>(context),
-          ),
-          const SettingTile(AppSettings.filenamePattern),
-          const SettingTile(AppSettings.collisionMode),
-          header(SettingSection.privacy),
-          const SettingTile(AppSettings.appLock),
-          const SettingTile(AppSettings.lockTimeout),
-          const _EncryptionInfoTile(),
-          const SettingTile(AppSettings.transcriptRetention),
-          // SEC-02: offline mode + every request the app made.
-          const SettingTile(AppSettings.offlineMode),
-          const NetworkActivityTile(),
-          const SettingTile(AppSettings.notificationsEnabled),
-          const SettingTile(AppSettings.notificationDetails),
-          const DiagnosticsExportTile(),
-          // REL-02 hook: saved crash reports (+ dev-only crash triggers).
-          const CrashReportSettingsSection(),
-          const _DeleteAllDataTile(),
-          header(SettingSection.license),
-          const _LicenseTiles(),
-          header(SettingSection.about),
-          ListTile(
-            key: const ValueKey('about-version'),
-            leading: const Icon(Icons.info_outline),
-            title: Text(l10n.aboutVersion),
-            subtitle: const Text('$kAppName $kAppVersion'),
-          ),
-          ListTile(
-            key: const ValueKey('link-beta-feedback'),
-            leading: const Icon(Icons.feedback_outlined),
-            title: Text(l10n.betaFeedbackTitle),
-            subtitle: Text(l10n.betaFeedbackSubtitle),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => const BetaFeedbackRoute().push<void>(context),
-          ),
-          ListTile(
-            key: const ValueKey('about-privacy-policy'),
-            leading: const Icon(Icons.privacy_tip_outlined),
-            title: Text(l10n.aboutPrivacyPolicy),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(
-                builder: (_) => const PrivacyPolicyScreen(),
+          ...section(SettingSection.audio, [
+            const SettingTile(AppSettings.inputDevice),
+            const SettingTile(AppSettings.agc),
+            const SettingTile(AppSettings.noiseSuppression),
+            const SettingTile(AppSettings.softwareAgc),
+            const SettingTile(AppSettings.rawCapture),
+            const SettingTile(AppSettings.autoPauseOnSilence),
+            const SettingTile(AppSettings.silenceAutoStop),
+            const SettingTile(AppSettings.audioRetention),
+          ]),
+          ...section(SettingSection.processing, [
+            const SettingTile(AppSettings.autoProcess),
+            const SettingTile(AppSettings.chargeOnly),
+            const SettingTile(AppSettings.diarizationDefault),
+            const SettingTile(AppSettings.skipSilence),
+            ListTile(
+              key: const ValueKey('link-models'),
+              leading: const Icon(Icons.memory),
+              title: Text(l10n.settingsModels),
+              subtitle: Text(l10n.settingsModelsSubtitle),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => const ModelsSettingsRoute().push<void>(context),
+            ),
+          ]),
+          ...section(SettingSection.export, [
+            const _VaultFoldersTile(),
+            const _RoutingRulesTile(),
+            const _PendingExportsTile(),
+            ListTile(
+              key: const ValueKey('link-templates'),
+              leading: const Icon(Icons.article_outlined),
+              title: Text(l10n.settingsTemplates),
+              subtitle: Text(l10n.settingsTemplatesSubtitle),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => const TemplatesRoute().push<void>(context),
+            ),
+            ListTile(
+              key: const ValueKey('link-review'),
+              leading: const Icon(Icons.rate_review_outlined),
+              title: Text(l10n.reviewSettingsTitle),
+              subtitle: Text(l10n.reviewSettingsSubtitle),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => const ReviewSettingsRoute().push<void>(context),
+            ),
+            const SettingTile(AppSettings.filenamePattern),
+            const SettingTile(AppSettings.collisionMode),
+          ]),
+          ...section(SettingSection.privacy, [
+            const SettingTile(AppSettings.appLock),
+            const SettingTile(AppSettings.lockTimeout),
+            const _EncryptionInfoTile(),
+            const SettingTile(AppSettings.transcriptRetention),
+            // SEC-02: offline mode + every request the app made.
+            const SettingTile(AppSettings.offlineMode),
+            const NetworkActivityTile(),
+            const SettingTile(AppSettings.notificationsEnabled),
+            const SettingTile(AppSettings.notificationDetails),
+            const DiagnosticsExportTile(),
+            // REL-02 hook: saved crash reports (+ dev-only crash triggers).
+            const CrashReportSettingsSection(),
+            const _DeleteAllDataTile(),
+          ]),
+          ...section(SettingSection.license, [const _LicenseTiles()]),
+          ...section(SettingSection.about, [
+            const Padding(
+              key: ValueKey('about-logo'),
+              padding: EdgeInsets.symmetric(
+                horizontal: AppSpacing.md,
+                vertical: AppSpacing.sm,
+              ),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: LumenWordmark(),
               ),
             ),
-          ),
-          ListTile(
-            key: const ValueKey('about-licenses'),
-            leading: const Icon(Icons.description_outlined),
-            title: Text(l10n.aboutLicenses),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () async {
-              final legalese = await _modelAttributions(ref, l10n);
-              if (!context.mounted) return;
-              showLicensePage(
-                context: context,
-                applicationName: kAppName,
-                applicationVersion: kAppVersion,
-                applicationLegalese: legalese,
-              );
-            },
-          ),
-          // Dev flavor only (renders nothing in prod) — LLM-04.
-          const LlmDebugTile(),
+            ListTile(
+              key: const ValueKey('about-version'),
+              leading: const Icon(Icons.info_outline),
+              title: Text(l10n.aboutVersion),
+              subtitle: const Text('$kAppName $kAppVersion'),
+            ),
+            ListTile(
+              key: const ValueKey('link-beta-feedback'),
+              leading: const Icon(Icons.feedback_outlined),
+              title: Text(l10n.betaFeedbackTitle),
+              subtitle: Text(l10n.betaFeedbackSubtitle),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => const BetaFeedbackRoute().push<void>(context),
+            ),
+            ListTile(
+              key: const ValueKey('about-privacy-policy'),
+              leading: const Icon(Icons.privacy_tip_outlined),
+              title: Text(l10n.aboutPrivacyPolicy),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => const PrivacyPolicyScreen(),
+                ),
+              ),
+            ),
+            ListTile(
+              key: const ValueKey('about-licenses'),
+              leading: const Icon(Icons.description_outlined),
+              title: Text(l10n.aboutLicenses),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () async {
+                final legalese = await _modelAttributions(ref, l10n);
+                if (!context.mounted) return;
+                showLicensePage(
+                  context: context,
+                  applicationName: kAppName,
+                  applicationVersion: kAppVersion,
+                  applicationLegalese: legalese,
+                );
+              },
+            ),
+            // Dev flavor only (renders nothing in prod) — LLM-04.
+            const LlmDebugTile(),
+          ]),
         ],
       ),
     );

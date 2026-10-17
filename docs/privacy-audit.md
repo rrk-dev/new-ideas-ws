@@ -202,7 +202,7 @@ They never contain user content.
 | Request timing | yes (unavoidable) | when the app fetched which public file |
 
 From this the operator can infer: "this IP downloaded the catalog / model X at time T with
-VaultVoice". Mitigations: CDN access logs **disabled or ≤ 7 days retention** (configured when
+Lumen". Mitigations: CDN access logs **disabled or ≤ 7 days retention** (configured when
 the CDN is provisioned — PRODUCT-DECISION, ADR-MDL-01); no analytics, cookies or JS challenges
 on file paths; the Hugging Face mirror is a third party whose logging we do not control (its
 privacy policy applies) — it is only used when our CDN fails, and HF redirects to its own CDN

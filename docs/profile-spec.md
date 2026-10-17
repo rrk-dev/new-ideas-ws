@@ -1,4 +1,4 @@
-# VaultVoice Profile Spec — format 1
+# Lumen Profile Spec — format 1
 
 An **extraction profile** (the app's user-facing "skill") is one versioned definition that drives
 STT hints, the LLM prompt and output schema, Dart post-processing, the Markdown template and

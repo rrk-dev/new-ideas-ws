@@ -44,8 +44,8 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>Face ID unlocks your recordings and notes when the app lock is on.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>VaultVoice uses the microphone only to record notes you start. Audio is processed on this device and never uploaded.</string>
-	<!-- AUD-06: "Open in" / "Copy to VaultVoice" for audio files (copied, never
+	<string>Lumen uses the microphone only to record notes you start. Audio is processed on this device and never uploaded.</string>
+	<!-- AUD-06: "Open in" / "Copy to Lumen" for audio files (copied, never
 	     opened in place). Ogg/Opus are listed so the app can say they are not
 	     supported on iPhone instead of not appearing at all. -->
 	<key>CFBundleDocumentTypes</key>
@@ -122,7 +122,7 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeName</key>
-			<string>VaultVoice Profile</string>
+			<string>Lumen Profile</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSHandlerRank</key>
@@ -141,7 +141,7 @@
 			<key>UTTypeIdentifier</key>
 			<string>com.vaultvoice.profile</string>
 			<key>UTTypeDescription</key>
-			<string>VaultVoice Profile</string>
+			<string>Lumen Profile</string>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>

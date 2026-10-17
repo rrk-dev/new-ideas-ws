@@ -20,9 +20,9 @@ needs STT models installed (MDL-02/MDL-04).
 | [AUD-06/AC1] | Android: import clip.m4a, .mp3, .wav, .flac, .ogg, .opus. | Each imports and transcribes as above. | Pixel + Samsung | Android 8 (API 26) and 14+ | | | |
 | [AUD-06/AC1] | Android: import clip.caf. | "CAF files can’t be imported on this device." | Android phone | API 26+ | | | |
 | [AUD-06/AC1] | Both: import a clip, untick/cancel the attestation dialog. | Nothing imported; the private copy is gone (`run-as … ls cache/shared_audio` / Files container). | iPhone + Android phone | iOS 16+ / API 26+ | | | |
-| [AUD-06/AC1] | Android: share clip.m4a from Files / a voice recorder app → VaultVoice; also "Open with" VaultVoice. | App opens, attestation shown, import succeeds; `created_at` = the clip's recording date (check the note filename / recording title date). | Android phone | API 26+ | | | |
-| [AUD-06/AC1] | iOS: Files → clip.m4a → Share → "Copy to VaultVoice" / "Open in VaultVoice". | App opens, attestation shown, import succeeds. | iPhone | iOS 16+ | | | |
-| [AUD-06/AC2] | Needs AUD-10 (extension target + App Group). iOS: Voice Memos → share a memo → VaultVoice extension; then open VaultVoice. | Extension finishes immediately; on opening the app the attestation for the memo is shown; import succeeds; the App Group `Inbox/Audio` is empty afterwards. | iPhone | iOS 16+ | | | |
+| [AUD-06/AC1] | Android: share clip.m4a from Files / a voice recorder app → Lumen; also "Open with" Lumen. | App opens, attestation shown, import succeeds; `created_at` = the clip's recording date (check the note filename / recording title date). | Android phone | API 26+ | | | |
+| [AUD-06/AC1] | iOS: Files → clip.m4a → Share → "Copy to Lumen" / "Open in Lumen". | App opens, attestation shown, import succeeds. | iPhone | iOS 16+ | | | |
+| [AUD-06/AC2] | Needs AUD-10 (extension target + App Group). iOS: Voice Memos → share a memo → Lumen extension; then open Lumen. | Extension finishes immediately; on opening the app the attestation for the memo is shown; import succeeds; the App Group `Inbox/Audio` is empty afterwards. | iPhone | iOS 16+ | | | |
 | [AUD-06/AC3] | Mid-range device: import hour.m4a; time from tapping Import to "Imported…" (screen recording). | < 30 s; UI stays responsive (no ANR / watchdog kill). | Mid-range Android (e.g. Pixel 6a / Galaxy A54) + iPhone 12/13 | API 31+ / iOS 16+ | | | |
 
 ## Notes / evidence

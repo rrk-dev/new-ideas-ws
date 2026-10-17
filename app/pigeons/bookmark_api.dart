@@ -106,6 +106,6 @@ abstract class BookmarkHostApi {
   List<BookmarkEntry> list(String bookmark, String relativePath);
 
   /// Absolute path of the app's `Documents/` folder (shown in Files under
-  /// "On My iPhone › VaultVoice"): the default/fallback vault target.
+  /// "On My iPhone › Lumen"): the default/fallback vault target.
   String appDocumentsPath();
 }

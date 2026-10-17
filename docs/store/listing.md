@@ -7,14 +7,14 @@ dialer. Keep the on-screen recording indicator visible in every recording
 screenshot.
 
 ## Name and subtitle
-- Name: VaultVoice
+- Name: Lumen
 - Subtitle (30 chars): Private voice notes to Markdown
 
 ## Short description (Play, 80 chars)
 Record voice notes on your phone. Get Markdown notes in your own folder.
 
 ## Full description
-VaultVoice turns voice you record into structured Markdown notes. Everything
+Lumen turns voice you record into structured Markdown notes. Everything
 runs on your device: speech-to-text and note extraction work offline once
 the models are downloaded.
 
@@ -28,7 +28,7 @@ the models are downloaded.
   instead.
 
 Recording starts only when you tap Record, and the app always shows that it
-is recording. VaultVoice does not record phone or VoIP calls: recording stops
+is recording. Lumen does not record phone or VoIP calls: recording stops
 when a call starts. Only record people who know and agree to it.
 
 ## Keywords (iOS, 100 chars)

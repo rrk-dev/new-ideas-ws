@@ -301,25 +301,25 @@ abstract class AppLocalizations {
   /// No description provided for @batteryGuidanceSamsung.
   ///
   /// In en, this message translates to:
-  /// **'Settings → Battery → Background usage limits → Never sleeping apps → add VaultVoice.'**
+  /// **'Settings → Battery → Background usage limits → Never sleeping apps → add Lumen.'**
   String get batteryGuidanceSamsung;
 
   /// No description provided for @batteryGuidanceXiaomi.
   ///
   /// In en, this message translates to:
-  /// **'Settings → Apps → VaultVoice → Battery saver → No restrictions, and turn on Autostart.'**
+  /// **'Settings → Apps → Lumen → Battery saver → No restrictions, and turn on Autostart.'**
   String get batteryGuidanceXiaomi;
 
   /// No description provided for @batteryGuidanceOnePlus.
   ///
   /// In en, this message translates to:
-  /// **'Settings → Battery → VaultVoice → Allow background activity.'**
+  /// **'Settings → Battery → Lumen → Allow background activity.'**
   String get batteryGuidanceOnePlus;
 
   /// No description provided for @batteryGuidanceGeneric.
   ///
   /// In en, this message translates to:
-  /// **'In battery settings, allow VaultVoice to run in the background.'**
+  /// **'In battery settings, allow Lumen to run in the background.'**
   String get batteryGuidanceGeneric;
 
   /// No description provided for @batteryGuidanceOpenSettings.
@@ -385,7 +385,7 @@ abstract class AppLocalizations {
   /// No description provided for @modelImportUnsignedBody.
   ///
   /// In en, this message translates to:
-  /// **'This file is not a VaultVoice-signed model. Only import GGUF files from a source you trust: a malformed or malicious model file can crash the app. Its license is your responsibility.'**
+  /// **'This file is not a Lumen-signed model. Only import GGUF files from a source you trust: a malformed or malicious model file can crash the app. Its license is your responsibility.'**
   String get modelImportUnsignedBody;
 
   /// No description provided for @modelImportAnyway.
@@ -397,7 +397,7 @@ abstract class AppLocalizations {
   /// No description provided for @modelImportErrorUnknownModel.
   ///
   /// In en, this message translates to:
-  /// **'Not a signed VaultVoice model. Select the model file together with its .json and .sig files.'**
+  /// **'Not a signed Lumen model. Select the model file together with its .json and .sig files.'**
   String get modelImportErrorUnknownModel;
 
   /// No description provided for @modelImportErrorMissingFiles.
@@ -409,7 +409,7 @@ abstract class AppLocalizations {
   /// No description provided for @modelImportErrorEntitlement.
   ///
   /// In en, this message translates to:
-  /// **'Custom models require VaultVoice Pro.'**
+  /// **'Custom models require Lumen Pro.'**
   String get modelImportErrorEntitlement;
 
   /// No description provided for @modelImportErrorInvalidGguf.
@@ -733,7 +733,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingPrivacyNetwork.
   ///
   /// In en, this message translates to:
-  /// **'The only thing VaultVoice downloads is its AI models. Nothing you record is ever uploaded.'**
+  /// **'The only thing Lumen downloads is its AI models. Nothing you record is ever uploaded.'**
   String get onboardingPrivacyNetwork;
 
   /// No description provided for @onboardingPrivacyVault.
@@ -763,13 +763,13 @@ abstract class AppLocalizations {
   /// No description provided for @consentExplainerConfirm.
   ///
   /// In en, this message translates to:
-  /// **'For conversations with several people, VaultVoice asks you to confirm that everyone agreed before it starts.'**
+  /// **'For conversations with several people, Lumen asks you to confirm that everyone agreed before it starts.'**
   String get consentExplainerConfirm;
 
   /// No description provided for @consentNeverCalls.
   ///
   /// In en, this message translates to:
-  /// **'VaultVoice never records phone or VoIP calls. When a call starts, recording stops and does not resume on its own.'**
+  /// **'Lumen never records phone or VoIP calls. When a call starts, recording stops and does not resume on its own.'**
   String get consentNeverCalls;
 
   /// No description provided for @consentExplainerAcknowledge.
@@ -781,13 +781,13 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingPermissionsTitle.
   ///
   /// In en, this message translates to:
-  /// **'What VaultVoice will ask for'**
+  /// **'What Lumen will ask for'**
   String get onboardingPermissionsTitle;
 
   /// No description provided for @onboardingPermissionMic.
   ///
   /// In en, this message translates to:
-  /// **'Microphone (required): your phone asks when you tap Allow microphone below — never at launch, and VaultVoice never listens in the background.'**
+  /// **'Microphone (required): your phone asks when you tap Allow microphone below — never at launch, and Lumen never listens in the background.'**
   String get onboardingPermissionMic;
 
   /// No description provided for @onboardingPermissionNotifications.
@@ -817,7 +817,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingPermissionFolder.
   ///
   /// In en, this message translates to:
-  /// **'Folder: you choose where notes are saved in the next steps. VaultVoice can only see that folder.'**
+  /// **'Folder: you choose where notes are saved in the next steps. Lumen can only see that folder.'**
   String get onboardingPermissionFolder;
 
   /// No description provided for @permissionOpenSettings.
@@ -841,13 +841,13 @@ abstract class AppLocalizations {
   /// No description provided for @micPrimerBody.
   ///
   /// In en, this message translates to:
-  /// **'VaultVoice needs the microphone to record what you choose to record. The audio stays on this device. Your phone will ask for permission next.'**
+  /// **'Lumen needs the microphone to record what you choose to record. The audio stays on this device. Your phone will ask for permission next.'**
   String get micPrimerBody;
 
   /// No description provided for @micDeniedBody.
   ///
   /// In en, this message translates to:
-  /// **'Microphone access is off, so VaultVoice can’t record. You can still import audio and browse your notes. Allow the microphone in the system settings to record.'**
+  /// **'Microphone access is off, so Lumen can’t record. You can still import audio and browse your notes. Allow the microphone in the system settings to record.'**
   String get micDeniedBody;
 
   /// No description provided for @onboardingModelsTitle.
@@ -919,7 +919,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingFolderBody.
   ///
   /// In en, this message translates to:
-  /// **'Pick your Obsidian or Logseq vault, or any folder. VaultVoice only gets access to the folder you pick.'**
+  /// **'Pick your Obsidian or Logseq vault, or any folder. Lumen only gets access to the folder you pick.'**
   String get onboardingFolderBody;
 
   /// No description provided for @onboardingFolderChoose.
@@ -997,7 +997,7 @@ abstract class AppLocalizations {
   /// No description provided for @readinessMicMissing.
   ///
   /// In en, this message translates to:
-  /// **'Microphone access is required to record. Your phone asks once; VaultVoice only listens after you tap Record.'**
+  /// **'Microphone access is required to record. Your phone asks once; Lumen only listens after you tap Record.'**
   String get readinessMicMissing;
 
   /// No description provided for @readinessFolderMissing.
@@ -1285,7 +1285,7 @@ abstract class AppLocalizations {
   /// No description provided for @modelDeleteBlockedBody.
   ///
   /// In en, this message translates to:
-  /// **'It’s the only installed model for {type}, and VaultVoice needs one to process recordings. Download another one first, then delete this one.'**
+  /// **'It’s the only installed model for {type}, and Lumen needs one to process recordings. Download another one first, then delete this one.'**
   String modelDeleteBlockedBody(String type);
 
   /// No description provided for @modelDeleted.
@@ -2581,7 +2581,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingSoftwareAgcDescription.
   ///
   /// In en, this message translates to:
-  /// **'Use VaultVoice’s own gain control instead of the phone’s. Used automatically when the phone has none.'**
+  /// **'Use Lumen’s own gain control instead of the phone’s. Used automatically when the phone has none.'**
   String get settingSoftwareAgcDescription;
 
   /// No description provided for @settingRawCapture.
@@ -3745,7 +3745,7 @@ abstract class AppLocalizations {
   /// No description provided for @profilesImportInvalid.
   ///
   /// In en, this message translates to:
-  /// **'This file is not a valid VaultVoice profile.'**
+  /// **'This file is not a valid Lumen profile.'**
   String get profilesImportInvalid;
 
   /// No description provided for @profilesImportUntrusted.
@@ -4669,7 +4669,7 @@ abstract class AppLocalizations {
   /// No description provided for @indicatorRecordingText.
   ///
   /// In en, this message translates to:
-  /// **'VaultVoice is recording. Tap to open.'**
+  /// **'Lumen is recording. Tap to open.'**
   String get indicatorRecordingText;
 
   /// No description provided for @indicatorPausedTitle.
@@ -4807,7 +4807,7 @@ abstract class AppLocalizations {
   /// No description provided for @betaFeedbackEmailSubject.
   ///
   /// In en, this message translates to:
-  /// **'VaultVoice beta feedback'**
+  /// **'Lumen beta feedback'**
   String get betaFeedbackEmailSubject;
 
   /// No description provided for @betaFeedbackDiagnosticsNote.
@@ -4825,7 +4825,7 @@ abstract class AppLocalizations {
   /// No description provided for @paywallTitle.
   ///
   /// In en, this message translates to:
-  /// **'Get VaultVoice Pro'**
+  /// **'Get Lumen Pro'**
   String get paywallTitle;
 
   /// No description provided for @paywallBenefits.

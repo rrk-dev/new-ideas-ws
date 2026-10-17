@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 240" width="960" height="240">
+  <title>Lumen</title>
+  <rect width="960" height="240" fill="#F6F7F5"/>
+  <g transform="translate(40 40) scale(0.3571)">
+    <g fill="#0F766E">
+      <rect x="224" y="460" width="76" height="200" rx="38" transform="translate(-190 -250)"/>
+      <rect x="349" y="380" width="76" height="360" rx="38" transform="translate(-190 -250)"/>
+      <rect x="474" y="310" width="76" height="500" rx="38" transform="translate(-190 -250)"/>
+      <rect x="599" y="395" width="76" height="330" rx="38" transform="translate(-190 -250)"/>
+      <rect x="724" y="465" width="76" height="190" rx="38" transform="translate(-190 -250)"/>
+    </g>
+    <circle cx="572" cy="40" r="54" fill="#0F766E"/>
+  </g>
+  <text x="320" y="148" fill="#17211F" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="128" font-weight="300" letter-spacing="6">Lumen</text>
+</svg>

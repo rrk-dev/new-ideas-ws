@@ -3,9 +3,9 @@
 > Draft shipped with the app. The final wording is supplied by the business
 > and legal side and replaces this file before store submission.
 
-## What VaultVoice does with your data
+## What Lumen does with your data
 
-VaultVoice records audio only when you tap Record, turns it into text on
+Lumen records audio only when you tap Record, turns it into text on
 your device, and saves Markdown notes in the folder you choose.
 
 - **No data is collected.** Recordings, transcripts, notes and settings stay
@@ -23,7 +23,7 @@ import models from a file instead. Settings shows every request the app made.
 
 ## Calls
 
-VaultVoice never records phone or VoIP calls. If a call starts, recording
+Lumen never records phone or VoIP calls. If a call starts, recording
 stops and does not resume on its own.
 
 ## Recording other people

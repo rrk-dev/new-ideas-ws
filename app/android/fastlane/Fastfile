@@ -1,4 +1,4 @@
-# VaultVoice Android release lanes (REL-01).
+# Lumen Android release lanes (REL-01).
 # REL-05 store screenshots / metadata: Fastfile.store + fastlane/metadata/**.
 #
 # NOT executed by the authoring agent (no fastlane / Android SDK available);

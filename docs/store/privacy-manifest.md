@@ -54,7 +54,7 @@ or phone-state/call-log permissions (also enforced by SEC-09).
 ## Usage-description strings and background modes
 | Item | Value | Justification for reviewers |
 |---|---|---|
-| `NSMicrophoneUsageDescription` | "VaultVoice uses the microphone only to record notes you start. Audio is processed on this device and never uploaded." | Core feature; the OS prompt follows an in-app explanation (APP-01) |
+| `NSMicrophoneUsageDescription` | "Lumen uses the microphone only to record notes you start. Audio is processed on this device and never uploaded." | Core feature; the OS prompt follows an in-app explanation (APP-01) |
 | `NSFaceIDUsageDescription` | "Face ID unlocks your recordings and notes when the app lock is on." | Optional app lock |
 | `UIBackgroundModes: audio` | — | A recording the user started keeps running when they switch apps; the indicator stays visible and the OS shows the recording status |
 | `UIBackgroundModes: processing` | — | Transcription/extraction of the user's recordings continues in a BGProcessingTask; no network |

@@ -1,4 +1,4 @@
-# Contributing to VaultVoice
+# Contributing to Lumen
 
 Agent-facing rules live in [`AGENTS.md`](AGENTS.md); this file covers the developer setup and
 conventions for the Flutter app in `app/`.
@@ -34,8 +34,8 @@ fvm flutter run -d macos --flavor prod -t lib/main_prod.dart
 ```
 | Flavor | Android applicationId | iOS / macOS bundle ID | Display name | Icon |
 |---|---|---|---|---|
-| `dev` | `com.vaultvoice.vaultvoice.dev` | `com.vaultvoice.vaultvoice.dev` | VaultVoice Dev | orange (placeholder) |
-| `prod` | `com.vaultvoice.vaultvoice` | `com.vaultvoice.vaultvoice` | VaultVoice | indigo (placeholder) |
+| `dev` | `com.vaultvoice.vaultvoice.dev` | `com.vaultvoice.vaultvoice.dev` | Lumen Dev | orange (placeholder) |
+| `prod` | `com.vaultvoice.vaultvoice` | `com.vaultvoice.vaultvoice` | Lumen | indigo (placeholder) |
 
 iOS and macOS build configurations are `Debug|Release|Profile-<flavor>`, with schemes
 `dev` and `prod`. macOS schemes live in `app/macos/Runner.xcodeproj`.
@@ -53,7 +53,7 @@ fvm dart run flutter_launcher_icons -f flutter_launcher_icons-prod.yaml
 ## Platform targets and rationale
 - **iOS 16.0+**, **Android API 26+ (Android 8.0), arm64-v8a only**, and **macOS 13+ arm64**
   for v1.
-- On 2026-10-14 the user decided VaultVoice also ships as an arm64 macOS desktop app, on the
+- On 2026-10-14 the user decided Lumen also ships as an arm64 macOS desktop app, on the
   same Record screen as iOS. Web, Linux, and Windows are out of scope.
 - Why: on-device Whisper/LLM inference relies on Metal 3-era GPUs (iOS 16 baseline: A12+ devices)
   and Vulkan 1.1 / modern audio and background-execution APIs on Android 8+. macOS 13 is the

@@ -1,6 +1,6 @@
 import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
 
-/// What must be in place before VaultVoice can record and process a note.
+/// What must be in place before Lumen can record and process a note.
 enum ReadinessItem {
   sttModel(OnboardingStep.models),
   llmModel(OnboardingStep.models),

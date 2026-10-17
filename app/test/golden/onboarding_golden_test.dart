@@ -6,7 +6,7 @@ import '../helpers/golden.dart';
 
 void main() {
   goldenTest(
-    '[APP-01] Onboarding (privacy explainer)',
+    '[APP-01] Onboarding (privacy explainer) [APP-08/AC4]',
     fileName: 'onboarding_privacy',
     overrides: [
       settingsStoreProvider.overrideWith((ref) => FakeSettingsStore()),

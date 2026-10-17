@@ -34,7 +34,7 @@ VaultAccessGuard vaultAccessGuard(Ref ref) =>
 
 /// The app's own folder: default/fallback vault target. Android:
 /// app-private `filesDir/vault`; iOS: `Documents/`, visible in Files under
-/// "On My iPhone › VaultVoice" (`UIFileSharingEnabled`).
+/// "On My iPhone › Lumen" (`UIFileSharingEnabled`).
 @Riverpod(keepAlive: true)
 VaultWriter appLocalVaultWriter(Ref ref) => switch (defaultTargetPlatform) {
   TargetPlatform.android => AppLocalVaultWriter(

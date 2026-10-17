@@ -16,7 +16,7 @@ class _Managed implements ManagedSettingsSource {
 
 void main() {
   goldenTest(
-    '[APP-03] Settings screen (one managed setting)',
+    '[APP-03] Settings screen (one managed setting) [APP-08/AC4]',
     fileName: 'settings_screen',
     overrides: [
       settingsStoreProvider.overrideWith(

@@ -1356,7 +1356,7 @@
     "version": "0.1.0",
     "kind": "direct",
     "source": "path",
-    "license_text": "VaultVoice first-party native bridge; app distribution terms apply.",
+    "license_text": "Lumen first-party native bridge; app distribution terms apply.",
     "sha256": "c1a20e727ec1c0a94d28edc5b40d8fc25b956b74f114af2e07340da6c2edcbf2"
   },
   {

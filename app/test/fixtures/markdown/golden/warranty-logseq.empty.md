@@ -6,4 +6,4 @@ recording-id:: rec-empty
 
 - **Details**
   - Recorded: [[2026-01-02]] 03:04
-- Generated on-device by VaultVoice
+- Generated on-device by Lumen

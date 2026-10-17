@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
+import 'package:vaultvoice/core/widgets/field_helper.dart';
 import 'package:vaultvoice/core/widgets/status_message.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/export/domain/export_collision.dart';
@@ -159,8 +160,7 @@ class _OptionsFormState extends ConsumerState<_OptionsForm> {
             controller: _pattern,
             decoration: InputDecoration(
               labelText: l.vaultTargetFilename,
-              helperText: l.routingRuleFilenameHint,
-              helperMaxLines: 3,
+              helper: FieldHelper(l.routingRuleFilenameHint),
               errorText: _patternError,
               border: const OutlineInputBorder(),
             ),

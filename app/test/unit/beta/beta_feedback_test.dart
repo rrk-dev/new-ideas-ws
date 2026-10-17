@@ -23,14 +23,14 @@ void main() {
     final outcome = await sender.send(
       const BetaFeedbackDraft(
         message: message,
-        subject: 'VaultVoice beta feedback',
+        subject: 'Lumen beta feedback',
         satisfactionOutOfFive: 4,
         satisfactionLine: 'Extraction satisfaction: 4/5',
       ),
     );
     expect(outcome, BetaFeedbackOutcome.shared);
     expect(share.payloads, hasLength(1));
-    expect(share.payloads.single.subject, 'VaultVoice beta feedback');
+    expect(share.payloads.single.subject, 'Lumen beta feedback');
     expect(share.payloads.single.text, contains(message));
     expect(share.payloads.single.text, contains('4/5'));
     expect(share.payloads.single.path, isNull);
@@ -58,7 +58,7 @@ void main() {
       await sender.send(
         const BetaFeedbackDraft(
           message: 'Please look at the logs.',
-          subject: 'VaultVoice beta feedback',
+          subject: 'Lumen beta feedback',
           diagnosticsNote: 'A diagnostics zip is attached.',
         ),
         diagnostics: bundle,
@@ -84,10 +84,7 @@ void main() {
     );
     expect(
       () => sender.send(
-        const BetaFeedbackDraft(
-          message: '   ',
-          subject: 'VaultVoice beta feedback',
-        ),
+        const BetaFeedbackDraft(message: '   ', subject: 'Lumen beta feedback'),
       ),
       throwsStateError,
     );
@@ -103,7 +100,7 @@ void main() {
         ).send(
           const BetaFeedbackDraft(
             message: 'Hello',
-            subject: 'VaultVoice beta feedback',
+            subject: 'Lumen beta feedback',
           ),
         );
     expect(outcome, BetaFeedbackOutcome.dismissed);

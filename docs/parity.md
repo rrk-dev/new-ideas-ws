@@ -1,6 +1,6 @@
 # iOS / Android parity
 
-Feature checklist for VaultVoice. Every row is a user-facing behavior or a platform
+Feature checklist for Lumen. Every row is a user-facing behavior or a platform
 mechanism the tasks require. Update the row when the owning task's Completion Notes
 change the behavior.
 

@@ -1,7 +1,7 @@
 # Long transcripts — chunking + map-reduce extraction (LLM-06)
 
 A 60-minute meeting is about 9–12k tokens, a 2-hour one 20–40k. Mobile context budgets are
-4–8k (LLM-07 tiers). This page describes how VaultVoice extracts structured data from transcripts
+4–8k (LLM-07 tiers). This page describes how Lumen extracts structured data from transcripts
 that do not fit the context, and how recall is compared against single-pass extraction.
 
 Code: `app/lib/features/extraction/domain/long_transcript/`

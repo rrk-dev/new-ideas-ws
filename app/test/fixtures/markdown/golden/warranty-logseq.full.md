@@ -28,4 +28,4 @@ recording-id:: 0f8d2c1e-7a5b-4c3d-9e1f-2a3b4c5d6e7f
   - support@example.com
 - **Notes**
   - Receipt is in the kitchen drawer.
-- Generated on-device by VaultVoice
+- Generated on-device by Lumen

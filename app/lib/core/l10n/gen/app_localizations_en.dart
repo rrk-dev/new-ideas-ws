@@ -128,19 +128,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get batteryGuidanceSamsung =>
-      'Settings → Battery → Background usage limits → Never sleeping apps → add VaultVoice.';
+      'Settings → Battery → Background usage limits → Never sleeping apps → add Lumen.';
 
   @override
   String get batteryGuidanceXiaomi =>
-      'Settings → Apps → VaultVoice → Battery saver → No restrictions, and turn on Autostart.';
+      'Settings → Apps → Lumen → Battery saver → No restrictions, and turn on Autostart.';
 
   @override
   String get batteryGuidanceOnePlus =>
-      'Settings → Battery → VaultVoice → Allow background activity.';
+      'Settings → Battery → Lumen → Allow background activity.';
 
   @override
   String get batteryGuidanceGeneric =>
-      'In battery settings, allow VaultVoice to run in the background.';
+      'In battery settings, allow Lumen to run in the background.';
 
   @override
   String get batteryGuidanceOpenSettings => 'Open battery settings';
@@ -179,22 +179,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get modelImportUnsignedBody =>
-      'This file is not a VaultVoice-signed model. Only import GGUF files from a source you trust: a malformed or malicious model file can crash the app. Its license is your responsibility.';
+      'This file is not a Lumen-signed model. Only import GGUF files from a source you trust: a malformed or malicious model file can crash the app. Its license is your responsibility.';
 
   @override
   String get modelImportAnyway => 'Import anyway';
 
   @override
   String get modelImportErrorUnknownModel =>
-      'Not a signed VaultVoice model. Select the model file together with its .json and .sig files.';
+      'Not a signed Lumen model. Select the model file together with its .json and .sig files.';
 
   @override
   String get modelImportErrorMissingFiles =>
       'Select exactly one model file plus its .json and .sig files.';
 
   @override
-  String get modelImportErrorEntitlement =>
-      'Custom models require VaultVoice Pro.';
+  String get modelImportErrorEntitlement => 'Custom models require Lumen Pro.';
 
   @override
   String get modelImportErrorInvalidGguf =>
@@ -388,7 +387,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingPrivacyNetwork =>
-      'The only thing VaultVoice downloads is its AI models. Nothing you record is ever uploaded.';
+      'The only thing Lumen downloads is its AI models. Nothing you record is ever uploaded.';
 
   @override
   String get onboardingPrivacyVault =>
@@ -407,22 +406,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get consentExplainerConfirm =>
-      'For conversations with several people, VaultVoice asks you to confirm that everyone agreed before it starts.';
+      'For conversations with several people, Lumen asks you to confirm that everyone agreed before it starts.';
 
   @override
   String get consentNeverCalls =>
-      'VaultVoice never records phone or VoIP calls. When a call starts, recording stops and does not resume on its own.';
+      'Lumen never records phone or VoIP calls. When a call starts, recording stops and does not resume on its own.';
 
   @override
   String get consentExplainerAcknowledge =>
       'I will only record people with their consent';
 
   @override
-  String get onboardingPermissionsTitle => 'What VaultVoice will ask for';
+  String get onboardingPermissionsTitle => 'What Lumen will ask for';
 
   @override
   String get onboardingPermissionMic =>
-      'Microphone (required): your phone asks when you tap Allow microphone below — never at launch, and VaultVoice never listens in the background.';
+      'Microphone (required): your phone asks when you tap Allow microphone below — never at launch, and Lumen never listens in the background.';
 
   @override
   String get onboardingPermissionNotifications =>
@@ -440,7 +439,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingPermissionFolder =>
-      'Folder: you choose where notes are saved in the next steps. VaultVoice can only see that folder.';
+      'Folder: you choose where notes are saved in the next steps. Lumen can only see that folder.';
 
   @override
   String get permissionOpenSettings => 'Open settings';
@@ -454,11 +453,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get micPrimerBody =>
-      'VaultVoice needs the microphone to record what you choose to record. The audio stays on this device. Your phone will ask for permission next.';
+      'Lumen needs the microphone to record what you choose to record. The audio stays on this device. Your phone will ask for permission next.';
 
   @override
   String get micDeniedBody =>
-      'Microphone access is off, so VaultVoice can’t record. You can still import audio and browse your notes. Allow the microphone in the system settings to record.';
+      'Microphone access is off, so Lumen can’t record. You can still import audio and browse your notes. Allow the microphone in the system settings to record.';
 
   @override
   String get onboardingModelsTitle => 'AI models for this device';
@@ -505,7 +504,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingFolderBody =>
-      'Pick your Obsidian or Logseq vault, or any folder. VaultVoice only gets access to the folder you pick.';
+      'Pick your Obsidian or Logseq vault, or any folder. Lumen only gets access to the folder you pick.';
 
   @override
   String get onboardingFolderChoose => 'Choose folder';
@@ -552,7 +551,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get readinessMicMissing =>
-      'Microphone access is required to record. Your phone asks once; VaultVoice only listens after you tap Record.';
+      'Microphone access is required to record. Your phone asks once; Lumen only listens after you tap Record.';
 
   @override
   String get readinessFolderMissing =>
@@ -727,7 +726,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String modelDeleteBlockedBody(String type) {
-    return 'It’s the only installed model for $type, and VaultVoice needs one to process recordings. Download another one first, then delete this one.';
+    return 'It’s the only installed model for $type, and Lumen needs one to process recordings. Download another one first, then delete this one.';
   }
 
   @override
@@ -1504,7 +1503,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingSoftwareAgcDescription =>
-      'Use VaultVoice’s own gain control instead of the phone’s. Used automatically when the phone has none.';
+      'Use Lumen’s own gain control instead of the phone’s. Used automatically when the phone has none.';
 
   @override
   String get settingRawCapture => 'Raw capture';
@@ -2180,8 +2179,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profilesImported => 'Profile imported.';
 
   @override
-  String get profilesImportInvalid =>
-      'This file is not a valid VaultVoice profile.';
+  String get profilesImportInvalid => 'This file is not a valid Lumen profile.';
 
   @override
   String get profilesImportUntrusted =>
@@ -2726,7 +2724,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get indicatorRecordingTitle => 'Recording';
 
   @override
-  String get indicatorRecordingText => 'VaultVoice is recording. Tap to open.';
+  String get indicatorRecordingText => 'Lumen is recording. Tap to open.';
 
   @override
   String get indicatorPausedTitle => 'Recording paused';
@@ -2808,7 +2806,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get betaFeedbackFailed => 'Could not prepare feedback.';
 
   @override
-  String get betaFeedbackEmailSubject => 'VaultVoice beta feedback';
+  String get betaFeedbackEmailSubject => 'Lumen beta feedback';
 
   @override
   String get betaFeedbackDiagnosticsNote =>
@@ -2820,7 +2818,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get paywallTitle => 'Get VaultVoice Pro';
+  String get paywallTitle => 'Get Lumen Pro';
 
   @override
   String get paywallBenefits =>

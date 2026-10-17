@@ -58,11 +58,11 @@ android {
         create("dev") {
             dimension = "env"
             applicationIdSuffix = ".dev"
-            resValue("string", "app_name", "VaultVoice Dev")
+            resValue("string", "app_name", "Lumen Dev")
         }
         create("prod") {
             dimension = "env"
-            resValue("string", "app_name", "VaultVoice")
+            resValue("string", "app_name", "Lumen")
         }
     }
 

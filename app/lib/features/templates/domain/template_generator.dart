@@ -104,7 +104,7 @@ String generateTemplate(Profile profile) {
     ..writeln()
     ..writeln('---')
     ..writeln()
-    ..writeln('_Generated on-device by VaultVoice._');
+    ..writeln('_Generated on-device by Lumen._');
   return b.toString();
 }
 

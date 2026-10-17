@@ -1,6 +1,6 @@
 # Testing
 
-How VaultVoice is tested: which layers exist, who owns them, which gates block a merge,
+How Lumen is tested: which layers exist, who owns them, which gates block a merge,
 and how every acceptance criterion gets checkable evidence. The rules behind this page
 are in `.agents/skills/vv-testing/SKILL.md`. Task workflow and verification are in
 `vv-task-workflow` and `vv-task-verify`.

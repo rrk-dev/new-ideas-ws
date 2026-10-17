@@ -37,7 +37,7 @@ class FileSelectorBundlePicker implements ProfileBundlePicker {
     final file = await openFile(
       acceptedTypeGroups: const [
         XTypeGroup(
-          label: 'VaultVoice profile',
+          label: 'Lumen profile',
           extensions: [kBundleExtension],
           uniformTypeIdentifiers: [kBundleUti],
           mimeTypes: [

@@ -20,7 +20,7 @@ import 'package:vaultvoice/features/recording/domain/start_source.dart';
 import 'package:vaultvoice/features/recording/presentation/audio_import_flow.dart';
 import 'package:vaultvoice/features/recording/presentation/battery_guidance.dart';
 import 'package:vaultvoice/features/recording/presentation/call_guard_debug_screen.dart';
-import 'package:vaultvoice/features/recording/presentation/level_meter_bar.dart';
+import 'package:vaultvoice/features/recording/presentation/live_waveform.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_debug_screen.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_details_sheet.dart';
 import 'package:vaultvoice/features/recording/presentation/recording_indicator_binding.dart';
@@ -337,7 +337,7 @@ class _RecordScreenState extends ConsumerState<RecordScreen>
             ),
             body: SafeArea(
               child: ListView(
-                padding: const EdgeInsets.all(AppSpacing.md),
+                padding: const EdgeInsets.all(AppSpacing.lg),
                 children: [
                   RecordingSetupPickers(
                     setup: _setup,
@@ -353,11 +353,11 @@ class _RecordScreenState extends ConsumerState<RecordScreen>
                   const SizedBox(height: AppSpacing.lg),
                   _Timer(state: state),
                   const SizedBox(height: AppSpacing.md),
-                  if (phase == RecordingPhase.recording)
-                    const LevelMeterBar()
-                  else
-                    const SizedBox(height: AppSpacing.sm),
-                  const SizedBox(height: AppSpacing.xl),
+                  LiveWaveform(
+                    key: const ValueKey('live-waveform'),
+                    active: phase == RecordingPhase.recording,
+                  ),
+                  const SizedBox(height: AppSpacing.xxl),
                   _Controls(
                     phase: phase,
                     inCall: _blocked == _Blocked.inCall && !active,
@@ -396,7 +396,7 @@ class _Banner extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: error
                 ? scheme.onErrorContainer
                 : scheme.onSecondaryContainer,
@@ -599,17 +599,13 @@ class _Controls extends StatelessWidget {
           onTap: inCall && !active ? null : onTap,
           excludeSemantics: true,
           child: SizedBox.square(
-            dimension: 96,
+            dimension: AppSizes.recordButton,
             child: FilledButton(
               key: const ValueKey('record-main'),
               style: FilledButton.styleFrom(
                 shape: const CircleBorder(),
-                backgroundColor: phase == RecordingPhase.recording
-                    ? scheme.primary
-                    : scheme.error,
-                foregroundColor: phase == RecordingPhase.recording
-                    ? scheme.onPrimary
-                    : scheme.onError,
+                backgroundColor: scheme.primary,
+                foregroundColor: scheme.onPrimary,
                 padding: EdgeInsets.zero,
               ),
               onPressed: inCall && !active ? null : onTap,
@@ -620,7 +616,10 @@ class _Controls extends StatelessWidget {
                 child: FittedBox(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: [Icon(icon, size: 40), Text(label, maxLines: 1)],
+                    children: [
+                      Icon(icon, size: AppSizes.iconLg),
+                      Text(label, maxLines: 1),
+                    ],
                   ),
                 ),
               ),
@@ -658,8 +657,11 @@ class _SideButton extends StatelessWidget {
     mainAxisSize: MainAxisSize.min,
     children: [
       IconButton.filledTonal(
-        iconSize: 32,
-        constraints: const BoxConstraints.tightFor(width: 64, height: 64),
+        iconSize: AppSizes.iconMd,
+        constraints: const BoxConstraints.tightFor(
+          width: AppSizes.sideButton,
+          height: AppSizes.sideButton,
+        ),
         tooltip: semanticsLabel ?? label,
         icon: Icon(icon),
         onPressed: onPressed,

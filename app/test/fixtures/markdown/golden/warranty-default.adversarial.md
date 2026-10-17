@@ -44,4 +44,4 @@ pipe | table |
 
 ---
 
-_Generated on-device by VaultVoice._
+_Generated on-device by Lumen._

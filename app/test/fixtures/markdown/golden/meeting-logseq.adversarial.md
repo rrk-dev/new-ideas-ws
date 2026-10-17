@@ -24,4 +24,4 @@ recording-id:: rec-"adv" ---
 - **Topics**
   - \[\[Secret Note\]\] !\[\[embed.png\]\]
   - \<!-- hide everything after -->
-- Generated on-device by VaultVoice · 1h 02m
+- Generated on-device by Lumen · 1h 02m

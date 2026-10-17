@@ -44,4 +44,4 @@ Receipt is in the kitchen drawer.
 
 ---
 
-_Generated on-device by VaultVoice._
+_Generated on-device by Lumen._

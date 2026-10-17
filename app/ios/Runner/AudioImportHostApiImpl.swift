@@ -12,7 +12,7 @@ import UIKit
 ///   aiff, caf and flac (iOS 11+); **not** Ogg/Opus/Vorbis (no AVFoundation
 ///   demuxer) → error code `unsupported`.
 /// * Shares: `SceneDelegate` forwards `openURLContexts` here ("Open in" /
-///   "Copy to VaultVoice" via `CFBundleDocumentTypes`); the share extension
+///   "Copy to Lumen" via `CFBundleDocumentTypes`); the share extension
 ///   (follow-up AUD-10) drops files into the App Group inbox
 ///   `group.<bundle id>/Inbox/Audio`, which is drained on every
 ///   `takePendingShares`. Files are copied into `tmp/shared_audio` at once.
@@ -119,7 +119,7 @@ final class AudioImportHostApiImpl: AudioImportHostApi {
     return out
   }
 
-  /// "Open in" / "Copy to VaultVoice": copy now (the URL may be a
+  /// "Open in" / "Copy to Lumen": copy now (the URL may be a
   /// security-scoped document in another app's container).
   func handleOpenedUrls(_ urls: [URL]) {
     var added = false

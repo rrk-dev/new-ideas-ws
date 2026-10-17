@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
-import 'package:vaultvoice/core/theme/app_tokens.dart';
+import 'package:vaultvoice/core/widgets/section_header.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
 import 'package:vaultvoice/features/settings/presentation/setting_texts.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
@@ -11,32 +11,8 @@ ValueKey<String> settingTileKey(String settingKey) =>
     ValueKey('setting-$settingKey');
 
 /// Section header inside the settings list.
-class SettingsSectionHeader extends StatelessWidget {
-  const SettingsSectionHeader(this.title, {super.key});
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Semantics(
-      header: true,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(
-          AppSpacing.md,
-          AppSpacing.lg,
-          AppSpacing.md,
-          AppSpacing.xs,
-        ),
-        child: Text(
-          title,
-          style: theme.textTheme.titleSmall?.copyWith(
-            color: theme.colorScheme.primary,
-          ),
-        ),
-      ),
-    );
-  }
+class SettingsSectionHeader extends SectionHeader {
+  const SettingsSectionHeader(super.title, {super.key});
 }
 
 /// Edits one [SettingDef]; read-only (with a lock) when managed (LIC-04).

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
+import 'package:vaultvoice/core/widgets/field_helper.dart';
 import 'package:vaultvoice/features/recording/data/recording_screen_providers.dart';
 import 'package:vaultvoice/features/recording/data/recording_session_service.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
@@ -169,7 +170,7 @@ class _RecordingDetailsSheetState extends ConsumerState<RecordingDetailsSheet> {
               controller: _tags,
               decoration: InputDecoration(
                 labelText: l10n.detailsTagsField,
-                helperText: l10n.detailsTagsHint,
+                helper: FieldHelper(l10n.detailsTagsHint),
               ),
             ),
             const SizedBox(height: AppSpacing.sm),

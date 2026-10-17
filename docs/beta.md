@@ -13,7 +13,7 @@ were not executed on the authoring machine (no Xcode, no Android SDK).
 
 ### TestFlight external group
 
-1. App Store Connect → the VaultVoice app → TestFlight → **External Groups** →
+1. App Store Connect → the Lumen app → TestFlight → **External Groups** →
    create a group named `VaultVoice External` (override the lane with
    `VV_TESTFLIGHT_EXTERNAL_GROUP` if the name must differ).
 2. Add testers by email. External builds need **Beta App Review** the first
@@ -71,7 +71,7 @@ Diagnostics are the FND-07 zip (logs, device info, metrics). The preview
 dialog shows the zip before anything is shared. Recordings, transcripts and
 notes are not in that zip.
 
-**Share** opens the system share sheet with the subject `VaultVoice beta
+**Share** opens the system share sheet with the subject `Lumen beta
 feedback`. Mail is one of the destinations the tester can pick; that is the
 compose-email path. Nothing is sent until they choose a destination. The app
 has no mail server and does not call the network gateway.

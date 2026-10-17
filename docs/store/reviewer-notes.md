@@ -4,7 +4,7 @@ Paste into App Store Connect → App Review Information → Notes, and Play
 Console → App content as applicable. Draft wording; product/legal may edit.
 
 ## What the app is
-VaultVoice records audio when the user taps Record, transcribes it on the
+Lumen records audio when the user taps Record, transcribes it on the
 device, and writes a Markdown note into a folder the user chooses. No account
 is needed and no user content is sent anywhere.
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vaultvoice/core/theme/app_tokens.dart';
+import 'package:vaultvoice/core/widgets/empty_state.dart';
 
 /// Centered icon + message (+ optional action) for empty and error states.
 class StatusMessage extends StatelessWidget {
@@ -17,28 +17,10 @@ class StatusMessage extends StatelessWidget {
   final VoidCallback? onAction;
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Center(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(AppSpacing.lg),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 48, color: theme.colorScheme.primary),
-            const SizedBox(height: AppSpacing.md),
-            Text(
-              message,
-              style: theme.textTheme.bodyLarge,
-              textAlign: TextAlign.center,
-            ),
-            if (actionLabel != null && onAction != null) ...[
-              const SizedBox(height: AppSpacing.md),
-              FilledButton(onPressed: onAction, child: Text(actionLabel!)),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => EmptyState(
+    icon: icon,
+    message: message,
+    actionLabel: actionLabel,
+    onAction: onAction,
+  );
 }

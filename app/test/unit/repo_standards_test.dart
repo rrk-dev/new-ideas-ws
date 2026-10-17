@@ -14,7 +14,7 @@ void main() {
   });
 
   test('[FND-01/AC1] product name is a single constant', () {
-    expect(kAppName, 'VaultVoice');
+    expect(kAppName, 'Lumen');
   });
 
   test('[FND-01/AC3] CONTRIBUTING documents layout, flavors and targets', () {

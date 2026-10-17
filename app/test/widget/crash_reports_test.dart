@@ -107,7 +107,7 @@ void main() {
     final report = seedNative();
     await pumpApp(t);
 
-    expect(find.text('VaultVoice closed unexpectedly'), findsOneWidget);
+    expect(find.text('Lumen closed unexpectedly'), findsOneWidget);
     expect(find.textContaining('no recordings, transcripts'), findsOneWidget);
     expect(share.shared, isEmpty, reason: 'nothing is sent automatically');
 
@@ -123,7 +123,7 @@ void main() {
     await t.pumpAndSettle();
     final sent = share.shared.single;
     expect(sent.mimeType, 'text/plain');
-    expect(sent.subject, 'VaultVoice crash report');
+    expect(sent.subject, 'Lumen crash report');
     expect(sent.path, startsWith(paths.crashShare.path));
     expect(File(sent.path).readAsStringSync(), _report);
     expect(report.file.existsSync(), isFalse);
@@ -172,7 +172,7 @@ void main() {
   testWidgets('Dart error report gets its own wording', (t) async {
     store.writeDart('*** VaultVoice Dart error report v1\nend of report\n');
     await pumpApp(t);
-    expect(find.text('VaultVoice hit an unexpected error'), findsOneWidget);
+    expect(find.text('Lumen hit an unexpected error'), findsOneWidget);
   });
 
   testWidgets('forced-crash tiles exist only in the dev flavor', (t) async {

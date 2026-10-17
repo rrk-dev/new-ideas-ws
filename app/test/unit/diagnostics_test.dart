@@ -192,7 +192,7 @@ void main() {
 
       // Device info + metrics.
       final device = jsonDecode(files['device.json']!) as Map<String, Object?>;
-      expect(device['app'], 'VaultVoice');
+      expect(device['app'], 'Lumen');
       expect(device['os'], Platform.operatingSystem);
       expect(device['native'], {'bridge': '0.1.0'});
       final metric =

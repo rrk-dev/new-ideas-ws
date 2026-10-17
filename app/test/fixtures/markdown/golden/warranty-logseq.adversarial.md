@@ -28,4 +28,4 @@ recording-id:: rec-"adv" ---
   - 14:05
 - **Notes**
   - pipe | table |
-- Generated on-device by VaultVoice
+- Generated on-device by Lumen

@@ -1,6 +1,6 @@
 # Markdown templates
 
-How VaultVoice turns extraction JSON into a note (EXP-01). Decision record:
+How Lumen turns extraction JSON into a note (EXP-01). Decision record:
 `docs/adr/ADR-EXP-01-template-engine.md`. Profile side (schema, `has_*` helpers, variable
 check): `docs/profile-spec.md`.
 
