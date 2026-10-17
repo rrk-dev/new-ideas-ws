@@ -1,0 +1,26 @@
+docs/test-plans/device/QCP-01.md
+  s_1427ebf43a4801::t_019760b633fd18 1-17,19-27
+  s_1427ebf43a4801::t_443dd8487929bf 18
+tasks/14-product-phase2/QCP-01-quick-capture-decision.md
+  s_1427ebf43a4801::t_443dd8487929bf 11,14-23,36-48
+  s_1427ebf43a4801::t_8f06ca6e0ebd94 4
+docs/adr/ADR-QCP-01-quick-capture.md
+  s_1427ebf43a4801::t_c16bcfe3b6be06 279-284
+  s_1427ebf43a4801::t_31bd45cf733037 1-278,285-325
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "520720a9564c16162f72ce554c0b4153d107770a",
+  "prompts": {},
+  "sessions": {
+    "s_1427ebf43a4801": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "182bfb90-181f-4cc3-9f68-c4fd40f68983",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
