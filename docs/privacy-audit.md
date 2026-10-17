@@ -305,3 +305,20 @@ No billing token, signature, receipt or user content is sent to an application
 server or logged. Verification metadata persists in the encrypted settings DB.
 The Play console public RSA key is injected through build configuration;
 no key material is committed. SDK upgrades must repeat the exclusion audit.
+
+## TSK-01 Apple Reminders export (DRAFT, 2026-10-17; final in SEC-11)
+
+Decision: [ADR-TSK-01](adr/ADR-TSK-01-task-export.md) (Proposed). Nothing is implemented yet.
+
+| Question | Answer |
+|---|---|
+| Network use / host | **None added.** EventKit is an OS framework writing to the on-device Reminders store. `kModelHosts` and `tools/ci/check_egress.sh` unchanged. |
+| Data written | Per user-selected action item: title (item text), optional `Owner: <text>`, optional due date from the extracted `due_iso`, and "From Lumen, <date>". No transcript, audio name, timestamp or recording title. |
+| Trigger | Explicit tap and explicit item selection only. No automatic or background export. |
+| Permission | Reminders full read/write (iOS/macOS offer no write-only level for reminders — ADR E2); requested on first use. Items go into a dedicated "Lumen" Reminders list created by us (fallback: the default list). Targets: iOS, macOS, Android (no feature). Info.plist `NSRemindersFullAccessUsageDescription` + legacy `NSRemindersUsageDescription`; macOS sandbox entitlement `com.apple.security.personal-information.calendars` (reminder coverage unverified — D3 must PASS before macOS ships). |
+| iCloud / Exchange sync | If the user's Reminders list syncs, that is the user's own OS account setting, done by the OS outside our client. The UI must say so. Exported items then exist on the user's Apple servers, outside our control. |
+| Stored by us | Link table `reminder_exports` (hash key, EventKit item id, list id, timestamp) in the encrypted DB; deleted with the recording. |
+| Logging | Ids hashed only; never item text. |
+| Android | No Apple Reminders; feature not offered. |
+| Third parties | None (Todoist, Apple Notes and others dropped by the user 2026-10-17). |
+| Verification pending | Device rows D1–D8 in `docs/test-plans/device/TSK-01.md` (egress capture D6). |

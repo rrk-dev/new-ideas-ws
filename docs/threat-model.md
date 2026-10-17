@@ -148,3 +148,18 @@ Internal runbook (owner: a person other than the implementer):
 - [ ] MobSF and pen test runbook executed on the release candidate (human).
 - [ ] SEC-09 device rows (QA-04 calls) PASS.
 - [ ] No open High or Critical in the register.
+
+## TSK-01 Apple Reminders export (DRAFT, 2026-10-17; final in SEC-11)
+
+New data flow: user-selected action items → `EKEventStore` (on-device Reminders) via our own
+Pigeon plugin. Design: [ADR-TSK-01](adr/ADR-TSK-01-task-export.md) (Proposed, not implemented).
+Trust boundary added: app ↔ OS Reminders store (and the user's own iCloud/Exchange sync behind it).
+
+| # | Threat | STRIDE | Sev | Planned mitigation | Residual |
+|---|---|---|---|---|---|
+| T17 | Content leaves the device through the reminder (iCloud/Exchange sync of the user's list, shared lists, Siri/Watch surfaces) | I | M | Content-minimal payload (item text, owner text, due date; no transcript/audio name); explicit per-item user selection; UI notice that sync is the OS setting; no automatic export | User's sync setting is outside our control |
+| T18 | Over-broad permission: only full read/write exists for reminders | E, I | M | Request on first use only; read back only our linked ids (`calendarItem(withIdentifier:)`), never enumerate or fetch other reminders (the dedicated "Lumen" list is looked up by id/title among list metadata only); no background access | Permission grants access to all reminders (OS limit) |
+| T19 | Prompt-injected / hostile item text (T5) written to Reminders (misleading task, very long text) | T | L | Title length cap, whitespace collapse, text passed as data only, user reviews the exact text before export; due date only from strictly parsed `due_iso`, never from speech | Misleading but user-approved text |
+| T20 | Duplicate or silently re-created reminders after re-render/re-extraction | T, R | L | Stable export identity (ADR §6); no silent re-creation when the id is lost; create-only, never update/delete user reminders | Reworded re-extraction can be added again |
+| T21 | Reminder text appears in logs/crash reports | I | M | Content-free logging (`LogId`), no item text in `Failure` messages or diagnostics | — |
+| T22 | New permission/entitlement or network host sneaks in | I | M | ADR lists the only amendments; egress CI unchanged; privacy-audit row; SEC-11 re-check | — |
