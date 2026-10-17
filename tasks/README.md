@@ -120,6 +120,8 @@ review | done`) and a `**Skills:**` line listing the skills to load. Find unbloc
 | [APP-04](08-app-ux/APP-04-processing-status-notifications.md) | Processing status & notifications | 2–3 | S | Gap |
 | [APP-05](08-app-ux/APP-05-result-review-before-export.md) | Result review before export | 3 | M | Gap |
 | [APP-06](08-app-ux/APP-06-accessibility-localization.md) | Accessibility & localization | 4 | S | Gap |
+| [APP-07](08-app-ux/APP-07-lumen-brand-logo.md) | Lumen brand: name and logo | 4 | M | User request |
+| [APP-08](08-app-ux/APP-08-modern-ui-theme.md) | Modern UI: design system and screen restyle | 4 | L | User request |
 
 ### 09 — Licensing
 | ID | Task | Phase | Size | Source |
