@@ -1,7 +1,7 @@
 # TSK-01 — Action-item export decision: Apple Reminders
 
 **Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** S | **Depends on:** SEC-02, SEC-06, SEC-08, APP-05, EXP-05 | **Source:** User decision 2026-10-17 (action items go to Apple Reminders only; Todoist and Apple Notes dropped)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-decision-records, vv-privacy-security, vv-markdown-vault-export, vv-licensing-iap
 
 ## Goal
