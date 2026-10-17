@@ -73,7 +73,7 @@ ADR). Reminder content is never logged (`vv-privacy-security`: ids only, hashed)
 ### 2. Permission and entitlement amendments (the confirmation the task demands)
 Needed, and **nothing else**:
 - iOS and macOS `Info.plist`: `NSRemindersFullAccessUsageDescription` and (for the iOS 16 /
-  macOS 13 minimums, E3/E5) `NSRemindersUsageDescription`, same user-facing text: "VaultVoice
+  macOS 13 minimums, E3/E5) `NSRemindersUsageDescription`, same user-facing text: "Lumen
   adds the action items you choose to your Reminders. They stay on your device; if your
   Reminders sync with iCloud, that is your own iCloud setting."
 - macOS entitlement `com.apple.security.personal-information.calendars` (E9; confirm on
@@ -114,7 +114,7 @@ Source: table `action_items` (`app/lib/core/db/tables/extraction_tables.dart`: `
 | Reminder field | Value |
 |---|---|
 | `title` | `body.trim()`, whitespace-collapsed, truncated to 255 characters at a grapheme boundary (limit is **our** choice, not an Apple fact) |
-| `notes` | `Owner: <owner>` only if `owner` non-empty (text, never resolved to a contact, never assigned); then `From VaultVoice, <recording date>`. **No transcript text, no source `t`, no recording title/filename** (content-minimal). |
+| `notes` | `Owner: <owner>` only if `owner` non-empty (text, never resolved to a contact, never assigned); then `From Lumen, <recording date>`. **No transcript text, no source `t`, no recording title/filename** (content-minimal). |
 | `dueDateComponents` | only when `dueIso` is non-null **and** parses as a strict ISO-8601 calendar date or date-time; date-only → `year/month/day` components (no time, no alert); date-time → plus hour/minute. Unparseable → no due date. **Never inferred from spoken text** ("next Friday"). |
 | `calendar` | the user's chosen Reminders list (default `defaultCalendarForNewReminders()`); remembered in settings as its calendar identifier, falling back to the default if it is gone |
 | `priority`, alarms, URL, location, recurrence, assignee | not set |
@@ -207,5 +207,5 @@ belongs to the user; LIC-05 records it.
 1. Free vs Pro (§8).
 2. Approve the full-access permission wording and the macOS entitlement (§2)?
 3. Is macOS a shipped target, or only a development host?
-4. Default list: system default, or a dedicated "VaultVoice" list created by us (creating a
+4. Default list: system default, or a dedicated "Lumen" list created by us (creating a
    list needs `saveCalendar`; not verified/decided)?

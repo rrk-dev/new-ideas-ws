@@ -12,9 +12,9 @@ iPhone/Mac or Xcode run was available when the ADR was authored.
 | D3 [TSK-01/AC1] macOS sandbox entitlement (E9) | Sandboxed spike with only `com.apple.security.personal-information.calendars` | Reminders access works (or: another entitlement is needed → report exact name) | Mac | macOS 14+ | ⏳ | | |
 | D4 [TSK-01/AC2] Read back by id (E6, E8) | Save, store `calendarItemIdentifier`, relaunch the app, call `calendarItem(withIdentifier:)`; then edit the title in Reminders and repeat | Returns the same reminder with the edited title; deleted reminder → nil | iPhone / Mac | iOS 17+, macOS 14+ | ⏳ | | |
 | D5 [TSK-01/AC2] Identifier after sync and reinstall (E6, E8) | iCloud Reminders on: save, wait for sync, toggle Reminders iCloud off/on or sign a second device in, reinstall the app, look up the stored id | Record whether the id still resolves; if not, "no longer found" UX applies | iPhone + second device | iOS 17+ | ⏳ | | |
-| D6 [TSK-01/AC1] No network from our process (E10) | Proxy/egress capture (`vv-privacy-security` runbook) while exporting 3 items with iCloud Reminders on | No connection from the VaultVoice process | iPhone + proxy | iOS 17+ | ⏳ | | |
+| D6 [TSK-01/AC1] No network from our process (E10) | Proxy/egress capture (`vv-privacy-security` runbook) while exporting 3 items with iCloud Reminders on | No connection from the Lumen process | iPhone + proxy | iOS 17+ | ⏳ | | |
 | D7 [TSK-01/AC3] Due date mapping | Export items with date-only and date-time `due_iso` | Reminder shows the due date (and time only when given); no alert | iPhone | iOS 17+ | ⏳ | | |
-| D8 [TSK-01/AC3] Dedicated list creation (ADR open question 4) | Try `saveCalendar` for a "VaultVoice" list with the default Reminders source | Succeeds on iCloud and "On My iPhone" sources, or report failure | iPhone | iOS 17+ | ⏳ | | |
+| D8 [TSK-01/AC3] Dedicated list creation (ADR open question 4) | Try `saveCalendar` for a "Lumen" list with the default Reminders source | Succeeds on iCloud and "On My iPhone" sources, or report failure | iPhone | iOS 17+ | ⏳ | | |
 
 ## Notes / evidence
 Attach screenshots and the spike output here.
