@@ -13,10 +13,11 @@ The Phase 2 features are shown, on real devices and the release build, to work t
 - [ ] Rerun the stress plan items touched by Phase 2 (QA-04): recording interruption by a call from each entry point, low memory while asking, app kill during mind-map generation, revoked Reminders permission.
 - [ ] Rerun the performance protocol (QA-03) with the 3B model on Mid and High tier devices: memory, thermal, battery for an ask session and for automatic mind-map generation.
 - [ ] Rerun the egress test on the release build.
+- [ ] Todoist release variant: if TSK-03 is in this release it must be in `review` before the final SEC-11 audit and this gate sign-off; otherwise record Todoist as excluded and confirm no Todoist host exists in the build.
 
 ## Acceptance Criteria
 - Every scenario in `docs/test-plans/gates/GATE-05.md` passes on the device matrix rows marked required, with zero call-capture failures and zero data loss.
 - Quick capture never starts a recording from an app launch, expired token or automation (device rows).
-- Ask and mind-map budgets (time, RAM, thermal) from ASK-03/MAP-01 are met on Mid and High tier devices or an ADR-approved revision exists.
+- Ask and mind-map budgets (time, RAM, thermal) written into ASK-03 and MAP-01 are met on Mid and High tier devices or an ADR-approved revision exists.
 - Egress report on the release build lists only allowlisted hosts; the Todoist host appears only if TSK-03 shipped and only after opt-in.
 - `tasks.py verify --all-done --run` is green on the release commit and a human (not an agent) signs the gate.

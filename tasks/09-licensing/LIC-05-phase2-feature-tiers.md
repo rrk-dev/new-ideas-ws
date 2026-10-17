@@ -8,7 +8,7 @@
 Every new Phase 2 capability has an explicit, tested tier placement in the single feature matrix, chosen by the product owner.
 
 ## Scope
-- [ ] Ask the user (do not assume) for each feature: quick capture, Lecture / Sales conversation / Interview profiles, ask-your-notes, mind maps, Reminders export, Todoist export. Present the facts that constrain the choice: the 3B model is already `Feature.largeLlm` (Pro) under the existing size rule, built-in profiles carry a `tier` field (meeting is free; warranty and engineering are pro), and AGENTS.md forbids subscription gating of core features.
+- [ ] Ask the user (do not assume) for each feature: quick capture, Lecture / Sales conversation / Interview profiles, ask-your-notes, mind maps, Reminders export, Todoist export. Present the facts that constrain the choice: the 3B model is already `Feature.largeLlm` (Pro) under the existing size rule, built-in profiles carry a `tier` field (meeting is free; warranty and engineering are pro).
 - [ ] Add `Feature` values and `kFeatureMatrix` rows for the chosen features (free / pro / enterprise / personal columns) with a unit test for every cell; no feature check outside `EntitlementService`/`FeatureGate`.
 - [ ] Set the `tier` of each new built-in profile to the decided value and remove the provisional `PRODUCT-DECISION` markers left by TPL-01/02/03.
 - [ ] Update the paywall copy and product docs (`docs/iap-products.md`) only where the decision changes what Pro lists; no store product ids or prices change in this task.

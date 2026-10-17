@@ -1,6 +1,6 @@
 # TSK-02 — Export action items to Apple Reminders (iOS and macOS)
 
-**Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** M | **Depends on:** TSK-01, APP-02, APP-05, AUD-09 | **Source:** User decision 2026-10-16 (product Phase 2: Reminders export; Reminders is local)
+**Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** M | **Depends on:** TSK-01, LIC-05, APP-02, APP-05, AUD-09 | **Source:** User decision 2026-10-16 (product Phase 2: Reminders export; Reminders is local)
 **Status:** todo
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-ffi-bridge, vv-privacy-security, vv-licensing-iap, vv-testing
 
@@ -22,4 +22,5 @@ From a recording's action items (or the library-wide Action Items screen), a use
 - Denied or revoked permission shows the recovery state and creates nothing (widget test `[TSK-02/AC3]`).
 - On a physical iPhone and on macOS, selected items appear in the chosen Reminders list with the expected title, due date and note (device rows `docs/test-plans/device/TSK-02.md`, ⏳ until run).
 - Android shows no Reminders action (widget test); `check_egress.sh` is unchanged and passes; no reminder text appears in logs (log-content test).
+- Push → re-render → push does not create a duplicate reminder (`[TSK-02/AC7]`).
 - Deleting a recording removes its idempotency rows (DB test).
