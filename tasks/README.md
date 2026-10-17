@@ -232,9 +232,9 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 | Cloud device farm (Firebase Test Lab / BrowserStack) | QA-05 | Proposed: physical lab only, no cloud farm (ADR-QA-05). Human accepts or rejects |
 | Ship a macOS desktop app | FND-09, FND-10, AUD-09, EXP-09 | Decided by the user on 2026-10-14: yes, arm64 macOS desktop alongside iOS and Android. Web, Linux, and Windows stay off. |
 | `small.en` Whisper in Free tier? | LIC-01 | Product decision (§7 says Free gets small/tiny) |
-| Free vs Pro for quick capture, new profiles, ask-your-notes, mind maps, task export | LIC-05 | Product decision; 3B model is already Pro by the size rule |
+| Free vs Pro for Phase 2 features | LIC-05 | Decided 2026-10-17: all unlocked for now |
 | Todoist integration | TSK-01 | **Decided 2026-10-17: no Todoist, no Apple Notes** (no public write API); Apple Reminders only |
-| Phase 2 tiers | LIC-05 | 2026-10-17: user wants everything Free; open conflict: 3B model is Pro by the size rule (exception or Pro?) |
+| Phase 2 tiers | LIC-05 | **Decided 2026-10-17: no Pro for now.** All features unlocked; Pro gating suppressed behind one switch, enable later |
 | Lecture consent | TPL-01 | 2026-10-17: consent always required; personal use is fine |
 | Quick capture: start-now vs open-and-arm; Action Button `StartSource` | QCP-01 | SEC-09 ADR amendment, human approval |
 | Ask-your-notes retrieval: FTS5 vs embeddings | ASK-02 | Decide from measured recall |
