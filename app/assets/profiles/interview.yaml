@@ -32,7 +32,7 @@ stt:
   diarization: true
   num_speakers: 2
 classify:
-  keywords: [interview, interviewer, interviewee, guest, tell me about, in your experience, research, participants, follow-up question, on the record]
+  keywords: [interview, interviewer, interviewee, guest, tell me about, in your experience, research, participants, follow-up question, on the record, welcome to the show, what would you do differently]
 instructions: |
   - Use only what is stated in the transcript; leave out anything that is not there. Never invent people, facts, quotes, tasks or dates.
   - Report what was said. Do not rate, score, rank or compare anyone, do not judge ability, honesty or personality, and never recommend hiring, rejecting or any decision about a person.

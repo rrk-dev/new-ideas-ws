@@ -1,0 +1,1838 @@
+{
+ "env": {
+  "model": "Llama-3.2-1B-Instruct-Q4_K_M.gguf",
+  "date": "2026-10-17",
+  "host": "Darwin arm64",
+  "stage": "keywords + LLM",
+  "commit": "fbfc25e",
+  "dirty": true,
+  "wall_s": 25.390379624965135,
+  "rss_mib": 1818
+ },
+ "aggregate": {
+  "cases": 144,
+  "accuracy": 0.9375,
+  "accuracy_dev": 0.9444444444444444,
+  "accuracy_holdout": 0.9305555555555556,
+  "accuracy_clear": 0.9895833333333334,
+  "accuracy_ambiguous": 0.8333333333333334,
+  "accuracy_injection": 0.8333333333333334,
+  "recall_per_profile": {
+   "meeting": 1.0,
+   "warranty": 0.8333333333333334,
+   "engineering": 1.0,
+   "lecture": 0.9583333333333334,
+   "sales_call": 0.9166666666666666,
+   "interview": 0.9166666666666666
+  },
+  "precision_per_profile": {
+   "meeting": 0.8275862068965517,
+   "warranty": 1.0,
+   "engineering": 1.0,
+   "lecture": 0.9583333333333334,
+   "sales_call": 0.9565217391304348,
+   "interview": 0.9166666666666666
+  },
+  "confident_wrong_rate_max": 0.006944444444444444,
+  "keyword_decided": 130,
+  "keyword_precision": 0.9923076923076923,
+  "llm_decided": 14,
+  "llm_accuracy": 0.42857142857142855,
+  "undecided": 0,
+  "ask_rate": 0.09027777777777778,
+  "llm_latency_ms_median": 1596.0,
+  "llm_latency_ms_max": 1721,
+  "confusion": {
+   "meeting": {
+    "meeting": 24,
+    "warranty": 0,
+    "engineering": 0,
+    "lecture": 0,
+    "sales_call": 0,
+    "interview": 0,
+    "none": 0
+   },
+   "warranty": {
+    "meeting": 4,
+    "warranty": 20,
+    "engineering": 0,
+    "lecture": 0,
+    "sales_call": 0,
+    "interview": 0,
+    "none": 0
+   },
+   "engineering": {
+    "meeting": 0,
+    "warranty": 0,
+    "engineering": 24,
+    "lecture": 0,
+    "sales_call": 0,
+    "interview": 0,
+    "none": 0
+   },
+   "lecture": {
+    "meeting": 0,
+    "warranty": 0,
+    "engineering": 0,
+    "lecture": 23,
+    "sales_call": 0,
+    "interview": 1,
+    "none": 0
+   },
+   "sales_call": {
+    "meeting": 1,
+    "warranty": 0,
+    "engineering": 0,
+    "lecture": 0,
+    "sales_call": 22,
+    "interview": 1,
+    "none": 0
+   },
+   "interview": {
+    "meeting": 0,
+    "warranty": 0,
+    "engineering": 0,
+    "lecture": 1,
+    "sales_call": 1,
+    "interview": 22,
+    "none": 0
+   }
+  }
+ },
+ "cases": [
+  {
+   "id": "classify-001",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-002",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-003",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-004",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-005",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.85,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-006",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-007",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-008",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-009",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear",
+    "injection"
+   ]
+  },
+  {
+   "id": "classify-010",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-011",
+   "expected": "warranty",
+   "picked": "meeting",
+   "method": "llm",
+   "confidence": 0.0,
+   "needs_choice": true,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-012",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-013",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-014",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear",
+    "injection"
+   ]
+  },
+  {
+   "id": "classify-015",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-016",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-017",
+   "expected": "sales_call",
+   "picked": "meeting",
+   "method": "llm",
+   "confidence": 0.0,
+   "needs_choice": true,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-018",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-019",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-020",
+   "expected": "warranty",
+   "picked": "meeting",
+   "method": "llm",
+   "confidence": 0.0,
+   "needs_choice": true,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-021",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-022",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-023",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-024",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-025",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-026",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "llm",
+   "confidence": 0.0,
+   "needs_choice": true,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-027",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-028",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-029",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.85,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-030",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-031",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-032",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-033",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-034",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.7999999999999999,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-035",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-036",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-037",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-038",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-039",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-040",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-041",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-042",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.85,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-043",
+   "expected": "interview",
+   "picked": "lecture",
+   "method": "llm",
+   "confidence": 0.0,
+   "needs_choice": true,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-044",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-045",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.85,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-046",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.7999999999999999,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-047",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-048",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-049",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-050",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-051",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-052",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-053",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-054",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-055",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-056",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.85,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-057",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-058",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-059",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.85,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-060",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-061",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-062",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-063",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-064",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear",
+    "injection"
+   ]
+  },
+  {
+   "id": "classify-065",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-066",
+   "expected": "warranty",
+   "picked": "meeting",
+   "method": "llm",
+   "confidence": 0.0,
+   "needs_choice": true,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-067",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-068",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-069",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-070",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.85,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-071",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-072",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-073",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear",
+    "injection"
+   ]
+  },
+  {
+   "id": "classify-074",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-075",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.85,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-076",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-077",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-078",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-079",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-080",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-081",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-082",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.85,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-083",
+   "expected": "warranty",
+   "picked": "meeting",
+   "method": "llm",
+   "confidence": 0.0,
+   "needs_choice": true,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-084",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-085",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.7999999999999999,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-086",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-087",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-088",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-089",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "llm",
+   "confidence": 0.8,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-090",
+   "expected": "sales_call",
+   "picked": "interview",
+   "method": "llm",
+   "confidence": 0.0,
+   "needs_choice": true,
+   "split": "holdout",
+   "tags": [
+    "clear",
+    "injection"
+   ]
+  },
+  {
+   "id": "classify-091",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-092",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-093",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-094",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-095",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-096",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-097",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-098",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.85,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-099",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-100",
+   "expected": "interview",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-101",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-102",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-103",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-104",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-105",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-106",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-107",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-108",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-109",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-110",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-111",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-112",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear",
+    "injection"
+   ]
+  },
+  {
+   "id": "classify-113",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-114",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-115",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-116",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-117",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "llm",
+   "confidence": 0.0,
+   "needs_choice": true,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-118",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-119",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-120",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-121",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-122",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-123",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "llm",
+   "confidence": 0.0,
+   "needs_choice": true,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-124",
+   "expected": "lecture",
+   "picked": "interview",
+   "method": "llm",
+   "confidence": 0.0,
+   "needs_choice": true,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-125",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-126",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "llm",
+   "confidence": 0.0,
+   "needs_choice": true,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-127",
+   "expected": "warranty",
+   "picked": "warranty",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-128",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-129",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-130",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-131",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "llm",
+   "confidence": 0.0,
+   "needs_choice": true,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-132",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-133",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-134",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-135",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-136",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-137",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-138",
+   "expected": "meeting",
+   "picked": "meeting",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-139",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.8999999999999999,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "ambiguous"
+   ]
+  },
+  {
+   "id": "classify-140",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-141",
+   "expected": "interview",
+   "picked": "interview",
+   "method": "keyword",
+   "confidence": 0.85,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-142",
+   "expected": "lecture",
+   "picked": "lecture",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-143",
+   "expected": "sales_call",
+   "picked": "sales_call",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "dev",
+   "tags": [
+    "clear"
+   ]
+  },
+  {
+   "id": "classify-144",
+   "expected": "engineering",
+   "picked": "engineering",
+   "method": "keyword",
+   "confidence": 0.95,
+   "needs_choice": false,
+   "split": "holdout",
+   "tags": [
+    "ambiguous"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+{
+  "targets": {
+    "accuracy": 0.9,
+    "accuracy_holdout": 0.9,
+    "accuracy_ambiguous": 0.75,
+    "recall_per_profile": 0.8,
+    "confident_wrong_rate_max": 0.05,
+    "keyword_precision": 0.95
+  }
+}

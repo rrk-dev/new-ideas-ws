@@ -1540,12 +1540,6 @@ abstract class AppLocalizations {
   /// **'Processing is running. Try again when it has finished.'**
   String get recordingBusy;
 
-  /// No description provided for @recordingProfileCurrent.
-  ///
-  /// In en, this message translates to:
-  /// **'{name} (current)'**
-  String recordingProfileCurrent(String name);
-
   /// No description provided for @recordingTabSummary.
   ///
   /// In en, this message translates to:
@@ -2067,6 +2061,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Auto'**
   String get recordAuto;
+
+  /// No description provided for @profilePickerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a profile'**
+  String get profilePickerTitle;
+
+  /// No description provided for @profilePickerAutoDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the best profile from the transcript'**
+  String get profilePickerAutoDescription;
+
+  /// No description provided for @profilePickerLockedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, requires Pro'**
+  String profilePickerLockedHint(String name);
 
   /// No description provided for @recordButtonStartLabel.
   ///

@@ -12,12 +12,21 @@ final class ProfileChoice {
   const ProfileChoice({
     required this.id,
     required this.name,
+    this.description = '',
+    this.icon,
     this.consentRequired = false,
     this.consentOptional = false,
   });
 
   final String id;
   final String name;
+
+  /// One-line summary shown under the name in the profile picker.
+  final String description;
+
+  /// Material icon name from the profile (`groups`, `school`, …); null or an
+  /// unknown name shows the generic profile icon.
+  final String? icon;
 
   /// `consent_confirmation: required` (SEC-07): the "everyone present
   /// agrees" confirmation must be given before the microphone opens.

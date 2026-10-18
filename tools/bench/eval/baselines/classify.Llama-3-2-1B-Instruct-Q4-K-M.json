@@ -1,0 +1,102 @@
+{
+ "env": {
+  "model": "Llama-3.2-1B-Instruct-Q4_K_M.gguf",
+  "date": "2026-10-17",
+  "host": "Darwin arm64",
+  "stage": "keywords + LLM",
+  "commit": "fbfc25e",
+  "dirty": true,
+  "wall_s": 25.390379624965135,
+  "rss_mib": 1818
+ },
+ "aggregate": {
+  "cases": 144,
+  "accuracy": 0.9375,
+  "accuracy_dev": 0.9444444444444444,
+  "accuracy_holdout": 0.9305555555555556,
+  "accuracy_clear": 0.9895833333333334,
+  "accuracy_ambiguous": 0.8333333333333334,
+  "accuracy_injection": 0.8333333333333334,
+  "recall_per_profile": {
+   "meeting": 1.0,
+   "warranty": 0.8333333333333334,
+   "engineering": 1.0,
+   "lecture": 0.9583333333333334,
+   "sales_call": 0.9166666666666666,
+   "interview": 0.9166666666666666
+  },
+  "precision_per_profile": {
+   "meeting": 0.8275862068965517,
+   "warranty": 1.0,
+   "engineering": 1.0,
+   "lecture": 0.9583333333333334,
+   "sales_call": 0.9565217391304348,
+   "interview": 0.9166666666666666
+  },
+  "confident_wrong_rate_max": 0.006944444444444444,
+  "keyword_decided": 130,
+  "keyword_precision": 0.9923076923076923,
+  "llm_decided": 14,
+  "llm_accuracy": 0.42857142857142855,
+  "undecided": 0,
+  "ask_rate": 0.09027777777777778,
+  "llm_latency_ms_median": 1596.0,
+  "llm_latency_ms_max": 1721,
+  "confusion": {
+   "meeting": {
+    "meeting": 24,
+    "warranty": 0,
+    "engineering": 0,
+    "lecture": 0,
+    "sales_call": 0,
+    "interview": 0,
+    "none": 0
+   },
+   "warranty": {
+    "meeting": 4,
+    "warranty": 20,
+    "engineering": 0,
+    "lecture": 0,
+    "sales_call": 0,
+    "interview": 0,
+    "none": 0
+   },
+   "engineering": {
+    "meeting": 0,
+    "warranty": 0,
+    "engineering": 24,
+    "lecture": 0,
+    "sales_call": 0,
+    "interview": 0,
+    "none": 0
+   },
+   "lecture": {
+    "meeting": 0,
+    "warranty": 0,
+    "engineering": 0,
+    "lecture": 23,
+    "sales_call": 0,
+    "interview": 1,
+    "none": 0
+   },
+   "sales_call": {
+    "meeting": 1,
+    "warranty": 0,
+    "engineering": 0,
+    "lecture": 0,
+    "sales_call": 22,
+    "interview": 1,
+    "none": 0
+   },
+   "interview": {
+    "meeting": 0,
+    "warranty": 0,
+    "engineering": 0,
+    "lecture": 1,
+    "sales_call": 1,
+    "interview": 22,
+    "none": 0
+   }
+  }
+ }
+}

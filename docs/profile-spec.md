@@ -30,7 +30,7 @@ A profile is YAML (built-in assets, `.vvprofile` bundles) or the equivalent JSON
 | `stt.vocabulary` | string[] | – | Joined with `, ` into Whisper `initial_prompt`; ≤ 200 chars total. |
 | `stt.diarization` | bool | – | `true` for multi-speaker profiles. |
 | `stt.num_speakers` | int 1–10 \| `auto` | – | Clustering hint; default `auto`. |
-| `classify.keywords` | string[] | – | ≤ 30 entries, each ≤ 40 chars. Fast pre-filter for auto routing. |
+| `classify.keywords` | string[] | – | ≤ 30 entries, each ≤ 40 chars. Fast pre-filter for auto routing: the profile with ≥ 2 distinct whole-word hits and ≥ 2× the runner-up is picked without the LLM; otherwise the LLM decides, and below confidence 0.6 the user is asked (PRF-06, accuracy measured in TPL-04: `tools/bench/eval/classify/`). |
 | `instructions` | string | ✅ | ≤ 2000 chars. Imperative bullets, small-model friendly. The system prompt itself is fixed app code (PRF-02), not a profile field. |
 | `schema` | JSON Schema (subset) | ✅ | Root `type: object`, not nullable. See "Schema subset". |
 | `map_schema` | JSON Schema (subset) | – | Schema for the map step of map-reduce (LLM-06); same rules as `schema`. |
@@ -284,7 +284,7 @@ stt:
   diarization: true
   num_speakers: auto
 classify:
-  keywords: [meeting, agenda, action item, follow up, next steps, standup, sync]
+  keywords: [meeting, agenda, action item, follow up, next steps, standup, sync, minutes, blockers]
 instructions: |
   - Use only what is stated in the transcript; leave out anything that is not there. Never invent people, tasks or dates.
   - attendees: names of people who speak or are clearly present. Use speaker names as given.
