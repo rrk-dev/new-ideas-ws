@@ -1,0 +1,61 @@
+app/lib/features/ask/domain/ask_models.dart
+  s_5095472e80968b::t_3028f083e460f0 1-144
+app/lib/features/settings/domain/setting_keys.dart
+  s_5095472e80968b::t_4834b6551d6e9e 6-10
+app/lib/features/ask/domain/ask_retriever.dart
+  s_5095472e80968b::t_bbe27af3bf323d 1-10
+app/lib/features/ask/data/db_ask_retriever.dart
+  s_5095472e80968b::t_901150e15f01d9 127,147,157,164,171-172,174-176,197-198
+  s_5095472e80968b::t_c81e89d7b3e796 30,32,40,42,54-56
+  s_5095472e80968b::t_bbe27af3bf323d 1-29,31,33-39,41,43-53,57-126,128-146,148-156,158-163,165-170,173,177-196
+app/lib/features/ask/data/db_ask_history.dart
+  s_5095472e80968b::t_c81e89d7b3e796 136-141
+  s_5095472e80968b::t_4834b6551d6e9e 1-24,27-135,142-143
+  s_5095472e80968b::t_a78820c310e3c2 25-26
+app/lib/core/db/database.dart
+  s_5095472e80968b::t_a78820c310e3c2 2
+app/lib/features/ask/domain/ask_query.dart
+  s_5095472e80968b::t_c81e89d7b3e796 3,5-10,12-13,100
+  s_5095472e80968b::t_e9ca09ee24588a 4
+  s_5095472e80968b::t_a36d43e0643ac9 11
+  s_5095472e80968b::t_a78820c310e3c2 61,126-127
+  s_5095472e80968b::t_3028f083e460f0 1-2,14-60,62-99,101-125,128-158
+app/lib/features/retention/data/recording_purger.dart
+  s_5095472e80968b::t_36d61e2e495d9c 111-120
+app/lib/features/ask/domain/ask_prompt.dart
+  s_5095472e80968b::t_98d299f14f0164 1-72,74-161
+  s_5095472e80968b::t_8f5f11e0007509 73
+app/lib/features/retention/data/retention_providers.dart
+  s_5095472e80968b::t_5dadb3fd09c2c5 14-15
+  s_5095472e80968b::t_7a915a4ecfebd6 157-162
+app/test/unit/ask/ask_db_test.dart
+  s_5095472e80968b::t_111e0386481d03 136
+  s_5095472e80968b::t_c23d8fcd3b64c6 1-135,137-242
+app/lib/features/ask/domain/ask_history.dart
+  s_5095472e80968b::t_4834b6551d6e9e 1-47,50-60
+  s_5095472e80968b::t_a78820c310e3c2 48-49
+app/lib/features/ask/domain/ask_service.dart
+  s_5095472e80968b::t_7aa0244d46e5cd 1-273
+app/test/fakes/fake_ask_engine.dart
+  s_5095472e80968b::t_e81dd301544336 1-29
+app/test/unit/ask/ask_query_test.dart
+  s_5095472e80968b::t_4936971f52aaac 1-37
+app/test/unit/ask/ask_service_test.dart
+  s_5095472e80968b::t_66bdf3b60e1bc8 1-314
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "31c392d05b721098cb501f6bb1a1674333f7d7f2",
+  "prompts": {},
+  "sessions": {
+    "s_5095472e80968b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "662c42c7-18d9-4cfa-9280-08ec51c9ab04",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
