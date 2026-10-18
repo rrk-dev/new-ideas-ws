@@ -1,0 +1,14 @@
+tasks/02-audio/AUD-13-ios-live-activity.md
+  h_9c63801c22a53c 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0e82b1a5eb2e3660af31b336d35009217ae81067",
+  "prompts": {},
+  "humans": {
+    "h_9c63801c22a53c": {
+      "author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
