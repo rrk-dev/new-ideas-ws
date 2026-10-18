@@ -1,0 +1,13 @@
+-- ASK-03: a stored answer is only valid while every recording it cites
+-- exists. Removing a citation (recording deleted, or transcripts purged by
+-- retention) removes its turn; an empty thread goes with its last turn.
+import 'ask_tables.dart';
+
+CREATE TRIGGER ask_citation_delete AFTER DELETE ON ask_citations BEGIN
+  DELETE FROM ask_turns WHERE id = old.turn_id;
+END;
+
+CREATE TRIGGER ask_turn_delete AFTER DELETE ON ask_turns BEGIN
+  DELETE FROM ask_threads WHERE id = old.thread_id
+    AND NOT EXISTS (SELECT 1 FROM ask_turns WHERE thread_id = old.thread_id);
+END;

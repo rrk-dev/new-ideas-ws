@@ -3,6 +3,11 @@
 /// Every key is listed here once so features and the Settings screen agree
 /// on names; renaming a key is a data migration.
 abstract final class SettingKeys {
+  /// bool, default `true`: keep Ask questions and answers (30 days, then
+  /// deleted; the user can clear all or delete one chat) (ASK-03,
+  /// ADR-ASK-02). PRODUCT-DECISION (human, 2026-10-17).
+  static const askSaveHistory = 'ask.save_history';
+
   /// bool, default `true`: post local notifications when a note is ready or
   /// processing failed (APP-04).
   static const notificationsEnabled = 'notifications.enabled';

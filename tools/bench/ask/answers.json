@@ -1,0 +1,248 @@
+{
+ "note": "Expected keyword groups for answer correctness (case-insensitive): every group must have at least one alternative in the answer. Written from the gold transcript passages before the first ASK-03 eval run.",
+ "expect": {
+  "E01": [
+   [
+    "m4",
+    "4102",
+    "41027",
+    "sam"
+   ]
+  ],
+  "E02": [
+   [
+    "adventure audio"
+   ]
+  ],
+  "E03": [
+   [
+    "0800 555 0199",
+    "08005550199",
+    "0800555"
+   ]
+  ],
+  "E04": [
+   [
+    "9th",
+    "ninth",
+    "9"
+   ]
+  ],
+  "E05": [
+   [
+    "negative"
+   ],
+   [
+    "non-negative",
+    "dijkstra",
+    "edge weight",
+    "weights"
+   ]
+  ],
+  "E06": [
+   [
+    "green pigment",
+    "pigment"
+   ]
+  ],
+  "E07": [
+   [
+    "stroma"
+   ]
+  ],
+  "E08": [
+   [
+    "rubicon",
+    "caesar"
+   ]
+  ],
+  "E09": [
+   [
+    "vandelay"
+   ]
+  ],
+  "E10": [
+   [
+    "currenc"
+   ]
+  ],
+  "E11": [
+   [
+    "mobile"
+   ],
+   [
+    "nobody asked",
+    "six months",
+    "ask first"
+   ]
+  ],
+  "E12": [
+   [
+    "user/me",
+    "/user/me",
+    "users/me"
+   ]
+  ],
+  "P01": [
+   [
+    "89"
+   ]
+  ],
+  "P02": [
+   [
+    "3 year",
+    "three year",
+    "3-year",
+    "three-year",
+    "3 years",
+    "three years"
+   ]
+  ],
+  "P03": [
+   [
+    "april"
+   ]
+  ],
+  "P04": [
+   [
+    "ko-fi",
+    "kofi"
+   ]
+  ],
+  "P05": [
+   [
+    "simple",
+    "back up",
+    "backup"
+   ]
+  ],
+  "P06": [
+   [
+    "modular monolith"
+   ]
+  ],
+  "P07": [
+   [
+    "chapter four",
+    "memo",
+    "problem set"
+   ]
+  ],
+  "P08": [
+   [
+    "not approved",
+    "cloud"
+   ]
+  ],
+  "P09": [
+   [
+    "add up",
+    "drift",
+    "wrong decision"
+   ]
+  ],
+  "P10": [
+   [
+    "come back",
+    "another time"
+   ]
+  ],
+  "M01": [
+   [
+    "write down",
+    "failed experiments"
+   ]
+  ],
+  "M02": [
+   [
+    "fabrikum",
+    "dishwasher",
+    "litware",
+    "headphones"
+   ]
+  ],
+  "M03": [
+   [
+    "april"
+   ],
+   [
+    "9th",
+    "ninth",
+    "beta"
+   ]
+  ],
+  "M04": [
+   [
+    "marcus",
+    "lena"
+   ]
+  ],
+  "M05": [
+   [
+    "dev",
+    "iris",
+    "elena",
+    "mina",
+    "hugo"
+   ]
+  ],
+  "M06": [
+   [
+    "dev",
+    "elena",
+    "iris"
+   ]
+  ],
+  "M07": [
+   [
+    "graph",
+    "chapter four",
+    "plutarch",
+    "lecture reader"
+   ]
+  ],
+  "M08": [
+   [
+    "dev",
+    "chloe"
+   ]
+  ],
+  "D01": [
+   [
+    "30 days",
+    "two-year",
+    "two year",
+    "litware"
+   ]
+  ],
+  "D02": [
+   [
+    "modular monolith"
+   ]
+  ],
+  "D03": [
+   [
+    "newton"
+   ]
+  ],
+  "D04": [
+   [
+    "security",
+    "cloud"
+   ]
+  ],
+  "D05": [
+   [
+    "dishwasher",
+    "fabrikum"
+   ]
+  ],
+  "D06": [
+   [
+    "survived",
+    "four migrations",
+    "spreadsheet"
+   ]
+  ]
+ }
+}

@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:vaultvoice/core/db/ask_migration.dart';
 import 'package:vaultvoice/core/db/converters.dart';
 import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/db/migrations.dart';
@@ -13,6 +14,7 @@ import 'package:vaultvoice/core/db/repositories/settings_repository.dart';
 import 'package:vaultvoice/core/db/repositories/transcripts_repository.dart';
 import 'package:vaultvoice/core/db/repositories/vault_repository.dart';
 import 'package:vaultvoice/core/db/search_migration.dart';
+import 'package:vaultvoice/core/db/tables/ask_tables.dart';
 import 'package:vaultvoice/core/db/tables/export_tables.dart';
 import 'package:vaultvoice/core/db/tables/extraction_tables.dart';
 import 'package:vaultvoice/core/db/tables/job_tables.dart';
@@ -48,9 +50,12 @@ part 'database.g.dart';
     Exports,
     ModelsInstalled,
     Settings,
+    AskThreads,
+    AskTurns,
+    AskCitations,
   ],
   // APP-02: FTS5 search index + the triggers that keep it in sync.
-  include: {'tables/search.drift'},
+  include: {'tables/search.drift', 'tables/ask.drift'},
   daos: [
     RecordingsRepository,
     TranscriptsRepository,
@@ -68,7 +73,7 @@ class VaultVoiceDatabase extends _$VaultVoiceDatabase {
 
   /// Current schema version. Bump together with a registered step in
   /// [migrationSteps] and `drift_dev make-migrations`.
-  static const int currentSchemaVersion = 3;
+  static const int currentSchemaVersion = 4;
 
   /// Upgrade steps keyed by target version.
   static const Map<int, SchemaStep> migrationSteps = {
@@ -76,6 +81,8 @@ class VaultVoiceDatabase extends _$VaultVoiceDatabase {
     2: migrateToV2SearchIndex,
     // MAP-01: mind_maps table (additive).
     3: migrateToV3MindMaps,
+    // ASK-03: chat history tables + citation triggers.
+    4: migrateToV4Ask,
   };
 
   @override

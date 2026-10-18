@@ -106,4 +106,38 @@ void main() {
     await (db.delete(db.recordings)..where((r) => r.id.equals('r1'))).go();
     expect(await db.select(db.mindMaps).get(), isEmpty);
   });
+
+  test('[ASK-03] v3 → v4 keeps recordings and the new Ask tables remove a '
+      'turn when a cited recording is deleted', () async {
+    final schema = await verifier.schemaAt(3);
+    schema.rawDatabase.execute(
+      'INSERT INTO recordings (id, title, created_at, status, source, tags) '
+      "VALUES ('r1', 'Standup', 0, 'ready', 'recorded', '[]')",
+    );
+    final db = VaultVoiceDatabase(schema.newConnection());
+    addTearDown(db.close);
+    await verifier.migrateAndValidate(db, 4);
+    await db.customStatement('PRAGMA foreign_keys = ON');
+
+    expect(
+      await db.customSelect('SELECT id FROM recordings').get(),
+      hasLength(1),
+    );
+    await db.customStatement(
+      'INSERT INTO ask_threads (id, created_at, updated_at) '
+      "VALUES ('th', 0, 0)",
+    );
+    await db.customStatement(
+      'INSERT INTO ask_turns (id, thread_id, seq, question, answer, found, '
+      "created_at) VALUES ('tu', 'th', 0, 'q', 'a', 1, 0)",
+    );
+    await db.customStatement(
+      "INSERT INTO ask_citations (turn_id, recording_id, t_ms) VALUES ('tu', "
+      "'r1', 5)",
+    );
+    await db.customStatement("DELETE FROM recordings WHERE id = 'r1'");
+    for (final t in ['ask_citations', 'ask_turns', 'ask_threads']) {
+      expect(await db.customSelect('SELECT 1 FROM $t').get(), isEmpty);
+    }
+  });
 }

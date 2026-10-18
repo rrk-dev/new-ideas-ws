@@ -1792,9 +1792,553 @@ i1.GeneratedColumn<int> _column_82(String aliasedName) =>
       type: i1.DriftSqlType.int,
       $customConstraints: 'NOT NULL',
     );
+
+final class Schema4 extends i0.VersionedSchema {
+  Schema4({required super.database}) : super(version: 4);
+  @override
+  late final List<i1.DatabaseSchemaEntity> entities = [
+    recordings,
+    askThreads,
+    askTurns,
+    askCitations,
+    askCitationDelete,
+    askTurnDelete,
+    audioChunks,
+    speechSegments,
+    markers,
+    speakers,
+    searchIndex,
+    searchRecordingInsert,
+    searchRecordingUpdate,
+    searchRecordingDelete,
+    transcripts,
+    transcriptSegments,
+    searchSegmentInsert,
+    searchSegmentUpdate,
+    searchSegmentDelete,
+    extractions,
+    searchExtractionInsert,
+    searchExtractionUpdate,
+    searchExtractionDelete,
+    actionItems,
+    jobs,
+    profiles,
+    templates,
+    mindMaps,
+    vaultTargets,
+    routingRules,
+    exports,
+    modelsInstalled,
+    settings,
+  ];
+  late final Shape1 recordings = Shape1(
+    source: i0.VersionedTable(
+      entityName: 'recordings',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['PRIMARY KEY(id)'],
+      columns: [
+        _column_3,
+        _column_4,
+        _column_5,
+        _column_6,
+        _column_7,
+        _column_8,
+        _column_9,
+        _column_10,
+        _column_11,
+        _column_12,
+        _column_13,
+        _column_14,
+      ],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape19 askThreads = Shape19(
+    source: i0.VersionedTable(
+      entityName: 'ask_threads',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['PRIMARY KEY(id)'],
+      columns: [_column_3, _column_83, _column_5, _column_56],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape20 askTurns = Shape20(
+    source: i0.VersionedTable(
+      entityName: 'ask_turns',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['PRIMARY KEY(id)', 'UNIQUE(thread_id, seq)'],
+      columns: [
+        _column_3,
+        _column_84,
+        _column_21,
+        _column_85,
+        _column_86,
+        _column_87,
+        _column_5,
+      ],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape21 askCitations = Shape21(
+    source: i0.VersionedTable(
+      entityName: 'ask_citations',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: [],
+      columns: [_column_19, _column_88, _column_15, _column_89],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  final i1.Trigger askCitationDelete = i1.Trigger(
+    'CREATE TRIGGER ask_citation_delete AFTER DELETE ON ask_citations BEGIN DELETE FROM ask_turns WHERE id = old.turn_id;END',
+    'ask_citation_delete',
+  );
+  final i1.Trigger askTurnDelete = i1.Trigger(
+    'CREATE TRIGGER ask_turn_delete AFTER DELETE ON ask_turns BEGIN DELETE FROM ask_threads WHERE id = old.thread_id AND NOT EXISTS (SELECT 1 FROM ask_turns WHERE thread_id = old.thread_id);END',
+    'ask_turn_delete',
+  );
+  late final Shape6 audioChunks = Shape6(
+    source: i0.VersionedTable(
+      entityName: 'audio_chunks',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['UNIQUE(recording_id, seq)'],
+      columns: [
+        _column_19,
+        _column_15,
+        _column_21,
+        _column_39,
+        _column_40,
+        _column_22,
+        _column_23,
+        _column_41,
+        _column_42,
+      ],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape7 speechSegments = Shape7(
+    source: i0.VersionedTable(
+      entityName: 'speech_segments',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: [],
+      columns: [_column_19, _column_15, _column_22, _column_23],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape8 markers = Shape8(
+    source: i0.VersionedTable(
+      entityName: 'markers',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: [],
+      columns: [_column_19, _column_15, _column_43, _column_44, _column_45],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape9 speakers = Shape9(
+    source: i0.VersionedTable(
+      entityName: 'speakers',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['UNIQUE(recording_id, label)'],
+      columns: [_column_19, _column_15, _column_46, _column_47],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape0 searchIndex = Shape0(
+    source: i0.VersionedVirtualTable(
+      entityName: 'search_index',
+      moduleAndArgs: 'fts5(recording_id UNINDEXED, kind UNINDEXED, body, tokenize = \'unicode61 remove_diacritics 2\')',
+      columns: [_column_0, _column_1, _column_2],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  final i1.Trigger searchRecordingInsert = i1.Trigger(
+    'CREATE TRIGGER search_recording_insert AFTER INSERT ON recordings BEGIN INSERT INTO search_index (recording_id, kind, body) SELECT new.id, \'title\', new.title || \' \' || COALESCE((SELECT group_concat(value, \' \') FROM json_each(new.tags)), \'\');END',
+    'search_recording_insert',
+  );
+  final i1.Trigger searchRecordingUpdate = i1.Trigger(
+    'CREATE TRIGGER search_recording_update AFTER UPDATE OF title, tags ON recordings BEGIN DELETE FROM search_index WHERE recording_id = new.id AND kind = \'title\';INSERT INTO search_index (recording_id, kind, body) SELECT new.id, \'title\', new.title || \' \' || COALESCE((SELECT group_concat(value, \' \') FROM json_each(new.tags)), \'\');END',
+    'search_recording_update',
+  );
+  final i1.Trigger searchRecordingDelete = i1.Trigger(
+    'CREATE TRIGGER search_recording_delete AFTER DELETE ON recordings BEGIN DELETE FROM search_index WHERE recording_id = old.id;END',
+    'search_recording_delete',
+  );
+  late final Shape2 transcripts = Shape2(
+    source: i0.VersionedTable(
+      entityName: 'transcripts',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['PRIMARY KEY(id)'],
+      columns: [
+        _column_3,
+        _column_15,
+        _column_16,
+        _column_17,
+        _column_5,
+        _column_18,
+      ],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape3 transcriptSegments = Shape3(
+    source: i0.VersionedTable(
+      entityName: 'transcript_segments',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['UNIQUE(transcript_id, seq)'],
+      columns: [
+        _column_19,
+        _column_20,
+        _column_21,
+        _column_22,
+        _column_23,
+        _column_24,
+        _column_25,
+        _column_26,
+        _column_27,
+        _column_28,
+      ],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  final i1.Trigger searchSegmentInsert = i1.Trigger(
+    'CREATE TRIGGER search_segment_insert AFTER INSERT ON transcript_segments BEGIN INSERT INTO search_index ("rowid", recording_id, kind, body) SELECT -new.id, t.recording_id, \'transcript\', new.body FROM transcripts AS t WHERE t.id = new.transcript_id;END',
+    'search_segment_insert',
+  );
+  final i1.Trigger searchSegmentUpdate = i1.Trigger(
+    'CREATE TRIGGER search_segment_update AFTER UPDATE OF body ON transcript_segments BEGIN DELETE FROM search_index WHERE "rowid" = -old.id;INSERT INTO search_index ("rowid", recording_id, kind, body) SELECT -new.id, t.recording_id, \'transcript\', new.body FROM transcripts AS t WHERE t.id = new.transcript_id;END',
+    'search_segment_update',
+  );
+  final i1.Trigger searchSegmentDelete = i1.Trigger(
+    'CREATE TRIGGER search_segment_delete AFTER DELETE ON transcript_segments BEGIN DELETE FROM search_index WHERE "rowid" = -old.id;END',
+    'search_segment_delete',
+  );
+  late final Shape4 extractions = Shape4(
+    source: i0.VersionedTable(
+      entityName: 'extractions',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['PRIMARY KEY(id)'],
+      columns: [
+        _column_3,
+        _column_15,
+        _column_29,
+        _column_30,
+        _column_16,
+        _column_31,
+        _column_32,
+        _column_5,
+      ],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  final i1.Trigger searchExtractionInsert = i1.Trigger(
+    'CREATE TRIGGER search_extraction_insert AFTER INSERT ON extractions BEGIN DELETE FROM search_index WHERE kind = \'extraction\' AND recording_id = new.recording_id;INSERT INTO search_index (recording_id, kind, body) SELECT e.recording_id, \'extraction\', group_concat(j.value, \' \') FROM extractions AS e,json_tree(e.json)AS j WHERE e.id = (SELECT e2.id FROM extractions AS e2 WHERE e2.recording_id = new.recording_id ORDER BY e2.created_at DESC, e2.id DESC LIMIT 1) AND j.type = \'text\' GROUP BY e.id;END',
+    'search_extraction_insert',
+  );
+  final i1.Trigger searchExtractionUpdate = i1.Trigger(
+    'CREATE TRIGGER search_extraction_update AFTER UPDATE OF json ON extractions BEGIN DELETE FROM search_index WHERE kind = \'extraction\' AND recording_id = new.recording_id;INSERT INTO search_index (recording_id, kind, body) SELECT e.recording_id, \'extraction\', group_concat(j.value, \' \') FROM extractions AS e,json_tree(e.json)AS j WHERE e.id = (SELECT e2.id FROM extractions AS e2 WHERE e2.recording_id = new.recording_id ORDER BY e2.created_at DESC, e2.id DESC LIMIT 1) AND j.type = \'text\' GROUP BY e.id;END',
+    'search_extraction_update',
+  );
+  final i1.Trigger searchExtractionDelete = i1.Trigger(
+    'CREATE TRIGGER search_extraction_delete AFTER DELETE ON extractions BEGIN DELETE FROM search_index WHERE kind = \'extraction\' AND recording_id = old.recording_id;INSERT INTO search_index (recording_id, kind, body) SELECT e.recording_id, \'extraction\', group_concat(j.value, \' \') FROM extractions AS e,json_tree(e.json)AS j WHERE e.id = (SELECT e2.id FROM extractions AS e2 WHERE e2.recording_id = old.recording_id ORDER BY e2.created_at DESC, e2.id DESC LIMIT 1) AND j.type = \'text\' GROUP BY e.id;END',
+    'search_extraction_delete',
+  );
+  late final Shape5 actionItems = Shape5(
+    source: i0.VersionedTable(
+      entityName: 'action_items',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: [],
+      columns: [
+        _column_19,
+        _column_15,
+        _column_33,
+        _column_25,
+        _column_34,
+        _column_35,
+        _column_36,
+        _column_37,
+        _column_38,
+      ],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape10 jobs = Shape10(
+    source: i0.VersionedTable(
+      entityName: 'jobs',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['PRIMARY KEY(id)'],
+      columns: [
+        _column_3,
+        _column_15,
+        _column_44,
+        _column_48,
+        _column_7,
+        _column_49,
+        _column_50,
+        _column_51,
+        _column_52,
+        _column_53,
+        _column_54,
+        _column_55,
+        _column_5,
+        _column_56,
+        _column_57,
+      ],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape11 profiles = Shape11(
+    source: i0.VersionedTable(
+      entityName: 'profiles',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['PRIMARY KEY(id)'],
+      columns: [_column_3, _column_58, _column_8, _column_59, _column_56],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape12 templates = Shape12(
+    source: i0.VersionedTable(
+      entityName: 'templates',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['PRIMARY KEY(id)'],
+      columns: [_column_3, _column_60, _column_25, _column_61, _column_56],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape18 mindMaps = Shape18(
+    source: i0.VersionedTable(
+      entityName: 'mind_maps',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['PRIMARY KEY(id)'],
+      columns: [
+        _column_3,
+        _column_15,
+        _column_79,
+        _column_80,
+        _column_81,
+        _column_31,
+        _column_82,
+        _column_5,
+      ],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape13 vaultTargets = Shape13(
+    source: i0.VersionedTable(
+      entityName: 'vault_targets',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['PRIMARY KEY(id)'],
+      columns: [_column_3, _column_62, _column_63, _column_64, _column_5],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape14 routingRules = Shape14(
+    source: i0.VersionedTable(
+      entityName: 'routing_rules',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['PRIMARY KEY(id)'],
+      columns: [
+        _column_3,
+        _column_65,
+        _column_66,
+        _column_67,
+        _column_68,
+        _column_69,
+      ],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape15 exports = Shape15(
+    source: i0.VersionedTable(
+      entityName: 'exports',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['PRIMARY KEY(id)', 'UNIQUE(recording_id, target_id)'],
+      columns: [
+        _column_3,
+        _column_15,
+        _column_67,
+        _column_70,
+        _column_71,
+        _column_7,
+        _column_50,
+        _column_56,
+      ],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape16 modelsInstalled = Shape16(
+    source: i0.VersionedTable(
+      entityName: 'models_installed',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['PRIMARY KEY(id)'],
+      columns: [
+        _column_3,
+        _column_72,
+        _column_73,
+        _column_39,
+        _column_74,
+        _column_75,
+        _column_76,
+      ],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape17 settings = Shape17(
+    source: i0.VersionedTable(
+      entityName: 'settings',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['PRIMARY KEY("key")'],
+      columns: [_column_77, _column_78],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+}
+
+class Shape19 extends i0.VersionedTable {
+  Shape19({required super.source, required super.alias}) : super.aliased();
+  i1.GeneratedColumn<String> get id =>
+      columnsByName['id']! as i1.GeneratedColumn<String>;
+  i1.GeneratedColumn<String> get recordingId =>
+      columnsByName['recording_id']! as i1.GeneratedColumn<String>;
+  i1.GeneratedColumn<int> get createdAt =>
+      columnsByName['created_at']! as i1.GeneratedColumn<int>;
+  i1.GeneratedColumn<int> get updatedAt =>
+      columnsByName['updated_at']! as i1.GeneratedColumn<int>;
+}
+
+i1.GeneratedColumn<String> _column_83(String aliasedName) =>
+    i1.GeneratedColumn<String>(
+      'recording_id',
+      aliasedName,
+      true,
+      type: i1.DriftSqlType.string,
+      $customConstraints: 'NULL REFERENCES recordings(id)ON DELETE CASCADE',
+    );
+
+class Shape20 extends i0.VersionedTable {
+  Shape20({required super.source, required super.alias}) : super.aliased();
+  i1.GeneratedColumn<String> get id =>
+      columnsByName['id']! as i1.GeneratedColumn<String>;
+  i1.GeneratedColumn<String> get threadId =>
+      columnsByName['thread_id']! as i1.GeneratedColumn<String>;
+  i1.GeneratedColumn<int> get seq =>
+      columnsByName['seq']! as i1.GeneratedColumn<int>;
+  i1.GeneratedColumn<String> get question =>
+      columnsByName['question']! as i1.GeneratedColumn<String>;
+  i1.GeneratedColumn<String> get answer =>
+      columnsByName['answer']! as i1.GeneratedColumn<String>;
+  i1.GeneratedColumn<int> get found =>
+      columnsByName['found']! as i1.GeneratedColumn<int>;
+  i1.GeneratedColumn<int> get createdAt =>
+      columnsByName['created_at']! as i1.GeneratedColumn<int>;
+}
+
+i1.GeneratedColumn<String> _column_84(String aliasedName) =>
+    i1.GeneratedColumn<String>(
+      'thread_id',
+      aliasedName,
+      false,
+      type: i1.DriftSqlType.string,
+      $customConstraints:
+          'NOT NULL REFERENCES ask_threads(id)ON DELETE CASCADE',
+    );
+i1.GeneratedColumn<String> _column_85(String aliasedName) =>
+    i1.GeneratedColumn<String>(
+      'question',
+      aliasedName,
+      false,
+      type: i1.DriftSqlType.string,
+      $customConstraints: 'NOT NULL',
+    );
+i1.GeneratedColumn<String> _column_86(String aliasedName) =>
+    i1.GeneratedColumn<String>(
+      'answer',
+      aliasedName,
+      false,
+      type: i1.DriftSqlType.string,
+      $customConstraints: 'NOT NULL',
+    );
+i1.GeneratedColumn<int> _column_87(String aliasedName) =>
+    i1.GeneratedColumn<int>(
+      'found',
+      aliasedName,
+      false,
+      type: i1.DriftSqlType.int,
+      $customConstraints: 'NOT NULL CHECK (found IN (0, 1))',
+    );
+
+class Shape21 extends i0.VersionedTable {
+  Shape21({required super.source, required super.alias}) : super.aliased();
+  i1.GeneratedColumn<int> get id =>
+      columnsByName['id']! as i1.GeneratedColumn<int>;
+  i1.GeneratedColumn<String> get turnId =>
+      columnsByName['turn_id']! as i1.GeneratedColumn<String>;
+  i1.GeneratedColumn<String> get recordingId =>
+      columnsByName['recording_id']! as i1.GeneratedColumn<String>;
+  i1.GeneratedColumn<int> get tMs =>
+      columnsByName['t_ms']! as i1.GeneratedColumn<int>;
+}
+
+i1.GeneratedColumn<String> _column_88(String aliasedName) =>
+    i1.GeneratedColumn<String>(
+      'turn_id',
+      aliasedName,
+      false,
+      type: i1.DriftSqlType.string,
+      $customConstraints: 'NOT NULL REFERENCES ask_turns(id)ON DELETE CASCADE',
+    );
+i1.GeneratedColumn<int> _column_89(String aliasedName) =>
+    i1.GeneratedColumn<int>(
+      't_ms',
+      aliasedName,
+      false,
+      type: i1.DriftSqlType.int,
+      $customConstraints: 'NOT NULL',
+    );
 i0.MigrationStepWithVersion migrationSteps({
   required Future<void> Function(i1.Migrator m, Schema2 schema) from1To2,
   required Future<void> Function(i1.Migrator m, Schema3 schema) from2To3,
+  required Future<void> Function(i1.Migrator m, Schema4 schema) from3To4,
 }) {
   return (currentVersion, database) async {
     switch (currentVersion) {
@@ -1808,6 +2352,11 @@ i0.MigrationStepWithVersion migrationSteps({
         final migrator = i1.Migrator(database, schema);
         await from2To3(migrator, schema);
         return 3;
+      case 3:
+        final schema = Schema4(database: database);
+        final migrator = i1.Migrator(database, schema);
+        await from3To4(migrator, schema);
+        return 4;
       default:
         throw ArgumentError.value('Unknown migration from $currentVersion');
     }
@@ -1817,6 +2366,11 @@ i0.MigrationStepWithVersion migrationSteps({
 i1.OnUpgrade stepByStep({
   required Future<void> Function(i1.Migrator m, Schema2 schema) from1To2,
   required Future<void> Function(i1.Migrator m, Schema3 schema) from2To3,
+  required Future<void> Function(i1.Migrator m, Schema4 schema) from3To4,
 }) => i0.VersionedSchema.stepByStepHelper(
-  step: migrationSteps(from1To2: from1To2, from2To3: from2To3),
+  step: migrationSteps(
+    from1To2: from1To2,
+    from2To3: from2To3,
+    from3To4: from3To4,
+  ),
 );
