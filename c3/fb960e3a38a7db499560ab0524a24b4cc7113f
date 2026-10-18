@@ -1,0 +1,19 @@
+app/test/widget/profile_picker_test.dart
+  s_9450697a967066::t_4dd1cf8bfbf528 153-154,202,205
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c3fb960e3a38a7db499560ab0524a24b4cc7113f",
+  "prompts": {},
+  "sessions": {
+    "s_9450697a967066": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "080beacb-b5f0-4236-8780-01faa814d924",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
