@@ -141,7 +141,7 @@ python3 -I tools/bench/stt_variants/run.py --runs 5 --out tools/bench/results/<d
 
 ## LLM defaults (LLM-08)
 Decision record: [ADR-LLM-08](adr/ADR-LLM-08-default-llm.md) (**Proposed** — host numbers for
-Llama-3.2-1B only; the other candidates are `needs-eval`). Ranking harness:
+Llama-3.2-1B and 3B only; the other candidates are `needs-eval`). Ranking harness:
 `make llm-select` (`tools/bench/llm_select/rank.py` + `candidates.json`) over the PRF-09 eval
 results (`make eval-all MODEL=<gguf>` per candidate).
 
@@ -149,10 +149,34 @@ results (`make eval-all MODEL=<gguf>` per candidate).
 |---|---|---|---|
 | Free (any device) | Llama-3.2-1B-Instruct Q4_K_M | none in catalog (Qwen2.5-0.5B removed: blocked by corporate proxies) | provisional |
 | Low (< 5 GiB) | Llama-3.2-1B-Instruct Q4_K_M | — | provisional |
-| Mid (5–7 GiB) | Llama-3.2-3B-Instruct Q4_K_M *(unmeasured; expected, see ADR)* | Llama-3.2-1B | needs-eval |
-| High (≥ 7 GiB) | Llama-3.2-3B-Instruct Q4_K_M *(unmeasured)* | Llama-3.2-1B | needs-eval |
+| Mid (5–7 GiB) | Llama-3.2-1B-Instruct Q4_K_M (the 3B is **not recommended**: measured peak 3718 MiB > 2800 MiB budget) | — | provisional |
+| High (≥ 7 GiB) | Llama-3.2-1B ranks first (`rank.py` 0.798); Llama-3.2-3B (ASK-01) is catalog-recommended for High | Llama-3.2-1B / 3B | provisional |
 
 Licences (SEC-05 has the final word): Llama 3.2 Community License (attribution "Built with
 Llama", AUP pass-through, 700 M MAU clause), Gemma Terms of Use (prohibited-use pass-through),
 Qwen2.5-3B is **Qwen Research License — not usable commercially** (rejected by the harness);
 Qwen2.5-0.5B/1.5B, Qwen3, SmolLM2 Apache-2.0; Phi-4-mini MIT.
+
+### Llama 3.2 3B Instruct (ASK-01)
+Catalog entry `llama-3.2-3b-instruct-q4_k_m`: Q4_K_M GGUF by bartowski (llama.cpp quantization of
+Meta's weights), pinned HF revision `5ab33fa9…`, 2 019 377 696 bytes, sha256 `6c1a2b41…28ff`
+(computed from the downloaded file; equals the HF LFS oid). Licence: Llama 3.2 Community License,
+"Built with Llama", AUP pass-through shown on every Llama model card (see `docs/licenses.md`).
+Hosts: `huggingface.co` → redirect `us.aws.cdn.hf.co` (both already allowlisted; no new host).
+
+Measured on the PRF-09 host harness (M3 Pro, CPU for both models; full per-profile table in
+[`tools/bench/results/2026-10-17-ask01-1b-vs-3b.md`](../tools/bench/results/2026-10-17-ask01-1b-vs-3b.md)):
+
+| Set (6 profiles) | Quality | Schema-valid | Halluc. | Decode tok/s (median) | Peak RSS MiB |
+|---|---|---|---|---|---|
+| Llama 3.2 1B Q4_K_M | 86% | 100% | 8.1% | 50 | 1987 |
+| Llama 3.2 3B Q4_K_M | 87% | 99.4% | 4.4% | 25 | 3718 |
+
+- **Recommended: High (≥ 7 GiB) only** — `min_ram_mb` 7168 (peak 3.6 GiB ≈ 52% of 7 GiB).
+  **Not recommended: Mid (5–7 GiB; peak exceeds its 2800 MiB budget) and Low (< 5 GiB).** Device rows are ⏳.
+- Gates met (schema-valid ≥ 90%, hallucination ≤ 15%), but quality is profile-dependent (engineering
+  and interview are worse than the 1B), so it is not an automatic default for quality alone.
+- Plan: `tier: "pro"` in the catalog and `Feature.largeLlm` is Pro in `kFeatureMatrix`
+  (PRODUCT-DECISION, LIC-05). Personal builds unlock everything today, so it is free to download;
+  commercial builds gate it.
+- Downloads of ≥ 1 GB show a confirmation with the size and required free space before starting.

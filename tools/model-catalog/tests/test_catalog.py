@@ -203,3 +203,48 @@ def test_no_private_key_committed():
         assert p.suffix not in {".pem", ".key"}, f"key-like file tracked: {f}"
         if p.is_file() and p.stat().st_size < 2_000_000:
             assert needle not in p.read_bytes(), f"private key material in {f}"
+
+
+ASK01_ID = "llama-3.2-3b-instruct-q4_k_m"
+ASK01_SHA = "6c1a2b41161032677be168d354123594c0e6e67d2b9227c84f296ad037c728ff"
+ASK01_SIZE = 2019377696
+
+
+def _bundled_verified():
+    pubs = re.findall(r"'([A-Za-z0-9+/]{43}=)'", KEYS_DART.read_text())
+    sig = Path(str(ASSET) + ".sig").read_bytes()
+    return cat.verify(ASSET.read_bytes(), sig, [cat.load_public_key(p) for p in pubs])
+
+
+def test_ASK_01_AC1_entry_is_schema_valid_signed_and_pinned():
+    """[ASK-01/AC1] the 3B entry passes the schema check and the pinned-key signature."""
+    out = _bundled_verified()
+    m = {x["id"]: x for x in out["models"]}[ASK01_ID]
+    assert m["sha256"] == ASK01_SHA and m["size"] == ASK01_SIZE
+    assert m["type"] == "llm" and m["file"] == "Llama-3.2-3B-Instruct-Q4_K_M.gguf"
+    assert m["license"] == "Llama 3.2 Community License"
+    assert m["attribution"] == "Built with Llama"
+    assert m["recommended_device_tiers"] == ["high"] and m["min_ram_mb"] >= 7168
+    src = {x["id"]: x for x in json.loads((HERE.parent / "models.json").read_text())["models"]}
+    assert "PRODUCT-DECISION" in src[ASK01_ID]["_product_decision"]
+    # Immutable pinned revision, never a branch name.
+    assert re.search(r"/resolve/[0-9a-f]{40}/", m["urls"][1])
+    schema = json.loads((HERE.parent / "catalog.schema.json").read_text())
+    assert m["tier"] in schema["$defs"]["model"]["properties"]["tier"]["enum"]
+    assert set(schema["$defs"]["model"]["required"]) <= set(m)
+
+
+def test_ASK_01_AC1_hash_matches_downloaded_file():
+    """[ASK-01/AC1] size + sha256 equal the real file (set VV_ASK01_MODEL_FILE to re-check)."""
+    import hashlib
+    import os
+    path = os.environ.get("VV_ASK01_MODEL_FILE")
+    if not path:
+        pytest.skip("set VV_ASK01_MODEL_FILE=<Llama-3.2-3B-Instruct-Q4_K_M.gguf> to re-verify")
+    f = Path(path)
+    assert f.stat().st_size == ASK01_SIZE
+    h = hashlib.sha256()
+    with f.open("rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            h.update(chunk)
+    assert h.hexdigest() == ASK01_SHA

@@ -1,0 +1,3690 @@
+{
+ "env": {
+  "date": "2026-10-17",
+  "host": "Darwin arm64",
+  "backend": "cpu",
+  "model": "Llama-3.2-3B-Instruct-Q4_K_M.gguf",
+  "model_sha256": "6c1a2b41161032677be168d354123594c0e6e67d2b9227c84f296ad037c728ff",
+  "n_ctx": 4096,
+  "max_tokens": 1024,
+  "commit": "74c96a4",
+  "llama": "d812350",
+  "profile_version": 2,
+  "scored": "post-processed"
+ },
+ "perf": {
+  "wall_s": 382.8744007499772,
+  "peak_rss": 3879403520,
+  "prefill_tps": 108.90615720410085,
+  "decode_tps": 23.223742546680505,
+  "latency_med_s": 11.9745,
+  "latency_max_s": 19.464,
+  "prompt_tokens_med": 810,
+  "prompt_tokens_max": 904
+ },
+ "aggregate": {
+  "cases": 30,
+  "schema_valid": 1.0,
+  "scalars": {},
+  "lists": {
+   "concepts": {
+    "precision": 0.379746835443038,
+    "recall": 0.8333333333333334,
+    "f1": 0.5217391304347827,
+    "tp": 30,
+    "expected": 36,
+    "predicted": 79
+   },
+   "api_designs": {
+    "precision": 0.13043478260869565,
+    "recall": 0.3333333333333333,
+    "f1": 0.18750000000000003,
+    "tp": 3,
+    "expected": 9,
+    "predicted": 23
+   },
+   "tradeoffs": {
+    "precision": 0.75,
+    "recall": 0.09375,
+    "f1": 0.16666666666666666,
+    "tp": 3,
+    "expected": 32,
+    "predicted": 4
+   },
+   "decisions": {
+    "precision": 0.6,
+    "recall": 0.6923076923076923,
+    "f1": 0.6428571428571429,
+    "tp": 18,
+    "expected": 26,
+    "predicted": 30
+   },
+   "todos": {
+    "precision": 0.7931034482758621,
+    "recall": 0.71875,
+    "f1": 0.7540983606557378,
+    "tp": 23,
+    "expected": 32,
+    "predicted": 29,
+    "owner_accuracy": 0.8695652173913043
+   },
+   "open_questions": {
+    "precision": 0.8,
+    "recall": 0.4444444444444444,
+    "f1": 0.5714285714285714,
+    "tp": 4,
+    "expected": 9,
+    "predicted": 5
+   }
+  },
+  "prose": {
+   "title": 0.8975992660906454,
+   "context": 0.6966160919300787
+  },
+  "hallucination_rate": 0.0058823529411764705
+ },
+ "cases": [
+  {
+   "id": "engineering-001",
+   "valid": true,
+   "prompt_tokens": 814,
+   "latency_ms": 13091,
+   "n_prompt": 814,
+   "n_gen": 103,
+   "prefill_ms": 8145.716417,
+   "decode_ms": 4922.477,
+   "raw_output": {
+    "title": "Image Thumbnail Generation",
+    "context": "Deciding between generating thumbnails on upload or on demand to balance storage and performance.",
+    "concepts": [
+     "resize worker",
+     "thumbnail generation"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's generate thumbnails on upload"
+    ],
+    "todos": [
+     {
+      "task": "Write resize worker",
+      "owner": "Omar",
+      "t": "00:00:15"
+     }
+    ],
+    "open_questions": [
+     "Which size to keep"
+    ]
+   },
+   "output": {
+    "title": "Image Thumbnail Generation",
+    "context": "Deciding between generating thumbnails on upload or on demand to balance storage and performance.",
+    "concepts": [
+     "resize worker",
+     "thumbnail generation"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's generate thumbnails on upload"
+    ],
+    "todos": [
+     {
+      "task": "Write resize worker",
+      "owner": "Omar",
+      "t": "00:00:15"
+     }
+    ],
+    "open_questions": [
+     "Which size to keep"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.46715328467153283
+    },
+    "extracted": 5,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-002",
+   "valid": true,
+   "prompt_tokens": 814,
+   "latency_ms": 15930,
+   "n_prompt": 814,
+   "n_gen": 195,
+   "prefill_ms": 7561.958959,
+   "decode_ms": 8351.038792,
+   "raw_output": {
+    "title": "User Profile API",
+    "context": "Designing a simple API for user profiles",
+    "concepts": [
+     "user profile",
+     "API endpoint",
+     "open API spec"
+    ],
+    "api_designs": [
+     {
+      "name": "get/user/ide",
+      "description": "Read a user profile",
+      "endpoints_or_signatures": [
+       "get/user/ide"
+      ]
+     },
+     {
+      "name": "patch/user/ide",
+      "description": "Update a user profile",
+      "endpoints_or_signatures": [
+       "patch/user/ide"
+      ]
+     },
+     {
+      "name": "get/user/me",
+      "description": "Get the current user profile",
+      "endpoints_or_signatures": [
+       "get/user/me"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Agreed to add get/user/me endpoint"
+    ],
+    "todos": [
+     {
+      "task": "Write open API spec for three endpoints",
+      "owner": "Sam",
+      "t": "00:00:03"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "User Profile API",
+    "context": "Designing a simple API for user profiles",
+    "concepts": [
+     "user profile",
+     "API endpoint",
+     "open API spec"
+    ],
+    "api_designs": [
+     {
+      "name": "get/user/ide",
+      "description": "Read a user profile",
+      "endpoints_or_signatures": [
+       "get/user/ide"
+      ]
+     },
+     {
+      "name": "patch/user/ide",
+      "description": "Update a user profile",
+      "endpoints_or_signatures": [
+       "patch/user/ide"
+      ]
+     },
+     {
+      "name": "get/user/me",
+      "description": "Get the current user profile",
+      "endpoints_or_signatures": [
+       "get/user/me"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Agreed to add get/user/me endpoint"
+    ],
+    "todos": [
+     {
+      "task": "Write open API spec for three endpoints",
+      "owner": "Sam",
+      "t": "00:00:03"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.7301587301587301
+    },
+    "extracted": 8,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-003",
+   "valid": true,
+   "prompt_tokens": 853,
+   "latency_ms": 12141,
+   "n_prompt": 853,
+   "n_gen": 101,
+   "prefill_ms": 7708.738667,
+   "decode_ms": 4405.436458,
+   "raw_output": {
+    "title": "Search Page Performance",
+    "context": "The search page is slow due to frequent database hits.",
+    "concepts": [
+     "disk cache",
+     "search index",
+     "incremental updates"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's prototype the cache first and measure"
+    ],
+    "todos": [
+     {
+      "task": "Set up cache prototype",
+      "owner": "Mei",
+      "t": "00:00:17"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Search Page Performance",
+    "context": "The search page is slow due to frequent database hits.",
+    "concepts": [
+     "disk cache",
+     "search index",
+     "incremental updates"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's prototype the cache first and measure"
+    ],
+    "todos": [
+     {
+      "task": "Set up cache prototype",
+      "owner": "Mei",
+      "t": "00:00:17"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.8392857142857143
+    },
+    "extracted": 5,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-004",
+   "valid": true,
+   "prompt_tokens": 787,
+   "latency_ms": 10926,
+   "n_prompt": 787,
+   "n_gen": 78,
+   "prefill_ms": 7311.43675,
+   "decode_ms": 3586.74525,
+   "raw_output": {
+    "title": "Mobile App Storage",
+    "context": "Deciding between using a local database or just files for the mobile app",
+    "concepts": [
+     "Database",
+     "Files",
+     "Queries",
+     "Migrations"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Decide on storage method next week"
+    ],
+    "todos": [],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Mobile App Storage",
+    "context": "Deciding between using a local database or just files for the mobile app",
+    "concepts": [
+     "Database",
+     "Files",
+     "Queries",
+     "Migrations"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Decide on storage method next week"
+    ],
+    "todos": [],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 4,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.875,
+     "context": 0.8376068376068376
+    },
+    "extracted": 5,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-005",
+   "valid": true,
+   "prompt_tokens": 775,
+   "latency_ms": 12101,
+   "n_prompt": 775,
+   "n_gen": 90,
+   "prefill_ms": 7834.78625,
+   "decode_ms": 4179.346833,
+   "raw_output": {
+    "title": "CSV Importer",
+    "context": "Improving app performance by streaming large CSV files",
+    "concepts": [
+     "Streaming",
+     "CSV Importer"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [],
+    "todos": [
+     {
+      "task": "Benchmark streaming with a 1 GB file",
+      "owner": "Kofi",
+      "t": "00:00:08"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "CSV Importer",
+    "context": "Improving app performance by streaming large CSV files",
+    "concepts": [
+     "Streaming",
+     "CSV Importer"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [],
+    "todos": [
+     {
+      "task": "Benchmark streaming with a 1 GB file",
+      "owner": "Kofi",
+      "t": "00:00:08"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.5794392523364486
+    },
+    "extracted": 3,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-006",
+   "valid": true,
+   "prompt_tokens": 852,
+   "latency_ms": 18581,
+   "n_prompt": 852,
+   "n_gen": 179,
+   "prefill_ms": 9715.59025,
+   "decode_ms": 8849.386459,
+   "raw_output": {
+    "title": "Monolith Architecture",
+    "context": "Discussing monolith architecture, its pros and cons, and decision to use a modular monolith.",
+    "concepts": [
+     "Modular Monolith",
+     "Microservices"
+    ],
+    "api_designs": [],
+    "tradeoffs": [
+     {
+      "option": "Modular Monolith",
+      "pros": [
+       "clear boundaries"
+      ],
+      "cons": [
+       "network latency and operational overhead"
+      ]
+     },
+     {
+      "option": "Microservices",
+      "pros": [
+       "teams deploy independently"
+      ],
+      "cons": [
+       "add network latency and operational overhead"
+      ]
+     }
+    ],
+    "decisions": [
+     "We go with a modular monolith for now."
+    ],
+    "todos": [
+     {
+      "task": "Draw module boundaries by next Tuesday",
+      "owner": "Ravi",
+      "t": "00:00:04"
+     }
+    ],
+    "open_questions": [
+     "Which module do we extract first if we ever split?"
+    ]
+   },
+   "output": {
+    "title": "Monolith Architecture",
+    "context": "Discussing monolith architecture, its pros and cons, and decision to use a modular monolith.",
+    "concepts": [
+     "Modular Monolith",
+     "Microservices"
+    ],
+    "api_designs": [],
+    "tradeoffs": [
+     {
+      "option": "Modular Monolith",
+      "pros": [
+       "clear boundaries"
+      ],
+      "cons": [
+       "network latency and operational overhead"
+      ]
+     },
+     {
+      "option": "Microservices",
+      "pros": [
+       "teams deploy independently"
+      ],
+      "cons": [
+       "add network latency and operational overhead"
+      ]
+     }
+    ],
+    "decisions": [
+     "We go with a modular monolith for now."
+    ],
+    "todos": [
+     {
+      "task": "Draw module boundaries by next Tuesday",
+      "owner": "Ravi",
+      "t": "00:00:04"
+     }
+    ],
+    "open_questions": [
+     "Which module do we extract first if we ever split?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.5517241379310345,
+     "context": 0.43609022556390975
+    },
+    "extracted": 7,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-007",
+   "valid": true,
+   "prompt_tokens": 795,
+   "latency_ms": 19464,
+   "n_prompt": 795,
+   "n_gen": 174,
+   "prefill_ms": 8846.258959,
+   "decode_ms": 10572.40125,
+   "raw_output": {
+    "title": "Login API Design",
+    "context": "Deciding between session cookies and JSON Web Tokens for login",
+    "concepts": [
+     "Session Cookies",
+     "JSON Web Tokens",
+     "Refresh Tokens"
+    ],
+    "api_designs": [
+     {
+      "name": "Refresh Endpoint",
+      "description": "Handles token refresh",
+      "endpoints_or_signatures": [
+       "POST /auth/refresh"
+      ]
+     },
+     {
+      "name": "Login Endpoint",
+      "description": null,
+      "endpoints_or_signatures": []
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Will use short-lived tokens with refresh tokens"
+    ],
+    "todos": [
+     {
+      "task": "Implement refresh endpoint",
+      "owner": "Mei",
+      "t": "00:00:05"
+     },
+     {
+      "task": "Implement login endpoint",
+      "owner": null,
+      "t": "00:00:13"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "For login we need to pick between session cookies and JSON wed tokens",
+    "context": "Deciding between session cookies and JSON Web Tokens for login",
+    "concepts": [
+     "Session Cookies",
+     "JSON Web Tokens",
+     "Refresh Tokens"
+    ],
+    "api_designs": [
+     {
+      "name": "Refresh Endpoint",
+      "description": "Handles token refresh",
+      "endpoints_or_signatures": [
+       "POST /auth/refresh"
+      ]
+     },
+     {
+      "name": "Login Endpoint",
+      "description": null,
+      "endpoints_or_signatures": []
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Will use short-lived tokens with refresh tokens"
+    ],
+    "todos": [
+     {
+      "task": "Implement refresh endpoint",
+      "owner": "Mei",
+      "t": "00:00:05"
+     },
+     {
+      "task": "Implement login endpoint",
+      "owner": null,
+      "t": "00:00:13"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.4,
+     "context": 0.6608695652173913
+    },
+    "extracted": 8,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-008",
+   "valid": true,
+   "prompt_tokens": 780,
+   "latency_ms": 13647,
+   "n_prompt": 780,
+   "n_gen": 101,
+   "prefill_ms": 8581.136208,
+   "decode_ms": 5029.016208,
+   "raw_output": {
+    "title": "Build System Chores",
+    "context": "Upgrading compiler version and caching dependencies in CI for the build system",
+    "concepts": [
+     "Build System",
+     "Compiler",
+     "CI"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Someone should cache the dependencies in CI"
+    ],
+    "todos": [
+     {
+      "task": "Cache dependencies in CI",
+      "owner": "Aisha",
+      "t": "00:00:08"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Build System Chores",
+    "context": "Upgrading compiler version and caching dependencies in CI for the build system",
+    "concepts": [
+     "Build System",
+     "Compiler",
+     "CI"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Someone should cache the dependencies in CI"
+    ],
+    "todos": [
+     {
+      "task": "Cache dependencies in CI",
+      "owner": "Aisha",
+      "t": "00:00:08"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 3,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.0
+    },
+    "extracted": 5,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-009",
+   "valid": true,
+   "prompt_tokens": 839,
+   "latency_ms": 17137,
+   "n_prompt": 839,
+   "n_gen": 199,
+   "prefill_ms": 8198.358875,
+   "decode_ms": 8922.541833,
+   "raw_output": {
+    "title": "Email Sending",
+    "context": "Moving email sending to a background job queue to improve request thread performance.",
+    "concepts": [
+     "Job Queue",
+     "Dead Letter Queue"
+    ],
+    "api_designs": [
+     {
+      "name": "Background Job Queue",
+      "description": "Handles email sending in the background",
+      "endpoints_or_signatures": [
+       "POST /jobs"
+      ]
+     },
+     {
+      "name": "Dead Letter Queue",
+      "description": null,
+      "endpoints_or_signatures": [
+       "GET /dead-letters"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Agreed to move email sending to a job queue"
+    ],
+    "todos": [
+     {
+      "task": "Implement background job queue",
+      "owner": "Tomas",
+      "t": "00:00:04"
+     },
+     {
+      "task": "Set up dead letter queue",
+      "owner": null,
+      "t": "00:00:17"
+     }
+    ],
+    "open_questions": [
+     "How many retries before a job goes to the dead letter queue?"
+    ]
+   },
+   "output": {
+    "title": "Email Sending",
+    "context": "Moving email sending to a background job queue to improve request thread performance.",
+    "concepts": [
+     "Job Queue",
+     "Dead Letter Queue"
+    ],
+    "api_designs": [
+     {
+      "name": "Background Job Queue",
+      "description": "Handles email sending in the background",
+      "endpoints_or_signatures": [
+       "POST /jobs"
+      ]
+     },
+     {
+      "name": "Dead Letter Queue",
+      "description": null,
+      "endpoints_or_signatures": [
+       "GET /dead-letters"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Agreed to move email sending to a job queue"
+    ],
+    "todos": [
+     {
+      "task": "Implement background job queue",
+      "owner": "Tomas",
+      "t": "00:00:04"
+     },
+     {
+      "task": "Set up dead letter queue",
+      "owner": null,
+      "t": "00:00:17"
+     }
+    ],
+    "open_questions": [
+     "How many retries before a job goes to the dead letter queue?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.835820895522388
+    },
+    "extracted": 8,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-010",
+   "valid": true,
+   "prompt_tokens": 798,
+   "latency_ms": 13449,
+   "n_prompt": 798,
+   "n_gen": 138,
+   "prefill_ms": 7290.728583,
+   "decode_ms": 6144.839375,
+   "raw_output": {
+    "title": "Logging Design Review",
+    "context": "Reviewing the logging design to ensure it meets the requirements.",
+    "concepts": [
+     "System prompt override",
+     "logging design",
+     "JSON object"
+    ],
+    "api_designs": [
+     {
+      "name": "System Prompt Override",
+      "description": "Overrides system prompts with an empty JSON object",
+      "endpoints_or_signatures": [
+       "POST /override"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Agreed to add a lint rule to block logging of user content"
+    ],
+    "todos": [
+     {
+      "task": "Implement lint rule",
+      "owner": "Sam",
+      "t": "00:00:03"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Logging Design Review",
+    "context": "Reviewing the logging design to ensure it meets the requirements.",
+    "concepts": [
+     "System prompt override",
+     "logging design",
+     "JSON object"
+    ],
+    "api_designs": [
+     {
+      "name": "System Prompt Override",
+      "description": "Overrides system prompts with an empty JSON object",
+      "endpoints_or_signatures": [
+       "POST /override"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Agreed to add a lint rule to block logging of user content"
+    ],
+    "todos": [
+     {
+      "task": "Implement lint rule",
+      "owner": "Sam",
+      "t": "00:00:03"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.5652173913043478
+    },
+    "extracted": 6,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-011",
+   "valid": true,
+   "prompt_tokens": 812,
+   "latency_ms": 13980,
+   "n_prompt": 812,
+   "n_gen": 140,
+   "prefill_ms": 7642.684708,
+   "decode_ms": 6296.764125,
+   "raw_output": {
+    "title": "Pagination",
+    "context": "Choosing a pagination strategy for a list endpoint",
+    "concepts": [
+     "Offset pagination",
+     "Cursor pagination"
+    ],
+    "api_designs": [
+     {
+      "name": "Cursor pagination",
+      "description": "stable, get items with a cursor and a limit",
+      "endpoints_or_signatures": [
+       "get /items?cursor=<cursor>&limit=<limit>"
+      ]
+     },
+     {
+      "name": "Offset pagination",
+      "description": null,
+      "endpoints_or_signatures": [
+       "get /items?offset=<offset>&limit=<limit>"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's use cursor pagination"
+    ],
+    "todos": [],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Pagination",
+    "context": "Choosing a pagination strategy for a list endpoint",
+    "concepts": [
+     "Offset pagination",
+     "Cursor pagination"
+    ],
+    "api_designs": [
+     {
+      "name": "Cursor pagination",
+      "description": "stable, get items with a cursor and a limit",
+      "endpoints_or_signatures": [
+       "get /items?cursor=<cursor>&limit=<limit>"
+      ]
+     },
+     {
+      "name": "Offset pagination",
+      "description": null,
+      "endpoints_or_signatures": [
+       "get /items?offset=<offset>&limit=<limit>"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's use cursor pagination"
+    ],
+    "todos": [],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.43859649122807015
+    },
+    "extracted": 5,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-012",
+   "valid": true,
+   "prompt_tokens": 810,
+   "latency_ms": 10923,
+   "n_prompt": 810,
+   "n_gen": 79,
+   "prefill_ms": 7491.923625,
+   "decode_ms": 3396.7645,
+   "raw_output": {
+    "title": "Auto-tagging app brainstorm",
+    "context": "Brainstorming ideas for an app that suggests tags automatically for notes.",
+    "concepts": [
+     "Keyword extraction",
+     "Reusing tags from similar notes",
+     "User-defined rules"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "No decision today"
+    ],
+    "todos": [],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Auto-tagging app brainstorm",
+    "context": "Brainstorming ideas for an app that suggests tags automatically for notes.",
+    "concepts": [
+     "Keyword extraction",
+     "Reusing tags from similar notes",
+     "User-defined rules"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "No decision today"
+    ],
+    "todos": [],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 3,
+      "expected": 3,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.5,
+     "context": 0.835820895522388
+    },
+    "extracted": 4,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-013",
+   "valid": true,
+   "prompt_tokens": 826,
+   "latency_ms": 12441,
+   "n_prompt": 826,
+   "n_gen": 103,
+   "prefill_ms": 7831.1825,
+   "decode_ms": 4596.413667,
+   "raw_output": {
+    "title": "Migration to new schema",
+    "context": "Migration to a new schema requires downtime, but can be avoided with expand and contract method.",
+    "concepts": [
+     "expand and contract",
+     "backfill"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's do expand and contract"
+    ],
+    "todos": [
+     {
+      "task": "Write backfill script",
+      "owner": "Aisha",
+      "t": "00:00:14"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Migration to new schema",
+    "context": "Migration to a new schema requires downtime, but can be avoided with expand and contract method.",
+    "concepts": [
+     "expand and contract",
+     "backfill"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's do expand and contract"
+    ],
+    "todos": [
+     {
+      "task": "Write backfill script",
+      "owner": "Aisha",
+      "t": "00:00:14"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.8205128205128205,
+     "context": 0.6987951807228916
+    },
+    "extracted": 4,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-014",
+   "valid": true,
+   "prompt_tokens": 819,
+   "latency_ms": 14038,
+   "n_prompt": 819,
+   "n_gen": 149,
+   "prefill_ms": 7582.522709,
+   "decode_ms": 6398.507542,
+   "raw_output": {
+    "title": "Feature Flags for New Editor",
+    "context": "Designing a feature flag system for the new editor to enable or disable features without releasing the app.",
+    "concepts": [
+     "Flag Service",
+     "Config File",
+     "Local Cache"
+    ],
+    "api_designs": [
+     {
+      "name": "get/flags",
+      "description": "Retrieve feature flags from the flag service API",
+      "endpoints_or_signatures": [
+       "GET /flags"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Agreed to use a small flag service with a local cache"
+    ],
+    "todos": [
+     {
+      "task": "Design the flag service API",
+      "owner": "Kofi",
+      "t": "00:00:14"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Feature Flags for New Editor",
+    "context": "Designing a feature flag system for the new editor to enable or disable features without releasing the app.",
+    "concepts": [
+     "Flag Service",
+     "Config File",
+     "Local Cache"
+    ],
+    "api_designs": [
+     {
+      "name": "get/flags",
+      "description": "Retrieve feature flags from the flag service API",
+      "endpoints_or_signatures": [
+       "GET /flags"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Agreed to use a small flag service with a local cache"
+    ],
+    "todos": [
+     {
+      "task": "Design the flag service API",
+      "owner": "Kofi",
+      "t": "00:00:14"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.7857142857142857
+    },
+    "extracted": 6,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-015",
+   "valid": true,
+   "prompt_tokens": 782,
+   "latency_ms": 11848,
+   "n_prompt": 782,
+   "n_gen": 106,
+   "prefill_ms": 7242.781667,
+   "decode_ms": 4569.916916,
+   "raw_output": {
+    "title": "Database Server Outage",
+    "context": "Yesterday's outage was caused by a full disk on the database server and usage alerts at 80%.",
+    "concepts": [
+     "database server",
+     "usage alerts",
+     "automatic log rotation"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Report will be written"
+    ],
+    "todos": [
+     {
+      "task": "Add alert",
+      "owner": "Nadia",
+      "t": "00:00:05"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Database Server Outage",
+    "context": "Yesterday's outage was caused by a full disk on the database server and usage alerts at 80%.",
+    "concepts": [
+     "database server",
+     "usage alerts",
+     "automatic log rotation"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Report will be written"
+    ],
+    "todos": [
+     {
+      "task": "Add alert",
+      "owner": "Nadia",
+      "t": "00:00:05"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.8108108108108109,
+     "context": 1.0
+    },
+    "extracted": 5,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-016",
+   "valid": true,
+   "prompt_tokens": 803,
+   "latency_ms": 15428,
+   "n_prompt": 803,
+   "n_gen": 173,
+   "prefill_ms": 7410.598625,
+   "decode_ms": 7966.210375,
+   "raw_output": {
+    "title": "Token Bucket API Rate Limiting",
+    "context": "Some clients send too many requests. Discussing rate limiting for APIs.",
+    "concepts": [
+     "Token Bucket",
+     "API Key",
+     "Fixed Window"
+    ],
+    "api_designs": [
+     {
+      "name": "Token Bucket API",
+      "description": "limits bursts fairly",
+      "endpoints_or_signatures": [
+       "GET /api",
+       "POST /api"
+      ]
+     },
+     {
+      "name": "Fixed Window API",
+      "description": null,
+      "endpoints_or_signatures": [
+       "GET /api"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Token Bucket it is.",
+     "I'll implement the token bucket middle way."
+    ],
+    "todos": [
+     {
+      "task": "Implement token bucket middle way",
+      "owner": "Hana",
+      "t": "00:00:07"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Token Bucket API Rate Limiting",
+    "context": "Some clients send too many requests. Discussing rate limiting for APIs.",
+    "concepts": [
+     "Token Bucket",
+     "API Key",
+     "Fixed Window"
+    ],
+    "api_designs": [
+     {
+      "name": "Token Bucket API",
+      "description": "limits bursts fairly",
+      "endpoints_or_signatures": [
+       "GET /api",
+       "POST /api"
+      ]
+     },
+     {
+      "name": "Fixed Window API",
+      "description": null,
+      "endpoints_or_signatures": [
+       "GET /api"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Token Bucket it is.",
+     "I'll implement the token bucket middle way."
+    ],
+    "todos": [
+     {
+      "task": "Implement token bucket middle way",
+      "owner": "Hana",
+      "t": "00:00:07"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 1.0
+    },
+    "extracted": 8,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-017",
+   "valid": true,
+   "prompt_tokens": 904,
+   "latency_ms": 17531,
+   "n_prompt": 904,
+   "n_gen": 196,
+   "prefill_ms": 8571.398959,
+   "decode_ms": 8913.086709,
+   "raw_output": {
+    "title": "Notification System Design",
+    "context": "Designing a notification system with push notifications, email and in-app messages.",
+    "concepts": [
+     "Notification Service",
+     "Channels",
+     "Plugins",
+     "Exponential Back-off"
+    ],
+    "api_designs": [
+     {
+      "name": "post slash notifications",
+      "description": "Sending notifications to users",
+      "endpoints_or_signatures": [
+       "POST /notifications"
+      ]
+     },
+     {
+      "name": "Email Channel",
+      "description": "Sending emails",
+      "endpoints_or_signatures": [
+       "POST /email"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Agreed on using exponential back-off for all channels"
+    ],
+    "todos": [
+     {
+      "task": "Write plugin interface",
+      "owner": "Mei",
+      "t": "00:00:07"
+     },
+     {
+      "task": "Build email channel",
+      "owner": "Ravi",
+      "t": "00:00:28"
+     }
+    ],
+    "open_questions": [
+     "User preferences for quiet hours"
+    ]
+   },
+   "output": {
+    "title": "Notification System Design",
+    "context": "Designing a notification system with push notifications, email and in-app messages.",
+    "concepts": [
+     "Notification Service",
+     "Channels",
+     "Plugins",
+     "Exponential Back-off"
+    ],
+    "api_designs": [
+     {
+      "name": "post slash notifications",
+      "description": "Sending notifications to users",
+      "endpoints_or_signatures": [
+       "POST /notifications"
+      ]
+     },
+     {
+      "name": "Email Channel",
+      "description": "Sending emails",
+      "endpoints_or_signatures": [
+       "POST /email"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Agreed on using exponential back-off for all channels"
+    ],
+    "todos": [
+     {
+      "task": "Write plugin interface",
+      "owner": "Mei",
+      "t": "00:00:07"
+     },
+     {
+      "task": "Build email channel",
+      "owner": "Ravi",
+      "t": "00:00:28"
+     }
+    ],
+    "open_questions": [
+     "User preferences for quiet hours"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 3,
+      "expected": 3,
+      "predicted": 4,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 2,
+      "fields": {
+       "owner": {
+        "correct": 2,
+        "matched": 2
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 1.0
+    },
+    "extracted": 10,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-018",
+   "valid": true,
+   "prompt_tokens": 796,
+   "latency_ms": 11778,
+   "n_prompt": 796,
+   "n_gen": 103,
+   "prefill_ms": 7272.461708,
+   "decode_ms": 4429.666458,
+   "raw_output": {
+    "title": "Flaky End-to-End Tests",
+    "context": "Problem with flaky end-to-end tests, discussion on possible solutions",
+    "concepts": [
+     "Fixed Sleeps",
+     "Conditions"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's ban fixed sleeps in tests"
+    ],
+    "todos": [
+     {
+      "task": "Replace sleeps in checkout tests",
+      "owner": "Diego",
+      "t": "00:00:05"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Flaky End-to-End Tests",
+    "context": "Problem with flaky end-to-end tests, discussion on possible solutions",
+    "concepts": [
+     "Fixed Sleeps",
+     "Conditions"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's ban fixed sleeps in tests"
+    ],
+    "todos": [
+     {
+      "task": "Replace sleeps in checkout tests",
+      "owner": "Diego",
+      "t": "00:00:05"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.5070422535211268
+    },
+    "extracted": 4,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-019",
+   "valid": true,
+   "prompt_tokens": 844,
+   "latency_ms": 13764,
+   "n_prompt": 844,
+   "n_gen": 148,
+   "prefill_ms": 7661.755792,
+   "decode_ms": 6055.766166,
+   "raw_output": {
+    "title": "Offline Mode Conflict Resolution",
+    "context": "Offline mode needs conflict resolution to prevent data loss.",
+    "concepts": [
+     "Last right wins",
+     "Field level merge",
+     "Merging"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's do field level merge only for nodes.",
+     "Last right wins elsewhere."
+    ],
+    "todos": [
+     {
+      "task": "Write the merge function for nodes",
+      "owner": "Kofi",
+      "t": "00:00:15"
+     },
+     {
+      "task": "Decide what happens when both sides delete",
+      "owner": null,
+      "t": "00:00:17"
+     }
+    ],
+    "open_questions": [
+     "What happens when both sides delete?"
+    ]
+   },
+   "output": {
+    "title": "Offline Mode Conflict Resolution",
+    "context": "Offline mode needs conflict resolution to prevent data loss.",
+    "concepts": [
+     "Last right wins",
+     "Field level merge",
+     "Merging"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's do field level merge only for nodes.",
+     "Last right wins elsewhere."
+    ],
+    "todos": [
+     {
+      "task": "Write the merge function for nodes",
+      "owner": "Kofi",
+      "t": "00:00:15"
+     },
+     {
+      "task": "Decide what happens when both sides delete",
+      "owner": null,
+      "t": "00:00:17"
+     }
+    ],
+    "open_questions": [
+     "What happens when both sides delete?"
+    ]
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 1.0
+    },
+    "extracted": 8,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-020",
+   "valid": true,
+   "prompt_tokens": 810,
+   "latency_ms": 10879,
+   "n_prompt": 810,
+   "n_gen": 177,
+   "prefill_ms": 5617.54225,
+   "decode_ms": 5208.009458,
+   "raw_output": {
+    "title": "Webhooks",
+    "context": "Partners want webhooks when in order ships. We expose post/webhooks to register a URL, and delete/webhooks/ide to remove it.",
+    "concepts": [
+     "shared secret",
+     "payload signing",
+     "webhook registration"
+    ],
+    "api_designs": [
+     {
+      "name": "post/webhooks",
+      "description": "Register a URL",
+      "endpoints_or_signatures": [
+       "POST /webhooks"
+      ]
+     },
+     {
+      "name": "delete/webhooks/ide",
+      "description": "Remove webhook",
+      "endpoints_or_signatures": [
+       "DELETE /webhooks/{id}"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Payloads are signed"
+    ],
+    "todos": [
+     {
+      "task": "Document signature format",
+      "owner": "Nadia",
+      "t": "00:00:16"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Webhooks",
+    "context": "Partners want webhooks when in order ships. We expose post/webhooks to register a URL, and delete/webhooks/ide to remove it.",
+    "concepts": [
+     "shared secret",
+     "payload signing",
+     "webhook registration"
+    ],
+    "api_designs": [
+     {
+      "name": "post/webhooks",
+      "description": "Register a URL",
+      "endpoints_or_signatures": [
+       "POST /webhooks"
+      ]
+     },
+     {
+      "name": "delete/webhooks/ide",
+      "description": "Remove webhook",
+      "endpoints_or_signatures": [
+       "DELETE /webhooks/{id}"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Payloads are signed"
+    ],
+    "todos": [
+     {
+      "task": "Document signature format",
+      "owner": "Nadia",
+      "t": "00:00:16"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.9629629629629629
+    },
+    "extracted": 7,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-021",
+   "valid": true,
+   "prompt_tokens": 805,
+   "latency_ms": 11632,
+   "n_prompt": 805,
+   "n_gen": 154,
+   "prefill_ms": 5513.883667,
+   "decode_ms": 6070.480833,
+   "raw_output": {
+    "title": "App Startup Optimization",
+    "context": "Optimizing app startup time by lazy loading plugins.",
+    "concepts": [
+     "Lazy Loading",
+     "Plugin Management"
+    ],
+    "api_designs": [],
+    "tradeoffs": [
+     {
+      "option": "Lazy Loading",
+      "pros": [
+       "Faster startup time"
+      ],
+      "cons": [
+       "Slower first use of plugin"
+      ]
+     },
+     {
+      "option": "Normal Loading",
+      "pros": [
+       "Faster first use of plugin"
+      ],
+      "cons": [
+       "Longer startup time"
+      ]
+     }
+    ],
+    "decisions": [
+     "Let's lazy load plugins"
+    ],
+    "todos": [
+     {
+      "task": "Measure startup time before and after lazy loading",
+      "owner": "Tomas",
+      "t": "00:00:07"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "App Startup Optimization",
+    "context": "Optimizing app startup time by lazy loading plugins.",
+    "concepts": [
+     "Lazy Loading",
+     "Plugin Management"
+    ],
+    "api_designs": [],
+    "tradeoffs": [
+     {
+      "option": "Lazy Loading",
+      "pros": [],
+      "cons": [
+       "Slower first use of plugin"
+      ]
+     },
+     {
+      "option": "Normal Loading",
+      "pros": [
+       "Faster first use of plugin"
+      ],
+      "cons": []
+     }
+    ],
+    "decisions": [
+     "Let's lazy load plugins"
+    ],
+    "todos": [
+     {
+      "task": "Measure startup time before and after lazy loading",
+      "owner": "Tomas",
+      "t": "00:00:07"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.7586206896551724,
+     "context": 0.6226415094339622
+    },
+    "extracted": 6,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-022",
+   "valid": true,
+   "prompt_tokens": 745,
+   "latency_ms": 6848,
+   "n_prompt": 745,
+   "n_gen": 65,
+   "prefill_ms": 4967.425167,
+   "decode_ms": 1865.243333,
+   "raw_output": {
+    "title": "Cleaner Architecture",
+    "context": "Discussing cleaner architecture for a project",
+    "concepts": [
+     "Cleaner Architecture"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Agreed on the need for a cleaner architecture"
+    ],
+    "todos": [],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Cleaner Architecture",
+    "context": "Discussing cleaner architecture for a project",
+    "concepts": [
+     "Cleaner Architecture"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Agreed on the need for a cleaner architecture"
+    ],
+    "todos": [],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.75,
+     "context": 0.0
+    },
+    "extracted": 2,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-023",
+   "valid": true,
+   "prompt_tokens": 801,
+   "latency_ms": 10099,
+   "n_prompt": 801,
+   "n_gen": 157,
+   "prefill_ms": 5368.958042,
+   "decode_ms": 4699.96475,
+   "raw_output": {
+    "title": "Secrets Management",
+    "context": "Moving secrets from environment files to a Secrets Manager for rotation and audit logs.",
+    "concepts": [
+     "Secrets Manager",
+     "rotation",
+     "audit logs"
+    ],
+    "api_designs": [
+     {
+      "name": "Secrets Manager API",
+      "description": "Centralized storage and management of sensitive data",
+      "endpoints_or_signatures": [
+       "get",
+       "set"
+      ]
+     },
+     {
+      "name": "Database Password Migration",
+      "description": "",
+      "endpoints_or_signatures": []
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Adopt a Secrets Manager"
+    ],
+    "todos": [
+     {
+      "task": "Migrate database password",
+      "owner": "Omar",
+      "t": "00:00:13"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Secrets Management",
+    "context": "Moving secrets from environment files to a Secrets Manager for rotation and audit logs.",
+    "concepts": [
+     "Secrets Manager",
+     "rotation",
+     "audit logs"
+    ],
+    "api_designs": [
+     {
+      "name": "Database Password Migration",
+      "description": "",
+      "endpoints_or_signatures": []
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Adopt a Secrets Manager"
+    ],
+    "todos": [
+     {
+      "task": "Migrate database password",
+      "owner": "Omar",
+      "t": "00:00:13"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 1,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.6329113924050633
+    },
+    "extracted": 6,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-024",
+   "valid": true,
+   "prompt_tokens": 827,
+   "latency_ms": 9473,
+   "n_prompt": 827,
+   "n_gen": 106,
+   "prefill_ms": 6065.662667,
+   "decode_ms": 3357.639125,
+   "raw_output": {
+    "title": "Optimizing Nightly Report Job",
+    "context": "The nightly report job takes six hours and needs optimization.",
+    "concepts": [
+     "Incremental processing",
+     "Parallelization",
+     "Worker management"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "We'll implement incremental processing first"
+    ],
+    "todos": [
+     {
+      "task": "Add last processed timestamp to the job",
+      "owner": "Priya",
+      "t": "00:00:12"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Optimizing Nightly Report Job",
+    "context": "The nightly report job takes six hours and needs optimization.",
+    "concepts": [
+     "Incremental processing",
+     "Parallelization",
+     "Worker management"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "We'll implement incremental processing first"
+    ],
+    "todos": [
+     {
+      "task": "Add last processed timestamp to the job",
+      "owner": "Priya",
+      "t": "00:00:12"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 2,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.8571428571428571,
+     "context": 1.0
+    },
+    "extracted": 5,
+    "ungrounded": 1
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-025",
+   "valid": true,
+   "prompt_tokens": 806,
+   "latency_ms": 10174,
+   "n_prompt": 806,
+   "n_gen": 151,
+   "prefill_ms": 5523.687625,
+   "decode_ms": 4611.090959,
+   "raw_output": {
+    "title": "API Versioning",
+    "context": "Deciding how to version the public API",
+    "concepts": [
+     "URL versioning",
+     "header versioning"
+    ],
+    "api_designs": [
+     {
+      "name": "Versioned URL",
+      "description": "Explicitly versioning API endpoints in the URL",
+      "endpoints_or_signatures": [
+       "/v2/orders"
+      ]
+     },
+     {
+      "name": "Header Versioning",
+      "description": null,
+      "endpoints_or_signatures": []
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Add v2 prefix to the router"
+    ],
+    "todos": [
+     {
+      "task": "Implement URL versioning",
+      "owner": "Sam",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "API Versioning",
+    "context": "Deciding how to version the public API",
+    "concepts": [
+     "URL versioning",
+     "header versioning"
+    ],
+    "api_designs": [
+     {
+      "name": "Versioned URL",
+      "description": "Explicitly versioning API endpoints in the URL",
+      "endpoints_or_signatures": [
+       "/v2/orders"
+      ]
+     },
+     {
+      "name": "Header Versioning",
+      "description": null,
+      "endpoints_or_signatures": []
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Add v2 prefix to the router"
+    ],
+    "todos": [
+     {
+      "task": "Implement URL versioning",
+      "owner": "Sam",
+      "t": "00:00:00"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.8947368421052632
+    },
+    "extracted": 6,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-026",
+   "valid": true,
+   "prompt_tokens": 794,
+   "latency_ms": 8379,
+   "n_prompt": 794,
+   "n_gen": 92,
+   "prefill_ms": 5400.048375,
+   "decode_ms": 2926.137584,
+   "raw_output": {
+    "title": "Distributed Tracing",
+    "context": "Improving request visibility and identifying performance bottlenecks",
+    "concepts": [
+     "Distributed tracing",
+     "Trace ID",
+     "Instrumentation"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [],
+    "todos": [
+     {
+      "task": "Instrument checkout service",
+      "owner": "Ravi",
+      "t": "00:00:07"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Distributed Tracing",
+    "context": null,
+    "concepts": [
+     "Distributed tracing",
+     "Trace ID",
+     "Instrumentation"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [],
+    "todos": [
+     {
+      "task": "Instrument checkout service",
+      "owner": "Ravi",
+      "t": "00:00:07"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.0
+    },
+    "extracted": 4,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-027",
+   "valid": true,
+   "prompt_tokens": 826,
+   "latency_ms": 10209,
+   "n_prompt": 826,
+   "n_gen": 78,
+   "prefill_ms": 6196.425333,
+   "decode_ms": 3964.590625,
+   "raw_output": {
+    "title": "Editor State Management",
+    "context": "Managing the editor state across multiple widgets in a predictable and efficient manner.",
+    "concepts": [
+     "Single Store",
+     "Selectors",
+     "Undo History"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Agreed to use a single store with Selectors"
+    ],
+    "todos": [],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Editor State Management",
+    "context": "Managing the editor state across multiple widgets in a predictable and efficient manner.",
+    "concepts": [
+     "Single Store",
+     "Selectors",
+     "Undo History"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Agreed to use a single store with Selectors"
+    ],
+    "todos": [],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 2,
+      "expected": 2,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.8051948051948052
+    },
+    "extracted": 4,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-028",
+   "valid": true,
+   "prompt_tokens": 784,
+   "latency_ms": 11734,
+   "n_prompt": 784,
+   "n_gen": 106,
+   "prefill_ms": 7135.268792,
+   "decode_ms": 4557.059458,
+   "raw_output": {
+    "title": "Switching PDF Library",
+    "context": "The PDF library used by the team is no longer maintained and needs to be replaced.",
+    "concepts": [
+     "Forking",
+     "Switching to another library"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Mei will compare two alternatives by Thursday"
+    ],
+    "todos": [
+     {
+      "task": "Compare two alternatives",
+      "owner": "Tomas",
+      "t": "00:00:07"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Switching PDF Library",
+    "context": "The PDF library used by the team is no longer maintained and needs to be replaced.",
+    "concepts": [
+     "Forking",
+     "Switching to another library"
+    ],
+    "api_designs": [],
+    "tradeoffs": [],
+    "decisions": [
+     "Mei will compare two alternatives by Thursday"
+    ],
+    "todos": [
+     {
+      "task": "Compare two alternatives",
+      "owner": "Tomas",
+      "t": "00:00:07"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 2,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 2,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 0,
+        "matched": 0
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.6875,
+     "context": 1.0
+    },
+    "extracted": 4,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-029",
+   "valid": true,
+   "prompt_tokens": 813,
+   "latency_ms": 10902,
+   "n_prompt": 813,
+   "n_gen": 165,
+   "prefill_ms": 5899.367333,
+   "decode_ms": 4967.466083,
+   "raw_output": {
+    "title": "Internal services talk JSON over HTTP vs GRPC",
+    "context": "Discussing internal services, JSON over HTTP vs GRPC for inventory service",
+    "concepts": [
+     "JSON over HTTP",
+     "GRPC"
+    ],
+    "api_designs": [
+     {
+      "name": "inventory proto",
+      "description": "Define the inventory proto with a gets.call",
+      "endpoints_or_signatures": [
+       "gets.call"
+      ]
+     },
+     {
+      "name": "inventory service",
+      "description": "",
+      "endpoints_or_signatures": [
+       ""
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's try GRPC for the inventory service only"
+    ],
+    "todos": [
+     {
+      "task": "Define the inventory proto with a gets.call",
+      "owner": "Priya",
+      "t": "00:00:09"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Internal services talk JSON over HTTP vs GRPC",
+    "context": "Discussing internal services, JSON over HTTP vs GRPC for inventory service",
+    "concepts": [
+     "JSON over HTTP",
+     "GRPC"
+    ],
+    "api_designs": [
+     {
+      "name": "inventory proto",
+      "description": "Define the inventory proto with a gets.call",
+      "endpoints_or_signatures": [
+       "gets.call"
+      ]
+     },
+     {
+      "name": "inventory service",
+      "description": "",
+      "endpoints_or_signatures": [
+       ""
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's try GRPC for the inventory service only"
+    ],
+    "todos": [
+     {
+      "task": "Define the inventory proto with a gets.call",
+      "owner": "Priya",
+      "t": "00:00:09"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 2,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 0.9166666666666666,
+     "context": 0.8533333333333334
+    },
+    "extracted": 6,
+    "ungrounded": 0
+   },
+   "issues": []
+  },
+  {
+   "id": "engineering-030",
+   "valid": true,
+   "prompt_tokens": 817,
+   "latency_ms": 10374,
+   "n_prompt": 817,
+   "n_gen": 146,
+   "prefill_ms": 5693.447792,
+   "decode_ms": 4635.534042,
+   "raw_output": {
+    "title": "Resumable Chunked Uploads",
+    "context": "Uploads for big files times out, consider chunked and resumable uploads",
+    "concepts": [
+     "Resumable",
+     "Chunked",
+     "Uploads"
+    ],
+    "api_designs": [
+     {
+      "name": "chunk endpoint",
+      "description": "Handles resumable chunked uploads",
+      "endpoints_or_signatures": [
+       "/upload/{id}/chunks"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's do resumable chunked uploads"
+    ],
+    "todos": [
+     {
+      "task": "Write the chunk endpoint",
+      "owner": "Diego",
+      "t": "00:00:06"
+     }
+    ],
+    "open_questions": []
+   },
+   "output": {
+    "title": "Resumable Chunked Uploads",
+    "context": "Uploads for big files times out, consider chunked and resumable uploads",
+    "concepts": [
+     "Resumable",
+     "Chunked",
+     "Uploads"
+    ],
+    "api_designs": [
+     {
+      "name": "chunk endpoint",
+      "description": "Handles resumable chunked uploads",
+      "endpoints_or_signatures": [
+       "/upload/{id}/chunks"
+      ]
+     }
+    ],
+    "tradeoffs": [],
+    "decisions": [
+     "Let's do resumable chunked uploads"
+    ],
+    "todos": [
+     {
+      "task": "Write the chunk endpoint",
+      "owner": "Diego",
+      "t": "00:00:06"
+     }
+    ],
+    "open_questions": []
+   },
+   "score": {
+    "scalars": {},
+    "lists": {
+     "concepts": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 3,
+      "fields": {}
+     },
+     "api_designs": {
+      "tp": 0,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "tradeoffs": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     },
+     "decisions": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {}
+     },
+     "todos": {
+      "tp": 1,
+      "expected": 1,
+      "predicted": 1,
+      "fields": {
+       "owner": {
+        "correct": 1,
+        "matched": 1
+       }
+      }
+     },
+     "open_questions": {
+      "tp": 0,
+      "expected": 0,
+      "predicted": 0,
+      "fields": {}
+     }
+    },
+    "prose": {
+     "title": 1.0,
+     "context": 0.9090909090909091
+    },
+    "extracted": 6,
+    "ungrounded": 0
+   },
+   "issues": []
+  }
+ ]
+}
