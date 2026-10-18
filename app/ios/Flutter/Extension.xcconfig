@@ -1,0 +1,2 @@
+// Extensions (widgets, share) only need the Flutter version variables, not the Pods flags.
+#include "Generated.xcconfig"

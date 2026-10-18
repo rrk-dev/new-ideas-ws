@@ -131,6 +131,7 @@
 		78C336270CF131F3C7B309E9 /* Pods-RunnerTests.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release-dev.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release-dev.xcconfig"; sourceTree = "<group>"; };
 		78E0A7A72DC9AD7400C4905E /* FlutterGeneratedPluginSwiftPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FlutterGeneratedPluginSwiftPackage; path = Flutter/ephemeral/Packages/FlutterGeneratedPluginSwiftPackage; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
+		AD1400000000000000000001 /* Extension.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Extension.xcconfig; path = Flutter/Extension.xcconfig; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97B90946B07E7BC4F216B851 /* Pods-RunnerTests.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release-prod.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release-prod.xcconfig"; sourceTree = "<group>"; };
@@ -255,6 +256,7 @@
 				78E0A7A72DC9AD7400C4905E /* FlutterGeneratedPluginSwiftPackage */,
 				3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */,
 				9740EEB21CF90195004384FC /* Debug.xcconfig */,
+				AD1400000000000000000001 /* Extension.xcconfig */,
 				7AFA3C8E1D35360C0083082E /* Release.xcconfig */,
 				9740EEB31CF90195004384FC /* Generated.xcconfig */,
 			);
@@ -770,6 +772,7 @@
 		};
 		086C513F918F71901F74E698 /* Profile-prod */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD1400000000000000000001 /* Extension.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -892,6 +895,7 @@
 		};
 		1D83A2241AC927A4E0A8C941 /* Release-dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD1400000000000000000001 /* Extension.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -934,6 +938,7 @@
 		};
 		3B0A8A45668D58773A88DF4F /* Debug-prod */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD1400000000000000000001 /* Extension.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -960,6 +965,7 @@
 		};
 		3B2F32A6B49F13EB257911EC /* Profile-dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD1400000000000000000001 /* Extension.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -1300,6 +1306,7 @@
 		};
 		A5D89D279768A759573B1A85 /* Release-prod */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD1400000000000000000001 /* Extension.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -1344,6 +1351,7 @@
 		};
 		C96FE9201A28797912C64789 /* Debug-dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD1400000000000000000001 /* Extension.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -1491,6 +1499,7 @@
 		};
 		DBE327C7B9B05BE33A981AB1 /* Profile-prod */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD1400000000000000000001 /* Extension.xcconfig */;
 			buildSettings = {
 				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -1519,6 +1528,7 @@
 		};
 		C20BCF2EE544EEF9B2F62EAA /* Release-dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD1400000000000000000001 /* Extension.xcconfig */;
 			buildSettings = {
 				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.dev;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -1547,6 +1557,7 @@
 		};
 		C5E98414E5A33F636D720D71 /* Debug-prod */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD1400000000000000000001 /* Extension.xcconfig */;
 			buildSettings = {
 				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -1575,6 +1586,7 @@
 		};
 		F8B213B701898EE64017EAE9 /* Profile-dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD1400000000000000000001 /* Extension.xcconfig */;
 			buildSettings = {
 				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.dev;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -1603,6 +1615,7 @@
 		};
 		C8E8D2458660EE5361D240AA /* Release-prod */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD1400000000000000000001 /* Extension.xcconfig */;
 			buildSettings = {
 				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -1631,6 +1644,7 @@
 		};
 		9A227A2C5D5E8524B8374643 /* Debug-dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD1400000000000000000001 /* Extension.xcconfig */;
 			buildSettings = {
 				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.dev;
 				APPLICATION_EXTENSION_API_ONLY = YES;
