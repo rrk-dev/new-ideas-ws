@@ -46,6 +46,7 @@ class MainFlutterWindow: NSWindow {
     AppLockPlugin.register(with: registrar("AppLockPlugin"))
     SecureStoragePlugin.register(with: registrar("SecureStoragePlugin"))
     AudioImportPlugin.register(with: registrar("AudioImportPlugin"))
+    ManagedConfigPlugin.register(with: registrar("ManagedConfigPlugin"))
     let messenger = registrar("VaultBookmarks").messenger
     BookmarkHostApiSetup.setUp(binaryMessenger: messenger, api: bookmarkApi)
     PurchaseHostApiSetup.setUp(binaryMessenger: messenger, api: purchaseApi)

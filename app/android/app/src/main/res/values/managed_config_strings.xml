@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- LIC-04: static strings only, shown in the MDM console. -->
+<resources>
+    <string name="mdm_license_title">Enterprise license</string>
+    <string name="mdm_license_description">Signed .vvlicense file content or its base64.</string>
+    <string name="mdm_profile_packs_title">Profile packs</string>
+    <string name="mdm_profile_packs_description">Signed .vvprofile bundles, base64. URLs are never fetched.</string>
+    <string name="mdm_profile_pack_title">Pack (base64)</string>
+    <string name="mdm_target_kinds_title">Allowed vault folder kinds</string>
+    <string name="mdm_target_kinds_description">The app\'s own folder is always allowed.</string>
+    <string name="mdm_retention_title">Audio retention (days)</string>
+    <string name="mdm_retention_description">Delete recordings after this many days (1-3650).</string>
+    <string name="mdm_network_title">Disable all network access</string>
+    <string name="mdm_lock_title">Locked settings</string>
+    <string name="mdm_lock_description">Settings users cannot change.</string>
+    <string name="mdm_app_lock_title">Require app lock</string>
+    <string name="mdm_custom_models_title">Disable custom models</string>
+    <string name="mdm_consent_title">Always confirm recording consent</string>
+    <string name="mdm_max_recording_title">Maximum recording length (minutes)</string>
+    <string name="mdm_max_recording_description">Stops a recording automatically (1-480). Can only shorten the default limit.</string>
+
+    <string-array name="mdm_target_kinds">
+        <item>saf</item>
+        <item>app_local</item>
+    </string-array>
+    <string-array name="mdm_lockable_settings">
+        <item>ask.enabled</item>
+        <item>ask.save_history</item>
+        <item>notifications.show_details</item>
+        <item>audio.raw_capture</item>
+        <item>audio.retention</item>
+        <item>processing.auto_process</item>
+        <item>processing.charge_only</item>
+        <item>export.default_target</item>
+        <item>security.lock_timeout</item>
+        <item>privacy.transcript_retention</item>
+    </string-array>
+</resources>

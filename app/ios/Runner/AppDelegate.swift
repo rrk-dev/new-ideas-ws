@@ -37,6 +37,10 @@ import UserNotifications
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "StorageInfoPlugin") {
       StorageInfoPlugin.register(with: registrar)
     }
+    // LIC-04: managed configuration (MDM).
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "ManagedConfigPlugin") {
+      ManagedConfigPlugin.register(with: registrar)
+    }
     // SEC-01: Keychain data keys + Data Protection / backup exclusion of vv/.
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "SecureStoragePlugin") {
       SecureStoragePlugin.register(with: registrar)

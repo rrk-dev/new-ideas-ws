@@ -8,6 +8,8 @@ import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/export/domain/routing_rule.dart';
+import 'package:vaultvoice/features/licensing/data/managed_config_providers.dart';
+import 'package:vaultvoice/features/licensing/domain/managed_config.dart';
 import 'package:vaultvoice/features/models/data/model_state_providers.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
@@ -19,6 +21,7 @@ import 'package:vaultvoice/features/settings/presentation/settings_providers.dar
 import 'package:vaultvoice/features/settings/presentation/settings_screen.dart';
 import 'package:vaultvoice/features/settings/presentation/vault_settings_screens.dart';
 
+import '../fakes/fake_managed_config_source.dart';
 import '../fakes/fake_settings_store.dart';
 import '../helpers/model_fixtures.dart';
 import '../helpers/settings_values.dart';
@@ -155,6 +158,35 @@ void main() {
     const pattern = AppSettings.filenamePattern;
     await show(t, find.byKey(settingTileKey(pattern.key)));
     expect(find.text('{{date:YYYY}}/{{slug}}.md'), findsOneWidget);
+  });
+
+  testWidgets('[LIC-04/AC1] an MDM configuration shows the managed status '
+      'and locks the forced setting', (t) async {
+    final source = FakeManagedConfigSource(
+      ManagedConfig.parse({'network_disabled': true}),
+    );
+    await pump(
+      t,
+      overrides: [managedConfigSourceProvider.overrideWithValue(source)],
+    );
+    await t.pumpAndSettle();
+    final status = find.byKey(const ValueKey('managed-config-status'));
+    await show(t, status);
+    expect(status, findsOneWidget);
+    final tile = find.byKey(settingTileKey(AppSettings.offlineMode.key));
+    await show(t, tile);
+    expect(
+      find.descendant(of: tile, matching: find.byIcon(Icons.lock_outline)),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('[LIC-04/AC1] no managed status without an MDM configuration', (
+    t,
+  ) async {
+    await pump(t);
+    await t.pumpAndSettle();
+    expect(find.byKey(const ValueKey('managed-config-status')), findsNothing);
   });
 
   testWidgets('[APP-03/AC1] managed (enterprise-locked) settings are shown '

@@ -30,6 +30,7 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		A0D01B012F00000100C0FFEE /* ManagedConfigPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D01B002F00000100C0FFEE /* ManagedConfigPlugin.swift */; };
 		A0D01A012F00000100C0FFEE /* StorageInfoPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D01A002F00000100C0FFEE /* StorageInfoPlugin.swift */; };
 		A0D04A012F00000100C0FFEE /* AudioSessionPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D04A002F00000100C0FFEE /* AudioSessionPlugin.swift */; };
 		A0D04A032F00000100C0FFEE /* RecordingIndicatorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D04A022F00000100C0FFEE /* RecordingIndicatorPlugin.swift */; };
@@ -142,6 +143,7 @@
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9969B2616009484395275821 /* Pods-Runner.debug-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug-dev.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug-dev.xcconfig"; sourceTree = "<group>"; };
 		99BEF408F5AF241A68F5CBE4 /* Pods-RunnerTests.profile-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile-dev.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile-dev.xcconfig"; sourceTree = "<group>"; };
+		A0D01B002F00000100C0FFEE /* ManagedConfigPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedConfigPlugin.swift; sourceTree = "<group>"; };
 		A0D01A002F00000100C0FFEE /* StorageInfoPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageInfoPlugin.swift; sourceTree = "<group>"; };
 		A0D04A002F00000100C0FFEE /* AudioSessionPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionPlugin.swift; sourceTree = "<group>"; };
 		A0D04A022F00000100C0FFEE /* RecordingIndicatorPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingIndicatorPlugin.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 				5EC09A002F00000100C0FFEE /* CallGuardPlugin.swift */,
 				AD0200000000000000000001 /* ModelDownloadPlugin.swift */,
 				A0D01A002F00000100C0FFEE /* StorageInfoPlugin.swift */,
+				A0D01B002F00000100C0FFEE /* ManagedConfigPlugin.swift */,
 				A0F08A002F00000100C0FFEE /* ProcessingPlugin.swift */,
 				5EC01A002F00000100C0FFEE /* SecureStoragePlugin.swift */,
 				5EC03A002F00000100C0FFEE /* AppLockPlugin.swift */,
@@ -673,6 +676,7 @@
 				5EC09A012F00000100C0FFEE /* CallGuardPlugin.swift in Sources */,
 				AD0200000000000000000002 /* ModelDownloadPlugin.swift in Sources */,
 				A0D01A012F00000100C0FFEE /* StorageInfoPlugin.swift in Sources */,
+				A0D01B012F00000100C0FFEE /* ManagedConfigPlugin.swift in Sources */,
 				A0F08A012F00000100C0FFEE /* ProcessingPlugin.swift in Sources */,
 				5EC01A012F00000100C0FFEE /* SecureStoragePlugin.swift in Sources */,
 				5EC03A012F00000100C0FFEE /* AppLockPlugin.swift in Sources */,

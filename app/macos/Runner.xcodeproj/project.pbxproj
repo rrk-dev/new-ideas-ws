@@ -33,6 +33,7 @@
 		A0D09A0000000000000000B1 /* MacAudioRouteObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A0000000000000000F1 /* MacAudioRouteObserver.swift */; };
 		A0D09A000000000000000030 /* MacHostChannels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000010 /* MacHostChannels.swift */; };
 		A0D09A000000000000000031 /* AppLockPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000011 /* AppLockPlugin.swift */; };
+		A0D09A000000000000000F32 /* ManagedConfigPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000F12 /* ManagedConfigPlugin.swift */; };
 		A0D09A000000000000000032 /* SecureStoragePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000012 /* SecureStoragePlugin.swift */; };
 		A0D09A000000000000000033 /* BookmarkHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000013 /* BookmarkHostApiImpl.swift */; };
 		A0D09A000000000000000034 /* AudioImportHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000014 /* AudioImportHostApiImpl.swift */; };
@@ -111,6 +112,7 @@
 		F9DF8D01697654095A84B93C /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0D09A000000000000000010 /* MacHostChannels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MacHostChannels.swift"; sourceTree = "<group>"; };
 		A0D09A000000000000000011 /* AppLockPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppLockPlugin.swift"; sourceTree = "<group>"; };
+		A0D09A000000000000000F12 /* ManagedConfigPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedConfigPlugin.swift"; sourceTree = "<group>"; };
 		A0D09A000000000000000012 /* SecureStoragePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SecureStoragePlugin.swift"; sourceTree = "<group>"; };
 		A0D09A000000000000000013 /* BookmarkHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookmarkHostApiImpl.swift"; sourceTree = "<group>"; };
 		A0D09A000000000000000014 /* AudioImportHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioImportHostApiImpl.swift"; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				A0D09A000000000000000010 /* MacHostChannels.swift */,
 				A0D09A000000000000000011 /* AppLockPlugin.swift */,
 				A0D09A000000000000000012 /* SecureStoragePlugin.swift */,
+				A0D09A000000000000000F12 /* ManagedConfigPlugin.swift */,
 				A0D09A000000000000000013 /* BookmarkHostApiImpl.swift */,
 				A0D09A000000000000000014 /* AudioImportHostApiImpl.swift */,
 				A0D09A000000000000000015 /* PurchaseHostApiImpl.swift */,
@@ -482,6 +485,7 @@
 				A0D09A000000000000000030 /* MacHostChannels.swift in Sources */,
 				A0D09A000000000000000031 /* AppLockPlugin.swift in Sources */,
 				A0D09A000000000000000032 /* SecureStoragePlugin.swift in Sources */,
+				A0D09A000000000000000F32 /* ManagedConfigPlugin.swift in Sources */,
 				A0D09A000000000000000033 /* BookmarkHostApiImpl.swift in Sources */,
 				A0D09A000000000000000034 /* AudioImportHostApiImpl.swift in Sources */,
 				A0D09A000000000000000035 /* PurchaseHostApiImpl.swift in Sources */,
