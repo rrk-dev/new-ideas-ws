@@ -1,0 +1,97 @@
+app/test/unit/ask/ask_db_test.dart
+  s_5095472e80968b::t_9c68801b139512 128
+  s_5095472e80968b::t_3ee0ae0fbf60c2 92,94-95,97-105
+  s_5095472e80968b::t_90fb61a5bff006 79,161
+  s_9450697a967066::t_2c0c4e38f1723b 93,96
+tools/bench/ask/ask_eval.py
+  s_5095472e80968b::t_ce18dd9de876d7 190
+  s_5095472e80968b::t_26bf42ea81ab2b 1-189,191-209
+tools/bench/results/2026-10-17-ask03-eval-run1.md
+  s_5095472e80968b::t_07310fbfb46bdb 1-29
+tools/bench/results/2026-10-17-ask03-eval.base.raw.jsonl
+  s_9450697a967066::t_80d1380dcf96a6 37-40
+  s_9450697a967066::t_f1934f4b847942 1-20
+  s_9450697a967066::t_e8a34d01d0cd57 41-44
+  s_9450697a967066::t_14bb06dcb7d8f8 21-27
+  s_9450697a967066::t_7380b383478d59 28-36
+app/lib/features/ask/domain/ask_prompt.dart
+  s_5095472e80968b::t_6b3b023cc95c00 76,82,98-99
+  s_5095472e80968b::t_644a2f5323b0af 4,166-211
+  s_5095472e80968b::t_fa70f5d2a83b80 20-25
+  s_5095472e80968b::t_c70e5c89e34355 212
+tools/bench/results/2026-10-17-ask03-eval.json
+  s_9450697a967066::t_e8a34d01d0cd57 9-11,28,33,37-38,40-41,44-47,51,54-56,68,79,90,101,112,123,132-134,143-145,156,167,178,189,200,211,222,231-233,244,255,266,277,286-288,299,304,306,308-310,321,332,337,339,341-343,352-354,365,370,372,374-376,385-387,398,407,409,414,416,418-420,429-431,442,451-453
+  s_9450697a967066::t_910e3a0443d5de 12,18,73,75,77-78,88-89,99-100,110-111,154,165-166,220,242,253,264-265,275-276,330-331,373
+  s_9450697a967066::t_7f6c6bbf1fb1ea 1-8,13-17,19-27,29-32,34-36,39,42-43,48-50,52-53,57-67,69-72,74,76,80-87,91-98,102-109,113-122,124-131,135-142,146-153,155,157-164,168-177,179-188,190-199,201-210,212-219,221,223-230,234-241,243,245-252,254,256-263,267-274,278-285,289-298,300-303,305,307,311-320,322-329,333-336,338,340,344-351,355-364,366-369,371,377-384,388-397,399-406,408,410-413,415,417,421-428,432-441,443-450,454-458
+docs/adr/ADR-ASK-02-retrieval.md
+  s_5095472e80968b::t_e56afc5634b4e4 298-299,306-307,313-317
+  s_5095472e80968b::t_b008513b610eed 293-297,300-305,308-312,318-320
+app/test/unit/ask/ask_service_test.dart
+  s_5095472e80968b::t_76c486a099b0c8 301-327
+tools/bench/results/2026-10-17-ask03-eval-run3.md
+  s_5095472e80968b::t_31396ad8905875 1-29
+tools/bench/results/2026-10-17-ask03-eval.md
+  s_9450697a967066::t_7f6c6bbf1fb1ea 1-10,15-16,18-20,22,25,28-29
+  s_9450697a967066::t_e8a34d01d0cd57 11-13,17,23-24,26-27
+  s_9450697a967066::t_910e3a0443d5de 14,21
+tools/bench/results/2026-10-17-ask03-eval-run2.rewrite.raw.jsonl
+  s_5095472e80968b::t_aea9267f4e4f47 1-44
+tools/bench/results/2026-10-17-ask03-eval-run2.base.raw.jsonl
+  s_5095472e80968b::t_aea9267f4e4f47 1-44
+tools/bench/results/2026-10-17-ask03-eval-run2.json
+  s_5095472e80968b::t_aea9267f4e4f47 1-908
+app/lib/features/ask/domain/ask_service.dart
+  s_5095472e80968b::t_644a2f5323b0af 196-199
+tasks/14-product-phase2/ASK-03-ask-engine.md
+  s_5095472e80968b::t_8e1f2c22d38bbb 11-17,54-55,57-64,66
+  s_5095472e80968b::t_e56afc5634b4e4 56,65,67,74-75
+  s_5095472e80968b::t_90fb61a5bff006 68-73
+app/test/eval/ask_eval_host_test.dart
+  s_5095472e80968b::t_c3555a31fe23cd 1-279
+app/lib/features/ask/data/db_ask_retriever.dart
+  s_5095472e80968b::t_3ee0ae0fbf60c2 68-70,72
+  s_5095472e80968b::t_5f34f50fdb3548 71
+tools/bench/results/2026-10-17-ask03-eval-run1.base.raw.jsonl
+  s_5095472e80968b::t_07310fbfb46bdb 1-44
+tools/bench/results/2026-10-17-ask03-eval-run3.json
+  s_5095472e80968b::t_31396ad8905875 1-455
+docs/test-plans/device/ASK-03.md
+  s_5095472e80968b::t_493deee139ae1e 1-24
+app/test/unit/retention/retention_fixtures.dart
+  s_5095472e80968b::t_5f34f50fdb3548 3,150-181
+tools/bench/results/2026-10-17-ask03-eval-run2.md
+  s_5095472e80968b::t_aea9267f4e4f47 1-57
+tools/bench/results/2026-10-17-ask03-eval-run3.base.raw.jsonl
+  s_5095472e80968b::t_31396ad8905875 1-44
+app/lib/features/ask/domain/ask_query.dart
+  s_5095472e80968b::t_3ee0ae0fbf60c2 107
+  s_5095472e80968b::t_c0b02018342fb9 106,108
+app/test/unit/ask/ask_query_test.dart
+  s_5095472e80968b::t_3ee0ae0fbf60c2 13
+tools/bench/results/2026-10-17-ask03-eval-run1.json
+  s_5095472e80968b::t_07310fbfb46bdb 1-468
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6d22b4ebd9d953388caa0932aca593c6121de40b",
+  "prompts": {},
+  "sessions": {
+    "s_5095472e80968b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "662c42c7-18d9-4cfa-9280-08ec51c9ab04",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_9450697a967066": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "080beacb-b5f0-4236-8780-01faa814d924",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
