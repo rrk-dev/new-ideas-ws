@@ -16,6 +16,7 @@ class LocalEntitlementService implements EntitlementService {
   LocalEntitlementService({
     required this.clock,
     required this.mode,
+    this.proTierEnforced = true,
     Entitlement? initial,
   }) : _entitlement = initial ?? Entitlement.free(clock.now()) {
     _access = _resolve();
@@ -24,6 +25,9 @@ class LocalEntitlementService implements EntitlementService {
 
   final Clock clock;
   final DistributionMode mode;
+
+  /// The LIC-05 suppression switch: `false` opens the Pro column to everyone.
+  final bool proTierEnforced;
 
   final _controller = StreamController<FeatureAccess>.broadcast();
   Entitlement _entitlement;
@@ -48,8 +52,12 @@ class LocalEntitlementService implements EntitlementService {
   @override
   void refresh() => _publish();
 
-  FeatureAccess _resolve() =>
-      FeatureAccess.resolve(_entitlement, now: clock.now(), mode: mode);
+  FeatureAccess _resolve() => FeatureAccess.resolve(
+    _entitlement,
+    now: clock.now(),
+    mode: mode,
+    proTierEnforced: proTierEnforced,
+  );
 
   void _publish() {
     final next = _resolve();

@@ -10,6 +10,10 @@ import 'package:vaultvoice/core/widgets/primary_action_button.dart';
 import 'package:vaultvoice/core/widgets/status_message.dart';
 import 'package:vaultvoice/features/library/data/library_providers.dart';
 import 'package:vaultvoice/features/library/presentation/transcript_navigation.dart';
+import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
+import 'package:vaultvoice/features/licensing/domain/entitlement.dart';
+import 'package:vaultvoice/features/licensing/domain/paywall.dart';
+import 'package:vaultvoice/features/licensing/presentation/feature_gate.dart';
 import 'package:vaultvoice/features/mindmap/data/mind_map_providers.dart';
 import 'package:vaultvoice/features/mindmap/domain/mind_map.dart';
 import 'package:vaultvoice/features/mindmap/domain/mind_map_markdown.dart';
@@ -39,6 +43,18 @@ class MindMapTab extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
+    if (!ref.watch(featureProvider(Feature.mindMap))) {
+      return StatusMessage(
+        icon: Icons.lock_outline,
+        message: l10n.mindMapLocked,
+        actionLabel: l10n.paywallTitle,
+        onAction: () => ensureFeature(
+          ref,
+          Feature.mindMap,
+          from: PaywallEntryPoint.mindMap,
+        ),
+      );
+    }
     final map = ref.watch(recordingMindMapProvider(recordingId)).value;
     final requested =
         ref.watch(mindMapRequestedProvider(recordingId)).value ?? false;

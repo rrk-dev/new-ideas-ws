@@ -21,6 +21,11 @@ part 'licensing_providers.g.dart';
 DistributionMode distributionMode(Ref ref) =>
     kCommercialBuild ? DistributionMode.commercial : DistributionMode.personal;
 
+/// LIC-05 switch: whether the Pro column is enforced (`VV_PRO_ENFORCED`).
+/// PRODUCT-DECISION: `false` — no Pro tier for now. Tests override.
+@Riverpod(keepAlive: true)
+bool proTierEnforced(Ref ref) => kProTierEnforced;
+
 /// The one entitlement authority. LIC-02/LIC-03 sources call
 /// `EntitlementService.update` after each verification.
 @Riverpod(keepAlive: true)
@@ -28,6 +33,7 @@ EntitlementService entitlementService(Ref ref) {
   final service = LocalEntitlementService(
     clock: ref.watch(clockProvider),
     mode: ref.watch(distributionModeProvider),
+    proTierEnforced: ref.watch(proTierEnforcedProvider),
   );
   ref.onDispose(service.dispose);
   return service;

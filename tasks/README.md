@@ -235,9 +235,9 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 | Cloud device farm (Firebase Test Lab / BrowserStack) | QA-05 | Proposed: physical lab only, no cloud farm (ADR-QA-05). Human accepts or rejects |
 | Ship a macOS desktop app | FND-09, FND-10, AUD-09, EXP-09 | Decided by the user on 2026-10-14: yes, arm64 macOS desktop alongside iOS and Android. Web, Linux, and Windows stay off. |
 | `small.en` Whisper in Free tier? | LIC-01 | Product decision (§7 says Free gets small/tiny) |
-| Free vs Pro for Phase 2 features | LIC-05 | Decided 2026-10-17: all unlocked for now |
+| Free vs Pro for Phase 2 features | LIC-05 | Decided 2026-10-17 by the product owner: all unlocked for now (see the row below) |
 | Todoist integration | TSK-01 | **Decided 2026-10-17: no Todoist, no Apple Notes** (no public write API); Apple Reminders only |
-| Phase 2 tiers | LIC-05 | **Decided 2026-10-17: no Pro for now.** All features unlocked; Pro gating suppressed behind one switch, enable later |
+| Phase 2 tiers | LIC-05 | **Decided 2026-10-17 by the product owner (user): no Pro for now.** All features unlocked; Pro gating suppressed behind `proTierEnforced` (`VV_PRO_ENFORCED`, default off); intended tiers stay in `kFeatureMatrix`; enabling steps in `docs/iap-products.md` |
 | Lecture consent | TPL-01 | 2026-10-17: consent always required; personal use is fine |
 | Quick capture: start-now vs open-and-arm; Action Button `StartSource` | QCP-01 | **Decided 2026-10-17** (ADR-QCP-01 Accepted): navigate-only everywhere, no start-now, Action Button deferred, Live Activity not required (AUD-13) |
 | Ask-your-notes retrieval: FTS5 vs embeddings | ASK-02 | Proposed: ADR-ASK-02 — FTS5 for v1 (recall@5 59.3% < 80%, recall@10 80.6%); embeddings unmeasured, escalate if ASK-03 eval fails |

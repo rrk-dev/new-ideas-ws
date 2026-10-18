@@ -188,6 +188,7 @@ void main() {
         overrides: [
           clockProvider.overrideWithValue(clock),
           distributionModeProvider.overrideWithValue(commercial),
+          proTierEnforcedProvider.overrideWithValue(true),
         ],
       );
       final sub = c.listen(featureProvider(Feature.multiTarget), (_, _) {});

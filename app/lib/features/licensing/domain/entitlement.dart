@@ -53,6 +53,27 @@ enum Feature {
 
   /// Sideloading a custom (non-catalog) model file.
   sideloadCustomModel,
+
+  /// Quick capture entry points (widget, Lock Screen control, tile, shortcut).
+  quickCapture,
+
+  /// Built-in Lecture profile.
+  lectureProfile,
+
+  /// Built-in Sales call profile.
+  salesProfile,
+
+  /// Built-in Interview profile.
+  interviewProfile,
+
+  /// Ask your notes (the 3B model itself is [largeLlm]).
+  askNotes,
+
+  /// Mind map generation, viewer and export.
+  mindMap,
+
+  /// Apple Reminders export of action items.
+  remindersExport,
 }
 
 /// Where an [Entitlement] came from. Store/licence sources are produced by

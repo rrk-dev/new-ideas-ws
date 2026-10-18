@@ -42,4 +42,28 @@ Play Billing acknowledgements and entitlement mapping live in LIC-02.
 Dart product IDs must stay `vv_pro_annual` and `vv_pro_lifetime`. Changing
 them after first sale is a store-ops incident, not a rename.
 
+## Pro tier suppression (LIC-05)
+
+Decision, 2026-10-17 (product owner): **no Pro tier for now.** Every feature
+is available to everyone. The paywall, store products and prices are
+untouched; they are just not reachable.
+
+- Switch: `proTierEnforced` (`kProTierEnforced`, dart-define
+  `VV_PRO_ENFORCED`, default `false`). Off: the Pro column of
+  `kFeatureMatrix` is open to all plans (including the 3B model), no
+  paywall is shown and Settings hides the upgrade tile. Enterprise-only
+  features (managed profiles) still need an enterprise licence.
+- The intended tier of every feature stays in `kFeatureMatrix`
+  (`PRODUCT-DECISION` markers): quick capture is Free; the Lecture, Sales
+  call and Interview profiles, Ask, mind maps and Reminders export are Pro,
+  as are the 3B model and the earlier Pro rows.
+
+Enable Pro later (checklist):
+
+- [ ] Build store releases with `--dart-define=VV_COMMERCIAL=true --dart-define=VV_PRO_ENFORCED=true`.
+- [ ] Review the Pro column of `kFeatureMatrix` and change any tier the owner changes.
+- [ ] Create the store products above and fill the `[PRODUCT]` fields.
+- [ ] Wire `ensureFeature` into Ask (ASK-04) and Reminders export (TSK-02) if not yet done.
+- [ ] Run `nice -n 10 fvm flutter test test/unit/licensing test/widget/pro_tier_switch_test.dart`.
+
 Enterprise licensing (LIC-03 / LIC-04) is out of scope for v1.

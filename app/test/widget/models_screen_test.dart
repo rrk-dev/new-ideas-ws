@@ -132,6 +132,7 @@ class _Rig {
   List<Override> get overrides => [
     settingsStoreProvider.overrideWithValue(store),
     distributionModeProvider.overrideWithValue(mode),
+    proTierEnforcedProvider.overrideWithValue(true),
     activeCatalogProvider.overrideWith(() => catalog),
     installedModelsProvider.overrideWith((ref) => Stream.value(installed)),
     deviceProfileProvider.overrideWith(

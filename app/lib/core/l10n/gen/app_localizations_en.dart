@@ -2937,6 +2937,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'No mind map yet. Build one from this recording’s transcript.';
 
   @override
+  String get mindMapLocked => 'Mind maps are part of Lumen Pro.';
+
+  @override
   String get mindMapNeedsTranscript =>
       'Process the recording first: a mind map is built from its transcript.';
 

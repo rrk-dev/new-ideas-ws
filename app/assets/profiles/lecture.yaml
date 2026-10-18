@@ -13,7 +13,7 @@ version: 1
 name: Lecture Notes
 description: Study notes from a lecture or class - summary, key concepts, outline, assignments and review questions. Consent is always confirmed before recording; personal use is fine.
 icon: school
-# PRODUCT-DECISION (LIC-05): Free vs Pro is undecided. `pro` is a placeholder.
+# Intended future tier (kFeatureMatrix is the source of truth; no Pro is enforced yet).
 tier: pro
 stt:
   # Users extend this per course in Settings (vocabulary.lecture).

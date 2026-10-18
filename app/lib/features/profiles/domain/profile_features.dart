@@ -4,11 +4,14 @@ import 'package:vaultvoice/features/licensing/domain/entitlement.dart';
 /// picker, or null when the profile is available in every tier. Gating itself
 /// stays in `kFeatureMatrix` / `FeatureGate`; this only names the row.
 ///
-/// PRODUCT-DECISION: only Warranty and Engineering have matrix rows (LIC-01).
-/// Meeting, Lecture, Sales call and Interview are ungated for now, as no Pro
-/// tier is enforced; add a [Feature] and a case here if that changes.
+/// Meeting is the always-free baseline. Every other built-in has a matrix row
+/// (LIC-01, LIC-05); the rows are open to everyone while no Pro tier is
+/// enforced (`kProTierEnforced`).
 Feature? featureForProfile(String profileId) => switch (profileId) {
   'warranty' => Feature.builtinWarranty,
   'engineering' => Feature.builtinEngineering,
+  'lecture' => Feature.lectureProfile,
+  'sales_call' => Feature.salesProfile,
+  'interview' => Feature.interviewProfile,
   _ => null,
 };
