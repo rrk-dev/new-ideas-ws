@@ -195,6 +195,7 @@ def check_privacy_manifests(root: Path, errs: list[str]) -> None:
     ios = root / "app/ios"
     shared_targets = {
         "app/ios/QuickCaptureShared/**/*": [app_declared, declared_by_dir.get(ios / "LumenWidgets", set())],
+        "app/ios/LiveActivityShared/**/*": [app_declared, declared_by_dir.get(ios / "LumenWidgets", set())],
         "app/ios/LumenWidgets/**/*": [declared_by_dir.get(ios / "LumenWidgets", set())],
         "app/ios/ShareExtension/**/*": [declared_by_dir.get(ios / "ShareExtension", set())],
     }

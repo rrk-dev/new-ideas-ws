@@ -325,8 +325,8 @@ Decision: [ADR-TSK-01](adr/ADR-TSK-01-task-export.md). Implemented by TSK-02; au
 
 ## Phase 2 data flows (SEC-11, audited 2026-10-18 against `main` at `bbe43e4`)
 
-Scope: everything Phase 2 landed on `main`. Live Activity (AUD-13) is **not merged**, so it is
-not audited here; row SEC-11-D8 re-opens it when it lands. The PRODUCT-DECISION notes on the
+Scope: everything Phase 2 landed on `main`, including the Live Activity (AUD-13, audited
+2026-10-18 against `main` at `fa7043a`). The PRODUCT-DECISION notes on the
 Ask feature flag (`ask.enabled`, off by default) do not change the data flows: the code ships
 either way, so the audit treats it as on.
 
@@ -339,7 +339,9 @@ either way, so the audit treats it as on.
 | P5 | Reminders export (TSK-02) | Selected item text, optional owner, due date; link table with a hash key and EventKit id | On-device Reminders store (OS); link table in the encrypted DB | Explicit tap and selection; hashed ids in logs; reminders are only created, never read back beyond our linked ids | Link rows go with the recording; reminders themselves are the user's (OS) | None. iCloud sync of the list is the user's OS setting | see section above; device rows D1–D8 |
 | P6 | Quick capture: iOS widget and Control, Android widget, Quick Settings tile, shortcut (QCP-02/03) | One static entry name (`widget`, `control`, `tile`…) and a mode. **No recording-derived data.** iOS: `QuickCaptureStore` is in-memory only, one request, 10 s expiry, replay memory of 16; no App Group, defaults or file. Android: explicit intent with one static extra | Process memory only | Navigate-only: opens the Record screen, never starts a recording (the user still taps); intents are stripped after use (`submitFrom`) and ignored when restored from history | Nothing persisted | None. Widget and tile code contains no network, audio or file APIs | `quick_capture_artifacts_test.dart`, `quick_capture_handoff_test.dart`, `quick_capture_android_test.dart`, `[SEC-11/AC5]` source scan |
 | P7 | iOS Share extension (AUD-14) | An audio file the user shares | `group.<app id>/Inbox/Audio` inside the App Group; the app drains and deletes it on import (`docs/audio-import.md`) | App Group is private to our team's targets; no network, no microphone, no logging, no required-reason API | Removed after import or when the import is cancelled; the user cancels before any processing | None | `tools/ci/check_ios_share_extension.sh`, store-privacy scan of `ShareExtension`; D5 in `docs/test-plans/device/AUD-14.md` (Personal Team signing unverified) |
-| P8 | Live Activity (AUD-13) | — | — | — | — | — | Not merged; see device row SEC-11-D8 |
+| P8 | iOS Live Activity (AUD-13) | Two values: recording or paused, and the instant the timer counts from. Static words ("Recording", "Paused", "Lumen"). **No recording-derived text** | Process memory and the OS Live Activity store; never on disk by us | `pushType: nil` (local updates only, no push token); no App Group, keychain group, entitlement or background mode added; the Dart payload is built only by `encodeLiveActivity`; no button or intent; a tap only opens the Record screen through the QCP-02 validated link | Ended on stop, interruption or call, and any leftover activity is ended on `hide` | None | `RecordingActivityAttributes.swift`, `RecordingLiveActivityController.swift`, `[AUD-13/AC2–AC4]`; `LiveActivityShared` is scanned by egress, recording-policy and store-privacy checks; device row SEC-11-D8 |
+
+Live Activity residual: while the phone is locked, the Lock Screen shows that Lumen is recording and for how long. That is the recording indicator the OS wants, and it reveals no content; an observer learns only that a recording is running. Device row D8 confirms what a locked device shows and that Live Activities can be turned off in iOS settings.
 
 ### What the widget extension can read (P6, explicit)
 The extension target `LumenWidgets` compiles `QuickCaptureShared` and its own widget code.
@@ -390,4 +392,4 @@ Engineering sign-off is the date and command evidence above. Human sign-off is a
 | P5 Reminders | ✅ 2026-10-18 | ⏳ SEC-11-D3, D9 |
 | P6 Quick capture | ✅ 2026-10-18 | ⏳ SEC-11-D4, D9 |
 | P7 Share extension | ✅ 2026-10-18 | ⏳ SEC-11-D5, D9 |
-| P8 Live Activity | n/a (not merged) | ⏳ SEC-11-D8 |
+| P8 Live Activity | ✅ 2026-10-18 | ⏳ SEC-11-D8 |
