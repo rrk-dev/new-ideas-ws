@@ -1,0 +1,19 @@
+app/test/unit/recording/recording_indicator_test.dart
+  s_9450697a967066::t_8dd6f53c22f17a 313-319
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "26ca407ddd26746e393b5be1b070bed397c9f939",
+  "prompts": {},
+  "sessions": {
+    "s_9450697a967066": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "080beacb-b5f0-4236-8780-01faa814d924",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
