@@ -58,8 +58,10 @@ needs ToU pass-through; Qwen2.5-0.5B/1.5B, Qwen3, SmolLM2 Apache-2.0; Phi-4-mini
   `min_ram_mb: 7168`). Quality is mixed against the 1B (better on warranty/meeting/lecture, much
   worse on engineering trade-offs), at ~half the decode speed; `rank.py` therefore still ranks the 1B
   first on every tier (High: 0.798 vs 0.689; the 1B speed was measured on Metal, the 3B on CPU).
-  The earlier expectation that the 3B is the Mid/High *default* is **not supported**; it is an
-  opt-in/ask-your-notes model until device rows (`docs/test-plans/device/ASK-01.md`) and ASK-03 say
+  The earlier expectation that the 3B is the Mid/High *default* is **not supported**, and by
+  product decision (2026-10-17) the 3B is *never* chosen automatically (tier default, onboarding
+  bundle, or "largest installed" fallback; `kExplicitSelectionOnlyModelIds`): the 1B stays the
+  default and the 3B is used only when the user selects it. It is an opt-in/ask-your-notes model until device rows (`docs/test-plans/device/ASK-01.md`) and ASK-03 say
   otherwise. Gemma-3-4B / Qwen3-4B / Phi-4-mini exceed the Mid budget (> 2.8 GiB) and are High
   candidates only (unmeasured).
 

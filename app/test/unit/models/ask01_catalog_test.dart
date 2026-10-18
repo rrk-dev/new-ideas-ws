@@ -6,7 +6,12 @@ import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/licenses/bundled_licenses.dart';
 import 'package:vaultvoice/core/network/model_hosts.dart';
 import 'package:vaultvoice/features/extraction/domain/device_tiering.dart';
+import 'package:vaultvoice/features/licensing/domain/entitlement.dart';
+import 'package:vaultvoice/features/licensing/domain/feature_access.dart';
+import 'package:vaultvoice/features/licensing/domain/feature_matrix.dart';
+import 'package:vaultvoice/features/models/domain/model_bundle.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
+import 'package:vaultvoice/features/pipeline/domain/active_models.dart';
 
 const _id = 'llama-3.2-3b-instruct-q4_k_m';
 const _licensePackage = 'Llama-3.2-3B-Instruct (model)';
@@ -94,7 +99,50 @@ void main() {
       'llama-3.2-1b-instruct-q4_k_m',
       reason: 'Mid is not recommended for the 3B',
     );
-    expect(defaultsFor(_device(7.3), catalog, allowed).llm!.id, _id);
+    // Product decision: the 3B is explicit-selection only, never a default.
+    expect(
+      defaultsFor(_device(7.3), catalog, allowed).llm!.id,
+      'llama-3.2-1b-instruct-q4_k_m',
+    );
+  });
+
+  test('[ASK-01] an installed 3B never silently becomes the default LLM; '
+      'it is used only when explicitly selected', () {
+    const oneB = 'llama-3.2-1b-instruct-q4_k_m';
+    final now = DateTime.utc(2026, 10, 17);
+    final access = FeatureAccess.resolve(
+      Entitlement.free(now),
+      now: now,
+      mode: DistributionMode.personal,
+    );
+    expect(access.has(Feature.largeLlm), isTrue);
+    InstalledModelInfo inst(String id) {
+      final c = catalog.byId(id)!;
+      return InstalledModelInfo(
+        id: id,
+        kind: EngineModelKind.llm,
+        sizeBytes: c.size,
+        file: c.file,
+      );
+    }
+
+    String? active(List<String> ids, {String? preferred}) => selectActiveModels(
+      installed: [for (final i in ids) inst(i)],
+      access: access,
+      catalog: catalog,
+      device: _device(7.3),
+      preferredLlm: preferred,
+    ).llm;
+
+    expect(active([oneB, _id]), oneB);
+    expect(active([oneB, _id], preferred: _id), _id);
+    expect(active([_id]), _id, reason: 'only model installed');
+    final bundle = recommendBundle(
+      _device(7.3),
+      catalog,
+      LlmPlanGate(largeLlm: () => true),
+    );
+    expect(bundle.models.map((e) => e.id), isNot(contains(_id)));
   });
 }
 

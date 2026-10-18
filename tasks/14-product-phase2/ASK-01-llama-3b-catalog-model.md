@@ -41,4 +41,4 @@ A pinned, hash-verified Llama 3.2 3B Instruct Q4_K_M model is offered in the sig
 ## Follow-ups
 - ASK-03: evaluate the 3B on its own Q&A eval; quality is profile-dependent (engineering/interview worse than 1B).
 - Owner: re-sign the catalog with the production key; CDN host is still a placeholder.
-- On High devices in personal builds `defaultsFor` may now pick the 3B as default LLM when installed.
+- Decided 2026-10-17: the 3B is explicit-selection only (never an automatic default); ASK-03 may select it explicitly.

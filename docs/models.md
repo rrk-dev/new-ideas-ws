@@ -150,7 +150,7 @@ results (`make eval-all MODEL=<gguf>` per candidate).
 | Free (any device) | Llama-3.2-1B-Instruct Q4_K_M | none in catalog (Qwen2.5-0.5B removed: blocked by corporate proxies) | provisional |
 | Low (< 5 GiB) | Llama-3.2-1B-Instruct Q4_K_M | — | provisional |
 | Mid (5–7 GiB) | Llama-3.2-1B-Instruct Q4_K_M (the 3B is **not recommended**: measured peak 3718 MiB > 2800 MiB budget) | — | provisional |
-| High (≥ 7 GiB) | Llama-3.2-1B ranks first (`rank.py` 0.798); Llama-3.2-3B (ASK-01) is catalog-recommended for High | Llama-3.2-1B / 3B | provisional |
+| High (≥ 7 GiB) | Llama-3.2-1B ranks first (`rank.py` 0.798); Llama-3.2-3B (ASK-01) is catalog-recommended for High but explicit-selection only | Llama-3.2-1B / 3B | provisional |
 
 Licences (SEC-05 has the final word): Llama 3.2 Community License (attribution "Built with
 Llama", AUP pass-through, 700 M MAU clause), Gemma Terms of Use (prohibited-use pass-through),
@@ -180,3 +180,6 @@ Measured on the PRF-09 host harness (M3 Pro, CPU for both models; full per-profi
   (PRODUCT-DECISION, LIC-05). Personal builds unlock everything today, so it is free to download;
   commercial builds gate it.
 - Downloads of ≥ 1 GB show a confirmation with the size and required free space before starting.
+- **Never an automatic default** (product decision 2026-10-17): the 1B stays the default LLM on every tier,
+  including High, and an installed 3B is used only when the user selects it explicitly (or a later ASK feature
+  asks for it); see `kExplicitSelectionOnlyModelIds` in `device_tiering.dart`.
