@@ -1,0 +1,25 @@
+docs/privacy-audit.md
+  s_5a534bed398a49::t_7b73f177e27dba 343
+  s_5a534bed398a49::t_941545f59eb138 328-329,342,344,395
+docs/threat-model.md
+  s_5a534bed398a49::t_941545f59eb138 181-183
+  s_5a534bed398a49::t_5e9f8c7398d96c 197
+tools/ci/check_store_privacy.py
+  s_5a534bed398a49::t_50c9c05e397253 198
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d293fca9a4e7a17447a1e916c5d5d6f1ea96b96a",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
