@@ -1,7 +1,7 @@
 # GATE-05 — Product Phase 2 gate: quick capture, templates, ask, mind maps, task export
 
 **Workstream:** Milestones | **Phase:** 5 | **Size:** M | **Depends on:** GATE-04, QCP-02, QCP-03, TPL-04, ASK-04, MAP-02, TSK-02, LIC-05, SEC-11, UIX-01 | **Source:** Verification
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-task-verify, vv-testing, vv-ci-release, vv-privacy-security, vv-benchmark-eval
 
 ## Goal
