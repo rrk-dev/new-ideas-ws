@@ -963,6 +963,7 @@
   "vaultTargetMindMapHelp": "Writes the mind map as a separate nested-list note next to each note that has one.",
   "recordingTabMindMap": "Mind map",
   "mindMapNone": "No mind map yet. Build one from this recording’s transcript.",
+  "mindMapLocked": "Mind maps are part of Lumen Pro.",
   "mindMapNeedsTranscript": "Process the recording first: a mind map is built from its transcript.",
   "mindMapGenerating": "Building the mind map…",
   "mindMapFailed": "The mind map could not be built.",

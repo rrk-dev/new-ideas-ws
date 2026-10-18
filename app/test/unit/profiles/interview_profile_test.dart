@@ -3,9 +3,11 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/features/extraction/domain/output_schema_validator.dart';
+import 'package:vaultvoice/features/licensing/domain/entitlement.dart';
 import 'package:vaultvoice/features/profiles/domain/post_processing.dart';
 import 'package:vaultvoice/features/profiles/domain/post_processors.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
+import 'package:vaultvoice/features/profiles/domain/profile_features.dart';
 import 'package:vaultvoice/features/profiles/domain/profile_issue.dart';
 
 import '../templates/template_fixtures.dart';
@@ -105,11 +107,11 @@ void main() {
       expect(p.examples, isEmpty);
     });
 
-    test('tier is a marked product decision (LIC-05)', () {
-      expect(
-        File('assets/profiles/interview.yaml').readAsStringSync(),
-        contains('PRODUCT-DECISION'),
-      );
+    test('tier is the intended future tier; matrix row is the gate', () {
+      final yaml = File('assets/profiles/interview.yaml').readAsStringSync();
+      expect(yaml, contains('tier: pro'));
+      expect(yaml, isNot(contains('PRODUCT-DECISION')));
+      expect(featureForProfile('interview'), Feature.interviewProfile);
     });
 
     test('profile and templates carry no URLs or logging', () {

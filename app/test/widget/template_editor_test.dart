@@ -112,6 +112,7 @@ void main() {
         overrides: [
           clockProvider.overrideWithValue(FakeClock(DateTime.utc(2026, 10))),
           distributionModeProvider.overrideWithValue(mode),
+          proTierEnforcedProvider.overrideWithValue(true),
           paywallPresenterProvider.overrideWithValue(
             const NoPaywallPresenter(),
           ),

@@ -18,6 +18,15 @@ enum DistributionMode {
 /// `VV_COMMERCIAL` dart-define; `false` unless set at build time.
 const bool kCommercialBuild = bool.fromEnvironment('VV_COMMERCIAL');
 
+/// `VV_PRO_ENFORCED` dart-define (LIC-05). `false` unless set at build time.
+///
+/// PRODUCT-DECISION (product owner, 2026-10-17): there is no Pro tier for
+/// now. While this is `false`, every Pro column of [kFeatureMatrix] is open
+/// to everyone and no paywall is shown. Build with
+/// `--dart-define=VV_PRO_ENFORCED=true` (together with `VV_COMMERCIAL=true`)
+/// to enforce the tiers recorded in the matrix.
+const bool kProTierEnforced = bool.fromEnvironment('VV_PRO_ENFORCED');
+
 /// One row of the matrix: which tier columns enable a feature in a
 /// commercial build, and whether a personal build enables it.
 final class FeatureRow {
@@ -131,14 +140,74 @@ const Map<Feature, FeatureRow> kFeatureMatrix = {
     enterprise: true,
     personal: true,
   ),
+  // Phase 2 (LIC-05). PRODUCT-DECISION 2026-10-17: the columns below are the
+  // intended future tiers; none is enforced while [kProTierEnforced] is off.
+  // Quick capture only opens the recorder (navigate-only, ADR-QCP-01): Free.
+  Feature.quickCapture: FeatureRow(
+    free: true,
+    pro: true,
+    enterprise: true,
+    personal: true,
+  ),
+  // PRODUCT-DECISION: the Lecture, Sales call and Interview built-in profiles
+  // follow Warranty / Engineering: Pro.
+  Feature.lectureProfile: FeatureRow(
+    free: false,
+    pro: true,
+    enterprise: true,
+    personal: true,
+  ),
+  Feature.salesProfile: FeatureRow(
+    free: false,
+    pro: true,
+    enterprise: true,
+    personal: true,
+  ),
+  Feature.interviewProfile: FeatureRow(
+    free: false,
+    pro: true,
+    enterprise: true,
+    personal: true,
+  ),
+  // PRODUCT-DECISION: Ask needs the 3B model (`Feature.largeLlm`, Pro by the
+  // size rule), so the feature itself is Pro as well.
+  Feature.askNotes: FeatureRow(
+    free: false,
+    pro: true,
+    enterprise: true,
+    personal: true,
+  ),
+  // PRODUCT-DECISION: mind maps are a Pro output.
+  Feature.mindMap: FeatureRow(
+    free: false,
+    pro: true,
+    enterprise: true,
+    personal: true,
+  ),
+  // PRODUCT-DECISION: Apple Reminders export is a Pro integration.
+  Feature.remindersExport: FeatureRow(
+    free: false,
+    pro: true,
+    enterprise: true,
+    personal: true,
+  ),
 };
 
 /// Whether [feature] is enabled for [plan] (already the *effective* plan)
 /// in [mode].
-bool featureEnabled(Feature feature, Plan plan, DistributionMode mode) {
+///
+/// With [proTierEnforced] off (the shipped default, see [kProTierEnforced])
+/// the Pro column is open to every plan; enterprise-only rows stay closed.
+bool featureEnabled(
+  Feature feature,
+  Plan plan,
+  DistributionMode mode, {
+  bool proTierEnforced = true,
+}) {
   final row = kFeatureMatrix[feature]!;
   return switch (mode) {
-    DistributionMode.commercial => row.forTier(plan.tier),
+    DistributionMode.commercial =>
+      row.forTier(plan.tier) || (!proTierEnforced && row.pro),
     // An enterprise licence keeps its enterprise-only extras in a personal
     // build; everything else follows the personal column.
     DistributionMode.personal =>
@@ -150,9 +219,13 @@ bool featureEnabled(Feature feature, Plan plan, DistributionMode mode) {
 ///
 /// PRODUCT-DECISION: Pro-tier catalog models follow the Pro column;
 /// enterprise-tier models need an enterprise licence in every build.
-ModelTier maxModelTier(Plan plan, DistributionMode mode) =>
-    switch ((plan.tier, mode)) {
-      (Tier.enterprise, _) => ModelTier.enterprise,
-      (Tier.pro, _) || (Tier.free, DistributionMode.personal) => ModelTier.pro,
-      (Tier.free, DistributionMode.commercial) => ModelTier.free,
-    };
+ModelTier maxModelTier(
+  Plan plan,
+  DistributionMode mode, {
+  bool proTierEnforced = true,
+}) => switch ((plan.tier, mode)) {
+  (Tier.enterprise, _) => ModelTier.enterprise,
+  (Tier.pro, _) || (Tier.free, DistributionMode.personal) => ModelTier.pro,
+  (Tier.free, DistributionMode.commercial) =>
+    proTierEnforced ? ModelTier.free : ModelTier.pro,
+};

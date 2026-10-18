@@ -363,7 +363,9 @@ class _LicenseTiles extends ConsumerWidget {
           title: Text(l10n.licenseStatus),
           subtitle: Text(summary == null ? ' ' : describe(l10n, summary)),
         ),
-        if (ref.watch(distributionModeProvider) == DistributionMode.commercial)
+        if (ref.watch(distributionModeProvider) ==
+                DistributionMode.commercial &&
+            ref.watch(proTierEnforcedProvider))
           ListTile(
             key: const ValueKey('license-upgrade'),
             leading: const Icon(Icons.workspace_premium),

@@ -20,6 +20,13 @@ const _commercial = <Feature, (bool, bool, bool)>{
   Feature.builtinEngineering: (false, true, true),
   Feature.managedProfiles: (false, false, true),
   Feature.sideloadCustomModel: (false, true, true),
+  Feature.quickCapture: (true, true, true),
+  Feature.lectureProfile: (false, true, true),
+  Feature.salesProfile: (false, true, true),
+  Feature.interviewProfile: (false, true, true),
+  Feature.askNotes: (false, true, true),
+  Feature.mindMap: (false, true, true),
+  Feature.remindersExport: (false, true, true),
 };
 
 /// Personal build: everything on, except managed profiles which need an

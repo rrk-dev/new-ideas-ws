@@ -62,6 +62,55 @@ final class DistributionModeProvider
 
 String _$distributionModeHash() => r'b159dfe0dc3fcc3a7d88679504865d5772ee8750';
 
+/// LIC-05 switch: whether the Pro column is enforced (`VV_PRO_ENFORCED`).
+/// PRODUCT-DECISION: `false` — no Pro tier for now. Tests override.
+
+@ProviderFor(proTierEnforced)
+final proTierEnforcedProvider = ProTierEnforcedProvider._();
+
+/// LIC-05 switch: whether the Pro column is enforced (`VV_PRO_ENFORCED`).
+/// PRODUCT-DECISION: `false` — no Pro tier for now. Tests override.
+
+final class ProTierEnforcedProvider
+    extends $FunctionalProvider<bool, bool, bool>
+    with $Provider<bool> {
+  /// LIC-05 switch: whether the Pro column is enforced (`VV_PRO_ENFORCED`).
+  /// PRODUCT-DECISION: `false` — no Pro tier for now. Tests override.
+  ProTierEnforcedProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'proTierEnforcedProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$proTierEnforcedHash();
+
+  @$internal
+  @override
+  $ProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  bool create(Ref ref) {
+    return proTierEnforced(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
+}
+
+String _$proTierEnforcedHash() => r'715b649ddfedc609e127a34b9ed3018e928a3728';
+
 /// The one entitlement authority. LIC-02/LIC-03 sources call
 /// `EntitlementService.update` after each verification.
 
@@ -116,7 +165,7 @@ final class EntitlementServiceProvider
 }
 
 String _$entitlementServiceHash() =>
-    r'3162e2e0321140ebf4ecb6e9a44dfdd4e25e1691';
+    r'572876cef94fea409c5ee109761b43d718eaa7e3';
 
 /// Current [FeatureAccess], updated on every entitlement change/expiry.
 

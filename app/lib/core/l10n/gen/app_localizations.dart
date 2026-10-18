@@ -5026,6 +5026,12 @@ abstract class AppLocalizations {
   /// **'No mind map yet. Build one from this recording’s transcript.'**
   String get mindMapNone;
 
+  /// No description provided for @mindMapLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Mind maps are part of Lumen Pro.'**
+  String get mindMapLocked;
+
   /// No description provided for @mindMapNeedsTranscript.
   ///
   /// In en, this message translates to:

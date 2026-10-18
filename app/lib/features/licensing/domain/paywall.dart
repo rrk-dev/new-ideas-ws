@@ -10,6 +10,7 @@ enum PaywallEntryPoint {
   vaultTargets,
   routingRules,
   modelSideload,
+  mindMap,
   settings,
 }
 

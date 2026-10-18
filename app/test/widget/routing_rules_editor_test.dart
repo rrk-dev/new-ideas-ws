@@ -106,6 +106,7 @@ void main() {
         overrides: [
           clockProvider.overrideWithValue(FakeClock(DateTime.utc(2026, 10))),
           distributionModeProvider.overrideWithValue(mode),
+          proTierEnforcedProvider.overrideWithValue(true),
           routingRulesStoreProvider.overrideWithValue(rules),
           settingsStoreProvider.overrideWithValue(store),
           vaultTargetsProvider.overrideWith((ref) => Stream.value(_targets)),
@@ -256,6 +257,7 @@ void main() {
       overrides: [
         clockProvider.overrideWithValue(FakeClock(DateTime.utc(2026, 10))),
         distributionModeProvider.overrideWithValue(DistributionMode.commercial),
+        proTierEnforcedProvider.overrideWithValue(true),
         settingsStoreProvider.overrideWithValue(store),
       ],
     );

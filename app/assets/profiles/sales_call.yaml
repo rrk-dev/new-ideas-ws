@@ -19,7 +19,7 @@ version: 1
 name: Sales conversation
 description: Notes from an in-person sales conversation or an imported recording you have the right to use - needs, objections, commitments and next steps. Everyone present must agree.
 icon: handshake
-# PRODUCT-DECISION (LIC-05): Free vs Pro is undecided. `pro` is a placeholder.
+# Intended future tier (kFeatureMatrix is the source of truth; no Pro is enforced yet).
 tier: pro
 stt:
   # Users add product and company names in Settings (vocabulary.sales_call).

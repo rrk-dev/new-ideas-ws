@@ -62,6 +62,7 @@ void main() {
       overrides: [
         clockProvider.overrideWithValue(FakeClock(t0)),
         distributionModeProvider.overrideWithValue(DistributionMode.commercial),
+        proTierEnforcedProvider.overrideWithValue(true),
       ],
     );
     addTearDown(c.dispose);

@@ -35,6 +35,7 @@ void main() {
         overrides: [
           clockProvider.overrideWithValue(FakeClock(t0)),
           distributionModeProvider.overrideWithValue(mode),
+          proTierEnforcedProvider.overrideWithValue(true),
           paywallPresenterProvider.overrideWithValue(paywall),
         ],
         child: MaterialApp(

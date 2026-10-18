@@ -116,16 +116,14 @@ void main() {
       expect(e.consentConfirmation, ConsentConfirmation.required);
     });
 
-    test('meeting keeps the Free tier; warranty/engineering tiers are a '
-        'marked PRODUCT-DECISION', () {
+    test('meeting keeps the Free tier; every other built-in is intended Pro '
+        '(kFeatureMatrix is the gate)', () {
       expect(builtins['meeting']!.tier, ProfileTier.free);
-      for (final id in [
-        'warranty',
-        'engineering',
-        'lecture',
-        'sales_call',
-        'interview',
-      ]) {
+      for (final id in ['lecture', 'sales_call', 'interview']) {
+        expect(builtins[id]!.tier, ProfileTier.pro);
+        expect(builtinYaml(id), isNot(contains('PRODUCT-DECISION')));
+      }
+      for (final id in ['warranty', 'engineering']) {
         expect(builtinYaml(id), contains('PRODUCT-DECISION'));
       }
     });

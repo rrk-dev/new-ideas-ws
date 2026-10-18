@@ -24,7 +24,7 @@ version: 1
 name: Interview
 description: Topics, question and answer highlights, verbatim quotes and follow-ups from a two-person interview. Reports what was said; it never rates or recommends anyone. Everyone present must agree.
 icon: record_voice_over
-# PRODUCT-DECISION (LIC-05): Free vs Pro is undecided. `pro` is a placeholder.
+# Intended future tier (kFeatureMatrix is the source of truth; no Pro is enforced yet).
 tier: pro
 stt:
   # num_speakers 2 is a hint only; the user can override it per recording.

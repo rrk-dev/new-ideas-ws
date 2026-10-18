@@ -60,6 +60,7 @@ void main() {
       overrides: [
         clockProvider.overrideWithValue(FakeClock(t0)),
         distributionModeProvider.overrideWithValue(mode),
+        proTierEnforcedProvider.overrideWithValue(true),
         paywallPresenterProvider.overrideWithValue(paywall),
       ],
     );
@@ -149,7 +150,8 @@ void main() {
       }
       expect(lockShown('warranty'), isTrue);
       expect(lockShown('engineering'), isTrue);
-      expect(lockShown('lecture'), isFalse);
+      expect(lockShown('lecture'), isTrue);
+      expect(lockShown('meeting'), isFalse);
     });
 
     testWidgets('commercial Pro: nothing locked', (tester) async {
@@ -197,10 +199,10 @@ void main() {
       tester,
     ) async {
       final r = await open(tester, mode: DistributionMode.commercial);
-      await tester.tap(find.byKey(const ValueKey('profile-option-lecture')));
+      await tester.tap(find.byKey(const ValueKey('profile-option-meeting')));
       await tester.pumpAndSettle();
       expect(r.paywall.requests, isEmpty);
-      expect(r.picks.single?.id, 'lecture');
+      expect(r.picks.single?.id, 'meeting');
 
       await tester.tap(find.byKey(const ValueKey('open')));
       await tester.pumpAndSettle();

@@ -27,6 +27,7 @@ final class FeatureAccess {
     required this.entitlement,
     required this.effectivePlan,
     required this.mode,
+    required this.proTierEnforced,
     required this.features,
   });
 
@@ -35,6 +36,7 @@ final class FeatureAccess {
     Entitlement entitlement, {
     required DateTime now,
     required DistributionMode mode,
+    bool proTierEnforced = true,
   }) {
     final active = entitlement.isActiveAt(now);
     final plan = entitlement.effectivePlanAt(now);
@@ -42,9 +44,11 @@ final class FeatureAccess {
       entitlement: entitlement,
       effectivePlan: plan,
       mode: mode,
+      proTierEnforced: proTierEnforced,
       features: Set.unmodifiable({
         for (final f in Feature.values)
-          if (featureEnabled(f, plan, mode)) f,
+          if (featureEnabled(f, plan, mode, proTierEnforced: proTierEnforced))
+            f,
         if (active) ...entitlement.extraFeatures,
       }),
     );
@@ -58,6 +62,9 @@ final class FeatureAccess {
 
   final DistributionMode mode;
 
+  /// Whether the Pro column of the matrix is enforced (LIC-05).
+  final bool proTierEnforced;
+
   /// Enabled features.
   final Set<Feature> features;
 
@@ -67,8 +74,9 @@ final class FeatureAccess {
   bool get isDowngraded => effectivePlan != entitlement.plan;
 
   /// Whether gated features should lead to a paywall (commercial builds
-  /// only; a personal build never shows one).
-  bool get paywallEnabled => mode == DistributionMode.commercial;
+  /// with the Pro tier enforced only; otherwise none is ever shown).
+  bool get paywallEnabled =>
+      mode == DistributionMode.commercial && proTierEnforced;
 
   /// Maximum number of active vault targets (`null` = unlimited).
   int? get maxActiveVaultTargets => has(Feature.multiTarget) ? null : 1;
@@ -94,7 +102,12 @@ final class FeatureAccess {
   /// but not selectable ([AccessLevel.readOnly]); not entitled + not
   /// installed ⇒ cannot be downloaded ([AccessLevel.disabled]).
   AccessLevel model(ModelTier tier, {required bool installed}) {
-    if (tier.index <= maxModelTier(effectivePlan, mode).index) {
+    final max = maxModelTier(
+      effectivePlan,
+      mode,
+      proTierEnforced: proTierEnforced,
+    );
+    if (tier.index <= max.index) {
       return AccessLevel.full;
     }
     return installed ? AccessLevel.readOnly : AccessLevel.disabled;
