@@ -1,0 +1,99 @@
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9450697a967066::t_90616e31f6d4d8 60
+app/lib/features/mindmap/presentation/mind_map_tab.dart
+  s_9450697a967066::t_9db29e155a9883 1-3,5-18,20-134,136-214,216-306,308-364
+  s_9450697a967066::t_1b9596cbfdf3b6 4,215,307
+  s_9450697a967066::t_910e3a0443d5de 19,135
+app/test/unit/mindmap/mind_map_markdown_test.dart
+  s_9450697a967066::t_8db1d1820c76c7 83
+  s_9450697a967066::t_c915c87a211f15 107-118
+  s_9450697a967066::t_cc8f617992b9a7 1-80,84-85,90-106,119
+  s_9450697a967066::t_fea0f0085a5f71 86-89
+  s_9450697a967066::t_8cf25a69abc934 81-82
+app/lib/features/mindmap/data/mind_map_providers.dart
+  s_9450697a967066::t_38eaebcd7308c5 1-24
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9450697a967066::t_67caa1dc57e8a4 2911-3011
+app/lib/features/settings/domain/setting_definitions.dart
+  s_9450697a967066::t_90616e31f6d4d8 205-214,285
+docs/test-plans/device/MAP-02.md
+  s_9450697a967066::t_b3ce0efbc6c5f2 1-10
+tasks/14-product-phase2/MAP-02-mind-map-viewer-export.md
+  s_9450697a967066::t_c7e5253d0a8f28 4,11-17,26-43
+app/test/unit/export/vault_exporter_test.dart
+  s_5095472e80968b::t_4218a2b9f3680b 371-383,385
+  s_9450697a967066::t_b5ab1c53e7a4c1 104,116,361-370,384
+  s_9450697a967066::t_e69013b217055e 386-388
+app/test/unit/mindmap/mind_map_viewer_artifacts_test.dart
+  s_9450697a967066::t_40377eb2521975 1-24
+app/test/fixtures/markdown/golden/mindmap/note.full.md
+  s_9450697a967066::t_a0f78d0f31d0ae 1-57
+app/lib/features/templates/data/template_note_renderer.dart
+  s_9450697a967066::t_a91a0b50c2c42f 2,103-106
+app/lib/features/export/domain/vault_target_options.dart
+  s_9450697a967066::t_1b9596cbfdf3b6 87-93
+  s_9450697a967066::t_2030f249e09873 16,32,48-50,58,66,74,83-84,118-119
+  s_9450697a967066::t_135a77f79aba60 120
+app/lib/features/mindmap/domain/mind_map_markdown.dart
+  s_9450697a967066::t_709e385152a8e1 12-13
+  s_9450697a967066::t_579d4f629025d8 15
+  s_9450697a967066::t_6758cd204fcdb1 1-11,14,16-71
+app/lib/core/l10n/arb/app_en.arb
+  s_9450697a967066::t_e039a587f3832c 957-989
+app/lib/features/export/presentation/vault_target_options_screen.dart
+  s_9450697a967066::t_90616e31f6d4d8 180-185
+  s_9450697a967066::t_d488aa8885704e 179
+app/lib/features/export/data/export_request_builder.dart
+  s_9450697a967066::t_2030f249e09873 6,45,77-79
+  s_9450697a967066::t_1b9596cbfdf3b6 43-44
+app/lib/features/export/data/vault_exporter.dart
+  s_9450697a967066::t_2030f249e09873 40,52-54,420-423
+  s_9450697a967066::t_617adc11767143 424-427
+app/lib/features/settings/presentation/setting_texts.dart
+  s_9450697a967066::t_90616e31f6d4d8 29,51,80-81
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9450697a967066::t_67caa1dc57e8a4 4980-5135
+app/lib/features/mindmap/data/mind_map_providers.g.dart
+  s_9450697a967066::t_1b9596cbfdf3b6 1-181
+app/lib/features/library/presentation/recording_detail_screen.dart
+  s_9450697a967066::t_1b9596cbfdf3b6 20,556-557,570,572-578
+app/test/fixtures/markdown/golden/mindmap/note.adversarial.md
+  s_9450697a967066::t_a0f78d0f31d0ae 1-57,59-68
+  s_9450697a967066::t_709e385152a8e1 58
+app/test/fixtures/markdown/golden/mindmap/note.empty.md
+  s_9450697a967066::t_a0f78d0f31d0ae 1-49
+app/test/widget/mind_map_tab_test.dart
+  s_9450697a967066::t_602c0614ad5fcf 1-106,112-127,130-131,133-146,148,151-198,200-239,245-254
+  s_9450697a967066::t_6a0841e8db2e9d 107-108,132,147,199
+  s_9450697a967066::t_c915c87a211f15 110-111,149-150
+  s_5095472e80968b::t_6050d80934ba72 109,128-129,240-244
+app/test/widget/library_screen_test.dart
+  s_9450697a967066::t_c915c87a211f15 285-287
+  s_9450697a967066::t_a0c8a4032232af 284,294,301
+app/lib/features/pipeline/data/steps/render_write_steps.dart
+  s_9450697a967066::t_a91a0b50c2c42f 18-19,35,45-47,187-189,199
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e12b305aa71dae054e2fd51ec0d82395e87cdde6",
+  "prompts": {},
+  "sessions": {
+    "s_5095472e80968b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "662c42c7-18d9-4cfa-9280-08ec51c9ab04",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_9450697a967066": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "080beacb-b5f0-4236-8780-01faa814d924",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
