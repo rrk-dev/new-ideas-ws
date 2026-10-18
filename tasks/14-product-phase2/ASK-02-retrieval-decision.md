@@ -1,7 +1,7 @@
 # ASK-02 — Ask-your-notes retrieval decision (FTS5 vs embeddings, context budget, privacy)
 
 **Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** M | **Depends on:** APP-02, LLM-06, LLM-07, SEC-01, SEC-04, PRF-09 | **Source:** User decision 2026-10-16 (product Phase 2: ask-your-notes across the library)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-decision-records, vv-llm-inference, vv-local-database, vv-benchmark-eval, vv-privacy-security, vv-model-delivery
 
 ## Goal
