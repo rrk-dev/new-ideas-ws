@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "issued_at": "2026-10-16T02:55:52Z",
+  "issued_at": "2026-10-18T01:43:36Z",
   "min_app_version": "1.0.0",
   "models": [
     {
@@ -234,6 +234,28 @@
       "urls": [
         "https://models.vaultvoice.example/llm/Llama-3.2-1B-Instruct-Q4_K_M.gguf",
         "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/067b946cf014b7c697f3654f621d577a3e3afd1c/Llama-3.2-1B-Instruct-Q4_K_M.gguf"
+      ],
+      "companions": []
+    },
+    {
+      "id": "llama-3.2-3b-instruct-q4_k_m",
+      "type": "llm",
+      "version": "1",
+      "display_name": "Llama 3.2 3B Instruct (Q4_K_M)",
+      "tier": "pro",
+      "file": "Llama-3.2-3B-Instruct-Q4_K_M.gguf",
+      "size": 2019377696,
+      "sha256": "6c1a2b41161032677be168d354123594c0e6e67d2b9227c84f296ad037c728ff",
+      "min_ram_mb": 7168,
+      "recommended_device_tiers": [
+        "high"
+      ],
+      "license": "Llama 3.2 Community License",
+      "license_url": "https://www.llama.com/llama3_2/license/",
+      "attribution": "Built with Llama",
+      "urls": [
+        "https://models.vaultvoice.example/llm/Llama-3.2-3B-Instruct-Q4_K_M.gguf",
+        "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/5ab33fa94d1d04e903623ae72c95d1696f09f9e8/Llama-3.2-3B-Instruct-Q4_K_M.gguf"
       ],
       "companions": []
     },

@@ -348,8 +348,9 @@ void main() {
         stt.sha256,
         '921e4cf8686fdd993dcd081a5da5b6c365bfde1162e72b08d75ac75289920b1f',
       );
-      final llm = c.usable(ModelType.llm, kCatalogAppVersion).single;
-      expect(llm.file, endsWith('.gguf'));
+      final llms = c.usable(ModelType.llm, kCatalogAppVersion);
+      expect(llms.map((m) => m.id), contains('llama-3.2-1b-instruct-q4_k_m'));
+      expect(llms.every((m) => m.file.endsWith('.gguf')), isTrue);
       // Tampering with the shipped file is caught too.
       final t = Uint8List.fromList(bytes)..[bytes.length ~/ 2] ^= 0x20;
       expect(

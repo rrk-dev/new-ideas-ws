@@ -355,6 +355,14 @@ class AppLocalizationsEn extends AppLocalizations {
       'Not downloading. Start it again from Settings › Models when you’re on Wi-Fi.';
 
   @override
+  String get downloadLargeTitle => 'Large download';
+
+  @override
+  String downloadLargeBody(String size, String needed, String free) {
+    return 'This download is $size and needs about $needed of free storage ($free free). Download now?';
+  }
+
+  @override
   String get downloadLowPowerTitle => 'Low Power Mode is on';
 
   @override
@@ -673,6 +681,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get modelNotOnPlan =>
       'Not available on your current plan. It stays installed but can’t be used.';
+
+  @override
+  String get modelLlamaUsePolicy =>
+      'Use of this model is subject to the Llama 3.2 Acceptable Use Policy: https://www.llama.com/llama3_2/use-policy';
 
   @override
   String get modelRequiresPro => 'Requires Pro';

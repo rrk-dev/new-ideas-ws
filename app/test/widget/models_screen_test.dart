@@ -59,6 +59,16 @@ final CatalogModel _bigLlm = catalogModel(
   minRamMb: 8192,
   displayName: 'Llama Large',
   attribution: 'Built with Llama',
+  license: 'Llama 3.2 Community License',
+);
+final CatalogModel _llama3b = catalogModel(
+  'llama-3.2-3b-instruct-q4_k_m',
+  type: ModelType.llm,
+  size: 2019377696,
+  minRamMb: 5120,
+  displayName: 'Llama 3.2 3B Instruct (Q4_K_M)',
+  attribution: 'Built with Llama',
+  license: 'Llama 3.2 Community License',
 );
 
 InstalledModel _installed(CatalogModel m, {String? version}) => InstalledModel(
@@ -115,7 +125,7 @@ class _Rig {
   final notifier = FakeLocalNotifier();
   final refreshes = <DateTime>[];
   late final catalog = _Catalog(
-    catalogOf([_tiny, _base, _small, _llm, _bigLlm]),
+    catalogOf([_tiny, _base, _small, _llm, _bigLlm, _llama3b]),
     refreshes,
   );
 
@@ -211,7 +221,50 @@ void main() {
       scrollable: find.byType(Scrollable).first,
     );
     expect(_inCard(_bigLlm, find.text('Built with Llama')), findsOneWidget);
-    expect(find.text('Built with Llama'), findsOneWidget);
+  });
+
+  testWidgets('[ASK-01/AC5] every Llama model card passes through the '
+      'Acceptable Use Policy; other licences do not show it', (t) async {
+    await _Rig().pump(t);
+    await t.scrollUntilVisible(
+      _card(_llama3b),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(
+      _inCard(_llama3b, find.text(_l.modelLlamaUsePolicy)),
+      findsOneWidget,
+    );
+    expect(_inCard(_llama3b, find.text('Built with Llama')), findsOneWidget);
+    expect(find.text(_l.modelLlamaUsePolicy), findsNWidgets(2));
+    expect(_l.modelLlamaUsePolicy, contains('llama3_2/use-policy'));
+  });
+
+  testWidgets('[ASK-01] a ~2 GB model asks for confirmation with the size '
+      'before the download starts', (t) async {
+    final rig = _Rig();
+    await rig.pump(t);
+    await _tap(t, find.byKey(ValueKey('model-download-${_llama3b.id}')));
+    expect(find.byKey(const ValueKey('download-large-dialog')), findsOne);
+    expect(
+      find.descendant(
+        of: find.byKey(const ValueKey('download-large-dialog')),
+        matching: find.textContaining(formatBytes(_l, _llama3b.size)),
+      ),
+      findsOneWidget,
+    );
+    expect(rig.downloader.started, isEmpty);
+    await t.tap(find.text(_l.downloadLater));
+    await t.pumpAndSettle();
+    expect(rig.downloader.started, isEmpty);
+
+    await _tap(t, find.byKey(ValueKey('model-download-${_llama3b.id}')));
+    await t.tap(find.byKey(const ValueKey('download-large-confirm')));
+    await t.pumpAndSettle();
+    expect(rig.downloader.started.single.id, _llama3b.id);
+
+    await _tap(t, find.byKey(ValueKey('model-download-${_base.id}')));
+    expect(find.byKey(const ValueKey('download-large-dialog')), findsNothing);
   });
 
   testWidgets('[MDL-03] lists models by type with size, tier, device fit, '

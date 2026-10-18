@@ -11,6 +11,7 @@ CatalogModel catalogModel(
   String version = '1',
   String? displayName,
   String? attribution,
+  String license = 'MIT',
 }) => CatalogModel(
   id: id,
   type: type,
@@ -22,7 +23,7 @@ CatalogModel catalogModel(
   sha256: '0' * 64,
   minRamMb: minRamMb,
   recommendedDeviceTiers: tiers,
-  license: 'MIT',
+  license: license,
   licenseUrl: Uri.parse('https://example.com/license'),
   urls: [Uri.parse('https://example.com/$id')],
   companions: const [],

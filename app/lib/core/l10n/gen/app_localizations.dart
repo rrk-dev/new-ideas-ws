@@ -676,6 +676,18 @@ abstract class AppLocalizations {
   /// **'Not downloading. Start it again from Settings › Models when you’re on Wi-Fi.'**
   String get downloadWaitingForWifi;
 
+  /// No description provided for @downloadLargeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Large download'**
+  String get downloadLargeTitle;
+
+  /// No description provided for @downloadLargeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This download is {size} and needs about {needed} of free storage ({free} free). Download now?'**
+  String downloadLargeBody(String size, String needed, String free);
+
   /// No description provided for @downloadLowPowerTitle.
   ///
   /// In en, this message translates to:
@@ -1197,6 +1209,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not available on your current plan. It stays installed but can’t be used.'**
   String get modelNotOnPlan;
+
+  /// No description provided for @modelLlamaUsePolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Use of this model is subject to the Llama 3.2 Acceptable Use Policy: https://www.llama.com/llama3_2/use-policy'**
+  String get modelLlamaUsePolicy;
 
   /// No description provided for @modelRequiresPro.
   ///

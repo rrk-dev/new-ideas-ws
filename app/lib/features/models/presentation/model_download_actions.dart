@@ -56,6 +56,10 @@ Future<DownloadStart> startModelDownload(
   CatalogModel model,
 ) => startModelDownloads(context, ref, [model]);
 
+/// Downloads of at least this many bytes ask for confirmation first (ASK-01:
+/// the 3B LLM is ≈ 2 GB).
+const int kLargeDownloadWarnBytes = 1000 * 1000 * 1000;
+
 /// Starts downloading [models] after showing what it involves: the total
 /// size up front, mobile-data consent when only a metered network is
 /// available (optionally remembered in `models.allow_cellular_downloads`),
@@ -118,6 +122,37 @@ Future<DownloadStart> startModelDownloads(
           .read(settingsStoreProvider)
           .set(kAllowCellularDownloadsKey, true);
     }
+  }
+  // Cellular consent already states the size; otherwise warn before a big
+  // file takes this much of the device's storage.
+  if (allowCellular == null && remaining >= kLargeDownloadWarnBytes) {
+    if (!context.mounted) return DownloadStart.declined;
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        key: const ValueKey('download-large-dialog'),
+        title: Text(context.l10n.downloadLargeTitle),
+        content: Text(
+          context.l10n.downloadLargeBody(
+            formatBytes(l10n, remaining),
+            formatBytes(l10n, required),
+            formatBytes(l10n, free),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(context.l10n.downloadLater),
+          ),
+          FilledButton(
+            key: const ValueKey('download-large-confirm'),
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(context.l10n.downloadNow),
+          ),
+        ],
+      ),
+    );
+    if (ok != true) return DownloadStart.declined;
   }
   var allowLowPower = false;
   if (blocks.contains(ModelDownloadBlock.lowPowerMode)) {

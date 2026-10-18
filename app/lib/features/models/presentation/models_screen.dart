@@ -314,6 +314,12 @@ class _ModelCard extends ConsumerWidget {
                 key: ValueKey('model-attribution-${_model.id}'),
                 style: theme.textTheme.bodySmall,
               ),
+            if (_model.license.startsWith('Llama'))
+              Text(
+                l10n.modelLlamaUsePolicy,
+                key: ValueKey('model-aup-${_model.id}'),
+                style: theme.textTheme.bodySmall,
+              ),
             if (!entry.compatible)
               Text(
                 l10n.modelIncompatible(

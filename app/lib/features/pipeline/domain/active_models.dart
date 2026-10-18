@@ -105,7 +105,9 @@ final class ActiveModelSelection {
 /// 1. the user's preferred model, if usable;
 /// 2. else the LLM-07 tier × plan default ([defaultsFor]), if installed;
 /// 3. else (PRODUCT-DECISION, conservative) the largest usable model
-///    recommended for this device tier, else the smallest usable one.
+///    recommended for this device tier, else the smallest usable one;
+///    explicit-selection-only models (the ASK-01 3B) are skipped here while
+///    anything else is installed.
 ///
 /// Models unknown to the catalog (offline sideload, MDL-04) count as Free
 /// tier; an LLM file above the 1B class size is "large".
@@ -183,6 +185,16 @@ ActiveModelSelection selectActiveModels({
       return c != 0 ? c : a.id.compareTo(b.id);
     }
 
+    // Explicit-selection-only models (ASK-01 3B) never win automatically
+    // unless nothing else is installed.
+    final auto = candidates
+        .where((m) => !kExplicitSelectionOnlyModelIds.contains(m.id))
+        .toList();
+    if (auto.isNotEmpty) {
+      candidates
+        ..clear()
+        ..addAll(auto);
+    }
     final rec = candidates.where(recommended).toList()..sort(bySize);
     if (rec.isNotEmpty) return rec.last.id;
     return (candidates..sort(bySize)).first.id;

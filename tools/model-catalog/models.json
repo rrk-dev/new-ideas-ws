@@ -214,6 +214,29 @@
       "_provenance": "2026-10-15: replaces qwen2.5-0.5b-instruct-q4_k_m (blocked by corporate proxies). Downloaded from the pinned HF revision (bartowski/Llama-3.2-1B-Instruct-GGUF @ 067b946c, llama.cpp quantization of meta-llama/Llama-3.2-1B-Instruct) with curl; size and sha256 computed locally (shasum -a 256) and equal to the HF LFS oid / X-Linked-ETag. The HF resolve URL redirects to us.aws.cdn.hf.co (already a redirect host)."
     },
     {
+      "id": "llama-3.2-3b-instruct-q4_k_m",
+      "type": "llm",
+      "version": "1",
+      "display_name": "Llama 3.2 3B Instruct (Q4_K_M)",
+      "tier": "pro",
+      "file": "Llama-3.2-3B-Instruct-Q4_K_M.gguf",
+      "size": 2019377696,
+      "sha256": "6c1a2b41161032677be168d354123594c0e6e67d2b9227c84f296ad037c728ff",
+      "min_ram_mb": 7168,
+      "recommended_device_tiers": ["high"],
+      "license": "Llama 3.2 Community License",
+      "license_url": "https://www.llama.com/llama3_2/license/",
+      "attribution": "Built with Llama",
+      "urls": [
+        "https://models.vaultvoice.example/llm/Llama-3.2-3B-Instruct-Q4_K_M.gguf",
+        "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/5ab33fa94d1d04e903623ae72c95d1696f09f9e8/Llama-3.2-3B-Instruct-Q4_K_M.gguf"
+      ],
+      "companions": [],
+      "_provenance": "2026-10-17 (ASK-01): downloaded from the pinned HF revision (bartowski/Llama-3.2-3B-Instruct-GGUF @ 5ab33fa9, llama.cpp quantization of meta-llama/Llama-3.2-3B-Instruct) with curl; size and sha256 computed locally (catalog.py hash) and equal to the HF LFS oid / size from api/models/bartowski/Llama-3.2-3B-Instruct-GGUF/tree/main. The resolve URL redirects to us.aws.cdn.hf.co (already a redirect host).",
+      "_product_decision": "PRODUCT-DECISION (LIC-05): intended plan is Pro (Feature.largeLlm in kFeatureMatrix; the 3B is above kSmallLlmMaxBytes). Nothing is enforced today: personal builds (the default) unlock every feature, so the model is free to download; flipping VV_COMMERCIAL on gates it. Bandwidth only from the already allowlisted hosts.",
+      "_measured": "min_ram_mb and tiers come from the PRF-09 host run (docs/models.md → Llama 3.2 3B): peak RSS 3.6 GiB (3718 MiB, worst of the 3 built-in profiles) at 4096 context, i.e. ≈ 52% of 7 GiB. High only; Mid (5–7 GiB, 2800 MiB budget) and Low (1500 MiB budget) are not recommended until the device rows in docs/test-plans/device/ASK-01.md pass."
+    },
+    {
       "id": "silero-vad-v6.2.0",
       "type": "vad",
       "version": "1",

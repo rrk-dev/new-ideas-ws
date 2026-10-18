@@ -97,6 +97,14 @@ bool isLargeLlm(CatalogModel m) =>
     m.type == ModelType.llm &&
     (m.size > kSmallLlmMaxBytes || m.tier != ModelTier.free);
 
+/// LLMs that are never chosen automatically (tier default, onboarding bundle,
+/// "largest installed" fallback): the user selects them explicitly, or a
+/// feature (ASK) asks for them. ASK-01: Llama 3.2 3B must not silently
+/// replace the 1B default on High devices.
+const Set<String> kExplicitSelectionOnlyModelIds = {
+  'llama-3.2-3b-instruct-q4_k_m',
+};
+
 /// Picks the tier × plan defaults from the signed catalog: the largest model
 /// of each type that is recommended for the tier, allowed by the plan
 /// (Free ⇒ no large LLM, no Pro/Enterprise models), and whose `min_ram_mb`
@@ -120,6 +128,7 @@ TierDefaults defaultsFor(
     final ok = catalog.models.where(
       (m) =>
           m.type == type &&
+          !kExplicitSelectionOnlyModelIds.contains(m.id) &&
           m.recommendedDeviceTiers.contains(tier) &&
           m.minRamMb <= ramMb &&
           (large || (m.tier == ModelTier.free && !isLargeLlm(m))),
