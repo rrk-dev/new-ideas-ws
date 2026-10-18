@@ -62,7 +62,7 @@ class SettingsScreen extends ConsumerWidget {
             const SettingTile(AppSettings.diarizationDefault),
             const SettingTile(AppSettings.skipSilence),
             const SettingTile(AppSettings.mindMap),
-            const SettingTile(AppSettings.askEnabled),
+            SettingTile(AppSettings.askEnabled),
             ListTile(
               key: const ValueKey('link-models'),
               leading: const Icon(Icons.memory),

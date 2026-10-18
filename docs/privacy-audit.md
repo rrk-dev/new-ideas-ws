@@ -327,7 +327,7 @@ Decision: [ADR-TSK-01](adr/ADR-TSK-01-task-export.md). Implemented by TSK-02; au
 
 Scope: everything Phase 2 landed on `main`, including the Live Activity (AUD-13, audited
 2026-10-18 against `main` at `fa7043a`). The PRODUCT-DECISION notes on the
-Ask feature flag (`ask.enabled`, off by default) do not change the data flows: the code ships
+Ask feature flag (`ask.enabled`, off by default on iOS and Android, on by default on macOS) do not change the data flows: the code ships
 either way, so the audit treats it as on.
 
 | # | Flow | Data | Where it lives | Protection | Deletion path | Network | Control / proof |
