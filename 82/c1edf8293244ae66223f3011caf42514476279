@@ -1,0 +1,14 @@
+tasks/09-licensing/LIC-05-phase2-feature-tiers.md
+  h_9c63801c22a53c 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "82c1edf8293244ae66223f3011caf42514476279",
+  "prompts": {},
+  "humans": {
+    "h_9c63801c22a53c": {
+      "author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
