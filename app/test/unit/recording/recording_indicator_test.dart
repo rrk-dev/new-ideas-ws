@@ -259,6 +259,10 @@ void main() {
         'text': 't',
         'chronometerBaseMs': base.millisecondsSinceEpoch,
         'actions': ['pause', 'stop'],
+        'liveActivity': {
+          'recording': true,
+          'timerStartMs': base.millisecondsSinceEpoch,
+        },
       });
       expect(calls[1].arguments, {'text': 'Still recording (1h 01m)'});
       final refused = await ind.show(

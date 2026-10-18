@@ -20,6 +20,14 @@ background mode and no network**; the hand-off is memory-only and uses the `lume
 (`CFBundleURLTypes` in the Runner Info.plist). `check_recording_policy.sh` and `check_egress.sh` scan both
 new directories.
 
+iOS Live Activity (AUD-13): the same `LumenWidgets` extension also hosts `RecordingActivityWidget`
+(ActivityKit, Lock Screen + Dynamic Island, `@available(iOS 16.2, *)`; the deployment target stays 16.0 and
+earlier systems simply get no Activity). `app/ios/LiveActivityShared/RecordingActivityAttributes.swift` is
+compiled into both targets; `RecordingLiveActivityController` (Runner) starts/updates/ends the Activity
+from the existing `vaultvoice/recording_indicator` `show`/`hide` calls. The Runner Info.plist gains
+`NSSupportsLiveActivities`; there is no new entitlement, App Group, background mode or usage string, and no
+push token (`pushType: nil`). `LiveActivityShared` is scanned (like `LumenWidgets`) by `check_recording_policy.sh` and `check_egress.sh`.
+
 Android quick capture (QCP-03): a plain `AppWidgetProvider` widget (`RecordWidgetProvider`, RemoteViews, no
 Compose/Glance), a `TileService` (`QuickCaptureTileService`, `BIND_QUICK_SETTINGS_TILE`, API 34+ uses the
 `PendingIntent` overload) and a static launcher shortcut (`res/xml/shortcuts.xml` per flavor) all open

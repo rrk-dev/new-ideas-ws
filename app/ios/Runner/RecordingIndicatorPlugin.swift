@@ -7,9 +7,10 @@ import UserNotifications
 /// While recording in the background iOS itself shows the microphone
 /// indicator (orange dot / recording pill in the status bar, Control Center
 /// "in use by" label) for an app with the `audio` background mode — there is
-/// no hidden mode. The Live Activity is deferred (AUD-13), so:
+/// no hidden mode. AUD-13 adds a Live Activity (iOS 16.2+) on top:
 /// - `show` / `hide`: request notification authorization once (for the
-///   reminder) / remove a delivered reminder; no other UI.
+///   reminder), start/update/end the Live Activity
+///   (RecordingLiveActivityController) / remove a delivered reminder.
 /// - `remind({text})`: the SEC-09 "Still recording (1h 00m)" reminder as a
 ///   local notification (no network, no push).
 /// - no action events (iOS has no notification buttons here); battery
@@ -20,6 +21,7 @@ final class RecordingIndicatorPlugin: NSObject, FlutterPlugin, FlutterStreamHand
   private static let reminderId = "vaultvoice.recording.reminder"
 
   private var askedForAuthorization = false
+  private let liveActivity = RecordingLiveActivityController()
 
   static func register(with registrar: FlutterPluginRegistrar) {
     let instance = RecordingIndicatorPlugin()
@@ -37,8 +39,11 @@ final class RecordingIndicatorPlugin: NSObject, FlutterPlugin, FlutterStreamHand
         askedForAuthorization = true
         center.requestAuthorization(options: [.alert]) { _, _ in }
       }
+      // AUD-13: only the `liveActivity` map is read (state + timer start).
+      liveActivity.show((call.arguments as? [String: Any])?["liveActivity"] as? [String: Any])
       result(nil)
     case "hide":
+      liveActivity.hide()
       center.removeDeliveredNotifications(withIdentifiers: [Self.reminderId])
       center.removePendingNotificationRequests(withIdentifiers: [Self.reminderId])
       result(nil)
