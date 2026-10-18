@@ -1,0 +1,19 @@
+app/test/unit/export/bookmark_vault_writer_test.dart
+  s_b5c4ee6684a610::t_4fea2d4f3844a9 12,291-294,300-303
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a9be428e75f2e7b906bb526ec5e58546210157ff",
+  "prompts": {},
+  "sessions": {
+    "s_b5c4ee6684a610": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "3a32a878-801d-48fc-a21c-1c23f21006aa",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
