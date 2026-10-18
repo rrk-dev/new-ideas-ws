@@ -1,0 +1,41 @@
+app/test/unit/models/ask01_catalog_test.dart
+  s_117c940a004696::t_8fd25a300cc80f 9-10,12,14,102-145
+  s_5095472e80968b::t_9f73f6a7c6cdc9 11
+docs/models.md
+  s_5095472e80968b::t_828642e4fff8e8 153,183-185
+docs/adr/ADR-LLM-08-default-llm.md
+  s_5095472e80968b::t_828642e4fff8e8 61-64
+app/lib/features/extraction/domain/device_tiering.dart
+  s_117c940a004696::t_85054e77415bc1 100-107,131
+tasks/14-product-phase2/ASK-01-llama-3b-catalog-model.md
+  s_5095472e80968b::t_828642e4fff8e8 44
+app/lib/features/pipeline/domain/active_models.dart
+  s_5095472e80968b::t_828642e4fff8e8 108-110
+  s_117c940a004696::t_85054e77415bc1 188-197
+app/ios/Podfile
+  s_117c940a004696::t_551d78201999bb 1-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2ea47e49888cffa0a6a201aa30a2728d6dc5e75c",
+  "prompts": {},
+  "sessions": {
+    "s_117c940a004696": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "41edfc1f-1f00-47b0-baf8-d7919025a727",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_5095472e80968b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "662c42c7-18d9-4cfa-9280-08ec51c9ab04",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
