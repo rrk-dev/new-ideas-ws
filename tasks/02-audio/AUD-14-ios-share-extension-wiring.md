@@ -1,7 +1,7 @@
 # AUD-14 — iOS ShareExtension target wiring
 
 **Workstream:** Audio | **Phase:** 1 | **Size:** S | **Depends on:** AUD-06 | **Source:** AUD-06 follow-up (was proposed as AUD-10); Codex review 2026-10-15
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-ffi-bridge, vv-privacy-security, vv-ci-release, vv-testing
 
 ## Goal
