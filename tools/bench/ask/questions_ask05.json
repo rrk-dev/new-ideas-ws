@@ -1,0 +1,459 @@
+{
+ "note": "ASK-05 extra questions (fictional), written before any ASK-05 run, from the library transcripts. Same format as questions.json; the eval uses both files (44 + 42 = 86 questions: 60 answerable, 26 unanswerable).",
+ "questions": [
+  {
+   "id": "E13",
+   "type": "exact",
+   "q": "What is the model of the Contoso coffee grinder?",
+   "gold": [
+    {
+     "rec": "warranty-002",
+     "t": [
+      "00:00:00"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E14",
+   "type": "exact",
+   "q": "How much did the laptop charger cost?",
+   "gold": [
+    {
+     "rec": "warranty-003",
+     "t": [
+      "00:00:11"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E15",
+   "type": "exact",
+   "q": "Which store sold the Fabrikum dishwasher?",
+   "gold": [
+    {
+     "rec": "warranty-001",
+     "t": [
+      "00:00:10"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E16",
+   "type": "exact",
+   "q": "What is the support email for the Litware headphones?",
+   "gold": [
+    {
+     "rec": "warranty-004",
+     "t": [
+      "00:00:10"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E17",
+   "type": "exact",
+   "q": "How long is the warranty on the phone case?",
+   "gold": [
+    {
+     "rec": "warranty-006",
+     "t": [
+      "00:00:07"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E18",
+   "type": "exact",
+   "q": "Who will write the resize worker for thumbnails?",
+   "gold": [
+    {
+     "rec": "engineering-001",
+     "t": [
+      "00:00:11",
+      "00:00:15"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E19",
+   "type": "exact",
+   "q": "When does Sam promise to finish the installer?",
+   "gold": [
+    {
+     "rec": "meeting-001",
+     "t": [
+      "00:00:11"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E20",
+   "type": "exact",
+   "q": "What does equilibrium price mean?",
+   "gold": [
+    {
+     "rec": "lecture-003",
+     "t": [
+      "00:00:14"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E21",
+   "type": "exact",
+   "q": "What does Hugo want the invoices to do?",
+   "gold": [
+    {
+     "rec": "sales_call-005",
+     "t": [
+      "00:00:17"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P11",
+   "type": "paraphrase",
+   "q": "How much did my headphones set me back?",
+   "gold": [
+    {
+     "rec": "warranty-004",
+     "t": [
+      "00:00:03"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P12",
+   "type": "paraphrase",
+   "q": "Who will look over Ko-fi's draft once Nadia is back?",
+   "gold": [
+    {
+     "rec": "meeting-004",
+     "t": [
+      "00:00:12"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P13",
+   "type": "paraphrase",
+   "q": "What did the team want to try first for the slow search page?",
+   "gold": [
+    {
+     "rec": "engineering-003",
+     "t": [
+      "00:00:20"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P14",
+   "type": "paraphrase",
+   "q": "What did Ben say about the volunteers?",
+   "gold": [
+    {
+     "rec": "interview-002",
+     "t": [
+      "00:00:28"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P15",
+   "type": "paraphrase",
+   "q": "What is Ben planning to work on next?",
+   "gold": [
+    {
+     "rec": "interview-002",
+     "t": [
+      "00:00:35"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P16",
+   "type": "paraphrase",
+   "q": "How did Mina cover the costs of her first year?",
+   "gold": [
+    {
+     "rec": "interview-003",
+     "t": [
+      "00:00:12",
+      "00:00:17"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P17",
+   "type": "paraphrase",
+   "q": "Which tools does Chloe use every day?",
+   "gold": [
+    {
+     "rec": "interview-004",
+     "t": [
+      "00:00:59"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P18",
+   "type": "paraphrase",
+   "q": "What reading was set for the supply and demand course?",
+   "gold": [
+    {
+     "rec": "lecture-003",
+     "t": [
+      "00:00:52",
+      "00:01:05"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M09",
+   "type": "multi",
+   "q": "Which of my purchases come with a two year warranty?",
+   "gold": [
+    {
+     "rec": "warranty-001",
+     "t": [
+      "00:00:15"
+     ]
+    },
+    {
+     "rec": "warranty-004",
+     "t": [
+      "00:00:10"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M10",
+   "type": "multi",
+   "q": "Who promised to send report samples?",
+   "gold": [
+    {
+     "rec": "sales_call-003",
+     "t": [
+      "00:00:50"
+     ]
+    },
+    {
+     "rec": "sales_call-005",
+     "t": [
+      "00:01:04"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M11",
+   "type": "multi",
+   "q": "Which customers said the reports are not detailed enough?",
+   "gold": [
+    {
+     "rec": "sales_call-001",
+     "t": [
+      "00:00:36"
+     ]
+    },
+    {
+     "rec": "sales_call-002",
+     "t": [
+      "00:00:25"
+     ]
+    },
+    {
+     "rec": "sales_call-004",
+     "t": [
+      "00:00:46"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M12",
+   "type": "multi",
+   "q": "Which customers asked for single sign-on?",
+   "gold": [
+    {
+     "rec": "sales_call-001",
+     "t": [
+      "00:00:24"
+     ]
+    },
+    {
+     "rec": "sales_call-004",
+     "t": [
+      "00:00:30"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "D07",
+   "type": "date",
+   "q": "What did we decide last Friday about the monolith?",
+   "gold": [
+    {
+     "rec": "engineering-006",
+     "t": [
+      "00:00:15"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "D08",
+   "type": "date",
+   "q": "What did I buy last Saturday?",
+   "gold": [
+    {
+     "rec": "warranty-006",
+     "t": [
+      "00:00:00",
+      "00:00:04"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "D09",
+   "type": "date",
+   "q": "What priorities were set in the meeting last Thursday?",
+   "gold": [
+    {
+     "rec": "meeting-006",
+     "t": [
+      "00:00:22"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "U09",
+   "type": "unanswerable",
+   "q": "What is the price of an extended warranty for the Fabrikum dishwasher?",
+   "gold": []
+  },
+  {
+   "id": "U10",
+   "type": "unanswerable",
+   "q": "What is the support email for the Contoso coffee grinder?",
+   "gold": []
+  },
+  {
+   "id": "U11",
+   "type": "unanswerable",
+   "q": "When will Omar finish the payments migration?",
+   "gold": []
+  },
+  {
+   "id": "U12",
+   "type": "unanswerable",
+   "q": "Which thumbnail size did the team decide to keep?",
+   "gold": []
+  },
+  {
+   "id": "U13",
+   "type": "unanswerable",
+   "q": "How much is the budget that Diego needs the numbers for?",
+   "gold": []
+  },
+  {
+   "id": "U14",
+   "type": "unanswerable",
+   "q": "Who signs off on the release notes?",
+   "gold": []
+  },
+  {
+   "id": "U15",
+   "type": "unanswerable",
+   "q": "Which cloud provider did Liam's company decide on?",
+   "gold": []
+  },
+  {
+   "id": "U16",
+   "type": "unanswerable",
+   "q": "Which textbook does the BIO 101 course use?",
+   "gold": []
+  },
+  {
+   "id": "U17",
+   "type": "unanswerable",
+   "q": "When is the final exam for CS 214?",
+   "gold": []
+  },
+  {
+   "id": "U18",
+   "type": "unanswerable",
+   "q": "In which year did Augustus die?",
+   "gold": []
+  },
+  {
+   "id": "U19",
+   "type": "unanswerable",
+   "q": "What was the outcome of the Vandelay Tools evaluation?",
+   "gold": []
+  },
+  {
+   "id": "U20",
+   "type": "unanswerable",
+   "q": "What uptime did Marcus from Adatum Tools guarantee?",
+   "gold": []
+  },
+  {
+   "id": "U21",
+   "type": "unanswerable",
+   "q": "What discount on the setup fee did Lena from Adatum Tools offer?",
+   "gold": []
+  },
+  {
+   "id": "U22",
+   "type": "unanswerable",
+   "q": "Which competing tool is Dev considering?",
+   "gold": []
+  },
+  {
+   "id": "U23",
+   "type": "unanswerable",
+   "q": "What did Kira say was her biggest early mistake?",
+   "gold": []
+  },
+  {
+   "id": "U24",
+   "type": "unanswerable",
+   "q": "What grant paid for Ben's equipment?",
+   "gold": []
+  },
+  {
+   "id": "U25",
+   "type": "unanswerable",
+   "q": "What is the serial number of the Litware headphones?",
+   "gold": []
+  },
+  {
+   "id": "U26",
+   "type": "unanswerable",
+   "q": "Who is the CFO of Proseware Retail?",
+   "gold": []
+  }
+ ]
+}

@@ -120,11 +120,13 @@ Future<void> _run({
   final library = jsonDecode(
     File('$bench/ask/library.json').readAsStringSync(),
   ) as Map<String, Object?>;
-  final questions =
-      ((jsonDecode(File('$bench/ask/questions.json').readAsStringSync())
+  final questions = [
+    for (final f in ['questions.json', 'questions_ask05.json'])
+      ...((jsonDecode(File('$bench/ask/$f').readAsStringSync())
                   as Map<String, Object?>)['questions']!
               as List<Object?>)
-          .cast<Map<String, Object?>>();
+          .cast<Map<String, Object?>>(),
+  ];
 
   final db = VaultVoiceDatabase(NativeDatabase.memory());
   await _seed(db, library, bench);

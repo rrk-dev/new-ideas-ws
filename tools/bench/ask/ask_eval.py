@@ -39,6 +39,15 @@ TARGETS = {
 LOWER_IS_BETTER = {"hallucination_rate"}
 
 
+def load_questions() -> tuple[dict, dict]:
+    questions, expect = {}, {}
+    for q_file, a_file in (("questions.json", "answers.json"), ("questions_ask05.json", "answers_ask05.json")):
+        if (HERE / q_file).exists():
+            questions.update({q["id"]: q for q in json.loads((HERE / q_file).read_text())["questions"]})
+            expect.update(json.loads((HERE / a_file).read_text())["expect"])
+    return questions, expect
+
+
 def load(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
 
@@ -116,12 +125,15 @@ def verdict(name, value):
 
 def render(res: dict) -> str:
     arms = res["arms"]
+    first = next(iter(arms.values()))
     out = [
         "# ASK-03 end-to-end Ask eval (3B, host)", "",
         f"Model `{res['model_note']}`, n_ctx {res['n_ctx']}, greedy, grammar-constrained, host "
-        "(Apple Silicon, `libvv_native` host build). 44 questions (36 answerable, 8 unanswerable) "
+        f"(Apple Silicon, `libvv_native` host build). {first['n_answerable'] + first['n_unanswerable']} questions "
+        f"({first['n_answerable']} answerable, {first['n_unanswerable']} unanswerable) "
         "over the 33-recording synthetic library of ASK-02. Targets pre-registered in "
-        "`tasks/14-product-phase2/ASK-03-ask-engine.md` before the first run.", "",
+        "`tasks/14-product-phase2/ASK-03-ask-engine.md` (ASK-03) and "
+        "`tasks/14-product-phase2/ASK-05-ask-answer-quality.md` (ASK-05) before the first run.", "",
         "Segment recall@10 here is measured on the passages given to the model: the 10 FTS5 "
         "candidates, the top three expanded by their ±1 neighbour segments, trimmed to the prompt "
         "budget; a gold item counts when one of its accepted timestamps is among them.", "",
@@ -195,8 +207,7 @@ def main() -> None:
         raws = {kv.split("=", 1)[0]: Path(kv.split("=", 1)[1]) for kv in args.raw}
         model_note = "Llama-3.2-3B-Instruct-Q4_K_M.gguf"
 
-    questions = {q["id"]: q for q in json.loads((HERE / "questions.json").read_text())["questions"]}
-    expect = json.loads((HERE / "answers.json").read_text())["expect"]
+    questions, expect = load_questions()
     arms = {name: score_arm(load(p), questions, expect) for name, p in raws.items()}
     res = {"model_note": model_note, "n_ctx": args.n_ctx, "arms": arms}
     out = Path(args.out)

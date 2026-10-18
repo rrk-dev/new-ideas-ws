@@ -8,9 +8,12 @@
 Close the two ASK-03 eval gates that the deterministic checks did not reach with the 3B: citation precision ≥ 90% and unanswerable refusal ≥ 90%, without lowering any target and without cloud calls.
 
 ## Scope
-- [ ] Measure the options on the committed eval (`tools/bench/ask/ask_eval.py`, same 44 questions plus new ones so the refusal set is larger than 8): (a) a second constrained "does this passage answer the question?" call per citation, (b) a larger local model for Ask, (c) cross-recording duplicate handling in the citation step.
-- [ ] Add questions before running: the unanswerable set has 8 items, so one miss is 12.5 points; grow it to at least 20 and the answerable set to at least 50, written before the run.
-- [ ] Record the decision as an ADR addendum with the measured table; adopt only options that meet both gates and keep correctness ≥ 70%, hallucination ≤ 15% and the High-tier latency budget (ASK-03 AC7).
+- [x] Enlarge the eval before any ASK-05 run: `tools/bench/ask/questions_ask05.json` + `answers_ask05.json` add 24 answerable and 18 unanswerable fictional questions to the ASK-03 set: **86 questions, 60 answerable, 26 unanswerable** (one miss on refusal = 3.8 points). Written from the library transcripts, committed before the first run.
+- [ ] Option under test (decision by the user, 2026-10-18: 3B only, no larger model, no catalog change): a second constrained LLM pass, `AskVerifier`, that asks per cited passage (with its ±1 neighbour lines) "does this passage state the answer to the question?" with a `yes`/`no` grammar. Citations answered `no` are dropped; an answer with no citation left is refused.
+- [ ] Measure on the enlarged eval: baseline (ASK-03 engine, no verifier) and with the verifier, same model and settings. Tuning of the verifier prompt is allowed for at most three iterations, every iteration is committed and reported.
+- [ ] Record the decision as an ADR addendum with the measured table. If a gate is still missed, document it and propose the next step (a larger model is an explicit product decision).
+
+**Pre-registered (before the first ASK-05 run), same targets as ASK-03, not relaxed:** citation precision ≥ 90% (gate), unanswerable refusal ≥ 90% (gate), segment recall@10 ≥ 80% (gate), answer correctness ≥ 70% (target), hallucination ≤ 15% (target). Adopt the verifier only if both gates pass on the 86 questions and the targets hold; the extra latency must keep the host median under 25 s (High-tier device budget stays ⏳ in ASK-03 AC7).
 
 ## Acceptance Criteria
 - Citation precision ≥ 90% and unanswerable refusal ≥ 90% on the enlarged eval, committed report (`[ASK-05/AC1]`).
