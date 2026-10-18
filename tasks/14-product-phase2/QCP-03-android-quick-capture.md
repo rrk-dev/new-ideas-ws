@@ -1,7 +1,7 @@
 # QCP-03 — Android quick capture: home widget, Quick Settings tile, app shortcut
 
 **Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** M | **Depends on:** QCP-01, AUD-05, AUD-08, SEC-09 | **Source:** User decision 2026-10-16 (product Phase 2: one-tap capture)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-audio-capture, vv-background-execution, vv-flutter-architecture, vv-privacy-security, vv-testing
 
 ## Goal
