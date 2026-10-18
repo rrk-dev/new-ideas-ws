@@ -311,3 +311,24 @@ def test_SEC_09_AC2_native_call_guards_use_permissionless_apis(tag):
     assert not any("shouldResume" in ln for ln in code)  # never reads the resume hint
     assert "CallGuardPlugin.register" in (ROOT / "app/ios/Runner/AppDelegate.swift").read_text()
     assert "CallGuardPlugin.swift in Sources" in (ROOT / "app/ios/Runner.xcodeproj/project.pbxproj").read_text()
+
+
+QCP02 = pytest.mark.parametrize("tag", ["QCP-02_AC6"])
+
+
+@QCP02
+@pytest.mark.parametrize("rel", [
+    "app/ios/LumenWidgets/Bad.swift",
+    "app/ios/QuickCaptureShared/Bad.swift",
+])
+def test_QCP_02_AC6_widget_extension_sources_are_scanned(tmp_path, tag, rel):
+    """[QCP-02/AC6] the widget/control extension directories are policy source roots."""
+    assert run(tree(tmp_path, {rel: "let o = CXCallObserver()\n"})).returncode == 0
+    assert_fails(run(tree(tmp_path / "bad", {rel: "let p = CXProvider()\n"})), "CXProvider")
+
+
+@QCP02
+def test_QCP_02_AC6_extension_plist_with_background_mode_or_call_key_fails(tmp_path, tag):
+    """[QCP-02/AC6] an extension Info.plist is scanned like the app's."""
+    bad = tree(tmp_path, {"app/ios/LumenWidgets/Info.plist": PLIST.format(modes="<string>voip</string>")})
+    assert_fails(run(bad), "voip")

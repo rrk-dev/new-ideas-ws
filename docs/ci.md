@@ -12,6 +12,14 @@ GitHub Actions (`.github/workflows/ci.yml`) is a thin wrapper: every job calls a
 | `ios` | `build_ios.sh` | `native/build.sh ios` first (xcframework), then the unsigned dev-flavor build, uploaded as `ios-dev-unsigned-app` |
 | `native-host` | `native_host.sh`, `size_check.sh`, `fetch_test_models.sh`, `eval.sh` | `native/build.sh host` (ctest: smoke + exports) and the Dart FFI test against the built library, ccache keyed on the submodule pins; REL-03 host-library size budget; PRF-09 extraction eval with `--gate` only when profiles, the prompt builder, the eval data/runner or llama.cpp changed (`eval.sh` diffs against the base branch, so the checkout uses `fetch-depth: 0`; test models cached by `test-models.lock`; reports uploaded as `extraction-eval`) |
 
+iOS quick capture (QCP-02): the Runner embeds the `LumenWidgets` widget/control extension
+(`app/ios/LumenWidgets`, bundle id `<runner id>.LumenWidgets`, deployment target 16.0, "Embed Foundation
+Extensions" phase placed right after "Embed Frameworks" to avoid a build cycle). `app/ios/QuickCaptureShared`
+is compiled into both targets. The extension has **no entitlements, no App Group, no usage string, no
+background mode and no network**; the hand-off is memory-only and uses the `lumen://` URL scheme
+(`CFBundleURLTypes` in the Runner Info.plist). `check_recording_policy.sh` and `check_egress.sh` scan both
+new directories.
+
 Release (`.github/workflows/release.yml`): the android and ios jobs run `size_check.sh` on the signed
 AAB / IPA after the fastlane upload (REL-03 budget, no bundled models).
 

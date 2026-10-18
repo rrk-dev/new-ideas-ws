@@ -130,7 +130,9 @@ SKIP_PARTS = {"build", ".dart_tool", ".gradle", "Pods", ".symlinks", "test", "an
 
 
 def first_party_source_dirs(root: Path) -> list[Path]:
+    # app/ios/LumenWidgets + QuickCaptureShared: QCP-02 widget/control extension.
     dirs = [root / "app/lib", root / "app/android/app/src", root / "app/ios/Runner",
+            root / "app/ios/LumenWidgets", root / "app/ios/QuickCaptureShared",
             root / "app/macos/Runner"]
     for pkg in sorted((root / "packages").glob("*")):
         dirs += [pkg / "lib", pkg / "android/src", pkg / "ios/Classes", pkg / "macos"]
@@ -240,7 +242,8 @@ def ios_plists(root: Path) -> list[Path]:
     # Built app bundles (merged Info.plist), when a build ran.
     built = root / "app/build/ios"
     if built.is_dir():
-        out += [p for p in built.rglob("Info.plist") if p.parent.name.endswith(".app")]
+        out += [p for p in built.rglob("Info.plist")
+                if p.parent.name.endswith((".app", ".appex"))]
     built = root / "app/build/macos"
     if built.is_dir():
         out += [p for p in built.rglob("Info.plist") if p.parent.name == "Contents" and p.parent.parent.name.endswith(".app")]

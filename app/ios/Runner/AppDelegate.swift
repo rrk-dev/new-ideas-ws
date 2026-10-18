@@ -7,6 +7,7 @@ import UserNotifications
   // Security-scoped bookmark vault folders (EXP-04).
   private let bookmarkApi = BookmarkHostApiImpl()
   private let purchaseApi = PurchaseHostApiImpl()
+  private let quickCaptureApi = QuickCaptureHostApiImpl()
 
   override func application(
     _ application: UIApplication,
@@ -52,6 +53,9 @@ import UserNotifications
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "ProcessingPlugin") {
       ProcessingPlugin.register(with: registrar)
     }
+    // QCP-02: widget/control hand-off (navigate-only, in memory).
+    QuickCaptureHostApiSetup.setUp(
+      binaryMessenger: engineBridge.applicationRegistrar.messenger(), api: quickCaptureApi)
     if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "RecordingIndicatorPlugin") {
       RecordingIndicatorPlugin.register(with: registrar)
     }
