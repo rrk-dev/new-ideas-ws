@@ -75,6 +75,22 @@ a new user tap.
 | D-18 | Mic revoked mid-recording | Revoke the mic in Settings while recording | Recording stops, audio so far is kept, a clear prompt explains how to re-enable | All |
 | D-19 | Vault folder revoked | Revoke folder access (delete the folder, clear the SAF grant or move the vault) while jobs are queued | Jobs wait with a "choose a folder" action; nothing is lost; re-pick completes them | VV-IOS-16, VV-AND-PIX |
 
+### Phase 2 cases (GATE-05)
+
+Added for quick capture, Ask, mind maps and Reminders. Rows are in
+[device/GATE-05.md](device/GATE-05.md); the GATE-04 rule that D-01 to D-25 must all have
+rows is unchanged. Ask runs only on High tier devices (Mid and Low show "not available").
+
+| ID | Case | Steps | Pass condition | Devices |
+|---|---|---|---|---|
+| D-26 | Call interrupts a recording started from each quick-capture entry | For each entry (iOS widget, iOS Control, Android widget, Quick Settings tile, Android shortcut): tap it, tap Record in the app, then receive a cellular call and a VoIP call | Recording stops when the call begins; no call audio in the saved file; never auto-resumes; same result for every entry | VV-IOS-16, VV-AND-PIX |
+| D-27 | Low memory while asking | Ask a question on the 3B model while other heavy apps run, or after a memory warning | A clear "not enough memory, try again" message or a queued answer; no crash; the app stays usable; no half-written history entry | VV-IOS-16, VV-AND-FLG |
+| D-28 | App killed during mind-map generation | Start a recording's mind map (automatic or on demand), force-quit mid-step, relaunch | The step resumes or can be retried; exactly one map; transcript and note untouched | VV-IOS-16, VV-AND-PIX |
+| D-29 | Reminders permission revoked | Grant, export once, then revoke Reminders in Settings; export again | A clear message with a Settings action; no crash; already created reminders and the link table untouched; nothing lost from the note | VV-IOS-16 |
+| D-30 | Quick capture never records by itself | Cold-launch Lumen from the icon; tap a widget and wait over 10 s before the app opens; replay an old widget tap; fire an automation or Shortcut that opens the app | Lumen opens (to the Record screen at most); no recording starts without a tap on Record | VV-IOS-16, VV-AND-PIX |
+| D-31 | Ask while a recording is processing | Start a long job, then ask | Ask is queued or declines with the residency message; the job is not disturbed; no memory crash | VV-IOS-16, VV-AND-FLG |
+| D-32 | Share-extension import with the app killed | Share a memo to Lumen with Lumen force-quit, then open Lumen | The attestation appears; the file is imported once; the inbox is empty afterwards | VV-IOS-16 |
+
 ### Hostile audio
 
 Use clips prepared by the tester (no real people; see `tools/bench/corpus`).
