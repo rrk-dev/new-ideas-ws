@@ -1,0 +1,35 @@
+app/lib/features/ask/presentation/ask_chat.g.dart
+  s_9450697a967066::t_585954dfb966ec 69
+app/test/helpers/library_fixtures.dart
+  s_5095472e80968b::t_74769757166ab3 3,135,140
+app/lib/features/ask/presentation/ask_chat.dart
+  s_9450697a967066::t_585954dfb966ec 67,69
+app/lib/features/ask/data/ask_providers.dart
+  s_9450697a967066::t_585954dfb966ec 89
+app/lib/features/ask/data/ask_providers.g.dart
+  s_9450697a967066::t_585954dfb966ec 309,328
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e7236182fcb4ea1fbaeab6dd7c94650495f54396",
+  "prompts": {},
+  "sessions": {
+    "s_5095472e80968b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "662c42c7-18d9-4cfa-9280-08ec51c9ab04",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_9450697a967066": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "080beacb-b5f0-4236-8780-01faa814d924",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
