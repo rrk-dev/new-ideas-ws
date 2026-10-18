@@ -310,7 +310,13 @@ void main() {
       // no microphone access). The recording FGS stays the only microphone
       // service; no other FGS type may appear. FND-08 adds ProcessingService
       // (dataSync|mediaProcessing, no microphone access).
-      expect(services, hasLength(3));
+      // QCP-03 adds the Quick Settings TileService (no FGS type).
+      expect(services, hasLength(4));
+      final tile = services.singleWhere(
+        (s) =>
+            s.contains('android:name=".quickcapture.QuickCaptureTileService"'),
+      );
+      expect(tile, isNot(contains('foregroundServiceType')));
       final processing = services.singleWhere(
         (s) => s.contains('android:name=".ProcessingService"'),
       );

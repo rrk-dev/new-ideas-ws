@@ -332,3 +332,20 @@ def test_QCP_02_AC6_extension_plist_with_background_mode_or_call_key_fails(tmp_p
     """[QCP-02/AC6] an extension Info.plist is scanned like the app's."""
     bad = tree(tmp_path, {"app/ios/LumenWidgets/Info.plist": PLIST.format(modes="<string>voip</string>")})
     assert_fails(run(bad), "voip")
+
+
+@pytest.mark.parametrize("tag", ["QCP-03_AC4"])
+def test_QCP_03_AC4_widget_receiver_tile_service_and_shortcut_pass(tmp_path, tag):
+    """[QCP-03/AC4] the widget receiver, the Quick Settings tile service and shortcut metadata are allowed."""
+    manifest = CLEAN_MANIFEST.replace(
+        "</application>",
+        '''<receiver android:name=".quickcapture.RecordWidgetProvider" android:exported="false">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+        </receiver>
+        <service android:name=".quickcapture.QuickCaptureTileService" android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE"/></intent-filter>
+        </service>
+        </application>''')
+    r = run(tree(tmp_path, {MAIN_MANIFEST: manifest}))
+    assert r.returncode == 0, r.stderr
