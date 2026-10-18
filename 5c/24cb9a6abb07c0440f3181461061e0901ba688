@@ -1,0 +1,27 @@
+app/lib/features/ask/data/ask_providers.dart
+  s_5a534bed398a49::t_a97f6724102428 39-41
+app/test/unit/ask/ask_settings_test.dart
+  s_5a534bed398a49::t_a97f6724102428 1-2,9-17
+app/lib/features/settings/domain/setting_definitions.dart
+  s_5a534bed398a49::t_a97f6724102428 1-2,235-237,240,308
+app/lib/features/settings/presentation/settings_screen.dart
+  s_5a534bed398a49::t_77b0a44a089e3c 65
+docs/privacy-audit.md
+  s_5a534bed398a49::t_f2ebce077d13bb 330
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5c24cb9a6abb07c0440f3181461061e0901ba688",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
