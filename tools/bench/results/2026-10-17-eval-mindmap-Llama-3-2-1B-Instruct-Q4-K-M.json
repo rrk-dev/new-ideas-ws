@@ -1,0 +1,60 @@
+{
+ "env": {
+  "model": "Llama-3.2-1B-Instruct-Q4_K_M.gguf",
+  "date": "2026-10-17",
+  "host": "Darwin arm64",
+  "commit": "ee846aa",
+  "dirty": true,
+  "wall_s": 1387.3172338749864,
+  "cases": 36
+ },
+ "targets": {
+  "schema_valid": 0.9,
+  "label_grounding": 0.85,
+  "concept_recall": 0.5,
+  "limits_compliance": 1.0
+ },
+ "limits": {
+  "max_depth": 3,
+  "max_nodes": 40,
+  "max_label": 60
+ },
+ "chosen": "hybrid",
+ "extraction": {
+  "valid": 1.0,
+  "ms_median": 23539.5,
+  "llm_ms_median": 10166.5
+ },
+ "options": {
+  "projection": {
+   "schema_valid": 1.0,
+   "label_grounding": 0.697503671071953,
+   "concept_recall": 0.766497461928934,
+   "limits_compliance": 1.0,
+   "rejected_rate": 0.0,
+   "avg_nodes": 18.916666666666668,
+   "ms_median": 1.0,
+   "ms_max": 9
+  },
+  "llm": {
+   "schema_valid": 1.0,
+   "label_grounding": 0.9967948717948718,
+   "concept_recall": 0.4517766497461929,
+   "limits_compliance": 1.0,
+   "rejected_rate": 0.0,
+   "avg_nodes": 8.5,
+   "ms_median": 10181.0,
+   "ms_max": 56617
+  },
+  "hybrid": {
+   "schema_valid": 1.0,
+   "label_grounding": 0.9967948717948718,
+   "concept_recall": 0.8274111675126904,
+   "limits_compliance": 1.0,
+   "rejected_rate": 0.0,
+   "avg_nodes": 27.055555555555557,
+   "ms_median": 7.5,
+   "ms_max": 23
+  }
+ }
+}

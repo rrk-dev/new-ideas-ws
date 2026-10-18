@@ -20,7 +20,8 @@ enum MindMapMode {
 
 /// Default of `processing.mind_map` (ADR-MAP-01 decides from the measured
 /// seconds; PRODUCT-DECISION until the device rows exist).
-/// PRODUCT-DECISION: provisional production method until the ADR is measured.
+/// PRODUCT-DECISION: method C (hybrid), chosen by the measured eval
+/// (ADR-MAP-01, Proposed).
 const MindMapMethod kDefaultMindMapMethod = MindMapMethod.hybrid;
 
 const MindMapMode kDefaultMindMapMode = MindMapMode.onDemand;

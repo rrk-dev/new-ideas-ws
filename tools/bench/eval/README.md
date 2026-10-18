@@ -146,3 +146,23 @@ The report has accuracy (all, dev, holdout, ambiguous), per-profile recall/preci
 confusion matrix, how often the user is asked and keyword-stage precision. Targets are in
 `classify/scoring.json` and the task file (written before the baseline). Host latency is
 informational; the < 10 s bar is a device row (`docs/test-plans/device/TPL-04.md`).
+
+## Mind-map set (MAP-01)
+
+`mindmap/` compares the three generation options of `docs/adr/ADR-MAP-01-mind-map-generation.md`
+(A projection of the extraction JSON, B grammar-constrained LLM topics, C hybrid) on 36
+**simulated** transcripts (6 per built-in profile) reused from the PRF-09/TPL sets. The reference
+concept list of each case is derived from its hand-written `expected.json`
+(`python3 tools/bench/eval/mindmap/gen_cases.py` regenerates `cases.json`). The driver
+`app/tool/mindmap_eval_test.dart` runs the production extraction and `MindMapGenerator` in one
+process (it needs `flutter test` because the shared code imports Flutter; it lives under `tool/`
+so CI does not run it).
+
+```bash
+nice -n 10 python3 tools/bench/eval/mindmap/run_mindmap.py --model <llama-3.2-1b-q4_k_m.gguf>
+# --write-baseline writes baselines/mindmap.<model>.json; --limit N runs the first N cases
+```
+
+Metrics per option: `schema_valid`, `label_grounding` (raw labels, before the grounding filter),
+`concept_recall`, `limits_compliance` (independent Python validator), rejected rate and latency.
+Targets are in `mindmap/scoring.json` and the task file (written before the baseline).
