@@ -1,0 +1,24 @@
+app/test/unit/pipeline/classify_step_test.dart
+  s_5a534bed398a49::t_bd7d2e75d645dc 151-154,157-158,163-187
+tasks/06-profiles/PRF-06-auto-profile-context-routing.md
+  s_5a534bed398a49::t_bd7d2e75d645dc 14
+app/lib/features/pipeline/data/steps/classify_step.dart
+  s_5a534bed398a49::t_2684165b021576 17-21
+  s_5a534bed398a49::t_a0a70cf30370bb 22-23,99
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5b4fc060ca59bbfcd113434b57fecf69ab17ef70",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
