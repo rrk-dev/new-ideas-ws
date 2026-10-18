@@ -134,6 +134,11 @@ Future<_Rig> _pump(
     ),
   );
   await t.pumpAndSettle();
+  if (map != null) {
+    // MAP-02 covers the text tree; Graph is the default since MAP-03.
+    await t.tap(find.text(_l.mindMapViewTree));
+    await t.pumpAndSettle();
+  }
   return _Rig(client, nav, db);
 }
 

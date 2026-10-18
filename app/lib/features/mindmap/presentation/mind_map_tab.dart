@@ -1,8 +1,13 @@
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
+import 'package:vaultvoice/core/platform/share_bytes.dart';
 import 'package:vaultvoice/core/platform/share_service.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/core/widgets/lumen_card.dart';
@@ -17,6 +22,7 @@ import 'package:vaultvoice/features/licensing/presentation/feature_gate.dart';
 import 'package:vaultvoice/features/mindmap/data/mind_map_providers.dart';
 import 'package:vaultvoice/features/mindmap/domain/mind_map.dart';
 import 'package:vaultvoice/features/mindmap/domain/mind_map_markdown.dart';
+import 'package:vaultvoice/features/mindmap/presentation/mind_map_graph.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/presentation/job_commands.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
@@ -137,7 +143,66 @@ class _MapView extends ConsumerStatefulWidget {
 
 class _MapViewState extends ConsumerState<_MapView> {
   final Set<String> _collapsed = {};
+  final GlobalKey _exportKey = GlobalKey();
   MindMapNode? _selected;
+  bool? _graph;
+
+  void _openStamp(MindMapNode n) {
+    final ms = mindMapStampMs(n.t);
+    if (ms == null) return;
+    ref
+        .read(transcriptNavigatorProvider)
+        .open(context, widget.recordingId, atMs: ms);
+  }
+
+  void _onGraphTap(MindMapNode n) {
+    setState(() {
+      _selected = n;
+      if (n.children.isNotEmpty) _toggleSilently(n);
+    });
+  }
+
+  void _toggleSilently(MindMapNode n) {
+    if (!_collapsed.remove(n.id)) _collapsed.add(n.id);
+  }
+
+  /// PNG bytes of the whole graph (not just the visible part).
+  Future<Uint8List?> capturePng() async {
+    final boundary =
+        _exportKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
+    if (boundary == null) return null;
+    final image = await boundary.toImage(pixelRatio: 2);
+    final data = await image.toByteData(format: ui.ImageByteFormat.png);
+    image.dispose();
+    return data?.buffer.asUint8List();
+  }
+
+  Future<void> _shareImage() async {
+    final l10n = context.l10n;
+    final messenger = ScaffoldMessenger.of(context);
+    final share = ref.read(shareServiceProvider);
+    final paths = ref.read(appPathsProvider);
+    var ok = false;
+    try {
+      final bytes = await capturePng();
+      if (bytes != null && bytes.isNotEmpty) {
+        ok =
+            await shareBytesAsFile(
+              share,
+              paths,
+              bytes: bytes,
+              fileName: 'mind-map.png',
+              mimeType: 'image/png',
+            ) !=
+            ShareOutcome.unavailable;
+      }
+    } on Object {
+      ok = false;
+    }
+    if (!ok) {
+      messenger.showSnackBar(SnackBar(content: Text(l10n.mindMapImageFailed)));
+    }
+  }
 
   void _toggle(MindMapNode n) {
     setState(() {
@@ -176,6 +241,7 @@ class _MapViewState extends ConsumerState<_MapView> {
     final l10n = context.l10n;
     final root = widget.root;
     final selected = _selected;
+    final graph = _graph ?? !MediaQuery.accessibleNavigationOf(context);
     return Column(
       children: [
         Padding(
@@ -205,6 +271,31 @@ class _MapViewState extends ConsumerState<_MapView> {
                 icon: const Icon(Icons.ios_share),
                 label: Text(l10n.mindMapShare),
               ),
+              if (graph)
+                TextButton.icon(
+                  key: const ValueKey('mindmap-share-image'),
+                  onPressed: _shareImage,
+                  icon: const Icon(Icons.image_outlined),
+                  label: Text(l10n.mindMapShareImage),
+                ),
+              SegmentedButton<bool>(
+                key: const ValueKey('mindmap-view-toggle'),
+                showSelectedIcon: false,
+                segments: [
+                  ButtonSegment(
+                    value: true,
+                    icon: const Icon(Icons.hub_outlined),
+                    label: Text(l10n.mindMapViewGraph),
+                  ),
+                  ButtonSegment(
+                    value: false,
+                    icon: const Icon(Icons.account_tree_outlined),
+                    label: Text(l10n.mindMapViewTree),
+                  ),
+                ],
+                selected: {graph},
+                onSelectionChanged: (v) => setState(() => _graph = v.first),
+              ),
             ],
           ),
         ),
@@ -212,19 +303,28 @@ class _MapViewState extends ConsumerState<_MapView> {
           child: Semantics(
             container: true,
             label: l10n.mindMapSummary(root.count, root.label),
-            child: InteractiveViewer(
-              key: const ValueKey('mindmap-canvas'),
-              constrained: false,
-              minScale: 0.5,
-              boundaryMargin: const EdgeInsets.all(AppSpacing.xl),
-              child: Padding(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: _rows(root, 0),
-                ),
-              ),
-            ),
+            child: graph
+                ? MindMapGraph(
+                    root: root,
+                    collapsed: _collapsed,
+                    selectedId: selected?.id,
+                    onNodeTap: _onGraphTap,
+                    onStampTap: _openStamp,
+                    exportKey: _exportKey,
+                  )
+                : InteractiveViewer(
+                    key: const ValueKey('mindmap-canvas'),
+                    constrained: false,
+                    minScale: 0.5,
+                    boundaryMargin: const EdgeInsets.all(AppSpacing.xl),
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppSpacing.md),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: _rows(root, 0),
+                      ),
+                    ),
+                  ),
           ),
         ),
         if (selected != null)

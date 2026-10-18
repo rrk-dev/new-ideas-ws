@@ -195,6 +195,7 @@ Scope confirmed by the user: quick capture, more summary templates, ask-your-not
 | [ASK-05](14-product-phase2/ASK-05-ask-answer-quality.md) | Ask answer quality (citation precision and refusal) | 5 | M | ASK-03 eval gates |
 | [MAP-01](14-product-phase2/MAP-01-mind-map-generation.md) | Mind-map generation | 5 | M | User decision 2026-10-16 |
 | [MAP-02](14-product-phase2/MAP-02-mind-map-viewer-export.md) | Mind-map viewer and export | 5 | M | User decision 2026-10-16 |
+| [MAP-03](14-product-phase2/MAP-03-graphic-mind-map.md) | Graphical mind map view | 5 | M | Owner request 2026-10-18 |
 | [TSK-01](14-product-phase2/TSK-01-task-export-decision.md) | Action-item export decision (Apple Reminders) | 5 | S | User decision 2026-10-16 |
 | [TSK-02](14-product-phase2/TSK-02-apple-reminders-export.md) | Apple Reminders export | 5 | M | User decision 2026-10-16 |
 | [UIX-01](14-product-phase2/UIX-01-reference-driven-ui-refresh.md) | Reference-driven UI refresh | 5 | M | User decision 2026-10-16 |

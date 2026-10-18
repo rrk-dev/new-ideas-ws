@@ -5104,6 +5104,36 @@ abstract class AppLocalizations {
   /// **'Sharing is not available.'**
   String get mindMapShareFailed;
 
+  /// No description provided for @mindMapShareImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Share as image'**
+  String get mindMapShareImage;
+
+  /// No description provided for @mindMapImageFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The image could not be shared.'**
+  String get mindMapImageFailed;
+
+  /// No description provided for @mindMapViewGraph.
+  ///
+  /// In en, this message translates to:
+  /// **'Graph'**
+  String get mindMapViewGraph;
+
+  /// No description provided for @mindMapViewTree.
+  ///
+  /// In en, this message translates to:
+  /// **'Tree'**
+  String get mindMapViewTree;
+
+  /// No description provided for @mindMapFit.
+  ///
+  /// In en, this message translates to:
+  /// **'Fit to screen'**
+  String get mindMapFit;
+
   /// No description provided for @mindMapExpand.
   ///
   /// In en, this message translates to:
