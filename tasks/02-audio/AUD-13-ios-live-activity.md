@@ -1,7 +1,7 @@
 # AUD-13 — iOS Live Activity for recording state
 
 **Workstream:** Audio | **Phase:** 5 | **Size:** M | **Depends on:** AUD-04, SEC-09, QCP-02 | **Source:** AUD-04 follow-up (was proposed as AUD-10); ADR-QCP-01 Amendment 4
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-audio-capture, vv-background-execution, vv-privacy-security, vv-testing
 
 ## Goal
