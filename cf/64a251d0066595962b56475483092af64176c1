@@ -1,0 +1,19 @@
+tasks/14-product-phase2/ASK-03-ask-engine.md
+  s_5a534bed398a49::t_9b4f66df5daf81 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cf64a251d0066595962b56475483092af64176c1",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
