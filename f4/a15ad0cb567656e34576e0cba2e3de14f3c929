@@ -1,0 +1,127 @@
+app/lib/features/licensing/data/managed_config_applier.g.dart
+  s_b5c4ee6684a610::t_966b0e6f2f2aef 32-54
+  s_b5c4ee6684a610::t_e154e3292502df 1-31,55-76
+app/lib/features/licensing/presentation/managed_config_host.dart
+  s_b5c4ee6684a610::t_3e0c78814cbece 1-17
+app/lib/features/settings/presentation/settings_screen.dart
+  s_b5c4ee6684a610::t_f7e641c4c10404 16-17,373,375-386,398-399,402-408
+  s_b5c4ee6684a610::t_a9979a49689959 374
+app/lib/features/licensing/data/entitlement_license_port.dart
+  s_b5c4ee6684a610::t_6158fcfdb38d4f 22,25-27,78
+app/lib/features/recording/domain/recording_controller.dart
+  s_b5c4ee6684a610::t_2e2c80a9719516 96-105,419
+app/lib/features/profiles/data/profile_transfer_providers.dart
+  s_b5c4ee6684a610::t_6158fcfdb38d4f 24-33
+app/lib/features/models/domain/custom_model_entitlement.dart
+  s_b5c4ee6684a610::t_b2547f8a31efb8 26,30-32,34-37
+app/lib/bootstrap.dart
+  s_b5c4ee6684a610::t_6158fcfdb38d4f 122-124
+  s_b5c4ee6684a610::t_edafee95030b6e 28,110-114
+  s_b5c4ee6684a610::t_5db58e576436f0 29
+app/lib/features/recording/data/recording_providers.g.dart
+  s_b5c4ee6684a610::t_966b0e6f2f2aef 986
+app/lib/core/l10n/arb/app_en.arb
+  s_b5c4ee6684a610::t_ee7b4594e7a571 585
+  s_b5c4ee6684a610::t_8fda4a46a82715 582-584,586-590
+app/lib/features/licensing/data/managed_config_applier.dart
+  s_b5c4ee6684a610::t_6158fcfdb38d4f 50-52
+  s_b5c4ee6684a610::t_966b0e6f2f2aef 35
+  s_b5c4ee6684a610::t_3e0c78814cbece 2-34,36-42,44-49,53-87,92-101,104-109
+  s_b5c4ee6684a610::t_42c74259895088 1,43
+  s_b5c4ee6684a610::t_a9979a49689959 88-91,102-103
+app/lib/features/licensing/domain/managed_config.dart
+  s_b5c4ee6684a610::t_42c74259895088 9,20,41,245
+  s_b5c4ee6684a610::t_5db58e576436f0 48,160-215
+  s_b5c4ee6684a610::t_63433070bdf63e 1-8,10-19,21-40,42-47,49-159,216-244,246-247
+app/lib/features/settings/presentation/vault_settings_screens.dart
+  s_b5c4ee6684a610::t_8fda4a46a82715 18
+  s_b5c4ee6684a610::t_2c4169b55baf7c 62-65,83-87,150-152,154-160
+  s_b5c4ee6684a610::t_42c74259895088 7
+app/lib/features/licensing/data/managed_config_settings_source.dart
+  s_b5c4ee6684a610::t_f2bb4a0e22cc45 1-15
+app/lib/features/settings/presentation/setting_texts.dart
+  s_b5c4ee6684a610::t_ab445ac04bc9af 86-89
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_b5c4ee6684a610::t_ee7b4594e7a571 1754-1792
+app/lib/features/models/data/model_import_providers.dart
+  s_b5c4ee6684a610::t_edafee95030b6e 9
+  s_b5c4ee6684a610::t_b2547f8a31efb8 43-48,53-63
+app/lib/features/licensing/data/managed_config_source.dart
+  s_b5c4ee6684a610::t_615a7233244aa0 1-80
+app/lib/features/settings/domain/setting_definitions.dart
+  s_b5c4ee6684a610::t_378abd2a486c0c 50,55-58,63-64,125-133,194
+  s_b5c4ee6684a610::t_a9979a49689959 61-62
+app/lib/features/models/data/download_providers.dart
+  s_b5c4ee6684a610::t_edafee95030b6e 7
+  s_b5c4ee6684a610::t_b2547f8a31efb8 50
+app/lib/features/recording/data/recording_providers.dart
+  s_b5c4ee6684a610::t_42c74259895088 280-287
+  s_b5c4ee6684a610::t_2e2c80a9719516 279
+  s_b5c4ee6684a610::t_5db58e576436f0 16
+app/lib/features/settings/presentation/settings_providers.dart
+  s_b5c4ee6684a610::t_6158fcfdb38d4f 8-9,12,20,23,36-39
+app/lib/core/platform/providers.dart
+  s_b5c4ee6684a610::t_edafee95030b6e 55-57,61,70
+  s_b5c4ee6684a610::t_a9979a49689959 59-60
+  s_b5c4ee6684a610::t_1ae8564815c023 58
+app/lib/features/retention/domain/retention_policy.dart
+  s_b5c4ee6684a610::t_378abd2a486c0c 15-18
+app/lib/features/export/data/export_providers.dart
+  s_b5c4ee6684a610::t_0dafb221d56891 8,14-15,26-40
+app/lib/features/export/data/managed_vault_folder_access.dart
+  s_b5c4ee6684a610::t_a9979a49689959 55-56,88,94
+  s_b5c4ee6684a610::t_0dafb221d56891 1-8,12-42,44,46-48,52-54,57-64,66-87,89-93,95-99
+  s_b5c4ee6684a610::t_42c74259895088 45,51
+  s_b5c4ee6684a610::t_2c4169b55baf7c 9-11,43,65
+  s_b5c4ee6684a610::t_5db58e576436f0 49-50
+app/lib/features/licensing/data/managed_config_providers.dart
+  s_b5c4ee6684a610::t_f2bb4a0e22cc45 1-23
+app/lib/core/l10n/gen/app_localizations.dart
+  s_b5c4ee6684a610::t_ee7b4594e7a571 3019-3060
+app/test/unit/export/macos_bookmark_test.dart
+  s_b5c4ee6684a610::t_2c4169b55baf7c 42
+  s_b5c4ee6684a610::t_8fda4a46a82715 9
+app/lib/features/recording/presentation/recording_screen.dart
+  s_b5c4ee6684a610::t_5db58e576436f0 12
+  s_b5c4ee6684a610::t_a9979a49689959 181
+  s_b5c4ee6684a610::t_eaade63def6c8f 182
+  s_b5c4ee6684a610::t_ae47f67623c026 179-180,183-184
+app/lib/core/platform/providers.g.dart
+  s_5a534bed398a49::t_a747dafdf48d0b 326-384,424
+app/lib/features/export/data/export_providers.g.dart
+  s_5a534bed398a49::t_d9ea73cda270a6 76
+app/lib/features/licensing/data/managed_config_providers.g.dart
+  s_5a534bed398a49::t_8e62bd0642da71 1-106
+app/lib/features/models/data/download_providers.g.dart
+  s_5a534bed398a49::t_18fca96da8f0ff 158
+app/lib/features/models/data/model_import_providers.g.dart
+  s_5a534bed398a49::t_a28398d86f3760 105,146
+app/lib/features/profiles/data/profile_transfer_providers.g.dart
+  s_5a534bed398a49::t_e32477a78b31de 17,26,48,59-83
+app/lib/features/settings/presentation/settings_providers.g.dart
+  s_5a534bed398a49::t_e9381f4a1d7e42 11,16,26,62,157
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f4a15ad0cb567656e34576e0cba2e3de14f3c929",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_b5c4ee6684a610": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "3a32a878-801d-48fc-a21c-1c23f21006aa",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
