@@ -1,0 +1,62 @@
+app/ios/Runner/PrivacyInfo.xcprivacy
+  s_5095472e80968b::t_b13099e15148ac 45-53
+docs/ci.md
+  s_5095472e80968b::t_ea9240ec8fc596 8
+tools/ci/tests/test_egress_guard.py
+  s_5095472e80968b::t_69226b05779922 181-190
+docs/privacy-audit.md
+  s_5095472e80968b::t_8be485b3613a52 30,309,311,321,324-393
+app/ios/LumenWidgets/PrivacyInfo.xcprivacy
+  s_5095472e80968b::t_b13099e15148ac 1-27
+docs/store/pre-submission-checklist.md
+  s_5095472e80968b::t_3796aa1d3726c4 12,15-16
+docs/threat-model.md
+  s_5095472e80968b::t_a537861a3c2d99 152,155,166-191,193-194,196-202
+  s_5095472e80968b::t_d45eccd070e9d3 192,195
+tools/licenses/inventory-header.md
+  s_5095472e80968b::t_f264f9aee835dd 11,17
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_5095472e80968b::t_b13099e15148ac 52,168,336,501
+tools/ci/tests/test_store_privacy.py
+  s_5095472e80968b::t_4a59b1658397cd 155-193
+app/test/unit/security/phase2_privacy_test.dart
+  s_5095472e80968b::t_78d45dcea93424 288-290
+  s_5095472e80968b::t_ae35bde4b87362 1-93,108-158,160-171,173-189,198-207,210-218,222,226-229,295
+  s_5095472e80968b::t_0630e9727814e1 230-287,291-294
+  s_5095472e80968b::t_99c17035aab22e 172,208-209,219-221
+  s_5095472e80968b::t_7c2974a0c9e7d1 159
+  s_5095472e80968b::t_be4f6cf67cfd6d 94-107,190-197,223-225
+docs/store/reviewer-notes.md
+  s_5095472e80968b::t_99258f3e10cfae 31-46
+docs/licenses.md
+  s_5095472e80968b::t_f264f9aee835dd 17
+tools/ci/check_store_privacy.py
+  s_5095472e80968b::t_9ea3c9873653e7 191-206
+  s_5095472e80968b::t_4a9e2c66320934 217-221
+tools/ci/check_egress.sh
+  s_5095472e80968b::t_69226b05779922 67-85
+docs/test-plans/device/SEC-11.md
+  s_5095472e80968b::t_60eca1a719304b 1-21
+tasks/10-security-privacy/SEC-11-phase2-privacy-threat-update.md
+  s_5095472e80968b::t_66838ecfc00e5a 4,40,42-43
+  s_5095472e80968b::t_cae7e7f4904698 11-17,25-39,41,44
+docs/store/privacy-manifest.md
+  s_5095472e80968b::t_3796aa1d3726c4 51-57,64-67,74
+  s_5095472e80968b::t_c924ee85ce4d7a 11,14,24,26-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "796db2faddff5048accc8b424d83219a4af1119a",
+  "prompts": {},
+  "sessions": {
+    "s_5095472e80968b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "662c42c7-18d9-4cfa-9280-08ec51c9ab04",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
