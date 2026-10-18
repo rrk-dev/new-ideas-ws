@@ -1,0 +1,99 @@
+tools/bench/eval/classify/run_classify.py
+  s_44eec72710a6b1::t_fd267342b4737b 1-212
+tasks/14-product-phase2/TPL-04-template-picker-classification.md
+  s_44eec72710a6b1::t_4302f3d632eb70 4,44,47
+  s_44eec72710a6b1::t_5bdef41477c7f0 11-15,37-43,45-46,48-53
+  s_44eec72710a6b1::t_f842fe3e6600f2 23-36
+docs/test-plans/device/TPL-04.md
+  s_44eec72710a6b1::t_930ca61563e117 1-7
+app/assets/profiles/warranty.yaml
+  s_44eec72710a6b1::t_6185c7de67fe79 20
+tools/bench/results/2026-10-17-eval-classify-Llama-3-2-1B-Instruct-Q4-K-M.json
+  s_44eec72710a6b1::t_b3a6da2f348a81 1-1838
+app/lib/features/recording/presentation/recording_details_sheet.dart
+  s_44eec72710a6b1::t_62ed6abc1d3dbb 7,42,44-54,56-69
+app/lib/features/library/presentation/recording_detail_screen.dart
+  s_44eec72710a6b1::t_7cfad1e2494fce 282-283,286
+  s_44eec72710a6b1::t_62ed6abc1d3dbb 284-285,287-288,290
+  s_44eec72710a6b1::t_8d660deeb94755 25-26
+app/assets/profiles/interview.yaml
+  s_44eec72710a6b1::t_6185c7de67fe79 35
+tools/bench/results/2026-10-17-eval-classify-Llama-3-2-1B-Instruct-Q4-K-M.md
+  s_44eec72710a6b1::t_b3a6da2f348a81 1-56
+app/lib/features/profiles/presentation/profile_picker.dart
+  s_44eec72710a6b1::t_3084b1b4c35efa 12
+  s_44eec72710a6b1::t_62ed6abc1d3dbb 73,83,125,134,150,159
+  s_44eec72710a6b1::t_6ed192ba9020a8 1-11,13-32,35-72,74-82,84-124,126-133,135-149,151-158,160-182
+  s_44eec72710a6b1::t_7cfad1e2494fce 33-34
+app/test/unit/pipeline/reextract_new_profiles_test.dart
+  s_44eec72710a6b1::t_5873dab267daea 9
+  s_44eec72710a6b1::t_d15eba5d64ab42 153-155
+  s_44eec72710a6b1::t_09955ca6edbdb7 1-8,10-152,156-162
+tools/bench/eval/baselines/classify.Llama-3-2-1B-Instruct-Q4-K-M.json
+  s_44eec72710a6b1::t_b3a6da2f348a81 1-102
+app/test/widget/profile_picker_test.dart
+  s_44eec72710a6b1::t_de170549e4b843 1-47,51-131,133-306
+  s_44eec72710a6b1::t_2a5468575c9e2c 48-50,132
+app/tool/classify_eval.dart
+  s_44eec72710a6b1::t_7063019ed7a0c0 1-25,27-52,54-57,66,68,70-112,147-172,174-197
+  s_44eec72710a6b1::t_cad23148b07a48 26,53,58-65,67,114-129,133-146,173
+  s_44eec72710a6b1::t_b21c161993ebd4 69,113
+  s_44eec72710a6b1::t_22c0b87214ae0a 130,132
+  s_44eec72710a6b1::t_8d660deeb94755 131
+app/lib/core/l10n/gen/app_localizations.dart
+  s_44eec72710a6b1::t_94ed920a9714a4 2065-2082
+tools/bench/eval/classify/gen_cases.py
+  s_44eec72710a6b1::t_5cb4de4fcacd9e 1-272,276-307
+  s_44eec72710a6b1::t_a765de39e96816 273-275
+app/lib/features/recording/data/recording_screen_providers.dart
+  s_44eec72710a6b1::t_94ed920a9714a4 57-58
+docs/templates.md
+  s_44eec72710a6b1::t_5bdef41477c7f0 95-98
+tools/bench/eval/classify/cases.json
+  s_44eec72710a6b1::t_f6a91323f1365f 1-17,19-26,28-80,82-99,101-136,138-163,165-181,183-253,255-280,282-316,318-325,327-334,336-370,372-406,408-415,417-451,453-460,462-478,480-487,489-496,498-568,570-577,579-623,625-641,643-659,661-678,680-714,716-732,734-741,743-768,770-777,779-813,815-859,861-904,906-967,969-976,978-994,996-1022,1024-1067,1069-1085,1087-1112,1114-1139,1141-1157,1159-1166,1168-1175,1177-1193,1195-1211,1213-1238,1240-1274,1276-1310,1312-1314
+  s_44eec72710a6b1::t_a765de39e96816 18,27,81,100,137,164,182,254,281,317,326,335,371,407,416,452,461,479,488,497,569,578,624,642,660,679,715,733,742,769,778,814,860,905,968,977,995,1023,1068,1086,1113,1140,1158,1167,1176,1194,1212,1239,1275,1311
+app/lib/features/licensing/domain/paywall.dart
+  s_44eec72710a6b1::t_94ed920a9714a4 8
+tools/bench/eval/README.md
+  s_44eec72710a6b1::t_d20150a33f1a1e 127-148
+app/lib/core/l10n/arb/app_en.arb
+  s_44eec72710a6b1::t_94ed920a9714a4 382-385
+app/lib/features/profiles/domain/profile_features.dart
+  s_44eec72710a6b1::t_f68a02bcd80a09 1-14
+app/test/unit/profiles/classification_eval_test.dart
+  s_44eec72710a6b1::t_4a943faf3542dd 1-56,78-82,84-95,98-101,104-123,126,129-144,164
+  s_44eec72710a6b1::t_c7b2f7f58d484f 96-97
+  s_44eec72710a6b1::t_7da70b63250be7 127-128
+  s_44eec72710a6b1::t_7f3ecf6a93fde2 57-77,83,102-103,124-125
+  s_44eec72710a6b1::t_4302f3d632eb70 145-163
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_44eec72710a6b1::t_94ed920a9714a4 1185-1196
+docs/profile-spec.md
+  s_44eec72710a6b1::t_d637d3bef23eb5 287
+  s_44eec72710a6b1::t_d20150a33f1a1e 33
+app/lib/features/recording/domain/recording_session.dart
+  s_44eec72710a6b1::t_94ed920a9714a4 15-16,24-29
+  s_44eec72710a6b1::t_2d0a99ef8066d0 30
+tools/bench/eval/classify/scoring.json
+  s_44eec72710a6b1::t_f842fe3e6600f2 1-10
+app/assets/profiles/meeting.yaml
+  s_44eec72710a6b1::t_6185c7de67fe79 17
+.agents/skills/vv-extraction-profiles/references/meeting-profile.example.yaml
+  s_44eec72710a6b1::t_d637d3bef23eb5 13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "89c17cca2f07eb5c5312ba65feb92572472d4db5",
+  "prompts": {},
+  "sessions": {
+    "s_44eec72710a6b1": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "0691032f-c087-409e-aad6-29e8d0d3afe9",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
