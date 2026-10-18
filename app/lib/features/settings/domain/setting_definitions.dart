@@ -202,6 +202,16 @@ abstract final class AppSettings {
     defaultValue: true,
   );
 
+  /// MAP-02 / ADR-MAP-01. PRODUCT-DECISION: on demand by default (the step
+  /// adds a model pass to every job; device cost is unmeasured). Values are
+  /// `MindMapMode` names (`on_demand`, `auto`).
+  static const mindMap = ChoiceSetting(
+    key: SettingKeys.processingMindMap,
+    section: SettingSection.processing,
+    defaultValue: 'on_demand',
+    options: ['on_demand', 'auto'],
+  );
+
   /// Default per vv-markdown-vault-export (EXP-02).
   static const filenamePattern = TextSetting(
     key: SettingKeys.exportFilenamePattern,
@@ -272,6 +282,7 @@ abstract final class AppSettings {
     chargeOnly,
     diarizationDefault,
     skipSilence,
+    mindMap,
     filenamePattern,
     collisionMode,
     appLock,

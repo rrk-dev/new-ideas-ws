@@ -177,6 +177,13 @@ class _OptionsFormState extends ConsumerState<_OptionsForm> {
           onChanged: (v) => _save(_value.copyWith(transcriptSidecar: v)),
         ),
         SwitchListTile(
+          key: const ValueKey('target-mind-map'),
+          title: Text(l.vaultTargetMindMap),
+          subtitle: Text(l.vaultTargetMindMapHelp),
+          value: _value.mindMapSidecar,
+          onChanged: (v) => _save(_value.copyWith(mindMapSidecar: v)),
+        ),
+        SwitchListTile(
           key: const ValueKey('target-audio'),
           title: Text(l.vaultTargetAudio),
           subtitle: Text(l.vaultTargetAudioHelp),

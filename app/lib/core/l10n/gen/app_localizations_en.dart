@@ -2908,4 +2908,105 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get purchaseRestored =>
       'Purchases checked. Your feature access has been updated.';
+
+  @override
+  String get settingMindMap => 'Mind maps';
+
+  @override
+  String get settingMindMapDescription =>
+      'Automatic adds a model pass to every recording. On demand builds one when you ask for it in the recording.';
+
+  @override
+  String get optionMindMapAuto => 'Automatic';
+
+  @override
+  String get optionMindMapOnDemand => 'On demand';
+
+  @override
+  String get vaultTargetMindMap => 'Also write the mind map';
+
+  @override
+  String get vaultTargetMindMapHelp =>
+      'Writes the mind map as a separate nested-list note next to each note that has one.';
+
+  @override
+  String get recordingTabMindMap => 'Mind map';
+
+  @override
+  String get mindMapNone =>
+      'No mind map yet. Build one from this recording’s transcript.';
+
+  @override
+  String get mindMapNeedsTranscript =>
+      'Process the recording first: a mind map is built from its transcript.';
+
+  @override
+  String get mindMapGenerating => 'Building the mind map…';
+
+  @override
+  String get mindMapFailed => 'The mind map could not be built.';
+
+  @override
+  String get mindMapGenerate => 'Generate mind map';
+
+  @override
+  String get mindMapRegenerate => 'Regenerate';
+
+  @override
+  String get mindMapRetry => 'Try again';
+
+  @override
+  String get mindMapExport => 'Export to vault';
+
+  @override
+  String get mindMapExportQueued =>
+      'The note and its mind map will be written to your vault.';
+
+  @override
+  String get mindMapShare => 'Share as Markdown';
+
+  @override
+  String get mindMapShareFailed => 'Sharing is not available.';
+
+  @override
+  String mindMapExpand(String label) {
+    return 'Expand $label';
+  }
+
+  @override
+  String mindMapCollapse(String label) {
+    return 'Collapse $label';
+  }
+
+  @override
+  String mindMapNodeSemantics(String label, int level) {
+    return '$label, level $level';
+  }
+
+  @override
+  String mindMapSummary(int count, String title) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Mind map “$title”, $count items',
+      one: 'Mind map “$title”, 1 item',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get mindMapEvidenceTitle => 'Evidence';
+
+  @override
+  String mindMapEvidenceAt(String time) {
+    return 'From the transcript at $time';
+  }
+
+  @override
+  String get mindMapNoEvidence => 'This item has no transcript time.';
+
+  @override
+  String mindMapOpenTranscript(String time) {
+    return 'Open transcript at $time';
+  }
 }

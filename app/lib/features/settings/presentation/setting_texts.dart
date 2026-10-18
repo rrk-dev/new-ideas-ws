@@ -26,6 +26,7 @@ abstract final class SettingTexts {
     SettingKeys.processingAutoProcess => l.settingAutoProcess,
     SettingKeys.processingChargeOnly => l.settingChargeOnly,
     SettingKeys.processingDiarization => l.settingDiarization,
+    SettingKeys.processingMindMap => l.settingMindMap,
     SettingKeys.exportFilenamePattern => l.settingFilenamePattern,
     SettingKeys.exportCollisionMode => l.settingCollisionMode,
     SettingKeys.securityAppLock => l.settingAppLock,
@@ -47,6 +48,7 @@ abstract final class SettingTexts {
     SettingKeys.processingAutoProcess => l.settingAutoProcessDescription,
     SettingKeys.processingChargeOnly => l.settingChargeOnlyDescription,
     SettingKeys.processingDiarization => l.settingDiarizationDescription,
+    SettingKeys.processingMindMap => l.settingMindMapDescription,
     SettingKeys.securityAppLock => l.settingAppLockDescription,
     SettingKeys.networkOffline => l.settingOfflineModeDescription,
     SettingKeys.notificationsEnabled => l.settingNotificationsDescription,
@@ -75,6 +77,8 @@ abstract final class SettingTexts {
     'minutes_10' => l.optionMinutes(10),
     'minutes_30' => l.optionMinutes(30),
     'off' => l.optionOff,
+    'on_demand' => l.optionMindMapOnDemand,
+    'auto' => l.optionMindMapAuto,
     _ => option,
   };
 

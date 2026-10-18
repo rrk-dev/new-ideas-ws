@@ -37,6 +37,7 @@ class ExportRequest {
     required this.routing,
     required this.filename,
     this.transcriptMarkdown,
+    this.mindMapMarkdown,
   });
 
   final String recordingId;
@@ -48,6 +49,9 @@ class ExportRequest {
 
   /// Body of the optional transcript sidecar; null = no transcript.
   final String? transcriptMarkdown;
+
+  /// Body of the optional mind-map sidecar (MAP-02); null = no map.
+  final String? mindMapMarkdown;
 }
 
 /// Result of exporting to one target (content-free).
@@ -409,6 +413,14 @@ class VaultExporter {
       // file is foreign and never replaced.
       final r = await writer.write(
         NoteDraft(relativePath: path, markdown: request.transcriptMarkdown!),
+        overwrite: refreshable && !claimed.contains(path),
+      );
+      if (r case Err(:final failure)) return failure;
+    }
+    if (opts.mindMapSidecar && request.mindMapMarkdown != null) {
+      final path = SidecarPaths.mindMap(notePath);
+      final r = await writer.write(
+        NoteDraft(relativePath: path, markdown: request.mindMapMarkdown!),
         overwrite: refreshable && !claimed.contains(path),
       );
       if (r case Err(:final failure)) return failure;

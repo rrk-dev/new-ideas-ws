@@ -281,23 +281,25 @@ void main() {
     expect(_path(c), '/library/recordings/rec-a');
   });
 
-  testWidgets('[UIX-01/AC2] the detail is a hub: Summary, Transcript and '
-      'Action items; no Mind map / Ask placeholder or PRO badge', (t) async {
+  testWidgets('[UIX-01/AC2] the detail is a hub: Summary, Transcript, Action '
+      'items and Mind map (MAP-02); no Ask placeholder or PRO badge', (
+    t,
+  ) async {
     await _pump(t, '/library/recordings/rec-a');
     final tabs = find.byKey(const ValueKey('recording-tabs'));
     for (final label in [
       _l.recordingTabSummary,
       _l.recordingTranscript,
       _l.recordingTabActionItems,
+      _l.recordingTabMindMap,
     ]) {
       expect(
         find.descendant(of: tabs, matching: find.text(label)),
         findsOneWidget,
       );
     }
-    expect(t.widget<TabBar>(tabs).tabs, hasLength(3));
+    expect(t.widget<TabBar>(tabs).tabs, hasLength(4));
     expect(find.textContaining('PRO'), findsNothing);
-    expect(find.textContaining('Mind map'), findsNothing);
     expect(find.textContaining('Ask'), findsNothing);
   });
 
