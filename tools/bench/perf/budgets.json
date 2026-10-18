@@ -6,6 +6,26 @@
     "mid": {"max_process_minutes_per_60": 22, "max_battery_pct_per_audio_hour": 14},
     "low": {"max_process_minutes_per_60": 30, "max_battery_pct_per_audio_hour": 18}
   },
+  "workloads": {
+    "ask": {
+      "tiers": {
+        "high": {"cold_first_answer_s": 30, "warm_first_answer_s": 20, "peak_rss_mib": 4200, "max_thermal_after_10_questions": "fair"},
+        "mid": null,
+        "low": null
+      },
+      "source": "tasks/14-product-phase2/ASK-03-ask-engine.md (AC7). Mid and Low: Ask is not available (product decision)."
+    },
+    "mind_map": {
+      "reference_recording_minutes": 30,
+      "extra_peak_ram_mib": 0,
+      "tiers": {
+        "high": {"step_s": 30, "battery_pct": 1.0},
+        "mid": {"step_s": 60, "battery_pct": 1.5},
+        "low": {"step_s": 120, "battery_pct": 2.0}
+      },
+      "source": "tasks/14-product-phase2/MAP-01-mind-map-generation.md"
+    }
+  },
   "forbidden_thermal_states": ["critical", "severe", "emergency", "shutdown"],
   "sustained_run_minutes": 30,
   "regression_limit_pct": 10,

@@ -19,6 +19,21 @@ A tier that misses a budget gets lower defaults (LLM-07) or the budget is revise
 through an ADR. A regression above 10% against the previous release blocks the
 release.
 
+### Phase 2 workloads (GATE-05)
+
+`budgets.json` also has a `workloads` section for the Phase 2 features. `perf_report.py`
+does not evaluate it; compare the measured numbers by hand with these tables and record
+them in [test-plans/device/GATE-05.md](test-plans/device/GATE-05.md).
+
+| Workload | Tier | Budget |
+|---|---|---|
+| Ask, 100-recording library, 10 questions from the ASK-02 mix, 3B model | High | median first answer ≤ 30 s cold, ≤ 20 s warm; peak RSS ≤ 4200 MiB; thermal no worse than `fair` |
+| Ask | Mid, Low | not available (product decision); the run verifies the "not available" screen and no model load |
+| Mind map step, 30 min recording | High / Mid / Low | ≤ 30 / 60 / 120 s; no extra peak RAM over the extract step; battery ≤ 1 / 1.5 / 2 % |
+
+Mind maps use the tier's extraction LLM (the 1B by default; Ask alone uses the 3B). Read
+battery and thermal before and after, same as above.
+
 ## Devices
 
 Roles and tiers come from [device-matrix.md](device-matrix.md): VV-IOS-11 (iPhone 11)
