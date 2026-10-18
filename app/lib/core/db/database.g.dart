@@ -9899,6 +9899,408 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
   }
 }
 
+class $ReminderExportsTable extends ReminderExports
+    with TableInfo<$ReminderExportsTable, ReminderExportRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ReminderExportsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _itemKeyMeta = const VerificationMeta(
+    'itemKey',
+  );
+  @override
+  late final GeneratedColumn<String> itemKey = GeneratedColumn<String>(
+    'item_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _recordingIdMeta = const VerificationMeta(
+    'recordingId',
+  );
+  @override
+  late final GeneratedColumn<String> recordingId = GeneratedColumn<String>(
+    'recording_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES recordings (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _calendarItemIdMeta = const VerificationMeta(
+    'calendarItemId',
+  );
+  @override
+  late final GeneratedColumn<String> calendarItemId = GeneratedColumn<String>(
+    'calendar_item_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _reminderCalendarIdMeta =
+      const VerificationMeta('reminderCalendarId');
+  @override
+  late final GeneratedColumn<String> reminderCalendarId =
+      GeneratedColumn<String>(
+        'reminder_calendar_id',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
+  @override
+  late final GeneratedColumnWithTypeConverter<DateTime, int> exportedAt =
+      GeneratedColumn<int>(
+        'exported_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($ReminderExportsTable.$converterexportedAt);
+  @override
+  List<GeneratedColumn> get $columns => [
+    itemKey,
+    recordingId,
+    calendarItemId,
+    reminderCalendarId,
+    exportedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'reminder_exports';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ReminderExportRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('item_key')) {
+      context.handle(
+        _itemKeyMeta,
+        itemKey.isAcceptableOrUnknown(data['item_key']!, _itemKeyMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_itemKeyMeta);
+    }
+    if (data.containsKey('recording_id')) {
+      context.handle(
+        _recordingIdMeta,
+        recordingId.isAcceptableOrUnknown(
+          data['recording_id']!,
+          _recordingIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_recordingIdMeta);
+    }
+    if (data.containsKey('calendar_item_id')) {
+      context.handle(
+        _calendarItemIdMeta,
+        calendarItemId.isAcceptableOrUnknown(
+          data['calendar_item_id']!,
+          _calendarItemIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_calendarItemIdMeta);
+    }
+    if (data.containsKey('reminder_calendar_id')) {
+      context.handle(
+        _reminderCalendarIdMeta,
+        reminderCalendarId.isAcceptableOrUnknown(
+          data['reminder_calendar_id']!,
+          _reminderCalendarIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_reminderCalendarIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {itemKey};
+  @override
+  ReminderExportRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ReminderExportRow(
+      itemKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}item_key'],
+      )!,
+      recordingId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}recording_id'],
+      )!,
+      calendarItemId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}calendar_item_id'],
+      )!,
+      reminderCalendarId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reminder_calendar_id'],
+      )!,
+      exportedAt: $ReminderExportsTable.$converterexportedAt.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}exported_at'],
+        )!,
+      ),
+    );
+  }
+
+  @override
+  $ReminderExportsTable createAlias(String alias) {
+    return $ReminderExportsTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<DateTime, int> $converterexportedAt =
+      const EpochMsConverter();
+}
+
+class ReminderExportRow extends DataClass
+    implements Insertable<ReminderExportRow> {
+  final String itemKey;
+  final String recordingId;
+
+  /// `EKCalendarItem.calendarItemIdentifier`.
+  final String calendarItemId;
+
+  /// `EKCalendar.calendarIdentifier` of the list it went to.
+  final String reminderCalendarId;
+  final DateTime exportedAt;
+  const ReminderExportRow({
+    required this.itemKey,
+    required this.recordingId,
+    required this.calendarItemId,
+    required this.reminderCalendarId,
+    required this.exportedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['item_key'] = Variable<String>(itemKey);
+    map['recording_id'] = Variable<String>(recordingId);
+    map['calendar_item_id'] = Variable<String>(calendarItemId);
+    map['reminder_calendar_id'] = Variable<String>(reminderCalendarId);
+    {
+      map['exported_at'] = Variable<int>(
+        $ReminderExportsTable.$converterexportedAt.toSql(exportedAt),
+      );
+    }
+    return map;
+  }
+
+  ReminderExportsCompanion toCompanion(bool nullToAbsent) {
+    return ReminderExportsCompanion(
+      itemKey: Value(itemKey),
+      recordingId: Value(recordingId),
+      calendarItemId: Value(calendarItemId),
+      reminderCalendarId: Value(reminderCalendarId),
+      exportedAt: Value(exportedAt),
+    );
+  }
+
+  factory ReminderExportRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ReminderExportRow(
+      itemKey: serializer.fromJson<String>(json['itemKey']),
+      recordingId: serializer.fromJson<String>(json['recordingId']),
+      calendarItemId: serializer.fromJson<String>(json['calendarItemId']),
+      reminderCalendarId: serializer.fromJson<String>(
+        json['reminderCalendarId'],
+      ),
+      exportedAt: serializer.fromJson<DateTime>(json['exportedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'itemKey': serializer.toJson<String>(itemKey),
+      'recordingId': serializer.toJson<String>(recordingId),
+      'calendarItemId': serializer.toJson<String>(calendarItemId),
+      'reminderCalendarId': serializer.toJson<String>(reminderCalendarId),
+      'exportedAt': serializer.toJson<DateTime>(exportedAt),
+    };
+  }
+
+  ReminderExportRow copyWith({
+    String? itemKey,
+    String? recordingId,
+    String? calendarItemId,
+    String? reminderCalendarId,
+    DateTime? exportedAt,
+  }) => ReminderExportRow(
+    itemKey: itemKey ?? this.itemKey,
+    recordingId: recordingId ?? this.recordingId,
+    calendarItemId: calendarItemId ?? this.calendarItemId,
+    reminderCalendarId: reminderCalendarId ?? this.reminderCalendarId,
+    exportedAt: exportedAt ?? this.exportedAt,
+  );
+  ReminderExportRow copyWithCompanion(ReminderExportsCompanion data) {
+    return ReminderExportRow(
+      itemKey: data.itemKey.present ? data.itemKey.value : this.itemKey,
+      recordingId: data.recordingId.present
+          ? data.recordingId.value
+          : this.recordingId,
+      calendarItemId: data.calendarItemId.present
+          ? data.calendarItemId.value
+          : this.calendarItemId,
+      reminderCalendarId: data.reminderCalendarId.present
+          ? data.reminderCalendarId.value
+          : this.reminderCalendarId,
+      exportedAt: data.exportedAt.present
+          ? data.exportedAt.value
+          : this.exportedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReminderExportRow(')
+          ..write('itemKey: $itemKey, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('calendarItemId: $calendarItemId, ')
+          ..write('reminderCalendarId: $reminderCalendarId, ')
+          ..write('exportedAt: $exportedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    itemKey,
+    recordingId,
+    calendarItemId,
+    reminderCalendarId,
+    exportedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ReminderExportRow &&
+          other.itemKey == this.itemKey &&
+          other.recordingId == this.recordingId &&
+          other.calendarItemId == this.calendarItemId &&
+          other.reminderCalendarId == this.reminderCalendarId &&
+          other.exportedAt == this.exportedAt);
+}
+
+class ReminderExportsCompanion extends UpdateCompanion<ReminderExportRow> {
+  final Value<String> itemKey;
+  final Value<String> recordingId;
+  final Value<String> calendarItemId;
+  final Value<String> reminderCalendarId;
+  final Value<DateTime> exportedAt;
+  final Value<int> rowid;
+  const ReminderExportsCompanion({
+    this.itemKey = const Value.absent(),
+    this.recordingId = const Value.absent(),
+    this.calendarItemId = const Value.absent(),
+    this.reminderCalendarId = const Value.absent(),
+    this.exportedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ReminderExportsCompanion.insert({
+    required String itemKey,
+    required String recordingId,
+    required String calendarItemId,
+    required String reminderCalendarId,
+    required DateTime exportedAt,
+    this.rowid = const Value.absent(),
+  }) : itemKey = Value(itemKey),
+       recordingId = Value(recordingId),
+       calendarItemId = Value(calendarItemId),
+       reminderCalendarId = Value(reminderCalendarId),
+       exportedAt = Value(exportedAt);
+  static Insertable<ReminderExportRow> custom({
+    Expression<String>? itemKey,
+    Expression<String>? recordingId,
+    Expression<String>? calendarItemId,
+    Expression<String>? reminderCalendarId,
+    Expression<int>? exportedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (itemKey != null) 'item_key': itemKey,
+      if (recordingId != null) 'recording_id': recordingId,
+      if (calendarItemId != null) 'calendar_item_id': calendarItemId,
+      if (reminderCalendarId != null)
+        'reminder_calendar_id': reminderCalendarId,
+      if (exportedAt != null) 'exported_at': exportedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ReminderExportsCompanion copyWith({
+    Value<String>? itemKey,
+    Value<String>? recordingId,
+    Value<String>? calendarItemId,
+    Value<String>? reminderCalendarId,
+    Value<DateTime>? exportedAt,
+    Value<int>? rowid,
+  }) {
+    return ReminderExportsCompanion(
+      itemKey: itemKey ?? this.itemKey,
+      recordingId: recordingId ?? this.recordingId,
+      calendarItemId: calendarItemId ?? this.calendarItemId,
+      reminderCalendarId: reminderCalendarId ?? this.reminderCalendarId,
+      exportedAt: exportedAt ?? this.exportedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (itemKey.present) {
+      map['item_key'] = Variable<String>(itemKey.value);
+    }
+    if (recordingId.present) {
+      map['recording_id'] = Variable<String>(recordingId.value);
+    }
+    if (calendarItemId.present) {
+      map['calendar_item_id'] = Variable<String>(calendarItemId.value);
+    }
+    if (reminderCalendarId.present) {
+      map['reminder_calendar_id'] = Variable<String>(reminderCalendarId.value);
+    }
+    if (exportedAt.present) {
+      map['exported_at'] = Variable<int>(
+        $ReminderExportsTable.$converterexportedAt.toSql(exportedAt.value),
+      );
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReminderExportsCompanion(')
+          ..write('itemKey: $itemKey, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('calendarItemId: $calendarItemId, ')
+          ..write('reminderCalendarId: $reminderCalendarId, ')
+          ..write('exportedAt: $exportedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
   _$VaultVoiceDatabase(QueryExecutor e) : super(e);
   $VaultVoiceDatabaseManager get managers => $VaultVoiceDatabaseManager(this);
@@ -9971,6 +10373,9 @@ abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
     this,
   );
   late final $SettingsTable settings = $SettingsTable(this);
+  late final $ReminderExportsTable reminderExports = $ReminderExportsTable(
+    this,
+  );
   late final RecordingsRepository recordingsRepository = RecordingsRepository(
     this as VaultVoiceDatabase,
   );
@@ -9996,6 +10401,8 @@ abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
   late final SettingsRepository settingsRepository = SettingsRepository(
     this as VaultVoiceDatabase,
   );
+  late final ReminderExportsRepository reminderExportsRepository =
+      ReminderExportsRepository(this as VaultVoiceDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -10034,6 +10441,7 @@ abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
     exports,
     modelsInstalled,
     settings,
+    reminderExports,
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
@@ -10261,6 +10669,13 @@ abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
         limitUpdateKind: UpdateKind.delete,
       ),
       result: [TableUpdate('exports', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'recordings',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('reminder_exports', kind: UpdateKind.delete)],
     ),
   ]);
 }
@@ -10522,6 +10937,27 @@ final class $$RecordingsTableReferences
     ).filter((f) => f.recordingId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_exportsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$ReminderExportsTable, List<ReminderExportRow>>
+  _reminderExportsRefsTable(_$VaultVoiceDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.reminderExports,
+        aliasName: 'recordings__id__reminder_exports__recording_id',
+      );
+
+  $$ReminderExportsTableProcessedTableManager get reminderExportsRefs {
+    final manager = $$ReminderExportsTableTableManager(
+      $_db,
+      $_db.reminderExports,
+    ).filter((f) => f.recordingId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _reminderExportsRefsTable($_db),
+    );
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -10895,6 +11331,31 @@ class $$RecordingsTableFilterComposer
           }) => $$ExportsTableFilterComposer(
             $db: $db,
             $table: $db.exports,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> reminderExportsRefs(
+    Expression<bool> Function($$ReminderExportsTableFilterComposer f) f,
+  ) {
+    final $$ReminderExportsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.reminderExports,
+      getReferencedColumn: (t) => t.recordingId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ReminderExportsTableFilterComposer(
+            $db: $db,
+            $table: $db.reminderExports,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -11330,6 +11791,31 @@ class $$RecordingsTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> reminderExportsRefs<T extends Object>(
+    Expression<T> Function($$ReminderExportsTableAnnotationComposer a) f,
+  ) {
+    final $$ReminderExportsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.reminderExports,
+      getReferencedColumn: (t) => t.recordingId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ReminderExportsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.reminderExports,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$RecordingsTableTableManager
@@ -11358,6 +11844,7 @@ class $$RecordingsTableTableManager
             bool jobsRefs,
             bool mindMapsRefs,
             bool exportsRefs,
+            bool reminderExportsRefs,
           })
         > {
   $$RecordingsTableTableManager(_$VaultVoiceDatabase db, $RecordingsTable table)
@@ -11453,6 +11940,7 @@ class $$RecordingsTableTableManager
                 jobsRefs = false,
                 mindMapsRefs = false,
                 exportsRefs = false,
+                reminderExportsRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -11469,6 +11957,7 @@ class $$RecordingsTableTableManager
                     if (jobsRefs) db.jobs,
                     if (mindMapsRefs) db.mindMaps,
                     if (exportsRefs) db.exports,
+                    if (reminderExportsRefs) db.reminderExports,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -11725,6 +12214,27 @@ class $$RecordingsTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (reminderExportsRefs)
+                        await $_getPrefetchedData<
+                          RecordingRow,
+                          $RecordingsTable,
+                          ReminderExportRow
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordingsTableReferences
+                              ._reminderExportsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordingsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).reminderExportsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordingId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -11758,6 +12268,7 @@ typedef $$RecordingsTableProcessedTableManager =
         bool jobsRefs,
         bool mindMapsRefs,
         bool exportsRefs,
+        bool reminderExportsRefs,
       })
     >;
 typedef $$AskThreadsTableCreateCompanionBuilder = AskThreadsCompanion Function({
@@ -19370,6 +19881,341 @@ typedef $$SettingsTableProcessedTableManager =
       SettingRow,
       PrefetchHooks Function()
     >;
+typedef $$ReminderExportsTableCreateCompanionBuilder =
+    ReminderExportsCompanion Function({
+      required String itemKey,
+      required String recordingId,
+      required String calendarItemId,
+      required String reminderCalendarId,
+      required DateTime exportedAt,
+      Value<int> rowid,
+    });
+typedef $$ReminderExportsTableUpdateCompanionBuilder =
+    ReminderExportsCompanion Function({
+      Value<String> itemKey,
+      Value<String> recordingId,
+      Value<String> calendarItemId,
+      Value<String> reminderCalendarId,
+      Value<DateTime> exportedAt,
+      Value<int> rowid,
+    });
+
+final class $$ReminderExportsTableReferences
+    extends
+        BaseReferences<
+          _$VaultVoiceDatabase,
+          $ReminderExportsTable,
+          ReminderExportRow
+        > {
+  $$ReminderExportsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $RecordingsTable _recordingIdTable(_$VaultVoiceDatabase db) => db
+      .recordings
+      .createAlias('reminder_exports__recording_id__recordings__id');
+
+  $$RecordingsTableProcessedTableManager get recordingId {
+    final $_column = $_itemColumn<String>('recording_id')!;
+
+    final manager = $$RecordingsTableTableManager(
+      $_db,
+      $_db.recordings,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordingIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$ReminderExportsTableFilterComposer
+    extends Composer<_$VaultVoiceDatabase, $ReminderExportsTable> {
+  $$ReminderExportsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get itemKey => $composableBuilder(
+    column: $table.itemKey,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get calendarItemId => $composableBuilder(
+    column: $table.calendarItemId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get reminderCalendarId => $composableBuilder(
+    column: $table.reminderCalendarId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<DateTime, DateTime, int> get exportedAt =>
+      $composableBuilder(
+        column: $table.exportedAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  $$RecordingsTableFilterComposer get recordingId {
+    final $$RecordingsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableFilterComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ReminderExportsTableOrderingComposer
+    extends Composer<_$VaultVoiceDatabase, $ReminderExportsTable> {
+  $$ReminderExportsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get itemKey => $composableBuilder(
+    column: $table.itemKey,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get calendarItemId => $composableBuilder(
+    column: $table.calendarItemId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get reminderCalendarId => $composableBuilder(
+    column: $table.reminderCalendarId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get exportedAt => $composableBuilder(
+    column: $table.exportedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$RecordingsTableOrderingComposer get recordingId {
+    final $$RecordingsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableOrderingComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ReminderExportsTableAnnotationComposer
+    extends Composer<_$VaultVoiceDatabase, $ReminderExportsTable> {
+  $$ReminderExportsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get itemKey =>
+      $composableBuilder(column: $table.itemKey, builder: (column) => column);
+
+  GeneratedColumn<String> get calendarItemId => $composableBuilder(
+    column: $table.calendarItemId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get reminderCalendarId => $composableBuilder(
+    column: $table.reminderCalendarId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumnWithTypeConverter<DateTime, int> get exportedAt =>
+      $composableBuilder(
+        column: $table.exportedAt,
+        builder: (column) => column,
+      );
+
+  $$RecordingsTableAnnotationComposer get recordingId {
+    final $$RecordingsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ReminderExportsTableTableManager
+    extends
+        RootTableManager<
+          _$VaultVoiceDatabase,
+          $ReminderExportsTable,
+          ReminderExportRow,
+          $$ReminderExportsTableFilterComposer,
+          $$ReminderExportsTableOrderingComposer,
+          $$ReminderExportsTableAnnotationComposer,
+          $$ReminderExportsTableCreateCompanionBuilder,
+          $$ReminderExportsTableUpdateCompanionBuilder,
+          (ReminderExportRow, $$ReminderExportsTableReferences),
+          ReminderExportRow,
+          PrefetchHooks Function({bool recordingId})
+        > {
+  $$ReminderExportsTableTableManager(
+    _$VaultVoiceDatabase db,
+    $ReminderExportsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ReminderExportsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ReminderExportsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ReminderExportsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> itemKey = const Value.absent(),
+                Value<String> recordingId = const Value.absent(),
+                Value<String> calendarItemId = const Value.absent(),
+                Value<String> reminderCalendarId = const Value.absent(),
+                Value<DateTime> exportedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ReminderExportsCompanion(
+                itemKey: itemKey,
+                recordingId: recordingId,
+                calendarItemId: calendarItemId,
+                reminderCalendarId: reminderCalendarId,
+                exportedAt: exportedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String itemKey,
+                required String recordingId,
+                required String calendarItemId,
+                required String reminderCalendarId,
+                required DateTime exportedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => ReminderExportsCompanion.insert(
+                itemKey: itemKey,
+                recordingId: recordingId,
+                calendarItemId: calendarItemId,
+                reminderCalendarId: reminderCalendarId,
+                exportedAt: exportedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$ReminderExportsTable, ReminderExportRow>(table),
+                  $$ReminderExportsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({recordingId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordingId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.recordingId,
+                        referencedTable: $$ReminderExportsTableReferences
+                            ._recordingIdTable(db),
+                        referencedColumn: $$ReminderExportsTableReferences
+                            ._recordingIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$ReminderExportsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$VaultVoiceDatabase,
+      $ReminderExportsTable,
+      ReminderExportRow,
+      $$ReminderExportsTableFilterComposer,
+      $$ReminderExportsTableOrderingComposer,
+      $$ReminderExportsTableAnnotationComposer,
+      $$ReminderExportsTableCreateCompanionBuilder,
+      $$ReminderExportsTableUpdateCompanionBuilder,
+      (ReminderExportRow, $$ReminderExportsTableReferences),
+      ReminderExportRow,
+      PrefetchHooks Function({bool recordingId})
+    >;
 
 class $VaultVoiceDatabaseManager {
   final _$VaultVoiceDatabase _db;
@@ -19417,4 +20263,6 @@ class $VaultVoiceDatabaseManager {
       $$ModelsInstalledTableTableManager(_db, _db.modelsInstalled);
   $$SettingsTableTableManager get settings =>
       $$SettingsTableTableManager(_db, _db.settings);
+  $$ReminderExportsTableTableManager get reminderExports =>
+      $$ReminderExportsTableTableManager(_db, _db.reminderExports);
 }

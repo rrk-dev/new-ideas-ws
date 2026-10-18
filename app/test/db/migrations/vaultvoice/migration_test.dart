@@ -140,4 +140,32 @@ void main() {
       expect(await db.customSelect('SELECT 1 FROM $t').get(), isEmpty);
     }
   });
+
+  test('[TSK-02] v4 → v5 keeps recordings; reminder_exports rows go with '
+      'their recording', () async {
+    final schema = await verifier.schemaAt(4);
+    schema.rawDatabase.execute(
+      'INSERT INTO recordings (id, title, created_at, status, source, tags) '
+      "VALUES ('r1', 'Standup', 0, 'ready', 'recorded', '[]')",
+    );
+    final db = VaultVoiceDatabase(schema.newConnection());
+    addTearDown(db.close);
+    await verifier.migrateAndValidate(db, 5);
+    await db.customStatement('PRAGMA foreign_keys = ON');
+
+    expect(
+      await db.customSelect('SELECT id FROM recordings').get(),
+      hasLength(1),
+    );
+    await db.customStatement(
+      'INSERT INTO reminder_exports (item_key, recording_id, '
+      'calendar_item_id, reminder_calendar_id, exported_at) '
+      "VALUES ('k', 'r1', 'c', 'l', 0)",
+    );
+    await db.customStatement("DELETE FROM recordings WHERE id = 'r1'");
+    expect(
+      await db.customSelect('SELECT 1 FROM reminder_exports').get(),
+      isEmpty,
+    );
+  });
 }

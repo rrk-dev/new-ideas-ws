@@ -43,6 +43,13 @@
 	</dict>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Face ID unlocks your recordings and notes when the app lock is on.</string>
+	<!-- TSK-02 / ADR-TSK-01: full reminders access (no write-only level exists
+	     for reminders). Asked only after the user taps "Add to Reminders".
+	     The legacy key serves iOS 16. -->
+	<key>NSRemindersFullAccessUsageDescription</key>
+	<string>Lumen adds the action items you choose to your Reminders. They stay on your device; if your Reminders sync with iCloud, that is your own iCloud setting.</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>Lumen adds the action items you choose to your Reminders. They stay on your device; if your Reminders sync with iCloud, that is your own iCloud setting.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Lumen uses the microphone only to record notes you start. Audio is processed on this device and never uploaded.</string>
 	<!-- AUD-06: "Open in" / "Copy to Lumen" for audio files (copied, never

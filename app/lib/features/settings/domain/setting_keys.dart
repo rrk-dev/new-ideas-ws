@@ -97,6 +97,9 @@ abstract final class SettingKeys {
   /// (`kNetworkDisabledKey`, MDL-04 / LIC-04).
   static const networkOffline = 'network_disabled';
 
+  /// String, the Reminders list id the user last exported to (TSK-02).
+  static const remindersLastList = 'reminders.last_list';
+
   /// List of strings: the user's extra STT vocabulary hints for a profile
   /// (PRF-05), added to the profile's own `stt.vocabulary`.
   static String vocabularyFor(String profileId) => 'vocabulary.$profileId';

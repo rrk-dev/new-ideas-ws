@@ -9,6 +9,8 @@ import 'package:vaultvoice/core/widgets/status_message.dart';
 import 'package:vaultvoice/features/library/data/library_providers.dart';
 import 'package:vaultvoice/features/library/domain/recording_detail.dart';
 import 'package:vaultvoice/features/library/presentation/library_texts.dart';
+import 'package:vaultvoice/features/reminders/data/reminders_providers.dart';
+import 'package:vaultvoice/features/reminders/presentation/reminders_sheet.dart';
 
 /// Open tasks across all recordings (APP-02), from the `action_items` table
 /// RenderStep fills. Ticking an item marks it done in the app (the exported
@@ -41,7 +43,18 @@ class _ActionItemsScreenState extends ConsumerState<ActionItemsScreen> {
     final l10n = context.l10n;
     final items = ref.watch(actionItemsProvider(openOnly: _openOnly));
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.actionItemsTitle)),
+      appBar: AppBar(
+        title: Text(l10n.actionItemsTitle),
+        actions: [
+          if (ref.watch(remindersSupportedProvider))
+            IconButton(
+              key: const ValueKey('action-items-reminders'),
+              tooltip: l10n.remindersAdd,
+              icon: const Icon(Icons.add_task),
+              onPressed: () => showRemindersSheet(context, ref),
+            ),
+        ],
+      ),
       body: Column(
         children: [
           Padding(

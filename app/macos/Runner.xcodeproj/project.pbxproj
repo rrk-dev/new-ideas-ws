@@ -40,6 +40,8 @@
 		A0D09A000000000000000036 /* BookmarkApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000016 /* BookmarkApi.g.swift */; };
 		A0D09A000000000000000037 /* AudioImportApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000017 /* AudioImportApi.g.swift */; };
 		A0D09A000000000000000038 /* PurchaseApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000018 /* PurchaseApi.g.swift */; };
+		A0D09A000000000000000039 /* RemindersHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A000000000000000019 /* RemindersHostApiImpl.swift */; };
+		A0D09A00000000000000003A /* RemindersApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D09A00000000000000001A /* RemindersApi.g.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +118,8 @@
 		A0D09A000000000000000016 /* BookmarkApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../../ios/Runner/BookmarkApi.g.swift"; sourceTree = "<group>"; };
 		A0D09A000000000000000017 /* AudioImportApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../../ios/Runner/AudioImportApi.g.swift"; sourceTree = "<group>"; };
 		A0D09A000000000000000018 /* PurchaseApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../../ios/Runner/PurchaseApi.g.swift"; sourceTree = "<group>"; };
+		A0D09A000000000000000019 /* RemindersHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../../ios/Runner/RemindersHostApiImpl.swift"; sourceTree = "<group>"; };
+		A0D09A00000000000000001A /* RemindersApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../../ios/Runner/RemindersApi.g.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +221,8 @@
 				A0D09A000000000000000016 /* BookmarkApi.g.swift */,
 				A0D09A000000000000000017 /* AudioImportApi.g.swift */,
 				A0D09A000000000000000018 /* PurchaseApi.g.swift */,
+				A0D09A000000000000000019 /* RemindersHostApiImpl.swift */,
+				A0D09A00000000000000001A /* RemindersApi.g.swift */,
 				33E51913231747F40026EE4D /* DebugProfile.entitlements */,
 				33E51914231749380026EE4D /* Release.entitlements */,
 				33CC11242044D66E0003C045 /* Resources */,
@@ -482,6 +488,8 @@
 				A0D09A000000000000000036 /* BookmarkApi.g.swift in Sources */,
 				A0D09A000000000000000037 /* AudioImportApi.g.swift in Sources */,
 				A0D09A000000000000000038 /* PurchaseApi.g.swift in Sources */,
+				A0D09A000000000000000039 /* RemindersHostApiImpl.swift in Sources */,
+				A0D09A00000000000000003A /* RemindersApi.g.swift in Sources */,
 				33CC10F12044A3C60003C045 /* AppDelegate.swift in Sources */,
 				335BBD1B22A9A15E00E9071D /* GeneratedPluginRegistrant.swift in Sources */,
 			);

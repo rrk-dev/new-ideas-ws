@@ -4,12 +4,14 @@ import 'package:vaultvoice/core/db/converters.dart';
 import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/db/migrations.dart';
 import 'package:vaultvoice/core/db/mind_map_migration.dart';
+import 'package:vaultvoice/core/db/reminder_migration.dart';
 import 'package:vaultvoice/core/db/repositories/extractions_repository.dart';
 import 'package:vaultvoice/core/db/repositories/jobs_repository.dart';
 import 'package:vaultvoice/core/db/repositories/mind_maps_repository.dart';
 import 'package:vaultvoice/core/db/repositories/models_repository.dart';
 import 'package:vaultvoice/core/db/repositories/profiles_repository.dart';
 import 'package:vaultvoice/core/db/repositories/recordings_repository.dart';
+import 'package:vaultvoice/core/db/repositories/reminder_exports_repository.dart';
 import 'package:vaultvoice/core/db/repositories/settings_repository.dart';
 import 'package:vaultvoice/core/db/repositories/transcripts_repository.dart';
 import 'package:vaultvoice/core/db/repositories/vault_repository.dart';
@@ -21,6 +23,7 @@ import 'package:vaultvoice/core/db/tables/job_tables.dart';
 import 'package:vaultvoice/core/db/tables/mind_map_tables.dart';
 import 'package:vaultvoice/core/db/tables/profile_tables.dart';
 import 'package:vaultvoice/core/db/tables/recording_tables.dart';
+import 'package:vaultvoice/core/db/tables/reminder_tables.dart';
 import 'package:vaultvoice/core/db/tables/settings_tables.dart';
 import 'package:vaultvoice/core/db/tables/transcript_tables.dart';
 
@@ -53,6 +56,7 @@ part 'database.g.dart';
     AskThreads,
     AskTurns,
     AskCitations,
+    ReminderExports,
   ],
   // APP-02: FTS5 search index + the triggers that keep it in sync.
   include: {'tables/search.drift', 'tables/ask.drift'},
@@ -66,6 +70,7 @@ part 'database.g.dart';
     VaultRepository,
     ModelsRepository,
     SettingsRepository,
+    ReminderExportsRepository,
   ],
 )
 class VaultVoiceDatabase extends _$VaultVoiceDatabase {
@@ -73,7 +78,7 @@ class VaultVoiceDatabase extends _$VaultVoiceDatabase {
 
   /// Current schema version. Bump together with a registered step in
   /// [migrationSteps] and `drift_dev make-migrations`.
-  static const int currentSchemaVersion = 4;
+  static const int currentSchemaVersion = 5;
 
   /// Upgrade steps keyed by target version.
   static const Map<int, SchemaStep> migrationSteps = {
@@ -83,6 +88,8 @@ class VaultVoiceDatabase extends _$VaultVoiceDatabase {
     3: migrateToV3MindMaps,
     // ASK-03: chat history tables + citation triggers.
     4: migrateToV4Ask,
+    // TSK-02: reminder_exports table (additive).
+    5: migrateToV5ReminderExports,
   };
 
   @override

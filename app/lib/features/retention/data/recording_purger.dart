@@ -112,6 +112,11 @@ class RecordingPurger {
             await (db.delete(
               db.mindMaps,
             )..where((m) => m.recordingId.equals(id))).go();
+            // TSK-02: links to exported reminders describe action items
+            // that are gone with the transcript scope.
+            await (db.delete(
+              db.reminderExports,
+            )..where((m) => m.recordingId.equals(id))).go();
             // ASK-03: answers, passages and citations derived from the
             // transcript go too. Deleting the citations removes their turns
             // (trigger); a per-recording thread goes with its transcript.
