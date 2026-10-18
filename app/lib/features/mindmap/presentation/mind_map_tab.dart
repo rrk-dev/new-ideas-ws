@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -8,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
+import 'package:vaultvoice/core/platform/share_bytes.dart';
 import 'package:vaultvoice/core/platform/share_service.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/core/widgets/lumen_card.dart';
@@ -181,16 +181,19 @@ class _MapViewState extends ConsumerState<_MapView> {
     final l10n = context.l10n;
     final messenger = ScaffoldMessenger.of(context);
     final share = ref.read(shareServiceProvider);
-    final dir = ref.read(appPathsProvider).temp;
+    final paths = ref.read(appPathsProvider);
     var ok = false;
     try {
       final bytes = await capturePng();
       if (bytes != null && bytes.isNotEmpty) {
-        await dir.create(recursive: true);
-        final file = File('${dir.path}/mind-map.png');
-        await file.writeAsBytes(bytes, flush: true);
         ok =
-            await share.shareFile(file.path, mimeType: 'image/png') !=
+            await shareBytesAsFile(
+              share,
+              paths,
+              bytes: bytes,
+              fileName: 'mind-map.png',
+              mimeType: 'image/png',
+            ) !=
             ShareOutcome.unavailable;
       }
     } on Object {
