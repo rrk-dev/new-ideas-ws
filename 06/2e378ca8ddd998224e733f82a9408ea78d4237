@@ -1,0 +1,38 @@
+docs/adr/ADR-ASK-02-retrieval.md
+  s_5095472e80968b::t_e7804c0e5b8ddf 94-301
+tasks/14-product-phase2/ASK-03-ask-engine.md
+  s_5095472e80968b::t_afa001c5db3673 27-29
+tools/bench/ask/questions.json
+  s_5095472e80968b::t_491e75cffb822c 1-53
+tools/bench/ask/library.json
+  s_5095472e80968b::t_3f100aa9d1bd92 1-170
+tools/bench/results/2026-10-17-ask02-retrieval.md
+  s_5095472e80968b::t_266f41dc793b47 1-81
+tools/bench/ask/retrieval_eval.py
+  s_5095472e80968b::t_0416aee231f671 1-409
+tasks/14-product-phase2/ASK-02-retrieval-decision.md
+  s_5095472e80968b::t_44f3175f6ffc53 4,33
+  s_5095472e80968b::t_ccd72ad8d43143 11-17,28-32,34-40
+tasks/README.md
+  s_5095472e80968b::t_ccd72ad8d43143 242
+tasks/14-product-phase2/ASK-04-ask-ui.md
+  s_5095472e80968b::t_afa001c5db3673 23-25
+tools/bench/results/2026-10-17-ask02-retrieval.json
+  s_5095472e80968b::t_266f41dc793b47 1-2170
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "062e378ca8ddd998224e733f82a9408ea78d4237",
+  "prompts": {},
+  "sessions": {
+    "s_5095472e80968b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "662c42c7-18d9-4cfa-9280-08ec51c9ab04",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
