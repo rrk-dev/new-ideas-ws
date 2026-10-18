@@ -1,7 +1,7 @@
 # LIC-04 — Enterprise Managed Configuration (MDM)
 
 **Workstream:** Licensing | **Phase:** 4+ | **Size:** M | **Depends on:** LIC-03, PRF-08 | **Source:** §7 (Pre-configured enterprise templates) + Gap
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-licensing-iap, vv-flutter-architecture, vv-privacy-security, vv-extraction-profiles, vv-testing
 
 ## Goal
