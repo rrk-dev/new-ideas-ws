@@ -31,6 +31,13 @@ Recording starts only when you tap Record, and the app always shows that it
 is recording. Lumen does not record phone or VoIP calls: recording stops
 when a call starts. Only record people who know and agree to it.
 
+## Legal URLs (LEG-01)
+- Privacy policy URL: `https://example.invalid/privacy` (placeholder)
+- Terms of Use URL: `https://example.invalid/terms` (placeholder)
+- Owner TODO: host both documents (`app/assets/legal/`) at public URLs; the
+  stores require them. The app itself never opens a browser for them.
+- Minimum age 21: keep the store age rating and the Terms consistent.
+
 ## Keywords (iOS, 100 chars)
 voice notes,transcribe,markdown,obsidian,logseq,offline,private,meeting notes
 

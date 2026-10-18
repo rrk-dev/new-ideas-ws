@@ -393,3 +393,11 @@ Engineering sign-off is the date and command evidence above. Human sign-off is a
 | P6 Quick capture | ✅ 2026-10-18 | ⏳ SEC-11-D4, D9 |
 | P7 Share extension | ✅ 2026-10-18 | ⏳ SEC-11-D5, D9 |
 | P8 Live Activity | ✅ 2026-10-18 | ⏳ SEC-11-D8 |
+
+## LEG-01 legal acceptance record (2026-10-18)
+
+| Question | Answer |
+|---|---|
+| Network use / host | **None added.** The Terms and Privacy screens and the first-run acceptance read bundled assets; no browser, no request. `kModelHosts` and `tools/ci/check_egress.sh` unchanged. |
+| Data stored | Three local settings in the encrypted DB: accepted document version, acceptance timestamp and the "I am 21 or older" confirmation. Never sent anywhere; removed by Delete all data. |
+| Policy text | `app/assets/legal/privacy_policy.md` is checked against this audit by `[LEG-01/AC6]` (no analytics or advertising, model hosts from `kModelHosts`). |

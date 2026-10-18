@@ -26,6 +26,7 @@ import 'package:vaultvoice/features/ask/domain/ask_history.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/export/domain/pending_export.dart';
 import 'package:vaultvoice/features/export/domain/routing_rule.dart';
+import 'package:vaultvoice/features/legal/domain/legal_documents.dart';
 import 'package:vaultvoice/features/library/domain/recording_detail.dart';
 import 'package:vaultvoice/features/licensing/data/purchase_providers.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_access.dart';
@@ -225,7 +226,10 @@ List<Override> _overrides({bool locked = false}) => [
   storagePathsProvider.overrideWith((ref) => Completer<StoragePaths>().future),
   // APP-01: past onboarding, so the router does not redirect.
   settingsStoreProvider.overrideWithValue(
-    FakeSettingsStore({OnboardingKeys.completed: true}),
+    FakeSettingsStore({
+      OnboardingKeys.completed: true,
+      LegalKeys.acceptedVersion: kLegalVersion,
+    }),
   ),
   managedSettingsSourceProvider.overrideWithValue(const _Managed()),
   vaultTargetsProvider.overrideWith(

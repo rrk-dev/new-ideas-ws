@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
-import 'package:vaultvoice/core/theme/app_tokens.dart';
+import 'package:vaultvoice/features/legal/domain/legal_documents.dart';
+import 'package:vaultvoice/features/legal/presentation/legal_document_view.dart';
 
-/// Bundled privacy policy (SEC-06). Read from the asset, so it works offline
-/// and never opens a browser or network connection.
+/// Bundled privacy policy (SEC-06, LEG-01). Read from the asset, so it works
+/// offline and never opens a browser or network connection.
 class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({super.key, this.bundle});
 
-  static const assetPath = 'assets/legal/privacy_policy.md';
+  static const String assetPath = kPrivacyAsset;
 
   /// Test seam; defaults to [rootBundle].
   final AssetBundle? bundle;
@@ -19,22 +19,11 @@ class PrivacyPolicyScreen extends StatelessWidget {
     final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(title: Text(l10n.privacyPolicyTitle)),
-      body: FutureBuilder<String>(
-        future: (bundle ?? rootBundle).loadString(assetPath),
-        builder: (context, snap) {
-          if (snap.hasError) {
-            return Center(child: Text(l10n.privacyPolicyLoadFailed));
-          }
-          final text = snap.data;
-          if (text == null) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return Markdown(
-            key: const ValueKey('privacy-policy-text'),
-            data: text,
-            padding: const EdgeInsets.all(AppSpacing.lg),
-          );
-        },
+      body: LegalDocumentView(
+        asset: assetPath,
+        bundle: bundle,
+        loadFailedText: l10n.privacyPolicyLoadFailed,
+        markdownKey: const ValueKey('privacy-policy-text'),
       ),
     );
   }

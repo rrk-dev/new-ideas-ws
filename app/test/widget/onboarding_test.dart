@@ -20,6 +20,7 @@ import 'package:vaultvoice/core/platform/app_settings_launcher.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/features/export/data/export_providers.dart';
 import 'package:vaultvoice/features/export/domain/vault_folder.dart';
+import 'package:vaultvoice/features/legal/domain/legal_documents.dart';
 import 'package:vaultvoice/features/models/data/download_providers.dart';
 import 'package:vaultvoice/features/models/data/model_import_providers.dart';
 import 'package:vaultvoice/features/models/data/model_state_providers.dart';
@@ -101,7 +102,10 @@ class _Rig {
        notifier = FakeLocalNotifier(grant: grantNotifications),
        downloader = FakeModelDownloader(blocks: blocks),
        folders = FakeVaultFolderAccess(folder),
-       store = FakeSettingsStore(settings);
+       store = FakeSettingsStore({
+         LegalKeys.acceptedVersion: kLegalVersion,
+         ...settings,
+       });
 
   final FakeLocalNotifier notifier;
   final FakeModelDownloader downloader;

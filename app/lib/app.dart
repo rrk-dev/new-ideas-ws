@@ -6,6 +6,7 @@ import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/theme/app_theme.dart';
 import 'package:vaultvoice/features/app_lock/presentation/app_lock_gate.dart';
+import 'package:vaultvoice/features/legal/presentation/legal_gate.dart';
 import 'package:vaultvoice/features/models/data/download_providers.dart';
 import 'package:vaultvoice/features/recording/presentation/quick_capture_host.dart';
 import 'package:vaultvoice/features/settings/presentation/crash_reports.dart';
@@ -29,12 +30,15 @@ class App extends ConsumerWidget {
       routerConfig: router,
       // REL-02: offer last run's crash report once, after the first frame.
       // SEC-03: the app lock covers everything (dialogs included).
+      // LEG-01: Terms and Privacy acceptance covers the app until accepted.
       builder: (context, child) => AppLockGate(
-        child: QuickCaptureHost(
-          navigator: router.routerDelegate.navigatorKey,
-          child: CrashReportGate(
-            navigatorKey: router.routerDelegate.navigatorKey,
-            child: child ?? const SizedBox.shrink(),
+        child: LegalGate(
+          child: QuickCaptureHost(
+            navigator: router.routerDelegate.navigatorKey,
+            child: CrashReportGate(
+              navigatorKey: router.routerDelegate.navigatorKey,
+              child: child ?? const SizedBox.shrink(),
+            ),
           ),
         ),
       ),

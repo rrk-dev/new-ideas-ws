@@ -11,6 +11,7 @@ import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/core/widgets/lumen_card.dart';
 import 'package:vaultvoice/features/ask/data/ask_providers.dart';
 import 'package:vaultvoice/features/extraction/presentation/llm_debug_screen.dart';
+import 'package:vaultvoice/features/legal/presentation/terms_of_use_screen.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_matrix.dart';
 import 'package:vaultvoice/features/models/data/model_state_providers.dart';
@@ -152,6 +153,17 @@ class SettingsScreen extends ConsumerWidget {
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute<void>(
                   builder: (_) => const PrivacyPolicyScreen(),
+                ),
+              ),
+            ),
+            ListTile(
+              key: const ValueKey('about-terms-of-use'),
+              leading: const Icon(Icons.gavel_outlined),
+              title: Text(l10n.aboutTermsOfUse),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => const TermsOfUseScreen(),
                 ),
               ),
             ),

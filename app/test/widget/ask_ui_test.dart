@@ -159,7 +159,7 @@ void main() {
     await _pump(t, engine: engine);
     await _ask(t, 'When is the launch?');
     expect(find.text('The launch moved to May.'), findsOneWidget);
-    expect(find.text(_l.askDisclaimer), findsOneWidget);
+    expect(find.text(_l.aiOutputDisclaimer), findsOneWidget);
     expect(find.text('00:01:23'), findsOneWidget);
     expect(engine.requests.single.question, 'When is the launch?');
   });

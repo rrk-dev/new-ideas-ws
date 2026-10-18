@@ -165,6 +165,12 @@ class _ReviewEditorState extends ConsumerState<_ReviewEditor> {
               padding: const EdgeInsets.all(AppSpacing.md),
               children: [
                 Text(l10n.reviewIntro(widget.profile.name)),
+                const SizedBox(height: AppSpacing.xs),
+                Text(
+                  l10n.aiOutputDisclaimer,
+                  key: const ValueKey('ai-output-disclaimer'),
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
                 const SizedBox(height: AppSpacing.sm),
                 SchemaForm(
                   schema: widget.profile.schema,

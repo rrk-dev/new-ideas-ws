@@ -28,5 +28,8 @@ a device; the repository work for them is done.
 - [ ] ⏳ Play pre-launch report passed (no policy warnings)
 
 ## Content
-- [ ] ⏳ Business/legal supplied the final privacy policy text; `app/assets/legal/privacy_policy.md` replaced
+- [ ] ⏳ A qualified lawyer reviewed `app/assets/legal/terms_of_use.md` and `privacy_policy.md` (LEG-01; lawyer checklist in `docs/legal/README.md`)
+- [ ] ⏳ Draft banner removed: `kLegalReleaseApproved = true` and/or the two banner lines deleted from both documents (LEG-01); bump `kLegalVersion` if the text changed
+- [ ] ⏳ Publisher entity exists and `[CITY, INDIA]` is replaced in the Terms; employment/IP agreement checked (LEG-01)
+- [ ] ⏳ Terms of Use URL set next to the privacy policy URL (both documents hosted at a public URL, LEG-01)
 - [ ] ⏳ Legal reviewed the consent wording (SEC-07) and the store copy
