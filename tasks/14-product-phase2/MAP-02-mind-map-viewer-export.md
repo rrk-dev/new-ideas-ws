@@ -1,7 +1,7 @@
 # MAP-02 — Mind-map viewer and export
 
 **Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** M | **Depends on:** MAP-01, UIX-01, STT-06, EXP-05 | **Source:** User decision 2026-10-16 (product Phase 2: mind maps)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-markdown-vault-export, vv-privacy-security, vv-testing
 
 ## Goal
