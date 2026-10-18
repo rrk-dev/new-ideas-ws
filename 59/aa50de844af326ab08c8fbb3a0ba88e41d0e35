@@ -1,0 +1,21 @@
+tools/ci/check_store_privacy.py
+  s_9450697a967066::t_4bd9154ce66391 62-63
+tasks/14-product-phase2/TSK-02-apple-reminders-export.md
+  s_9450697a967066::t_2ac1ad02ff8c20 41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "59aa50de844af326ab08c8fbb3a0ba88e41d0e35",
+  "prompts": {},
+  "sessions": {
+    "s_9450697a967066": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "080beacb-b5f0-4236-8780-01faa814d924",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
