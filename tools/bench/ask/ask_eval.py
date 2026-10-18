@@ -6,7 +6,7 @@ tasks/14-product-phase2/ASK-03-ask-engine.md before the first run.
 
   # run the engine over the 44 questions with the real 3B (host build), then score:
   python3 tools/bench/ask/ask_eval.py run --model <3b.gguf> [--lib <libvv_native>] \
-      [--arms base,rewrite] --out tools/bench/results/2026-10-17-ask03-eval
+      [--arms base,rewrite,verify] --out tools/bench/results/2026-10-17-ask03-eval
 
   # score existing raw results only:
   python3 tools/bench/ask/ask_eval.py score --raw base=a.jsonl [rewrite=b.jsonl] --out <prefix>
@@ -173,7 +173,8 @@ def render(res: dict) -> str:
 
 def run_arm(arm: str, model: Path, lib: str | None, raw: Path, n_ctx: int) -> None:
     env = dict(os.environ, ASK_EVAL_MODEL=str(model), ASK_EVAL_OUT=str(raw), ASK_EVAL_NCTX=str(n_ctx),
-               ASK_EVAL_REWRITE="1" if arm == "rewrite" else "0")
+               ASK_EVAL_REWRITE="1" if arm == "rewrite" else "0",
+               ASK_EVAL_VERIFY="1" if arm == "verify" else "0")
     if lib:
         env["ASK_EVAL_LIB"] = lib
     cmd = ["nice", "-n", "10", "fvm", "flutter", "test", "test/eval/ask_eval_host_test.dart"]

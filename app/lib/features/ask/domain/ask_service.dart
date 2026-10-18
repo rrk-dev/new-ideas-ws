@@ -11,6 +11,7 @@ import 'package:vaultvoice/features/ask/domain/ask_models.dart';
 import 'package:vaultvoice/features/ask/domain/ask_prompt.dart';
 import 'package:vaultvoice/features/ask/domain/ask_query.dart';
 import 'package:vaultvoice/features/ask/domain/ask_retriever.dart';
+import 'package:vaultvoice/features/ask/domain/ask_verifier.dart';
 import 'package:vaultvoice/features/extraction/domain/model_residency.dart';
 import 'package:vaultvoice/features/profiles/domain/profile_grammar.dart';
 
@@ -58,9 +59,16 @@ final class AskService implements AskEngine {
     this.idleUnload = const Duration(seconds: 90),
     this.modelEstimateBytes = kAskModelEstimateMiB * 1024 * 1024,
     this.maxTokens = 400,
+    this.verifyCitations = false,
   });
 
   final AskRetriever retriever;
+
+  /// Second constrained pass: each citation must be judged `yes` by the
+  /// model (ASK-05). Off by default: the measured 3B trade-off did not pass
+  /// the pre-registered adoption rule (ADR-ASK-02). Fails open on engine
+  /// errors, never on cancel.
+  final bool verifyCitations;
   final LlmEngine engine;
   final SchemaGrammarConverter grammarConverter;
   final ModelResidency residency;
@@ -194,9 +202,23 @@ final class AskService implements AskEngine {
     if (token.isCancelled) return const Err(CancelledFailure());
 
     final raw0 = parseAskAnswer(raw, prompt.passages);
-    final parsed = raw0 == null
+    var parsed = raw0 == null
         ? null
         : groundAskAnswer(request.question, raw0, prompt.passages);
+    if (parsed != null && parsed.found && verifyCitations) {
+      final verified = await _verify(
+        request.question,
+        parsed,
+        prompt.passages,
+        token,
+      );
+      switch (verified) {
+        case Ok(:final value):
+          parsed = value;
+        case Err(:final failure):
+          return Err(failure);
+      }
+    }
     if (parsed == null) {
       return await _finish(request, retrievalOnly(), save: false);
     }
@@ -209,6 +231,65 @@ final class AskService implements AskEngine {
           )
         : _notFound(prompt.passages);
     return await _finish(request, answer);
+  }
+
+  Future<Result<ParsedAskAnswer>> _verify(
+    String question,
+    ParsedAskAnswer parsed,
+    List<AskPassage> passages,
+    CancelToken token,
+  ) async {
+    final verdictGrammar = await grammarConverter.toGbnf(kAskVerifySchema);
+    if (verdictGrammar is! Ok<String>) return Ok(parsed);
+    _idleTimer?.cancel();
+    _active = token;
+    final kept = <Citation>[];
+    try {
+      for (final c in parsed.citations) {
+        final target = passages.where(
+          (p) => p.recordingId == c.recordingId && p.tMs == c.tMs,
+        );
+        if (target.isEmpty) continue;
+        final result = await engine.generate(
+          LlmRequest(
+            prompt: buildAskVerifyPrompt(
+              question: question,
+              answer: parsed.answer,
+              target: target.first,
+              passages: passages,
+            ),
+            systemPrompt: kAskVerifySystemPrompt,
+            grammar: verdictGrammar.value,
+            maxTokens: 12,
+            sampling: const LlmSampling(preset: LlmPreset.deterministic),
+          ),
+          cancel: token,
+        );
+        switch (result) {
+          case Ok(:final value):
+            if (parseAskVerdict(value) ?? true) kept.add(c);
+          case Err(failure: CancelledFailure()):
+            return const Err(CancelledFailure());
+          case Err():
+            log?.warning('ask', 'verify failed');
+            return Ok(parsed);
+        }
+      }
+    } finally {
+      _active = null;
+      _scheduleIdleUnload();
+    }
+    log?.info(
+      'ask',
+      'verified',
+      fields: {'citations': parsed.citations.length, 'kept': kept.length},
+    );
+    if (token.isCancelled) return const Err(CancelledFailure());
+    return Ok(
+      kept.isEmpty
+          ? const ParsedAskAnswer(answer: '', citations: [])
+          : ParsedAskAnswer(answer: parsed.answer, citations: kept),
+    );
   }
 
   AskAnswer _notFound(List<AskPassage> passages) => AskAnswer(

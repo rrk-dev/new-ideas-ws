@@ -336,3 +336,20 @@ grammar-constrained; 44 questions, 33 recordings. Reports:
 2. **No 1B Ask:** Mid/Low tiers show "Ask isn't available on this device".
 3. **Chat history is saved by default** with a 30-day expiry, a user-visible clear-all and
    per-chat delete.
+
+## ASK-05 addendum: second constrained check (measured 2026-10-18)
+
+Pre-registered before the first run (task file, commit `test(ASK-05)`): same targets, not relaxed (precision ≥ 90% gate, refusal ≥ 90% gate, recall@10 ≥ 80% gate, correctness ≥ 70%, hallucination ≤ 15%). Adopt the verifier only if both gates pass and the targets hold, median latency < 25 s. Eval: 86 questions (60 answerable, 26 unanswerable), 3B, host, greedy.
+
+| Run | Engine | Correct. | Precision | Refusal | Halluc. | Recall@10 | Median / p95 |
+|---|---|---|---|---|---|---|---|
+| baseline | ASK-03 engine, no verifier | 68.3% | 84.7% | 73.1% | 21.7% | 85.0% | 10.3 s / 16.7 s |
+| verify1 | + yes/no check, strict prompt ("states the answer") | 50.0% | 93.8% | 88.5% | 15.0% | 85.0% | 13.0 s / 21.7 s |
+| verify2 | + yes/no check, lenient prompt ("same topic, facts present") | 63.3% | 87.7% | 88.5% | 20.0% | 85.0% | 12.6 s / 22.2 s |
+
+Reports: `tools/bench/results/2026-10-18-ask05-{baseline,verify1,verify2}.md`.
+
+- **Decision: do not adopt the verifier on the 3B (default off).** No iteration met both gates and the correctness target: the strict prompt fixes precision but refuses 21 answerable questions; the lenient one gives the refusals back. The 3B cannot separate near-miss questions (U11 "When will Omar finish...?" vs "about half done", U13, U14) from paraphrases. Latency rose about 2.5 s median, inside the budget.
+- The larger eval shows the ASK-03 numbers were optimistic (refusal 87.5% on 8 became 73.1% on 26). Caveat: the questions are fictional and were written by the same authors as the library, so absolute values may not transfer; relative comparisons hold.
+- Only two prompt iterations were used (three allowed); a third would be tuning on the eval.
+- **Next step (product decision required):** evaluate a larger Ask model with this same eval and targets (new catalog entry, RAM tier and size budget), or accept lower quality. Proposed task: ASK-06. ASK-03 AC1 stays failing.
