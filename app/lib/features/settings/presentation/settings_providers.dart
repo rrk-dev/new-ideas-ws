@@ -5,8 +5,11 @@ import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/features/licensing/data/entitlement_license_port.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
+import 'package:vaultvoice/features/licensing/data/managed_config_providers.dart';
+import 'package:vaultvoice/features/licensing/data/managed_config_settings_source.dart';
 import 'package:vaultvoice/features/licensing/data/purchase_providers.dart';
 import 'package:vaultvoice/features/licensing/domain/enterprise_license.dart';
+import 'package:vaultvoice/features/profiles/data/profile_transfer_providers.dart';
 import 'package:vaultvoice/features/retention/data/retention_providers.dart';
 import 'package:vaultvoice/features/settings/data/drift_settings_store.dart';
 import 'package:vaultvoice/features/settings/domain/setting_definitions.dart';
@@ -14,10 +17,10 @@ import 'package:vaultvoice/features/settings/domain/settings_ports.dart';
 
 part 'settings_providers.g.dart';
 
-/// Organisation-managed settings; LIC-04 overrides the source.
+/// Organisation-managed settings: the MDM configuration (LIC-04).
 @Riverpod(keepAlive: true)
 ManagedSettingsSource managedSettingsSource(Ref ref) =>
-    const NoManagedSettings();
+    ManagedConfigSettingsSource(ref.watch(managedConfigSourceProvider));
 
 @Riverpod(keepAlive: true)
 Stream<ManagedSettings> managedSettings(Ref ref) =>
@@ -30,6 +33,10 @@ LicenseSettingsPort licenseSettingsPort(Ref ref) => EntitlementLicensePort(
   ref.watch(entitlementServiceProvider),
   verifier: EnterpriseLicenseVerifier(trustedKeys: kEnterpriseLicenseKeys),
   restore: () => ref.read(purchaseServiceProvider).restore(),
+  // Signed profile packs (PRF-08) verify against the licence's org key.
+  onInstalled: (license) => ref
+      .read(orgProfileKeysProvider.notifier)
+      .setFrom(license.orgProfilePubKey),
 );
 
 @riverpod

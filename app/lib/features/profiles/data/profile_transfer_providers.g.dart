@@ -14,7 +14,7 @@ part of 'profile_transfer_providers.dart';
 /// license's `org_profile_pubkey`; until then no key is trusted and signed
 /// packs are refused (`untrustedKey`). PRODUCT-DECISION: no built-in key.
 
-@ProviderFor(orgProfileKeys)
+@ProviderFor(OrgProfileKeys)
 final orgProfileKeysProvider = OrgProfileKeysProvider._();
 
 /// Organization keys allowed to sign managed profile packs.
@@ -22,15 +22,8 @@ final orgProfileKeysProvider = OrgProfileKeysProvider._();
 /// LIC-03 (enterprise license, not built yet) overrides this with the
 /// license's `org_profile_pubkey`; until then no key is trusted and signed
 /// packs are refused (`untrustedKey`). PRODUCT-DECISION: no built-in key.
-
 final class OrgProfileKeysProvider
-    extends
-        $FunctionalProvider<
-          List<OrgProfileKey>,
-          List<OrgProfileKey>,
-          List<OrgProfileKey>
-        >
-    with $Provider<List<OrgProfileKey>> {
+    extends $NotifierProvider<OrgProfileKeys, List<OrgProfileKey>> {
   /// Organization keys allowed to sign managed profile packs.
   ///
   /// LIC-03 (enterprise license, not built yet) overrides this with the
@@ -52,14 +45,7 @@ final class OrgProfileKeysProvider
 
   @$internal
   @override
-  $ProviderElement<List<OrgProfileKey>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  List<OrgProfileKey> create(Ref ref) {
-    return orgProfileKeys(ref);
-  }
+  OrgProfileKeys create() => OrgProfileKeys();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(List<OrgProfileKey> value) {
@@ -70,7 +56,31 @@ final class OrgProfileKeysProvider
   }
 }
 
-String _$orgProfileKeysHash() => r'a77ce8a0101d43d28a10d4fa71d63e3608f8585c';
+String _$orgProfileKeysHash() => r'b4ccb6bb7d34741f149fbae45fc9d068b8c50d60';
+
+/// Organization keys allowed to sign managed profile packs.
+///
+/// LIC-03 (enterprise license, not built yet) overrides this with the
+/// license's `org_profile_pubkey`; until then no key is trusted and signed
+/// packs are refused (`untrustedKey`). PRODUCT-DECISION: no built-in key.
+
+abstract class _$OrgProfileKeys extends $Notifier<List<OrgProfileKey>> {
+  List<OrgProfileKey> build();
+  @$mustCallSuper
+  @override
+  WhenComplete runBuild() {
+    final ref = this.ref as $Ref<List<OrgProfileKey>, List<OrgProfileKey>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<List<OrgProfileKey>, List<OrgProfileKey>>,
+              List<OrgProfileKey>,
+              Object?,
+              Object?
+            >;
+    return element.handleCreate(ref, build);
+  }
+}
 
 @ProviderFor(profileBundlePicker)
 final profileBundlePickerProvider = ProfileBundlePickerProvider._();

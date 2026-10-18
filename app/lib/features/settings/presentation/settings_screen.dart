@@ -13,6 +13,8 @@ import 'package:vaultvoice/features/ask/data/ask_providers.dart';
 import 'package:vaultvoice/features/extraction/presentation/llm_debug_screen.dart';
 import 'package:vaultvoice/features/legal/presentation/terms_of_use_screen.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
+import 'package:vaultvoice/features/licensing/data/managed_config_applier.dart';
+import 'package:vaultvoice/features/licensing/data/managed_config_providers.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_matrix.dart';
 import 'package:vaultvoice/features/models/data/model_state_providers.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
@@ -368,6 +370,20 @@ class _LicenseTiles extends ConsumerWidget {
     return parts.join(' · ');
   }
 
+  /// Content-free: states and counts only.
+  static List<String> _managedLines(AppLocalizations l, ManagedApplyStatus s) {
+    final lines = [
+      switch (s.license) {
+        ManagedLicenseState.installed => l.managedConfigLicenseInstalled,
+        ManagedLicenseState.rejected => l.managedConfigLicenseRejected,
+        ManagedLicenseState.none => null,
+      },
+      if (s.packsInstalled > 0) l.managedConfigPacksInstalled(s.packsInstalled),
+      if (s.packsRejected > 0) l.managedConfigPacksRejected(s.packsRejected),
+    ].nonNulls.toList();
+    return lines.isEmpty ? [l.managedConfigNoIssues] : lines;
+  }
+
   Future<void> _report(BuildContext context, bool ok, String done) async {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(ok ? done : context.l10n.commonNotAvailableYet)),
@@ -379,8 +395,17 @@ class _LicenseTiles extends ConsumerWidget {
     final summary = ref.watch(licenseSummaryProvider).value;
     final port = ref.watch(licenseSettingsPortProvider);
     final l10n = context.l10n;
+    final managed = ref.watch(managedConfigProvider).value;
+    final applied = ref.watch(managedConfigApplierProvider);
     return Column(
       children: [
+        if (managed != null && !managed.isEmpty)
+          ListTile(
+            key: const ValueKey('managed-config-status'),
+            leading: const Icon(Icons.lock_outline),
+            title: Text(l10n.managedConfigTitle),
+            subtitle: Text(_managedLines(l10n, applied).join('\n')),
+          ),
         ListTile(
           key: const ValueKey('license-status'),
           leading: const Icon(Icons.workspace_premium_outlined),

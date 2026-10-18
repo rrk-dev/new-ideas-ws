@@ -9,6 +9,7 @@ import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/platform/call_guard.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
+import 'package:vaultvoice/features/licensing/data/managed_config_providers.dart';
 import 'package:vaultvoice/features/onboarding/data/onboarding_providers.dart';
 import 'package:vaultvoice/features/onboarding/presentation/permission_priming.dart';
 import 'package:vaultvoice/features/onboarding/presentation/recording_consent_explainer.dart';
@@ -175,7 +176,12 @@ class _RecordScreenState extends ConsumerState<RecordScreen>
     }
     if (!mounted) return;
     // Auto (no profile) may resolve to a multi-person profile: ask too.
-    final mode = profile == null
+    // MDM `force_consent_confirmation` (LIC-04) only ever raises the mode
+    // to "required"; it can never skip a step.
+    final forceConsent = (await ref.read(managedConfigSourceProvider).read())
+        .forceConsentConfirmation;
+    if (!mounted) return;
+    final mode = forceConsent || profile == null
         ? ConsentMode.required
         : profile.consentRequired
         ? ConsentMode.required

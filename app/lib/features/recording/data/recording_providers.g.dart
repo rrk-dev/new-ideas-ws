@@ -983,4 +983,4 @@ final class RecordingControllerProvider
 }
 
 String _$recordingControllerHash() =>
-    r'ee7f45c73592156f25f80038a0a7aa3285fca478';
+    r'6ed6a0e99fb9b61d000bca1d92448cc046d6f680';

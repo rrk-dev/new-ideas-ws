@@ -8,12 +8,12 @@ part of 'settings_providers.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Organisation-managed settings; LIC-04 overrides the source.
+/// Organisation-managed settings: the MDM configuration (LIC-04).
 
 @ProviderFor(managedSettingsSource)
 final managedSettingsSourceProvider = ManagedSettingsSourceProvider._();
 
-/// Organisation-managed settings; LIC-04 overrides the source.
+/// Organisation-managed settings: the MDM configuration (LIC-04).
 
 final class ManagedSettingsSourceProvider
     extends
@@ -23,7 +23,7 @@ final class ManagedSettingsSourceProvider
           ManagedSettingsSource
         >
     with $Provider<ManagedSettingsSource> {
-  /// Organisation-managed settings; LIC-04 overrides the source.
+  /// Organisation-managed settings: the MDM configuration (LIC-04).
   ManagedSettingsSourceProvider._()
     : super(
         from: null,
@@ -59,7 +59,7 @@ final class ManagedSettingsSourceProvider
 }
 
 String _$managedSettingsSourceHash() =>
-    r'4b9d99dec11ff419ffa9fc9ff0bd0b9f128b661d';
+    r'3b46e7ff43a0d4fdd2cc93c9e39181dee8859780';
 
 @ProviderFor(managedSettings)
 final managedSettingsProvider = ManagedSettingsProvider._();
@@ -154,7 +154,7 @@ final class LicenseSettingsPortProvider
 }
 
 String _$licenseSettingsPortHash() =>
-    r'4a18c074817b8332b691c2d2513eababa2f92980';
+    r'be6c118dd3cb679f4a3802da4f1a94bb9d390955';
 
 @ProviderFor(licenseSummary)
 final licenseSummaryProvider = LicenseSummaryProvider._();

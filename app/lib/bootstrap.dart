@@ -25,6 +25,8 @@ import 'package:vaultvoice/core/security/key_vault.dart';
 import 'package:vaultvoice/core/security/security_providers.dart';
 import 'package:vaultvoice/core/security/storage_protection.dart';
 import 'package:vaultvoice/features/extraction/data/preview_llm_engine.dart';
+import 'package:vaultvoice/features/licensing/data/managed_config_providers.dart';
+import 'package:vaultvoice/features/licensing/presentation/managed_config_host.dart';
 import 'package:vaultvoice/features/licensing/presentation/purchase_host.dart';
 import 'package:vaultvoice/features/pipeline/data/flutter_local_notifier.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
@@ -105,6 +107,11 @@ Future<void> bootstrap(
         crashReportStoreProvider.overrideWithValue(crash.store),
         nativeCrashCaptureProvider.overrideWithValue(nativeCrash),
         ...security,
+        // LIC-04: MDM `network_disabled` also blocks the gateway itself.
+        managedNetworkDisabledProvider.overrideWith(
+          (ref) =>
+              () async => (await readManagedConfig(ref)).networkDisabled,
+        ),
         if (productionLlm)
           llmEngineProvider.overrideWith(
             (ref) => ref.watch(previewLlmEngineProvider),
@@ -112,7 +119,9 @@ Future<void> bootstrap(
         ...overrides,
       ],
       child: const PurchaseHost(
-        child: ProcessingServicesHost(child: RetentionHost(child: App())),
+        child: ProcessingServicesHost(
+          child: RetentionHost(child: ManagedConfigHost(child: App())),
+        ),
       ),
     ),
   );

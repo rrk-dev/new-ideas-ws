@@ -73,7 +73,7 @@ final class VaultFolderAccessProvider
   }
 }
 
-String _$vaultFolderAccessHash() => r'e4a96f02187bb185028154671f52db285fa6d90e';
+String _$vaultFolderAccessHash() => r'473c22715c53f2881d6e286b0c43ddc2e6f03a48';
 
 /// Detects revoked access and drives the re-grant flow.
 

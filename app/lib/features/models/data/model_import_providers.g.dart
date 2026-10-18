@@ -102,7 +102,7 @@ final class CustomModelEntitlementProvider
 }
 
 String _$customModelEntitlementHash() =>
-    r'8d1d19f244ff8429c1e380cb98f581d49c0d3afb';
+    r'7d3baa21409a1aadb07ef61c7d867fcfb257ec04';
 
 /// `network_disabled` (offline mode / MDM): the UI hides downloads and
 /// offers import only.
@@ -143,7 +143,7 @@ final class NetworkDisabledProvider
   }
 }
 
-String _$networkDisabledHash() => r'79f38f70eeac3a83678f14c2c0b970b76df78236';
+String _$networkDisabledHash() => r'47f19cea29feba7d6f5ca60e56931412d8317ab1';
 
 @ProviderFor(modelImporter)
 final modelImporterProvider = ModelImporterProvider._();

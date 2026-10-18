@@ -6,6 +6,7 @@ import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/network/model_hosts.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
+import 'package:vaultvoice/features/licensing/data/managed_config_providers.dart';
 import 'package:vaultvoice/features/models/data/catalog_providers.dart';
 import 'package:vaultvoice/features/models/data/download_providers.dart';
 import 'package:vaultvoice/features/models/data/model_importer.dart';
@@ -39,15 +40,27 @@ ModelFilePicker modelFilePicker(Ref ref) => const FileSelectorModelPicker();
 /// Custom-model entitlement from LIC-01 (`Feature.sideloadCustomModel`).
 @Riverpod(keepAlive: true)
 CustomModelEntitlement customModelEntitlement(Ref ref) =>
-    EntitlementCustomModels(ref.watch(entitlementServiceProvider));
+    EntitlementCustomModels(
+      ref.watch(entitlementServiceProvider),
+      // MDM `disable_custom_models` (LIC-04), read at the moment of import.
+      isManagedOff: () async =>
+          (await readManagedConfig(ref)).disableCustomModels,
+    );
 
 /// `network_disabled` (offline mode / MDM): the UI hides downloads and
 /// offers import only.
 @Riverpod(keepAlive: true)
-Stream<bool> networkDisabled(Ref ref) => ref
-    .watch(settingsRepositoryProvider)
-    .watch(kNetworkDisabledKey)
-    .map((v) => v == true);
+Stream<bool> networkDisabled(Ref ref) {
+  final managed = ref
+      .watch(managedConfigProvider)
+      .whenData((c) => c.networkDisabled)
+      .value;
+  if (managed == true) return Stream.value(true);
+  return ref
+      .watch(settingsRepositoryProvider)
+      .watch(kNetworkDisabledKey)
+      .map((v) => v == true);
+}
 
 @Riverpod(keepAlive: true)
 Future<ModelImporter> modelImporter(Ref ref) async {
