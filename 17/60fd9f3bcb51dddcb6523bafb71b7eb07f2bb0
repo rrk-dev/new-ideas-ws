@@ -1,0 +1,19 @@
+tasks/09-licensing/LIC-04-enterprise-managed-configuration.md
+  s_b5c4ee6684a610::t_3f376b13968a44 4,24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1760fd9f3bcb51dddcb6523bafb71b7eb07f2bb0",
+  "prompts": {},
+  "sessions": {
+    "s_b5c4ee6684a610": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "3a32a878-801d-48fc-a21c-1c23f21006aa",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
