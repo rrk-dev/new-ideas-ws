@@ -14,13 +14,13 @@ import 'package:vaultvoice/features/profiles/domain/profile_classifier.dart';
 /// chosen profile (`recordings.profile_id` null), between transcription and
 /// extraction.
 ///
-/// A confident answer stores the profile on the recording, so extraction,
-/// template and routing follow it. Below the classifier's threshold the job
-/// parks in `waiting(profileChoice)` with the suggestion stored under
-/// [ClassificationKeys.result]; the user picks a profile (recording detail →
-/// change profile = re-run from extract) or resumes the job to accept the
-/// suggestion. Without a profile list (tests, FND-05 defaults) the step does
-/// nothing and extraction uses `PipelineConfig.defaultProfileId`.
+/// The answer is stored on the recording, so extraction, template and routing
+/// follow it. Auto never blocks: below the classifier's threshold the best
+/// guess is used anyway and recorded (with its confidence) under
+/// [ClassificationKeys.result]; the user can change the profile afterwards
+/// (recording detail → change profile = re-run from extract). Without a
+/// profile list (tests, FND-05 defaults) the step does nothing and extraction
+/// uses `PipelineConfig.defaultProfileId`.
 class ClassifyStep implements PipelineStep {
   ClassifyStep({
     required this.db,
@@ -88,9 +88,6 @@ class ClassifyStep implements PipelineStep {
     }
     final c = result.valueOrNull!;
 
-    // Asked once: resuming the waiting job accepts the suggestion.
-    final asked = job.checkpoint['asked'] == true;
-    final ask = c.needsChoice && !asked;
     Future<void> store() async {
       unwrap(
         await db.settingsRepository.set(
@@ -99,16 +96,12 @@ class ClassifyStep implements PipelineStep {
             'profile': c.profileId,
             'confidence': c.confidence,
             'method': c.method.name,
-            'asked': ask || asked,
+            'asked': false,
           },
         ),
       );
     }
 
-    if (ask) {
-      await ctx.saveCheckpoint(const {'asked': true}, writes: store);
-      return const StepWaiting(WaitingReason.profileChoice);
-    }
     return StepSucceeded(
       commit: () async {
         await store();
