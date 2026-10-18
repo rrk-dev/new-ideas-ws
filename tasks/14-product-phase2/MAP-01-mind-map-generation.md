@@ -1,7 +1,7 @@
 # MAP-01 — Mind-map generation
 
 **Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** M | **Depends on:** LLM-05, LLM-06, FND-04, FND-05, PRF-09 | **Source:** User decision 2026-10-16 (product Phase 2: mind maps)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-extraction-profiles, vv-llm-inference, vv-pipeline-orchestrator, vv-local-database, vv-benchmark-eval, vv-decision-records, vv-testing
 
 ## Goal
