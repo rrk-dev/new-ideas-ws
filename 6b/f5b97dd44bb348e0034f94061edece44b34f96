@@ -1,0 +1,19 @@
+app/lib/features/recording/data/recording_screen_providers.g.dart
+  s_44eec72710a6b1::t_4ef4b79d05c209 165
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6bf5b97dd44bb348e0034f94061edece44b34f96",
+  "prompts": {},
+  "sessions": {
+    "s_44eec72710a6b1": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "0691032f-c087-409e-aad6-29e8d0d3afe9",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
