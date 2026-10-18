@@ -1,0 +1,56 @@
+tools/ci/check_egress.sh
+  s_5095472e80968b::t_40dadd6b8fb9de 29
+app/ios/ShareExtension/ShareExtension.entitlements
+  s_5095472e80968b::t_ef4848877bbf4f 3-6
+docs/test-plans/device/AUD-06.md
+  s_5095472e80968b::t_701057a0f06c29 25
+tasks/02-audio/AUD-14-ios-share-extension-wiring.md
+  s_5095472e80968b::t_701057a0f06c29 8,11-12,14,23-34
+  s_5095472e80968b::t_b12d6350e5875e 4,13
+app/ios/Runner/Runner.entitlements
+  s_5095472e80968b::t_ef4848877bbf4f 10-16
+app/ios/ShareExtension/ShareViewController.swift
+  s_5095472e80968b::t_ef4848877bbf4f 6-8
+app/ios/Runner/AudioImportHostApiImpl.swift
+  s_5095472e80968b::t_ef4848877bbf4f 16,187
+docs/ci.md
+  s_5095472e80968b::t_05a71c28ed728b 8
+docs/audio-import.md
+  s_5095472e80968b::t_701057a0f06c29 14,56-78
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_5095472e80968b::t_6bf85e339215c4 48-49,67-73,94,159-162,191-197,253,263,341-351,410,420-436,476,508-514,679-686,701-706,744,867,1001,1275,1385,1465,1475-1642,1698-1707,1710
+  s_5095472e80968b::t_d4310bc35b1908 1708-1709
+tools/ci/check_ios_share_extension.py
+  s_5095472e80968b::t_40dadd6b8fb9de 1-59
+app/ios/ShareExtension/Info.plist
+  s_5095472e80968b::t_ef4848877bbf4f 3,7-8,11-12,15-20
+tools/ci/tests/test_ios_share_extension.py
+  s_5095472e80968b::t_05a71c28ed728b 2-54
+  s_5095472e80968b::t_b12d6350e5875e 1
+docs/test-plans/device/AUD-14.md
+  s_5095472e80968b::t_701057a0f06c29 1-16
+tools/ci/check_ios_share_extension.sh
+  s_5095472e80968b::t_40dadd6b8fb9de 1-4
+tools/ci/check_recording_policy.py
+  s_5095472e80968b::t_40dadd6b8fb9de 136
+.github/workflows/ci.yml
+  s_5095472e80968b::t_49aeff769c58d3 54
+app/ios/Runner/RecordingIndicatorPlugin.swift
+  s_5095472e80968b::t_ef4848877bbf4f 10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "faa0cbc29035e226b75b7691906b2370921b4285",
+  "prompts": {},
+  "sessions": {
+    "s_5095472e80968b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "662c42c7-18d9-4cfa-9280-08ec51c9ab04",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
