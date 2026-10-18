@@ -32,6 +32,8 @@ app/test/unit/recording/live_activity_test.dart
   s_9450697a967066::t_aaeca62a91e18c 9-14,45,86
   s_5095472e80968b::t_4a59b1658397cd 91,97-103
   s_9450697a967066::t_df4a9597a103e2 1-8,15-44,46-85,87-90,92-96,104-105
+tools/ci/check_egress.sh
+  s_9450697a967066::t_1b11c539c6c980 29
 ---
 {
   "schema_version": "authorship/3.0.0",
