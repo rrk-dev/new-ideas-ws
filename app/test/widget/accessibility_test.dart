@@ -171,7 +171,6 @@ List<Override> _overrides({bool locked = false}) => [
   askModelEntryProvider.overrideWith((ref) async => null),
   askEngineProvider.overrideWith((ref) async => FakeAskEngine()),
   askSaveHistoryEnabledProvider.overrideWithValue(true),
-  askEnabledProvider.overrideWithValue(true),
   askThreadsProvider.overrideWith(
     (ref) async => [
       AskThread(

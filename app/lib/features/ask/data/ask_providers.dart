@@ -86,7 +86,7 @@ Future<List<AskThread>> askThreads(Ref ref) async {
 
 /// The Ask engine: retrieval over the encrypted DB, the 3B on this device,
 /// no network. Rebuilt when the tier or the installed model changes.
-@Riverpod(keepAlive: true)
+@riverpod
 Future<AskEngine> askEngine(Ref ref) async {
   final availability = await ref.watch(askAvailabilityStateProvider.future);
   final db = ref.watch(vaultVoiceDatabaseProvider);

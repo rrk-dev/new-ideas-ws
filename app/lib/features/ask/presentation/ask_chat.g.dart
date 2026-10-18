@@ -66,7 +66,7 @@ final class AskChatProvider extends $NotifierProvider<AskChat, AskChatState> {
   }
 }
 
-String _$askChatHash() => r'f784363d39abd2234aff4b799ccf5c5ba59b0c3d';
+String _$askChatHash() => r'80014f4955ac492aaf2dae08b0d2623af1fc6be8';
 
 /// The conversation on screen: library-wide ([recordingId] null) or about
 /// one recording. Locking the app cancels a running question and clears the

@@ -64,7 +64,9 @@ class AskChat extends _$AskChat {
 
   @override
   AskChatState build(String? recordingId) {
+    // Holds the engine (and the 3B in memory) only while a chat is open.
     ref
+      ..listen(askEngineProvider, (previous, next) {})
       ..onDispose(() {
         _disposed = true;
         _token?.cancel();

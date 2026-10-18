@@ -306,7 +306,7 @@ final class AskEngineProvider
         argument: null,
         retry: null,
         name: r'askEngineProvider',
-        isAutoDispose: false,
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -325,4 +325,4 @@ final class AskEngineProvider
   }
 }
 
-String _$askEngineHash() => r'ab2567a34aff3952618df2550361afb11d9b4bc9';
+String _$askEngineHash() => r'44511022b6ef841971f352b6e8608a85f377250f';
