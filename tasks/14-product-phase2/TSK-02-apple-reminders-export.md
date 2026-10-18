@@ -1,7 +1,7 @@
 # TSK-02 — Export action items to Apple Reminders (iOS and macOS)
 
 **Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** M | **Depends on:** TSK-01, LIC-05, APP-02, APP-05, AUD-09 | **Source:** User decision 2026-10-16 (product Phase 2: Reminders export; Reminders is local)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-ffi-bridge, vv-privacy-security, vv-licensing-iap, vv-testing
 
 ## Goal
