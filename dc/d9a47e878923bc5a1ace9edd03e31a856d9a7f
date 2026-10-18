@@ -1,0 +1,110 @@
+tools/licenses/native_models.py
+  s_117c940a004696::t_69287bd226cf77 68
+app/lib/core/l10n/arb/app_en.arb
+  s_117c940a004696::t_3b8286b139d37d 120-122,219
+docs/models.md
+  s_117c940a004696::t_d3abbc16c6fa0b 144,152-153,159-182
+app/lib/features/models/presentation/model_download_actions.dart
+  s_117c940a004696::t_3b8286b139d37d 59-62,126-155
+  s_117c940a004696::t_d564d4493134af 156
+app/lib/features/models/presentation/models_screen.dart
+  s_117c940a004696::t_3b8286b139d37d 317-321
+  s_117c940a004696::t_bc73d8bd9cb896 316
+app/test/widget/models_screen_test.dart
+  s_117c940a004696::t_a9ba5ba4b1ed35 68
+  s_117c940a004696::t_54e2640d4e9793 249-255
+  s_117c940a004696::t_3e7f2e00d9dbef 62-67,69-71,128,224-248,256-267
+tools/model-catalog/tests/test_catalog.py
+  s_117c940a004696::t_6248737e26f736 233-234
+  s_117c940a004696::t_a1309fde4d0567 206-232,235-250
+docs/adr/ADR-LLM-08-default-llm.md
+  s_117c940a004696::t_d3abbc16c6fa0b 3,41,54-64
+docs/licenses.md
+  s_117c940a004696::t_a1309fde4d0567 218
+  s_117c940a004696::t_663dc3a0925008 11
+app/lib/core/l10n/gen/app_localizations.dart
+  s_117c940a004696::t_3e7f2e00d9dbef 679-690,1213-1217
+  s_117c940a004696::t_4c7fa5c3fd80df 1218
+app/test/unit/models/ask01_catalog_test.dart
+  s_117c940a004696::t_efeb0fadbc0b13 1-2,4-41,46-102
+  s_117c940a004696::t_1063381f59853d 3
+  s_117c940a004696::t_a05ab0b1a14a18 42-45
+tasks/14-product-phase2/ASK-01-llama-3b-catalog-model.md
+  s_117c940a004696::t_89258e75ea9f5f 15,17,30-33,37
+  s_117c940a004696::t_521ce9c4a592c8 4,34-36,38-39
+  s_117c940a004696::t_a05ab0b1a14a18 11-14,16,28-29,40-44
+tools/bench/results/ask01-1b-cpu/2026-10-17-eval-engineering-Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_117c940a004696::t_80864c08ce7a74 1-6455
+docs/test-plans/device/ASK-01.md
+  s_117c940a004696::t_8b23ecddeab31f 1-3,6-14
+  s_117c940a004696::t_a9ba5ba4b1ed35 4-5
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_117c940a004696::t_3e7f2e00d9dbef 357-364,685-687
+  s_117c940a004696::t_0d0fcec092f21c 688
+tools/model-catalog/models.json
+  s_117c940a004696::t_e3bd13566e792a 225
+  s_117c940a004696::t_a9ba5ba4b1ed35 237
+  s_117c940a004696::t_2f5510136d096d 217-224,226-236,238
+  s_117c940a004696::t_b3d715c3cd0095 216
+app/test/unit/models/catalog_verifier_test.dart
+  s_117c940a004696::t_7a30697e7c45df 351-353
+tools/bench/results/ask01-1b-cpu/2026-10-17-eval-engineering-Llama-3.2-1B-Instruct-Q4-K-M.md
+  s_117c940a004696::t_80864c08ce7a74 1-77
+tools/bench/results/2026-10-17-ask01-1b-vs-3b.md
+  s_117c940a004696::t_7993a0d57c8da7 1-41,44
+  s_117c940a004696::t_70eafacbd1ac39 42-43
+app/assets/licenses/native_models.json
+  s_117c940a004696::t_69287bd226cf77 41-42
+tools/bench/results/2026-10-17-llm08-selection.md
+  s_117c940a004696::t_46c60502d1d69c 1-55
+app/test/helpers/model_fixtures.dart
+  s_117c940a004696::t_3e7f2e00d9dbef 14,26
+tools/bench/results/2026-10-17-eval-engineering-Llama-3.2-3B-Instruct-Q4-K-M.json
+  s_117c940a004696::t_00709c340d5d40 1-3690
+tools/bench/results/2026-10-17-eval-engineering-Llama-3.2-3B-Instruct-Q4-K-M.md
+  s_117c940a004696::t_3bfe7c309ffa6e 1-77
+tools/bench/results/2026-10-17-eval-lecture-Llama-3.2-3B-Instruct-Q4-K-M.json
+  s_117c940a004696::t_e3d311fe6dd187 1-5057
+tools/bench/results/2026-10-17-eval-lecture-Llama-3.2-3B-Instruct-Q4-K-M.md
+  s_117c940a004696::t_0164cbc4dd4fc9 1-77
+tools/bench/results/2026-10-17-eval-meeting-Llama-3.2-3B-Instruct-Q4-K-M.json
+  s_117c940a004696::t_51632020bf7cf8 1-3642
+tools/bench/results/2026-10-17-eval-meeting-Llama-3.2-3B-Instruct-Q4-K-M.md
+  s_117c940a004696::t_e33c21f812f4bc 1-77
+tools/bench/results/2026-10-17-eval-warranty-Llama-3.2-3B-Instruct-Q4-K-M.json
+  s_117c940a004696::t_9b86ffc2df9cd2 1-2947
+tools/bench/results/2026-10-17-eval-warranty-Llama-3.2-3B-Instruct-Q4-K-M.md
+  s_117c940a004696::t_e03a0dc446d262 1-86
+tools/bench/results/2026-10-17-eval-interview-Llama-3.2-3B-Instruct-Q4-K-M.json
+  s_117c940a004696::t_718a3880663a66 1-5075
+tools/bench/results/2026-10-17-eval-interview-Llama-3.2-3B-Instruct-Q4-K-M.md
+  s_117c940a004696::t_66203884234b1c 1-85
+tools/bench/results/2026-10-17-eval-sales_call-Llama-3.2-3B-Instruct-Q4-K-M.json
+  s_117c940a004696::t_10c2728c0cfc41 1-5549
+tools/bench/results/2026-10-17-eval-sales_call-Llama-3.2-3B-Instruct-Q4-K-M.md
+  s_117c940a004696::t_4ade74abbf5233 1-84
+tools/bench/results/ask01-1b-cpu/2026-10-17-eval-meeting-Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_117c940a004696::t_b2a5d313c70e17 1-4090
+tools/bench/results/ask01-1b-cpu/2026-10-17-eval-meeting-Llama-3.2-1B-Instruct-Q4-K-M.md
+  s_117c940a004696::t_3f311c676532a1 1-77
+tools/bench/results/ask01-1b-cpu/2026-10-17-eval-warranty-Llama-3.2-1B-Instruct-Q4-K-M.json
+  s_117c940a004696::t_fd927ec9032c18 1-3021
+tools/bench/results/ask01-1b-cpu/2026-10-17-eval-warranty-Llama-3.2-1B-Instruct-Q4-K-M.md
+  s_117c940a004696::t_ee3126c647f6c4 1-86
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dcd9a47e878923bc5a1ace9edd03e31a856d9a7f",
+  "prompts": {},
+  "sessions": {
+    "s_117c940a004696": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "41edfc1f-1f00-47b0-baf8-d7919025a727",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
