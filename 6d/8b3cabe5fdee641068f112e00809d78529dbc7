@@ -1,0 +1,34 @@
+docs/perf.md
+  s_5095472e80968b::t_ac6e12b03f4204 22-36
+docs/test-plans/stress.md
+  s_5095472e80968b::t_251e0222e52ff4 78-93
+app/integration_test/gate_05_test.dart
+  s_5095472e80968b::t_5e6b17fd26d357 18,20,181-186,199-206,216-218,227-231,236-238,251-252,330-332,340-345,350-352
+  s_5095472e80968b::t_92066ed3ad47ed 388-397
+  s_5095472e80968b::t_4158eadd40d636 1-17,19,21-180,187-198,207-215,219-226,232-235,239-250,253-329,333-339,346-349,353-387,398-438
+tasks/13-milestones/GATE-05-product-phase2.md
+  s_5095472e80968b::t_0df8cce1861a61 4,11-15,23-40
+docs/test-plans/gates/GATE-05.md
+  s_5095472e80968b::t_c969e187f85342 1-143
+tools/bench/perf/budgets.json
+  s_5095472e80968b::t_251e0222e52ff4 9-11,13-15,17-19,21,25-27
+  s_5095472e80968b::t_159e80a21a6e5a 12,16,20,22-24,28
+docs/test-plans/device/GATE-05.md
+  s_5095472e80968b::t_14e3532cb9fe33 1-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6d8b3cabe5fdee641068f112e00809d78529dbc7",
+  "prompts": {},
+  "sessions": {
+    "s_5095472e80968b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "662c42c7-18d9-4cfa-9280-08ec51c9ab04",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
