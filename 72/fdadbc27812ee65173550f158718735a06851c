@@ -1,0 +1,22 @@
+app/ios/Flutter/Extension.xcconfig
+  s_5a534bed398a49::t_eb3226880bd41a 1-2
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_5a534bed398a49::t_177a468169c47a 134,1502,1531,1589,1618,1647
+  s_5a534bed398a49::t_eb3226880bd41a 259,775,898,941,968,1309,1354,1560
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "72fdadbc27812ee65173550f158718735a06851c",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
