@@ -3179,4 +3179,85 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get remindersAdd => 'Add to Reminders';
+
+  @override
+  String get remindersTitle => 'Add to Reminders';
+
+  @override
+  String get remindersPrimer =>
+      'Lumen adds the action items you choose to your Reminders. They stay on your device; if your Reminders sync with iCloud, that is your own iCloud setting. Apple offers no add-only permission for reminders, so the system will ask to let Lumen read and write your reminders. Lumen only looks up the reminders it created.';
+
+  @override
+  String get remindersContinue => 'Continue';
+
+  @override
+  String get remindersDenied =>
+      'Lumen can’t reach your Reminders. Allow access in Settings, then try again. Nothing was added.';
+
+  @override
+  String get remindersRestricted =>
+      'Reminders access is restricted on this device. Nothing was added.';
+
+  @override
+  String get remindersOpenSettings => 'Open Settings';
+
+  @override
+  String get remindersLoadFailed => 'Couldn’t load your Reminders. Try again.';
+
+  @override
+  String get remindersList => 'List';
+
+  @override
+  String get remindersListDefault => 'Lumen (created for you)';
+
+  @override
+  String get remindersNone => 'No open action items to add.';
+
+  @override
+  String get remindersAdded => 'Added';
+
+  @override
+  String get remindersAddedMissing => 'Added earlier, no longer found';
+
+  @override
+  String remindersDue(String date) {
+    return 'Due $date';
+  }
+
+  @override
+  String remindersOwner(String name) {
+    return 'Owner: $name';
+  }
+
+  @override
+  String remindersAddCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Add $count to Reminders',
+      one: 'Add 1 to Reminders',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String remindersResult(int created, int skipped, int failed) {
+    return '$created added, $skipped skipped, $failed failed.';
+  }
+
+  @override
+  String remindersResultList(String list) {
+    return 'Added to the list “$list”.';
+  }
+
+  @override
+  String remindersFellBack(String list) {
+    return 'Lumen couldn’t create its own list, so the reminders went to your default list “$list”.';
+  }
+
+  @override
+  String get remindersDone => 'Done';
 }

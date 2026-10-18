@@ -10,6 +10,9 @@
 	<true/>
 	<key>com.apple.security.files.bookmarks.app-scope</key>
 	<true/>
+	<!-- TSK-02: EventKit reminders (ADR-TSK-01 E9; device row D3 must pass). -->
+	<key>com.apple.security.personal-information.calendars</key>
+	<true/>
 	<key>com.apple.security.network.client</key>
 	<true/>
 </dict>

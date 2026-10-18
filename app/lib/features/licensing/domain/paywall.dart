@@ -12,6 +12,7 @@ enum PaywallEntryPoint {
   modelSideload,
   mindMap,
   ask,
+  reminders,
   settings,
 }
 

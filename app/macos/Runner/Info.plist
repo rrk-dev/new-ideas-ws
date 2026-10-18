@@ -28,6 +28,11 @@
 	<string>$(PRODUCT_COPYRIGHT)</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
+	<!-- TSK-02 / ADR-TSK-01: full reminders access; legacy key for macOS 13. -->
+	<key>NSRemindersFullAccessUsageDescription</key>
+	<string>Lumen adds the action items you choose to your Reminders. They stay on your Mac; if your Reminders sync with iCloud, that is your own iCloud setting.</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>Lumen adds the action items you choose to your Reminders. They stay on your Mac; if your Reminders sync with iCloud, that is your own iCloud setting.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Lumen uses the microphone to record a note you start, not a call. Audio stays on this Mac.</string>
 	<key>NSPrincipalClass</key>

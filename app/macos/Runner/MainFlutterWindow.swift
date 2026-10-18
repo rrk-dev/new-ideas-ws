@@ -9,6 +9,7 @@ class MainFlutterWindow: NSWindow {
   // Pigeon host APIs must outlive registration (the messenger holds them weakly).
   private let bookmarkApi = BookmarkHostApiImpl()
   private let purchaseApi = PurchaseHostApiImpl()
+  private let remindersApi = RemindersHostApiImpl()
 
   override func awakeFromNib() {
     let flutterViewController = FlutterViewController()
@@ -48,5 +49,6 @@ class MainFlutterWindow: NSWindow {
     let messenger = registrar("VaultBookmarks").messenger
     BookmarkHostApiSetup.setUp(binaryMessenger: messenger, api: bookmarkApi)
     PurchaseHostApiSetup.setUp(binaryMessenger: messenger, api: purchaseApi)
+    RemindersHostApiSetup.setUp(binaryMessenger: messenger, api: remindersApi)
   }
 }

@@ -136,6 +136,17 @@ Future<String> seedFullRecording(
         ),
       );
   await db
+      .into(db.reminderExports)
+      .insert(
+        ReminderExportsCompanion.insert(
+          itemKey: 'key-$id',
+          recordingId: id,
+          calendarItemId: 'cal-$id',
+          reminderCalendarId: 'list-$id',
+          exportedAt: t0,
+        ),
+      );
+  await db
       .into(db.vaultTargets)
       .insertOnConflictUpdate(
         VaultTargetsCompanion.insert(

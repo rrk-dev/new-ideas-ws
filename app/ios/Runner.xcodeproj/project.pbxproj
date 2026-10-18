@@ -42,6 +42,8 @@
 		CCCB8D320166680E1765EFDE /* LumenWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 20E09FA8831C47F9ABDAD0C3 /* LumenWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E04B00000000000000000A02 /* BookmarkApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04B00000000000000000A01 /* BookmarkApi.g.swift */; };
 		E04B00000000000000000A04 /* BookmarkHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04B00000000000000000A03 /* BookmarkHostApiImpl.swift */; };
+		E04B00000000000000000B03 /* RemindersHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04B00000000000000000B01 /* RemindersHostApiImpl.swift */; };
+		E04B00000000000000000B04 /* RemindersApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04B00000000000000000B02 /* RemindersApi.g.swift */; };
 		E0600000000000000000B002 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E0600000000000000000B001 /* PrivacyInfo.xcprivacy */; };
 		EE4086E780EEFB7659F4D362 /* RecordWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127C30425B9E2C2CC7FF828 /* RecordWidget.swift */; };
 		F50F1DA94A2852142B0A8F9B /* QuickCaptureStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630833D895DE14FBEA58D0A4 /* QuickCaptureStoreTests.swift */; };
@@ -139,6 +141,8 @@
 		DBDEA54A2298DEDA6B4BE00D /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E04B00000000000000000A01 /* BookmarkApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkApi.g.swift; sourceTree = "<group>"; };
 		E04B00000000000000000A03 /* BookmarkHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkHostApiImpl.swift; sourceTree = "<group>"; };
+		E04B00000000000000000B01 /* RemindersHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersHostApiImpl.swift; sourceTree = "<group>"; };
+		E04B00000000000000000B02 /* RemindersApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersApi.g.swift; sourceTree = "<group>"; };
 		E0600000000000000000B001 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		EC468ED394AEFE3211FA01C2 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC5DEDD0E5127C1C7B6ED8DF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -271,6 +275,8 @@
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 				AC0FC35783322DEDA0DD1CB1 /* QuickCaptureHostApiImpl.swift */,
 				068D451ADEA4F1D458BA7987 /* QuickCaptureApi.g.swift */,
+				E04B00000000000000000B01 /* RemindersHostApiImpl.swift */,
+				E04B00000000000000000B02 /* RemindersApi.g.swift */,
 			);
 			path = Runner;
 			sourceTree = "<group>";
@@ -366,7 +372,6 @@
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				AB2E8758A51E8EF9BB60E00F /* Embed Foundation Extensions */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
-				80402661BF1D00C3B6E9D01B /* [CP] Embed Pods Frameworks */,
 				0EB0C4F24523ECA6EA8F80B3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -488,23 +493,6 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
 		};
-		80402661BF1D00C3B6E9D01B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -613,6 +601,8 @@
 				C2931F1158358F335D12156F /* OpenRecordScreenIntent.swift in Sources */,
 				6F4866F1368A572CCB3C4E42 /* QuickCaptureHostApiImpl.swift in Sources */,
 				1F490D18A96784978BD9412F /* QuickCaptureApi.g.swift in Sources */,
+				E04B00000000000000000B03 /* RemindersHostApiImpl.swift in Sources */,
+				E04B00000000000000000B04 /* RemindersApi.g.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

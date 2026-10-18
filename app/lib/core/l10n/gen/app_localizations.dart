@@ -5421,6 +5421,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 question} other{{count} questions}}'**
   String askHistoryTurns(int count);
+
+  /// No description provided for @remindersAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Reminders'**
+  String get remindersAdd;
+
+  /// No description provided for @remindersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Reminders'**
+  String get remindersTitle;
+
+  /// No description provided for @remindersPrimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Lumen adds the action items you choose to your Reminders. They stay on your device; if your Reminders sync with iCloud, that is your own iCloud setting. Apple offers no add-only permission for reminders, so the system will ask to let Lumen read and write your reminders. Lumen only looks up the reminders it created.'**
+  String get remindersPrimer;
+
+  /// No description provided for @remindersContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get remindersContinue;
+
+  /// No description provided for @remindersDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Lumen can’t reach your Reminders. Allow access in Settings, then try again. Nothing was added.'**
+  String get remindersDenied;
+
+  /// No description provided for @remindersRestricted.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders access is restricted on this device. Nothing was added.'**
+  String get remindersRestricted;
+
+  /// No description provided for @remindersOpenSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Settings'**
+  String get remindersOpenSettings;
+
+  /// No description provided for @remindersLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t load your Reminders. Try again.'**
+  String get remindersLoadFailed;
+
+  /// No description provided for @remindersList.
+  ///
+  /// In en, this message translates to:
+  /// **'List'**
+  String get remindersList;
+
+  /// No description provided for @remindersListDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Lumen (created for you)'**
+  String get remindersListDefault;
+
+  /// No description provided for @remindersNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No open action items to add.'**
+  String get remindersNone;
+
+  /// No description provided for @remindersAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Added'**
+  String get remindersAdded;
+
+  /// No description provided for @remindersAddedMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Added earlier, no longer found'**
+  String get remindersAddedMissing;
+
+  /// No description provided for @remindersDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {date}'**
+  String remindersDue(String date);
+
+  /// No description provided for @remindersOwner.
+  ///
+  /// In en, this message translates to:
+  /// **'Owner: {name}'**
+  String remindersOwner(String name);
+
+  /// No description provided for @remindersAddCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Add 1 to Reminders} other{Add {count} to Reminders}}'**
+  String remindersAddCount(int count);
+
+  /// No description provided for @remindersResult.
+  ///
+  /// In en, this message translates to:
+  /// **'{created} added, {skipped} skipped, {failed} failed.'**
+  String remindersResult(int created, int skipped, int failed);
+
+  /// No description provided for @remindersResultList.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to the list “{list}”.'**
+  String remindersResultList(String list);
+
+  /// No description provided for @remindersFellBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Lumen couldn’t create its own list, so the reminders went to your default list “{list}”.'**
+  String remindersFellBack(String list);
+
+  /// No description provided for @remindersDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get remindersDone;
 }
 
 class _AppLocalizationsDelegate

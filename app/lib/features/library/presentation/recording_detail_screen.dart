@@ -27,6 +27,8 @@ import 'package:vaultvoice/features/pipeline/presentation/processing_providers.d
 import 'package:vaultvoice/features/pipeline/presentation/recording_status_screen.dart';
 import 'package:vaultvoice/features/profiles/presentation/profile_picker.dart';
 import 'package:vaultvoice/features/recording/data/recording_screen_providers.dart';
+import 'package:vaultvoice/features/reminders/data/reminders_providers.dart';
+import 'package:vaultvoice/features/reminders/presentation/reminders_sheet.dart';
 
 /// Lines of the transcript shown inline before "Show full transcript".
 const int kTranscriptPreviewLines = 5;
@@ -159,6 +161,11 @@ class _Detail extends ConsumerWidget {
                 value: _Action.reExport,
                 child: Text(context.l10n.recordingReExport),
               ),
+              if (ref.read(remindersSupportedProvider))
+                PopupMenuItem(
+                  value: _Action.reminders,
+                  child: Text(context.l10n.remindersAdd),
+                ),
               PopupMenuItem(
                 value: _Action.delete,
                 child: Text(context.l10n.recordingDelete),
@@ -277,6 +284,8 @@ class _Detail extends ConsumerWidget {
     switch (action) {
       case _Action.review:
         RecordingReviewRoute(recordingId: _id).go(context);
+      case _Action.reminders:
+        await showRemindersSheet(context, ref, recordingId: _id);
       case _Action.reExtract:
         await _rerun(context, ref, job, PipelineStepId.extract);
       case _Action.reExport:
@@ -587,7 +596,7 @@ final recordingHubSlotsProvider = Provider<List<RecordingHubSlot>>(
   ],
 );
 
-enum _Action { review, reExtract, changeProfile, reExport, delete }
+enum _Action { review, reExtract, changeProfile, reExport, reminders, delete }
 
 class _DeleteChoice {
   const _DeleteChoice({required this.deleteNotes});

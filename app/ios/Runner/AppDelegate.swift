@@ -8,6 +8,8 @@ import UserNotifications
   private let bookmarkApi = BookmarkHostApiImpl()
   private let purchaseApi = PurchaseHostApiImpl()
   private let quickCaptureApi = QuickCaptureHostApiImpl()
+  // TSK-02: Apple Reminders export (EventKit).
+  private let remindersApi = RemindersHostApiImpl()
 
   override func application(
     _ application: UIApplication,
@@ -66,6 +68,7 @@ import UserNotifications
     let purchaseMessenger = engineBridge.applicationRegistrar.messenger()
     purchaseApi.updates = PurchaseFlutterApi(binaryMessenger: purchaseMessenger)
     PurchaseHostApiSetup.setUp(binaryMessenger: purchaseMessenger, api: purchaseApi)
+    RemindersHostApiSetup.setUp(binaryMessenger: purchaseMessenger, api: remindersApi)
     BookmarkHostApiSetup.setUp(
       binaryMessenger: engineBridge.applicationRegistrar.messenger(), api: bookmarkApi)
     // APP-01: "Open settings" recovery after a denied permission. Opens this
