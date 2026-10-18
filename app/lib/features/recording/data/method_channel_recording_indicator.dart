@@ -33,6 +33,14 @@ class MethodChannelRecordingIndicator implements RecordingIndicator {
     'text': content.text,
     'chronometerBaseMs': content.chronometerBase?.millisecondsSinceEpoch,
     'actions': [for (final a in content.actions) a.name],
+    'liveActivity': encodeLiveActivity(content),
+  };
+
+  /// AUD-13: the only data the iOS Live Activity receives — state and the
+  /// timer's start instant, never title/text or anything recording-derived.
+  static Map<String, Object?> encodeLiveActivity(IndicatorContent content) => {
+    'recording': content.recording,
+    'timerStartMs': content.chronometerBase?.millisecondsSinceEpoch,
   };
 
   @override
