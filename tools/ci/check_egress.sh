@@ -64,6 +64,25 @@ for d in "${SCAN[@]}"; do
             "$PATTERN" "$ROOT/$d" || true)
 done
 
+# SEC-11: no third-party integration host or credential code. Todoist, Notion,
+# Apple Notes web APIs and similar were dropped (ADR-TSK-01); task export goes
+# to the on-device Reminders store only. Cloud LLM hosts and OAuth/API-key
+# plumbing must not appear in first-party sources or bundled assets either.
+P_INTEG='todoist|notion\.so|api\.notion|evernote|asana\.com|trello\.com|graph\.microsoft|googleapis\.com|icloud\.com|api\.openai|openai\.com|anthropic\.com|generativelanguage|client_secret|AppAuth|OAuthSwift|oauth2?\b|Bearer '
+for d in "${SCAN[@]}" app/assets app/macos/Runner; do
+  [ -d "$ROOT/$d" ] || continue
+  while IFS= read -r hit; do
+    rel="${hit%%:*}"; rel="${rel#"$ROOT"/}"
+    case "$rel" in *.g.dart|*/l10n/gen/*|*/assets/licenses/*) continue ;; esac
+    line="${hit#*:*:}"
+    if [[ "$line" =~ ^[[:space:]]*(//|\*|/\*|#) ]]; then continue; fi
+    echo "INTEGRATION: $hit" >&2
+    fail=1
+  done < <(grep -rEin --include='*.dart' --include='*.kt' --include='*.java' \
+            --include='*.swift' --include='*.m' --include='*.mm' --include='*.json' \
+            --include='*.plist' --include='*.xml' "$P_INTEG" "$ROOT/$d" || true)
+done
+
 # Telemetry / ads / crash SDKs and extra network clients are forbidden as
 # dependencies (pubspec + Gradle).
 BAD_DEPS='firebase|crashlytics|sentry|analytics|amplitude|mixpanel|appsflyer|adjust_sdk|google_mobile_ads|facebook_|datadog|bugsnag|instabug|newrelic|segment|onesignal|dio|web_socket_channel|webview_flutter|url_launcher|cronet_http|cupertino_http|grpc'

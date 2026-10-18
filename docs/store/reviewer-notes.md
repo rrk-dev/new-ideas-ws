@@ -28,6 +28,22 @@ is needed and no user content is sent anywhere.
 - Models are downloaded only when the user asks. Models can also be
   imported from a file with no network.
 
+## Phase 2 features (SEC-11)
+- Ask your notes (behind a feature flag, off by default) answers from the
+  user's own notes with the on-device 3B model (a data file from the same
+  hosts as the other models). Chat history stays in the encrypted on-device
+  database for 30 days; Settings has clear-all and per-chat delete.
+- Mind maps are generated on the device and stored in the same database.
+- Reminders export writes only the action items the user selects, after an
+  explicit tap, to the Reminders app through EventKit. The permission is
+  requested on first use. If the user's Reminders sync with iCloud, that is the
+  user's own OS setting.
+- The Home Screen widget, Control and Quick Settings tile only open the Record
+  screen. They show no note content and never start recording by themselves;
+  recording still needs the user's tap in the app.
+- The Share extension copies an audio file the user shares into the app's
+  private App Group inbox for import. It has no network or microphone access.
+
 ## Large downloads (Guideline 4.2 / on-demand disclosure)
 - Settings and the model screens work without a download. Recording and
   note creation need at least one speech model and one language model.
