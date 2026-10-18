@@ -43,6 +43,15 @@ abstract final class SettingKeys {
   /// model when installed (AUD-03).
   static const processingSkipSilence = 'processing.skip_silence';
 
+  /// `auto` | `on_demand`: whether the pipeline builds a mind map after
+  /// extraction (MAP-01). The default is fixed in ADR-MAP-01.
+  static const processingMindMap = 'processing.mind_map';
+
+  /// bool: a mind map was requested for recording `<id>` (set by
+  /// [mindMapRequestFor]; the step clears it when the map is stored).
+  static String mindMapRequestFor(String recordingId) =>
+      'mind_map.request.$recordingId';
+
   // Export (EXP-02 / EXP-05).
   static const exportFilenamePattern = 'export.filename_pattern';
   static const exportCollisionMode = 'export.collision_mode';

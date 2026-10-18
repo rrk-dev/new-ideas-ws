@@ -75,6 +75,7 @@ void main() {
         'jobs',
         'extractions',
         'action_items',
+        'mind_maps',
         'exports',
         'search_index',
       ]),
@@ -161,6 +162,7 @@ void main() {
     expect(rows['speakers'], 0);
     expect(rows['extractions'], 0);
     expect(rows['action_items'], 0);
+    expect(rows['mind_maps'], 0);
     // Only the title row (title + tags) of the kept recording is left.
     final kinds = await db
         .customSelect("SELECT kind FROM search_index WHERE recording_id = 'r2'")

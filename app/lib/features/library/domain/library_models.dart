@@ -107,6 +107,7 @@ LibraryStatus libraryStatus({
           JobState.classifying ||
           JobState.extracting ||
           JobState.extracted ||
+          JobState.mapping ||
           JobState.rendering ||
           JobState.rendered ||
           JobState.writing ||

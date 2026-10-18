@@ -25,8 +25,8 @@ enum PurgeScope {
   audio,
 
   /// Transcript and notes (retention "Keep transcripts and notes"):
-  /// transcripts + segments, speakers, extractions + action items, FTS
-  /// entries and the rendered note. Audio stays.
+  /// transcripts + segments, speakers, extractions + action items, mind
+  /// maps, FTS entries and the rendered note. Audio stays.
   transcripts,
 }
 
@@ -108,6 +108,10 @@ class RecordingPurger {
             await (db.delete(
               db.extractions,
             )..where((e) => e.recordingId.equals(id))).go();
+            // MAP-01: the mind map is derived from the transcript.
+            await (db.delete(
+              db.mindMaps,
+            )..where((m) => m.recordingId.equals(id))).go();
         }
       });
     });

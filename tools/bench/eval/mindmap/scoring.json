@@ -1,0 +1,10 @@
+{
+  "_doc": "MAP-01 targets, fixed in the task file before the first baseline run. Never lowered; misses become follow-ups.",
+  "targets": {
+    "schema_valid": 0.9,
+    "label_grounding": 0.85,
+    "concept_recall": 0.5,
+    "limits_compliance": 1.0
+  },
+  "limits": {"max_depth": 3, "max_nodes": 40, "max_label": 60}
+}

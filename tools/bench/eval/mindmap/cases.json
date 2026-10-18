@@ -1,0 +1,490 @@
+{
+ "_doc": "MAP-01 mind-map eval set; regenerate with gen_cases.py. Concepts come from the hand-written expected.json of each PRF-09/TPL case.",
+ "cases": [
+  {
+   "id": "meeting-001",
+   "profile": "meeting",
+   "title": "Sync client beta date",
+   "transcript": "[00:00:00] Priya: Morning Sam, let's agree on the beta date for the sync client.\n[00:00:04] Sam: I think we can ship the beta on the 9th.\n[00:00:07] Priya: Okay, decided, beta ships on the 9th.\n[00:00:11] Sam: I'll finish the installer by Thursday.\n[00:00:13] Priya: Great, who signs off on the release notes?\n",
+   "concepts": [
+    "beta release",
+    "Beta ships on the ninth",
+    "Finish the installer",
+    "Who signs off on the release notes?"
+   ]
+  },
+  {
+   "id": "meeting-006",
+   "profile": "meeting",
+   "title": "Quarterly planning",
+   "transcript": "[00:00:00] Priya: Welcome everyone to the quarterly planning meeting.\n[00:00:04] Sam: Engineering wants to focus on performance this quarter.\n[00:00:07] Lena: Design needs two weeks for the new settings screen.\n[00:00:11] Omar: Sales is asking for the export feature first.\n[00:00:14] Mei: Support would like better error messages.\n[00:00:17] Diego: Finance needs the budget numbers by the 15th.\n[00:00:21] Priya: Let's decide.\n[00:00:22] Priya: Performance and export are the top two priorities.\n[00:00:25] Sam: Agreed.\n[00:00:26] Sam: I'll write the performance plan by Monday.\n[00:00:28] Omar: I'll collect the export requirements from customers this week.\n[00:00:32] Mei: I'll send a list of the worst error messages to Leena.\n[00:00:36] Diego: Priya, can you send me the budget numbers?\n[00:00:39] Priya: Yes, I'll send the budget numbers before the 15th.\n[00:00:43] Lena: What about the settings screen, does it wait?\n[00:00:46] Priya: We'll come back to that next month.\n",
+   "concepts": [
+    "quarterly priorities",
+    "performance",
+    "export feature",
+    "budget",
+    "Performance and export are the top two priorities",
+    "Write the performance plan",
+    "Collect export requirements from customers",
+    "Send a list of the worst error messages to Lena",
+    "Send the budget numbers to Diego",
+    "Does the settings screen wait?"
+   ]
+  },
+  {
+   "id": "meeting-011",
+   "profile": "meeting",
+   "title": "Theme and tablet decisions",
+   "transcript": "[00:00:00] Lena: Two decisions to make today.\n[00:00:02] Diego: First, we keep the dark theme as the default.\n[00:00:06] Sam: Yes, dark theme stays default.\n[00:00:09] Lena: Second, we drop support for the old tablet app.\n[00:00:12] Diego: Agreed, we drop the old tablet app.\n",
+   "concepts": [
+    "dark theme",
+    "tablet app",
+    "Keep the dark theme as the default",
+    "Drop support for the old tablet app"
+   ]
+  },
+  {
+   "id": "meeting-016",
+   "profile": "meeting",
+   "title": "Daily standup",
+   "transcript": "[00:00:00] Sam: Stand up, yesterday I fixed the log and bug, today I'm on the crash reports.\n[00:00:06] Lena: I finished the icons, today I start the onboarding screens.\n[00:00:10] Kofi: I'm blocked on the API keys from the vendor.\n[00:00:13] Mei: I'll call the vendor about coffee's API keys today.\n",
+   "concepts": [
+    "standup",
+    "API keys",
+    "Call the vendor about the API keys"
+   ]
+  },
+  {
+   "id": "meeting-021",
+   "profile": "meeting",
+   "title": "Audit report deadline",
+   "transcript": "[00:00:00] Mei: The audit report was due Monday.\n[00:00:03] Ravi: Can we move it to Wednesday?\n[00:00:04] Ravi: The data came in late.\n[00:00:06] Mei: Fine, the new deadline is Wednesday.\n[00:00:09] Ravi: Then I'll deliver the audit report Wednesday.\n",
+   "concepts": [
+    "audit report",
+    "Move the audit report deadline to Wednesday",
+    "Deliver the audit report"
+   ]
+  },
+  {
+   "id": "meeting-026",
+   "profile": "meeting",
+   "title": "Billing project handover",
+   "transcript": "[00:00:00] Mei: I'm going on leave, so I'm handing over the billing project to you, Diego.\n[00:00:05] Diego: Okay, what's left?\n[00:00:08] Mei: The invoice template and the tax report.\n[00:00:10] Diego: I'll finish the invoice template this week and the tax report next week.\n",
+   "concepts": [
+    "billing project",
+    "Diego takes over the billing project",
+    "Finish the invoice template",
+    "Finish the tax report"
+   ]
+  },
+  {
+   "id": "warranty-001",
+   "profile": "warranty",
+   "title": "dishwasher",
+   "transcript": "[00:00:00] Logging the new dishwasher of Fabrikum Series 6.\n[00:00:04] Serial as Esses in Sam, M4, 4, 1, 0, 2, 7.\n[00:00:10] Botted a kitchen depot yesterday for €649.\n[00:00:15] Warranty is two years.\n",
+   "concepts": [
+    "dishwasher",
+    "Fabrikam",
+    "Kitchen Depot"
+   ]
+  },
+  {
+   "id": "warranty-006",
+   "profile": "warranty",
+   "title": "phone case",
+   "transcript": "[00:00:00] Cheap phone case from fourth coffee gadgets.\n[00:00:04] It cost $12, bought this morning.\n[00:00:07] Warranty is only 30 days.\n",
+   "concepts": [
+    "phone case",
+    "Fourth Coffee Gadgets"
+   ]
+  },
+  {
+   "id": "warranty-011",
+   "profile": "warranty",
+   "title": "tablet",
+   "transcript": "[00:00:00] refurbished tablet tailspin tab 10 serial number are T 1 0 5 5 3 2 bought from\n[00:00:10] wingtip referred yesterday $150 12 weeks warranty\n",
+   "concepts": [
+    "tablet",
+    "Tailspin",
+    "Wingtip Refurb"
+   ]
+  },
+  {
+   "id": "warranty-016",
+   "profile": "warranty",
+   "title": "camera body",
+   "transcript": "[00:00:00] Camera body, Litware shot X2.\n[00:00:03] Serial L, X2, 0, 0, 4, 9, 1.\n[00:00:09] Bought from Adventure Photo on 12 March for £1,150.\n[00:00:15] Warranty one year, support@support.litware.example.\n",
+   "concepts": [
+    "camera body",
+    "Litware",
+    "Adventure Photo"
+   ]
+  },
+  {
+   "id": "warranty-021",
+   "profile": "warranty",
+   "title": "smart watch",
+   "transcript": "[00:00:00] SmartWatch, Litwa Pals 3, bought at the airport duty free shop yesterday for $249.\n[00:00:08] International warranty of one year.\n",
+   "concepts": [
+    "smart watch",
+    "Litware",
+    "airport duty free shop"
+   ]
+  },
+  {
+   "id": "warranty-026",
+   "profile": "warranty",
+   "title": "phone",
+   "transcript": "[00:00:00] New phone, Litware 15, 256GB.\n[00:00:05] Serial L, O, 5, 2, 2, 8, 3, 6.\n[00:00:11] Bought at Adventure Mobile on March 3rd for $699.\n[00:00:17] Warranty is one year, and the store adds another year.\n",
+   "concepts": [
+    "phone",
+    "Litware",
+    "Adventure Mobile"
+   ]
+  },
+  {
+   "id": "engineering-001",
+   "profile": "engineering",
+   "title": "Image thumbnail generation",
+   "transcript": "[00:00:00] Lena: For image thumbnails we either generate them on upload or on demand.\n[00:00:04] Omar: On upload is fast to serve but wastes storage, on demand saves storage but the first view\n[00:00:10] Omar: is slow.\n[00:00:11] Lena: Let's generate on upload, Omar, can you write the resize worker?\n[00:00:15] Omar: Sure, open question is which size is we keep.\n",
+   "concepts": [
+    "resize worker",
+    "Generate on upload",
+    "Generate on demand",
+    "Generate thumbnails on upload",
+    "Write the resize worker",
+    "Which thumbnail sizes do we keep?"
+   ]
+  },
+  {
+   "id": "engineering-006",
+   "profile": "engineering",
+   "title": "Monolith versus microservices",
+   "transcript": "[00:00:00] Hana: Should we split the monolith into microservices?\n[00:00:04] Ravi: Microservices let teams deploy independently.\n[00:00:07] Lena: But they add network latency and operational overhead.\n[00:00:11] Omar: A modular monolith gives us clear boundaries without the overhead.\n[00:00:15] Hana: Decision, we go with a modular monolith for now.\n[00:00:18] Ravi: I'll draw the module boundaries by next Tuesday.\n[00:00:22] Lena: Which module do we extract first if we ever split?\n",
+   "concepts": [
+    "modular monolith",
+    "module boundaries",
+    "Microservices",
+    "Go with a modular monolith for now",
+    "Draw the module boundaries",
+    "Which module do we extract first if we ever split?"
+   ]
+  },
+  {
+   "id": "engineering-011",
+   "profile": "engineering",
+   "title": "Pagination for the items list",
+   "transcript": "[00:00:00] Omar: The list endpoint returns everything at once, which is too slow.\n[00:00:04] Hana: Offset pagination is simple but breaks when items are inserted.\n[00:00:09] Omar: Cursor pagination is stable, get slash items with a cursor and a limit.\n[00:00:14] Hana: Let's use cursor pagination.\n[00:00:16] Omar: I'll update the client SDK to follow the cursor.\n",
+   "concepts": [
+    "cursor pagination",
+    "Offset pagination",
+    "Use cursor pagination",
+    "Update the client SDK to follow the cursor"
+   ]
+  },
+  {
+   "id": "engineering-016",
+   "profile": "engineering",
+   "title": "API rate limiting",
+   "transcript": "[00:00:00] Sam: Some clients send too many requests.\n[00:00:03] Hana: A token bucket per API key would limit bursts fairly.\n[00:00:07] Omar: A fixed window is simpler but allows spikes at the window edge.\n[00:00:11] Sam: Token bucket it is.\n[00:00:12] Hana: I'll implement the token bucket middle way.\n",
+   "concepts": [
+    "rate limiting per API key",
+    "Token bucket",
+    "Fixed window",
+    "Use a token bucket per API key",
+    "Implement the token bucket middleware"
+   ]
+  },
+  {
+   "id": "engineering-021",
+   "profile": "engineering",
+   "title": "Faster app startup",
+   "transcript": "[00:00:00] Tomas: App startup takes four seconds.\n[00:00:03] Ravi: We load all plugins at startup, we could load them lazily.\n[00:00:07] Tomas: Lazy loading makes the first use of a plugin slower.\n[00:00:10] Ravi: That's acceptable, let's lazy load plugins.\n[00:00:14] Tomas: I'll measure startup before and after.\n",
+   "concepts": [
+    "lazy plugin loading",
+    "Lazy loading plugins",
+    "Lazy load plugins",
+    "Measure startup before and after"
+   ]
+  },
+  {
+   "id": "engineering-026",
+   "profile": "engineering",
+   "title": "Distributed tracing",
+   "transcript": "[00:00:00] Nadia: We can't see where requests spend time.\n[00:00:03] Ravi: Let's add distributed tracing with a trace ID in every log line.\n[00:00:07] Nadia: Tracing adds a little overhead, but it's worth it.\n[00:00:10] Ravi: I'll instrument the checkout service first.\n",
+   "concepts": [
+    "distributed tracing",
+    "trace id in every log line",
+    "Add distributed tracing",
+    "Instrument the checkout service"
+   ]
+  },
+  {
+   "id": "lecture-001",
+   "profile": "lecture",
+   "title": "Introduction to Graph Algorithms",
+   "transcript": "[00:00:00] Good morning everyone, I am Professor Alder, and welcome to CS 214 Algorithms at Fabrikam Institute. Today's topic is introduction to graph algorithms. The lecture introduced breadth-first search and Dijkstra shortest paths.\n[00:00:13] Let me define a term first: breadth-first search means visits vertices in order of their distance from the source. Let me define a term first: relaxation means updating a distance estimate when a shorter path is found.\n[00:00:28] Now let us look at graph basics. A graph is a set of vertices joined by edges. Adjacency lists store neighbours compactly.\n[00:00:37] Now let us look at shortest paths. Breadth-first search finds shortest paths in unweighted graphs. Dijkstra handles non-negative edge weights. Here is a question to think about before next time. Why does Dijkstra fail with negative edge weights?\n[00:00:52] Your assignment: finish problem set one, due next Friday. The reading for this is the graph chapter of the course reader. That is all for today, see you next time.\n",
+   "concepts": [
+    "Breadth-first search",
+    "Relaxation",
+    "Graph basics",
+    "Shortest paths",
+    "Finish problem set one",
+    "Why does Dijkstra fail with negative edge weights?"
+   ]
+  },
+  {
+   "id": "lecture-006",
+   "profile": "lecture",
+   "title": "Hash Tables",
+   "transcript": "[00:00:00] Good morning everyone, I am Professor Alder, and welcome to CS 214 Algorithms at Fabrikam Institute. Today's topic is hash tables. Hash tables give near constant time lookups by mapping keys to buckets.\n[00:00:13] Let me define a term first: hash function means a function that maps a key to a bucket index. Let me define a term first: collision means two different keys that map to the same bucket.\n[00:00:27] Let me define a term first: load factor means the ratio of stored items to buckets. Now let us look at chaining.\n[00:00:36] Each bucket holds a linked list of items. Several of you asked about this last time, so I want to be clear.\n[00:00:45] Take a second to let that sink in before we move on. Several of you asked about this last time, so I want to be clear.\n[00:00:55] Take a second to let that sink in before we move on. Lookups walk the list in the bucket. Do not worry if it is not obvious yet; it gets easier with practice.\n[00:01:08] Take a second to let that sink in before we move on. It is easy to rush past this, so let me say it again slowly.\n[00:01:18] Several of you asked about this last time, so I want to be clear. Now let us look at open addressing. Collisions probe for the next free slot.\n[00:01:29] That point is worth pausing on for a moment. Several of you asked about this last time, so I want to be clear.\n[00:01:38] We will keep coming back to this idea as the term goes on. That point is worth pausing on for a moment.\n[00:01:47] Deletion needs a tombstone marker. I know that can feel abstract, so hold on to it. I know that can feel abstract, so hold on to it.\n[00:01:58] It is easy to rush past this, so let me say it again slowly. That point is worth pausing on for a moment.\n[00:02:07] Now let us look at worked example. We walk through one complete example on the board. Do not worry if it is not obvious yet; it gets easier with practice.\n[00:02:19] That point is worth pausing on for a moment. We will keep coming back to this idea as the term goes on.\n[00:02:28] Several of you asked about this last time, so I want to be clear. Check each step against the definition. It is easy to rush past this, so let me say it again slowly.\n[00:02:42] It is easy to rush past this, so let me say it again slowly. Do not worry if it is not obvious yet; it gets easier with practice.\n[00:02:53] Do not worry if it is not obvious yet; it gets easier with practice. Now let us look at common mistakes. Students often skip the setup.\n[00:03:03] Several of you asked about this last time, so I want to be clear. I know that can feel abstract, so hold on to it.\n[00:03:13] It is easy to rush past this, so let me say it again slowly. That point is worth pausing on for a moment.\n[00:03:22] Units and signs cause most errors. Do not worry if it is not obvious yet; it gets easier with practice. We will keep coming back to this idea as the term goes on.\n[00:03:35] We will keep coming back to this idea as the term goes on. It is easy to rush past this, so let me say it again slowly.\n[00:03:46] Now let us look at historical background. The idea developed over several decades. Do not worry if it is not obvious yet; it gets easier with practice.\n[00:03:57] We will keep coming back to this idea as the term goes on. Take a second to let that sink in before we move on.\n[00:04:07] Do not worry if it is not obvious yet; it gets easier with practice. Early versions were much simpler. That point is worth pausing on for a moment.\n[00:04:18] I know that can feel abstract, so hold on to it. Do not worry if it is not obvious yet; it gets easier with practice.\n[00:04:28] Several of you asked about this last time, so I want to be clear. Now let us look at applications. The method is used in industry every day.\n[00:04:39] It is easy to rush past this, so let me say it again slowly. We will keep coming back to this idea as the term goes on.\n[00:04:50] Do not worry if it is not obvious yet; it gets easier with practice. I know that can feel abstract, so hold on to it.\n[00:05:00] Smaller projects benefit as well. It is easy to rush past this, so let me say it again slowly. We will keep coming back to this idea as the term goes on.\n[00:05:13] I know that can feel abstract, so hold on to it. Take a second to let that sink in before we move on.\n[00:05:22] Now let us look at limits. Every model has assumptions. It is easy to rush past this, so let me say it again slowly.\n[00:05:32] We will keep coming back to this idea as the term goes on. That point is worth pausing on for a moment.\n[00:05:41] Take a second to let that sink in before we move on. Know when they fail. Several of you asked about this last time, so I want to be clear.\n[00:05:53] It is easy to rush past this, so let me say it again slowly. Several of you asked about this last time, so I want to be clear.\n[00:06:04] I know that can feel abstract, so hold on to it. Now let us look at related topics. We will connect this to earlier weeks.\n[00:06:14] I know that can feel abstract, so hold on to it. We will keep coming back to this idea as the term goes on.\n[00:06:24] It is easy to rush past this, so let me say it again slowly. Several of you asked about this last time, so I want to be clear.\n[00:06:35] Later lectures extend it. That point is worth pausing on for a moment. Do not worry if it is not obvious yet; it gets easier with practice.\n[00:06:46] Several of you asked about this last time, so I want to be clear. I know that can feel abstract, so hold on to it.\n[00:06:56] Here is a question to think about before next time. How does the load factor affect lookup time? Your assignment: implement a hash table with chaining, due Friday March 20th.\n[00:07:08] The reading for this is the hashing chapter of the course reader. That is all for today, see you next time.\n",
+   "concepts": [
+    "Hash function",
+    "Collision",
+    "Load factor",
+    "Chaining",
+    "Open addressing",
+    "Worked example",
+    "Common mistakes",
+    "Historical background",
+    "Applications",
+    "Limits",
+    "Related topics",
+    "Implement a hash table with chaining",
+    "How does the load factor affect lookup time?"
+   ]
+  },
+  {
+   "id": "lecture-011",
+   "profile": "lecture",
+   "title": "Plate Tectonics",
+   "transcript": "[00:00:00] Good morning everyone, I am Dr. Elio Santoro, and welcome to GEO 105 Earth Systems at Wingtip Institute. Today's topic is plate tectonics. Plate tectonics explains earthquakes, volcanoes and mountain building.\n[00:00:12] Let me define a term first: subduction means one plate sinking beneath another. Let me define a term first: mid-ocean ridge means a boundary where new crust forms.\n[00:00:23] Now let us look at plate boundaries. Plates diverge, converge or slide past each other. Most earthquakes occur along boundaries. Now let us look at evidence.\n[00:00:33] Matching fossils appear on separated continents. Seafloor age increases away from ridges. Here is a question to think about before next time. Why is the Pacific rim called the ring of fire?\n[00:00:46] There is no homework this week, so use the time to review. That is all for today, see you next time.\n",
+   "concepts": [
+    "Subduction",
+    "Mid-ocean ridge",
+    "Plate boundaries",
+    "Evidence",
+    "Why is the Pacific rim called the ring of fire?"
+   ]
+  },
+  {
+   "id": "lecture-016",
+   "profile": "lecture",
+   "title": "Perspective in Renaissance Painting",
+   "transcript": "[00:00:00] Good morning everyone, I am Dr. Odalys Finch, and welcome to ART 150 Renaissance Art at Contoso College. Today's topic is perspective in renaissance painting. Renaissance painters used linear perspective to create the illusion of depth.\n[00:00:14] Let me define a term first: vanishing point means the point where parallel lines appear to meet. Let me define a term first: chiaroscuro means strong contrast between light and dark.\n[00:00:26] Now let us look at linear perspective. Brunelleschi demonstrated it in Florence. Alberti wrote the first treatise on it. Now let us look at use in painting.\n[00:00:37] Masaccio's Trinity uses a single vanishing point. Leonardo combined perspective with chiaroscuro. Here is a question to think about before next time. How does perspective change what a viewer notices first?\n[00:00:49] The reading for this is Alberti's On Painting. There is no homework this week, so use the time to review. That is all for today, see you next time.\n",
+   "concepts": [
+    "Vanishing point",
+    "Chiaroscuro",
+    "Linear perspective",
+    "Use in painting",
+    "How does perspective change what a viewer notices first?"
+   ]
+  },
+  {
+   "id": "lecture-021",
+   "profile": "lecture",
+   "title": "Database Normalisation",
+   "transcript": "[00:00:00] Good morning everyone, I am professor Alder, and welcome to CS 340 databases at fabrikam institute Today's topic is database normalisation. Normalisation remoes redundancy by splitting tables along dependencies\n[00:00:12] let me define a term first: functional dependency means a rule that right one attribute determines another. Let me define a term first: third normal form means a table where non-key attributes depend only on um the key\n[00:00:26] Now let us look at anomalies. Update anomalies apper when data repeats. Several of you asked about this last time, so I want to be clear.\n[00:00:36] That point is worth pausing on for a moment. That point is worth pausing on for a mment. Several of you asked about this last time, so i want to be clear.\n[00:00:49] Deletion can remove unrelted facts. that point is worth pausing on for a moment. It is easy to rush past this, so let me say it again slowly\n[00:01:00] It is easy to rush past this, so let me say it again slowly. take a second to let that sink in before we move on.\n[00:01:10] Now let us look at normal forms First normal form needs atomic values. Do not worry if uh it is not obvious yet; it gets easier with practice.\n[00:01:21] Do not worry if it is not obvious yet; it gets easier with practice. Several of you asked about this last time, so I want to be clear.\n[00:01:32] Take a second to let okay so that sink in before we move on. Second normal form removes partial dependencies. do not worry if it is not obvious yet; it gets easier with practice.\n[00:01:45] we will keep coming back to this idea as the term goes on. I know that can feel abstract, so hold on to it.\n[00:01:55] Take a second to let that sink in before we move on Now let us look at worked example. We walk trough one complete example on the board.\n[00:02:06] Do not worry if it is not obvious yet; it gets easier with practice. Take a second to let that sink in before we move on\n[00:02:16] Take a second to let that sink in before we move on. Several of you asked about this last you know time so I want to be clear.\n[00:02:26] check each step against the definition That point is worth pausing on for a moment. We will keep coming back to this idea as the term goes on.\n[00:02:37] That point is worth pausing on for a moment. We um will keep coming back to this idea as the term goes on.\n[00:02:46] Now let us look at common mistakes. Students often skip the setup. It is easy to rush past this, so let me say it again slowly.\n[00:02:56] Do not worry if it is not obvious you know yet; it gets easier with practice. We will keep coming back to this idea as the term goes on.\n[00:03:07] It is easy to rush past this, so let me say it again slowly. units and signs um cause most errors. Take a second to let that sink in before we move on.\n[00:03:20] We will keep coming back to this idea as the term goes on. Do not worry if it is not obvious yet; it gets easier with practice.\n[00:03:31] Several of you okay so asked about this last time, so i want to be clear. Now let us look at historical background. so The idea developed over several decades.\n[00:03:42] We will keep coming back to this idea as the term goes on That point is worth pausing on for a moment.\n[00:03:51] it um is easy to rush past this, so let me say it again slowly we will keep coming back to this uh idea as uh the term goes on.\n[00:04:02] early versions were much simpler. We will keep coming back to this idea as the term goes on. That point is worth pausing on for a moment.\n[00:04:13] that point is worth pasing on for a moment. we will so keep coming back to this idea as the term so goes on.\n[00:04:22] Now let us look at applications. The metod is used in industry every day Do not worry if it is not obvious yet; it gets easier with practice.\n[00:04:33] Take a second to let that sink in before so we move on. Take a second to let that sink so in before we move on\n[00:04:43] do not worry if it is not obvious yet; it gets easier with practice. Smaller projects benefit as well. take a second to let that sink in beore we move on.\n[00:04:55] Do not worry if it is not obvious yet; it um gets easier with practice. Take a second to let that sink in befoe you know we move on.\n[00:05:05] Do not worry if it is not obvious yet; it gets easier with practice Now let us look at limits. Every model has assumptions.\n[00:05:15] We will keep coming back to this idea as the term goes on. Do not worry if okay so it you know is not obvious yet; it gets easier with practice.\n[00:05:26] Do not worry if it is not obvious yet; it gets easier with practice. Several of you asked about this last time, so I want to be clear.\n[00:05:37] Know when they fail Take a second okay so to let that sink in before we move on. It is easy to rush past this, so let me say it again slowly.\n[00:05:49] I so know okay so that can feel abstract, so hold on to it. That point is worth pausing on for a moment. Now let us look at related topics.\n[00:06:00] We will connect this to earlier weeks. It is easy to rush past this, so so let me say it again slowly. Several of you asked about this last time, so i want to be clear.\n[00:06:14] take a second to let that sink in before we move on. That point is worth pausing on for um a moment Later you know lectures extend it.\n[00:06:24] That point is worth pausing on for a moment Take a second to let that sink in before we move on. It is easy to rush past this, so let me say it right again slowly.\n[00:06:38] We will keep coming back to this idea as the term goes on. Here is a question to think about before next time. When is denormalisation justified?\n[00:06:49] Your assignment: normalise the orders schema to third normal form due April 9th. The reading for this is the schma design chapter of the coarse reader.\n[00:06:59] That is all for today, see you next time\n",
+   "concepts": [
+    "Functional dependency",
+    "Third normal form",
+    "Anomalies",
+    "Normal forms",
+    "Worked example",
+    "Common mistakes",
+    "Historical background",
+    "Applications",
+    "Limits",
+    "Related topics",
+    "Normalise the orders schema to third normal form",
+    "When is denormalisation justified?"
+   ]
+  },
+  {
+   "id": "lecture-026",
+   "profile": "lecture",
+   "title": "Double-Entry Bookkeeping",
+   "transcript": "[00:00:00] Good morning everyone, i okay so am Professor right Ravi menon and welcome to ACC 101 Financial Accounting at Taispin college Today's topic is double-entry bookkeeping. Double-entry bookkeeping records every transaction as equal debits and credits.\n[00:00:13] Let me define a uh term first: debit means an entry that increases assets or expenses Let me define a term first: ledger means the book that collects all accounts.\n[00:00:25] Now let us look at the accounting equation. Assets equal liabilities plus equity Every transaction keeps the equation balanced. Now let us look at recording entries.\n[00:00:35] Each entry has a debit and a credit of equal value. A trial balance checks that totals match. here is a question to think about before next time. Why must debits always equal credits?\n[00:00:49] Your assignment: complete the journal entries exercise, due April 16th. That is all for today, see you next time.\n",
+   "concepts": [
+    "Debit",
+    "Ledger",
+    "The accounting equation",
+    "Recording entries",
+    "Complete the journal entries exercise",
+    "Why must debits always equal credits?"
+   ]
+  },
+  {
+   "id": "sales_call-001",
+   "profile": "sales_call",
+   "title": "Proseware Retail backup service discussion",
+   "transcript": "[00:00:00] Marcus: Hi everyone, thanks for meeting. I am Marcus from Contoso Cloud.\n[00:00:04] Dev: Good to meet you, I am Dev from Proseware Retail.\n[00:00:08] Marcus: Today I would like to talk about our backup service and what matters most to you.\n[00:00:14] Marcus: What is most important for you right now?\n[00:00:17] Dev: We need training for about forty new users.\n[00:00:20] Dev: Our team needs a mobile app for field technicians.\n[00:00:24] Dev: We want single sign-on for all of our staff.\n[00:00:28] Dev: Support hours seem too short for our night shift.\n[00:00:32] Marcus: We offer an extended support plan around the clock.\n[00:00:36] Dev: I am not sure the reports are detailed enough.\n[00:00:40] Marcus: You can build custom reports with the built in editor.\n[00:00:44] Marcus: We guarantee ninety nine point nine percent uptime in the contract.\n[00:00:48] Dev: We will not sign with anyone else before we hear back from you.\n[00:00:53] Marcus: I will send two customer references by tomorrow.\n[00:00:56] Dev: Sounds good, thank you.\n[00:00:58] Dev: I will confirm the budget with finance by next Tuesday.\n[00:01:02] Marcus: Sounds good, thank you.\n[00:01:04] Marcus: Thanks everyone, talk soon.\n",
+   "concepts": [
+    "Training for about forty new users",
+    "A mobile app for field technicians",
+    "Single sign-on for all staff",
+    "Support hours are too short for the night shift",
+    "Not sure the reports are detailed enough",
+    "Guarantee ninety nine point nine percent uptime in the contract",
+    "Not sign with anyone else before hearing back",
+    "Send two customer references",
+    "Confirm the budget with finance"
+   ]
+  },
+  {
+   "id": "sales_call-006",
+   "profile": "sales_call",
+   "title": "Trey Research payroll module discussion",
+   "transcript": "[00:00:00] Lena: Hi everyone, thanks for meeting. I am Lena from Contoso Cloud.\n[00:00:04] Gita: Good to meet you, I am Gita from Trey Research.\n[00:00:08] Liam: Good to meet you, I am Liam from Trey Research.\n[00:00:12] Lena: Today I would like to talk about our payroll module and what matters most to you.\n[00:00:18] Lena: What is most important for you right now?\n[00:00:21] Liam: We need weekly reports without exporting spreadsheets by hand.\n[00:00:25] Liam: We need to cut the time spent on month-end closing.\n[00:00:29] Liam: We are also looking at Stark Data for this.\n[00:00:33] Liam: The contract term of three years is too long for us.\n[00:00:37] Liam: Actually, never mind, that is not a real concern for us.\n[00:00:41] Gita: I will bring the finance lead into the next discussion.\n[00:00:45] Liam: How does the pricing change if we add more branches?\n[00:00:49] Lena: Good question, let us come back to that another time.\n[00:00:53] Lena: I will schedule a technical demo for the team by next week.\n[00:00:58] Gita: Sounds good, thank you.\n[00:01:00] Liam: I will review the contract draft by tomorrow.\n[00:01:03] Lena: Sounds good, thank you.\n[00:01:05] Lena: Thanks everyone, talk soon.\n",
+   "concepts": [
+    "Weekly reports without exporting spreadsheets by hand",
+    "Cut the time spent on month-end closing",
+    "The three year contract term is too long",
+    "Bring the finance lead into the next discussion",
+    "Schedule a technical demo for the team",
+    "Review the contract draft"
+   ]
+  },
+  {
+   "id": "sales_call-011",
+   "profile": "sales_call",
+   "title": "Northwind Traders fleet tracker discussion",
+   "transcript": "[00:00:00] Lena: Hi everyone, thanks for meeting. I am Lena from Adatum Tools.\n[00:00:04] Liam: Good to meet you, I am Liam from Northwind Traders.\n[00:00:08] Lena: Today I would like to talk about our fleet tracker and what matters most to you.\n[00:00:14] Lena: What is most important for you right now?\n[00:00:17] Liam: Our biggest problem is duplicate records across branches.\n[00:00:20] Liam: We want a dashboard that the board can read at a glance.\n[00:00:25] Liam: We are also looking at Globex Analytics for this.\n[00:00:29] Liam: I am not sure the reports are detailed enough.\n[00:00:33] Lena: You can build custom reports with the built in editor.\n[00:00:37] Liam: I do not see how this fits with our current system.\n[00:00:41] Liam: Actually, never mind, that is not a real concern for us.\n[00:00:45] Lena: I will personally join the first training session.\n[00:00:48] Liam: How does the pricing change if we add more branches?\n[00:00:52] Lena: Good question, let us come back to that another time.\n[00:00:56] Liam: I will share the list of required integrations by next Tuesday.\n[00:01:00] Lena: Sounds good, thank you.\n[00:01:02] Lena: Thanks everyone, talk soon.\n",
+   "concepts": [
+    "Duplicate records across branches",
+    "A dashboard the board can read at a glance",
+    "Not sure the reports are detailed enough",
+    "Does not see how it fits the current system",
+    "Personally join the first training session",
+    "Share the list of required integrations"
+   ]
+  },
+  {
+   "id": "sales_call-016",
+   "profile": "sales_call",
+   "title": "Northwind Traders fleet tracker discussion",
+   "transcript": "[00:00:00] Kwame: Hi everyone, thanks for meeting. I am Kwame from Adatum Tools.\n[00:00:04] Gita: Good to meet you, I am Gita from Northwind Traders.\n[00:00:08] Kwame: Today I would like to talk about our fleet tracker and what matters most to you.\n[00:00:14] Kwame: What is most important for you right now?\n[00:00:17] Gita: We need weekly reports without exporting spreadsheets by hand.\n[00:00:21] Gita: We want a dashboard that the board can read at a glance.\n[00:00:26] Gita: We are also looking at Hooli Suite for this.\n[00:00:30] Gita: We had a bad experience with a previous vendor.\n[00:00:34] Gita: Actually, never mind, that is not a real concern for us.\n[00:00:38] Kwame: We guarantee ninety nine point nine percent uptime in the contract.\n[00:00:42] Gita: We will give you an answer after our board meeting.\n[00:00:46] Gita: When would a pilot be able to start?\n[00:00:49] Kwame: Good question, let us come back to that another time.\n[00:00:53] Kwame: Thank you for your time, let us leave it there for now.\n",
+   "concepts": [
+    "Weekly reports without exporting spreadsheets by hand",
+    "A dashboard the board can read at a glance",
+    "A bad experience with a previous vendor",
+    "Guarantee ninety nine point nine percent uptime in the contract",
+    "Give an answer after the board meeting"
+   ]
+  },
+  {
+   "id": "sales_call-021",
+   "profile": "sales_call",
+   "title": "Litware Clinics training platform discussion",
+   "transcript": "[00:00:00] Priya: Hi everyone, thanks for meeting. I am Priya from Contoso Cloud.\n[00:00:04] Dev: Good to meet you, I am Dev from Litware Clinics.\n[00:00:08] Priya: Today I would like to talk about our training platform and what matters most to you.\n[00:00:14] Priya: What is most important for you right now?\n[00:00:17] Dev: We need role based access so interns cannot see salaries.\n[00:00:21] Dev: We are also looking at Initech Reports for this.\n[00:00:25] Priya: I promise that your data will be deleted on request within thirty days.\n[00:00:30] Dev: We commit to a decision by the middle of next month.\n[00:00:34] Dev: Is there a limit on the number of users?\n[00:00:38] Priya: Good question, let us come back to that another time.\n[00:00:42] Priya: I will schedule a technical demo for the team by Monday.\n[00:00:46] Dev: Sounds good, thank you.\n[00:00:48] Priya: I will share the migration plan by next week.\n[00:00:52] Dev: Sounds good, thank you.\n[00:00:54] Priya: Thanks everyone, talk soon.\n",
+   "concepts": [
+    "Role based access so interns cannot see salaries",
+    "Delete the data on request within thirty days",
+    "Commit to a decision by the middle of next month",
+    "Schedule a technical demo for the team",
+    "Share the migration plan"
+   ]
+  },
+  {
+   "id": "sales_call-026",
+   "profile": "sales_call",
+   "title": "Trey Research training platform discussion",
+   "transcript": "[00:00:00] Ana: Hi everyone, thanks for meeting. I am Ana from Adatum Tools.\n[00:00:04] Ben: Good to meet you, I am Ben from Trey Research.\n[00:00:08] Ana: Today I would like to talk about our training platform and what matters most to you.\n[00:00:14] Ana: What is most important for you right now?\n[00:00:17] Ben: We want single sign-on for all of our staff.\n[00:00:21] Ben: We want the invoices to sync with our accounting system.\n[00:00:25] Ben: We are also looking at Globex Analytics for this.\n[00:00:29] Ben: I do not see how this fits with our current system.\n[00:00:33] Ana: There is a ready made connector for your system.\n[00:00:37] Ana: I will personally join the first training session.\n[00:00:40] Ben: I will make sure our technical lead attends the demo.\n[00:00:44] Ana: I will schedule a technical demo for the team by Friday.\n[00:00:48] Ben: Sounds good, thank you.\n[00:00:50] Ana: Thanks everyone, talk soon.\n",
+   "concepts": [
+    "Single sign-on for all staff",
+    "Invoices that sync with the accounting system",
+    "Does not see how it fits the current system",
+    "Personally join the first training session",
+    "Make sure the technical lead attends the demo",
+    "Schedule a technical demo for the team"
+   ]
+  },
+  {
+   "id": "interview-001",
+   "profile": "interview",
+   "title": "Interview with Kira",
+   "transcript": "[00:00:00] Marcus: Welcome, and thank you for joining me. I am Marcus.\n[00:00:04] Kira: Thanks for having me, I am Kira, and I work as an architect.\n[00:00:09] Marcus: What would you tell someone just starting out?\n[00:00:12] Kira: Write down what you tried, even when it fails. Failed experiments teach you the most.\n[00:00:18] Marcus: Why does this work matter to you?\n[00:00:21] Kira: Because small errors add up over years. A tiny drift becomes a wrong decision.\n[00:00:27] Marcus: What does a normal day look like?\n[00:00:30] Kira: I start with the overnight logs, then we review anything that failed. Afternoons are for writing.\n[00:00:36] Marcus: I will share the recording once it is edited by Friday.\n[00:00:40] Kira: Sounds good, thank you.\n[00:00:42] Marcus: I will email you the written questions by Monday.\n[00:00:46] Kira: Sounds good, thank you.\n[00:00:48] Marcus: Thank you for your time, that was a great conversation.\n",
+   "concepts": [
+    "Advice for beginners",
+    "Why it matters",
+    "Daily routine",
+    "What would you tell someone just starting out?",
+    "Why does this work matter to you?",
+    "What does a normal day look like?",
+    "Share the recording once it is edited",
+    "Email the written questions"
+   ]
+  },
+  {
+   "id": "interview-006",
+   "profile": "interview",
+   "title": "Interview with Mina",
+   "transcript": "[00:00:00] Priya: Welcome, and thank you for joining me. I am Priya.\n[00:00:04] Mina: Thanks for having me, I am Mina, and I work as an engineer.\n[00:00:09] Priya: Would you do it again?\n[00:00:11] Mina: Yes.\n[00:00:13] Priya: Did anyone doubt the plan?\n[00:00:15] Mina: Mostly.\n[00:00:17] Priya: Did the team grow quickly?\n[00:00:19] Mina: No.\n[00:00:21] Priya: Was it a difficult year?\n[00:00:23] Mina: Mostly.\n[00:00:25] Mina: I will introduce you to my former supervisor by the end of the month.\n[00:00:31] Priya: Sounds good, thank you.\n[00:00:33] Mina: I will send you the data tables by Friday.\n[00:00:37] Priya: Sounds good, thank you.\n[00:00:39] Priya: Thank you for your time, that was a great conversation.\n",
+   "concepts": [
+    "Introduce the interviewer to their former supervisor",
+    "Send the data tables"
+   ]
+  },
+  {
+   "id": "interview-011",
+   "profile": "interview",
+   "title": "Interview with Ben",
+   "transcript": "[00:00:00] Kwame: Welcome, and thank you for joining me. I am Kwame.\n[00:00:04] Ben: Thanks for having me, I am Ben, and I work as a pilot.\n[00:00:09] Kwame: What role does the community play?\n[00:00:11] Ben: Volunteers found most of our bugs. Without them we would still be guessing.\n[00:00:16] Kwame: How did the project start?\n[00:00:18] Ben: It began when we noticed the sensors drifted every winter. Nobody had measured it before.\n[00:00:24] Kwame: What was your biggest early mistake?\n[00:00:26] Ben: We trusted the vendor numbers without checking them. Calibration matters more than hardware.\n[00:00:31] Kwame: Why does this work matter to you?\n[00:00:34] Ben: Because small errors add up over years. A tiny drift becomes a wrong decision.\n[00:00:40] Kwame: When will the final report be ready?\n[00:00:43] Ben: Good question, I would rather not answer that today.\n[00:00:47] Ben: I will share the photos from the field trip.\n[00:00:51] Kwame: Sounds good, thank you.\n[00:00:53] Kwame: Thank you for your time, that was a great conversation.\n",
+   "concepts": [
+    "Community",
+    "How the project started",
+    "Early mistakes",
+    "Why it matters",
+    "What role does the community play?",
+    "How did the project start?",
+    "What was your biggest early mistake?",
+    "Why does this work matter to you?",
+    "Share the photos from the field trip"
+   ]
+  },
+  {
+   "id": "interview-021",
+   "profile": "interview",
+   "title": "Interview with Mina",
+   "transcript": "[00:00:00] Sofia: Welcome, and thank you for joining me. I am Sofia.\n[00:00:04] Mina: Thanks for having me, I am Mina, and I work as an engineer.\n[00:00:09] Sofia: What does a normal day look like?\n[00:00:12] Mina: I start with the overnight logs, then we review anything that failed. Afternoons are for writing.\n[00:00:18] Sofia: How big was the team at the beginning?\n[00:00:21] Mina: There were only three of us in a rented garage, and we shared a single laptop.\n[00:00:27] Sofia: Which tools do you rely on every day?\n[00:00:30] Mina: A notebook, a soldering iron and a very old spreadsheet. The spreadsheet has survived four migrations.\n[00:00:36] Sofia: Thank you for your time, that was a great conversation.\n",
+   "concepts": [
+    "Daily routine",
+    "Team size",
+    "Tools used",
+    "What does a normal day look like?",
+    "How big was the team at the beginning?",
+    "Which tools do you rely on every day?"
+   ]
+  },
+  {
+   "id": "interview-026",
+   "profile": "interview",
+   "title": "Interview with Chloe",
+   "transcript": "[00:00:00] Kwame: Welcome, and thank you for joining me. I am Kwame.\n[00:00:04] Chloe: Thanks for having me, I am Chloe, and I work as a musician.\n[00:00:09] Kwame: How big was the team at the beginning?\n[00:00:12] Chloe: There were only three of us in a rented garage, and we shared a single laptop.\n[00:00:18] Kwame: What are you working on next?\n[00:00:20] Chloe: A longer field study across three regions. We start collecting data in the spring.\n[00:00:26] Kwame: How did people react when it came out?\n[00:00:29] Chloe: Mostly with curiosity. A few critics said the method was too slow, and they were partly right.\n[00:00:36] Chloe: I will check the dates in the timeline by the end of the month.\n[00:00:42] Kwame: Sounds good, thank you.\n[00:00:44] Chloe: I will introduce you to my former supervisor by next Tuesday.\n[00:00:48] Kwame: Sounds good, thank you.\n[00:00:50] Kwame: Thank you for your time, that was a great conversation.\n",
+   "concepts": [
+    "Team size",
+    "What is next",
+    "Public reaction",
+    "How big was the team at the beginning?",
+    "What are you working on next?",
+    "How did people react when it came out?",
+    "Check the dates in the timeline",
+    "Introduce the interviewer to their former supervisor"
+   ]
+  },
+  {
+   "id": "interview-031",
+   "profile": "interview",
+   "title": "Interview with Kira",
+   "transcript": "[00:00:00] Kwame: Welcome, and thank you for joining me. I am Kwame.\n[00:00:04] Kira: Thanks for having me, I am Kira, and I work as an architect.\n[00:00:09] Kwame: How did you pay for the first year?\n[00:00:12] Kira: A small grant covered the equipment. Everything else came from weekend consulting work.\n[00:00:17] Kwame: What was your biggest early mistake?\n[00:00:19] Kira: We trusted the vendor numbers without checking them. Calibration matters more than hardware.\n[00:00:24] Kwame: I will email you the written questions by the end of the month.\n[00:00:29] Kira: Sounds good, thank you.\n[00:00:31] Kira: I will send you the data tables by the end of the month.\n[00:00:36] Kwame: Sounds good, thank you.\n[00:00:38] Kwame: Thank you for your time, that was a great conversation.\n",
+   "concepts": [
+    "Funding",
+    "Early mistakes",
+    "How did you pay for the first year?",
+    "What was your biggest early mistake?",
+    "Email the written questions",
+    "Send the data tables"
+   ]
+  }
+ ]
+}

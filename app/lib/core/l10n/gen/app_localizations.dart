@@ -2356,6 +2356,12 @@ abstract class AppLocalizations {
   /// **'Extracting details'**
   String get jobExtracting;
 
+  /// No description provided for @jobMapping.
+  ///
+  /// In en, this message translates to:
+  /// **'Building the mind map'**
+  String get jobMapping;
+
   /// No description provided for @jobRendering.
   ///
   /// In en, this message translates to:

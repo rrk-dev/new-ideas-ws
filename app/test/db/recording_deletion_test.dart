@@ -101,6 +101,18 @@ void main() {
           ),
         );
     await db
+        .into(db.mindMaps)
+        .insert(
+          MindMapsCompanion.insert(
+            id: '$id.mindmap',
+            recordingId: id,
+            method: 'projection',
+            json: {'id': 'n0', 'label': 'Root', 'children': <Object?>[]},
+            nodeCount: 1,
+            createdAt: t0,
+          ),
+        );
+    await db
         .into(db.jobs)
         .insert(
           JobsCompanion.insert(
@@ -148,6 +160,7 @@ void main() {
       'transcripts',
       'extractions',
       'action_items',
+      'mind_maps',
       'jobs',
       'exports',
     ]) {

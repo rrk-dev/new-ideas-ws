@@ -75,4 +75,35 @@ void main() {
     expect(await hits('plumber'), {'r2'});
     expect(await hits('sam'), {'r2'});
   });
+
+  test('[MAP-01/AC6] v2 → v3 adds mind_maps and keeps existing data, and '
+      'maps cascade with the recording', () async {
+    final schema = await verifier.schemaAt(2);
+    schema.rawDatabase.execute(
+      'INSERT INTO recordings (id, title, created_at, status, source, tags) '
+      "VALUES ('r1', 'Standup', 0, 'recorded', 'mic', '[]')",
+    );
+    final db = VaultVoiceDatabase(schema.newConnection());
+    addTearDown(db.close);
+    await verifier.migrateAndValidate(db, 3);
+
+    final recordings = await db.select(db.recordings).get();
+    expect(recordings.single.title, 'Standup');
+    expect(await db.select(db.mindMaps).get(), isEmpty);
+
+    await db
+        .into(db.mindMaps)
+        .insert(
+          MindMapsCompanion.insert(
+            id: 'r1.mindmap',
+            recordingId: 'r1',
+            method: 'projection',
+            json: {'id': 'n0', 'label': 'Root', 'children': <Object?>[]},
+            nodeCount: 1,
+            createdAt: DateTime.utc(2026),
+          ),
+        );
+    await (db.delete(db.recordings)..where((r) => r.id.equals('r1'))).go();
+    expect(await db.select(db.mindMaps).get(), isEmpty);
+  });
 }

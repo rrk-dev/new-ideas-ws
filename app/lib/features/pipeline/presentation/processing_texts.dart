@@ -54,6 +54,7 @@ String jobStatusLabel(
   JobState.diarizing => l.jobDiarizing,
   JobState.classifying => l.jobClassifying,
   JobState.extracting => l.jobExtracting,
+  JobState.mapping => l.jobMapping,
   JobState.rendering => l.jobRendering,
   JobState.writing => l.jobWriting,
   JobState.transcribed ||

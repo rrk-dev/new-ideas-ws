@@ -6,12 +6,14 @@ library;
 
 /// Processing steps in pipeline order. `diarize` and `classify` only run
 /// when enabled (diarization per profile, classification when profile =
-/// auto).
+/// auto); `mindMap` (MAP-01) only when the mind-map mode is `auto` or the
+/// user requested one.
 enum PipelineStepId {
   transcribe,
   diarize,
   classify,
   extract,
+  mindMap,
   render,
   write;
 
@@ -21,6 +23,7 @@ enum PipelineStepId {
     diarize => JobState.diarizing,
     classify => JobState.classifying,
     extract => JobState.extracting,
+    mindMap => JobState.mapping,
     render => JobState.rendering,
     write => JobState.writing,
   };
@@ -29,14 +32,14 @@ enum PipelineStepId {
   JobState get restingBefore => switch (this) {
     transcribe => JobState.queued,
     diarize || classify || extract => JobState.transcribed,
-    render => JobState.extracted,
+    mindMap || render => JobState.extracted,
     write => JobState.rendered,
   };
 
   /// The resting state reached when this step completes and another follows.
   JobState get restingAfter => switch (this) {
     transcribe || diarize || classify => JobState.transcribed,
-    extract => JobState.extracted,
+    extract || mindMap => JobState.extracted,
     render => JobState.rendered,
     write => JobState.done,
   };
@@ -46,7 +49,8 @@ enum PipelineStepId {
 ///
 /// ```text
 /// queued → transcribing → transcribed → diarizing? → classifying?
-///        → extracting → extracted → rendering → rendered → writing → done
+///        → extracting → extracted → mapping? → rendering → rendered
+///        → writing → done
 /// any → failed · any → cancelled · active → paused · any → waiting(reason)
 /// ```
 enum JobState {
@@ -57,6 +61,7 @@ enum JobState {
   classifying,
   extracting,
   extracted,
+  mapping,
   rendering,
   rendered,
   writing,
@@ -72,6 +77,7 @@ enum JobState {
     diarizing,
     classifying,
     extracting,
+    mapping,
     rendering,
     writing,
   }.contains(this);
