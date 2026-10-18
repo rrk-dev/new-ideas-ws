@@ -1,0 +1,30 @@
+[00:00:00] Omar: Welcome, and thank you for joining me. I am Omar.
+[00:00:04] Gita: Thanks for having me, I am Gita, and I work as a biologist.
+[00:00:09] Gita: We could talk about this for an hour.
+[00:00:12] Gita: Let me think about how to put that.
+[00:00:15] Gita: It is hard to explain without a drawing.
+[00:00:18] Omar: What are you working on next?
+[00:00:20] Gita: A longer field study across three regions. We start collecting data in the spring.
+[00:00:26] Gita: Sorry, the microphone moved a little.
+[00:00:28] Omar: Tell me about a project that failed.
+[00:00:31] Gita: We built a mobile version nobody asked for. It cost us six months and taught us to ask first.
+[00:00:39] Gita: Let me think about how to put that.
+[00:00:42] Omar: What would you tell someone just starting out?
+[00:00:45] Gita: Write down what you tried, even when it fails. Failed experiments teach you the most.
+[00:00:51] Omar: That is something people ask me a lot.
+[00:00:54] Omar: How did you pay for the first year?
+[00:00:57] Gita: A small grant covered the equipment. Everything else came from weekend consulting work.
+[00:01:02] Gita: That is something people ask me a lot.
+[00:01:05] Omar: What was your biggest early mistake?
+[00:01:07] Gita: We trusted the vendor numbers without checking them. Calibration matters more than hardware.
+[00:01:12] Omar: That is something people ask me a lot.
+[00:01:15] Omar: Why does this work matter to you?
+[00:01:18] Gita: Because small errors add up over years. A tiny drift becomes a wrong decision.
+[00:01:24] Omar: It is hard to explain without a drawing.
+[00:01:27] Omar: Which region will you visit first?
+[00:01:29] Gita: Good question, I would rather not answer that today.
+[00:01:33] Omar: I will book a second session by Friday.
+[00:01:36] Gita: Sounds good, thank you.
+[00:01:38] Gita: I will share the photos from the field trip by Monday.
+[00:01:42] Omar: Sounds good, thank you.
+[00:01:44] Omar: Thank you for your time, that was a great conversation.

@@ -1,0 +1,13 @@
+[00:00:00] Dana: Welcome, and thank you for joining me. I am Dana.
+[00:00:04] Hugo: Thanks for having me, I am Hugo, and I work as an author.
+[00:00:09] Dana: Tell me about a project that failed.
+[00:00:12] Hugo: We built a mobile version nobody asked for. It cost us six months and taught us to ask first.
+[00:00:20] Dana: Who influenced you the most?
+[00:00:22] Hugo: My first supervisor. She never gave answers, she only asked better questions.
+[00:00:27] Dana: What does a normal day look like?
+[00:00:30] Hugo: I start with the overnight logs, then we review anything that failed. Afternoons are for writing.
+[00:00:36] Dana: What was the hardest decision you made?
+[00:00:39] Hugo: Closing the first workshop was painful. We kept the tools and let the lease go.
+[00:00:45] Hugo: I will check the dates in the timeline.
+[00:00:48] Dana: Sounds good, thank you.
+[00:00:50] Dana: Thank you for your time, that was a great conversation.

@@ -103,6 +103,21 @@ const List<BuiltinTemplateInfo> kBuiltinTemplates = [
     flavor: TemplateFlavor.plain,
     profileId: 'sales_call',
   ),
+  BuiltinTemplateInfo(
+    'interview-default',
+    flavor: TemplateFlavor.obsidian,
+    profileId: 'interview',
+  ),
+  BuiltinTemplateInfo(
+    'interview-logseq',
+    flavor: TemplateFlavor.logseq,
+    profileId: 'interview',
+  ),
+  BuiltinTemplateInfo(
+    'interview-plain',
+    flavor: TemplateFlavor.plain,
+    profileId: 'interview',
+  ),
   BuiltinTemplateInfo(kSummaryOnlyTemplateId, flavor: TemplateFlavor.obsidian),
 ];
 

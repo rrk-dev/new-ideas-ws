@@ -109,6 +109,9 @@ templates have no row, and a user template written for a built-in profile keeps
 | `sales-call-default` | sales_call | Obsidian | summary, participants, needs, objections with responses, commitments, next-step checkboxes with `(@owner)` and `📅 due`, competitors, open questions (TPL-02) |
 | `sales-call-logseq` | sales_call | Logseq | page properties, nested outline, `TODO` next steps (TPL-02) |
 | `sales-call-plain` | sales_call | plain | same sections, no front-matter / wikilinks (TPL-02) |
+| `interview-default` | interview | Obsidian | summary, participants with roles, topics, Q&A as blockquote pairs, verbatim quotes, follow-up checkboxes with `(@owner)` and `📅 due`, open questions (TPL-03) |
+| `interview-logseq` | interview | Logseq | page properties, nested outline with Q/A child bullets, `TODO` follow-ups (TPL-03) |
+| `interview-plain` | interview | plain | same sections, no front-matter / wikilinks (TPL-03) |
 | `summary-only` | any | Obsidian | fallback: `extraction: failed`, summary or notice, `transcript_block` |
 
 Alternate outputs (EXP-08): the recording screen's share action renders the note as Obsidian

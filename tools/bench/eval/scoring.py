@@ -157,6 +157,27 @@ def scalar_equal(e, p, kind: str) -> tuple[bool, bool]:
     return exact, exact or token_set_ratio(e, p) >= MATCH_TSR
 
 
+def quote_norm(text) -> str:
+    """Quote normalisation of the app's `verbatim_quotes` post-processor
+    (post_processing.dart `normalizeForQuote`): lower case, typographic
+    apostrophes folded, runs of non-letters/digits collapsed, space-wrapped."""
+    s = str(text or "").lower().replace("\u2018", "'").replace("\u2019", "'").replace("\u02bc", "'")
+    words = re.findall(r"[^\W_]+(?:'[^\W_]+)*", s)
+    return f" {' '.join(words)} " if words else ""
+
+
+def quote_stats(pred, transcript: str, cfg: dict) -> dict:
+    """{field: (verbatim, total)} for the quote lists named in cfg["verbatim"]."""
+    hay = quote_norm(re.sub(r"(?m)^\[\d{2}:\d{2}:\d{2}\]\s*", "", transcript))
+    out = {}
+    for field, text_key in (cfg.get("verbatim") or {}).items():
+        items = pred.get(field) if isinstance(pred, dict) and isinstance(pred.get(field), list) else []
+        texts = [i.get(text_key) for i in items if isinstance(i, dict) and isinstance(i.get(text_key), str)]
+        ok = sum(1 for t in texts if (q := quote_norm(t)) and q in hay)
+        out[field] = (ok, len(texts))
+    return out
+
+
 def score_case(expected: dict, predicted: dict | None, transcript: str, cfg: dict) -> dict:
     """Per-case metrics; `predicted` None = no valid output (counts as all-miss)."""
     pred = predicted if isinstance(predicted, dict) else {}

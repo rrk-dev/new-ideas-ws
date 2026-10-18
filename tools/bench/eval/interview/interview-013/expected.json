@@ -1,0 +1,68 @@
+{
+  "title": "Interview with Elena",
+  "summary": "Dana interviewed Elena, a founder, in a newsroom interview.",
+  "participants": [
+    {
+      "name": "Dana",
+      "role": "interviewer"
+    },
+    {
+      "name": "Elena",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Failure",
+    "Work and life",
+    "What is next",
+    "Biggest surprise"
+  ],
+  "qa_highlights": [
+    {
+      "question": "Tell me about a project that failed.",
+      "answer": "A mobile version nobody asked for cost six months and taught them to ask first",
+      "t": null
+    },
+    {
+      "question": "How do you keep a balance?",
+      "answer": "Protects Sundays with no messages or screens and a long walk",
+      "t": null
+    },
+    {
+      "question": "What are you working on next?",
+      "answer": "A longer field study across three regions starting in the spring",
+      "t": null
+    },
+    {
+      "question": "What surprised you most?",
+      "answer": "People wanted the data more than the tool",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Elena",
+      "text": "It cost us six months and taught us to ask first.",
+      "t": null
+    },
+    {
+      "speaker": "Elena",
+      "text": "No messages, no screens, just a long walk.",
+      "t": null
+    },
+    {
+      "speaker": "Elena",
+      "text": "People wanted the data far more than the tool itself.",
+      "t": null
+    }
+  ],
+  "follow_ups": [
+    {
+      "task": "Introduce the interviewer to their former supervisor",
+      "owner": "Elena",
+      "due": null,
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

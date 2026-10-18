@@ -42,6 +42,7 @@ void main() {
       'warranty',
       'engineering',
       'sales_call',
+      'interview',
     ]) {
       for (final f in TemplateFlavor.values) {
         expect(

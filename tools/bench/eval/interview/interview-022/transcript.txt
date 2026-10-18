@@ -1,0 +1,13 @@
+[00:00:00] Dana: Welcome, and thank you for joining me. I am Dana.
+[00:00:04] Mina: Thanks for having me, I am Mina, and I work as an engineer.
+[00:00:09] Dana: What are you working on next?
+[00:00:11] Mina: A longer field study across three regions. We start collecting data in the spring.
+[00:00:17] Dana: Tell me about a project that failed.
+[00:00:20] Mina: We built a mobile version nobody asked for. It cost us six months and taught us to ask first.
+[00:00:28] Dana: How big was the team at the beginning?
+[00:00:31] Mina: There were only three of us in a rented garage, and we shared a single laptop.
+[00:00:37] Dana: How do you keep a balance?
+[00:00:39] Mina: I protect my Sundays. No messages, no screens, just a long walk.
+[00:00:44] Dana: I will send you the draft article for review by tomorrow.
+[00:00:48] Mina: Sounds good, thank you.
+[00:00:50] Dana: Thank you for your time, that was a great conversation.

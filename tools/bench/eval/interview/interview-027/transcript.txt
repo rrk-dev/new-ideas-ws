@@ -1,0 +1,11 @@
+[00:00:00] Kwame: Welcome, and thank you for joining me. I am Kwame.
+[00:00:04] Liam: Thanks for having me, I am Liam, and I work as a nurse.
+[00:00:09] Kwame: How did people react when it came out?
+[00:00:12] Liam: Mostly with curiosity. A few critics said the method was too slow, and they were partly right.
+[00:00:19] Kwame: Tell me about a project that failed.
+[00:00:22] Liam: We built a mobile version nobody asked for. It cost us six months and taught us to ask first.
+[00:00:30] Kwame: Which region will you visit first?
+[00:00:32] Liam: Good question, I would rather not answer that today.
+[00:00:36] Kwame: I will book a second session by next week.
+[00:00:40] Liam: Sounds good, thank you.
+[00:00:42] Kwame: Thank you for your time, that was a great conversation.

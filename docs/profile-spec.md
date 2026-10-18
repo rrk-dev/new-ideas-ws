@@ -9,7 +9,7 @@ routing. **The LLM fills JSON; Dart renders Markdown.** Anything computable dete
   `profile_schema.dart`, `ProfileValidator`, post-processor contract `post_processors.dart`,
   render-context shape + normalizer `render_context.dart`, template check
   `template_variables.dart`), storage `app/lib/features/profiles/data/profile_registry.dart`.
-- Built-ins: `app/assets/profiles/{meeting,warranty,engineering,lecture,sales_call}.yaml`.
+- Built-ins: `app/assets/profiles/{meeting,warranty,engineering,lecture,sales_call,interview}.yaml`.
 - Owner task: PRF-01. Tests: `app/test/unit/profiles/`, `app/test/db/repositories/profile_registry_test.dart`.
 
 A profile is YAML (built-in assets, `.vvprofile` bundles) or the equivalent JSON (DB
@@ -20,7 +20,7 @@ A profile is YAML (built-in assets, `.vvprofile` bundles) or the equivalent JSON
 | Key | Type | Required | Rules |
 |---|---|---|---|
 | `format` | int | ✅ | Always `1`. |
-| `id` | string | ✅ | `^[a-z][a-z0-9_-]{1,39}$`, unique across built-in, user and enterprise profiles. Built-ins: `meeting`, `warranty`, `engineering`, `lecture`, `sales_call`. |
+| `id` | string | ✅ | `^[a-z][a-z0-9_-]{1,39}$`, unique across built-in, user and enterprise profiles. Built-ins: `meeting`, `warranty`, `engineering`, `lecture`, `sales_call`, `interview`. |
 | `version` | int ≥ 1 | ✅ | Increment on any change to `schema`, `map_schema`, `instructions`, `examples`, `reduce`, `post_process` (the *extraction fingerprint*). The app bumps it automatically when a user edit changes the fingerprint without a bump. |
 | `name` | string | ✅ | ≤ 60 chars. Display name (localizable key allowed: `@l10n:profile_meeting`). |
 | `description` | string | ✅ | One line, ≤ 200 chars; used by auto-classification (PRF-06). |
@@ -41,7 +41,7 @@ A profile is YAML (built-in assets, `.vvprofile` bundles) or the equivalent JSON
 | `filename_pattern` | string | – | Ends in `.md`, relative, no `..`. Tokens: `{{date:FMT}}` (FMT from `YYYY MM DD HH mm ss` and `- _ .`), `{{time}}`, `{{title}}`, `{{slug}}`, `{{profile}}`, `{{id}}` (`vv-markdown-vault-export`). |
 | `routing.default_target` | string | – | Vault target id or `ask`. |
 | `review_before_export` | bool | – | Default `false` (APP-05). |
-| `consent_confirmation` | enum | ✅ | `required` \| `optional` \| `none` (SEC-07). `required` for multi-person profiles (`meeting`, `engineering`, Auto) and for `lecture` (a lecturer and audience are recorded; wording is owned by SEC-07) and `sales_call` (other parties are recorded); `none` for personal notes / `warranty`. A profile with `stt.diarization: true` may not use `none`. |
+| `consent_confirmation` | enum | ✅ | `required` \| `optional` \| `none` (SEC-07). `required` for multi-person profiles (`meeting`, `engineering`, Auto) and for `lecture` (a lecturer and audience are recorded; wording is owned by SEC-07) `sales_call` and `interview` (other parties are recorded); `none` for personal notes / `warranty`. A profile with `stt.diarization: true` may not use `none`. |
 
 Any other top-level key (or unknown key under `stt`, `classify`, `routing`, an example) is a
 validation error, so typos never pass silently.
@@ -82,6 +82,7 @@ pass and map-reduce) and by the eval harness (`render_prompt.dart --generate` �
 | `drop_ungrounded_timestamps` | a string field `t` | – (nulls `t` values not present in the transcript) |
 | `dedupe_lists` | a list field | – (drops repeated items: same text ignoring case/punctuation; objects compared without `t`). **Always applied first**, whether or not the profile lists it: a small model that loops repeats one item up to `maxItems`. |
 | `ground_to_transcript` | – | – (see "Grounding" below) |
+| `verbatim_quotes` | a list of objects with a string field `text` | – (drops every item whose `text` is not a verbatim substring of the transcript; see "Verbatim quotes" below) |
 
 ### Grounding (`ground_to_transcript`)
 
@@ -99,6 +100,18 @@ It is a no-op when there is no transcript text. `GroundingStats` (duplicates, un
 owners cleared, prose replaced) is the only thing logged: counts, never content. Measured on
 the 30 gold outputs per profile of the eval corpus, it drops 3/4 gold items and replaces 4/2
 titles for meeting/engineering (paraphrased gold), 0 for warranty.
+
+### Verbatim quotes (`verbatim_quotes`)
+
+Used by the built-in `interview` profile (TPL-03) for `quotes[] {speaker, text, t}`. Grounding keeps
+an item when half of its key terms occur anywhere in the transcript, which lets a paraphrase pass
+as a "quote". `verbatim_quotes` is stricter: it normalises the quote and the transcript text
+(timestamps removed; lower case, typographic apostrophes folded to `'`, every run of other
+non-letter/digit characters collapsed to one space) and drops the item unless the quote is a
+whole-word substring of the transcript. Ellipses, reworded or shortened-by-"…" quotes and quotes
+joining two speaker turns are dropped. It is a no-op when there is no transcript text. Dropped
+items are counted in `GroundingStats.itemsDropped`; the eval reports `quote_fidelity`
+(post-processed, expected 100 %) next to the raw model output's fidelity.
 
 ### Examples and leakage
 

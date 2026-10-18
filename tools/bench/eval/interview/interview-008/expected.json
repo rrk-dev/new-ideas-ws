@@ -1,0 +1,58 @@
+{
+  "title": "Interview with Liam",
+  "summary": "Tomas interviewed Liam, a nurse, in a podcast conversation.",
+  "participants": [
+    {
+      "name": "Tomas",
+      "role": "interviewer"
+    },
+    {
+      "name": "Liam",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Public reaction",
+    "Work and life",
+    "Daily routine"
+  ],
+  "qa_highlights": [
+    {
+      "question": "How did people react when it came out?",
+      "answer": "Mostly curiosity, and some critics said the method was too slow",
+      "t": null
+    },
+    {
+      "question": "How do you keep a balance?",
+      "answer": "Protects Sundays with no messages or screens and a long walk",
+      "t": null
+    },
+    {
+      "question": "What does a normal day look like?",
+      "answer": "Starts with the overnight logs, reviews failures, and writes in the afternoon",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Liam",
+      "text": "No messages, no screens, just a long walk.",
+      "t": null
+    }
+  ],
+  "follow_ups": [
+    {
+      "task": "Email the written questions",
+      "owner": "Tomas",
+      "due": "the end of the month",
+      "t": null
+    },
+    {
+      "task": "Send the data tables",
+      "owner": "Liam",
+      "due": "the end of the month",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

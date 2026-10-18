@@ -1,0 +1,21 @@
+[00:00:00] Marcus: Welcome, and thank you for joining me. I am Marcus.
+[00:00:04] Iris: Thanks for having me, I am Iris, and I work as a teacher.
+[00:00:09] Marcus: How do you keep a balance?
+[00:00:11] Iris: I protect my Sundays —
+[00:00:13] Marcus: Okay.
+[00:00:15] Iris: No messages, no screens, just a long walk.
+[00:00:18] Marcus: Who influenced you the most?
+[00:00:20] Iris: My first supervisor —
+[00:00:22] Marcus: Okay.
+[00:00:24] Iris: She never gave answers, she only asked better questions.
+[00:00:28] Marcus: Which tools do you rely on every day?
+[00:00:31] Iris: A notebook, a soldering iron and a very old spreadsheet —
+[00:00:35] Marcus: I see.
+[00:00:37] Iris: The spreadsheet has survived four migrations.
+[00:00:39] Marcus: What role does the community play?
+[00:00:41] Iris: Volunteers found most of our bugs. Without them we would still be guessing.
+[00:00:46] Marcus: I will book a second session by tomorrow.
+[00:00:49] Iris: Sounds good, thank you.
+[00:00:51] Marcus: I will email you the written questions by next week.
+[00:00:55] Iris: Sounds good, thank you.
+[00:00:57] Marcus: Thank you for your time, that was a great conversation.

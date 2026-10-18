@@ -1,0 +1,11 @@
+[00:00:00] Tomas: Welcome, and thank you for joining me. I am Tomas.
+[00:00:04] Ravi: Thanks for having me, I am Ravi, and I work as a researcher.
+[00:00:09] Tomas: What would you tell someone just starting out?
+[00:00:12] Ravi: Write down what you tried, even when it fails. Failed experiments teach you the most.
+[00:00:18] Tomas: How did you pay for the first year?
+[00:00:21] Ravi: A small grant covered the equipment. Everything else came from weekend consulting work.
+[00:00:26] Tomas: How did the project start?
+[00:00:28] Ravi: It began when we noticed the sensors drifted every winter. Nobody had measured it before.
+[00:00:34] Tomas: How big was the team at the beginning?
+[00:00:37] Ravi: There were only three of us in a rented garage, and we shared a single laptop.
+[00:00:43] Tomas: Thank you for your time, that was a great conversation.

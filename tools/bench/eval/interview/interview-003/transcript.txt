@@ -1,0 +1,21 @@
+[00:00:00] Marcus: Welcome, and thank you for joining me. I am Marcus.
+[00:00:04] Mina: Thanks for having me, I am Mina, and I work as an engineer.
+[00:00:09] Marcus: How did you pay for the first year?
+[00:00:12] Mina: A small grant covered the equipment —
+[00:00:15] Marcus: Okay.
+[00:00:17] Mina: Everything else came from weekend consulting work.
+[00:00:20] Marcus: What would you tell someone just starting out?
+[00:00:23] Mina: Write down what you tried, even when it fails. Failed experiments teach you the most.
+[00:00:29] Marcus: What was your biggest early mistake?
+[00:00:31] Mina: We trusted the vendor numbers without checking them —
+[00:00:35] Marcus: Yes, yes.
+[00:00:37] Mina: Calibration matters more than hardware.
+[00:00:39] Marcus: How did people react when it came out?
+[00:00:42] Mina: Mostly with curiosity —
+[00:00:44] Marcus: I see.
+[00:00:46] Mina: A few critics said the method was too slow, and they were partly right.
+[00:00:52] Mina: I will introduce you to my former supervisor by tomorrow.
+[00:00:56] Marcus: Sounds good, thank you.
+[00:00:58] Marcus: I will email you the written questions by Friday.
+[00:01:02] Mina: Sounds good, thank you.
+[00:01:04] Marcus: Thank you for your time, that was a great conversation.

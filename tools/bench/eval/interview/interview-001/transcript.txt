@@ -1,0 +1,13 @@
+[00:00:00] Marcus: Welcome, and thank you for joining me. I am Marcus.
+[00:00:04] Kira: Thanks for having me, I am Kira, and I work as an architect.
+[00:00:09] Marcus: What would you tell someone just starting out?
+[00:00:12] Kira: Write down what you tried, even when it fails. Failed experiments teach you the most.
+[00:00:18] Marcus: Why does this work matter to you?
+[00:00:21] Kira: Because small errors add up over years. A tiny drift becomes a wrong decision.
+[00:00:27] Marcus: What does a normal day look like?
+[00:00:30] Kira: I start with the overnight logs, then we review anything that failed. Afternoons are for writing.
+[00:00:36] Marcus: I will share the recording once it is edited by Friday.
+[00:00:40] Kira: Sounds good, thank you.
+[00:00:42] Marcus: I will email you the written questions by Monday.
+[00:00:46] Kira: Sounds good, thank you.
+[00:00:48] Marcus: Thank you for your time, that was a great conversation.

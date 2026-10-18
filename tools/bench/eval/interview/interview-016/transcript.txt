@@ -1,0 +1,11 @@
+[00:00:00] Dana: Welcome, and thank you for joining me. I am Dana.
+[00:00:04] Elena: Thanks for having me, I am Elena, and I work as a founder.
+[00:00:09] Dana: Did the team grow quickly?
+[00:00:11] Elena: Not really.
+[00:00:13] Dana: Would you do it again?
+[00:00:15] Elena: Yes.
+[00:00:17] Dana: Is it finished?
+[00:00:19] Elena: Not really.
+[00:00:21] Dana: Are you happy with the result?
+[00:00:23] Elena: No.
+[00:00:25] Dana: Thank you for your time, that was a great conversation.

@@ -1,0 +1,63 @@
+{
+  "title": "Interview with Mina",
+  "summary": "Dana interviewed Mina, an engineer, in a newsroom interview.",
+  "participants": [
+    {
+      "name": "Dana",
+      "role": "interviewer"
+    },
+    {
+      "name": "Mina",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "What is next",
+    "Failure",
+    "Team size",
+    "Work and life"
+  ],
+  "qa_highlights": [
+    {
+      "question": "What are you working on next?",
+      "answer": "A longer field study across three regions starting in the spring",
+      "t": null
+    },
+    {
+      "question": "Tell me about a project that failed.",
+      "answer": "A mobile version nobody asked for cost six months and taught them to ask first",
+      "t": null
+    },
+    {
+      "question": "How big was the team at the beginning?",
+      "answer": "Three people in a rented garage sharing a single laptop",
+      "t": null
+    },
+    {
+      "question": "How do you keep a balance?",
+      "answer": "Protects Sundays with no messages or screens and a long walk",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Mina",
+      "text": "It cost us six months and taught us to ask first.",
+      "t": null
+    },
+    {
+      "speaker": "Mina",
+      "text": "No messages, no screens, just a long walk.",
+      "t": null
+    }
+  ],
+  "follow_ups": [
+    {
+      "task": "Send the draft article for review",
+      "owner": "Dana",
+      "due": "tomorrow",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

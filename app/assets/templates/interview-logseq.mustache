@@ -1,0 +1,57 @@
+{{! Built-in Logseq variant of the Interview template (TPL-03): page
+    properties in the first block, outline bullets with 2-space nesting,
+    follow-ups as TODO, Q&A as question/answer child bullets. }}
+title:: {{#has_title}}{{data.title}}{{/has_title}}{{^has_title}}{{#meta.has_title}}{{meta.title}}{{/meta.has_title}}{{^meta.has_title}}{{meta.profile_name}} {{meta.date}}{{/meta.has_title}}{{/has_title}}
+type:: {{meta.profile_id}}
+date:: [[{{meta.date}}]]
+time:: {{meta.time}}
+duration:: {{meta.duration_human}}
+{{#meta.has_tags}}
+tags:: {{#meta.tags}}[[{{.}}]] {{/meta.tags}}
+{{/meta.has_tags}}
+source:: vaultvoice
+recording-id:: {{meta.recording_id}}
+
+{{#has_summary}}
+- **Summary**
+  - {{data.summary}}
+{{/has_summary}}
+{{#has_participants}}
+- **Participants**
+{{#data.participants}}
+  - {{name}}{{#has_role}} ({{role}}){{/has_role}}
+{{/data.participants}}
+{{/has_participants}}
+{{#has_topics}}
+- **Topics**
+{{#data.topics}}
+  - {{.}}
+{{/data.topics}}
+{{/has_topics}}
+{{#has_qa_highlights}}
+- **Question and Answer Highlights**
+{{#data.qa_highlights}}
+  - **Q:** {{question}}
+    - **A:** {{answer}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.qa_highlights}}
+{{/has_qa_highlights}}
+{{#has_quotes}}
+- **Quotes**
+{{#data.quotes}}
+  - "{{text}}" — {{speaker}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.quotes}}
+{{/has_quotes}}
+- **Follow-ups**
+{{#data.follow_ups}}
+  - TODO {{task}}{{#has_owner}} (@{{owner}}){{/has_owner}}{{#has_due_iso}} — due: [[{{due_iso}}]]{{/has_due_iso}}{{^has_due_iso}}{{#has_due}} — due: {{due}}{{/has_due}}{{/has_due_iso}}{{#has_t}} [{{t}}]{{/has_t}}
+{{/data.follow_ups}}
+{{^has_follow_ups}}
+  - No follow-ups.
+{{/has_follow_ups}}
+{{#has_open_questions}}
+- **Open Questions**
+{{#data.open_questions}}
+  - {{.}}
+{{/data.open_questions}}
+{{/has_open_questions}}
+- Generated on-device by Lumen · {{meta.duration_human}}

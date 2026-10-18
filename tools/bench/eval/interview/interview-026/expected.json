@@ -1,0 +1,52 @@
+{
+  "title": "Interview with Chloe",
+  "summary": "Kwame interviewed Chloe, a musician, in a research interview.",
+  "participants": [
+    {
+      "name": "Kwame",
+      "role": "interviewer"
+    },
+    {
+      "name": "Chloe",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Team size",
+    "What is next",
+    "Public reaction"
+  ],
+  "qa_highlights": [
+    {
+      "question": "How big was the team at the beginning?",
+      "answer": "Three people in a rented garage sharing a single laptop",
+      "t": null
+    },
+    {
+      "question": "What are you working on next?",
+      "answer": "A longer field study across three regions starting in the spring",
+      "t": null
+    },
+    {
+      "question": "How did people react when it came out?",
+      "answer": "Mostly curiosity, and some critics said the method was too slow",
+      "t": null
+    }
+  ],
+  "quotes": [],
+  "follow_ups": [
+    {
+      "task": "Check the dates in the timeline",
+      "owner": "Chloe",
+      "due": "the end of the month",
+      "t": null
+    },
+    {
+      "task": "Introduce the interviewer to their former supervisor",
+      "owner": "Chloe",
+      "due": "next Tuesday",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

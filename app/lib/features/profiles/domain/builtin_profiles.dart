@@ -10,6 +10,7 @@ const List<String> kBuiltinProfileAssets = [
   'assets/profiles/engineering.yaml',
   'assets/profiles/lecture.yaml',
   'assets/profiles/sales_call.yaml',
+  'assets/profiles/interview.yaml',
 ];
 
 /// Thrown when a shipped built-in profile is invalid — a build bug, caught

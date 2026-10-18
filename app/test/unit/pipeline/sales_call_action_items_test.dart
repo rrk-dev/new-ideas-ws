@@ -135,12 +135,19 @@ void main() {
       expect(items.single.tMs, 0);
     });
 
-    test('the source-field map only adds lecture and sales_call', () {
-      expect(kActionItemSourceFields, {
-        'lecture': 'assignments',
-        'sales_call': 'next_steps',
-      });
-      expect(actionItemsOf(_meeting, profileId: 'meeting').single.owner, 'Ana');
-    });
+    test(
+      'the source-field map only adds lecture, sales_call and interview',
+      () {
+        expect(kActionItemSourceFields, {
+          'lecture': 'assignments',
+          'sales_call': 'next_steps',
+          'interview': 'follow_ups',
+        });
+        expect(
+          actionItemsOf(_meeting, profileId: 'meeting').single.owner,
+          'Ana',
+        );
+      },
+    );
   });
 }

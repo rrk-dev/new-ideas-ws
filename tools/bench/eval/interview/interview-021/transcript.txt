@@ -1,0 +1,9 @@
+[00:00:00] Sofia: Welcome, and thank you for joining me. I am Sofia.
+[00:00:04] Mina: Thanks for having me, I am Mina, and I work as an engineer.
+[00:00:09] Sofia: What does a normal day look like?
+[00:00:12] Mina: I start with the overnight logs, then we review anything that failed. Afternoons are for writing.
+[00:00:18] Sofia: How big was the team at the beginning?
+[00:00:21] Mina: There were only three of us in a rented garage, and we shared a single laptop.
+[00:00:27] Sofia: Which tools do you rely on every day?
+[00:00:30] Mina: A notebook, a soldering iron and a very old spreadsheet. The spreadsheet has survived four migrations.
+[00:00:36] Sofia: Thank you for your time, that was a great conversation.

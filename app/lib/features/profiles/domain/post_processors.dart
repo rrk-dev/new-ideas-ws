@@ -35,7 +35,13 @@ enum PostProcessor {
   /// values nobody in the transcript matches, and replaces a `title` /
   /// `summary` / `context` that is not derived from the transcript (null when
   /// nullable, else the transcript's leading sentences).
-  groundToTranscript('ground_to_transcript');
+  groundToTranscript('ground_to_transcript'),
+
+  /// Drops every list item whose string field `text` (a quote) is not a
+  /// verbatim substring of the transcript after normalisation (case,
+  /// punctuation and whitespace ignored). Stricter than
+  /// `ground_to_transcript`, which keeps an item with half its key terms.
+  verbatimQuotes('verbatim_quotes');
 
   PostProcessor(this.wireName);
 
@@ -116,6 +122,14 @@ String? postProcessorRequirement(PostProcessor processor, ObjectSchema root) {
       return anyField((_, node) => node is ArraySchema)
           ? null
           : 'needs a list field';
+    case PostProcessor.verbatimQuotes:
+      final ok = anyField(
+        (_, node) =>
+            node is ArraySchema &&
+            node.items is ObjectSchema &&
+            (node.items as ObjectSchema).properties['text'] is StringSchema,
+      );
+      return ok ? null : 'needs a list of objects with a string field text';
     case PostProcessor.groundToTranscript:
       return anyField((_, node) => node is ArraySchema) ||
               root.properties['title'] is StringSchema

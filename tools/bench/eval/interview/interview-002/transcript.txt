@@ -1,0 +1,13 @@
+[00:00:00] Priya: Welcome, and thank you for joining me. I am Priya.
+[00:00:04] Ben: Thanks for having me, I am Ben, and I work as a pilot.
+[00:00:09] Priya: What was your biggest early mistake?
+[00:00:11] Ben: We trusted the vendor numbers without checking them. Calibration matters more than hardware.
+[00:00:16] Priya: How did people react when it came out?
+[00:00:19] Ben: Mostly with curiosity. A few critics said the method was too slow, and they were partly right.
+[00:00:26] Priya: What role does the community play?
+[00:00:28] Ben: Volunteers found most of our bugs. Without them we would still be guessing.
+[00:00:33] Priya: What are you working on next?
+[00:00:35] Ben: A longer field study across three regions. We start collecting data in the spring.
+[00:00:41] Ben: I will send you the data tables by Monday.
+[00:00:45] Priya: Sounds good, thank you.
+[00:00:47] Priya: Thank you for your time, that was a great conversation.

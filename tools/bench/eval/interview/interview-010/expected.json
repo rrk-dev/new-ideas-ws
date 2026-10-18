@@ -1,0 +1,96 @@
+{
+  "title": "Interview with Gita",
+  "summary": "Lena interviewed Gita, a biologist, in a research interview.",
+  "participants": [
+    {
+      "name": "Lena",
+      "role": "interviewer"
+    },
+    {
+      "name": "Gita",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "What is next",
+    "Early mistakes",
+    "Work and life",
+    "Community",
+    "Advice for beginners",
+    "Biggest surprise"
+  ],
+  "qa_highlights": [
+    {
+      "question": "What are you working on next?",
+      "answer": "A longer field study across three regions starting in the spring",
+      "t": null
+    },
+    {
+      "question": "What was your biggest early mistake?",
+      "answer": "They trusted the vendor numbers without checking them",
+      "t": null
+    },
+    {
+      "question": "How do you keep a balance?",
+      "answer": "Protects Sundays with no messages or screens and a long walk",
+      "t": null
+    },
+    {
+      "question": "What role does the community play?",
+      "answer": "Volunteers found most of the bugs",
+      "t": null
+    },
+    {
+      "question": "What would you tell someone just starting out?",
+      "answer": "Write down what you tried even when it fails",
+      "t": null
+    },
+    {
+      "question": "What surprised you most?",
+      "answer": "People wanted the data more than the tool",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Gita",
+      "text": "Calibration matters more than hardware.",
+      "t": null
+    },
+    {
+      "speaker": "Gita",
+      "text": "No messages, no screens, just a long walk.",
+      "t": null
+    },
+    {
+      "speaker": "Gita",
+      "text": "Without them we would still be guessing.",
+      "t": null
+    },
+    {
+      "speaker": "Gita",
+      "text": "Failed experiments teach you the most.",
+      "t": null
+    },
+    {
+      "speaker": "Gita",
+      "text": "People wanted the data far more than the tool itself.",
+      "t": null
+    }
+  ],
+  "follow_ups": [
+    {
+      "task": "Send the data tables",
+      "owner": "Gita",
+      "due": "next Tuesday",
+      "t": null
+    },
+    {
+      "task": "Email the written questions",
+      "owner": "Lena",
+      "due": "next week",
+      "t": null
+    }
+  ],
+  "open_questions": []
+}

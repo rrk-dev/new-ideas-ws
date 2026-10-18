@@ -1,0 +1,56 @@
+{
+  "title": "Interview with Ravi",
+  "summary": "Tomas interviewed Ravi, a researcher, in a research interview.",
+  "participants": [
+    {
+      "name": "Tomas",
+      "role": "interviewer"
+    },
+    {
+      "name": "Ravi",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Advice for beginners",
+    "Funding",
+    "How the project started",
+    "Team size"
+  ],
+  "qa_highlights": [
+    {
+      "question": "What would you tell someone just starting out?",
+      "answer": "Write down what you tried even when it fails",
+      "t": null
+    },
+    {
+      "question": "How did you pay for the first year?",
+      "answer": "A small grant covered the equipment and weekend consulting paid for the rest",
+      "t": null
+    },
+    {
+      "question": "How did the project start?",
+      "answer": "The team noticed the sensors drifted every winter and nobody had measured it before",
+      "t": null
+    },
+    {
+      "question": "How big was the team at the beginning?",
+      "answer": "Three people in a rented garage sharing a single laptop",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Ravi",
+      "text": "Failed experiments teach you the most.",
+      "t": null
+    },
+    {
+      "speaker": "Ravi",
+      "text": "Nobody had measured it before.",
+      "t": null
+    }
+  ],
+  "follow_ups": [],
+  "open_questions": []
+}

@@ -148,7 +148,7 @@ def render_report(profile, model, agg, perf, env, cases, diff, problems, targets
              f"{env['max_tokens']} · sampling: extraction preset (grammar, temp 0.2, repeat penalty 1.05, seed 42)",
              f"- Commit: `{env['commit']}` · llama.cpp `{env['llama']}` · profile version {env['profile_version']}"
              f" · scored: {env.get('scored', 'raw')} output",
-             f"- Cases: {agg['cases']} ({'simulated transcripts (no TTS/whisper run)' if profile in ('lecture', 'sales_call') else 'synthetic TTS → whisper transcripts'}, `tools/bench/eval/{profile}/`)",
+             f"- Cases: {agg['cases']} ({'simulated transcripts (no TTS/whisper run)' if profile in ('lecture', 'sales_call', 'interview') else 'synthetic TTS → whisper transcripts'}, `tools/bench/eval/{profile}/`)",
              f"- Wall time: {perf['wall_s']:.0f} s incl. model load + Dart compile · peak RSS: "
              f"{rss_text}",
              "", "## Summary", "",
@@ -156,6 +156,8 @@ def render_report(profile, model, agg, perf, env, cases, diff, problems, targets
              f"| Schema-valid (first pass, grammar-constrained) | {pct(agg['schema_valid'])} |",
              "| Repair used | n/a (harness scores the first pass) |",
              f"| Hallucination rate (ungrounded items) | {pct(agg['hallucination_rate'])} |",
+             *([f"| Quote fidelity, post-processed / raw ({agg['quote_fidelity_quotes']} / {agg['quote_fidelity_raw_quotes']} quotes) | "
+                f"{pct(agg['quote_fidelity'])} / {pct(agg['quote_fidelity_raw'])} |"] if "quote_fidelity" in agg else []),
              f"| Prefill tok/s (median) | {perf['prefill_tps']:.0f} |",
              f"| Decode tok/s (median) | {perf['decode_tps']:.1f} |",
              f"| Latency per case (median / max) | {perf['latency_med_s']:.1f} s / {perf['latency_max_s']:.1f} s |",
@@ -265,6 +267,17 @@ def main() -> int:
         c["output"] = pred
         c["score"] = scoring.score_case(c["expected"], pred if c["valid"] else None, c["transcript"], cfg)
     agg = scoring.aggregate(cases, cfg)
+    if cfg.get("verbatim"):
+        # TPL-03: quote fidelity of what the app stores (post-processed) and,
+        # for information, of the raw model output.
+        for key, source in (("quote_fidelity", "output"), ("quote_fidelity_raw", "raw_output")):
+            ok = total = 0
+            for c in cases:
+                if c["valid"]:
+                    for o, t in scoring.quote_stats(c[source], c["transcript"], cfg).values():
+                        ok, total = ok + o, total + t
+            agg[key] = ok / total if total else 1.0
+            agg[key + "_quotes"] = total
 
     def med(xs):
         xs = [x for x in xs if x is not None]

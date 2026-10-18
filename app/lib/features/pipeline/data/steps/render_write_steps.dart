@@ -69,6 +69,7 @@ String _placeholderRenderer(NoteInput input) {
 const Map<String, String> kActionItemSourceFields = {
   'lecture': 'assignments',
   'sales_call': 'next_steps',
+  'interview': 'follow_ups',
 };
 
 /// One action item of an extraction (`action_items` row content).
@@ -87,7 +88,8 @@ typedef ActionItemData = ({
 /// Profile-aware (TPL-01): the Lecture profile's `assignments` list is the
 /// action-item source of profile `lecture`; every other profile (incl.
 /// unknown/null) keeps reading `action_items`. TPL-02: `sales_call` reads
-/// `next_steps` (same `{task, owner, due, t}` item shape as the meeting).
+/// `next_steps` and TPL-03 `interview` reads `follow_ups` (same
+/// `{task, owner, due, t}` item shape as the meeting).
 List<ActionItemData> actionItemsOf(
   Map<String, Object?> json, {
   String? profileId,

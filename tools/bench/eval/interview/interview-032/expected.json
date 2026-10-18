@@ -1,0 +1,39 @@
+{
+  "title": "Interview with Elena",
+  "summary": "Omar interviewed Elena, a founder, in a podcast conversation.",
+  "participants": [
+    {
+      "name": "Omar",
+      "role": "interviewer"
+    },
+    {
+      "name": "Elena",
+      "role": "interviewee"
+    }
+  ],
+  "topics": [
+    "Why it matters",
+    "Public reaction"
+  ],
+  "qa_highlights": [
+    {
+      "question": "Why does this work matter to you?",
+      "answer": "Small errors add up over years and become wrong decisions",
+      "t": null
+    },
+    {
+      "question": "How did people react when it came out?",
+      "answer": "Mostly curiosity, and some critics said the method was too slow",
+      "t": null
+    }
+  ],
+  "quotes": [
+    {
+      "speaker": "Elena",
+      "text": "A tiny drift becomes a wrong decision.",
+      "t": null
+    }
+  ],
+  "follow_ups": [],
+  "open_questions": []
+}

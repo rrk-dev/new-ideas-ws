@@ -138,6 +138,19 @@ Map<String, Object?> applyPostProcessors(
         out[kWarrantyExpiryField] = _expiryOf(out, context.recordedAt);
       case PostProcessor.dedupeLists:
         _visitLists(out, dedupeList);
+      case PostProcessor.verbatimQuotes:
+        final haystack = normalizeForQuote(context.transcriptText);
+        if (haystack.isNotEmpty) {
+          _visitLists(out, (list) {
+            if (!list.every((e) => e is Map && e['text'] is String)) return;
+            final before = list.length;
+            list.retainWhere((e) {
+              final q = normalizeForQuote((e! as Map)['text']! as String);
+              return q.isNotEmpty && haystack.contains(q);
+            });
+            stats?.itemsDropped += before - list.length;
+          });
+        }
       case PostProcessor.groundToTranscript:
         final grounding = TranscriptGrounding(
           context.transcriptText,
@@ -149,6 +162,22 @@ Map<String, Object?> applyPostProcessors(
     }
   }
   return out;
+}
+
+/// Quote normalisation of `verbatim_quotes`: lower case, typographic
+/// apostrophes folded to ASCII, every run of non-letter/digit characters
+/// (apostrophes kept) collapsed to one space, wrapped in spaces so a match
+/// is on whole words.
+String normalizeForQuote(String text) {
+  final folded = text.toLowerCase().replaceAll(
+    RegExp('[\u2018\u2019\u02BC]'),
+    "'",
+  );
+  final words = RegExp(
+    r"[\p{L}\p{N}]+(?:'[\p{L}\p{N}]+)*",
+    unicode: true,
+  ).allMatches(folded).map((m) => m.group(0)!);
+  return words.isEmpty ? '' : ' ${words.join(' ')} ';
 }
 
 // ---------------------------------------------------------------- serials
