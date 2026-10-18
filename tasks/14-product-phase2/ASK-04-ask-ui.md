@@ -1,7 +1,7 @@
 # ASK-04 — Ask-your-notes UI
 
 **Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** M | **Depends on:** ASK-03, UIX-01, APP-02, LIC-05 | **Source:** User decision 2026-10-16 (product Phase 2: ask-your-notes across the library)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-flutter-architecture, vv-licensing-iap, vv-privacy-security, vv-testing
 
 ## Goal
