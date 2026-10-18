@@ -1,0 +1,137 @@
+app/lib/core/db/reminder_migration.dart
+  s_5095472e80968b::t_b9f96eb614bb1c 6-9
+  s_5095472e80968b::t_9962ac7dd699b6 1-5,10-12
+app/lib/features/reminders/data/pigeon/reminders_api.g.dart
+  s_9450697a967066::t_52c9c5cb410d9e 1-541
+app/drift_schemas/vaultvoice/drift_schema_v5.json
+  s_9450697a967066::t_5af3fa53fcee30 1-2969
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_9450697a967066::t_a3eefd3fefb287 45-46,144-145
+  s_9450697a967066::t_3be4b7a52115a8 278-279,604-605
+app/ios/Runner/AppDelegate.swift
+  s_9450697a967066::t_a6ce2478746775 11-12,71
+app/test/db/migrations/vaultvoice/generated/schema.dart
+  s_9450697a967066::t_5af3fa53fcee30 12,26-27,33
+app/lib/core/db/database.g.dart
+  s_9450697a967066::t_035e2c54533177 9902-10303,10376-10378,10404-10405,10444,10673-10679,10944-10964,11342-11366,11785-11810,11847,11943,11960,12217-12237,12271,19884-20218,20266-20267
+app/lib/core/db/database.steps.dart
+  s_9450697a967066::t_5af3fa53fcee30 2338-2837,2842,2861-2865,2876,2882
+app/test/db/migrations/vaultvoice/generated/schema_v5.dart
+  s_9450697a967066::t_5af3fa53fcee30 1-8866
+app/lib/features/settings/domain/setting_keys.dart
+  s_9450697a967066::t_6f26e53b6f9ad7 94-96
+app/pigeons/reminders_api.dart
+  s_9450697a967066::t_2dbb8c1f9367f3 1-131
+app/lib/features/reminders/domain/reminders_platform.dart
+  s_9450697a967066::t_7f52bebf82a336 1-97
+app/lib/features/reminders/data/reminders_providers.g.dart
+  s_5095472e80968b::t_b9f96eb614bb1c 1-153
+app/test/widget/reminders_sheet_test.dart
+  s_9450697a967066::t_cff814c67282bd 115-116,190-194,199-200,202,215-216,223,239-240,247
+  s_5095472e80968b::t_b94484ff440b30 15
+  s_9450697a967066::t_3459d31c2ac8d6 52
+  s_9450697a967066::t_0fa930441bd325 32-33,40,42-51,124-176,251
+  s_9450697a967066::t_f5c19c8f5485e9 1-14,16-31,34-39,41,53-114,117-123,177-189,195-198,201,203-214,217-222,224-238,241-246,248-250
+app/lib/features/reminders/domain/reminder_item.dart
+  s_9450697a967066::t_15fd33eae4c239 1-219
+app/lib/features/retention/data/recording_purger.dart
+  s_9450697a967066::t_4c08b1226af969 115-119
+app/test/fakes/fake_reminders_platform.dart
+  s_9450697a967066::t_365688dfa63c27 1-79
+tasks/14-product-phase2/TSK-02-apple-reminders-export.md
+  s_5095472e80968b::t_2fbbf4005703eb 4,11-17,23-41
+app/lib/features/reminders/data/pigeon_reminders_platform.dart
+  s_9450697a967066::t_b8e08cbda36085 1-89,95-121
+  s_5095472e80968b::t_b9f96eb614bb1c 90-94
+app/lib/features/reminders/data/reminders_exporter.dart
+  s_9450697a967066::t_fb7784184fefb0 7,69-73,90,115,220
+  s_5095472e80968b::t_b9f96eb614bb1c 38-39,226-227
+  s_9450697a967066::t_e0ed382ea39a03 12-16,116-117,221-222,237
+  s_9450697a967066::t_aa324938162a37 1-6,8-11,17-37,40-68,74-89,91-102,104-114,118-132,134-219,223-225,228-231,239-296
+  s_9450697a967066::t_ef8c4a8ca63d3a 103,133,232-236,238
+app/macos/Runner/Release.entitlements
+  s_9450697a967066::t_a0d3bf3d5682fa 13-15
+app/lib/features/library/presentation/recording_detail_screen.dart
+  s_5095472e80968b::t_90edaf58b7f205 28-29,162-166,285-286,590
+app/lib/features/library/presentation/action_items_screen.dart
+  s_5095472e80968b::t_90edaf58b7f205 12-13,46-57
+app/test/unit/retention/retention_fixtures.dart
+  s_9450697a967066::t_4c08b1226af969 139-148
+  s_9450697a967066::t_42bc74eb72a73f 138
+app/macos/Runner/MainFlutterWindow.swift
+  s_9450697a967066::t_a6ce2478746775 12,52
+app/test/unit/reminders/reminders_exporter_test.dart
+  s_5095472e80968b::t_3ae558e8cecaf8 19-23,148-163,165,211-214,238-263
+  s_9450697a967066::t_eaee09568f1da0 1
+  s_9450697a967066::t_fdf3b151b862a5 2-18,24-147,164,166-210,215-237,264-288
+app/macos/Runner.xcodeproj/project.pbxproj
+  s_9450697a967066::t_f18b73ceb3a2c0 43-44,121-122,224-225,491-492
+app/lib/core/db/repositories/reminder_exports_repository.g.dart
+  s_9450697a967066::t_035e2c54533177 1-23
+app/ios/Runner/Info.plist
+  s_9450697a967066::t_fe0243de7c95a9 46-52
+app/macos/Runner/DebugProfile.entitlements
+  s_9450697a967066::t_a0d3bf3d5682fa 17-19
+app/ios/Runner/RemindersHostApiImpl.swift
+  s_9450697a967066::t_04ee2f3f130359 1-176
+app/lib/features/reminders/data/reminders_providers.dart
+  s_9450697a967066::t_6f26e53b6f9ad7 1-30
+app/lib/core/db/repositories/reminder_exports_repository.dart
+  s_5095472e80968b::t_294dc8ade925fe 1-37
+app/lib/core/db/tables/reminder_tables.dart
+  s_9450697a967066::t_fa71d0f4fdb950 1-29
+app/lib/core/l10n/arb/app_en.arb
+  s_9450697a967066::t_fcebcf17fa159d 990-1017
+app/macos/Runner/Info.plist
+  s_9450697a967066::t_9c26a2b1724a36 31-35
+app/lib/features/reminders/presentation/reminders_sheet.dart
+  s_5095472e80968b::t_b9f96eb614bb1c 160-162,183,200,273,287-288
+  s_9450697a967066::t_fdd1dc58fbb19d 3-5,7-67,69-159,163-182,184-199,201-236,238-241,243-244,246-247,250-253,255-258,260-261,263-270,272,274-286,289-296,298-302,304-307,310-314,317-320,322-336
+  s_9450697a967066::t_1d06fbc82e1f3b 237,242,254,259,262,271,297,303,308-309,315-316
+  s_9450697a967066::t_c1c5a6cb488100 1-2,6,68
+  s_9450697a967066::t_59cfb087b80f20 245,248-249,321
+app/lib/core/db/database.dart
+  s_9450697a967066::t_644da96c6a1692 26,59,73,81,91-92
+  s_9450697a967066::t_c1c5a6cb488100 14
+  s_5095472e80968b::t_9962ac7dd699b6 7
+app/test/unit/retention/secure_deletion_test.dart
+  s_9450697a967066::t_4c08b1226af969 79,167
+app/ios/Runner/RemindersApi.g.swift
+  s_9450697a967066::t_52c9c5cb410d9e 1-590
+app/lib/features/licensing/domain/paywall.dart
+  s_9450697a967066::t_6f26e53b6f9ad7 14
+app/test/db/migrations/vaultvoice/migration_test.dart
+  s_9450697a967066::t_bc7146e75c1bca 143-170
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9450697a967066::t_c436ed20627ed8 5142-5267
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9450697a967066::t_0661fbd4d358e4 3015-3099
+app/test/unit/reminders/reminder_item_test.dart
+  s_9450697a967066::t_d29b5e6108a411 1-79
+docs/test-plans/device/TSK-02.md
+  s_9450697a967066::t_52f4c46d0e7648 1-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "de14325145798efd5f0a18332bd5227600d19597",
+  "prompts": {},
+  "sessions": {
+    "s_5095472e80968b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "662c42c7-18d9-4cfa-9280-08ec51c9ab04",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_9450697a967066": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "080beacb-b5f0-4236-8780-01faa814d924",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
