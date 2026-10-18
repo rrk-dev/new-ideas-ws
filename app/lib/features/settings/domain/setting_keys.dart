@@ -3,6 +3,12 @@
 /// Every key is listed here once so features and the Settings screen agree
 /// on names; renaming a key is a data migration.
 abstract final class SettingKeys {
+  /// bool, default `false`: the whole Ask entry (library button, recording
+  /// tab) is hidden until the Ask quality decision (ASK-04, ADR-ASK-02).
+  /// PRODUCT-DECISION: the ASK-03 eval gates are not met on the 3B, so Ask
+  /// ships behind this flag, off by default.
+  static const askEnabled = 'ask.enabled';
+
   /// bool, default `true`: keep Ask questions and answers (30 days, then
   /// deleted; the user can clear all or delete one chat) (ASK-03,
   /// ADR-ASK-02). PRODUCT-DECISION (human, 2026-10-17).

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/misc.dart';
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/features/ask/data/ask_providers.dart';
 import 'package:vaultvoice/features/library/data/library_providers.dart';
 import 'package:vaultvoice/features/library/data/recording_deleter.dart';
 import 'package:vaultvoice/features/library/data/search_repository.dart';
@@ -131,10 +132,12 @@ List<Override> libraryOverrides({
   List<ActionItemView> actionItems = const [],
   ExtractionView? extraction,
   List<TranscriptLine>? lines,
+  bool askEnabled = false,
 }) {
   final all = items ?? sampleLibrary();
   final detail = all.where((i) => i.id == detailId).firstOrNull;
   return [
+    askEnabledProvider.overrideWithValue(askEnabled),
     libraryItemsProvider.overrideWith((ref) => Stream.value(all)),
     searchRepositoryProvider.overrideWithValue(
       search ?? FakeSearchRepository(),

@@ -5139,6 +5139,288 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open transcript at {time}'**
   String mindMapOpenTranscript(String time);
+
+  /// No description provided for @settingAskEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask your notes (experimental)'**
+  String get settingAskEnabled;
+
+  /// No description provided for @settingAskEnabledDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Shows Ask in the library and in each recording. Answers are written by a model on this phone and can be wrong; they always list their sources.'**
+  String get settingAskEnabledDescription;
+
+  /// No description provided for @settingAskSaveHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Ask history'**
+  String get settingAskSaveHistory;
+
+  /// No description provided for @settingAskSaveHistoryDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps your questions and answers on this phone for 30 days. You can delete one chat or clear all of them.'**
+  String get settingAskSaveHistoryDescription;
+
+  /// No description provided for @askTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask your notes'**
+  String get askTitle;
+
+  /// No description provided for @askRecordingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask about this recording'**
+  String get askRecordingTitle;
+
+  /// No description provided for @askHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask history'**
+  String get askHistoryTitle;
+
+  /// No description provided for @askHistoryTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask history'**
+  String get askHistoryTooltip;
+
+  /// No description provided for @askNewChat.
+  ///
+  /// In en, this message translates to:
+  /// **'New chat'**
+  String get askNewChat;
+
+  /// No description provided for @askEntryTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask your notes'**
+  String get askEntryTooltip;
+
+  /// No description provided for @recordingTabAsk.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask'**
+  String get recordingTabAsk;
+
+  /// No description provided for @askDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Answers can be wrong — check the sources.'**
+  String get askDisclaimer;
+
+  /// No description provided for @askInputHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask a question about your notes'**
+  String get askInputHint;
+
+  /// No description provided for @askSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask'**
+  String get askSend;
+
+  /// No description provided for @askCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get askCancel;
+
+  /// No description provided for @askWorking.
+  ///
+  /// In en, this message translates to:
+  /// **'Looking through your notes…'**
+  String get askWorking;
+
+  /// No description provided for @askNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'I couldn\'\'t find that in your notes.'**
+  String get askNotFound;
+
+  /// No description provided for @askSourcesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sources'**
+  String get askSourcesTitle;
+
+  /// No description provided for @askCitationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{title}, {time}'**
+  String askCitationLabel(String title, String time);
+
+  /// No description provided for @askCitationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens the transcript at {time}'**
+  String askCitationHint(String time);
+
+  /// No description provided for @askCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped.'**
+  String get askCancelled;
+
+  /// No description provided for @askError.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask could not answer this time. Try again.'**
+  String get askError;
+
+  /// No description provided for @askRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get askRetry;
+
+  /// No description provided for @askBusyPassages.
+  ///
+  /// In en, this message translates to:
+  /// **'Lumen is busy or low on memory, so there is no written answer. These are the closest passages:'**
+  String get askBusyPassages;
+
+  /// No description provided for @askQuestionSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Your question: {question}'**
+  String askQuestionSemantics(String question);
+
+  /// No description provided for @askAnswerSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer: {answer}'**
+  String askAnswerSemantics(String answer);
+
+  /// No description provided for @askNeedsModelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask requires the 3B model'**
+  String get askNeedsModelTitle;
+
+  /// No description provided for @askNeedsModelBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask runs on this phone with a larger model ({size}). Download it once; nothing leaves your phone.'**
+  String askNeedsModelBody(String size);
+
+  /// No description provided for @askNeedsModelDownload.
+  ///
+  /// In en, this message translates to:
+  /// **'Download the 3B model ({size})'**
+  String askNeedsModelDownload(String size);
+
+  /// No description provided for @askNeedsModelOpenModels.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Models'**
+  String get askNeedsModelOpenModels;
+
+  /// No description provided for @askNeedsModelDownloading.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading the 3B model…'**
+  String get askNeedsModelDownloading;
+
+  /// No description provided for @askNeedsModelUnknownSize.
+  ///
+  /// In en, this message translates to:
+  /// **'about 2 GB'**
+  String get askNeedsModelUnknownSize;
+
+  /// No description provided for @askUnavailableDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask isn\'\'t available on this device.'**
+  String get askUnavailableDevice;
+
+  /// No description provided for @askLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask your notes is part of Lumen Pro.'**
+  String get askLocked;
+
+  /// No description provided for @askNoRecordings.
+  ///
+  /// In en, this message translates to:
+  /// **'Record or import a note first, then ask about it here.'**
+  String get askNoRecordings;
+
+  /// No description provided for @askProcessingNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Lumen is still processing a recording; your question waits until it finishes.'**
+  String get askProcessingNote;
+
+  /// No description provided for @askHistoryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved chats.'**
+  String get askHistoryEmpty;
+
+  /// No description provided for @askHistoryDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'History is off. New chats are not saved.'**
+  String get askHistoryDisabled;
+
+  /// No description provided for @askHistoryExpiryNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Chats are deleted after 30 days.'**
+  String get askHistoryExpiryNote;
+
+  /// No description provided for @askHistoryDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete chat'**
+  String get askHistoryDelete;
+
+  /// No description provided for @askHistoryDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat deleted.'**
+  String get askHistoryDeleted;
+
+  /// No description provided for @askHistoryClearAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all'**
+  String get askHistoryClearAll;
+
+  /// No description provided for @askHistoryClearTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all Ask history?'**
+  String get askHistoryClearTitle;
+
+  /// No description provided for @askHistoryClearBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Every saved question and answer is removed from this phone.'**
+  String get askHistoryClearBody;
+
+  /// No description provided for @askHistoryClearConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all'**
+  String get askHistoryClearConfirm;
+
+  /// No description provided for @askHistoryCleared.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask history cleared.'**
+  String get askHistoryCleared;
+
+  /// No description provided for @askHistoryTurns.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 question} other{{count} questions}}'**
+  String askHistoryTurns(int count);
 }
 
 class _AppLocalizationsDelegate

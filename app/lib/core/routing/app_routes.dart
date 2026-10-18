@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vaultvoice/core/routing/app_shell.dart';
+import 'package:vaultvoice/features/ask/presentation/ask_history_screen.dart';
+import 'package:vaultvoice/features/ask/presentation/ask_screen.dart';
 import 'package:vaultvoice/features/beta/presentation/beta_feedback_screen.dart';
 import 'package:vaultvoice/features/export/presentation/pending_exports_screen.dart';
 import 'package:vaultvoice/features/export/presentation/routing_rule_editor_screen.dart';
@@ -49,6 +51,10 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
           routes: [
             TypedGoRoute<ProcessingQueueRoute>(path: 'processing'),
             TypedGoRoute<ActionItemsRoute>(path: 'action-items'),
+            TypedGoRoute<AskRoute>(
+              path: 'ask',
+              routes: [TypedGoRoute<AskHistoryRoute>(path: 'history')],
+            ),
             TypedGoRoute<RecordingStatusRoute>(
               path: 'recordings/:recordingId',
               routes: [
@@ -224,6 +230,27 @@ class ActionItemsRoute extends GoRouteData with $ActionItemsRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const ActionItemsScreen();
+}
+
+/// Ask your notes (ASK-04); [recording] limits it to one recording. Only
+/// reachable while `ask.enabled` is on.
+class AskRoute extends GoRouteData with $AskRoute {
+  const AskRoute({this.recording});
+
+  final String? recording;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      AskScreen(recordingId: recording);
+}
+
+/// Saved Ask chats: delete one or clear all.
+class AskHistoryRoute extends GoRouteData with $AskHistoryRoute {
+  const AskHistoryRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const AskHistoryScreen();
 }
 
 /// Transcript viewer & editor of one recording (STT-06), optionally opened

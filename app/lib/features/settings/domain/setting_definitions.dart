@@ -212,6 +212,22 @@ abstract final class AppSettings {
     options: ['on_demand', 'auto'],
   );
 
+  /// ASK-04. PRODUCT-DECISION: off by default; the Ask entry stays hidden
+  /// until the ASK-03 quality gates pass or the human decides otherwise.
+  static const askEnabled = ToggleSetting(
+    key: SettingKeys.askEnabled,
+    section: SettingSection.processing,
+    defaultValue: false,
+  );
+
+  /// ASK-03/ASK-04. PRODUCT-DECISION (human, 2026-10-17): chats are saved
+  /// by default and expire after 30 days.
+  static const askSaveHistory = ToggleSetting(
+    key: SettingKeys.askSaveHistory,
+    section: SettingSection.privacy,
+    defaultValue: true,
+  );
+
   /// Default per vv-markdown-vault-export (EXP-02).
   static const filenamePattern = TextSetting(
     key: SettingKeys.exportFilenamePattern,
@@ -283,11 +299,13 @@ abstract final class AppSettings {
     diarizationDefault,
     skipSilence,
     mindMap,
+    askEnabled,
     filenamePattern,
     collisionMode,
     appLock,
     lockTimeout,
     transcriptRetention,
+    askSaveHistory,
     offlineMode,
     notificationsEnabled,
     notificationDetails,

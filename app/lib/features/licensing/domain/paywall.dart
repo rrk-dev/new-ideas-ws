@@ -11,6 +11,7 @@ enum PaywallEntryPoint {
   routingRules,
   modelSideload,
   mindMap,
+  ask,
   settings,
 }
 

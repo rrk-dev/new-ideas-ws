@@ -8,6 +8,7 @@ import 'package:vaultvoice/core/widgets/circle_icon_button.dart';
 import 'package:vaultvoice/core/widgets/grouped_card.dart';
 import 'package:vaultvoice/core/widgets/section_header.dart';
 import 'package:vaultvoice/core/widgets/status_message.dart';
+import 'package:vaultvoice/features/ask/data/ask_providers.dart';
 import 'package:vaultvoice/features/library/data/library_providers.dart';
 import 'package:vaultvoice/features/library/domain/library_grouping.dart';
 import 'package:vaultvoice/features/library/domain/library_models.dart';
@@ -49,6 +50,13 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
       appBar: AppBar(
         title: Text(l10n.tabLibrary),
         actions: [
+          if (ref.watch(askEnabledProvider))
+            CircleIconButton(
+              key: const ValueKey('library-ask'),
+              tooltip: l10n.askEntryTooltip,
+              icon: Icons.question_answer_outlined,
+              onPressed: () => const AskRoute().go(context),
+            ),
           CircleIconButton(
             key: const ValueKey('library-action-items'),
             tooltip: l10n.actionItemsTitle,

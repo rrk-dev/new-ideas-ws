@@ -3012,4 +3012,171 @@ class AppLocalizationsEn extends AppLocalizations {
   String mindMapOpenTranscript(String time) {
     return 'Open transcript at $time';
   }
+
+  @override
+  String get settingAskEnabled => 'Ask your notes (experimental)';
+
+  @override
+  String get settingAskEnabledDescription =>
+      'Shows Ask in the library and in each recording. Answers are written by a model on this phone and can be wrong; they always list their sources.';
+
+  @override
+  String get settingAskSaveHistory => 'Save Ask history';
+
+  @override
+  String get settingAskSaveHistoryDescription =>
+      'Keeps your questions and answers on this phone for 30 days. You can delete one chat or clear all of them.';
+
+  @override
+  String get askTitle => 'Ask your notes';
+
+  @override
+  String get askRecordingTitle => 'Ask about this recording';
+
+  @override
+  String get askHistoryTitle => 'Ask history';
+
+  @override
+  String get askHistoryTooltip => 'Ask history';
+
+  @override
+  String get askNewChat => 'New chat';
+
+  @override
+  String get askEntryTooltip => 'Ask your notes';
+
+  @override
+  String get recordingTabAsk => 'Ask';
+
+  @override
+  String get askDisclaimer => 'Answers can be wrong — check the sources.';
+
+  @override
+  String get askInputHint => 'Ask a question about your notes';
+
+  @override
+  String get askSend => 'Ask';
+
+  @override
+  String get askCancel => 'Stop';
+
+  @override
+  String get askWorking => 'Looking through your notes…';
+
+  @override
+  String get askNotFound => 'I couldn\'t find that in your notes.';
+
+  @override
+  String get askSourcesTitle => 'Sources';
+
+  @override
+  String askCitationLabel(String title, String time) {
+    return '$title, $time';
+  }
+
+  @override
+  String askCitationHint(String time) {
+    return 'Opens the transcript at $time';
+  }
+
+  @override
+  String get askCancelled => 'Stopped.';
+
+  @override
+  String get askError => 'Ask could not answer this time. Try again.';
+
+  @override
+  String get askRetry => 'Try again';
+
+  @override
+  String get askBusyPassages =>
+      'Lumen is busy or low on memory, so there is no written answer. These are the closest passages:';
+
+  @override
+  String askQuestionSemantics(String question) {
+    return 'Your question: $question';
+  }
+
+  @override
+  String askAnswerSemantics(String answer) {
+    return 'Answer: $answer';
+  }
+
+  @override
+  String get askNeedsModelTitle => 'Ask requires the 3B model';
+
+  @override
+  String askNeedsModelBody(String size) {
+    return 'Ask runs on this phone with a larger model ($size). Download it once; nothing leaves your phone.';
+  }
+
+  @override
+  String askNeedsModelDownload(String size) {
+    return 'Download the 3B model ($size)';
+  }
+
+  @override
+  String get askNeedsModelOpenModels => 'Open Models';
+
+  @override
+  String get askNeedsModelDownloading => 'Downloading the 3B model…';
+
+  @override
+  String get askNeedsModelUnknownSize => 'about 2 GB';
+
+  @override
+  String get askUnavailableDevice => 'Ask isn\'t available on this device.';
+
+  @override
+  String get askLocked => 'Ask your notes is part of Lumen Pro.';
+
+  @override
+  String get askNoRecordings =>
+      'Record or import a note first, then ask about it here.';
+
+  @override
+  String get askProcessingNote =>
+      'Lumen is still processing a recording; your question waits until it finishes.';
+
+  @override
+  String get askHistoryEmpty => 'No saved chats.';
+
+  @override
+  String get askHistoryDisabled => 'History is off. New chats are not saved.';
+
+  @override
+  String get askHistoryExpiryNote => 'Chats are deleted after 30 days.';
+
+  @override
+  String get askHistoryDelete => 'Delete chat';
+
+  @override
+  String get askHistoryDeleted => 'Chat deleted.';
+
+  @override
+  String get askHistoryClearAll => 'Clear all';
+
+  @override
+  String get askHistoryClearTitle => 'Delete all Ask history?';
+
+  @override
+  String get askHistoryClearBody =>
+      'Every saved question and answer is removed from this phone.';
+
+  @override
+  String get askHistoryClearConfirm => 'Delete all';
+
+  @override
+  String get askHistoryCleared => 'Ask history cleared.';
+
+  @override
+  String askHistoryTurns(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count questions',
+      one: '1 question',
+    );
+    return '$_temp0';
+  }
 }
