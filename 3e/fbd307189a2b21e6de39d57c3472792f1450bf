@@ -1,0 +1,123 @@
+docs/store/listing.md
+  s_373e0236a8ea73::t_d8bd45f168e6c8 34-40
+docs/test-plans/device/LEG-01.md
+  s_373e0236a8ea73::t_0dffe98f506b19 1-13
+app/test/widget/app_shell_test.dart
+  s_3a9389f05e405a::t_fd5ce66ddee0b2 31-34
+  s_373e0236a8ea73::t_3167a671208f47 7
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_3a9389f05e405a::t_841903ad31f678 1921-1963,3101-3102
+app/test/widget/onboarding_test.dart
+  s_3a9389f05e405a::t_fd5ce66ddee0b2 105-108
+  s_373e0236a8ea73::t_3167a671208f47 23
+app/test/widget/legal_settings_entry_test.dart
+  s_373e0236a8ea73::t_ffdefc54df5b68 1-51
+docs/privacy-audit.md
+  s_373e0236a8ea73::t_b856c83afd4876 396-403
+app/lib/features/legal/presentation/terms_of_use_screen.dart
+  s_373e0236a8ea73::t_d878a7acde34fd 11
+  s_373e0236a8ea73::t_0fcb88077dbc40 1-10,12-29
+app/lib/features/ask/presentation/ask_panel.dart
+  s_3a9389f05e405a::t_841903ad31f678 260,396
+app/lib/features/library/presentation/recording_detail_screen.dart
+  s_3a9389f05e405a::t_841903ad31f678 457-470
+app/test/widget/review_screen_test.dart
+  s_373e0236a8ea73::t_ea2f246c8fb548 178-184
+  s_373e0236a8ea73::t_3167a671208f47 14
+  s_3a9389f05e405a::t_fd5ce66ddee0b2 109-112
+app/lib/features/legal/presentation/legal_document_view.dart
+  s_373e0236a8ea73::t_0fcb88077dbc40 1-9,11-28,38-39,41,43-47,50-55
+  s_373e0236a8ea73::t_d2af0c74b072d2 10,29-37,40,42,48-49
+docs/legal/README.md
+  s_373e0236a8ea73::t_ee95872b44f85c 1-34,39-108
+  s_373e0236a8ea73::t_d8bd45f168e6c8 35-38
+app/test/widget/legal_gate_test.dart
+  s_373e0236a8ea73::t_f8eacab6949e6e 23
+  s_373e0236a8ea73::t_2ef04ad81cb6d5 26
+  s_3a9389f05e405a::t_7779eca0e72098 1-22,24-25,27-122
+app/test/widget/processing_status_test.dart
+  s_3a9389f05e405a::t_fd5ce66ddee0b2 47-50
+  s_373e0236a8ea73::t_3167a671208f47 16
+docs/store/pre-submission-checklist.md
+  s_373e0236a8ea73::t_d8bd45f168e6c8 31-34
+app/lib/features/legal/data/legal_providers.dart
+  s_373e0236a8ea73::t_5f96f9f489e858 1-34,36-37
+  s_373e0236a8ea73::t_d878a7acde34fd 35
+app/lib/features/legal/domain/legal_documents.dart
+  s_373e0236a8ea73::t_5f96f9f489e858 1-43
+tasks/10-security-privacy/LEG-01-legal-documents.md
+  s_373e0236a8ea73::t_b958c30daa5128 4,11-17,32-44
+  s_373e0236a8ea73::t_e8b12a73f34c53 1-3,5-10,18-31
+app/test/widget/ask_ui_test.dart
+  s_3a9389f05e405a::t_841903ad31f678 162
+app/test/widget/accessibility_test.dart
+  s_373e0236a8ea73::t_3167a671208f47 29
+  s_3a9389f05e405a::t_fd5ce66ddee0b2 229-232
+app/test/unit/legal/legal_documents_test.dart
+  s_3a9389f05e405a::t_7779eca0e72098 23,42,57
+  s_373e0236a8ea73::t_22cc0ab27ab7ef 1-10,14-22,24-41,43-51,53-56,58-64,66-72,74-83,86-98,100-104,109-112,114-137,159-162,168-174
+  s_3a9389f05e405a::t_fd5ce66ddee0b2 105-108,138-158,163-167
+  s_373e0236a8ea73::t_53cd26f3997114 11-13,52,65,73,113
+  s_373e0236a8ea73::t_f8eacab6949e6e 84-85,99
+app/test/widget/profile_editor_test.dart
+  s_373e0236a8ea73::t_3167a671208f47 15
+  s_3a9389f05e405a::t_fd5ce66ddee0b2 44-47
+app/lib/features/settings/presentation/settings_screen.dart
+  s_3a9389f05e405a::t_841903ad31f678 159-166
+  s_373e0236a8ea73::t_3167a671208f47 14
+  s_373e0236a8ea73::t_38de70396a173e 167-169
+app/test/widget/library_screen_test.dart
+  s_3a9389f05e405a::t_fd5ce66ddee0b2 57-60
+  s_373e0236a8ea73::t_3167a671208f47 15
+tasks/README.md
+  s_3a9389f05e405a::t_841903ad31f678 151
+app/assets/legal/terms_of_use.md
+  s_373e0236a8ea73::t_5f820f7405e9bf 1-125,128-300
+  s_373e0236a8ea73::t_4fe832a85a7334 126-127
+app/lib/features/legal/presentation/legal_gate.dart
+  s_373e0236a8ea73::t_0fcb88077dbc40 1-152
+app/lib/app.dart
+  s_3a9389f05e405a::t_841903ad31f678 9,33,35-41
+app/test/widget/store_screenshots_test.dart
+  s_373e0236a8ea73::t_3167a671208f47 12
+  s_3a9389f05e405a::t_fd5ce66ddee0b2 29-32
+app/lib/features/settings/presentation/privacy_policy_screen.dart
+  s_373e0236a8ea73::t_f8eacab6949e6e 12
+  s_3a9389f05e405a::t_841903ad31f678 4-5,7-8,22-26
+app/assets/legal/privacy_policy.md
+  s_3a9389f05e405a::t_e69d65f03c0e83 1-2,4,6,8-11,13-19,21-148,150,152-156,158,160-162,164-173,175-178,180,182-184,186,188
+app/lib/core/l10n/arb/app_en.arb
+  s_3a9389f05e405a::t_4c26e3a5aab187 631-643,1017
+app/lib/core/l10n/gen/app_localizations.dart
+  s_3a9389f05e405a::t_b29f55cfbcf00e 3283-3360,5299,5302-5303
+app/lib/features/legal/data/legal_providers.g.dart
+  s_3a9389f05e405a::t_8031286a985424 1-100
+app/lib/features/review/presentation/review_screen.dart
+  s_3a9389f05e405a::t_292e86cc766c9e 168-173
+docs/legal/disclaimers.md
+  s_3a9389f05e405a::t_db5b694451c133 1-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3efbd307189a2b21e6de39d57c3472792f1450bf",
+  "prompts": {},
+  "sessions": {
+    "s_373e0236a8ea73": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "9cf4d548-760c-496a-9a8d-068a8c0c8d53",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_3a9389f05e405a": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "ecfbbf9d-6c7b-4431-bdc6-6b9ae8f7b526",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
