@@ -1,0 +1,95 @@
+tasks/14-product-phase2/ASK-05-ask-answer-quality.md
+  s_5095472e80968b::t_a8b8479528c8e3 12-14,25-36
+app/test/unit/ask/ask_verifier_test.dart
+  s_5095472e80968b::t_a550e7cb9e1683 1-60,63-92,94-105,107-133,135-138,140-142,144-151
+  s_5095472e80968b::t_3c67a0665a4f14 61-62
+  s_5095472e80968b::t_34e61e197db0c5 93,106,134,139,143
+tools/bench/results/2026-10-18-ask05-verify1.md
+  s_5095472e80968b::t_ecf3168719c361 1-29
+app/lib/features/ask/domain/ask_service.dart
+  s_5095472e80968b::t_6c5592bf7ec97c 62,68
+  s_5095472e80968b::t_b8443d6c45084e 274,282-286
+  s_5095472e80968b::t_c96e3492ec6566 69-70
+  s_5095472e80968b::t_441877bedf9c65 14,66-67,71,205,208-221,236-273,275-281,287-292
+  s_5095472e80968b::t_ee5e1c94c9ecdf 293-294
+app/lib/features/ask/domain/ask_verifier.dart
+  s_5095472e80968b::t_844dc87a702387 1-13,20-68
+  s_9450697a967066::t_e4102689568e28 14-19
+tools/bench/results/2026-10-18-ask05-verify2.verify.raw.jsonl
+  s_9450697a967066::t_79bed78bf5f005 4
+  s_9450697a967066::t_d71f08cadd8851 22-74
+  s_9450697a967066::t_4dd1cf8bfbf528 79
+  s_9450697a967066::t_51f3bdfee87bd2 5
+  s_9450697a967066::t_38a9a465ee3aec 76-77
+  s_9450697a967066::t_0811b2d8935e15 7-12
+  s_9450697a967066::t_5940f212ac564b 1-3
+  s_9450697a967066::t_ccd8563d9f6eca 13-14
+  s_9450697a967066::t_ac3c00c23b991a 6,15-21,75,78,80-86
+tools/bench/ask/ask_eval.py
+  s_5095472e80968b::t_fe5dfcbd46db76 9,176-177
+tools/bench/results/2026-10-18-ask05-baseline.base.raw.jsonl
+  s_9450697a967066::t_1e09805c8887e3 67
+  s_9450697a967066::t_6026cb821474c2 81-82
+  s_9450697a967066::t_998c9dca6a0dcd 53-60
+  s_9450697a967066::t_940ead604408d9 6-52
+  s_5095472e80968b::t_b8443d6c45084e 2-3
+  s_9450697a967066::t_3f55fa26efc3fb 72
+  s_9450697a967066::t_49b219be0c8f34 83
+  s_9450697a967066::t_fcfdb2ebd560b5 77
+  s_5095472e80968b::t_bf948b86668328 1
+  s_9450697a967066::t_d54e9dc1409b12 61-66
+  s_9450697a967066::t_7efc5998359184 68-71
+  s_9450697a967066::t_776c8f746ddda2 73-76
+  s_9450697a967066::t_a2e4d634a38787 78-80
+  s_9450697a967066::t_08829c707c63ee 84-86
+  s_5095472e80968b::t_1a8fd6f506fd67 4-5
+tools/bench/results/2026-10-18-ask05-verify1.verify.raw.jsonl
+  s_9450697a967066::t_89c2679c60d245 84
+  s_9450697a967066::t_66692e55724429 66-68
+  s_9450697a967066::t_5f793751020e95 80-82
+  s_9450697a967066::t_c518fb7b690a67 71-79
+  s_9450697a967066::t_d9450d618421cf 1-51
+  s_9450697a967066::t_a4411a9197107f 58-59
+  s_5095472e80968b::t_a4b00849a1e768 52-53
+  s_9450697a967066::t_85e5a830d75f0a 65
+  s_5095472e80968b::t_eede9242ce100a 54-57,60-64,69-70,83,85-86
+app/test/eval/ask_eval_host_test.dart
+  s_5095472e80968b::t_b8443d6c45084e 103
+  s_5095472e80968b::t_0895a3807da828 118,158
+docs/adr/ADR-ASK-02-retrieval.md
+  s_5095472e80968b::t_a8b8479528c8e3 339-355
+tools/bench/results/2026-10-18-ask05-verify1.json
+  s_5095472e80968b::t_e159b1d12b7a9a 1-740
+tools/bench/results/2026-10-18-ask05-verify2.json
+  s_9450697a967066::t_36b4b4fa16499b 1-729
+tools/bench/results/2026-10-18-ask05-verify2.md
+  s_9450697a967066::t_fd7c035cec9171 1-29
+tools/bench/results/2026-10-18-ask05-baseline.json
+  s_5095472e80968b::t_74d8ea9113ae9a 1-729
+tools/bench/results/2026-10-18-ask05-baseline.md
+  s_5095472e80968b::t_94c6f4d94c00aa 1-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "70ee36c1e264ae0d558048af145b60f859fdc04e",
+  "prompts": {},
+  "sessions": {
+    "s_5095472e80968b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "662c42c7-18d9-4cfa-9280-08ec51c9ab04",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_9450697a967066": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "080beacb-b5f0-4236-8780-01faa814d924",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
