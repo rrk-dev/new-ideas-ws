@@ -38,4 +38,5 @@ From a recording's action items (or the library-wide Action Items screen), a use
   - AC5: ✅ test: [TSK-02/AC5]; ci: nice -n 10 fvm flutter test test/widget/reminders_sheet_test.dart test/unit/reminders/reminders_exporter_test.dart; bash tools/ci/check_egress.sh (unchanged)
   - AC6: ✅ test: [TSK-02/AC6]; ci: nice -n 10 fvm flutter test test/unit/reminders/reminders_exporter_test.dart
   - AC7: ✅ test: [TSK-02/AC7]; ci: nice -n 10 fvm flutter test test/unit/reminders/reminders_exporter_test.dart test/db/migrations/vaultvoice/migration_test.dart
+- **Policy change:** `tools/ci/check_store_privacy.py` no longer lists `NSRemindersUsageDescription` as forbidden (the user-initiated export writes to the on-device store; nothing is collected).
 - **Follow-ups:** no Swift unit tests for `RemindersHostApiImpl` (EventKit needs a device); reminder link rows are lost on reinstall (documented, D7).

@@ -3223,10 +3223,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get remindersAddedMissing => 'Added earlier, no longer found';
 
   @override
-  String get remindersChangedNote =>
-      'An item whose wording you changed can be added again.';
-
-  @override
   String remindersDue(String date) {
     return 'Due $date';
   }

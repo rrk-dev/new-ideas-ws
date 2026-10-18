@@ -59,6 +59,8 @@ API_PATTERNS = {
     "NSPrivacyAccessedAPICategoryActiveKeyboards": re.compile(r"activeInputModes"),
 }
 
+# Reminders keys are allowed since TSK-02: the user-initiated export writes to
+# the on-device Reminders store (docs/privacy-audit.md); nothing is collected.
 FORBIDDEN_PLIST_KEYS = {
     "NSUserTrackingUsageDescription",
     "NSContactsUsageDescription",
@@ -68,7 +70,6 @@ FORBIDDEN_PLIST_KEYS = {
     "NSPhotoLibraryUsageDescription",
     "NSCameraUsageDescription",
     "NSCalendarsUsageDescription",
-    "NSRemindersUsageDescription",
     "NSHealthShareUsageDescription",
     "NSSpeechRecognitionUsageDescription",
     "SKAdNetworkItems",

@@ -1055,7 +1055,6 @@
   "remindersNone": "No open action items to add.",
   "remindersAdded": "Added",
   "remindersAddedMissing": "Added earlier, no longer found",
-  "remindersChangedNote": "An item whose wording you changed can be added again.",
   "remindersDue": "Due {date}",
   "@remindersDue": {"placeholders": {"date": {"type": "String"}}},
   "remindersOwner": "Owner: {name}",

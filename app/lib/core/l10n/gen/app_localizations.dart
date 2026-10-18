@@ -5500,12 +5500,6 @@ abstract class AppLocalizations {
   /// **'Added earlier, no longer found'**
   String get remindersAddedMissing;
 
-  /// No description provided for @remindersChangedNote.
-  ///
-  /// In en, this message translates to:
-  /// **'An item whose wording you changed can be added again.'**
-  String get remindersChangedNote;
-
   /// No description provided for @remindersDue.
   ///
   /// In en, this message translates to:
