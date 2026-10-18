@@ -1,0 +1,48 @@
+app/lib/features/mindmap/presentation/mind_map_graph.dart
+  s_3a9389f05e405a::t_46187dfe293c0f 80-81
+  s_3a9389f05e405a::t_23c6993aba577d 1-63,68-79,83-84,87-126,128-301
+  s_3a9389f05e405a::t_640c60d45998df 64-67,127
+  s_3a9389f05e405a::t_6809dba697df7f 82
+  s_3a9389f05e405a::t_1ee16efd41af38 85-86
+tasks/README.md
+  s_3a9389f05e405a::t_352549aeb15552 198
+app/lib/core/l10n/arb/app_en.arb
+  s_3a9389f05e405a::t_640c60d45998df 979-983
+app/lib/core/l10n/gen/app_localizations.dart
+  s_3a9389f05e405a::t_640c60d45998df 5107-5136
+app/lib/features/mindmap/presentation/mind_map_tab.dart
+  s_3a9389f05e405a::t_640c60d45998df 1-4,6,25,148-195,197-202,241,271-295,303-324
+  s_3a9389f05e405a::t_1ee16efd41af38 146
+  s_3a9389f05e405a::t_fac575f22e5ecd 196
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_3a9389f05e405a::t_640c60d45998df 2980-2994
+tasks/14-product-phase2/MAP-03-graphic-mind-map.md
+  s_3a9389f05e405a::t_aac24fc43184da 4,11-18,28-42
+  s_3a9389f05e405a::t_352549aeb15552 1-3,5-10,19-27
+app/lib/features/mindmap/domain/mind_map_layout.dart
+  s_3a9389f05e405a::t_23c6993aba577d 1-123
+app/test/widget/mind_map_graph_test.dart
+  s_3a9389f05e405a::t_fac575f22e5ecd 60,68,75,129,131-139,147,189-190,231,263-323,328,340
+  s_3a9389f05e405a::t_aac24fc43184da 171
+  s_3a9389f05e405a::t_1aa81f028a8b50 1-59,61-67,69-74,76-128,130,140-146,148-170,172-188,191-230,232-262,324-327,329-339
+app/test/widget/mind_map_tab_test.dart
+  s_3a9389f05e405a::t_296f11dc7cab86 137-141
+docs/test-plans/device/MAP-03.md
+  s_3a9389f05e405a::t_c82a895e065416 1-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e4b886b766152ca55575e0156357f510355d0a89",
+  "prompts": {},
+  "sessions": {
+    "s_3a9389f05e405a": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "ecfbbf9d-6c7b-4431-bdc6-6b9ae8f7b526",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
