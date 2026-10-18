@@ -13,7 +13,7 @@ import UIKit
 ///   demuxer) → error code `unsupported`.
 /// * Shares: `SceneDelegate` forwards `openURLContexts` here ("Open in" /
 ///   "Copy to Lumen" via `CFBundleDocumentTypes`); the share extension
-///   (follow-up AUD-10) drops files into the App Group inbox
+///   (AUD-14) drops files into the App Group inbox
 ///   `group.<bundle id>/Inbox/Audio`, which is drained on every
 ///   `takePendingShares`. Files are copied into `tmp/shared_audio` at once.
 /// * Never logs file names or paths.
@@ -184,7 +184,7 @@ final class AudioImportHostApiImpl: AudioImportHostApi {
   }
 
   /// `group.<main app bundle id>/Inbox/Audio`; nil until the App Group
-  /// entitlement exists (AUD-10).
+  /// entitlement exists (AUD-14).
   static func appGroupInbox() -> URL? {
     guard let bundleId = Bundle.main.bundleIdentifier,
       let container = FileManager.default.containerURL(

@@ -7,5 +7,12 @@
 	     capability in the developer portal for signed builds. -->
 	<key>com.apple.developer.kernel.increased-memory-limit</key>
 	<true/>
+	<!-- AUD-14: App Group shared with the ShareExtension (inbox for shared
+	     audio). APP_BUNDLE_IDENTIFIER = this target's bundle id per flavor, so
+	     the group is group.<app id>. Register it for both App IDs. -->
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.$(APP_BUNDLE_IDENTIFIER)</string>
+	</array>
 </dict>
 </plist>
