@@ -1,0 +1,99 @@
+app/ios/QuickCaptureShared/OpenRecordScreenIntent.swift
+  s_9450697a967066::t_4dbb2258cf89b4 1-28
+app/ios/RunnerTests/QuickCaptureStoreTests.swift
+  s_9450697a967066::t_1738eea813cd24 1-63
+app/lib/features/recording/presentation/quick_capture_host.dart
+  s_9450697a967066::t_70fdfc6f6f5be1 52,57
+  s_9450697a967066::t_f4af5bfaf8cce5 1-2
+  s_9450697a967066::t_c5044d5926b578 3-6,8-11,13-51,53-56,58-68
+  s_9450697a967066::t_db48f1cd43e622 7,12
+app/ios/QuickCaptureShared/QuickCaptureStore.swift
+  s_9450697a967066::t_94ebc702149a6e 28-34,76,85
+  s_9450697a967066::t_b7d7155d796204 1-27,35-75,77-84,86-87
+app/ios/LumenWidgets/LumenWidgetsBundle.swift
+  s_9450697a967066::t_76adee901bb731 1-13
+app/ios/Runner/Info.plist
+  s_9450697a967066::t_dd438f88891c6d 75-92
+app/ios/Runner/AppDelegate.swift
+  s_9450697a967066::t_08dc4b572494f5 57-58
+  s_9450697a967066::t_fdb8659e75a9bb 56
+  s_9450697a967066::t_479674c43275e5 10
+docs/ci.md
+  s_9450697a967066::t_559af6ca4cc7b1 15-22
+app/ios/LumenWidgets/Info.plist
+  s_9450697a967066::t_b687d7d6d9f1e4 1-31
+docs/test-plans/device/QCP-02.md
+  s_9450697a967066::t_157d946c5fb169 1-35
+app/lib/app.dart
+  s_9450697a967066::t_14e7a5f334adab 10,33-38
+app/ios/LumenWidgets/RecordControl.swift
+  s_9450697a967066::t_2f0b0fc67d503f 1-19
+tools/ci/check_egress.sh
+  s_9450697a967066::t_bd7a4bb1c94173 29
+app/test/unit/recording/quick_capture_artifacts_test.dart
+  s_9450697a967066::t_f5908f053f5185 1-4,8-9,18-38,40-47,49-55,57-64,66-77,81-86,133
+  s_9450697a967066::t_cc0331782b2f9b 5-7,10-11,39,48,56,65,78
+  s_9450697a967066::t_11eae4eb53a445 12-17,79-80,87-132
+app/lib/features/recording/domain/quick_capture_handoff.dart
+  s_9450697a967066::t_535a453d94700c 2
+  s_9450697a967066::t_85b352efe67f90 1,3-67,70-130
+  s_9450697a967066::t_a1fc18247b18e2 68-69
+app/ios/LumenWidgets/RecordWidget.swift
+  s_9450697a967066::t_59d79d735214ea 58-69
+  s_9450697a967066::t_77352eb5656d70 1-57,70-84
+app/ios/Runner/QuickCaptureApi.g.swift
+  s_9450697a967066::t_3cf5cb2a8ccb7d 1-308
+app/lib/features/recording/data/pigeon_quick_capture.dart
+  s_9450697a967066::t_4f1c4ef92ed900 1-25
+app/test/unit/recording/quick_capture_handoff_test.dart
+  s_9450697a967066::t_76800e3919975c 1-17,19-56,59-82,91-111,122-123,127-201
+  s_9450697a967066::t_339fd319348d79 18
+  s_5095472e80968b::t_caac233d6840eb 57-58,83-85,87-90,112-121,124-126
+  s_9450697a967066::t_e79cd8e1031e71 86
+app/ios/Runner/QuickCaptureHostApiImpl.swift
+  s_9450697a967066::t_f5dbb3241f4aac 1-12
+tools/ci/check_recording_policy.py
+  s_9450697a967066::t_429a9e55257df9 133,135,245-246
+tasks/14-product-phase2/QCP-02-ios-quick-capture.md
+  s_9450697a967066::t_b99b5db1c660e0 4,36,39
+  s_9450697a967066::t_36d496434e481f 11-16,29-35,37-38,40-41
+tools/ci/tests/test_recording_policy.py
+  s_9450697a967066::t_bd7a4bb1c94173 314-326,328-334
+  s_9450697a967066::t_bc2b6ee0ad1d01 327
+app/lib/features/recording/data/pigeon/quick_capture_api.g.dart
+  s_9450697a967066::t_3cf5cb2a8ccb7d 1-228
+app/ios/Runner/SceneDelegate.swift
+  s_9450697a967066::t_5c81fb165435bd 5-15,17-21
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_9450697a967066::t_94b1f47a23304e 15,25,47,92,109,134,204,272-273,575,614-615
+  s_9450697a967066::t_886dba084b90f2 367
+  s_9450697a967066::t_3339e008e4ea4f 59-61,63-64,79-83,85-86,165-167,181-182,185,188-189,299-300,305,628-629,801-815,817-823,867,869-883,885-890,1207-1221,1223-1227,1229,1251-1265,1267-1269,1271
+  s_9450697a967066::t_4409730fdd62bc 10,12,17,20-21,29,41-42,46,58,62,78,84,87-88,98-99,104-105,112,133,138,144,160-164,180,183-184,186-187,195,230-231,240,298,301-304,306-317,340-356,375,423,436,438-442,576-587,612-613,627,630-632,679-704,800,816,824-825,842-866,868,884,891-893,1206,1222,1228,1230-1231,1250,1266,1270,1272-1275,1411-1420,1423
+  s_9450697a967066::t_4ca8e55ea86414 437,1421-1422
+app/pigeons/quick_capture_api.dart
+  s_9450697a967066::t_e490890604b7a2 1-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a17401ae9df075db7d74e40830e22b958f83e55d",
+  "prompts": {},
+  "sessions": {
+    "s_5095472e80968b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "662c42c7-18d9-4cfa-9280-08ec51c9ab04",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_9450697a967066": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "080beacb-b5f0-4236-8780-01faa814d924",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
