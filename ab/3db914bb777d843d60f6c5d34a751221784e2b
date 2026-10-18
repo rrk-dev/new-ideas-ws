@@ -1,0 +1,28 @@
+app/test/eval/ask_eval_host_test.dart
+  s_5095472e80968b::t_c8e62b3be2961e 123-125,128-129
+tools/bench/ask/ask_eval.py
+  s_5095472e80968b::t_9c5f0037a72319 128,132-133,135-136
+  s_5095472e80968b::t_c8e62b3be2961e 42-50,210
+tools/bench/ask/answers_ask05.json
+  s_5095472e80968b::t_3f1aeb39385786 1-154
+tools/bench/ask/questions_ask05.json
+  s_5095472e80968b::t_3f1aeb39385786 1-459
+tasks/14-product-phase2/ASK-05-ask-answer-quality.md
+  s_5095472e80968b::t_b9c31ee9d047a4 11-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ab3db914bb777d843d60f6c5d34a751221784e2b",
+  "prompts": {},
+  "sessions": {
+    "s_5095472e80968b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "662c42c7-18d9-4cfa-9280-08ec51c9ab04",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
