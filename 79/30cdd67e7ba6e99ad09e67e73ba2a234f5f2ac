@@ -1,0 +1,114 @@
+app/lib/features/profiles/domain/profile_features.dart
+  s_9450697a967066::t_5800e4817c3e51 7-9,13-15
+app/test/unit/licensing/feature_matrix_test.dart
+  s_9450697a967066::t_2f805b079bcd39 23-29
+app/test/widget/models_screen_test.dart
+  s_9450697a967066::t_776324618f63f7 135
+app/lib/features/licensing/data/licensing_providers.dart
+  s_9450697a967066::t_a723f3e65e0fc1 24-28,36
+app/test/unit/profiles/lecture_profile_test.dart
+  s_9450697a967066::t_66692e55724429 6
+  s_9450697a967066::t_b7577462895ba0 51-55
+  s_9450697a967066::t_30cae34dd34512 9
+app/lib/features/licensing/domain/paywall.dart
+  s_9450697a967066::t_b1fe1546c251ed 13
+app/test/unit/profiles/builtin_profiles_test.dart
+  s_9450697a967066::t_213ac0117d9d72 119-120,122-126
+app/lib/core/l10n/arb/app_en.arb
+  s_9450697a967066::t_bf151f8ec31057 966
+app/assets/profiles/sales_call.yaml
+  s_9450697a967066::t_85e5a830d75f0a 22
+app/assets/profiles/interview.yaml
+  s_9450697a967066::t_85e5a830d75f0a 27
+app/test/unit/licensing/pro_tier_switch_test.dart
+  s_9450697a967066::t_73eddfa9f87ff8 47
+  s_9450697a967066::t_72b2ac4b42f9ce 1-46,48-120
+app/test/widget/pro_tier_switch_test.dart
+  s_9450697a967066::t_51f3bdfee87bd2 186
+  s_9450697a967066::t_dd38b6ddbab46b 47,91-92
+  s_9450697a967066::t_319cd2dd263cfc 1-46,48-90,93-139,150-185,187-191,204
+  s_9450697a967066::t_79bed78bf5f005 140-149,192-203
+app/test/widget/profile_picker_test.dart
+  s_9450697a967066::t_965196e5ffc948 63
+app/lib/features/licensing/domain/feature_access.dart
+  s_9450697a967066::t_23c1d541bfaa67 30,39
+  s_9450697a967066::t_50f6adc1f44fcf 47,50-51,65-66
+  s_9450697a967066::t_af67893fa954f9 77-79,105-110
+  s_5095472e80968b::t_d8a5b3c310a849 67
+app/lib/features/settings/presentation/settings_screen.dart
+  s_9450697a967066::t_ccf8627174655e 368
+  s_9450697a967066::t_c518fb7b690a67 366-367
+app/lib/core/l10n/gen/app_localizations.dart
+  s_9450697a967066::t_c518fb7b690a67 5029-5034
+app/assets/profiles/lecture.yaml
+  s_9450697a967066::t_85e5a830d75f0a 16
+app/test/widget/routing_rules_editor_test.dart
+  s_9450697a967066::t_38a3c14ce48b59 109,260
+app/lib/features/mindmap/presentation/mind_map_tab.dart
+  s_9450697a967066::t_c5d1990aa4ebd2 13-16
+  s_9450697a967066::t_5fab7b66e439e8 46-55,57
+  s_9450697a967066::t_29962394624617 56
+tasks/README.md
+  s_9450697a967066::t_3d9139ce9ee57c 238
+  s_9450697a967066::t_d23269192133a2 240
+app/test/unit/profiles/sales_call_profile_test.dart
+  s_9450697a967066::t_66692e55724429 6
+  s_9450697a967066::t_e2f6c5b5efe222 146-150
+  s_9450697a967066::t_d69b333dbb0d0f 9
+app/test/unit/profiles/interview_profile_test.dart
+  s_9450697a967066::t_66692e55724429 6
+  s_9450697a967066::t_f9d3466cecb11b 110-114
+  s_9450697a967066::t_3c49771b55a948 10
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_9450697a967066::t_c518fb7b690a67 2940-2941
+  s_9450697a967066::t_2bf75b43796ff6 2939
+app/test/unit/licensing/downgrade_test.dart
+  s_9450697a967066::t_23a78b2386e06d 191
+app/lib/features/licensing/data/licensing_providers.g.dart
+  s_9450697a967066::t_c518fb7b690a67 65-113,168
+app/lib/features/licensing/domain/feature_matrix.dart
+  s_9450697a967066::t_ecde3fec1fad7a 222-231
+  s_9450697a967066::t_55452c1446517f 21-29
+  s_9450697a967066::t_171d3731606dd7 143-193,198-206,209-210
+app/lib/features/licensing/domain/entitlement.dart
+  s_9450697a967066::t_7a763af13e0b61 56-76
+app/test/unit/licensing/entitlement_wiring_test.dart
+  s_9450697a967066::t_70da6d21d7d4cc 65
+tasks/09-licensing/LIC-05-phase2-feature-tiers.md
+  s_9450697a967066::t_3d9139ce9ee57c 4,11-16,22,24
+  s_9450697a967066::t_fa043223194857 25-38
+app/test/widget/feature_gate_test.dart
+  s_9450697a967066::t_88e4bec6e9eebb 38
+app/lib/features/licensing/data/local_entitlement_service.dart
+  s_9450697a967066::t_a88f769be89387 19,29-30
+  s_9450697a967066::t_c518fb7b690a67 55-60
+  s_9450697a967066::t_f3e1ce4424244f 31
+app/test/widget/template_editor_test.dart
+  s_9450697a967066::t_4a491e0b7095a9 115
+docs/iap-products.md
+  s_9450697a967066::t_62c542885e3df3 45-68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7930cdd67e7ba6e99ad09e67e73ba2a234f5f2ac",
+  "prompts": {},
+  "sessions": {
+    "s_5095472e80968b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "662c42c7-18d9-4cfa-9280-08ec51c9ab04",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    },
+    "s_9450697a967066": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "080beacb-b5f0-4236-8780-01faa814d924",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
