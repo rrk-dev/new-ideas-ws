@@ -868,11 +868,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Processing is running. Try again when it has finished.';
 
   @override
-  String recordingProfileCurrent(String name) {
-    return '$name (current)';
-  }
-
-  @override
   String get recordingTabSummary => 'Summary';
 
   @override
@@ -1186,6 +1181,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recordAuto => 'Auto';
+
+  @override
+  String get profilePickerTitle => 'Choose a profile';
+
+  @override
+  String get profilePickerAutoDescription =>
+      'Pick the best profile from the transcript';
+
+  @override
+  String profilePickerLockedHint(String name) {
+    return '$name, requires Pro';
+  }
 
   @override
   String get recordButtonStartLabel => 'Start recording';

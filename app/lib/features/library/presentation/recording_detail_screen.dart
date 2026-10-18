@@ -22,6 +22,8 @@ import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/presentation/job_commands.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/pipeline/presentation/recording_status_screen.dart';
+import 'package:vaultvoice/features/profiles/presentation/profile_picker.dart';
+import 'package:vaultvoice/features/recording/data/recording_screen_providers.dart';
 
 /// Lines of the transcript shown inline before "Show full transcript".
 const int kTranscriptPreviewLines = 5;
@@ -277,10 +279,15 @@ class _Detail extends ConsumerWidget {
       case _Action.reExport:
         await _rerun(context, ref, job, PipelineStepId.render);
       case _Action.changeProfile:
-        final profile = await showDialog<String>(
-          context: context,
-          builder: (_) => _ProfileDialog(current: header.profileId),
+        final choices = await ref.read(profileChoicesProvider.future);
+        if (!context.mounted) return;
+        final pick = await showProfilePicker(
+          context,
+          choices: choices,
+          selectedId: header.profileId,
+          includeAuto: false,
         );
+        final profile = pick?.id;
         if (profile == null || !context.mounted) return;
         await ref
             .read(recordingsRepositoryProvider)
@@ -628,32 +635,6 @@ class _DeleteDialogState extends State<_DeleteDialog> {
                   .pop(_DeleteChoice(deleteNotes: _deleteNotes)),
           child: Text(l10n.recordingDelete),
         ),
-      ],
-    );
-  }
-}
-
-class _ProfileDialog extends ConsumerWidget {
-  const _ProfileDialog({required this.current});
-
-  final String? current;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final profiles = ref.watch(profileNamesProvider).value ?? const {};
-    return SimpleDialog(
-      title: Text(context.l10n.recordingChangeProfile),
-      children: [
-        for (final e in profiles.entries)
-          SimpleDialogOption(
-            key: ValueKey('profile-option-${e.key}'),
-            onPressed: () => Navigator.of(context).pop(e.key),
-            child: Text(
-              e.key == current
-                  ? context.l10n.recordingProfileCurrent(e.value)
-                  : e.value,
-            ),
-          ),
       ],
     );
   }

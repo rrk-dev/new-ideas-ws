@@ -4,6 +4,7 @@ import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/core/widgets/field_helper.dart';
+import 'package:vaultvoice/features/profiles/presentation/profile_picker.dart';
 import 'package:vaultvoice/features/recording/data/recording_screen_providers.dart';
 import 'package:vaultvoice/features/recording/data/recording_session_service.dart';
 import 'package:vaultvoice/features/recording/domain/recording_controller.dart';
@@ -38,19 +39,34 @@ class RecordingSetupPickers extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        DropdownButtonFormField<String?>(
+        InkWell(
           key: const ValueKey('record-profile'),
-          initialValue: profileId,
-          isExpanded: true,
-          decoration: InputDecoration(labelText: l10n.recordProfileLabel),
-          items: [
-            DropdownMenuItem(child: Text(l10n.recordAuto)),
-            for (final p in profiles)
-              DropdownMenuItem(value: p.id, child: Text(p.name)),
-          ],
-          onChanged: enabled
-              ? (v) => onChanged(setup.copyWith(profileId: () => v))
+          onTap: enabled
+              ? () async {
+                  final pick = await showProfilePicker(
+                    context,
+                    choices: profiles,
+                    selectedId: profileId,
+                  );
+                  if (pick != null) {
+                    onChanged(setup.copyWith(profileId: () => pick.id));
+                  }
+                }
               : null,
+          child: InputDecorator(
+            decoration: InputDecoration(
+              labelText: l10n.recordProfileLabel,
+              enabled: enabled,
+              suffixIcon: const Icon(Icons.arrow_drop_down),
+            ),
+            child: Text(
+              profiles
+                      .where((p) => p.id == profileId)
+                      .map((p) => p.name)
+                      .firstOrNull ??
+                  l10n.recordAuto,
+            ),
+          ),
         ),
         const SizedBox(height: AppSpacing.sm),
         DropdownButtonFormField<String?>(

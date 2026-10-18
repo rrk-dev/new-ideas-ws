@@ -5,6 +5,7 @@ import 'package:vaultvoice/features/licensing/domain/entitlement.dart';
 enum PaywallEntryPoint {
   modelPicker,
   profileEditor,
+  profilePicker,
   templateEditor,
   vaultTargets,
   routingRules,

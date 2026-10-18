@@ -92,6 +92,10 @@ Read-only assets, never `templates` rows (see ADR-EXP-01 → "Template storage":
 templates have no row, and a user template written for a built-in profile keeps
 `templates.profile_id = null`).
 
+The profile picker (before recording, and "Change profile" on a recording) lists every built-in and
+custom profile with its icon, name and one-line description; locking follows `kFeatureMatrix` only
+(TPL-04).
+
 | id | Profile | Flavor | Notes |
 |---|---|---|---|
 | `meeting-default` | meeting | Obsidian | front-matter (title, date, time, duration, type, attendees, tags, source, recording_id, consent_at?), Obsidian Tasks `📅` when `due_iso` resolved |

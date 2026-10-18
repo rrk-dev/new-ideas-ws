@@ -124,3 +124,25 @@ regenerates them deterministically. Targets are in `interview/scoring.json` and 
 (written before the first baseline). `quote_fidelity` checks that every quote is a verbatim
 substring of the transcript (post-processed, and raw model output as information). Run with
 `nice -n 10 python3 tools/bench/eval/run.py --profile interview --model <llama-3.2-1b-q4_k_m.gguf>`.
+
+## Classification set (TPL-04)
+
+`classify/` measures Auto profile selection (`ProfileClassifier`: keyword pre-filter, then the
+grammar-constrained LLM call) across the six built-in profiles. `cases.json` has 144 **simulated**
+transcripts (24 per profile: 16 clear, 8 ambiguous with about a third of the sentences from a
+neighbouring profile, one prompt-injection case each), split alternately into `dev` and `holdout`;
+`python3 tools/bench/eval/classify/gen_cases.py` regenerates them deterministically. The text comes
+from sentence pools, so it is more regular than real speech (clear warranty cases are keyword-heavy);
+the numbers are a regression bar, not a field accuracy. Keywords were tuned on `dev` only.
+
+```bash
+# keyword stage only, seconds, no model
+python3 tools/bench/eval/classify/run_classify.py --no-llm
+# like the app, host llama.cpp build; --write-baseline writes baselines/classify.<model>.json
+nice -n 10 python3 tools/bench/eval/classify/run_classify.py --model <llama-3.2-1b-q4_k_m.gguf>
+```
+
+The report has accuracy (all, dev, holdout, ambiguous), per-profile recall/precision, the 6x6
+confusion matrix, how often the user is asked and keyword-stage precision. Targets are in
+`classify/scoring.json` and the task file (written before the baseline). Host latency is
+informational; the < 10 s bar is a device row (`docs/test-plans/device/TPL-04.md`).

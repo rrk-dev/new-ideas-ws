@@ -54,6 +54,8 @@ Stream<List<ProfileChoice>> profileChoices(Ref ref) async* {
         ProfileChoice(
           id: p.id,
           name: p.name,
+          description: p.description,
+          icon: p.icon,
           consentRequired:
               p.consentConfirmation == ConsentConfirmation.required,
           consentOptional:

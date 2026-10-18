@@ -17,7 +17,7 @@ stt:
   diarization: false
   num_speakers: 1
 classify:
-  keywords: [warranty, receipt, serial number, purchased, bought, model number, guarantee]
+  keywords: [warranty, receipt, serial number, purchased, bought, model number, guarantee, manufacturer, support number, proof of purchase]
 instructions: |
   - Use only what is stated in the transcript; leave out anything that is not there. Never invent products, numbers or dates.
   - product: what was bought. brand and model as spoken, else null.
