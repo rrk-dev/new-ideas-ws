@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+
 import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/diagnostics/job_metrics.dart';
 import 'package:vaultvoice/core/errors/failure.dart';
@@ -20,6 +22,8 @@ import 'package:vaultvoice/features/extraction/domain/long_transcript/extraction
 import 'package:vaultvoice/features/extraction/domain/long_transcript/map_reduce_extractor.dart';
 import 'package:vaultvoice/features/extraction/domain/memory_planner.dart';
 import 'package:vaultvoice/features/extraction/domain/model_residency.dart';
+import 'package:vaultvoice/features/mindmap/data/mind_map_strategy.dart';
+import 'package:vaultvoice/features/mindmap/domain/mind_map_schema.dart';
 import 'package:vaultvoice/features/pipeline/data/active_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/long_transcript_strategy.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
@@ -201,6 +205,15 @@ final class ProductionEngineSpec {
       ),
     );
 
+    String? mindMapGrammar;
+    final mindMap = GeneratorMindMapStrategy(
+      method: kDefaultMindMapMethod,
+      extractor: MapReduceExtractor(engine: llm, tokenizer: llm),
+      grammarLoader: () async => mindMapGrammar ??= (await converter.toGbnf(
+        jsonEncode(kMindMapLlmSchema),
+      )).valueOrNull,
+    );
+
     return PipelineEngines(
       stt: stt,
       llm: llm,
@@ -212,6 +225,8 @@ final class ProductionEngineSpec {
       grammars: (p) async =>
           (await registry.grammarsFor(p)).valueOrNull?.schema,
       extraction: longTranscript,
+      mindMap: mindMap,
+      deviceTier: () => tierForRam(native.value.deviceMemory.$1),
       // AUD-03 VAD (Silero, CPU) → speech_segments → STT-04 windows.
       vad: vad,
       windowCache: FileWindowResultCache(context.paths.root),

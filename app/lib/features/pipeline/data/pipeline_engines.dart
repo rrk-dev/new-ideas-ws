@@ -8,6 +8,8 @@ import 'package:vaultvoice/core/platform/stt_engine.dart';
 import 'package:vaultvoice/core/platform/vad_engine.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
 import 'package:vaultvoice/features/export/data/vault_exporter.dart';
+import 'package:vaultvoice/features/mindmap/data/mind_map_strategy.dart';
+import 'package:vaultvoice/features/models/domain/model_catalog.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/render_write_steps.dart';
 import 'package:vaultvoice/features/pipeline/domain/heavy_model_gate.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
@@ -123,6 +125,8 @@ class PipelineEngines {
     this.profileList,
     this.grammars,
     this.extraction,
+    this.mindMap,
+    this.deviceTier,
     this.vaultFor,
     this.metrics,
     this.onForeground,
@@ -165,6 +169,12 @@ class PipelineEngines {
 
   /// Long-transcript extraction (LLM-06), tried before the single pass.
   final ExtractionStrategy? extraction;
+
+  /// MAP-01 mind-map generation; null = no `mindMap` step.
+  final MindMapStrategy? mindMap;
+
+  /// Device tier for the mind-map map-reduce plan (null = mid).
+  final DeviceTier Function()? deviceTier;
   final VaultWriterFor? vaultFor;
   final StepMetrics? metrics;
 

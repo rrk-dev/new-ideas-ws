@@ -447,6 +447,7 @@
   "jobDiarizing": "Identifying speakers",
   "jobClassifying": "Choosing a profile",
   "jobExtracting": "Extracting details",
+  "jobMapping": "Building the mind map",
   "jobRendering": "Formatting the note",
   "jobWriting": "Saving to your vault",
   "jobBetweenSteps": "Waiting for the next step",

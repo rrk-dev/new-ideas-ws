@@ -68,7 +68,7 @@ final class LongTranscriptStrategy implements ExtractionStrategy {
       input,
       cancel: ctx.cancel,
       onProgress: ctx.reportProgress,
-      checkpoints: _StepCheckpoints(ctx),
+      checkpoints: StepCheckpointStore(ctx),
     );
     return switch (result) {
       Err(:final failure) => Err(failure),
@@ -85,8 +85,8 @@ final class LongTranscriptStrategy implements ExtractionStrategy {
 }
 
 /// Map checkpoints through the orchestrator (one transaction per chunk).
-final class _StepCheckpoints implements MapReduceCheckpointStore {
-  _StepCheckpoints(this._ctx)
+final class StepCheckpointStore implements MapReduceCheckpointStore {
+  StepCheckpointStore(this._ctx)
     : initial = MapReduceCheckpoint.fromJson(_ctx.job.checkpoint);
 
   final StepContext _ctx;

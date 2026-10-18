@@ -124,6 +124,18 @@ Future<String> seedFullRecording(
         ),
       );
   await db
+      .into(db.mindMaps)
+      .insert(
+        MindMapsCompanion.insert(
+          id: '$id.mindmap',
+          recordingId: id,
+          method: 'projection',
+          json: {'id': 'n0', 'label': secret, 'children': <Object?>[]},
+          nodeCount: 1,
+          createdAt: t0,
+        ),
+      );
+  await db
       .into(db.vaultTargets)
       .insertOnConflictUpdate(
         VaultTargetsCompanion.insert(

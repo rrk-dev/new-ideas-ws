@@ -6,6 +6,7 @@ import 'package:vaultvoice/core/db/migrations.dart';
 import 'package:vaultvoice/core/db/tables/export_tables.dart';
 import 'package:vaultvoice/core/db/tables/extraction_tables.dart';
 import 'package:vaultvoice/core/db/tables/job_tables.dart';
+import 'package:vaultvoice/core/db/tables/mind_map_tables.dart';
 import 'package:vaultvoice/core/db/tables/profile_tables.dart';
 import 'package:vaultvoice/core/db/tables/recording_tables.dart';
 import 'package:vaultvoice/core/db/tables/settings_tables.dart';
@@ -50,6 +51,7 @@ Future<void> migrateV1ToV2(Migrator m, GeneratedDatabase db) async {
     Templates,
     Extractions,
     ActionItems,
+    MindMaps,
     VaultTargets,
     RoutingRules,
     Exports,

@@ -6295,6 +6295,530 @@ class TemplatesCompanion extends UpdateCompanion<TemplateRow> {
   }
 }
 
+class $MindMapsTable extends MindMaps
+    with TableInfo<$MindMapsTable, MindMapRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MindMapsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _recordingIdMeta = const VerificationMeta(
+    'recordingId',
+  );
+  @override
+  late final GeneratedColumn<String> recordingId = GeneratedColumn<String>(
+    'recording_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES recordings (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _extractionIdMeta = const VerificationMeta(
+    'extractionId',
+  );
+  @override
+  late final GeneratedColumn<String> extractionId = GeneratedColumn<String>(
+    'extraction_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _methodMeta = const VerificationMeta('method');
+  @override
+  late final GeneratedColumn<String> method = GeneratedColumn<String>(
+    'method',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modelIdMeta = const VerificationMeta(
+    'modelId',
+  );
+  @override
+  late final GeneratedColumn<String> modelId = GeneratedColumn<String>(
+    'model_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<JsonMap, String> json =
+      GeneratedColumn<String>(
+        'json',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<JsonMap>($MindMapsTable.$converterjson);
+  static const VerificationMeta _nodeCountMeta = const VerificationMeta(
+    'nodeCount',
+  );
+  @override
+  late final GeneratedColumn<int> nodeCount = GeneratedColumn<int>(
+    'node_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<DateTime, int> createdAt =
+      GeneratedColumn<int>(
+        'created_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($MindMapsTable.$convertercreatedAt);
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    recordingId,
+    extractionId,
+    method,
+    modelId,
+    json,
+    nodeCount,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'mind_maps';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<MindMapRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('recording_id')) {
+      context.handle(
+        _recordingIdMeta,
+        recordingId.isAcceptableOrUnknown(
+          data['recording_id']!,
+          _recordingIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_recordingIdMeta);
+    }
+    if (data.containsKey('extraction_id')) {
+      context.handle(
+        _extractionIdMeta,
+        extractionId.isAcceptableOrUnknown(
+          data['extraction_id']!,
+          _extractionIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('method')) {
+      context.handle(
+        _methodMeta,
+        method.isAcceptableOrUnknown(data['method']!, _methodMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_methodMeta);
+    }
+    if (data.containsKey('model_id')) {
+      context.handle(
+        _modelIdMeta,
+        modelId.isAcceptableOrUnknown(data['model_id']!, _modelIdMeta),
+      );
+    }
+    if (data.containsKey('node_count')) {
+      context.handle(
+        _nodeCountMeta,
+        nodeCount.isAcceptableOrUnknown(data['node_count']!, _nodeCountMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nodeCountMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  MindMapRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MindMapRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      recordingId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}recording_id'],
+      )!,
+      extractionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}extraction_id'],
+      ),
+      method: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}method'],
+      )!,
+      modelId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}model_id'],
+      ),
+      json: $MindMapsTable.$converterjson.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}json'],
+        )!,
+      ),
+      nodeCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}node_count'],
+      )!,
+      createdAt: $MindMapsTable.$convertercreatedAt.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}created_at'],
+        )!,
+      ),
+    );
+  }
+
+  @override
+  $MindMapsTable createAlias(String alias) {
+    return $MindMapsTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<JsonMap, String> $converterjson =
+      const JsonMapConverter();
+  static TypeConverter<DateTime, int> $convertercreatedAt =
+      const EpochMsConverter();
+}
+
+class MindMapRow extends DataClass implements Insertable<MindMapRow> {
+  final String id;
+  final String recordingId;
+  final String? extractionId;
+  final String method;
+  final String? modelId;
+  final JsonMap json;
+  final int nodeCount;
+  final DateTime createdAt;
+  const MindMapRow({
+    required this.id,
+    required this.recordingId,
+    this.extractionId,
+    required this.method,
+    this.modelId,
+    required this.json,
+    required this.nodeCount,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['recording_id'] = Variable<String>(recordingId);
+    if (!nullToAbsent || extractionId != null) {
+      map['extraction_id'] = Variable<String>(extractionId);
+    }
+    map['method'] = Variable<String>(method);
+    if (!nullToAbsent || modelId != null) {
+      map['model_id'] = Variable<String>(modelId);
+    }
+    {
+      map['json'] = Variable<String>($MindMapsTable.$converterjson.toSql(json));
+    }
+    map['node_count'] = Variable<int>(nodeCount);
+    {
+      map['created_at'] = Variable<int>(
+        $MindMapsTable.$convertercreatedAt.toSql(createdAt),
+      );
+    }
+    return map;
+  }
+
+  MindMapsCompanion toCompanion(bool nullToAbsent) {
+    return MindMapsCompanion(
+      id: Value(id),
+      recordingId: Value(recordingId),
+      extractionId: extractionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(extractionId),
+      method: Value(method),
+      modelId: modelId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(modelId),
+      json: Value(json),
+      nodeCount: Value(nodeCount),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory MindMapRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MindMapRow(
+      id: serializer.fromJson<String>(json['id']),
+      recordingId: serializer.fromJson<String>(json['recordingId']),
+      extractionId: serializer.fromJson<String?>(json['extractionId']),
+      method: serializer.fromJson<String>(json['method']),
+      modelId: serializer.fromJson<String?>(json['modelId']),
+      json: serializer.fromJson<JsonMap>(json['json']),
+      nodeCount: serializer.fromJson<int>(json['nodeCount']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'recordingId': serializer.toJson<String>(recordingId),
+      'extractionId': serializer.toJson<String?>(extractionId),
+      'method': serializer.toJson<String>(method),
+      'modelId': serializer.toJson<String?>(modelId),
+      'json': serializer.toJson<JsonMap>(json),
+      'nodeCount': serializer.toJson<int>(nodeCount),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  MindMapRow copyWith({
+    String? id,
+    String? recordingId,
+    Value<String?> extractionId = const Value.absent(),
+    String? method,
+    Value<String?> modelId = const Value.absent(),
+    JsonMap? json,
+    int? nodeCount,
+    DateTime? createdAt,
+  }) => MindMapRow(
+    id: id ?? this.id,
+    recordingId: recordingId ?? this.recordingId,
+    extractionId: extractionId.present ? extractionId.value : this.extractionId,
+    method: method ?? this.method,
+    modelId: modelId.present ? modelId.value : this.modelId,
+    json: json ?? this.json,
+    nodeCount: nodeCount ?? this.nodeCount,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  MindMapRow copyWithCompanion(MindMapsCompanion data) {
+    return MindMapRow(
+      id: data.id.present ? data.id.value : this.id,
+      recordingId: data.recordingId.present
+          ? data.recordingId.value
+          : this.recordingId,
+      extractionId: data.extractionId.present
+          ? data.extractionId.value
+          : this.extractionId,
+      method: data.method.present ? data.method.value : this.method,
+      modelId: data.modelId.present ? data.modelId.value : this.modelId,
+      json: data.json.present ? data.json.value : this.json,
+      nodeCount: data.nodeCount.present ? data.nodeCount.value : this.nodeCount,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MindMapRow(')
+          ..write('id: $id, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('extractionId: $extractionId, ')
+          ..write('method: $method, ')
+          ..write('modelId: $modelId, ')
+          ..write('json: $json, ')
+          ..write('nodeCount: $nodeCount, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    recordingId,
+    extractionId,
+    method,
+    modelId,
+    json,
+    nodeCount,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MindMapRow &&
+          other.id == this.id &&
+          other.recordingId == this.recordingId &&
+          other.extractionId == this.extractionId &&
+          other.method == this.method &&
+          other.modelId == this.modelId &&
+          other.json == this.json &&
+          other.nodeCount == this.nodeCount &&
+          other.createdAt == this.createdAt);
+}
+
+class MindMapsCompanion extends UpdateCompanion<MindMapRow> {
+  final Value<String> id;
+  final Value<String> recordingId;
+  final Value<String?> extractionId;
+  final Value<String> method;
+  final Value<String?> modelId;
+  final Value<JsonMap> json;
+  final Value<int> nodeCount;
+  final Value<DateTime> createdAt;
+  final Value<int> rowid;
+  const MindMapsCompanion({
+    this.id = const Value.absent(),
+    this.recordingId = const Value.absent(),
+    this.extractionId = const Value.absent(),
+    this.method = const Value.absent(),
+    this.modelId = const Value.absent(),
+    this.json = const Value.absent(),
+    this.nodeCount = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  MindMapsCompanion.insert({
+    required String id,
+    required String recordingId,
+    this.extractionId = const Value.absent(),
+    required String method,
+    this.modelId = const Value.absent(),
+    required JsonMap json,
+    required int nodeCount,
+    required DateTime createdAt,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       recordingId = Value(recordingId),
+       method = Value(method),
+       json = Value(json),
+       nodeCount = Value(nodeCount),
+       createdAt = Value(createdAt);
+  static Insertable<MindMapRow> custom({
+    Expression<String>? id,
+    Expression<String>? recordingId,
+    Expression<String>? extractionId,
+    Expression<String>? method,
+    Expression<String>? modelId,
+    Expression<String>? json,
+    Expression<int>? nodeCount,
+    Expression<int>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (recordingId != null) 'recording_id': recordingId,
+      if (extractionId != null) 'extraction_id': extractionId,
+      if (method != null) 'method': method,
+      if (modelId != null) 'model_id': modelId,
+      if (json != null) 'json': json,
+      if (nodeCount != null) 'node_count': nodeCount,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  MindMapsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? recordingId,
+    Value<String?>? extractionId,
+    Value<String>? method,
+    Value<String?>? modelId,
+    Value<JsonMap>? json,
+    Value<int>? nodeCount,
+    Value<DateTime>? createdAt,
+    Value<int>? rowid,
+  }) {
+    return MindMapsCompanion(
+      id: id ?? this.id,
+      recordingId: recordingId ?? this.recordingId,
+      extractionId: extractionId ?? this.extractionId,
+      method: method ?? this.method,
+      modelId: modelId ?? this.modelId,
+      json: json ?? this.json,
+      nodeCount: nodeCount ?? this.nodeCount,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (recordingId.present) {
+      map['recording_id'] = Variable<String>(recordingId.value);
+    }
+    if (extractionId.present) {
+      map['extraction_id'] = Variable<String>(extractionId.value);
+    }
+    if (method.present) {
+      map['method'] = Variable<String>(method.value);
+    }
+    if (modelId.present) {
+      map['model_id'] = Variable<String>(modelId.value);
+    }
+    if (json.present) {
+      map['json'] = Variable<String>(
+        $MindMapsTable.$converterjson.toSql(json.value),
+      );
+    }
+    if (nodeCount.present) {
+      map['node_count'] = Variable<int>(nodeCount.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(
+        $MindMapsTable.$convertercreatedAt.toSql(createdAt.value),
+      );
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MindMapsCompanion(')
+          ..write('id: $id, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('extractionId: $extractionId, ')
+          ..write('method: $method, ')
+          ..write('modelId: $modelId, ')
+          ..write('json: $json, ')
+          ..write('nodeCount: $nodeCount, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $VaultTargetsTable extends VaultTargets
     with TableInfo<$VaultTargetsTable, VaultTargetRow> {
   @override
@@ -8339,6 +8863,7 @@ abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
   late final $JobsTable jobs = $JobsTable(this);
   late final $ProfilesTable profiles = $ProfilesTable(this);
   late final $TemplatesTable templates = $TemplatesTable(this);
+  late final $MindMapsTable mindMaps = $MindMapsTable(this);
   late final $VaultTargetsTable vaultTargets = $VaultTargetsTable(this);
   late final $RoutingRulesTable routingRules = $RoutingRulesTable(this);
   late final $ExportsTable exports = $ExportsTable(this);
@@ -8359,6 +8884,9 @@ abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
   );
   late final ExtractionsRepository extractionsRepository =
       ExtractionsRepository(this as VaultVoiceDatabase);
+  late final MindMapsRepository mindMapsRepository = MindMapsRepository(
+    this as VaultVoiceDatabase,
+  );
   late final VaultRepository vaultRepository = VaultRepository(
     this as VaultVoiceDatabase,
   );
@@ -8395,6 +8923,7 @@ abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
     jobs,
     profiles,
     templates,
+    mindMaps,
     vaultTargets,
     routingRules,
     exports,
@@ -8557,6 +9086,13 @@ abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
         limitUpdateKind: UpdateKind.delete,
       ),
       result: [TableUpdate('templates', kind: UpdateKind.update)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'recordings',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('mind_maps', kind: UpdateKind.delete)],
     ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(
@@ -8940,6 +9476,24 @@ final class $$RecordingsTableReferences
     );
   }
 
+  static MultiTypedResultKey<$MindMapsTable, List<MindMapRow>>
+  _mindMapsRefsTable(_$VaultVoiceDatabase db) => MultiTypedResultKey.fromTable(
+    db.mindMaps,
+    aliasName: 'recordings__id__mind_maps__recording_id',
+  );
+
+  $$MindMapsTableProcessedTableManager get mindMapsRefs {
+    final manager = $$MindMapsTableTableManager(
+      $_db,
+      $_db.mindMaps,
+    ).filter((f) => f.recordingId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_mindMapsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
   static MultiTypedResultKey<$ExportsTable, List<ExportRow>> _exportsRefsTable(
     _$VaultVoiceDatabase db,
   ) => MultiTypedResultKey.fromTable(
@@ -9227,6 +9781,31 @@ class $$RecordingsTableFilterComposer
           }) => $$JobsTableFilterComposer(
             $db: $db,
             $table: $db.jobs,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> mindMapsRefs(
+    Expression<bool> Function($$MindMapsTableFilterComposer f) f,
+  ) {
+    final $$MindMapsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mindMaps,
+      getReferencedColumn: (t) => t.recordingId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MindMapsTableFilterComposer(
+            $db: $db,
+            $table: $db.mindMaps,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -9588,6 +10167,31 @@ class $$RecordingsTableAnnotationComposer
     return f(composer);
   }
 
+  Expression<T> mindMapsRefs<T extends Object>(
+    Expression<T> Function($$MindMapsTableAnnotationComposer a) f,
+  ) {
+    final $$MindMapsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mindMaps,
+      getReferencedColumn: (t) => t.recordingId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MindMapsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.mindMaps,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
   Expression<T> exportsRefs<T extends Object>(
     Expression<T> Function($$ExportsTableAnnotationComposer a) f,
   ) {
@@ -9636,6 +10240,7 @@ class $$RecordingsTableTableManager
             bool markersRefs,
             bool speakersRefs,
             bool jobsRefs,
+            bool mindMapsRefs,
             bool exportsRefs,
           })
         > {
@@ -9728,6 +10333,7 @@ class $$RecordingsTableTableManager
                 markersRefs = false,
                 speakersRefs = false,
                 jobsRefs = false,
+                mindMapsRefs = false,
                 exportsRefs = false,
               }) {
                 return PrefetchHooks(
@@ -9741,6 +10347,7 @@ class $$RecordingsTableTableManager
                     if (markersRefs) db.markers,
                     if (speakersRefs) db.speakers,
                     if (jobsRefs) db.jobs,
+                    if (mindMapsRefs) db.mindMaps,
                     if (exportsRefs) db.exports,
                   ],
                   addJoins: null,
@@ -9914,6 +10521,27 @@ class $$RecordingsTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (mindMapsRefs)
+                        await $_getPrefetchedData<
+                          RecordingRow,
+                          $RecordingsTable,
+                          MindMapRow
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordingsTableReferences
+                              ._mindMapsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordingsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).mindMapsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordingId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                       if (exportsRefs)
                         await $_getPrefetchedData<
                           RecordingRow,
@@ -9964,6 +10592,7 @@ typedef $$RecordingsTableProcessedTableManager =
         bool markersRefs,
         bool speakersRefs,
         bool jobsRefs,
+        bool mindMapsRefs,
         bool exportsRefs,
       })
     >;
@@ -14206,6 +14835,380 @@ typedef $$TemplatesTableProcessedTableManager =
       TemplateRow,
       PrefetchHooks Function({bool profileId})
     >;
+typedef $$MindMapsTableCreateCompanionBuilder = MindMapsCompanion Function({
+  required String id,
+  required String recordingId,
+  Value<String?> extractionId,
+  required String method,
+  Value<String?> modelId,
+  required JsonMap json,
+  required int nodeCount,
+  required DateTime createdAt,
+  Value<int> rowid,
+});
+typedef $$MindMapsTableUpdateCompanionBuilder = MindMapsCompanion Function({
+  Value<String> id,
+  Value<String> recordingId,
+  Value<String?> extractionId,
+  Value<String> method,
+  Value<String?> modelId,
+  Value<JsonMap> json,
+  Value<int> nodeCount,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+
+final class $$MindMapsTableReferences
+    extends BaseReferences<_$VaultVoiceDatabase, $MindMapsTable, MindMapRow> {
+  $$MindMapsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $RecordingsTable _recordingIdTable(_$VaultVoiceDatabase db) =>
+      db.recordings.createAlias('mind_maps__recording_id__recordings__id');
+
+  $$RecordingsTableProcessedTableManager get recordingId {
+    final $_column = $_itemColumn<String>('recording_id')!;
+
+    final manager = $$RecordingsTableTableManager(
+      $_db,
+      $_db.recordings,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordingIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$MindMapsTableFilterComposer
+    extends Composer<_$VaultVoiceDatabase, $MindMapsTable> {
+  $$MindMapsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get extractionId => $composableBuilder(
+    column: $table.extractionId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get method => $composableBuilder(
+    column: $table.method,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get modelId => $composableBuilder(
+    column: $table.modelId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<JsonMap, JsonMap, String> get json =>
+      $composableBuilder(
+        column: $table.json,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnFilters<int> get nodeCount => $composableBuilder(
+    column: $table.nodeCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<DateTime, DateTime, int> get createdAt =>
+      $composableBuilder(
+        column: $table.createdAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  $$RecordingsTableFilterComposer get recordingId {
+    final $$RecordingsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableFilterComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MindMapsTableOrderingComposer
+    extends Composer<_$VaultVoiceDatabase, $MindMapsTable> {
+  $$MindMapsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get extractionId => $composableBuilder(
+    column: $table.extractionId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get method => $composableBuilder(
+    column: $table.method,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get modelId => $composableBuilder(
+    column: $table.modelId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get json => $composableBuilder(
+    column: $table.json,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get nodeCount => $composableBuilder(
+    column: $table.nodeCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$RecordingsTableOrderingComposer get recordingId {
+    final $$RecordingsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableOrderingComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MindMapsTableAnnotationComposer
+    extends Composer<_$VaultVoiceDatabase, $MindMapsTable> {
+  $$MindMapsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get extractionId => $composableBuilder(
+    column: $table.extractionId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get method =>
+      $composableBuilder(column: $table.method, builder: (column) => column);
+
+  GeneratedColumn<String> get modelId =>
+      $composableBuilder(column: $table.modelId, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<JsonMap, String> get json =>
+      $composableBuilder(column: $table.json, builder: (column) => column);
+
+  GeneratedColumn<int> get nodeCount =>
+      $composableBuilder(column: $table.nodeCount, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<DateTime, int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$RecordingsTableAnnotationComposer get recordingId {
+    final $$RecordingsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MindMapsTableTableManager
+    extends
+        RootTableManager<
+          _$VaultVoiceDatabase,
+          $MindMapsTable,
+          MindMapRow,
+          $$MindMapsTableFilterComposer,
+          $$MindMapsTableOrderingComposer,
+          $$MindMapsTableAnnotationComposer,
+          $$MindMapsTableCreateCompanionBuilder,
+          $$MindMapsTableUpdateCompanionBuilder,
+          (MindMapRow, $$MindMapsTableReferences),
+          MindMapRow,
+          PrefetchHooks Function({bool recordingId})
+        > {
+  $$MindMapsTableTableManager(_$VaultVoiceDatabase db, $MindMapsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$MindMapsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$MindMapsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$MindMapsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> recordingId = const Value.absent(),
+                Value<String?> extractionId = const Value.absent(),
+                Value<String> method = const Value.absent(),
+                Value<String?> modelId = const Value.absent(),
+                Value<JsonMap> json = const Value.absent(),
+                Value<int> nodeCount = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => MindMapsCompanion(
+                id: id,
+                recordingId: recordingId,
+                extractionId: extractionId,
+                method: method,
+                modelId: modelId,
+                json: json,
+                nodeCount: nodeCount,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String recordingId,
+                Value<String?> extractionId = const Value.absent(),
+                required String method,
+                Value<String?> modelId = const Value.absent(),
+                required JsonMap json,
+                required int nodeCount,
+                required DateTime createdAt,
+                Value<int> rowid = const Value.absent(),
+              }) => MindMapsCompanion.insert(
+                id: id,
+                recordingId: recordingId,
+                extractionId: extractionId,
+                method: method,
+                modelId: modelId,
+                json: json,
+                nodeCount: nodeCount,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$MindMapsTable, MindMapRow>(table),
+                  $$MindMapsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({recordingId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordingId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.recordingId,
+                        referencedTable: $$MindMapsTableReferences
+                            ._recordingIdTable(db),
+                        referencedColumn: $$MindMapsTableReferences
+                            ._recordingIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$MindMapsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$VaultVoiceDatabase,
+      $MindMapsTable,
+      MindMapRow,
+      $$MindMapsTableFilterComposer,
+      $$MindMapsTableOrderingComposer,
+      $$MindMapsTableAnnotationComposer,
+      $$MindMapsTableCreateCompanionBuilder,
+      $$MindMapsTableUpdateCompanionBuilder,
+      (MindMapRow, $$MindMapsTableReferences),
+      MindMapRow,
+      PrefetchHooks Function({bool recordingId})
+    >;
 typedef $$VaultTargetsTableCreateCompanionBuilder =
     VaultTargetsCompanion Function({
       required String id,
@@ -15849,6 +16852,8 @@ class $VaultVoiceDatabaseManager {
       $$ProfilesTableTableManager(_db, _db.profiles);
   $$TemplatesTableTableManager get templates =>
       $$TemplatesTableTableManager(_db, _db.templates);
+  $$MindMapsTableTableManager get mindMaps =>
+      $$MindMapsTableTableManager(_db, _db.mindMaps);
   $$VaultTargetsTableTableManager get vaultTargets =>
       $$VaultTargetsTableTableManager(_db, _db.vaultTargets);
   $$RoutingRulesTableTableManager get routingRules =>

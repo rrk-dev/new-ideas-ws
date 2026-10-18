@@ -1354,6 +1354,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get jobExtracting => 'Extracting details';
 
   @override
+  String get jobMapping => 'Building the mind map';
+
+  @override
   String get jobRendering => 'Formatting the note';
 
   @override

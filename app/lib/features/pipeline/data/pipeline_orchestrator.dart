@@ -16,6 +16,7 @@ import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/classify_step.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/diarize_step.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/extract_step.dart';
+import 'package:vaultvoice/features/pipeline/data/steps/mind_map_step.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/render_write_steps.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/step_support.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/transcribe_step.dart';
@@ -73,6 +74,14 @@ List<PipelineStep> defaultSteps({
     grammars: engines.grammars,
     strategy: engines.extraction,
   ),
+  if (engines.mindMap case final mindMap?)
+    MindMapStep(
+      db: db,
+      strategy: mindMap,
+      config: config,
+      activeModel: engines.activeModel,
+      tier: engines.deviceTier,
+    ),
   RenderStep(
     db: db,
     paths: paths,
@@ -431,7 +440,9 @@ class PipelineOrchestrator implements PipelineClient {
 
   Future<void> _process(JobSnapshot job) async {
     final step = _steps[job.step];
-    if (step == null || !step.canRun(job)) {
+    if (step == null ||
+        !step.canRun(job) ||
+        (step is AsyncEnabledStep && !await step.isEnabled(job))) {
       await _saveIf(job, machine.skip(job, _nextStep(job.step), clock.now()));
       return;
     }
@@ -609,6 +620,9 @@ class PipelineOrchestrator implements PipelineClient {
   Future<void> _clearOutputs(JobSnapshot job, PipelineStepId from) async {
     if (from.index <= PipelineStepId.extract.index) {
       await db.extractionsRepository.deleteById(extractionIdFor(job.id));
+    }
+    if (from.index <= PipelineStepId.mindMap.index) {
+      await db.mindMapsRepository.deleteForRecording(job.recordingId);
     }
     final p = paths;
     if (p != null && from.index <= PipelineStepId.render.index) {

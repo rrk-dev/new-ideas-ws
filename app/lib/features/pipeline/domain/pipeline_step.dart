@@ -83,6 +83,13 @@ abstract interface class PipelineStep {
   Future<StepResult> run(StepContext ctx);
 }
 
+/// A step whose applicability needs an async lookup (a setting, a request
+/// flag). The orchestrator asks before the step starts, so a disabled step
+/// is skipped without touching the model gate.
+abstract interface class AsyncEnabledStep implements PipelineStep {
+  Future<bool> isEnabled(JobSnapshot job);
+}
+
 /// How a failure is handled: retried with backoff, parked as waiting, or
 /// failed permanently.
 sealed class FailureDisposition {
