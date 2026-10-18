@@ -164,49 +164,107 @@ ParsedAskAnswer? parseAskAnswer(String raw, List<AskPassage> passages) {
   return ParsedAskAnswer(answer: answer.trim(), citations: valid);
 }
 
-/// Deterministic grounding check on top of the model's own verdict (the 3B
-/// follows word overlap): drops citations whose passage shares no content
-/// term with the question or the answer, and refuses when a name written with
-/// a capital in the question (not the first word) appears in none of the
-/// cited recordings' passages ("What did Priya say about the dishwasher?"
-/// when Priya is not in that recording).
+/// Deterministic checks after the model answered (ADR-ASK-02, ASK-03):
+///
+/// 1. Citation support: the words the answer adds to the question must be
+///    found in a cited passage. Citations that carry none of them are
+///    dropped, and when none survive the best-supporting passage among those
+///    given to the model replaces them. A citation never points at text the
+///    answer cannot be traced to.
+/// 2. Question overlap: a cited passage must share a content word with the
+///    question or the answer.
+/// 3. Names: a capitalised name in the question (not the first word) must
+///    appear in a cited recording's passage text, titles or speaker labels;
+///    citations of recordings without it are dropped and the answer is
+///    refused when none is left (an unsupported premise). Labels
+///    come from the segment metadata, so this works whether or not the
+///    transcript text itself carries "Name:" prefixes.
 ParsedAskAnswer groundAskAnswer(
   String question,
   ParsedAskAnswer parsed,
   List<AskPassage> passages,
 ) {
+  const refused = ParsedAskAnswer(answer: '', citations: []);
   if (!parsed.found) return parsed;
-  final terms = {
-    ...askContentStems(question),
-    ...askContentStems(parsed.answer),
-  };
-  bool overlaps(String text) {
-    final stems = askContentStems(text).toSet();
-    return stems.any(terms.contains);
+  final questionStems = askContentStems(question);
+  final answerStems = askContentStems(parsed.answer);
+  final terms = {...questionStems, ...answerStems};
+  bool overlaps(String text) =>
+      askContentStems(text).toSet().any(terms.contains);
+
+  final added = [
+    for (final s in answerStems)
+      if (!questionStems.contains(s)) s,
+  ];
+  double support(AskPassage p) {
+    if (added.isEmpty) return 1;
+    final words = askContentStems(p.text);
+    final hit = added.where((s) => _stemFound(words, s)).length;
+    return hit / added.length;
   }
 
   final byKey = {for (final p in passages) p.key: p};
-  final kept = [
+  var kept = <Citation>[
     for (final c in parsed.citations)
-      if (byKey['${c.recordingId}|${formatAskTimestamp(c.tMs)}'] case final p?
-          when overlaps(p.text))
-        c,
+      if (byKey[_keyOf(c)] case final p? when overlaps(p.text)) c,
   ];
-  if (kept.isEmpty) return const ParsedAskAnswer(answer: '', citations: []);
 
-  final cited = {for (final c in kept) c.recordingId};
-  final corpus = passages
-      .where((p) => cited.contains(p.recordingId))
-      .map((p) => p.text.toLowerCase())
-      .join(' ');
-  final words = RegExp('[A-Za-z]+').allMatches(question).toList();
-  for (final m in words.skip(1)) {
-    final w = m[0]!;
-    if (w.length < 3 || w[0] != w[0].toUpperCase()) continue;
-    if (w == w.toUpperCase() && w.length < 4) continue;
-    if (!corpus.contains(w.toLowerCase())) {
-      return const ParsedAskAnswer(answer: '', citations: []);
+  if (added.isNotEmpty) {
+    final transcript = passages
+        .where((p) => p.kind == AskPassageKind.transcript)
+        .toList();
+    final best = transcript.fold<double>(
+      0,
+      (m, p) => support(p) > m ? support(p) : m,
+    );
+    if (best > 0) {
+      final supported = [
+        for (final c in kept)
+          if (support(byKey[_keyOf(c)]!) >= best * 0.5) c,
+      ];
+      if (supported.isNotEmpty) {
+        kept = supported;
+      } else {
+        final top = transcript.firstWhere((p) => support(p) == best);
+        kept = [Citation(recordingId: top.recordingId, tMs: top.tMs)];
+      }
     }
+  }
+  if (kept.isEmpty) return refused;
+  if (kept.length > _maxCitations) kept = kept.sublist(0, _maxCitations);
+
+  final names = [
+    for (final m in RegExp('[A-Za-z]+').allMatches(question).skip(1))
+      if (m[0]!.length >= 3 &&
+          m[0]![0] == m[0]![0].toUpperCase() &&
+          !(m[0]! == m[0]!.toUpperCase() && m[0]!.length < 4))
+        m[0]!.toLowerCase(),
+  ];
+  if (names.isNotEmpty) {
+    final byRecording = <String, StringBuffer>{};
+    for (final p in passages) {
+      (byRecording[p.recordingId] ??= StringBuffer()).write(
+        '${p.text} ${p.title} ${p.speaker ?? ''} '.toLowerCase(),
+      );
+    }
+    bool mentionsAll(String rec) {
+      final corpus = byRecording[rec]?.toString() ?? '';
+      return names.every(corpus.contains);
+    }
+
+    kept = [
+      for (final c in kept)
+        if (mentionsAll(c.recordingId)) c,
+    ];
+    if (kept.isEmpty) return refused;
   }
   return ParsedAskAnswer(answer: parsed.answer, citations: kept);
 }
+
+const int _maxCitations = 3;
+
+bool _stemFound(List<String> words, String stem) => words.any(
+  (w) => w.startsWith(stem) || (stem.startsWith(w) && w.length >= 4),
+);
+
+String _keyOf(Citation c) => '${c.recordingId}|${c.timestamp}';

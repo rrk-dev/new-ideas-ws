@@ -93,6 +93,7 @@ final class DbAskRetriever implements AskRetriever {
               recordedAt: created,
               title: title,
               segmentId: segmentId,
+              speaker: seg.speaker,
             );
             if (seen.add('s$segmentId')) ranked.add(hit);
             if (expanded < expandTop) {
@@ -152,7 +153,7 @@ final class DbAskRetriever implements AskRetriever {
   Future<_Seg?> _segment(int id) async {
     final row = await db
         .customSelect(
-          'SELECT transcript_id AS t, seq, start_ms AS s '
+          'SELECT transcript_id AS t, seq, start_ms AS s, speaker '
           'FROM transcript_segments WHERE id = ?',
           variables: [Variable<int>(id)],
         )
@@ -162,6 +163,7 @@ final class DbAskRetriever implements AskRetriever {
       transcriptId: row.read<String>('t'),
       seq: row.read<int>('seq'),
       startMs: row.read<int>('s'),
+      speaker: row.readNullable<String>('speaker'),
     );
   }
 
@@ -173,7 +175,7 @@ final class DbAskRetriever implements AskRetriever {
   ) async {
     final rows = await db
         .customSelect(
-          'SELECT id, start_ms AS s, body FROM transcript_segments '
+          'SELECT id, start_ms AS s, speaker, body FROM transcript_segments '
           'WHERE transcript_id = ? AND seq IN (?, ?) ORDER BY seq',
           variables: [
             Variable<String>(seg.transcriptId),
@@ -192,6 +194,7 @@ final class DbAskRetriever implements AskRetriever {
           recordedAt: created,
           title: title,
           segmentId: r.read<int>('id'),
+          speaker: r.readNullable<String>('speaker'),
         ),
     ];
   }
@@ -200,4 +203,4 @@ final class DbAskRetriever implements AskRetriever {
       s.length <= _maxBodyChars ? s : '${s.substring(0, _maxBodyChars)}…';
 }
 
-typedef _Seg = ({String transcriptId, int seq, int startMs});
+typedef _Seg = ({String transcriptId, int seq, int startMs, String? speaker});

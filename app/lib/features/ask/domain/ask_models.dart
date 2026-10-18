@@ -61,6 +61,7 @@ final class AskPassage {
     required this.recordedAt,
     this.title = '',
     this.segmentId,
+    this.speaker,
   });
 
   final String recordingId;
@@ -70,6 +71,10 @@ final class AskPassage {
   final DateTime recordedAt;
   final String title;
   final int? segmentId;
+
+  /// Diarization label of the segment, when the transcript has one. Never
+  /// shown to the model; only used to check names in a question.
+  final String? speaker;
 
   /// `HH:MM:SS`, the form the model cites and the validator compares.
   String get timestamp => formatAskTimestamp(tMs);

@@ -24,7 +24,7 @@ review | done`) and a `**Skills:**` line listing the skills to load. Find unbloc
 5. **Phase gates** — GATE-01…04 re-test each phase end to end on real devices.
 6. **Bootstrap first** — FND-01 → FND-02 → FND-03 → QA-01 (+ QA-05): nothing else can be `done` before CI and the test framework exist.
 
-## Task Index (89 tasks)
+## Task Index (90 tasks)
 
 ### 01 — Foundation
 | ID | Task | Phase | Size | Source |
@@ -192,6 +192,7 @@ Scope confirmed by the user: quick capture, more summary templates, ask-your-not
 | [ASK-02](14-product-phase2/ASK-02-retrieval-decision.md) | Ask-your-notes retrieval decision | 5 | M | User decision 2026-10-16 |
 | [ASK-03](14-product-phase2/ASK-03-ask-engine.md) | Ask-your-notes engine | 5 | L | User decision 2026-10-16 |
 | [ASK-04](14-product-phase2/ASK-04-ask-ui.md) | Ask-your-notes UI | 5 | M | User decision 2026-10-16 |
+| [ASK-05](14-product-phase2/ASK-05-ask-answer-quality.md) | Ask answer quality (citation precision and refusal) | 5 | M | ASK-03 eval gates |
 | [MAP-01](14-product-phase2/MAP-01-mind-map-generation.md) | Mind-map generation | 5 | M | User decision 2026-10-16 |
 | [MAP-02](14-product-phase2/MAP-02-mind-map-viewer-export.md) | Mind-map viewer and export | 5 | M | User decision 2026-10-16 |
 | [TSK-01](14-product-phase2/TSK-01-task-export-decision.md) | Action-item export decision (Apple Reminders) | 5 | S | User decision 2026-10-16 |

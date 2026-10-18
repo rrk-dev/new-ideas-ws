@@ -294,9 +294,9 @@ Each rule is traceable to the named task/skill (`vv-privacy-security`).
 
 Host (Apple Silicon CPU path of the host bridge), 3B Q4_K_M, n_ctx 6144, greedy,
 grammar-constrained; 44 questions, 33 recordings. Reports:
-`tools/bench/results/2026-10-17-ask03-eval.md` (final engine),
-`2026-10-17-ask03-eval-run1.md` (first engine), `-run2.md` (adds the rewrite arm) and
-`-run3.md`. Four runs were made; all are committed, none is hidden.
+`tools/bench/results/2026-10-17-ask03-eval-run1.md` (first engine), `-run2.md` (adds the rewrite arm),
+`-run3.md`, `2026-10-17-ask03-eval.md` (run 4), `2026-10-18-ask03-eval-run5.md` and
+`2026-10-18-ask03-eval-run6.md` (final engine). Six runs were made; all are committed, none is hidden.
 
 | Run (engine change) | Correctness (≥70) | Citation precision (≥90, gate) | Refused (≥90, gate) | Hallucination (≤15) | Seg recall@10 (≥80, gate) |
 |---|---|---|---|---|---|
@@ -304,17 +304,27 @@ grammar-constrained; 44 questions, 33 recordings. Reports:
 | 2 + date fallback, `ies` stem, `found` last in schema | 77.8% | 82.1% | 75.0% | 16.7% | 91.7% |
 | 2 rewrite arm (same engine) | 72.2% | 84.2% | 87.5% | 13.9% | 80.6% |
 | 3 + stricter system prompt | 83.3% | 87.9% | 75.0% | 13.9% | 91.7% |
-| 4 final: + deterministic grounding check (drop non-overlapping citations; names in the question must appear in the cited recordings) | 72.2% | 86.0% | 87.5% | 13.9% | 91.7% |
+| 4: + deterministic grounding check (drop non-overlapping citations; names in the question must appear in the cited recordings) | 72.2% | 86.0% | 87.5% | 13.9% | 91.7% |
+| 5 + answer-support citation verifier (citations must carry the words the answer adds; best-supporting passage replaces unsupported ones; max 3) | 77.8% | 85.4% | 87.5% | 13.9% | 91.7% |
+| 6 final: + per-recording name check (name from the question must appear in the cited recording's text, title or speaker label; replaces the all-or-nothing, label-dependent rule) | 77.8% | 87.5% | 87.5% | 13.9% | 91.7% |
 
 - **Retrieval gate met:** segment recall@10 is 91.7% on the passages given to the model, so FTS5 with k = 10 and
-  neighbour expansion stands and **no ASK-05 embedding spike is required** for retrieval.
+  neighbour expansion stands and **no embedding spike is required** for retrieval.
 - **LLM query rewrite: do not adopt.** It lowered recall@10 (91.7% → 80.6%) and paraphrase
   correctness; the pre-registered rule needs a recall gain. It was only measured on the run-2 engine.
-- **Two ASK-03 gates are still NOT met in the final run:** citation precision 86.0% (< 90%; 43 of
-  50 citations on a gold recording) and unanswerable refusal 87.5% (< 90%; U02 "Who approved the
-  vendor contract?" is still answered "Aisha" from an unrelated meeting). The grounding check fixed
-  U04 but cost multi-recording correctness (62.5% → 25.0%); correctness 72.2% is above its 70% target
-  with little margin. The 3B follows lexical overlap. Options are listed in the ASK-03 follow-ups.
+- **Two ASK-03 gates are still NOT met in the final run (run 6):** citation precision 87.5% (< 90%; 35 of
+  40 citations on a gold recording) and unanswerable refusal 87.5% (< 90%; 7 of 8, U02 "Who approved
+  the vendor contract?" is still answered "Aisha" from an unrelated meeting). Gates were not relaxed.
+  The name rule of run 4 relied on `Name:` prefixes in the transcript text; it now reads the passage
+  text, the recording title and the segment's speaker field, so it also works for diarized transcripts
+  whose text carries no labels (unit-tested with and without a speaker). Correctness improved to 77.8%
+  and multi-recording to 50.0% (run 4: 25.0%). The remaining wrong-recording citations are duplicate or
+  near-duplicate statements in other recordings (E11, P07), an ambiguous question (P03) and a distractor
+  line (P10); U02 is a synonym miss ("approved" vs "review"). A lexical rule that refuses U02 also refuses
+  paraphrase questions such as P02 ("guarantee" vs "warranty"): measured question-term coverage was
+  0.67 for U02 and 0.17-0.67 for the paraphrase answers, so no threshold separates them.
+  Follow-up: **ASK-05** (second constrained check, larger model, larger eval set; n = 8 unanswerable is
+  too small: one miss is 12.5 points).
 - The status of the retrieval choice therefore stays "Accepted for FTS5 k = 10 retrieval"; the
   answer-generation quality gates are open.
 
