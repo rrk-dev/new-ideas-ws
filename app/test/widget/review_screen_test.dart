@@ -11,6 +11,7 @@ import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
+import 'package:vaultvoice/features/legal/domain/legal_documents.dart';
 import 'package:vaultvoice/features/library/domain/recording_detail.dart';
 import 'package:vaultvoice/features/library/presentation/transcript_lines_screen.dart';
 import 'package:vaultvoice/features/library/presentation/transcript_navigation.dart';
@@ -105,7 +106,10 @@ Future<ProviderContainer> _pump(
     overrides: [
       flavorProvider.overrideWithValue(Flavor.prod),
       settingsStoreProvider.overrideWithValue(
-        FakeSettingsStore({OnboardingKeys.completed: true}),
+        FakeSettingsStore({
+          OnboardingKeys.completed: true,
+          LegalKeys.acceptedVersion: kLegalVersion,
+        }),
       ),
       storagePathsProvider.overrideWith(
         (ref) => Completer<StoragePaths>().future,
@@ -171,6 +175,13 @@ Future<void> _scrollTo(WidgetTester t, Finder f) async {
 }
 
 void main() {
+  testWidgets('[LEG-01/AC5] the review screen warns that AI output can be '
+      'wrong', (t) async {
+    await _pump(t, '/library/recordings/rec-a/review');
+    expect(find.byKey(const ValueKey('ai-output-disclaimer')), findsOneWidget);
+    expect(find.textContaining('can be wrong'), findsOneWidget);
+  });
+
   testWidgets('[APP-05/AC1] the source link of an item jumps to its '
       'timestamp (navigator gets the audio position)', (t) async {
     final nav = _Navigator();

@@ -3280,6 +3280,84 @@ abstract class AppLocalizations {
   /// **'The privacy policy could not be shown.'**
   String get privacyPolicyLoadFailed;
 
+  /// No description provided for @aboutTermsOfUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of use'**
+  String get aboutTermsOfUse;
+
+  /// No description provided for @termsOfUseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of use'**
+  String get termsOfUseTitle;
+
+  /// No description provided for @termsOfUseLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The terms of use could not be shown.'**
+  String get termsOfUseLoadFailed;
+
+  /// No description provided for @legalGateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Before you start'**
+  String get legalGateTitle;
+
+  /// No description provided for @legalGateIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Please read and accept the Terms of Use and the Privacy Policy to use Lumen. Your recordings and notes stay on this device.'**
+  String get legalGateIntro;
+
+  /// No description provided for @legalRecordingResponsibility.
+  ///
+  /// In en, this message translates to:
+  /// **'You are responsible for recording laws and for getting consent from the people you record.'**
+  String get legalRecordingResponsibility;
+
+  /// No description provided for @legalReadTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'Read the Terms of Use'**
+  String get legalReadTerms;
+
+  /// No description provided for @legalReadPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Read the Privacy Policy'**
+  String get legalReadPrivacy;
+
+  /// No description provided for @legalAgeConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'I am 21 or older.'**
+  String get legalAgeConfirm;
+
+  /// No description provided for @legalAgreeConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'I have read and agree to the Terms of Use and the Privacy Policy.'**
+  String get legalAgreeConfirm;
+
+  /// No description provided for @legalAgreeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Agree and continue'**
+  String get legalAgreeButton;
+
+  /// No description provided for @legalDeclineHint.
+  ///
+  /// In en, this message translates to:
+  /// **'If you do not agree, close the app and do not use it.'**
+  String get legalDeclineHint;
+
+  /// No description provided for @legalSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Your choice could not be saved. Try again.'**
+  String get legalSaveFailed;
+
   /// No description provided for @aboutLicenses.
   ///
   /// In en, this message translates to:
@@ -5248,11 +5326,11 @@ abstract class AppLocalizations {
   /// **'Ask'**
   String get recordingTabAsk;
 
-  /// No description provided for @askDisclaimer.
+  /// No description provided for @aiOutputDisclaimer.
   ///
   /// In en, this message translates to:
-  /// **'Answers can be wrong — check the sources.'**
-  String get askDisclaimer;
+  /// **'AI-generated and can be wrong. Check it against the recording before you rely on it. Not medical, legal, financial or professional advice.'**
+  String get aiOutputDisclaimer;
 
   /// No description provided for @askInputHint.
   ///

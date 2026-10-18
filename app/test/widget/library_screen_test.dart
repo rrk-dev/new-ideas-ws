@@ -12,6 +12,7 @@ import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/widgets/grouped_card.dart';
+import 'package:vaultvoice/features/legal/domain/legal_documents.dart';
 import 'package:vaultvoice/features/library/domain/library_grouping.dart';
 import 'package:vaultvoice/features/library/domain/library_models.dart';
 import 'package:vaultvoice/features/library/domain/recording_detail.dart';
@@ -53,7 +54,10 @@ Future<ProviderContainer> _pump(
     overrides: [
       flavorProvider.overrideWithValue(Flavor.prod),
       settingsStoreProvider.overrideWithValue(
-        FakeSettingsStore({OnboardingKeys.completed: true}),
+        FakeSettingsStore({
+          OnboardingKeys.completed: true,
+          LegalKeys.acceptedVersion: kLegalVersion,
+        }),
       ),
       storagePathsProvider.overrideWith(
         (ref) => Completer<StoragePaths>().future,

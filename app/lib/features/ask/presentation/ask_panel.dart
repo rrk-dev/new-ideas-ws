@@ -257,7 +257,7 @@ class _Intro extends StatelessWidget {
       icon: Icons.question_answer_outlined,
       message:
           '${recordingId == null ? l10n.askTitle : l10n.askRecordingTitle}'
-          '\n${l10n.askDisclaimer}',
+          '\n${l10n.aiOutputDisclaimer}',
     );
   }
 }
@@ -393,7 +393,7 @@ class AskAnswerCard extends ConsumerWidget {
           if (found) ...[
             const SizedBox(height: AppSpacing.sm),
             Text(
-              l10n.askDisclaimer,
+              l10n.aiOutputDisclaimer,
               key: const ValueKey('ask-disclaimer'),
               style: theme.textTheme.bodySmall,
             ),

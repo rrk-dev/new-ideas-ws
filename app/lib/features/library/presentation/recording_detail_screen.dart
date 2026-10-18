@@ -454,6 +454,20 @@ class _SummaryTab extends StatelessWidget {
               ],
             ),
         ],
+        if (extraction != null)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              AppSpacing.sm,
+              AppSpacing.lg,
+              0,
+            ),
+            child: Text(
+              l10n.aiOutputDisclaimer,
+              key: const ValueKey('ai-output-disclaimer'),
+              style: theme.textTheme.bodySmall,
+            ),
+          ),
         SectionHeader(l10n.recordingExports),
         if (exports.isEmpty)
           Padding(

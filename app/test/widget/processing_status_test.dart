@@ -13,6 +13,7 @@ import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/features/export/data/note_sharing_providers.dart';
+import 'package:vaultvoice/features/legal/domain/legal_documents.dart';
 import 'package:vaultvoice/features/library/presentation/recording_detail_screen.dart';
 import 'package:vaultvoice/features/models/domain/model_catalog.dart';
 import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
@@ -43,7 +44,10 @@ List<Override> viewsOverride(
   // SEC-03: the app lock decides once settings load (no DB here).
   // APP-01: past onboarding, so deep links are not redirected.
   settingsStoreProvider.overrideWithValue(
-    FakeSettingsStore({OnboardingKeys.completed: true}),
+    FakeSettingsStore({
+      OnboardingKeys.completed: true,
+      LegalKeys.acceptedVersion: kLegalVersion,
+    }),
   ),
 ];
 

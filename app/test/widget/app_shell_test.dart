@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/app.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
+import 'package:vaultvoice/features/legal/domain/legal_documents.dart';
 import 'package:vaultvoice/features/library/presentation/library_screen.dart';
 import 'package:vaultvoice/features/onboarding/data/onboarding_readiness_providers.dart';
 import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
@@ -27,7 +28,10 @@ void main() {
         processingViewsProvider.overrideWith((ref) async => const []),
         // APP-01: past onboarding, so the router does not redirect.
         settingsStoreProvider.overrideWithValue(
-          FakeSettingsStore({OnboardingKeys.completed: true}),
+          FakeSettingsStore({
+            OnboardingKeys.completed: true,
+            LegalKeys.acceptedVersion: kLegalVersion,
+          }),
         ),
         onboardingReadinessProvider.overrideWith(
           (ref) async => OnboardingReadiness.allReady,

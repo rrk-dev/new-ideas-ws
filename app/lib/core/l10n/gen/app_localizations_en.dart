@@ -1919,6 +1919,49 @@ class AppLocalizationsEn extends AppLocalizations {
       'The privacy policy could not be shown.';
 
   @override
+  String get aboutTermsOfUse => 'Terms of use';
+
+  @override
+  String get termsOfUseTitle => 'Terms of use';
+
+  @override
+  String get termsOfUseLoadFailed => 'The terms of use could not be shown.';
+
+  @override
+  String get legalGateTitle => 'Before you start';
+
+  @override
+  String get legalGateIntro =>
+      'Please read and accept the Terms of Use and the Privacy Policy to use Lumen. Your recordings and notes stay on this device.';
+
+  @override
+  String get legalRecordingResponsibility =>
+      'You are responsible for recording laws and for getting consent from the people you record.';
+
+  @override
+  String get legalReadTerms => 'Read the Terms of Use';
+
+  @override
+  String get legalReadPrivacy => 'Read the Privacy Policy';
+
+  @override
+  String get legalAgeConfirm => 'I am 21 or older.';
+
+  @override
+  String get legalAgreeConfirm =>
+      'I have read and agree to the Terms of Use and the Privacy Policy.';
+
+  @override
+  String get legalAgreeButton => 'Agree and continue';
+
+  @override
+  String get legalDeclineHint =>
+      'If you do not agree, close the app and do not use it.';
+
+  @override
+  String get legalSaveFailed => 'Your choice could not be saved. Try again.';
+
+  @override
   String get aboutLicenses => 'Open-source & model licenses';
 
   @override
@@ -3070,7 +3113,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recordingTabAsk => 'Ask';
 
   @override
-  String get askDisclaimer => 'Answers can be wrong — check the sources.';
+  String get aiOutputDisclaimer =>
+      'AI-generated and can be wrong. Check it against the recording before you rely on it. Not medical, legal, financial or professional advice.';
 
   @override
   String get askInputHint => 'Ask a question about your notes';

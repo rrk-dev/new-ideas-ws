@@ -9,6 +9,7 @@ import 'package:vaultvoice/core/db/storage_paths.dart';
 import 'package:vaultvoice/core/flavor.dart';
 import 'package:vaultvoice/core/flavor_provider.dart';
 import 'package:vaultvoice/core/routing/app_router.dart';
+import 'package:vaultvoice/features/legal/domain/legal_documents.dart';
 import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_providers.dart';
 import 'package:vaultvoice/features/settings/presentation/settings_providers.dart';
@@ -25,7 +26,10 @@ Future<ProviderContainer> _pump(WidgetTester t, String location) async {
     overrides: [
       flavorProvider.overrideWithValue(Flavor.prod),
       settingsStoreProvider.overrideWithValue(
-        FakeSettingsStore({OnboardingKeys.completed: true}),
+        FakeSettingsStore({
+          OnboardingKeys.completed: true,
+          LegalKeys.acceptedVersion: kLegalVersion,
+        }),
       ),
       storagePathsProvider.overrideWith(
         (ref) => Completer<StoragePaths>().future,

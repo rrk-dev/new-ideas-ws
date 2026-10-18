@@ -148,6 +148,7 @@ review | done`) and a `**Skills:**` line listing the skills to load. Find unbloc
 | [SEC-08](10-security-privacy/SEC-08-threat-model-security-review.md) | Threat model & security review | 2/4 | M | Gap |
 | [SEC-09](10-security-privacy/SEC-09-recording-safeguards-no-call-capture.md) | Recording safeguards: user-started only, never record calls | 1 | M | Requirement |
 | [SEC-11](10-security-privacy/SEC-11-phase2-privacy-threat-update.md) | Phase 2 privacy, egress and threat-model update | 5 | M | Gap |
+| [LEG-01](10-security-privacy/LEG-01-legal-documents.md) | Terms of Use, Privacy Policy and in-app legal acceptance | 5 | M | Gap |
 
 ### 11 — Quality
 | ID | Task | Phase | Size | Source |
