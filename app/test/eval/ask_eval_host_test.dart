@@ -100,6 +100,7 @@ void main() {
         out: env['ASK_EVAL_OUT'],
         nCtx: int.parse(env['ASK_EVAL_NCTX'] ?? '$kAskContextSize'),
         rewrite: env['ASK_EVAL_REWRITE'] == '1',
+        verify: env['ASK_EVAL_VERIFY'] == '1',
         only: env['ASK_EVAL_ONLY']?.split(',').toSet(),
       );
     },
@@ -114,17 +115,20 @@ Future<void> _run({
   required String model,
   required int nCtx,
   required bool rewrite,
+  required bool verify,
   String? out,
   Set<String>? only,
 }) async {
   final library = jsonDecode(
     File('$bench/ask/library.json').readAsStringSync(),
   ) as Map<String, Object?>;
-  final questions =
-      ((jsonDecode(File('$bench/ask/questions.json').readAsStringSync())
+  final questions = [
+    for (final f in ['questions.json', 'questions_ask05.json'])
+      ...((jsonDecode(File('$bench/ask/$f').readAsStringSync())
                   as Map<String, Object?>)['questions']!
               as List<Object?>)
-          .cast<Map<String, Object?>>();
+          .cast<Map<String, Object?>>(),
+  ];
 
   final db = VaultVoiceDatabase(NativeDatabase.memory());
   await _seed(db, library, bench);
@@ -151,6 +155,7 @@ Future<void> _run({
     contextSize: nCtx,
     clock: _FixedClock(DateTime(today.year, today.month, today.day, 12)),
     idleUnload: const Duration(hours: 1),
+    verifyCitations: verify,
   );
 
   final sink = out == null ? null : File(out).openWrite();

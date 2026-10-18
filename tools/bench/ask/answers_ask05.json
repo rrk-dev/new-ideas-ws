@@ -1,0 +1,154 @@
+{
+ "note": "Expected keyword groups for the ASK-05 extra questions (same rules as answers.json), written before any ASK-05 run.",
+ "expect": {
+  "E13": [
+   [
+    "bur"
+   ]
+  ],
+  "E14": [
+   [
+    "45"
+   ]
+  ],
+  "E15": [
+   [
+    "kitchen depot"
+   ]
+  ],
+  "E16": [
+   [
+    "help@litware"
+   ]
+  ],
+  "E17": [
+   [
+    "30 days",
+    "thirty days",
+    "30-day"
+   ]
+  ],
+  "E18": [
+   [
+    "omar"
+   ]
+  ],
+  "E19": [
+   [
+    "thursday"
+   ]
+  ],
+  "E20": [
+   [
+    "supply equals demand",
+    "supply and demand",
+    "quantity supplied equals"
+   ]
+  ],
+  "E21": [
+   [
+    "accounting"
+   ]
+  ],
+  "P11": [
+   [
+    "199"
+   ]
+  ],
+  "P12": [
+   [
+    "nadia"
+   ]
+  ],
+  "P13": [
+   [
+    "cache"
+   ]
+  ],
+  "P14": [
+   [
+    "bugs"
+   ]
+  ],
+  "P15": [
+   [
+    "field study"
+   ]
+  ],
+  "P16": [
+   [
+    "grant",
+    "consulting"
+   ]
+  ],
+  "P17": [
+   [
+    "notebook",
+    "soldering",
+    "spreadsheet"
+   ]
+  ],
+  "P18": [
+   [
+    "chapter four",
+    "chapter 4",
+    "textbook"
+   ]
+  ],
+  "M09": [
+   [
+    "dishwasher",
+    "fabrikum"
+   ],
+   [
+    "headphones",
+    "litware"
+   ]
+  ],
+  "M10": [
+   [
+    "chloe"
+   ],
+   [
+    "hugo"
+   ]
+  ],
+  "M11": [
+   [
+    "dev"
+   ],
+   [
+    "elena"
+   ],
+   [
+    "iris"
+   ]
+  ],
+  "M12": [
+   [
+    "dev"
+   ],
+   [
+    "elena"
+   ]
+  ],
+  "D07": [
+   [
+    "modular monolith"
+   ]
+  ],
+  "D08": [
+   [
+    "phone case"
+   ]
+  ],
+  "D09": [
+   [
+    "performance"
+   ],
+   [
+    "export"
+   ]
+  ]
+ }
+}
