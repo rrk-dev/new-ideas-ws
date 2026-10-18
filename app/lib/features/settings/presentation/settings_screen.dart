@@ -9,6 +9,7 @@ import 'package:vaultvoice/core/routing/app_routes.dart';
 import 'package:vaultvoice/core/security/security_providers.dart';
 import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/core/widgets/lumen_card.dart';
+import 'package:vaultvoice/features/ask/data/ask_providers.dart';
 import 'package:vaultvoice/features/extraction/presentation/llm_debug_screen.dart';
 import 'package:vaultvoice/features/licensing/data/licensing_providers.dart';
 import 'package:vaultvoice/features/licensing/domain/feature_matrix.dart';
@@ -58,6 +59,7 @@ class SettingsScreen extends ConsumerWidget {
             const SettingTile(AppSettings.diarizationDefault),
             const SettingTile(AppSettings.skipSilence),
             const SettingTile(AppSettings.mindMap),
+            const SettingTile(AppSettings.askEnabled),
             ListTile(
               key: const ValueKey('link-models'),
               leading: const Icon(Icons.memory),
@@ -95,6 +97,16 @@ class SettingsScreen extends ConsumerWidget {
             const SettingTile(AppSettings.lockTimeout),
             const _EncryptionInfoTile(),
             const SettingTile(AppSettings.transcriptRetention),
+            const SettingTile(AppSettings.askSaveHistory),
+            if (ref.watch(askEnabledProvider))
+              ListTile(
+                key: const ValueKey('link-ask-history'),
+                leading: const Icon(Icons.history),
+                title: Text(l10n.askHistoryTitle),
+                subtitle: Text(l10n.askHistoryExpiryNote),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => const AskHistoryRoute().push<void>(context),
+              ),
             // SEC-02: offline mode + every request the app made.
             const SettingTile(AppSettings.offlineMode),
             const NetworkActivityTile(),

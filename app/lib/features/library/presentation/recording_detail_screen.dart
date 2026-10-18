@@ -10,6 +10,8 @@ import 'package:vaultvoice/core/widgets/circle_icon_button.dart';
 import 'package:vaultvoice/core/widgets/grouped_card.dart';
 import 'package:vaultvoice/core/widgets/section_header.dart';
 import 'package:vaultvoice/core/widgets/status_message.dart';
+import 'package:vaultvoice/features/ask/data/ask_providers.dart';
+import 'package:vaultvoice/features/ask/presentation/ask_panel.dart';
 import 'package:vaultvoice/features/library/data/library_providers.dart';
 import 'package:vaultvoice/features/library/domain/extraction_summary.dart';
 import 'package:vaultvoice/features/library/domain/library_models.dart';
@@ -567,7 +569,8 @@ class RecordingHubSlot {
   final Widget Function(BuildContext context, String recordingId) builder;
 }
 
-/// Extra hub sections, appended after Action items: the mind map (MAP-02).
+/// Extra hub sections, appended after Action items: the mind map (MAP-02)
+/// and, while `ask.enabled` is on, Ask about this recording (ASK-04).
 final recordingHubSlotsProvider = Provider<List<RecordingHubSlot>>(
   (ref) => [
     RecordingHubSlot(
@@ -575,6 +578,12 @@ final recordingHubSlotsProvider = Provider<List<RecordingHubSlot>>(
       label: (l10n) => l10n.recordingTabMindMap,
       builder: (context, recordingId) => MindMapTab(recordingId: recordingId),
     ),
+    if (ref.watch(askEnabledProvider))
+      RecordingHubSlot(
+        id: 'ask',
+        label: (l10n) => l10n.recordingTabAsk,
+        builder: (context, recordingId) => AskPanel(recordingId: recordingId),
+      ),
   ],
 );
 

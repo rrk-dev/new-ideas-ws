@@ -65,6 +65,18 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
               factory: $ActionItemsRoute._fromState,
             ),
             GoRouteData.$route(
+              path: 'ask',
+              hasOverriddenOnExit: false,
+              factory: $AskRoute._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: 'history',
+                  hasOverriddenOnExit: false,
+                  factory: $AskHistoryRoute._fromState,
+                ),
+              ],
+            ),
+            GoRouteData.$route(
               path: 'recordings/:recordingId',
               hasOverriddenOnExit: false,
               factory: $RecordingStatusRoute._fromState,
@@ -258,6 +270,53 @@ mixin $ActionItemsRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/library/action-items');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $AskRoute on GoRouteData {
+  static AskRoute _fromState(GoRouterState state) =>
+      AskRoute(recording: state.uri.queryParameters['recording']);
+
+  AskRoute get _self => this as AskRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/library/ask',
+    queryParams: {if (_self.recording != null) 'recording': _self.recording},
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $AskHistoryRoute on GoRouteData {
+  static AskHistoryRoute _fromState(GoRouterState state) =>
+      const AskHistoryRoute();
+
+  @override
+  String get location => GoRouteData.$location('/library/ask/history');
 
   @override
   void go(BuildContext context) => context.go(location);

@@ -20,6 +20,9 @@ import 'package:vaultvoice/core/theme/app_theme.dart';
 import 'package:vaultvoice/features/app_lock/domain/app_lock.dart';
 import 'package:vaultvoice/features/app_lock/presentation/app_lock_gate.dart';
 import 'package:vaultvoice/features/app_lock/presentation/app_lock_providers.dart';
+import 'package:vaultvoice/features/ask/data/ask_providers.dart';
+import 'package:vaultvoice/features/ask/domain/ask_availability.dart';
+import 'package:vaultvoice/features/ask/domain/ask_history.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/export/domain/pending_export.dart';
 import 'package:vaultvoice/features/export/domain/routing_rule.dart';
@@ -48,6 +51,7 @@ import 'package:vaultvoice/features/transcription/domain/transcript_player.dart'
 import 'package:vaultvoice/features/transcription/domain/transcript_view.dart';
 import 'package:vaultvoice/features/transcription/presentation/transcript_providers.dart';
 
+import '../fakes/fake_ask_engine.dart';
 import '../fakes/fake_settings_store.dart';
 import '../fakes/fake_transcript_player.dart';
 import '../helpers/library_fixtures.dart';
@@ -84,6 +88,8 @@ const _screens = {
   'Recording detail': '/library/recordings/rec-a',
   'Recording transcript': '/library/recordings/rec-a/text',
   'Action items': '/library/action-items',
+  'Ask': '/library/ask',
+  'Ask history': '/library/ask/history',
   'Review before export': '/library/recordings/rec-a/review',
   'Review settings': '/settings/review',
   'Profiles': '/profiles',
@@ -159,6 +165,32 @@ const _transcript = TranscriptViewData(
 );
 
 List<Override> _overrides({bool locked = false}) => [
+  askAvailabilityStateProvider.overrideWith(
+    (ref) async => AskAvailability.ready,
+  ),
+  askModelEntryProvider.overrideWith((ref) async => null),
+  askEngineProvider.overrideWith((ref) async => FakeAskEngine()),
+  askSaveHistoryEnabledProvider.overrideWithValue(true),
+  askEnabledProvider.overrideWithValue(true),
+  askThreadsProvider.overrideWith(
+    (ref) async => [
+      AskThread(
+        id: 'a',
+        recordingId: null,
+        updatedAt: DateTime(2026, 10, 18),
+        turns: [
+          AskTurn(
+            id: 'a1',
+            question: 'When is the launch?',
+            answer: 'May.',
+            found: true,
+            citations: const [],
+            createdAt: DateTime(2026, 10, 18),
+          ),
+        ],
+      ),
+    ],
+  ),
   storeProductsProvider.overrideWith(
     (ref) async => const [
       StoreProduct(id: annualProductId, price: 'TEST 12.00'),
@@ -341,37 +373,43 @@ Future<void> _pumpAt(
 void main() {
   for (final MapEntry(key: name, value: location) in _screens.entries) {
     for (final mode in [ThemeMode.light, ThemeMode.dark]) {
-      testWidgets('[APP-06/AC1] $name (${mode.name}): labelled controls, '
-          'tap targets and WCAG AA text contrast', (t) async {
-        final handle = t.ensureSemantics();
+      testWidgets(
+        '[APP-06/AC1]${name.startsWith('Ask') ? ' [ASK-04/AC3]' : ''} $name (${mode.name}): labelled controls, '
+        'tap targets and WCAG AA text contrast',
+        (t) async {
+          final handle = t.ensureSemantics();
+          t.view
+            ..physicalSize = const Size(390, 844)
+            ..devicePixelRatio = 1;
+          addTearDown(t.view.reset);
+          await _pumpAt(t, location, mode: mode, scale: 1);
+          await expectLater(t, meetsGuideline(labeledTapTargetGuideline));
+          await expectLater(t, meetsGuideline(androidTapTargetGuideline));
+          await expectLater(t, meetsGuideline(iOSTapTargetGuideline));
+          await expectLater(t, meetsGuideline(textContrastGuideline));
+          handle.dispose();
+        },
+      );
+    }
+    testWidgets(
+      '[APP-06/AC1]${name.startsWith('Ask') ? ' [ASK-04/AC3]' : ''} $name renders at 200 % text size without '
+      'overflow',
+      (t) async {
         t.view
           ..physicalSize = const Size(390, 844)
           ..devicePixelRatio = 1;
         addTearDown(t.view.reset);
-        await _pumpAt(t, location, mode: mode, scale: 1);
-        await expectLater(t, meetsGuideline(labeledTapTargetGuideline));
-        await expectLater(t, meetsGuideline(androidTapTargetGuideline));
-        await expectLater(t, meetsGuideline(iOSTapTargetGuideline));
-        await expectLater(t, meetsGuideline(textContrastGuideline));
-        handle.dispose();
-      });
-    }
-    testWidgets('[APP-06/AC1] $name renders at 200 % text size without '
-        'overflow', (t) async {
-      t.view
-        ..physicalSize = const Size(390, 844)
-        ..devicePixelRatio = 1;
-      addTearDown(t.view.reset);
-      await _pumpAt(t, location, mode: ThemeMode.light, scale: 2);
-      expect(t.takeException(), isNull);
-      // Scroll through scrollable content: nothing overflows further down.
-      final scrollables = find.byType(Scrollable);
-      if (scrollables.evaluate().isNotEmpty) {
-        await t.drag(scrollables.first, const Offset(0, -3000));
-        await t.pumpAndSettle();
+        await _pumpAt(t, location, mode: ThemeMode.light, scale: 2);
         expect(t.takeException(), isNull);
-      }
-    });
+        // Scroll through scrollable content: nothing overflows further down.
+        final scrollables = find.byType(Scrollable);
+        if (scrollables.evaluate().isNotEmpty) {
+          await t.drag(scrollables.first, const Offset(0, -3000));
+          await t.pumpAndSettle();
+          expect(t.takeException(), isNull);
+        }
+      },
+    );
   }
 
   for (final mode in [ThemeMode.light, ThemeMode.dark]) {
