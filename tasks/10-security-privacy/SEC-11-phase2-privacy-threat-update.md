@@ -1,7 +1,7 @@
 # SEC-11 — Phase 2 privacy, egress and threat-model update
 
 **Workstream:** Security & Privacy | **Phase:** 5 | **Size:** M | **Depends on:** SEC-02, SEC-06, SEC-08, QCP-02, QCP-03, ASK-03, MAP-01, TSK-02 | **Source:** User decision 2026-10-16 (product Phase 2); Gap (new data flows need re-audit)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-privacy-security, vv-ci-release, vv-testing
 
 ## Goal
