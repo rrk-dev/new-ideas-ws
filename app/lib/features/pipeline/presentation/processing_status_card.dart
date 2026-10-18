@@ -18,6 +18,8 @@ class ProcessingStatusCard extends StatelessWidget {
     this.onDownloadModel,
     this.onUseInstalledModel,
     this.onChooseModel,
+    this.onAcceptProfile,
+    this.onChooseProfile,
     super.key,
   });
 
@@ -32,6 +34,12 @@ class ProcessingStatusCard extends StatelessWidget {
 
   /// Opens the models screen.
   final VoidCallback? onChooseModel;
+
+  /// A job waiting for a profile: continue with the suggested one.
+  final VoidCallback? onAcceptProfile;
+
+  /// A job waiting for a profile: pick another one.
+  final VoidCallback? onChooseProfile;
 
   final JobProgressView view;
   final VoidCallback? onTap;
@@ -122,6 +130,12 @@ class ProcessingStatusCard extends StatelessWidget {
                 onProcessNow: onProcessNow,
               ),
               if (job.state == JobState.waiting &&
+                  job.waitingReason == WaitingReason.profileChoice)
+                _ProfileActions(
+                  onAccept: onAcceptProfile,
+                  onChoose: onChooseProfile,
+                ),
+              if (job.state == JobState.waiting &&
                   job.waitingReason == WaitingReason.modelMissing)
                 _ModelActions(
                   model: missingModel,
@@ -177,6 +191,43 @@ class _Actions extends StatelessWidget {
           spacing: AppSpacing.sm,
           runSpacing: AppSpacing.xs,
           children: buttons,
+        ),
+      ),
+    );
+  }
+}
+
+class _ProfileActions extends StatelessWidget {
+  const _ProfileActions({this.onAccept, this.onChoose});
+
+  final VoidCallback? onAccept;
+  final VoidCallback? onChoose;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    return Padding(
+      padding: const EdgeInsets.only(top: AppSpacing.sm),
+      child: SizedBox(
+        width: double.infinity,
+        child: Wrap(
+          alignment: WrapAlignment.end,
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.xs,
+          children: [
+            if (onChoose != null)
+              TextButton(
+                key: const ValueKey('job-profile-choose'),
+                onPressed: onChoose,
+                child: Text(l10n.jobProfileChoose),
+              ),
+            if (onAccept != null)
+              FilledButton.tonal(
+                key: const ValueKey('job-profile-accept'),
+                onPressed: onAccept,
+                child: Text(l10n.jobProfileUseSuggested),
+              ),
+          ],
         ),
       ),
     );

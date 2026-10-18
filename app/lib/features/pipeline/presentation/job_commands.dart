@@ -1,5 +1,8 @@
+import 'package:drift/drift.dart' show Value;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vaultvoice/core/db/database.dart';
+import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/routing/app_routes.dart';
@@ -12,6 +15,8 @@ import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/domain/pipeline_client.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_status_card.dart';
 import 'package:vaultvoice/features/pipeline/presentation/processing_texts.dart';
+import 'package:vaultvoice/features/profiles/presentation/profile_picker.dart';
+import 'package:vaultvoice/features/recording/data/recording_screen_providers.dart';
 
 /// Sends a command to the pipeline worker; a failure shows a snack bar.
 Future<void> runJobCommand(
@@ -50,6 +55,9 @@ class ConnectedProcessingStatusCard extends ConsumerWidget {
     final waitingForModel =
         state == JobState.waiting &&
         view.job.waitingReason == WaitingReason.modelMissing;
+    final waitingForProfile =
+        state == JobState.waiting &&
+        view.job.waitingReason == WaitingReason.profileChoice;
     final entries = waitingForModel
         ? ref.watch(modelEntriesProvider).value
         : null;
@@ -83,6 +91,12 @@ class ConnectedProcessingStatusCard extends ConsumerWidget {
       onChooseModel: waitingForModel
           ? () => const ModelsSettingsRoute().push<void>(context)
           : null,
+      onAcceptProfile: waitingForProfile
+          ? () => runJobCommand(context, ref, (c) => c.resolveWaiting(id))
+          : null,
+      onChooseProfile: waitingForProfile
+          ? () => _chooseProfile(context, ref, id, view.job.recordingId)
+          : null,
       onCancel: state.isTerminal
           ? null
           : () => runJobCommand(context, ref, (c) => c.cancel(id)),
@@ -94,6 +108,38 @@ class ConnectedProcessingStatusCard extends ConsumerWidget {
           : null,
     );
   }
+}
+
+/// Picks a profile for a recording whose automatic choice was unsure and
+/// re-runs from extraction with it.
+Future<void> _chooseProfile(
+  BuildContext context,
+  WidgetRef ref,
+  String jobId,
+  String recordingId,
+) async {
+  final choices = await ref.read(profileChoicesProvider.future);
+  if (!context.mounted) return;
+  final pick = await showProfilePicker(
+    context,
+    choices: choices,
+    selectedId: null,
+    includeAuto: false,
+  );
+  final profile = pick?.id;
+  if (profile == null || !context.mounted) return;
+  await ref
+      .read(recordingsRepositoryProvider)
+      .updateFields(
+        recordingId,
+        RecordingsCompanion(profileId: Value(profile)),
+      );
+  if (!context.mounted) return;
+  await runJobCommand(
+    context,
+    ref,
+    (c) => c.rerun(jobId, PipelineStepId.extract, profileId: profile),
+  );
 }
 
 ModelEntry? _firstOrNull(

@@ -457,6 +457,8 @@
   "jobCancelled": "Cancelled",
   "jobPaused": "Paused",
   "jobWaitingProfile": "Choose a profile to continue",
+  "jobProfileUseSuggested": "Use suggested profile",
+  "jobProfileChoose": "Choose profile",
   "jobWaitingReview": "Ready for your review",
   "jobWaitingDestination": "Needs access to your vault folder",
   "jobWaiting": "Waiting",

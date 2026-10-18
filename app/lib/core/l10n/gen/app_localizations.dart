@@ -2416,6 +2416,18 @@ abstract class AppLocalizations {
   /// **'Choose a profile to continue'**
   String get jobWaitingProfile;
 
+  /// No description provided for @jobProfileUseSuggested.
+  ///
+  /// In en, this message translates to:
+  /// **'Use suggested profile'**
+  String get jobProfileUseSuggested;
+
+  /// No description provided for @jobProfileChoose.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose profile'**
+  String get jobProfileChoose;
+
   /// No description provided for @jobWaitingReview.
   ///
   /// In en, this message translates to:

@@ -11,6 +11,7 @@ When the user picks "Auto", the app selects the best profile (and therefore temp
 - [x] Lightweight classification prompt on the first N tokens with constrained output (enum of profile ids + confidence).
 - [x] Optional keyword pre-filter rules ("warranty", "serial number") for speed.
 - [x] Low-confidence → ask user (notification / in-app chooser) before extraction.
+  - **Changed by the owner 2026-10-18** after a device run: Auto never blocks. Below the threshold the best guess is used and the user can change the profile afterwards (change profile = re-run from extract).
 - [x] Allow user override after the fact and re-run extraction.
 
 ## Acceptance Criteria

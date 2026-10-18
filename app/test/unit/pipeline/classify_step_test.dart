@@ -148,44 +148,43 @@ void main() {
     );
   });
 
-  group('[PRF-06/AC2] low confidence asks, then the user decides', () {
-    test(
-      'below 0.6 the job waits for a profile choice with the suggestion',
-      () async {
+  group(
+    '[PRF-06/AC2] low confidence still continues, the user can change it',
+    () {
+      test('below 0.6 the best guess is used and the job finishes', () async {
         llm.classification = '{"profile":"engineering","confidence":0.4}';
         final id = await enqueue();
-        final job = await loadJob(db, id);
-        expect(job.state, JobState.waiting);
-        expect(job.waitingReason, WaitingReason.profileChoice);
-        expect(job.step, PipelineStepId.classify);
-        expect(await recordingProfile(), isNull);
+        expect((await loadJob(db, id)).state, JobState.done);
+        expect(await recordingProfile(), 'engineering');
         final stored = expectOk(
           await db.settingsRepository.get(ClassificationKeys.result('r1')),
         );
         expect(stored, containsPair('profile', 'engineering'));
-        expect(llm.requests, hasLength(1));
-      },
-    );
+        expect(stored, containsPair('confidence', 0.4));
+        expect(
+          llm.requests.where(
+            (r) => r.sampling.preset == LlmPreset.classification,
+          ),
+          hasLength(1),
+        );
+      });
 
-    test('the user picks a profile: re-run from extract with it', () async {
-      llm.classification = '{"profile":"engineering","confidence":0.4}';
-      final id = await enqueue();
-      expectOk(await o.rerun(id, PipelineStepId.extract, profileId: 'meeting'));
-      await o.whenIdle();
-      expect((await loadJob(db, id)).state, JobState.done);
-      expect(await recordingProfile(), 'meeting');
-      expect(llm.extractionGrammars.last, 'root ::= "meeting"');
-    });
-
-    test('resuming the waiting job accepts the suggestion', () async {
-      llm.classification = '{"profile":"engineering","confidence":0.4}';
-      final id = await enqueue();
-      expectOk(await o.resolveWaiting(id));
-      await o.whenIdle();
-      expect((await loadJob(db, id)).state, JobState.done);
-      expect(await recordingProfile(), 'engineering');
-    });
-  });
+      test(
+        'the user changes the profile: re-run from extract with it',
+        () async {
+          llm.classification = '{"profile":"engineering","confidence":0.4}';
+          final id = await enqueue();
+          expectOk(
+            await o.rerun(id, PipelineStepId.extract, profileId: 'meeting'),
+          );
+          await o.whenIdle();
+          expect((await loadJob(db, id)).state, JobState.done);
+          expect(await recordingProfile(), 'meeting');
+          expect(llm.extractionGrammars.last, 'root ::= "meeting"');
+        },
+      );
+    },
+  );
 
   group('[PRF-06/scope] override after the fact re-runs extraction', () {
     test(
