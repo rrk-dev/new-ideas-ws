@@ -7,18 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10F0C566DED87D2DBEC2DF30 /* OpenRecordScreenIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78808B215A6D87FE18C4C212 /* OpenRecordScreenIntent.swift */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
+		1A227F18FC3D8B1B1C5805ED /* RecordControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DB1A74006916717CFDE62C /* RecordControl.swift */; };
 		1AC020000000000000000010 /* PurchaseApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC020000000000000000000 /* PurchaseApi.g.swift */; };
 		1AC020000000000000000011 /* PurchaseHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC020000000000000000001 /* PurchaseHostApiImpl.swift */; };
+		1F490D18A96784978BD9412F /* QuickCaptureApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068D451ADEA4F1D458BA7987 /* QuickCaptureApi.g.swift */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
+		377CF71C1FD5BEC47765061F /* LumenWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F9B340C8E78FFE3CE06636 /* LumenWidgetsBundle.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		3D67C645755847C4F431836D /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC468ED394AEFE3211FA01C2 /* Pods_RunnerTests.framework */; };
+		4870830F4AF79AC0E98067DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D6E97A3910A3095919E0A97 /* Foundation.framework */; };
+		56F33D5F4523ADC79322CC0B /* QuickCaptureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB82A2B859562626B8B44A1 /* QuickCaptureStore.swift */; };
 		5EC01A012F00000100C0FFEE /* SecureStoragePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC01A002F00000100C0FFEE /* SecureStoragePlugin.swift */; };
 		5EC03A012F00000100C0FFEE /* AppLockPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC03A002F00000100C0FFEE /* AppLockPlugin.swift */; };
 		5EC09A012F00000100C0FFEE /* CallGuardPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC09A002F00000100C0FFEE /* CallGuardPlugin.swift */; };
+		6F4866F1368A572CCB3C4E42 /* QuickCaptureHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0FC35783322DEDA0DD1CB1 /* QuickCaptureHostApiImpl.swift */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		7884E8682EC3CC0700C636F2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */; };
 		78A318202AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 78A3181F2AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage */; };
+		7F331E014CA8ECAA9C166960 /* QuickCaptureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB82A2B859562626B8B44A1 /* QuickCaptureStore.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
@@ -30,9 +38,13 @@
 		A0F08A012F00000100C0FFEE /* ProcessingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F08A002F00000100C0FFEE /* ProcessingPlugin.swift */; };
 		A761FF04FBDA6F0637D20666 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBDEA54A2298DEDA6B4BE00D /* Pods_Runner.framework */; };
 		AD0200000000000000000002 /* ModelDownloadPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0200000000000000000001 /* ModelDownloadPlugin.swift */; };
+		C2931F1158358F335D12156F /* OpenRecordScreenIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78808B215A6D87FE18C4C212 /* OpenRecordScreenIntent.swift */; };
+		CCCB8D320166680E1765EFDE /* LumenWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 20E09FA8831C47F9ABDAD0C3 /* LumenWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E04B00000000000000000A02 /* BookmarkApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04B00000000000000000A01 /* BookmarkApi.g.swift */; };
 		E04B00000000000000000A04 /* BookmarkHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04B00000000000000000A03 /* BookmarkHostApiImpl.swift */; };
 		E0600000000000000000B002 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E0600000000000000000B001 /* PrivacyInfo.xcprivacy */; };
+		EE4086E780EEFB7659F4D362 /* RecordWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127C30425B9E2C2CC7FF828 /* RecordWidget.swift */; };
+		F50F1DA94A2852142B0A8F9B /* QuickCaptureStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630833D895DE14FBEA58D0A4 /* QuickCaptureStoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +54,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 97C146ED1CF9000F007C117D;
 			remoteInfo = Runner;
+		};
+		5C7364A6D6760BD3E14296E3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49AD68C6E9DC8D10B2BE74D4;
+			remoteInfo = LumenWidgets;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -56,23 +75,41 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AB2E8758A51E8EF9BB60E00F /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CCCB8D320166680E1765EFDE /* LumenWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		068D451ADEA4F1D458BA7987 /* QuickCaptureApi.g.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = QuickCaptureApi.g.swift; sourceTree = "<group>"; };
 		0D95DE4DE1C434E877892F6B /* Pods-RunnerTests.profile-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile-prod.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile-prod.xcconfig"; sourceTree = "<group>"; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		1AC020000000000000000000 /* PurchaseApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseApi.g.swift; sourceTree = "<group>"; };
 		1AC020000000000000000001 /* PurchaseHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseHostApiImpl.swift; sourceTree = "<group>"; };
+		20E09FA8831C47F9ABDAD0C3 /* LumenWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LumenWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2127C30425B9E2C2CC7FF828 /* RecordWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RecordWidget.swift; sourceTree = "<group>"; };
 		29BFE5E48D15A4D6151AE922 /* Pods-Runner.debug-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug-prod.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug-prod.xcconfig"; sourceTree = "<group>"; };
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		331C8081294A63A400263BE5 /* RunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
+		42F9B340C8E78FFE3CE06636 /* LumenWidgetsBundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LumenWidgetsBundle.swift; sourceTree = "<group>"; };
+		5D6E97A3910A3095919E0A97 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		5EC01A002F00000100C0FFEE /* SecureStoragePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoragePlugin.swift; sourceTree = "<group>"; };
 		5EC03A002F00000100C0FFEE /* AppLockPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLockPlugin.swift; sourceTree = "<group>"; };
 		5EC09A002F00000100C0FFEE /* CallGuardPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallGuardPlugin.swift; sourceTree = "<group>"; };
+		630833D895DE14FBEA58D0A4 /* QuickCaptureStoreTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = QuickCaptureStoreTests.swift; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		78808B215A6D87FE18C4C212 /* OpenRecordScreenIntent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OpenRecordScreenIntent.swift; sourceTree = "<group>"; };
 		7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		78C336270CF131F3C7B309E9 /* Pods-RunnerTests.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release-dev.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release-dev.xcconfig"; sourceTree = "<group>"; };
 		78E0A7A72DC9AD7400C4905E /* FlutterGeneratedPluginSwiftPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FlutterGeneratedPluginSwiftPackage; path = Flutter/ephemeral/Packages/FlutterGeneratedPluginSwiftPackage; sourceTree = "<group>"; };
@@ -93,14 +130,18 @@
 		A0D06A002F00000100C0FFEE /* AudioImportHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioImportHostApiImpl.swift; sourceTree = "<group>"; };
 		A0D06A022F00000100C0FFEE /* AudioImportApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioImportApi.g.swift; sourceTree = "<group>"; };
 		A0F08A002F00000100C0FFEE /* ProcessingPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingPlugin.swift; sourceTree = "<group>"; };
+		A9DB1A74006916717CFDE62C /* RecordControl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RecordControl.swift; sourceTree = "<group>"; };
+		AC0FC35783322DEDA0DD1CB1 /* QuickCaptureHostApiImpl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = QuickCaptureHostApiImpl.swift; sourceTree = "<group>"; };
 		AD0200000000000000000001 /* ModelDownloadPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDownload/ModelDownloadPlugin.swift; sourceTree = "<group>"; };
 		B1D40A840CCEB13389402127 /* Pods-Runner.profile-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-prod.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-prod.xcconfig"; sourceTree = "<group>"; };
 		B661671D5A9620CCC581B390 /* Pods-RunnerTests.debug-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug-prod.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug-prod.xcconfig"; sourceTree = "<group>"; };
+		BFB82A2B859562626B8B44A1 /* QuickCaptureStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = QuickCaptureStore.swift; sourceTree = "<group>"; };
 		DBDEA54A2298DEDA6B4BE00D /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E04B00000000000000000A01 /* BookmarkApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkApi.g.swift; sourceTree = "<group>"; };
 		E04B00000000000000000A03 /* BookmarkHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkHostApiImpl.swift; sourceTree = "<group>"; };
 		E0600000000000000000B001 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		EC468ED394AEFE3211FA01C2 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC5DEDD0E5127C1C7B6ED8DF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE0C1C43AF73713B67D9BAC4 /* Pods-RunnerTests.debug-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug-dev.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug-dev.xcconfig"; sourceTree = "<group>"; };
 		F4D3D3A1207ABA31FE12B6F8 /* Pods-Runner.profile-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-dev.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-dev.xcconfig"; sourceTree = "<group>"; };
 		F60E4D4D99A631762E8276E1 /* Pods-Runner.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-dev.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-dev.xcconfig"; sourceTree = "<group>"; };
@@ -116,6 +157,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		25F8F7D72E1F740187088335 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4870830F4AF79AC0E98067DC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C146EB1CF9000F007C117D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,11 +177,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F77BDFD932BCDDAA451D206 /* QuickCaptureShared */ = {
+			isa = PBXGroup;
+			children = (
+				BFB82A2B859562626B8B44A1 /* QuickCaptureStore.swift */,
+				78808B215A6D87FE18C4C212 /* OpenRecordScreenIntent.swift */,
+			);
+			name = QuickCaptureShared;
+			path = QuickCaptureShared;
+			sourceTree = "<group>";
+		};
 		31FF2BFD563AF61E867708EE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				DBDEA54A2298DEDA6B4BE00D /* Pods_Runner.framework */,
 				EC468ED394AEFE3211FA01C2 /* Pods_RunnerTests.framework */,
+				EB8DD9844464D8B4AF8B9613 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -141,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				331C807B294A618700263BE5 /* RunnerTests.swift */,
+				630833D895DE14FBEA58D0A4 /* QuickCaptureStoreTests.swift */,
 			);
 			path = RunnerTests;
 			sourceTree = "<group>";
@@ -166,6 +227,8 @@
 				331C8082294A63A400263BE5 /* RunnerTests */,
 				9E5F3BCD93B4F2C6BB87A09E /* Pods */,
 				31FF2BFD563AF61E867708EE /* Frameworks */,
+				1F77BDFD932BCDDAA451D206 /* QuickCaptureShared */,
+				C0B3F7EDF555BE4219DF9A37 /* LumenWidgets */,
 			);
 			sourceTree = "<group>";
 		};
@@ -174,6 +237,7 @@
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
 				331C8081294A63A400263BE5 /* RunnerTests.xctest */,
+				20E09FA8831C47F9ABDAD0C3 /* LumenWidgets.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -205,6 +269,8 @@
 				E04B00000000000000000A01 /* BookmarkApi.g.swift */,
 				E04B00000000000000000A03 /* BookmarkHostApiImpl.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
+				AC0FC35783322DEDA0DD1CB1 /* QuickCaptureHostApiImpl.swift */,
+				068D451ADEA4F1D458BA7987 /* QuickCaptureApi.g.swift */,
 			);
 			path = Runner;
 			sourceTree = "<group>";
@@ -229,6 +295,26 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		C0B3F7EDF555BE4219DF9A37 /* LumenWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				42F9B340C8E78FFE3CE06636 /* LumenWidgetsBundle.swift */,
+				2127C30425B9E2C2CC7FF828 /* RecordWidget.swift */,
+				A9DB1A74006916717CFDE62C /* RecordControl.swift */,
+				EC5DEDD0E5127C1C7B6ED8DF /* Info.plist */,
+			);
+			name = LumenWidgets;
+			path = LumenWidgets;
+			sourceTree = "<group>";
+		};
+		EB8DD9844464D8B4AF8B9613 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				5D6E97A3910A3095919E0A97 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -251,6 +337,23 @@
 			productReference = 331C8081294A63A400263BE5 /* RunnerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		49AD68C6E9DC8D10B2BE74D4 /* LumenWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6700DAB71165B851CB6DA523 /* Build configuration list for PBXNativeTarget "LumenWidgets" */;
+			buildPhases = (
+				522A8B7FB74309F1246C5E9A /* Sources */,
+				25F8F7D72E1F740187088335 /* Frameworks */,
+				4F51F90A5E8DC69819FE583E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LumenWidgets;
+			productName = LumenWidgets;
+			productReference = 20E09FA8831C47F9ABDAD0C3 /* LumenWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		97C146ED1CF9000F007C117D /* Runner */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
@@ -261,6 +364,7 @@
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
+				AB2E8758A51E8EF9BB60E00F /* Embed Foundation Extensions */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				80402661BF1D00C3B6E9D01B /* [CP] Embed Pods Frameworks */,
 				0EB0C4F24523ECA6EA8F80B3 /* [CP] Copy Pods Resources */,
@@ -268,6 +372,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5A3686C55AC42E6C3CAEA566 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			packageProductDependencies = (
@@ -315,12 +420,20 @@
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
 				331C8080294A63A400263BE5 /* RunnerTests */,
+				49AD68C6E9DC8D10B2BE74D4 /* LumenWidgets */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		331C807F294A63A400263BE5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F51F90A5E8DC69819FE583E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -459,6 +572,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */,
+				F50F1DA94A2852142B0A8F9B /* QuickCaptureStoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		522A8B7FB74309F1246C5E9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F331E014CA8ECAA9C166960 /* QuickCaptureStore.swift in Sources */,
+				10F0C566DED87D2DBEC2DF30 /* OpenRecordScreenIntent.swift in Sources */,
+				377CF71C1FD5BEC47765061F /* LumenWidgetsBundle.swift in Sources */,
+				EE4086E780EEFB7659F4D362 /* RecordWidget.swift in Sources */,
+				1A227F18FC3D8B1B1C5805ED /* RecordControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +609,10 @@
 				1AC020000000000000000011 /* PurchaseHostApiImpl.swift in Sources */,
 				E04B00000000000000000A02 /* BookmarkApi.g.swift in Sources */,
 				E04B00000000000000000A04 /* BookmarkHostApiImpl.swift in Sources */,
+				56F33D5F4523ADC79322CC0B /* QuickCaptureStore.swift in Sources */,
+				C2931F1158358F335D12156F /* OpenRecordScreenIntent.swift in Sources */,
+				6F4866F1368A572CCB3C4E42 /* QuickCaptureHostApiImpl.swift in Sources */,
+				1F490D18A96784978BD9412F /* QuickCaptureApi.g.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +623,12 @@
 			isa = PBXTargetDependency;
 			target = 97C146ED1CF9000F007C117D /* Runner */;
 			targetProxy = 331C8085294A63A400263BE5 /* PBXContainerItemProxy */;
+		};
+		5A3686C55AC42E6C3CAEA566 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LumenWidgets;
+			target = 49AD68C6E9DC8D10B2BE74D4 /* LumenWidgets */;
+			targetProxy = 5C7364A6D6760BD3E14296E3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -539,6 +675,32 @@
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Debug-prod";
+		};
+		086C513F918F71901F74E698 /* Profile-prod */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = LumenWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.LumenWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Profile-prod";
 		};
 		09E5F47334144A96910A8B17 /* Profile-prod */ = {
 			isa = XCBuildConfiguration;
@@ -635,6 +797,32 @@
 			};
 			name = "Release-prod";
 		};
+		1D83A2241AC927A4E0A8C941 /* Release-dev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = LumenWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.dev.LumenWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release-dev";
+		};
 		2CDCB0F5BEBD421DBD8084A5 /* Profile-dev */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 99BEF408F5AF241A68F5CBE4 /* Pods-RunnerTests.profile-dev.xcconfig */;
@@ -648,6 +836,58 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Runner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Runner";
+			};
+			name = "Profile-dev";
+		};
+		3B0A8A45668D58773A88DF4F /* Debug-prod */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = LumenWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.LumenWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug-prod";
+		};
+		3B2F32A6B49F13EB257911EC /* Profile-dev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = LumenWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.dev.LumenWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = "Profile-dev";
 		};
@@ -963,6 +1203,32 @@
 			};
 			name = "Profile-dev";
 		};
+		A5D89D279768A759573B1A85 /* Release-prod */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = LumenWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.LumenWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release-prod";
+		};
 		BFD18CC7CB8E44DDA75467EF /* Debug-prod */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B661671D5A9620CCC581B390 /* Pods-RunnerTests.debug-prod.xcconfig */;
@@ -980,6 +1246,32 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Runner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Runner";
 			};
 			name = "Debug-prod";
+		};
+		C96FE9201A28797912C64789 /* Debug-dev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = LumenWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.dev.LumenWidgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug-dev";
 		};
 		D0548A2D6EA04765A4BC0336 /* Release-dev */ = {
 			isa = XCBuildConfiguration;
@@ -1112,6 +1404,19 @@
 				132107158A1E4180A0B61B2E /* Release-prod */,
 				2CDCB0F5BEBD421DBD8084A5 /* Profile-dev */,
 				41ACBAD7CA1947FBAF2EFC91 /* Profile-prod */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release-prod";
+		};
+		6700DAB71165B851CB6DA523 /* Build configuration list for PBXNativeTarget "LumenWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C96FE9201A28797912C64789 /* Debug-dev */,
+				3B0A8A45668D58773A88DF4F /* Debug-prod */,
+				1D83A2241AC927A4E0A8C941 /* Release-dev */,
+				A5D89D279768A759573B1A85 /* Release-prod */,
+				3B2F32A6B49F13EB257911EC /* Profile-dev */,
+				086C513F918F71901F74E698 /* Profile-prod */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release-prod";
