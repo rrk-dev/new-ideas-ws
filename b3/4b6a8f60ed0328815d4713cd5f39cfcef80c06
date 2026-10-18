@@ -1,0 +1,19 @@
+docs/adr/ADR-ASK-02-retrieval.md
+  s_5095472e80968b::t_2063f684af3ae8 3,6,293,295-300
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b34b6a8f60ed0328815d4713cd5f39cfcef80c06",
+  "prompts": {},
+  "sessions": {
+    "s_5095472e80968b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "662c42c7-18d9-4cfa-9280-08ec51c9ab04",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
