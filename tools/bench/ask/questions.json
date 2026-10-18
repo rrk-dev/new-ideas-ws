@@ -1,0 +1,53 @@
+{
+  "note": "Fictional data only. gold = evidence items; t lists accepted transcript timestamps (any one satisfies the item). Written from the transcripts before the first run (ADR-ASK-02).",
+  "questions": [
+    {"id": "E01", "type": "exact", "q": "What is the serial number of the Fabrikum dishwasher?", "gold": [{"rec": "warranty-001", "t": ["00:00:04"]}]},
+    {"id": "E02", "type": "exact", "q": "Which store sold me the Litware headphones?", "gold": [{"rec": "warranty-004", "t": ["00:00:03"]}]},
+    {"id": "E03", "type": "exact", "q": "What is the support line number for the laptop charger?", "gold": [{"rec": "warranty-003", "t": ["00:00:16"]}]},
+    {"id": "E04", "type": "exact", "q": "When is the beta of the sync client shipping?", "gold": [{"rec": "meeting-001", "t": ["00:00:07", "00:00:04"]}]},
+    {"id": "E05", "type": "exact", "q": "Why does Dijkstra fail with negative edge weights?", "gold": [{"rec": "lecture-001", "t": ["00:00:37"]}]},
+    {"id": "E06", "type": "exact", "q": "What is the definition of chlorophyll?", "gold": [{"rec": "lecture-002", "t": ["00:00:13"]}]},
+    {"id": "E07", "type": "exact", "q": "Where in the cell do the Calvin cycle reactions take place?", "gold": [{"rec": "lecture-002", "t": ["00:00:36"]}]},
+    {"id": "E08", "type": "exact", "q": "What happened in 49 BC?", "gold": [{"rec": "lecture-004", "t": ["00:00:39"]}]},
+    {"id": "E09", "type": "exact", "q": "Which competitor is Wingtip Logistics also looking at?", "gold": [{"rec": "sales_call-002", "t": ["00:00:21"]}]},
+    {"id": "E10", "type": "exact", "q": "What did Hugo ask about currencies?", "gold": [{"rec": "sales_call-005", "t": ["00:00:51"]}]},
+    {"id": "E11", "type": "exact", "q": "What did Chloe say about the project that failed?", "gold": [{"rec": "interview-004", "t": ["00:00:32"]}]},
+    {"id": "E12", "type": "exact", "q": "Which endpoint returns the current user?", "gold": [{"rec": "engineering-002", "t": ["00:00:11"]}]},
+
+    {"id": "P01", "type": "paraphrase", "q": "How much did I pay for my coffee mill?", "gold": [{"rec": "warranty-002", "t": ["00:00:00"]}]},
+    {"id": "P02", "type": "paraphrase", "q": "How long is the guarantee on my washing machine?", "gold": [{"rec": "warranty-005", "t": ["00:00:08"]}]},
+    {"id": "P03", "type": "paraphrase", "q": "What was agreed about moving the product release?", "gold": [{"rec": "meeting-005", "t": ["00:00:00"]}]},
+    {"id": "P04", "type": "paraphrase", "q": "Who is covering the onboarding guide while Nadia is away?", "gold": [{"rec": "meeting-004", "t": ["00:00:09"]}]},
+    {"id": "P05", "type": "paraphrase", "q": "What are the pros of using plain files instead of a database on mobile?", "gold": [{"rec": "engineering-004", "t": ["00:00:07"]}]},
+    {"id": "P06", "type": "paraphrase", "q": "What did the team conclude about microservices?", "gold": [{"rec": "engineering-006", "t": ["00:00:15"]}]},
+    {"id": "P07", "type": "paraphrase", "q": "What assignments do students have in economics?", "gold": [{"rec": "lecture-003", "t": ["00:00:52"]}]},
+    {"id": "P08", "type": "paraphrase", "q": "What worries did the Proseware Retail team have about security?", "gold": [{"rec": "sales_call-004", "t": ["00:00:38"]}]},
+    {"id": "P09", "type": "paraphrase", "q": "Why does the architect say small errors matter?", "gold": [{"rec": "interview-001", "t": ["00:00:21"]}]},
+    {"id": "P10", "type": "paraphrase", "q": "How was the question about when a pilot could begin answered?", "gold": [{"rec": "sales_call-002", "t": ["00:00:45"]}]},
+
+    {"id": "M01", "type": "multi", "q": "What advice did my interviewees give to people just starting out?", "gold": [{"rec": "interview-001", "t": ["00:00:12"]}, {"rec": "interview-003", "t": ["00:00:23"]}, {"rec": "interview-004", "t": ["00:01:23"]}, {"rec": "interview-005", "t": ["00:00:12"]}]},
+    {"id": "M02", "type": "multi", "q": "Which products have a two year warranty?", "gold": [{"rec": "warranty-001", "t": ["00:00:15"]}, {"rec": "warranty-004", "t": ["00:00:10"]}]},
+    {"id": "M03", "type": "multi", "q": "What did I decide about the launch date and the beta date?", "gold": [{"rec": "meeting-005", "t": ["00:00:00"]}, {"rec": "meeting-001", "t": ["00:00:07"]}]},
+    {"id": "M04", "type": "multi", "q": "Who promised to send customer references?", "gold": [{"rec": "sales_call-001", "t": ["00:00:53"]}, {"rec": "sales_call-002", "t": ["00:01:01"]}]},
+    {"id": "M05", "type": "multi", "q": "Which sales calls involved Proseware Retail?", "gold": [{"rec": "sales_call-001", "t": ["00:00:04"]}, {"rec": "sales_call-004", "t": ["00:00:04", "00:00:08", "00:00:12"]}, {"rec": "sales_call-005", "t": ["00:00:04"]}]},
+    {"id": "M06", "type": "multi", "q": "Who said the reports are not detailed enough?", "gold": [{"rec": "sales_call-001", "t": ["00:00:36"]}, {"rec": "sales_call-002", "t": ["00:00:25"]}, {"rec": "sales_call-004", "t": ["00:00:46"]}]},
+    {"id": "M07", "type": "multi", "q": "Which lectures assigned reading?", "gold": [{"rec": "lecture-001", "t": ["00:00:52"]}, {"rec": "lecture-003", "t": ["00:00:52"]}, {"rec": "lecture-004", "t": ["00:01:02"]}]},
+    {"id": "M08", "type": "multi", "q": "In which calls did someone confirm the budget with finance?", "gold": [{"rec": "sales_call-001", "t": ["00:00:58"]}, {"rec": "sales_call-003", "t": ["00:00:39"]}]},
+
+    {"id": "D01", "type": "date", "q": "What did I record about warranties last week?", "gold": [{"rec": "warranty-004", "t": ["00:00:10"]}, {"rec": "warranty-006", "t": ["00:00:07"]}]},
+    {"id": "D02", "type": "date", "q": "What decision came out of my engineering discussions last week?", "gold": [{"rec": "engineering-006", "t": ["00:00:15"]}]},
+    {"id": "D03", "type": "date", "q": "What did the lecture on Friday cover?", "gold": [{"rec": "lecture-005", "t": ["00:00:00"]}]},
+    {"id": "D04", "type": "date", "q": "What security concerns came up in yesterday's call?", "gold": [{"rec": "sales_call-004", "t": ["00:00:38"]}]},
+    {"id": "D05", "type": "date", "q": "What appliance did I log in February?", "gold": [{"rec": "warranty-001", "t": ["00:00:00"]}]},
+    {"id": "D06", "type": "date", "q": "What did the interviews last week say about spreadsheets?", "gold": [{"rec": "interview-004", "t": ["00:00:59"]}]},
+
+    {"id": "U01", "type": "unanswerable", "q": "What is the serial number of my television?", "gold": []},
+    {"id": "U02", "type": "unanswerable", "q": "Who approved the vendor contract?", "gold": []},
+    {"id": "U03", "type": "unanswerable", "q": "What was the Q3 revenue target?", "gold": []},
+    {"id": "U04", "type": "unanswerable", "q": "What did Priya say about the Fabrikum dishwasher?", "gold": []},
+    {"id": "U05", "type": "unanswerable", "q": "What is my blood pressure reading?", "gold": []},
+    {"id": "U06", "type": "unanswerable", "q": "When is my next dentist appointment?", "gold": []},
+    {"id": "U07", "type": "unanswerable", "q": "What is the capital of France?", "gold": []},
+    {"id": "U08", "type": "unanswerable", "q": "What is Liam's phone number?", "gold": []}
+  ]
+}

@@ -20,3 +20,6 @@ Users can ask a question across the whole library, or about one recording, and j
 - `accessibility_test` contrast/tap-target checks pass for the new screens in light and dark, and `hardcoded_strings_test` passes (`[ASK-04/AC3]`).
 - On a physical device with the 3B model, a real question over a seeded library returns a cited answer (device row `docs/test-plans/device/ASK-04.md`, ⏳ until run).
 - Airplane-mode run: asking works with the network off (device row).
+
+## Notes
+- ADR-ASK-02 (Proposed): the 1B is not used for Ask. High tier without the 3B shows "Ask requires the 3B model" (size + Models screen link); Mid/Low show "Ask isn't available on this device". Ask is Free (no `FeatureGate`) pending the product questions in the ADR; history is optional with a "Save Ask history" setting.

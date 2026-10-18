@@ -239,7 +239,7 @@ EXP-03/04 → EXP-01 → EXP-02 → EXP-05 ────────────�
 | Phase 2 tiers | LIC-05 | **Decided 2026-10-17: no Pro for now.** All features unlocked; Pro gating suppressed behind one switch, enable later |
 | Lecture consent | TPL-01 | 2026-10-17: consent always required; personal use is fine |
 | Quick capture: start-now vs open-and-arm; Action Button `StartSource` | QCP-01 | **Decided 2026-10-17** (ADR-QCP-01 Accepted): navigate-only everywhere, no start-now, Action Button deferred, Live Activity not required (AUD-13) |
-| Ask-your-notes retrieval: FTS5 vs embeddings | ASK-02 | Decide from measured recall |
+| Ask-your-notes retrieval: FTS5 vs embeddings | ASK-02 | Proposed: ADR-ASK-02 — FTS5 for v1 (recall@5 59.3% < 80%, recall@10 80.6%); embeddings unmeasured, escalate if ASK-03 eval fails |
 
 ## Schedule Risk
 The master plan targets 12 weeks. This breakdown (89 tasks incl. 4 phase gates, several L-sized gaps: pipeline orchestrator, diarization, map-reduce extraction, eval harness, enterprise licensing) sums to roughly **59–64 engineer-weeks** (27 S ≈ 1.5 d, 49 M ≈ 4 d, 9 L ≈ 7.5 d). Hitting 12 calendar weeks needs a team of ~5 engineers working in parallel (native/AI, audio/platform, Flutter UI, export/licensing, QA). With a smaller team, keep the 12-week target for a Free + Pro MVP and move diarization (STT-05), the custom profile editor (PRF-07) and Enterprise (LIC-03/04, PRF-08 signing) to v1.1.

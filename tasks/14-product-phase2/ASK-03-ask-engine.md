@@ -24,3 +24,6 @@ A domain-layer engine answers a natural-language question about the user's libra
 - No question, answer or passage text appears in logs at INFO or above (log-content test `[ASK-03/AC5]`); `check_egress.sh` shows no new host.
 - A per-recording Ask never returns a passage from another recording (unit/eval test `[ASK-03/AC7]`); after transcript expiry with audio retained, no stored answer or citation derived from it remains (DB test `[ASK-03/AC8]`).
 - Per-tier budgets (Mid and High: median time-to-first-answer with a 100-recording library, peak RAM, thermal state) are written into this file with the measurement protocol (QA-03) before the first run and measured on device (device row); GATE-05 checks against them.
+
+## Notes
+- ADR-ASK-02 (Proposed): FTS5 BM25, k = 10 candidates, 3B at n_ctx 6144; option A measured segment recall@5 59.3% (< 80%), recall@10 80.6% — this task's end-to-end eval must also measure LLM query rewriting and decide whether the B/C spike is needed. Ask never preempts a pipeline job; see the ADR for residency, privacy and the answer contract.
