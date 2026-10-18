@@ -1,7 +1,7 @@
 # ASK-01 — Add Llama 3.2 3B Instruct to the model catalog
 
 **Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** M | **Depends on:** MDL-01, MDL-02, LLM-07, LLM-08, SEC-05, LIC-01 | **Source:** User decision 2026-10-16 (product Phase 2: ask-your-notes needs the 3B model); ADR-LLM-08 (3B is the expected Mid/High default, not yet measured)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-model-delivery, vv-llm-inference, vv-benchmark-eval, vv-privacy-security, vv-licensing-iap, vv-testing
 
 ## Goal
