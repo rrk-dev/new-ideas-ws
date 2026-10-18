@@ -1,0 +1,53 @@
+app/test/unit/mindmap/mind_map_artifacts_test.dart
+  s_9450697a967066::t_f070f57ca102db 22-40,52,57-73
+  s_9450697a967066::t_bb3efb257cc6bb 1-21,41-51,53-56,74
+app/tool/mindmap_eval_test.dart
+  s_9450697a967066::t_02345701698374 1-67,70-104,107-110,112-115,117-121,123-152,167-184
+  s_9450697a967066::t_145f76f14cc246 111
+  s_9450697a967066::t_8885ab06b6440d 68-69,105-106,116,122,153-166
+docs/adr/ADR-MAP-01-mind-map-generation.md
+  s_9450697a967066::t_b9ff536a9d9a8a 1-75,78
+  s_9450697a967066::t_95ddcd767769fe 76-77
+tools/bench/eval/mindmap/scoring.json
+  s_9450697a967066::t_89c17d09ace182 1-10
+tools/bench/eval/mindmap/run_mindmap.py
+  s_9450697a967066::t_668938ddd4a2bb 1-213
+tools/bench/eval/README.md
+  s_9450697a967066::t_f6ebaa97e33f97 149-168
+tools/bench/eval/baselines/mindmap.Llama-3-2-1B-Instruct-Q4-K-M.json
+  s_9450697a967066::t_879ac822d69b5d 1-60
+tasks/14-product-phase2/MAP-01-mind-map-generation.md
+  s_9450697a967066::t_559c6e53334fde 11-17
+  s_9450697a967066::t_df9ecc4b792625 46-51,53-54,57,59-64
+  s_9450697a967066::t_63f9b111fc8e1e 4,52,55-56,58
+tools/bench/results/2026-10-17-eval-mindmap-Llama-3-2-1B-Instruct-Q4-K-M.md
+  s_9450697a967066::t_879ac822d69b5d 1-27
+tools/bench/results/2026-10-17-eval-mindmap-Llama-3-2-1B-Instruct-Q4-K-M.json
+  s_9450697a967066::t_879ac822d69b5d 1-60
+docs/test-plans/device/MAP-01.md
+  s_9450697a967066::t_300a22388e4c50 1-6,8-10
+  s_9450697a967066::t_a03366e1e74a53 7
+app/lib/features/mindmap/data/mind_map_strategy.dart
+  s_9450697a967066::t_c3f42eb3e1d812 23-24
+tools/bench/eval/mindmap/gen_cases.py
+  s_9450697a967066::t_db53edcee91c0a 1-4,7-66,74,78-84,86-96
+  s_9450697a967066::t_17c2e1e5ed18af 5-6,67-73,75-77,85
+tools/bench/eval/mindmap/cases.json
+  s_9450697a967066::t_17c2e1e5ed18af 1-490
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "05c777abdf73c1bf573391650f9bad41f0d04c0b",
+  "prompts": {},
+  "sessions": {
+    "s_9450697a967066": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "080beacb-b5f0-4236-8780-01faa814d924",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
