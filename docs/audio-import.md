@@ -11,7 +11,7 @@ everyone in it consented to being recorded."* (SEC-09), stored as `recordings.im
 | both | Record tab → **Import audio file** | `file_selector` system picker (Android `ACTION_OPEN_DOCUMENT` `audio/*`, iOS document picker `public.audio`, copy mode) |
 | Android | Share sheet / "Open with" | `ACTION_SEND`, `ACTION_SEND_MULTIPLE`, `ACTION_VIEW` intent filters (`audio/*`, `application/ogg`) on `MainActivity`; the content URI is copied into `cacheDir/shared_audio` immediately (grants are temporary) |
 | iOS | "Open in" / "Copy to Lumen" | `CFBundleDocumentTypes` (`public.audio` + listed UTIs) → `openURLContexts` via `FlutterSceneLifeCycleDelegate` → copied into `tmp/shared_audio` |
-| iOS | Share extension | `ios/ShareExtension/` copies into the App Group inbox `group.<app id>/Inbox/Audio`, drained by the app on the next `takePendingShares`. **Target wiring (Xcode target, App Group entitlement on both targets, embedding) is follow-up AUD-14.** |
+| iOS | Share extension | `ios/ShareExtension/` copies into the App Group inbox `group.<app id>/Inbox/Audio`, drained by the app on the next `takePendingShares`. The `ShareExtension` target is wired in `Runner.xcodeproj` (AUD-14): bundle id `<app id>.ShareExtension`, iOS 16, embedded in Runner, App Group `group.<app id>` on Runner and the extension (`$(APP_BUNDLE_IDENTIFIER)` per flavor). `tools/ci/check_ios_share_extension.sh` asserts this statically. See "iOS Share extension: App Group and signing" below. |
 
 Nothing is decoded or processed before the user ticks the attestation; a cancelled import deletes
 the private copy.
@@ -53,3 +53,26 @@ Notes:
   is not possible — CAF is an Apple container and shows the clear "can’t be imported" message.
   Flagged to the user as a proposed AC clarification.
 - Unknown extensions are passed to the decoder; it decides (e.g. `.3gp`/`.amr` on Android).
+
+## iOS Share extension: App Group and signing
+
+The extension cannot reliably open the host app and the audio must reach it,
+so the hand-over is a file copy through an App Group container
+(`group.<app id>/Inbox/Audio`). The extension has no network, microphone or
+background capability and logs nothing.
+
+| Fact | Status |
+|---|---|
+| Apple's [Supported capabilities (iOS)](https://developer.apple.com/help/account/reference/supported-capabilities-ios) table lists App Groups for the free Apple Developer (Personal Team) account as well as the paid programs | **Verified** (Apple doc) |
+| Personal Team limits: 10 App IDs, 3 devices, 3 apps per device, profiles expire after 7 days ([account overview](https://developer.apple.com/help/account/get-started/about-your-developer-account)) | **Verified** (Apple doc) |
+| Xcode automatic signing really provisions the App Group and the extension on a Personal Team device, and the App ID count (Runner, LumenWidgets, ShareExtension, two flavors) stays within the limit | **Unverified** — device rows in `docs/test-plans/device/AUD-14.md` |
+| The simulator/unsigned CI build ignores entitlements, so signing is only exercised on a device | Verified by construction (`--no-codesign`) |
+
+Without the App Group there is no equivalent hand-over design, so the
+extension needs it. **Trade-off / fallback** if Personal Team signing fails on
+a device: the app is still importable through "Open in / Copy to Lumen"
+(`CFBundleDocumentTypes` + `openURLContexts`) and the Record-tab file picker,
+neither of which needs an App Group. To build for such a device, remove the
+`com.apple.security.application-groups` key from `Runner.entitlements` and the
+ShareExtension target from the Embed phase locally (do not commit); the
+paid-account/TestFlight builds keep the extension.

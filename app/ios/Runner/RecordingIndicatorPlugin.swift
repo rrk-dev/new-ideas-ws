@@ -7,7 +7,7 @@ import UserNotifications
 /// While recording in the background iOS itself shows the microphone
 /// indicator (orange dot / recording pill in the status bar, Control Center
 /// "in use by" label) for an app with the `audio` background mode — there is
-/// no hidden mode. The Live Activity is deferred (AUD-10, proposed), so:
+/// no hidden mode. The Live Activity is deferred (AUD-13), so:
 /// - `show` / `hide`: request notification authorization once (for the
 ///   reminder) / remove a delivered reminder; no other UI.
 /// - `remind({text})`: the SEC-09 "Still recording (1h 00m)" reminder as a

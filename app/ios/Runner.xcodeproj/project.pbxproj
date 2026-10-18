@@ -45,6 +45,8 @@
 		E0600000000000000000B002 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E0600000000000000000B001 /* PrivacyInfo.xcprivacy */; };
 		EE4086E780EEFB7659F4D362 /* RecordWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127C30425B9E2C2CC7FF828 /* RecordWidget.swift */; };
 		F50F1DA94A2852142B0A8F9B /* QuickCaptureStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630833D895DE14FBEA58D0A4 /* QuickCaptureStoreTests.swift */; };
+		699A056276AA5B56DD5066BF /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9D603842A3B7A94DEE39C3 /* ShareViewController.swift */; };
+		4736205181B323637AFE33A4 /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9D90FBF41178595B1C97C2D0 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 49AD68C6E9DC8D10B2BE74D4;
 			remoteInfo = LumenWidgets;
+		};
+		09E13FD42366E65C88EE011B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CB43F086274756D9E564D6BA;
+			remoteInfo = ShareExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -82,6 +91,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				CCCB8D320166680E1765EFDE /* LumenWidgets.appex in Embed Foundation Extensions */,
+				4736205181B323637AFE33A4 /* ShareExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,6 +156,10 @@
 		F4D3D3A1207ABA31FE12B6F8 /* Pods-Runner.profile-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-dev.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-dev.xcconfig"; sourceTree = "<group>"; };
 		F60E4D4D99A631762E8276E1 /* Pods-Runner.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-dev.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-dev.xcconfig"; sourceTree = "<group>"; };
 		F7B69353B21D75A97F00521B /* Pods-Runner.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-prod.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-prod.xcconfig"; sourceTree = "<group>"; };
+		0D9D603842A3B7A94DEE39C3 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		9ADDECC23F34BBE0D7A1CA39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92057F043CBD0B7481AB4E71 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
+		9D90FBF41178595B1C97C2D0 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +185,13 @@
 			files = (
 				78A318202AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage in Frameworks */,
 				A761FF04FBDA6F0637D20666 /* Pods_Runner.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4604F12126AF8A5C258F5163 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +250,7 @@
 				31FF2BFD563AF61E867708EE /* Frameworks */,
 				1F77BDFD932BCDDAA451D206 /* QuickCaptureShared */,
 				C0B3F7EDF555BE4219DF9A37 /* LumenWidgets */,
+				3A806C628DB6975B435BBC01 /* ShareExtension */,
 			);
 			sourceTree = "<group>";
 		};
@@ -238,6 +260,7 @@
 				97C146EE1CF9000F007C117D /* Runner.app */,
 				331C8081294A63A400263BE5 /* RunnerTests.xctest */,
 				20E09FA8831C47F9ABDAD0C3 /* LumenWidgets.appex */,
+				9D90FBF41178595B1C97C2D0 /* ShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -315,6 +338,17 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
+		3A806C628DB6975B435BBC01 /* ShareExtension */ = {
+			isa = PBXGroup;
+			children = (
+				0D9D603842A3B7A94DEE39C3 /* ShareViewController.swift */,
+				9ADDECC23F34BBE0D7A1CA39 /* Info.plist */,
+				92057F043CBD0B7481AB4E71 /* ShareExtension.entitlements */,
+			);
+			name = ShareExtension;
+			path = ShareExtension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -373,6 +407,7 @@
 			);
 			dependencies = (
 				5A3686C55AC42E6C3CAEA566 /* PBXTargetDependency */,
+				3D2A0F070271338E8E612FBC /* PBXTargetDependency */,
 			);
 			name = Runner;
 			packageProductDependencies = (
@@ -381,6 +416,23 @@
 			productName = Runner;
 			productReference = 97C146EE1CF9000F007C117D /* Runner.app */;
 			productType = "com.apple.product-type.application";
+		};
+		CB43F086274756D9E564D6BA /* ShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBD91B36730B795050CDE4F3 /* Build configuration list for PBXNativeTarget "ShareExtension" */;
+			buildPhases = (
+				34B69D6A38F7B97045C28783 /* Sources */,
+				4604F12126AF8A5C258F5163 /* Frameworks */,
+				937C8574FCECF2E0C04753CD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShareExtension;
+			productName = ShareExtension;
+			productReference = 9D90FBF41178595B1C97C2D0 /* ShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -421,6 +473,7 @@
 				97C146ED1CF9000F007C117D /* Runner */,
 				331C8080294A63A400263BE5 /* RunnerTests */,
 				49AD68C6E9DC8D10B2BE74D4 /* LumenWidgets */,
+				CB43F086274756D9E564D6BA /* ShareExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -449,6 +502,13 @@
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
 				E0600000000000000000B002 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		937C8574FCECF2E0C04753CD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,6 +676,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		34B69D6A38F7B97045C28783 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				699A056276AA5B56DD5066BF /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -629,6 +697,12 @@
 			name = LumenWidgets;
 			target = 49AD68C6E9DC8D10B2BE74D4 /* LumenWidgets */;
 			targetProxy = 5C7364A6D6760BD3E14296E3 /* PBXContainerItemProxy */;
+		};
+		3D2A0F070271338E8E612FBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ShareExtension;
+			target = CB43F086274756D9E564D6BA /* ShareExtension */;
+			targetProxy = 09E13FD42366E65C88EE011B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -667,6 +741,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -789,6 +864,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -922,6 +998,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.dev;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -1195,6 +1272,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.dev;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -1304,6 +1382,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -1383,12 +1462,181 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.dev;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Debug-dev";
+		};
+		DBE327C7B9B05BE33A981AB1 /* Profile-prod */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER).ShareExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Profile-prod";
+		};
+		C20BCF2EE544EEF9B2F62EAA /* Release-dev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.dev;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER).ShareExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release-dev";
+		};
+		C5E98414E5A33F636D720D71 /* Debug-prod */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER).ShareExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug-prod";
+		};
+		F8B213B701898EE64017EAE9 /* Profile-dev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.dev;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER).ShareExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Profile-dev";
+		};
+		C8E8D2458660EE5361D240AA /* Release-prod */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER).ShareExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release-prod";
+		};
+		9A227A2C5D5E8524B8374643 /* Debug-dev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APP_BUNDLE_IDENTIFIER = com.vaultvoice.vaultvoice.dev;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_BUNDLE_IDENTIFIER).ShareExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Debug-dev";
 		};
@@ -1443,6 +1691,19 @@
 				16448D0D07A843959B2EC6D7 /* Release-prod */,
 				95A4EBFFAF564A7599D88585 /* Profile-dev */,
 				D9E7FB6BC62B4FABA7EA316E /* Profile-prod */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release-prod";
+		};
+		FBD91B36730B795050CDE4F3 /* Build configuration list for PBXNativeTarget "ShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBE327C7B9B05BE33A981AB1 /* Profile-prod */,
+				C20BCF2EE544EEF9B2F62EAA /* Release-dev */,
+				C5E98414E5A33F636D720D71 /* Debug-prod */,
+				F8B213B701898EE64017EAE9 /* Profile-dev */,
+				C8E8D2458660EE5361D240AA /* Release-prod */,
+				9A227A2C5D5E8524B8374643 /* Debug-dev */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release-prod";

@@ -26,7 +26,7 @@ ALLOW=(
 )
 # Only first-party sources: tests, generated code and vendored native code
 # are out of scope.
-SCAN=(app/lib app/android/app/src app/ios/Runner app/ios/LumenWidgets app/ios/QuickCaptureShared packages/vv_native/lib)
+SCAN=(app/lib app/android/app/src app/ios/Runner app/ios/LumenWidgets app/ios/QuickCaptureShared app/ios/ShareExtension packages/vv_native/lib)
 # Dart
 P_DART='package:http/|package:dio/|package:web_socket|package:grpc/|package:http2/|package:cronet_http|package:cupertino_http|package:socket_io|package:webview_flutter|package:url_launcher|package:flutter_inappwebview|HttpClient\(|HttpClient\.|RawSocket|SecureSocket|Socket\.connect|ServerSocket|RawDatagramSocket|WebSocket|Uri\.https?\(|Uri\.parse\(.https?:'
 # Kotlin / Java

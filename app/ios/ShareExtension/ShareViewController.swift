@@ -3,10 +3,9 @@ import UniformTypeIdentifiers
 
 /// AUD-06 share extension ("Share → Lumen" from Voice Memos, Files, …).
 ///
-/// NOT yet part of the Xcode project: wiring the extension target into
-/// `Runner.xcodeproj` (bundle id `<app id>.ShareExtension`, App Group
-/// `group.<app id>` on both targets, embed in Runner) is follow-up AUD-10 —
-/// it needs Xcode and signing. See docs/audio-import.md.
+/// Target `ShareExtension` in `Runner.xcodeproj` (AUD-14): bundle id
+/// `<app id>.ShareExtension`, App Group `group.<app id>` on both targets,
+/// embedded in Runner. See docs/audio-import.md.
 ///
 /// The extension never decodes or processes anything: it copies each shared
 /// audio file into the App Group inbox `group.<app id>/Inbox/Audio`, then
