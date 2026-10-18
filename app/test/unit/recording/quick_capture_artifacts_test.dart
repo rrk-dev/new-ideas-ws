@@ -115,7 +115,12 @@ void main() {
       );
 
       final ents = _read('ios/Runner/Runner.entitlements');
-      expect(ents, isNot(contains('application-groups')));
+      // AUD-14: the only App Group is the ShareExtension inbox group; the
+      // widget extension itself never gets one (checked below).
+      expect(
+        RegExp(r'group\.\$\(APP_BUNDLE_IDENTIFIER\)').allMatches(ents).length,
+        1,
+      );
       expect(
         Directory('ios/LumenWidgets').listSync().map((e) => e.path),
         isNot(anyElement(endsWith('.entitlements'))),
@@ -123,7 +128,6 @@ void main() {
 
       final pbx = _read('ios/Runner.xcodeproj/project.pbxproj');
       expect(pbx, contains('LumenWidgets'));
-      expect(pbx, isNot(contains('application-groups')));
 
       final policy = _read('../tools/ci/check_recording_policy.py');
       expect(policy, contains('app/ios/LumenWidgets'));
