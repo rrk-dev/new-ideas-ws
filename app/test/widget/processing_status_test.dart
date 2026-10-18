@@ -254,6 +254,31 @@ void main() {
       expect(find.text('Waiting for a Speech to text model'), findsOneWidget);
       expect(find.byKey(const ValueKey('job-model-download')), findsNothing);
     });
+
+    testWidgets('a job waiting for a profile offers use-suggested and choose', (
+      t,
+    ) async {
+      final taps = <String>[];
+      await t.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: ProcessingStatusCard(
+              view: progressView(
+                id: 'p',
+                state: JobState.waiting,
+                waitingReason: WaitingReason.profileChoice,
+              ),
+              onAcceptProfile: () => taps.add('accept'),
+              onChooseProfile: () => taps.add('choose'),
+            ),
+          ),
+        ),
+      );
+      expect(find.text('Choose a profile to continue'), findsOneWidget);
+      await t.tap(find.byKey(const ValueKey('job-profile-accept')));
+      await t.tap(find.byKey(const ValueKey('job-profile-choose')));
+      expect(taps, ['accept', 'choose']);
+    });
   });
 
   group('screens: loading / empty / error', () {

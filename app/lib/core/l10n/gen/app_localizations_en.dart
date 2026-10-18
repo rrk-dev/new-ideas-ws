@@ -1384,6 +1384,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get jobWaitingProfile => 'Choose a profile to continue';
 
   @override
+  String get jobProfileUseSuggested => 'Use suggested profile';
+
+  @override
+  String get jobProfileChoose => 'Choose profile';
+
+  @override
   String get jobWaitingReview => 'Ready for your review';
 
   @override
