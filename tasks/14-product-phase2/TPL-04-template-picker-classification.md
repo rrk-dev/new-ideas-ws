@@ -1,7 +1,7 @@
 # TPL-04 — Template picker, auto-classification and eval for the new profiles
 
 **Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** M | **Depends on:** TPL-01, TPL-02, TPL-03, PRF-06, PRF-09, APP-05 | **Source:** User decision 2026-10-16 (product Phase 2: more summary templates)
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-extraction-profiles, vv-flutter-architecture, vv-benchmark-eval, vv-testing, vv-licensing-iap
 
 ## Goal
