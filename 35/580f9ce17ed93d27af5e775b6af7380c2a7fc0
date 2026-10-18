@@ -1,0 +1,62 @@
+app/test/unit/recording/recording_controller_test.dart
+  s_b5c4ee6684a610::t_443eb0132d589d 372-392
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/MainActivity.kt
+  s_b5c4ee6684a610::t_e7fe06c8ee03bb 68-69
+app/ios/Runner.xcodeproj/project.pbxproj
+  s_b5c4ee6684a610::t_e7fe06c8ee03bb 33,146,310,679
+app/macos/Runner.xcodeproj/project.pbxproj
+  s_b5c4ee6684a610::t_e7fe06c8ee03bb 36,115,220,488
+app/ios/Runner/ManagedConfigPlugin.swift
+  s_b5c4ee6684a610::t_208313ffe4956d 1-57
+app/android/app/src/main/kotlin/com/vaultvoice/vaultvoice/ManagedConfigPlugin.kt
+  s_b5c4ee6684a610::t_3e9a70d9b91f21 1-90
+app/test/fakes/fake_managed_config_source.dart
+  s_b5c4ee6684a610::t_a2ed06ac97de5d 1-27
+app/test/flutter_test_config.dart
+  s_b5c4ee6684a610::t_45b9d00a313dcc 3,15-20
+app/macos/Runner/MainFlutterWindow.swift
+  s_b5c4ee6684a610::t_e7fe06c8ee03bb 49
+app/macos/Runner/ManagedConfigPlugin.swift
+  s_b5c4ee6684a610::t_8b5f1ace9be1d0 1-67
+docs/test-plans/device/LIC-04.md
+  s_b5c4ee6684a610::t_b63341ee95c696 1-23
+docs/mdm-config.md
+  s_b5c4ee6684a610::t_2bb1b121fa175e 1-51
+docs/enterprise-licensing.md
+  s_b5c4ee6684a610::t_1b8cec79393c5f 33
+app/ios/Runner/AppDelegate.swift
+  s_b5c4ee6684a610::t_e7fe06c8ee03bb 40-43
+tasks/09-licensing/LIC-04-enterprise-managed-configuration.md
+  s_b5c4ee6684a610::t_1b8cec79393c5f 11-15,19-27
+app/test/widget/settings_screen_test.dart
+  s_b5c4ee6684a610::t_6225d983f7a4e4 11-12
+  s_b5c4ee6684a610::t_54fbad6734e3c0 24,163-175,177-190
+  s_b5c4ee6684a610::t_51d55c082270e2 176
+  s_b5c4ee6684a610::t_ec9dfba54e6b19 191
+app/android/app/src/main/AndroidManifest.xml
+  s_b5c4ee6684a610::t_e7fe06c8ee03bb 134-137
+app/android/app/src/main/res/xml/app_restrictions.xml
+  s_b5c4ee6684a610::t_46c49e503fbc66 1-64
+app/android/app/src/main/res/values/managed_config_strings.xml
+  s_b5c4ee6684a610::t_8a2736ee87c960 1-38
+app/test/unit/licensing/managed_config_test.dart
+  s_b5c4ee6684a610::t_502da034db7f75 23,93-96,114,139-149
+  s_b5c4ee6684a610::t_4c800dd01c7b2a 75-82,109
+  s_b5c4ee6684a610::t_41291217d71820 1-22,24-74,83-92,97-108,110-113,115-138,150-182
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "35580f9ce17ed93d27af5e775b6af7380c2a7fc0",
+  "prompts": {},
+  "sessions": {
+    "s_b5c4ee6684a610": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "3a32a878-801d-48fc-a21c-1c23f21006aa",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
