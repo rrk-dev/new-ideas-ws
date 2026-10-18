@@ -1,7 +1,7 @@
 # QCP-02 — iOS quick capture: widget and Lock Screen control (navigate-only)
 
 **Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** L | **Depends on:** QCP-01, AUD-04, AUD-08, SEC-09 | **Source:** User decision 2026-10-16 (product Phase 2: one-tap capture); ADR-QCP-01 Accepted 2026-10-17
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-audio-capture, vv-flutter-architecture, vv-background-execution, vv-privacy-security, vv-testing, vv-ci-release
 
 ## Goal
