@@ -8,19 +8,22 @@ part of 'ask_providers.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// `ask.enabled` (default off): the whole Ask entry is hidden while false.
-/// PRODUCT-DECISION (ASK-04): the ASK-03 quality gates are not met.
+/// `ask.enabled` (default off on iOS/Android, on for macOS): the whole Ask
+/// entry is hidden while false. PRODUCT-DECISION (ASK-04): the ASK-03
+/// quality gates are not met; the owner enabled it on macOS (2026-10-18).
 
 @ProviderFor(askEnabled)
 final askEnabledProvider = AskEnabledProvider._();
 
-/// `ask.enabled` (default off): the whole Ask entry is hidden while false.
-/// PRODUCT-DECISION (ASK-04): the ASK-03 quality gates are not met.
+/// `ask.enabled` (default off on iOS/Android, on for macOS): the whole Ask
+/// entry is hidden while false. PRODUCT-DECISION (ASK-04): the ASK-03
+/// quality gates are not met; the owner enabled it on macOS (2026-10-18).
 
 final class AskEnabledProvider extends $FunctionalProvider<bool, bool, bool>
     with $Provider<bool> {
-  /// `ask.enabled` (default off): the whole Ask entry is hidden while false.
-  /// PRODUCT-DECISION (ASK-04): the ASK-03 quality gates are not met.
+  /// `ask.enabled` (default off on iOS/Android, on for macOS): the whole Ask
+  /// entry is hidden while false. PRODUCT-DECISION (ASK-04): the ASK-03
+  /// quality gates are not met; the owner enabled it on macOS (2026-10-18).
   AskEnabledProvider._()
     : super(
         from: null,
