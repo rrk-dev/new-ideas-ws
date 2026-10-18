@@ -2978,6 +2978,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mindMapShareFailed => 'Sharing is not available.';
 
   @override
+  String get mindMapShareImage => 'Share as image';
+
+  @override
+  String get mindMapImageFailed => 'The image could not be shared.';
+
+  @override
+  String get mindMapViewGraph => 'Graph';
+
+  @override
+  String get mindMapViewTree => 'Tree';
+
+  @override
+  String get mindMapFit => 'Fit to screen';
+
+  @override
   String mindMapExpand(String label) {
     return 'Expand $label';
   }
