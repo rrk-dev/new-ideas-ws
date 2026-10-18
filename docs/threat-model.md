@@ -178,9 +178,9 @@ Trust boundary added: app ↔ OS Reminders store (and the user's own iCloud/Exch
 
 New surfaces: iOS widget and Control, Android widget, Quick Settings tile and shortcut,
 the iOS Share extension with its App Group, the on-device 3B model, Ask retrieval and chat
-history, mind maps. Trust boundaries added: launcher/system surfaces ↔ app, other apps ↔ our
-exported activity, the App Group inbox, model output ↔ UI and Markdown. Live Activity
-(AUD-13) is not merged and is not modelled; see device row SEC-11-D8.
+history, mind maps, the iOS Live Activity. Trust boundaries added: launcher/system surfaces ↔ app, other apps ↔ our
+exported activity, the App Group inbox, model output ↔ UI and Markdown. The Live Activity
+(AUD-13) is modelled as T33; see device row SEC-11-D8.
 
 | # | Threat | STRIDE | Sev | Mitigation | Proof | Residual |
 |---|---|---|---|---|---|---|
@@ -194,6 +194,7 @@ exported activity, the App Group inbox, model output ↔ UI and Markdown. Live A
 | T30 | Hostile file shared into the iOS Share extension, or tampering with the App Group inbox | T, D | L | The extension only copies a file; no decode there. The app validates and decodes it only after the user's attestation, through the existing import path (AUD-06) which is fuzzed (SEC-08) and size-bounded. The App Group is private to our team's signed targets | `check_ios_share_extension.sh`, AUD-06 import tests | A large file fills storage until imported or cancelled |
 | T31 | A new model host or the 3B download is swapped for a malicious file | T | H | No new host; Ed25519 signed catalog, SHA-256 per file, https only, redirect hops re-checked, weights are data not code (see the model-integrity rows above) | `catalog_verifier_test.dart`, `ask01_catalog_test.dart`, `network_gateway_stream_test.dart` | As before |
 | T32 | A new privacy-relevant API or permission lands without disclosure (the F1 class) | I | M | `check_store_privacy.sh` now scans the app, the shared quick-capture code, the widget and the Share extension against the matching manifests; `check_egress.sh` rejects integration hosts and credential code; the privacy doc has a checklist row per flow | `test_store_privacy.py` `[SEC-11/AC4]`, `test_egress_guard.py` `[SEC-11/AC3]` | Required-reason APIs only reached through Swift packages we do not scan |
+| T33 | Live Activity shows recording state, or content, on the Lock Screen; or a push token / remote update lets a third party drive it | I, S | L | The activity carries only recording-or-paused and a timer start; static text, no recording-derived data; `pushType: nil`, no push entitlement or token, no network; no buttons or intents; a tap opens the Record screen only; ended on stop, interruption or call; `LiveActivityShared` is scanned by the egress, recording-policy and store-privacy checks | `[AUD-13/AC2–AC4]`, `check_egress.sh`, `check_store_privacy.py` | An observer of a locked phone sees that Lumen is recording and for how long (OS recording indicator). Device row SEC-11-D8 |
 
 ### Phase 2 findings
 The register above has no new High or Critical. F1 (undeclared System boot time) and the
