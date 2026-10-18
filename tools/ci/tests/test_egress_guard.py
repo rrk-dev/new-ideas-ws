@@ -178,3 +178,13 @@ def test_INT_W3_loopback_playback_exception_passes(tmp_path):
         "app/ios/Runner/Info.plist": plist,
     }))
     assert r.returncode == 0, r.stderr
+
+
+def test_SEC_11_AC3_integration_host_or_credential_code_fails(tmp_path):
+    """[SEC-11/AC3] a dropped integration host or OAuth plumbing is rejected."""
+    for body in ("const u = 'todoist';\n", "final h = 'Bearer abc';\n", "// todoist is dropped\n"):
+        r = _run(_repo(tmp_path, {"app/lib/features/x/x.dart": body}))
+        if body.startswith("//"):
+            assert r.returncode == 0, r.stderr
+        else:
+            assert r.returncode == 1 and "INTEGRATION" in r.stderr, r.stderr

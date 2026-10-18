@@ -188,6 +188,22 @@ def check_privacy_manifests(root: Path, errs: list[str]) -> None:
             if src.suffix in (".swift", ".m", ".mm"):
                 _scan_source(root, src, app_declared, plugin_dirs, errs)
 
+    # SEC-11: the extensions are separate bundles with their own manifest.
+    # QuickCaptureShared is compiled into Runner *and* LumenWidgets, so both
+    # must declare what it uses; ShareExtension has no manifest and must not
+    # use any required-reason API.
+    ios = root / "app/ios"
+    shared_targets = {
+        "app/ios/QuickCaptureShared/**/*": [app_declared, declared_by_dir.get(ios / "LumenWidgets", set())],
+        "app/ios/LumenWidgets/**/*": [declared_by_dir.get(ios / "LumenWidgets", set())],
+        "app/ios/ShareExtension/**/*": [declared_by_dir.get(ios / "ShareExtension", set())],
+    }
+    for pattern, declared_sets in shared_targets.items():
+        for src in _first_party(root, pattern):
+            if src.suffix in (".swift", ".m", ".mm"):
+                for declared in declared_sets:
+                    _scan_source(root, src, declared, {}, errs)
+
 
 def _scan_source(
     root: Path,
@@ -198,7 +214,11 @@ def _scan_source(
 ) -> None:
     if not src.is_file() or src.name.endswith(".g.swift"):
         return
-    text = src.read_text(errors="ignore")
+    # Comment-only lines (docs naming an API) are not API use.
+    text = "\n".join(
+        ln for ln in src.read_text(errors="ignore").splitlines()
+        if not ln.lstrip().startswith(("//", "*", "/*"))
+    )
     declared = set(app_declared)
     for d, cats in plugin_dirs.items():
         if d in src.parents:

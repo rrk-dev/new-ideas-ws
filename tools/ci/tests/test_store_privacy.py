@@ -152,3 +152,42 @@ def test_SEC_06_AC1_call_recording_claim_in_listing_fails(tmp_path, tag):
 def test_SEC_06_AC1_missing_policy_link_fails(tmp_path, tag):
     fails(run(tree(tmp_path, **{"app/lib/features/settings/presentation/settings_screen.dart": "x\n"})),
           "privacy-policy entry")
+
+
+BOOT = api("NSPrivacyAccessedAPICategorySystemBootTime", "35F9.1")
+UPTIME = "let t = ProcessInfo.processInfo.systemUptime\n"
+SEC11 = pytest.mark.parametrize("tag", ["SEC-11_AC4"])
+
+
+@SEC11
+def test_SEC_11_shared_code_declared_in_app_and_widget_passes(tmp_path, tag):
+    """[SEC-11/AC4] QuickCaptureShared is compiled into Runner and the widget."""
+    r = run(tree(tmp_path, **{
+        "app/ios/Runner/PrivacyInfo.xcprivacy": manifest(apis=DISK + BOOT),
+        "app/ios/LumenWidgets/PrivacyInfo.xcprivacy": manifest(apis=BOOT),
+        "app/ios/QuickCaptureShared/Store.swift": UPTIME,
+    }))
+    assert r.returncode == 0, r.stderr
+
+
+@SEC11
+def test_SEC_11_shared_code_undeclared_in_app_fails(tmp_path, tag):
+    fails(run(tree(tmp_path, **{
+        "app/ios/LumenWidgets/PrivacyInfo.xcprivacy": manifest(apis=BOOT),
+        "app/ios/QuickCaptureShared/Store.swift": UPTIME,
+    })), "NSPrivacyAccessedAPICategorySystemBootTime")
+
+
+@SEC11
+def test_SEC_11_shared_code_undeclared_in_widget_fails(tmp_path, tag):
+    fails(run(tree(tmp_path, **{
+        "app/ios/Runner/PrivacyInfo.xcprivacy": manifest(apis=DISK + BOOT),
+        "app/ios/QuickCaptureShared/Store.swift": UPTIME,
+    })), "NSPrivacyAccessedAPICategorySystemBootTime")
+
+
+@SEC11
+def test_SEC_11_share_extension_required_reason_api_fails(tmp_path, tag):
+    fails(run(tree(tmp_path, **{
+        "app/ios/ShareExtension/Share.swift": "let d = UserDefaults.standard\n",
+    })), "NSPrivacyAccessedAPICategoryUserDefaults")

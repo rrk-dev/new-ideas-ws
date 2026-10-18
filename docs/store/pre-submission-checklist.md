@@ -9,9 +9,11 @@ a device; the repository work for them is done.
 - [x] `tools/ci/check_recording_policy.sh --require-merged-manifest` — no call capture (SEC-09)
 - [x] `tools/ci/check_egress.sh` — no network outside the gateway (SEC-02)
 - [x] `tools/ci/check_packages.sh` — no analytics/ads/crash packages
+- [x] `tools/ci/check_egress.sh` also rejects integration hosts (Todoist, Notion, OpenAI and similar) and OAuth/credential code by name (SEC-11)
 
 ## iOS
-- [ ] ⏳ Archive → Generate Privacy Report; matches `docs/store/privacy-manifest.md`
+- [ ] ⏳ Archive → Generate Privacy Report; matches `docs/store/privacy-manifest.md` (includes the LumenWidgets and Share extension reports and the System boot time `35F9.1` entry, SEC-11)
+- [ ] ⏳ Reminders strings and App Group appear exactly as listed in `docs/test-plans/device/SEC-11.md` (SEC-11 sign-off row)
 - [ ] ⏳ App Privacy: **Data Not Collected** saved in App Store Connect
 - [ ] ⏳ Reviewer notes from `docs/store/reviewer-notes.md` pasted
 - [ ] ⏳ Privacy policy URL set (business-provided; the app also bundles the text)

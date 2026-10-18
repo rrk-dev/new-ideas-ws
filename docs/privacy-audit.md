@@ -27,7 +27,7 @@ How the promise "user content never leaves the device" is enforced and verified:
 | Allowlist | `kModelHosts` (our CDN + `huggingface.co`) + redirect-only `kModelRedirectHosts`; https only, no userinfo; every redirect hop checked before it is requested | `app/test/unit/network/network_gateway_stream_test.dart` (MDL-02), `egress_capture_test.dart` |
 | Offline mode | Settings → Privacy → **Offline mode** (`network_disabled`, also the MDM key): the gateway refuses every request before sending; model downloads stop | `egress_capture_test.dart` "offline mode: … zero requests" |
 | Transport | Android `network_security_config.xml`: `cleartextTrafficPermitted="false"`, system CAs only (user CAs only in `debug-overrides` for proxy capture), `usesCleartextTraffic="false"`. iOS ATS default with `NSAllowsArbitraryLoads=false` and no exception keys. Both checked by `check_egress.sh` | `test_egress_guard.py` |
-| Dependencies | `tools/ci/check_packages.sh` scans every runtime package (113 today) for network / telemetry code; packages with hits must be reviewed in `tools/ci/package_audit.json` | `tools/ci/tests/test_package_audit.py`, table below |
+| Dependencies | `tools/ci/check_packages.sh` scans every runtime package (125 on 2026-10-18) for network / telemetry code; packages with hits must be reviewed in `tools/ci/package_audit.json` | `tools/ci/tests/test_package_audit.py`, table below |
 | Transparency | Settings → Privacy → **Network activity**: every request (time, host, path, status, bytes; never headers, bodies or query strings), persisted in `vv/network/activity.jsonl` (500 entries, wiped by "Delete all data") | `app/test/unit/network/network_activity_test.dart`, `app/test/widget/network_activity_screen_test.dart` |
 | Store billing | StoreKit 2 / Play Billing run inside the OS frameworks, outside our client — the only network use not under the gateway (LIC-02) | — |
 
@@ -306,9 +306,9 @@ server or logged. Verification metadata persists in the encrypted settings DB.
 The Play console public RSA key is injected through build configuration;
 no key material is committed. SDK upgrades must repeat the exclusion audit.
 
-## TSK-01 Apple Reminders export (DRAFT, 2026-10-17; final in SEC-11)
+## TSK-01 Apple Reminders export (final, SEC-11, 2026-10-18)
 
-Decision: [ADR-TSK-01](adr/ADR-TSK-01-task-export.md) (Proposed). Nothing is implemented yet.
+Decision: [ADR-TSK-01](adr/ADR-TSK-01-task-export.md). Implemented by TSK-02; audited again in SEC-11.
 
 | Question | Answer |
 |---|---|
@@ -318,7 +318,76 @@ Decision: [ADR-TSK-01](adr/ADR-TSK-01-task-export.md) (Proposed). Nothing is imp
 | Permission | Reminders full read/write (iOS/macOS offer no write-only level for reminders — ADR E2); requested on first use. Items go into a dedicated "Lumen" Reminders list created by us (fallback: the default list). Targets: iOS, macOS, Android (no feature). Info.plist `NSRemindersFullAccessUsageDescription` + legacy `NSRemindersUsageDescription`; macOS sandbox entitlement `com.apple.security.personal-information.calendars` (reminder coverage unverified — D3 must PASS before macOS ships). |
 | iCloud / Exchange sync | If the user's Reminders list syncs, that is the user's own OS account setting, done by the OS outside our client. The UI must say so. Exported items then exist on the user's Apple servers, outside our control. |
 | Stored by us | Link table `reminder_exports` (hash key, EventKit item id, list id, timestamp) in the encrypted DB; deleted with the recording. |
-| Logging | Ids hashed only; never item text. |
+| Logging | Ids hashed only; never item text (`reminders_exporter_test.dart` `[TSK-02/AC5]`, `phase2_privacy_test.dart` `[SEC-11/AC5]` including a host failure). |
 | Android | No Apple Reminders; feature not offered. |
 | Third parties | None (Todoist, Apple Notes and others dropped by the user 2026-10-17). |
-| Verification pending | Device rows D1–D8 in `docs/test-plans/device/TSK-01.md` (egress capture D6). |
+| Verification pending | Device rows D1–D8 in `docs/test-plans/device/TSK-01.md` (egress capture D6); SEC-11 rows in `docs/test-plans/device/SEC-11.md`. |
+
+## Phase 2 data flows (SEC-11, audited 2026-10-18 against `main` at `bbe43e4`)
+
+Scope: everything Phase 2 landed on `main`. Live Activity (AUD-13) is **not merged**, so it is
+not audited here; row SEC-11-D8 re-opens it when it lands. The PRODUCT-DECISION notes on the
+Ask feature flag (`ask.enabled`, off by default) do not change the data flows: the code ships
+either way, so the audit treats it as on.
+
+| # | Flow | Data | Where it lives | Protection | Deletion path | Network | Control / proof |
+|---|---|---|---|---|---|---|---|
+| P1 | Templates, profiles, `.vvprofile` import | Template and profile text the user wrote or imported | Encrypted drift DB | Encrypted at rest (SEC-01); import is parsed as data, rendered through `markdown_sanitizer` | Delete all data; per-profile delete | None | `templates/` tests, `[SEC-01/…]` |
+| P2 | Llama 3.2 3B model (ASK-01) | A GGUF data file, no user content in the request | App storage, atomic install, backup-excluded like the other models (MDL-02) | Signed catalog (Ed25519), SHA-256 per file, https only | Settings → Models → delete | **No new host.** Same `kModelHosts` (our CDN + `huggingface.co/bartowski/…`, pinned revision) and redirect host `us.aws.cdn.hf.co` | `ask01_catalog_test.dart`, `egress_capture_test.dart` `[SEC-02/AC1]`; licence line in `docs/licenses.md` |
+| P3 | Ask your notes and chat history (ASK-03/04) | Question, answer text, citations (recording id + timestamp only, not text copies) | Encrypted drift DB, tables `ask_threads`, `ask_turns`, `ask_citations` (schema v3); retrieval reads the existing `search_index` | Encrypted at rest; never logged; shown as plain `Text` (no Markdown/HTML, no links); the model sees only retrieved passages, and citations are accepted only for retrieved passages | Per-chat delete, clear-all, 30-day expiry (`kAskHistoryExpiry`), `ask.save_history` off stores nothing, cascade with the recording (`RecordingPurger`, DB trigger removes a turn when a cited recording goes), Delete all data | None (on-device 3B only) | `ask_service_test.dart` `[ASK-03/AC5]`, `phase2_privacy_test.dart` `[SEC-11/AC5]`, `ask_db_test.dart` |
+| P4 | Mind maps (MAP-01/02) | Validated tree JSON (node labels from the transcript, timestamps) | Encrypted drift DB, table `mind_maps` (cascade on the recording); exported only as part of a note or `<note>.mindmap.md` the user writes to their vault | Encrypted at rest; labels are made inert for Markdown (`mindMapLabel`: no links, `<`, `{{`, `[[`); generator and step have no logger | With the recording; Delete all data | None | `mind_map_test.dart` `[MAP-01/AC7]`, `[SEC-11/AC5]` |
+| P5 | Reminders export (TSK-02) | Selected item text, optional owner, due date; link table with a hash key and EventKit id | On-device Reminders store (OS); link table in the encrypted DB | Explicit tap and selection; hashed ids in logs; reminders are only created, never read back beyond our linked ids | Link rows go with the recording; reminders themselves are the user's (OS) | None. iCloud sync of the list is the user's OS setting | see section above; device rows D1–D8 |
+| P6 | Quick capture: iOS widget and Control, Android widget, Quick Settings tile, shortcut (QCP-02/03) | One static entry name (`widget`, `control`, `tile`…) and a mode. **No recording-derived data.** iOS: `QuickCaptureStore` is in-memory only, one request, 10 s expiry, replay memory of 16; no App Group, defaults or file. Android: explicit intent with one static extra | Process memory only | Navigate-only: opens the Record screen, never starts a recording (the user still taps); intents are stripped after use (`submitFrom`) and ignored when restored from history | Nothing persisted | None. Widget and tile code contains no network, audio or file APIs | `quick_capture_artifacts_test.dart`, `quick_capture_handoff_test.dart`, `quick_capture_android_test.dart`, `[SEC-11/AC5]` source scan |
+| P7 | iOS Share extension (AUD-14) | An audio file the user shares | `group.<app id>/Inbox/Audio` inside the App Group; the app drains and deletes it on import (`docs/audio-import.md`) | App Group is private to our team's targets; no network, no microphone, no logging, no required-reason API | Removed after import or when the import is cancelled; the user cancels before any processing | None | `tools/ci/check_ios_share_extension.sh`, store-privacy scan of `ShareExtension`; D5 in `docs/test-plans/device/AUD-14.md` (Personal Team signing unverified) |
+| P8 | Live Activity (AUD-13) | — | — | — | — | — | Not merged; see device row SEC-11-D8 |
+
+### What the widget extension can read (P6, explicit)
+The extension target `LumenWidgets` compiles `QuickCaptureShared` and its own widget code.
+It has no App Group entitlement, no keychain group and no database access, so it can read
+**nothing** the app stores: no recording, title, transcript, summary, count, duration or
+chat. It can only show static text and launch the app. The `[SEC-11/AC5]` test scans the
+shared Swift, the widget Swift and the Android quick-capture Kotlin for transcript, summary,
+extraction, segment, title and similar identifiers, and for network, audio and file APIs.
+
+### Findings
+| # | Finding | Severity | Status |
+|---|---|---|---|
+| F1 | `QuickCaptureStore.swift` uses `ProcessInfo.systemUptime`, a required-reason API (System boot time, reason `35F9.1`). The Runner manifest did not declare it and the SEC-06 check scanned `Runner/` only, so neither caught it. App Store Connect flags such builds. | Medium (store rejection, no privacy impact) | **Fixed.** Declared in the Runner manifest and a new `LumenWidgets/PrivacyInfo.xcprivacy` (bundled; an unsigned build of the LumenWidgets target shows `LumenWidgets.appex/PrivacyInfo.xcprivacy`). The check now scans `QuickCaptureShared`, `LumenWidgets` and `ShareExtension`. The reason code was taken from Apple's published list via web search; confirm it in the Archive privacy report (row SEC-11-D1). |
+| F2 | `docs/licenses.md` still said no Llama model was distributed ("no Built with Llama product claim") after ASK-01 added the 3B model; the text template `tools/licenses/inventory-header.md` lacked the 3B wording, so regenerating the file would have reverted it. | Low (doc) | **Fixed** in both. |
+| F3 | The store docs listed neither the Reminders strings, `FOREGROUND_SERVICE_MEDIA_PROCESSING`, `USE_BIOMETRIC`, nor the Phase 2 surfaces. `check_packages.sh` count in this file was 113 (now 125). | Low (doc) | **Fixed.** |
+| F4 | `check_egress.sh` covered network APIs and hosts but not integration hosts or credential code by name. | Low | **Fixed**: it now rejects Todoist, Notion, Evernote, Asana, Trello, Microsoft Graph, Google APIs, iCloud web, OpenAI, Anthropic, `client_secret`, AppAuth, OAuth and `Bearer ` in first-party sources (`[SEC-11/AC3]`). |
+| F5 | Android `MainActivity` is exported (launcher, share, VIEW) and handles the `QUICK_CAPTURE` action, so another app can send that action. Effect: the Record screen opens. It cannot start a recording or carry data. | Info | Accepted; documented as T25. |
+| — | No third-party integration host or credential code found in `app/lib`, native sources, assets or manifests (grep and the new script rule). No dependency was added by Phase 2: `pubspec.yaml` has no dependency changes since SEC-02; the 125 runtime packages all pass `check_packages.sh`. | — | Verified |
+
+### Commands run (2026-10-18, worktree on `main` + this change)
+| Command | Result |
+|---|---|
+| `tools/ci/check_egress.sh` | OK |
+| `tools/ci/check_store_privacy.sh` | Failed before F1 was fixed (SystemBootTime use in `QuickCaptureStore.swift` was undeclared after the scan was extended), OK after |
+| `tools/ci/check_recording_policy.sh` | OK. `--require-merged-manifest` needs a built Android merged manifest; CI runs that variant after the Android build (not run locally) |
+| `tools/ci/check_ios_share_extension.sh` | OK |
+| `bash tools/ci/check_packages.sh` | OK, 125 runtime packages, 10 reviewed |
+| `flutter test test/unit/network test/unit/models` (egress proxy `[SEC-02/AC1]`, catalog hosts, 3B catalog) | 129 passed |
+| `flutter test test/unit/security/phase2_privacy_test.dart` `[SEC-11/AC5]` | 6 passed |
+| `pytest tools/ci/tests/test_store_privacy.py test_egress_guard.py` | passed |
+| `xcodebuild -target LumenWidgets` unsigned, Release-dev, iphoneos | Build succeeded; manifest present in the `.appex` |
+
+### Not verified here (needs a device, a Mac with a signing identity, or the owner)
+The egress proxy test runs on the host with fakes, so a real-device capture over Ask,
+Reminders export, the 3B download and the share/widget flows is still open (SEC-11-D2).
+See `docs/test-plans/device/SEC-11.md` for every row.
+
+### Signed checklist (Phase 2)
+Engineering sign-off is the date and command evidence above. Human sign-off is a row in
+`docs/test-plans/device/SEC-11.md`, ⏳ until done.
+
+| Flow | Audited (engineering) | Human sign-off |
+|---|---|---|
+| P1 Templates / profiles | ✅ 2026-10-18 | ⏳ SEC-11-D9 |
+| P2 3B model and host | ✅ 2026-10-18 | ⏳ SEC-11-D2, D9 |
+| P3 Ask and chat history | ✅ 2026-10-18 | ⏳ SEC-11-D9 |
+| P4 Mind maps | ✅ 2026-10-18 | ⏳ SEC-11-D9 |
+| P5 Reminders | ✅ 2026-10-18 | ⏳ SEC-11-D3, D9 |
+| P6 Quick capture | ✅ 2026-10-18 | ⏳ SEC-11-D4, D9 |
+| P7 Share extension | ✅ 2026-10-18 | ⏳ SEC-11-D5, D9 |
+| P8 Live Activity | n/a (not merged) | ⏳ SEC-11-D8 |

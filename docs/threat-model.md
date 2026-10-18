@@ -149,10 +149,10 @@ Internal runbook (owner: a person other than the implementer):
 - [ ] SEC-09 device rows (QA-04 calls) PASS.
 - [ ] No open High or Critical in the register.
 
-## TSK-01 Apple Reminders export (DRAFT, 2026-10-17; final in SEC-11)
+## TSK-01 Apple Reminders export (final, SEC-11, 2026-10-18)
 
 New data flow: user-selected action items → `EKEventStore` (on-device Reminders) via our own
-Pigeon plugin. Design: [ADR-TSK-01](adr/ADR-TSK-01-task-export.md) (Proposed, not implemented).
+Pigeon plugin. Design: [ADR-TSK-01](adr/ADR-TSK-01-task-export.md); implemented by TSK-02.
 Trust boundary added: app ↔ OS Reminders store (and the user's own iCloud/Exchange sync behind it).
 
 | # | Threat | STRIDE | Sev | Planned mitigation | Residual |
@@ -163,3 +163,40 @@ Trust boundary added: app ↔ OS Reminders store (and the user's own iCloud/Exch
 | T20 | Duplicate or silently re-created reminders after re-render/re-extraction | T, R | L | Stable export identity (ADR §6); no silent re-creation when the id is lost; create-only, never update/delete user reminders | Reworded re-extraction can be added again |
 | T21 | Reminder text appears in logs/crash reports | I | M | Content-free logging (`LogId`), no item text in `Failure` messages or diagnostics | — |
 | T22 | New permission/entitlement or network host sneaks in | I | M | ADR lists the only amendments; egress CI unchanged; privacy-audit row; SEC-11 re-check | — |
+
+### Proof for T17–T22 (SEC-11)
+| # | Control that proves it |
+|---|---|
+| T17 | `reminders_exporter_test.dart` (payload is the selected item only; per-item selection); UI notice (TSK-02); device row D6 egress capture |
+| T18 | Exporter reads back only linked ids (`reminders_exporter_test.dart`); permission asked on first export; the macOS entitlement is device row D3 |
+| T19 | `reminder_item_test.dart` (length cap, whitespace collapse, strict `due_iso` parse) |
+| T20 | `reminders_exporter_test.dart` `[TSK-02/AC6]` (re-render creates no duplicate) |
+| T21 | `[TSK-02/AC5]`, `[SEC-11/AC5]` in `phase2_privacy_test.dart` (counts only, host failure path included) |
+| T22 | `check_egress.sh` unchanged hosts; `check_store_privacy.sh` manifests; SEC-11 re-check (this section) |
+
+## Phase 2 threats (SEC-11, 2026-10-18)
+
+New surfaces: iOS widget and Control, Android widget, Quick Settings tile and shortcut,
+the iOS Share extension with its App Group, the on-device 3B model, Ask retrieval and chat
+history, mind maps. Trust boundaries added: launcher/system surfaces ↔ app, other apps ↔ our
+exported activity, the App Group inbox, model output ↔ UI and Markdown. Live Activity
+(AUD-13) is not merged and is not modelled; see device row SEC-11-D8.
+
+| # | Threat | STRIDE | Sev | Mitigation | Proof | Residual |
+|---|---|---|---|---|---|---|
+| T23 | Widget, Control, App Intent or tile spoofing or replay of a start request, so a recording starts without the user's tap | S, R | M | The request only navigates to the Record screen; recording still needs a tap in the app (SEC-09 rule). One pending request, 10 s monotonic expiry, replay memory of 16, intents stripped after use, history-restored intents ignored; the control intent is not discoverable | `quick_capture_handoff_test.dart`, `quick_capture_android_test.dart`, `quick_capture_artifacts_test.dart` `[QCP-02/AC4–AC6]` | A spoofed request opens the Record screen |
+| T24 | Another app invokes the quick-capture intent | S, E | L | Android widget receiver `exported=false`; tile service `exported=true` but needs `BIND_QUICK_SETTINGS_TILE` (system only); the static shortcut is ours. `MainActivity` is exported for launcher/share/VIEW, so an app can send the `QUICK_CAPTURE` action: the payload is a static enum, no data flows in or out, and it only opens the Record screen (F5). iOS: the `OpenRecordScreenIntent` is `isDiscoverable = false`; other apps cannot invoke it without the Shortcuts app and the user's consent | Android manifest scan in `quick_capture_android_test.dart`; `[SEC-11/AC5]` source scan | A foreground app can bring Lumen to the Record screen (nuisance only) |
+| T25 | Content leaks onto Lock Screen / Home Screen surfaces (widget, Control, tile) | I | M | Those surfaces show static text only. The widget extension has no App Group, keychain group or database access, so it cannot read recordings, titles, counts or chats. Control and tile launch the app, which then shows the app lock if enabled | `[SEC-11/AC5]` scan (no transcript, title, summary, segment, duration and similar identifiers; no file, network or audio APIs); `quick_capture_artifacts_test.dart` | None known. Device row SEC-11-D4 confirms what a locked device shows |
+| T26 | Prompt injection through a transcript into Ask answers (the recording says "ignore the above and …") | T, I | M | The model has no tools and no network; it sees only retrieved passages as data (`<passages>`); output is grammar-constrained JSON, citations are accepted only for retrieved passages and timestamps, a verifier drops unsupported claims; answers render as plain `Text` (no Markdown, HTML or links), so injected markup is inert | `ask_service_test.dart` `[ASK-03/AC2]`, `ask_verifier_test.dart`, `[SEC-11/AC5]` plain-text render check. Quality gates for ASK-03 AC1 are open (see its notes); Ask is behind `ask.enabled`, off by default | A wrong or misleading answer is possible (UI says "answers can be wrong — check the sources") |
+| T27 | Prompt injection into mind-map labels and their Markdown export | T | M | Output is schema-validated (`validateMindMap`: depth, count, length); labels must be grounded in the transcript; `mindMapLabel` neutralises links, images, `<`, `{{`, `[[` and bare URLs before the text reaches a note or `.mindmap.md`; the standalone file has no front-matter | `mind_map_test.dart`, `mind_map_markdown_test.dart` (MAP-02), `[SEC-11/AC5]` hostile label case | Misleading but inert text |
+| T28 | Retrieval returns another user's or profile's data on a shared device | I | M | There is **no multi-user or multi-profile concept** in Lumen: one local database per app install, encrypted, and the app lock (biometric or passcode) guards it. Ask retrieves only from that database (`search_index`), never from another app or location. Device sharing therefore relies on the OS user and the app lock. | `ask_db_test.dart`; app lock tests (SEC-03) | A person who can unlock the device and the app can read everything. Not mitigated by Ask |
+| T29 | Export of text the user did not select (Reminders, mind map, chat) | I | M | Reminders: only user-ticked items (TSK-02 `[AC1]`); mind map goes only where the user writes the note; chat history is never exported and has 30-day expiry, clear-all, per-chat delete, `ask.save_history` | `reminders_exporter_test.dart`, `ask_db_test.dart`, `ask_settings_test.dart` | iCloud sync of the user's Reminders list (T17) |
+| T30 | Hostile file shared into the iOS Share extension, or tampering with the App Group inbox | T, D | L | The extension only copies a file; no decode there. The app validates and decodes it only after the user's attestation, through the existing import path (AUD-06) which is fuzzed (SEC-08) and size-bounded. The App Group is private to our team's signed targets | `check_ios_share_extension.sh`, AUD-06 import tests | A large file fills storage until imported or cancelled |
+| T31 | A new model host or the 3B download is swapped for a malicious file | T | H | No new host; Ed25519 signed catalog, SHA-256 per file, https only, redirect hops re-checked, weights are data not code (see the model-integrity rows above) | `catalog_verifier_test.dart`, `ask01_catalog_test.dart`, `network_gateway_stream_test.dart` | As before |
+| T32 | A new privacy-relevant API or permission lands without disclosure (the F1 class) | I | M | `check_store_privacy.sh` now scans the app, the shared quick-capture code, the widget and the Share extension against the matching manifests; `check_egress.sh` rejects integration hosts and credential code; the privacy doc has a checklist row per flow | `test_store_privacy.py` `[SEC-11/AC4]`, `test_egress_guard.py` `[SEC-11/AC3]` | Required-reason APIs only reached through Swift packages we do not scan |
+
+### Phase 2 findings
+The register above has no new High or Critical. F1 (undeclared System boot time) and the
+other findings are listed in [privacy-audit.md](privacy-audit.md#findings) and are fixed.
+Phase 2 pre-launch items that need a human or a device are in
+[device/SEC-11.md](test-plans/device/SEC-11.md).
