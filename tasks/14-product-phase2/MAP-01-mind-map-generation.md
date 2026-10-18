@@ -24,3 +24,22 @@ Every processed recording can have a validated mind map (a bounded tree of short
 - Mind-map seconds, RAM and battery cost per tier are written into this file with the QA-03 protocol before the first run and measured on device (device row); GATE-05 checks against them.
 - Migration test from the previous schema version passes; deleting a recording, or expiring its transcript while keeping audio, removes its map (`[MAP-01/AC5]`).
 - No new network host and no map text in logs (`check_egress.sh`, log-content test).
+
+## Eval targets and cost budgets (written before the first baseline run)
+Mirrored in `tools/bench/eval/mindmap/scoring.json`. These are targets, not measurements; a miss is logged as a follow-up and the target is never lowered. Reference set: 36 synthetic cases (6 per built-in profile) reused from the PRF-09/TPL sets, with reference concept lists derived from each case's hand-written `expected.json` (`tools/bench/eval/mindmap/gen_cases.py`). Default model: Llama-3.2-1B-Instruct Q4_K_M, host CPU.
+
+| Metric (per option A / B / C) | Target |
+|---|---|
+| `schema_valid` (first pass; for A: the extraction the projection reads is valid) | ≥ 0.90 |
+| `label_grounding` (share of non-root labels with ≥ 50 % of their key terms in the transcript, measured on the raw output **before** the grounding filter) | ≥ 0.85 |
+| `concept_recall` (reference concepts matched by at least one node label) | ≥ 0.50 |
+| `limits_compliance` (stored trees: depth ≤ 3, nodes ≤ 40, label ≤ 60, unique ids, no orphans) | = 1.00 |
+| Option choice | highest `concept_recall` among the options that meet validity and grounding; ties go to the cheaper option |
+
+Cost budgets of the mind-map step for a 30-minute recording (QA-03 protocol, `docs/perf.md`; measured on device in `docs/test-plans/device/MAP-01.md`; GATE-05 checks against them). Same LLM as extraction, so no additional model residency:
+
+| Tier | Seconds (step) | Peak RAM over the extract step | Battery per 30 min recording |
+|---|---|---|---|
+| High | ≤ 30 | ≤ 0 MiB (same loaded model) | ≤ 1 % |
+| Mid | ≤ 60 | ≤ 0 MiB | ≤ 1.5 % |
+| Low | ≤ 120 | ≤ 0 MiB | ≤ 2 % |
