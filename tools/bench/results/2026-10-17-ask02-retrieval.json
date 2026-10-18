@@ -1,0 +1,2170 @@
+{
+ "date": "2026-10-17",
+ "host": "Darwin arm64, Python 3.11.0",
+ "commit": "1172655",
+ "library_recordings": 33,
+ "questions": 44,
+ "summary": {
+  "overall": {
+   "n": 36,
+   "seg_recall@1": 0.2824074074074074,
+   "seg_recall@3": 0.4861111111111111,
+   "seg_recall@5": 0.5925925925925927,
+   "seg_recall@10": 0.8055555555555556,
+   "rec_recall@5": 0.9166666666666666,
+   "mrr": 0.4740740740740741,
+   "answer_support_rate": 0.5,
+   "wrongly_abstained": 0.2222222222222222
+  },
+  "by_type": {
+   "exact": {
+    "n": 12,
+    "seg_recall@1": 0.3333333333333333,
+    "seg_recall@3": 0.5833333333333334,
+    "seg_recall@5": 0.75,
+    "seg_recall@10": 0.9166666666666666,
+    "rec_recall@5": 1.0,
+    "mrr": 0.49027777777777776,
+    "answer_support_rate": 0.75,
+    "wrongly_abstained": 0.0
+   },
+   "paraphrase": {
+    "n": 10,
+    "seg_recall@1": 0.2,
+    "seg_recall@3": 0.2,
+    "seg_recall@5": 0.3,
+    "seg_recall@10": 0.7,
+    "rec_recall@5": 1.0,
+    "mrr": 0.27666666666666667,
+    "answer_support_rate": 0.1,
+    "wrongly_abstained": 0.4
+   },
+   "multi": {
+    "n": 8,
+    "seg_recall@1": 0.2708333333333333,
+    "seg_recall@3": 0.6875,
+    "seg_recall@5": 0.7916666666666667,
+    "seg_recall@10": 0.875,
+    "rec_recall@5": 0.9375,
+    "mrr": 0.71875,
+    "answer_support_rate": 0.75,
+    "wrongly_abstained": 0.125
+   },
+   "date": {
+    "n": 6,
+    "seg_recall@1": 0.3333333333333333,
+    "seg_recall@3": 0.5,
+    "seg_recall@5": 0.5,
+    "seg_recall@10": 0.6666666666666666,
+    "rec_recall@5": 0.5833333333333334,
+    "mrr": 0.4444444444444444,
+    "answer_support_rate": 0.3333333333333333,
+    "wrongly_abstained": 0.5
+   }
+  },
+  "unanswerable": {
+   "n": 8,
+   "correct_abstention_rate": 0.625,
+   "false_answer_rate": 0.375,
+   "false_answers": [
+    "U01",
+    "U02",
+    "U04"
+   ]
+  }
+ },
+ "per_question": [
+  {
+   "id": "E01",
+   "type": "exact",
+   "q": "What is the serial number of the Fabrikum dishwasher?",
+   "stems": [
+    "serial",
+    "number",
+    "fabrikum",
+    "dishwasher"
+   ],
+   "date_range": null,
+   "support_fraction": 0.5,
+   "answers": true,
+   "top": [
+    {
+     "rec": "warranty-001",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "warranty-002",
+     "kind": "transcript",
+     "t": "00:00:09"
+    },
+    {
+     "rec": "warranty-003",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "warranty-001",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "warranty-001",
+     "kind": "transcript",
+     "t": "00:00:04"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.2,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "E02",
+   "type": "exact",
+   "q": "Which store sold me the Litware headphones?",
+   "stems": [
+    "store",
+    "sold",
+    "litware",
+    "headphon"
+   ],
+   "date_range": null,
+   "support_fraction": 0.5,
+   "answers": true,
+   "top": [
+    {
+     "rec": "warranty-004",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "warranty-004",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "warranty-004",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "warranty-004",
+     "kind": "transcript",
+     "t": "00:00:10"
+    },
+    {
+     "rec": "warranty-003",
+     "kind": "transcript",
+     "t": "00:00:11"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 0.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.16666666666666666,
+   "supported": false,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "E03",
+   "type": "exact",
+   "q": "What is the support line number for the laptop charger?",
+   "stems": [
+    "support",
+    "line",
+    "number",
+    "laptop",
+    "charger"
+   ],
+   "date_range": null,
+   "support_fraction": 0.6,
+   "answers": true,
+   "top": [
+    {
+     "rec": "warranty-003",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "warranty-003",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "warranty-003",
+     "kind": "transcript",
+     "t": "00:00:16"
+    },
+    {
+     "rec": "warranty-003",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "sales_call-005",
+     "kind": "title",
+     "t": null
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.3333333333333333,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "E04",
+   "type": "exact",
+   "q": "When is the beta of the sync client shipping?",
+   "stems": [
+    "beta",
+    "sync",
+    "client",
+    "shipp"
+   ],
+   "date_range": null,
+   "support_fraction": 0.75,
+   "answers": true,
+   "top": [
+    {
+     "rec": "meeting-001",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "meeting-001",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "meeting-001",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "meeting-001",
+     "kind": "transcript",
+     "t": "00:00:07"
+    },
+    {
+     "rec": "sales_call-005",
+     "kind": "transcript",
+     "t": "00:00:17"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.25,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "E05",
+   "type": "exact",
+   "q": "Why does Dijkstra fail with negative edge weights?",
+   "stems": [
+    "dijkstra",
+    "fail",
+    "negative",
+    "edge",
+    "weight"
+   ],
+   "date_range": null,
+   "support_fraction": 1.0,
+   "answers": true,
+   "top": [
+    {
+     "rec": "lecture-001",
+     "kind": "transcript",
+     "t": "00:00:37"
+    },
+    {
+     "rec": "lecture-001",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "interview-004",
+     "kind": "transcript",
+     "t": "00:01:23"
+    },
+    {
+     "rec": "interview-003",
+     "kind": "transcript",
+     "t": "00:00:23"
+    },
+    {
+     "rec": "interview-001",
+     "kind": "transcript",
+     "t": "00:00:12"
+    }
+   ],
+   "seg_recall@1": 1.0,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 1.0,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "E06",
+   "type": "exact",
+   "q": "What is the definition of chlorophyll?",
+   "stems": [
+    "definition",
+    "chlorophyll"
+   ],
+   "date_range": null,
+   "support_fraction": 0.5,
+   "answers": true,
+   "top": [
+    {
+     "rec": "lecture-002",
+     "kind": "transcript",
+     "t": "00:00:13"
+    },
+    {
+     "rec": "lecture-002",
+     "kind": "extraction",
+     "t": null
+    }
+   ],
+   "seg_recall@1": 1.0,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 1.0,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "E07",
+   "type": "exact",
+   "q": "Where in the cell do the Calvin cycle reactions take place?",
+   "stems": [
+    "cell",
+    "calvin",
+    "cycle",
+    "reaction",
+    "take",
+    "place"
+   ],
+   "date_range": null,
+   "support_fraction": 0.833,
+   "answers": true,
+   "top": [
+    {
+     "rec": "lecture-002",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "lecture-002",
+     "kind": "transcript",
+     "t": "00:00:26"
+    },
+    {
+     "rec": "lecture-002",
+     "kind": "transcript",
+     "t": "00:00:36"
+    },
+    {
+     "rec": "lecture-002",
+     "kind": "transcript",
+     "t": "00:00:13"
+    },
+    {
+     "rec": "meeting-004",
+     "kind": "transcript",
+     "t": "00:00:06"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.3333333333333333,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "E08",
+   "type": "exact",
+   "q": "What happened in 49 BC?",
+   "stems": [
+    "happen",
+    "49",
+    "bc"
+   ],
+   "date_range": null,
+   "support_fraction": 0.667,
+   "answers": true,
+   "top": [
+    {
+     "rec": "lecture-004",
+     "kind": "transcript",
+     "t": "00:00:39"
+    },
+    {
+     "rec": "lecture-002",
+     "kind": "transcript",
+     "t": "00:00:26"
+    },
+    {
+     "rec": "lecture-003",
+     "kind": "transcript",
+     "t": "00:00:39"
+    },
+    {
+     "rec": "lecture-004",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "lecture-002",
+     "kind": "extraction",
+     "t": null
+    }
+   ],
+   "seg_recall@1": 1.0,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 1.0,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "E09",
+   "type": "exact",
+   "q": "Which competitor is Wingtip Logistics also looking at?",
+   "stems": [
+    "competitor",
+    "wingtip",
+    "logistic",
+    "look"
+   ],
+   "date_range": null,
+   "support_fraction": 0.5,
+   "answers": true,
+   "top": [
+    {
+     "rec": "sales_call-002",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "sales_call-002",
+     "kind": "transcript",
+     "t": "00:00:04"
+    },
+    {
+     "rec": "sales_call-002",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "warranty-003",
+     "kind": "transcript",
+     "t": "00:00:11"
+    },
+    {
+     "rec": "meeting-003",
+     "kind": "transcript",
+     "t": "00:00:11"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 0.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.1,
+   "supported": false,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "E10",
+   "type": "exact",
+   "q": "What did Hugo ask about currencies?",
+   "stems": [
+    "hugo",
+    "ask",
+    "currenci"
+   ],
+   "date_range": null,
+   "support_fraction": 0.667,
+   "answers": true,
+   "top": [
+    {
+     "rec": "sales_call-005",
+     "kind": "transcript",
+     "t": "00:00:51"
+    },
+    {
+     "rec": "interview-004",
+     "kind": "transcript",
+     "t": "00:00:32"
+    },
+    {
+     "rec": "sales_call-005",
+     "kind": "transcript",
+     "t": "00:00:04"
+    },
+    {
+     "rec": "interview-005",
+     "kind": "transcript",
+     "t": "00:00:21"
+    },
+    {
+     "rec": "interview-004",
+     "kind": "transcript",
+     "t": "00:00:15"
+    }
+   ],
+   "seg_recall@1": 1.0,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 1.0,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "E11",
+   "type": "exact",
+   "q": "What did Chloe say about the project that failed?",
+   "stems": [
+    "chloe",
+    "project",
+    "fail"
+   ],
+   "date_range": null,
+   "support_fraction": 1.0,
+   "answers": true,
+   "top": [
+    {
+     "rec": "interview-005",
+     "kind": "transcript",
+     "t": "00:00:18"
+    },
+    {
+     "rec": "interview-004",
+     "kind": "transcript",
+     "t": "00:00:29"
+    },
+    {
+     "rec": "interview-004",
+     "kind": "transcript",
+     "t": "00:01:23"
+    },
+    {
+     "rec": "interview-004",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "interview-003",
+     "kind": "transcript",
+     "t": "00:00:23"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 0.0,
+   "seg_recall@10": 0.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.0,
+   "supported": false,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "E12",
+   "type": "exact",
+   "q": "Which endpoint returns the current user?",
+   "stems": [
+    "endpoint",
+    "return",
+    "current",
+    "user"
+   ],
+   "date_range": null,
+   "support_fraction": 0.75,
+   "answers": true,
+   "top": [
+    {
+     "rec": "engineering-002",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "engineering-002",
+     "kind": "transcript",
+     "t": "00:00:11"
+    },
+    {
+     "rec": "engineering-002",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "engineering-002",
+     "kind": "transcript",
+     "t": "00:00:14"
+    },
+    {
+     "rec": "engineering-002",
+     "kind": "transcript",
+     "t": "00:00:03"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.5,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "P01",
+   "type": "paraphrase",
+   "q": "How much did I pay for my coffee mill?",
+   "stems": [
+    "pay",
+    "coffee",
+    "mill"
+   ],
+   "date_range": null,
+   "support_fraction": 0.333,
+   "answers": false,
+   "top": [
+    {
+     "rec": "warranty-002",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "warranty-006",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "interview-003",
+     "kind": "transcript",
+     "t": "00:00:09"
+    },
+    {
+     "rec": "meeting-002",
+     "kind": "transcript",
+     "t": "00:00:04"
+    },
+    {
+     "rec": "warranty-006",
+     "kind": "extraction",
+     "t": null
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 0.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.125,
+   "supported": false,
+   "abstained_wrongly": true
+  },
+  {
+   "id": "P02",
+   "type": "paraphrase",
+   "q": "How long is the guarantee on my washing machine?",
+   "stems": [
+    "guarantee",
+    "wash",
+    "machine"
+   ],
+   "date_range": null,
+   "support_fraction": 0.667,
+   "answers": true,
+   "top": [
+    {
+     "rec": "warranty-005",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "warranty-005",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "warranty-005",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "sales_call-001",
+     "kind": "transcript",
+     "t": "00:00:44"
+    },
+    {
+     "rec": "sales_call-001",
+     "kind": "extraction",
+     "t": null
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 0.0,
+   "seg_recall@10": 0.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.0,
+   "supported": false,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "P03",
+   "type": "paraphrase",
+   "q": "What was agreed about moving the product release?",
+   "stems": [
+    "agre",
+    "mov",
+    "product",
+    "release"
+   ],
+   "date_range": null,
+   "support_fraction": 0.5,
+   "answers": true,
+   "top": [
+    {
+     "rec": "meeting-005",
+     "kind": "transcript",
+     "t": "00:00:08"
+    },
+    {
+     "rec": "meeting-005",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "meeting-006",
+     "kind": "transcript",
+     "t": "00:00:25"
+    },
+    {
+     "rec": "meeting-001",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "meeting-005",
+     "kind": "title",
+     "t": null
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 0.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.125,
+   "supported": false,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "P04",
+   "type": "paraphrase",
+   "q": "Who is covering the onboarding guide while Nadia is away?",
+   "stems": [
+    "cover",
+    "onboard",
+    "guide",
+    "while",
+    "nadia",
+    "away"
+   ],
+   "date_range": null,
+   "support_fraction": 0.5,
+   "answers": true,
+   "top": [
+    {
+     "rec": "meeting-004",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "meeting-004",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "meeting-004",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "meeting-004",
+     "kind": "transcript",
+     "t": "00:00:06"
+    },
+    {
+     "rec": "interview-003",
+     "kind": "transcript",
+     "t": "00:00:12"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 0.0,
+   "seg_recall@10": 0.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.0,
+   "supported": false,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "P05",
+   "type": "paraphrase",
+   "q": "What are the pros of using plain files instead of a database on mobile?",
+   "stems": [
+    "pro",
+    "using",
+    "plain",
+    "fil",
+    "instead",
+    "database",
+    "mobile"
+   ],
+   "date_range": null,
+   "support_fraction": 0.571,
+   "answers": true,
+   "top": [
+    {
+     "rec": "engineering-004",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "engineering-004",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "engineering-005",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "engineering-004",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "engineering-004",
+     "kind": "transcript",
+     "t": "00:00:04"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 0.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.16666666666666666,
+   "supported": false,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "P06",
+   "type": "paraphrase",
+   "q": "What did the team conclude about microservices?",
+   "stems": [
+    "team",
+    "conclude",
+    "microservic"
+   ],
+   "date_range": null,
+   "support_fraction": 0.667,
+   "answers": true,
+   "top": [
+    {
+     "rec": "engineering-006",
+     "kind": "transcript",
+     "t": "00:00:04"
+    },
+    {
+     "rec": "engineering-006",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "engineering-006",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "engineering-006",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "interview-004",
+     "kind": "transcript",
+     "t": "00:00:44"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 0.0,
+   "seg_recall@10": 0.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.0,
+   "supported": false,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "P07",
+   "type": "paraphrase",
+   "q": "What assignments do students have in economics?",
+   "stems": [
+    "assignment",
+    "student",
+    "economic"
+   ],
+   "date_range": null,
+   "support_fraction": 0.333,
+   "answers": false,
+   "top": [
+    {
+     "rec": "lecture-003",
+     "kind": "transcript",
+     "t": "00:00:52"
+    },
+    {
+     "rec": "lecture-003",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "lecture-001",
+     "kind": "transcript",
+     "t": "00:00:52"
+    },
+    {
+     "rec": "lecture-004",
+     "kind": "transcript",
+     "t": "00:00:49"
+    }
+   ],
+   "seg_recall@1": 1.0,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 1.0,
+   "supported": false,
+   "abstained_wrongly": true
+  },
+  {
+   "id": "P08",
+   "type": "paraphrase",
+   "q": "What worries did the Proseware Retail team have about security?",
+   "stems": [
+    "worri",
+    "proseware",
+    "retail",
+    "team",
+    "security"
+   ],
+   "date_range": null,
+   "support_fraction": 0.4,
+   "answers": false,
+   "top": [
+    {
+     "rec": "sales_call-001",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "sales_call-004",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "sales_call-005",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "sales_call-004",
+     "kind": "transcript",
+     "t": "00:00:38"
+    },
+    {
+     "rec": "sales_call-004",
+     "kind": "transcript",
+     "t": "00:00:12"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.25,
+   "supported": false,
+   "abstained_wrongly": true
+  },
+  {
+   "id": "P09",
+   "type": "paraphrase",
+   "q": "Why does the architect say small errors matter?",
+   "stems": [
+    "architect",
+    "small",
+    "error",
+    "matter"
+   ],
+   "date_range": null,
+   "support_fraction": 1.0,
+   "answers": true,
+   "top": [
+    {
+     "rec": "interview-001",
+     "kind": "transcript",
+     "t": "00:00:21"
+    },
+    {
+     "rec": "interview-001",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "meeting-006",
+     "kind": "transcript",
+     "t": "00:00:14"
+    },
+    {
+     "rec": "interview-001",
+     "kind": "transcript",
+     "t": "00:00:04"
+    },
+    {
+     "rec": "interview-003",
+     "kind": "transcript",
+     "t": "00:00:12"
+    }
+   ],
+   "seg_recall@1": 1.0,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 1.0,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "P10",
+   "type": "paraphrase",
+   "q": "How was the question about when a pilot could begin answered?",
+   "stems": [
+    "question",
+    "pilot",
+    "begin",
+    "answer"
+   ],
+   "date_range": null,
+   "support_fraction": 0.25,
+   "answers": false,
+   "top": [
+    {
+     "rec": "interview-004",
+     "kind": "transcript",
+     "t": "00:00:44"
+    },
+    {
+     "rec": "sales_call-003",
+     "kind": "transcript",
+     "t": "00:00:28"
+    },
+    {
+     "rec": "sales_call-002",
+     "kind": "transcript",
+     "t": "00:00:42"
+    },
+    {
+     "rec": "sales_call-005",
+     "kind": "transcript",
+     "t": "00:00:36"
+    },
+    {
+     "rec": "interview-002",
+     "kind": "transcript",
+     "t": "00:00:04"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 0.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.1,
+   "supported": false,
+   "abstained_wrongly": true
+  },
+  {
+   "id": "M01",
+   "type": "multi",
+   "q": "What advice did my interviewees give to people just starting out?",
+   "stems": [
+    "advice",
+    "interviewe",
+    "give",
+    "people",
+    "start"
+   ],
+   "date_range": null,
+   "support_fraction": 0.8,
+   "answers": true,
+   "top": [
+    {
+     "rec": "interview-003",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "engineering-004",
+     "kind": "transcript",
+     "t": "00:00:04"
+    },
+    {
+     "rec": "interview-001",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "engineering-006",
+     "kind": "transcript",
+     "t": "00:00:11"
+    },
+    {
+     "rec": "interview-002",
+     "kind": "extraction",
+     "t": null
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 0.0,
+   "seg_recall@10": 0.0,
+   "rec_recall@5": 0.5,
+   "rr": 0.0,
+   "supported": false,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "M02",
+   "type": "multi",
+   "q": "Which products have a two year warranty?",
+   "stems": [
+    "product",
+    "two",
+    "year",
+    "warranty"
+   ],
+   "date_range": null,
+   "support_fraction": 0.75,
+   "answers": true,
+   "top": [
+    {
+     "rec": "warranty-001",
+     "kind": "transcript",
+     "t": "00:00:15"
+    },
+    {
+     "rec": "warranty-004",
+     "kind": "transcript",
+     "t": "00:00:10"
+    },
+    {
+     "rec": "warranty-002",
+     "kind": "transcript",
+     "t": "00:00:09"
+    },
+    {
+     "rec": "warranty-005",
+     "kind": "transcript",
+     "t": "00:00:08"
+    },
+    {
+     "rec": "warranty-006",
+     "kind": "transcript",
+     "t": "00:00:07"
+    }
+   ],
+   "seg_recall@1": 0.5,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 1.0,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "M03",
+   "type": "multi",
+   "q": "What did I decide about the launch date and the beta date?",
+   "stems": [
+    "decide",
+    "launch",
+    "date",
+    "beta"
+   ],
+   "date_range": null,
+   "support_fraction": 0.5,
+   "answers": true,
+   "top": [
+    {
+     "rec": "meeting-001",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "meeting-001",
+     "kind": "transcript",
+     "t": "00:00:07"
+    },
+    {
+     "rec": "meeting-005",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "meeting-005",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "meeting-001",
+     "kind": "transcript",
+     "t": "00:00:00"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.5,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.5,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "M04",
+   "type": "multi",
+   "q": "Who promised to send customer references?",
+   "stems": [
+    "promis",
+    "send",
+    "customer",
+    "referenc"
+   ],
+   "date_range": null,
+   "support_fraction": 0.75,
+   "answers": true,
+   "top": [
+    {
+     "rec": "sales_call-002",
+     "kind": "transcript",
+     "t": "00:01:01"
+    },
+    {
+     "rec": "sales_call-001",
+     "kind": "transcript",
+     "t": "00:00:53"
+    },
+    {
+     "rec": "sales_call-005",
+     "kind": "transcript",
+     "t": "00:00:41"
+    },
+    {
+     "rec": "meeting-006",
+     "kind": "transcript",
+     "t": "00:00:28"
+    },
+    {
+     "rec": "sales_call-002",
+     "kind": "extraction",
+     "t": null
+    }
+   ],
+   "seg_recall@1": 0.5,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 1.0,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "M05",
+   "type": "multi",
+   "q": "Which sales calls involved Proseware Retail?",
+   "stems": [
+    "sal",
+    "call",
+    "involv",
+    "proseware",
+    "retail"
+   ],
+   "date_range": null,
+   "support_fraction": 0.4,
+   "answers": false,
+   "top": [
+    {
+     "rec": "sales_call-001",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "sales_call-004",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "sales_call-005",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "sales_call-004",
+     "kind": "transcript",
+     "t": "00:00:12"
+    },
+    {
+     "rec": "sales_call-004",
+     "kind": "transcript",
+     "t": "00:00:08"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 0.3333333333333333,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.25,
+   "supported": false,
+   "abstained_wrongly": true
+  },
+  {
+   "id": "M06",
+   "type": "multi",
+   "q": "Who said the reports are not detailed enough?",
+   "stems": [
+    "report",
+    "detail",
+    "enough"
+   ],
+   "date_range": null,
+   "support_fraction": 1.0,
+   "answers": true,
+   "top": [
+    {
+     "rec": "sales_call-004",
+     "kind": "transcript",
+     "t": "00:00:46"
+    },
+    {
+     "rec": "sales_call-002",
+     "kind": "transcript",
+     "t": "00:00:25"
+    },
+    {
+     "rec": "sales_call-001",
+     "kind": "transcript",
+     "t": "00:00:36"
+    },
+    {
+     "rec": "sales_call-002",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "sales_call-004",
+     "kind": "extraction",
+     "t": null
+    }
+   ],
+   "seg_recall@1": 0.3333333333333333,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 1.0,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "M07",
+   "type": "multi",
+   "q": "Which lectures assigned reading?",
+   "stems": [
+    "lectur",
+    "assign",
+    "read"
+   ],
+   "date_range": null,
+   "support_fraction": 0.667,
+   "answers": true,
+   "top": [
+    {
+     "rec": "lecture-004",
+     "kind": "transcript",
+     "t": "00:01:02"
+    },
+    {
+     "rec": "lecture-003",
+     "kind": "transcript",
+     "t": "00:00:52"
+    },
+    {
+     "rec": "lecture-001",
+     "kind": "transcript",
+     "t": "00:00:52"
+    },
+    {
+     "rec": "sales_call-003",
+     "kind": "transcript",
+     "t": "00:00:31"
+    },
+    {
+     "rec": "sales_call-002",
+     "kind": "transcript",
+     "t": "00:00:33"
+    }
+   ],
+   "seg_recall@1": 0.3333333333333333,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 1.0,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "M08",
+   "type": "multi",
+   "q": "In which calls did someone confirm the budget with finance?",
+   "stems": [
+    "call",
+    "someone",
+    "confirm",
+    "budget",
+    "finance"
+   ],
+   "date_range": null,
+   "support_fraction": 0.6,
+   "answers": true,
+   "top": [
+    {
+     "rec": "sales_call-003",
+     "kind": "transcript",
+     "t": "00:00:39"
+    },
+    {
+     "rec": "sales_call-001",
+     "kind": "transcript",
+     "t": "00:00:58"
+    },
+    {
+     "rec": "meeting-006",
+     "kind": "transcript",
+     "t": "00:00:17"
+    },
+    {
+     "rec": "meeting-005",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "sales_call-003",
+     "kind": "extraction",
+     "t": null
+    }
+   ],
+   "seg_recall@1": 0.5,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 1.0,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "D01",
+   "type": "date",
+   "q": "What did I record about warranties last week?",
+   "stems": [
+    "record",
+    "warranti"
+   ],
+   "date_range": [
+    "2026-03-23",
+    "2026-03-29"
+   ],
+   "support_fraction": 0.5,
+   "answers": true,
+   "top": [
+    {
+     "rec": "warranty-004",
+     "kind": "transcript",
+     "t": "00:00:00"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 0.0,
+   "seg_recall@10": 0.0,
+   "rec_recall@5": 0.5,
+   "rr": 0.0,
+   "supported": false,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "D02",
+   "type": "date",
+   "q": "What decision came out of my engineering discussions last week?",
+   "stems": [
+    "decision",
+    "engineer",
+    "discussion"
+   ],
+   "date_range": [
+    "2026-03-23",
+    "2026-03-29"
+   ],
+   "support_fraction": 0.333,
+   "answers": false,
+   "top": [
+    {
+     "rec": "sales_call-003",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "sales_call-004",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "meeting-006",
+     "kind": "transcript",
+     "t": "00:00:04"
+    },
+    {
+     "rec": "interview-004",
+     "kind": "transcript",
+     "t": "00:01:08"
+    },
+    {
+     "rec": "sales_call-003",
+     "kind": "transcript",
+     "t": "00:00:31"
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 0.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 0.0,
+   "rr": 0.16666666666666666,
+   "supported": false,
+   "abstained_wrongly": true
+  },
+  {
+   "id": "D03",
+   "type": "date",
+   "q": "What did the lecture on Friday cover?",
+   "stems": [
+    "lecture",
+    "cover"
+   ],
+   "date_range": [
+    "2026-03-27",
+    "2026-03-27"
+   ],
+   "support_fraction": 0.0,
+   "answers": false,
+   "top": [],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 0.0,
+   "seg_recall@5": 0.0,
+   "seg_recall@10": 0.0,
+   "rec_recall@5": 0.0,
+   "rr": 0.0,
+   "supported": false,
+   "abstained_wrongly": true
+  },
+  {
+   "id": "D04",
+   "type": "date",
+   "q": "What security concerns came up in yesterday's call?",
+   "stems": [
+    "security",
+    "concern",
+    "call"
+   ],
+   "date_range": [
+    "2026-03-29",
+    "2026-03-29"
+   ],
+   "support_fraction": 0.333,
+   "answers": false,
+   "top": [
+    {
+     "rec": "sales_call-004",
+     "kind": "transcript",
+     "t": "00:00:42"
+    },
+    {
+     "rec": "sales_call-004",
+     "kind": "transcript",
+     "t": "00:00:38"
+    },
+    {
+     "rec": "sales_call-004",
+     "kind": "extraction",
+     "t": null
+    }
+   ],
+   "seg_recall@1": 0.0,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 0.5,
+   "supported": false,
+   "abstained_wrongly": true
+  },
+  {
+   "id": "D05",
+   "type": "date",
+   "q": "What appliance did I log in February?",
+   "stems": [
+    "appliance",
+    "log"
+   ],
+   "date_range": [
+    "2026-02-01",
+    "2026-02-28"
+   ],
+   "support_fraction": 0.5,
+   "answers": true,
+   "top": [
+    {
+     "rec": "warranty-001",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "interview-001",
+     "kind": "transcript",
+     "t": "00:00:30"
+    },
+    {
+     "rec": "interview-001",
+     "kind": "extraction",
+     "t": null
+    }
+   ],
+   "seg_recall@1": 1.0,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 1.0,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "D06",
+   "type": "date",
+   "q": "What did the interviews last week say about spreadsheets?",
+   "stems": [
+    "interview",
+    "spreadsheet"
+   ],
+   "date_range": [
+    "2026-03-23",
+    "2026-03-29"
+   ],
+   "support_fraction": 1.0,
+   "answers": true,
+   "top": [
+    {
+     "rec": "interview-004",
+     "kind": "transcript",
+     "t": "00:00:59"
+    },
+    {
+     "rec": "interview-003",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "interview-004",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "interview-004",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "interview-003",
+     "kind": "extraction",
+     "t": null
+    }
+   ],
+   "seg_recall@1": 1.0,
+   "seg_recall@3": 1.0,
+   "seg_recall@5": 1.0,
+   "seg_recall@10": 1.0,
+   "rec_recall@5": 1.0,
+   "rr": 1.0,
+   "supported": true,
+   "abstained_wrongly": false
+  },
+  {
+   "id": "U01",
+   "type": "unanswerable",
+   "q": "What is the serial number of my television?",
+   "stems": [
+    "serial",
+    "number",
+    "television"
+   ],
+   "date_range": null,
+   "support_fraction": 0.667,
+   "answers": true,
+   "top": [
+    {
+     "rec": "warranty-002",
+     "kind": "transcript",
+     "t": "00:00:09"
+    },
+    {
+     "rec": "warranty-003",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "warranty-001",
+     "kind": "transcript",
+     "t": "00:00:04"
+    },
+    {
+     "rec": "interview-003",
+     "kind": "transcript",
+     "t": "00:00:31"
+    },
+    {
+     "rec": "meeting-006",
+     "kind": "transcript",
+     "t": "00:00:36"
+    }
+   ],
+   "correct_abstention": false
+  },
+  {
+   "id": "U02",
+   "type": "unanswerable",
+   "q": "Who approved the vendor contract?",
+   "stems": [
+    "approv",
+    "vendor",
+    "contract"
+   ],
+   "date_range": null,
+   "support_fraction": 0.667,
+   "answers": true,
+   "top": [
+    {
+     "rec": "meeting-003",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "meeting-003",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "meeting-003",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "sales_call-004",
+     "kind": "transcript",
+     "t": "00:00:38"
+    },
+    {
+     "rec": "interview-003",
+     "kind": "transcript",
+     "t": "00:00:31"
+    }
+   ],
+   "correct_abstention": false
+  },
+  {
+   "id": "U03",
+   "type": "unanswerable",
+   "q": "What was the Q3 revenue target?",
+   "stems": [
+    "q3",
+    "revenue",
+    "target"
+   ],
+   "date_range": null,
+   "support_fraction": 0.0,
+   "answers": false,
+   "top": [],
+   "correct_abstention": true
+  },
+  {
+   "id": "U04",
+   "type": "unanswerable",
+   "q": "What did Priya say about the Fabrikum dishwasher?",
+   "stems": [
+    "priya",
+    "fabrikum",
+    "dishwasher"
+   ],
+   "date_range": null,
+   "support_fraction": 0.667,
+   "answers": true,
+   "top": [
+    {
+     "rec": "warranty-001",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "warranty-001",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "warranty-001",
+     "kind": "extraction",
+     "t": null
+    },
+    {
+     "rec": "engineering-002",
+     "kind": "transcript",
+     "t": "00:00:10"
+    },
+    {
+     "rec": "interview-002",
+     "kind": "transcript",
+     "t": "00:00:00"
+    }
+   ],
+   "correct_abstention": false
+  },
+  {
+   "id": "U05",
+   "type": "unanswerable",
+   "q": "What is my blood pressure reading?",
+   "stems": [
+    "blood",
+    "pressure",
+    "read"
+   ],
+   "date_range": null,
+   "support_fraction": 0.333,
+   "answers": false,
+   "top": [
+    {
+     "rec": "lecture-004",
+     "kind": "transcript",
+     "t": "00:01:02"
+    },
+    {
+     "rec": "lecture-001",
+     "kind": "transcript",
+     "t": "00:00:52"
+    },
+    {
+     "rec": "sales_call-005",
+     "kind": "transcript",
+     "t": "00:00:21"
+    },
+    {
+     "rec": "sales_call-004",
+     "kind": "transcript",
+     "t": "00:00:25"
+    },
+    {
+     "rec": "lecture-003",
+     "kind": "transcript",
+     "t": "00:00:52"
+    }
+   ],
+   "correct_abstention": true
+  },
+  {
+   "id": "U06",
+   "type": "unanswerable",
+   "q": "When is my next dentist appointment?",
+   "stems": [
+    "dentist",
+    "appointment"
+   ],
+   "date_range": null,
+   "support_fraction": 0.0,
+   "answers": false,
+   "top": [],
+   "correct_abstention": true
+  },
+  {
+   "id": "U07",
+   "type": "unanswerable",
+   "q": "What is the capital of France?",
+   "stems": [
+    "capital",
+    "france"
+   ],
+   "date_range": null,
+   "support_fraction": 0.0,
+   "answers": false,
+   "top": [],
+   "correct_abstention": true
+  },
+  {
+   "id": "U08",
+   "type": "unanswerable",
+   "q": "What is Liam's phone number?",
+   "stems": [
+    "liam",
+    "phone",
+    "number"
+   ],
+   "date_range": null,
+   "support_fraction": 0.333,
+   "answers": false,
+   "top": [
+    {
+     "rec": "warranty-006",
+     "kind": "title",
+     "t": null
+    },
+    {
+     "rec": "sales_call-003",
+     "kind": "transcript",
+     "t": "00:00:04"
+    },
+    {
+     "rec": "sales_call-003",
+     "kind": "transcript",
+     "t": "00:00:48"
+    },
+    {
+     "rec": "warranty-006",
+     "kind": "transcript",
+     "t": "00:00:00"
+    },
+    {
+     "rec": "warranty-006",
+     "kind": "extraction",
+     "t": null
+    }
+   ],
+   "correct_abstention": true
+  }
+ ],
+ "mean_words_per_segment": 11.959044368600683,
+ "scale": [
+  {
+   "recordings": 33,
+   "index_rows": 359,
+   "db_mib": 0.18,
+   "build_s": 0.01,
+   "median_ms": 0.09,
+   "p95_ms": 0.22,
+   "max_rss_mib_process": 21.4
+  },
+  {
+   "recordings": 1023,
+   "index_rows": 11129,
+   "db_mib": 4.11,
+   "build_s": 0.2,
+   "median_ms": 1.14,
+   "p95_ms": 3.58,
+   "max_rss_mib_process": 27.4
+  },
+  {
+   "recordings": 9999,
+   "index_rows": 108777,
+   "db_mib": 36.49,
+   "build_s": 1.81,
+   "median_ms": 8.34,
+   "p95_ms": 17.34,
+   "max_rss_mib_process": 71.9
+  }
+ ],
+ "budget": [
+  {
+   "passage": "eval mean",
+   "model": "3B",
+   "tier": "High (chosen)",
+   "n_ctx": 6144,
+   "passage_budget_tokens": 5054,
+   "single_segments_fit": 124,
+   "neighbour_windows_fit": 68,
+   "kv_extra_mib_vs_4096": 224,
+   "rss_3b_est_mib": 3942,
+   "prefill_s_full_budget": [
+    35,
+    50
+   ],
+   "tok_per_segment": 41,
+   "tok_per_window": 74
+  },
+  {
+   "passage": "eval mean",
+   "model": "3B",
+   "tier": "High (max)",
+   "n_ctx": 8192,
+   "passage_budget_tokens": 7102,
+   "single_segments_fit": 174,
+   "neighbour_windows_fit": 95,
+   "kv_extra_mib_vs_4096": 448,
+   "rss_3b_est_mib": 4166,
+   "prefill_s_full_budget": [
+    49,
+    70
+   ],
+   "tok_per_segment": 41,
+   "tok_per_window": 74
+  },
+  {
+   "passage": "eval mean",
+   "model": "1B",
+   "tier": "Low/Mid fallback",
+   "n_ctx": 4096,
+   "passage_budget_tokens": 3006,
+   "single_segments_fit": 73,
+   "neighbour_windows_fit": 40,
+   "kv_extra_mib_vs_4096": 0,
+   "rss_3b_est_mib": null,
+   "prefill_s_full_budget": null,
+   "tok_per_segment": 41,
+   "tok_per_window": 74
+  },
+  {
+   "passage": "eval mean",
+   "model": "1B",
+   "tier": "High",
+   "n_ctx": 8192,
+   "passage_budget_tokens": 7102,
+   "single_segments_fit": 174,
+   "neighbour_windows_fit": 95,
+   "kv_extra_mib_vs_4096": 128,
+   "rss_3b_est_mib": null,
+   "prefill_s_full_budget": null,
+   "tok_per_segment": 41,
+   "tok_per_window": 74
+  },
+  {
+   "passage": "30 s Whisper segment (assumed 75 words)",
+   "model": "3B",
+   "tier": "High (chosen)",
+   "n_ctx": 6144,
+   "passage_budget_tokens": 5054,
+   "single_segments_fit": 39,
+   "neighbour_windows_fit": 14,
+   "kv_extra_mib_vs_4096": 224,
+   "rss_3b_est_mib": 3942,
+   "prefill_s_full_budget": [
+    35,
+    50
+   ],
+   "tok_per_segment": 129,
+   "tok_per_window": 339
+  },
+  {
+   "passage": "30 s Whisper segment (assumed 75 words)",
+   "model": "3B",
+   "tier": "High (max)",
+   "n_ctx": 8192,
+   "passage_budget_tokens": 7102,
+   "single_segments_fit": 55,
+   "neighbour_windows_fit": 20,
+   "kv_extra_mib_vs_4096": 448,
+   "rss_3b_est_mib": 4166,
+   "prefill_s_full_budget": [
+    49,
+    70
+   ],
+   "tok_per_segment": 129,
+   "tok_per_window": 339
+  },
+  {
+   "passage": "30 s Whisper segment (assumed 75 words)",
+   "model": "1B",
+   "tier": "Low/Mid fallback",
+   "n_ctx": 4096,
+   "passage_budget_tokens": 3006,
+   "single_segments_fit": 23,
+   "neighbour_windows_fit": 8,
+   "kv_extra_mib_vs_4096": 0,
+   "rss_3b_est_mib": null,
+   "prefill_s_full_budget": null,
+   "tok_per_segment": 129,
+   "tok_per_window": 339
+  },
+  {
+   "passage": "30 s Whisper segment (assumed 75 words)",
+   "model": "1B",
+   "tier": "High",
+   "n_ctx": 8192,
+   "passage_budget_tokens": 7102,
+   "single_segments_fit": 55,
+   "neighbour_windows_fit": 20,
+   "kv_extra_mib_vs_4096": 128,
+   "rss_3b_est_mib": null,
+   "prefill_s_full_budget": null,
+   "tok_per_segment": 129,
+   "tok_per_window": 339
+  }
+ ]
+}

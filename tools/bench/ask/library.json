@@ -1,0 +1,170 @@
+{
+  "today": "2026-03-30",
+  "recordings": [
+    {
+      "id": "meeting-001",
+      "profile": "meeting",
+      "date": "2026-03-02"
+    },
+    {
+      "id": "meeting-002",
+      "profile": "meeting",
+      "date": "2026-03-09"
+    },
+    {
+      "id": "meeting-003",
+      "profile": "meeting",
+      "date": "2026-03-12"
+    },
+    {
+      "id": "meeting-004",
+      "profile": "meeting",
+      "date": "2026-03-18"
+    },
+    {
+      "id": "meeting-005",
+      "profile": "meeting",
+      "date": "2026-03-24"
+    },
+    {
+      "id": "meeting-006",
+      "profile": "meeting",
+      "date": "2026-03-26"
+    },
+    {
+      "id": "warranty-001",
+      "profile": "warranty",
+      "date": "2026-02-03"
+    },
+    {
+      "id": "warranty-002",
+      "profile": "warranty",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "warranty-003",
+      "profile": "warranty",
+      "date": "2026-03-10"
+    },
+    {
+      "id": "warranty-004",
+      "profile": "warranty",
+      "date": "2026-03-25"
+    },
+    {
+      "id": "warranty-005",
+      "profile": "warranty",
+      "date": "2026-03-17"
+    },
+    {
+      "id": "warranty-006",
+      "profile": "warranty",
+      "date": "2026-03-28"
+    },
+    {
+      "id": "engineering-001",
+      "profile": "engineering",
+      "date": "2026-03-03"
+    },
+    {
+      "id": "engineering-002",
+      "profile": "engineering",
+      "date": "2026-03-11"
+    },
+    {
+      "id": "engineering-003",
+      "profile": "engineering",
+      "date": "2026-03-24"
+    },
+    {
+      "id": "engineering-004",
+      "profile": "engineering",
+      "date": "2026-03-25"
+    },
+    {
+      "id": "engineering-005",
+      "profile": "engineering",
+      "date": "2026-03-16"
+    },
+    {
+      "id": "engineering-006",
+      "profile": "engineering",
+      "date": "2026-03-27"
+    },
+    {
+      "id": "lecture-001",
+      "profile": "lecture",
+      "date": "2026-03-05"
+    },
+    {
+      "id": "lecture-002",
+      "profile": "lecture",
+      "date": "2026-03-12"
+    },
+    {
+      "id": "lecture-003",
+      "profile": "lecture",
+      "date": "2026-03-19"
+    },
+    {
+      "id": "lecture-004",
+      "profile": "lecture",
+      "date": "2026-03-26"
+    },
+    {
+      "id": "lecture-005",
+      "profile": "lecture",
+      "date": "2026-03-27"
+    },
+    {
+      "id": "sales_call-001",
+      "profile": "sales_call",
+      "date": "2026-02-24"
+    },
+    {
+      "id": "sales_call-002",
+      "profile": "sales_call",
+      "date": "2026-03-04"
+    },
+    {
+      "id": "sales_call-003",
+      "profile": "sales_call",
+      "date": "2026-03-23"
+    },
+    {
+      "id": "sales_call-004",
+      "profile": "sales_call",
+      "date": "2026-03-29"
+    },
+    {
+      "id": "sales_call-005",
+      "profile": "sales_call",
+      "date": "2026-03-20"
+    },
+    {
+      "id": "interview-001",
+      "profile": "interview",
+      "date": "2026-02-26"
+    },
+    {
+      "id": "interview-002",
+      "profile": "interview",
+      "date": "2026-03-13"
+    },
+    {
+      "id": "interview-003",
+      "profile": "interview",
+      "date": "2026-03-24"
+    },
+    {
+      "id": "interview-004",
+      "profile": "interview",
+      "date": "2026-03-28"
+    },
+    {
+      "id": "interview-005",
+      "profile": "interview",
+      "date": "2026-03-10"
+    }
+  ]
+}
