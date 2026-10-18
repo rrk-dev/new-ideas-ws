@@ -131,6 +131,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- LIC-04: managed configuration schema. -->
+        <meta-data
+            android:name="android.content.APP_RESTRICTIONS"
+            android:resource="@xml/app_restrictions" />
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

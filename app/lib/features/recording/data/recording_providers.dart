@@ -13,6 +13,7 @@ import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/platform/call_guard.dart';
 import 'package:vaultvoice/core/platform/id_generator.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
+import 'package:vaultvoice/features/licensing/data/managed_config_providers.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_providers.dart';
 import 'package:vaultvoice/features/recording/data/ffi_live_vad.dart';
 import 'package:vaultvoice/features/recording/data/method_channel_audio_session_monitor.dart';
@@ -275,7 +276,15 @@ RecordingController recordingController(Ref ref) {
     // on iOS and Android (AUD-09).
     allowedStarts: Platform.isMacOS ? macosAllowedStartSources : null,
   );
-  ref.onDispose(controller.dispose);
+  // MDM `max_recording_minutes` (LIC-04): shortens the automatic stop only.
+  ref
+    ..listen(managedConfigProvider, (_, next) {
+      final minutes = next.value?.maxRecordingMinutes;
+      controller.managedMaxDuration = minutes == null
+          ? null
+          : Duration(minutes: minutes);
+    }, fireImmediately: true)
+    ..onDispose(controller.dispose);
   return controller;
 }
 

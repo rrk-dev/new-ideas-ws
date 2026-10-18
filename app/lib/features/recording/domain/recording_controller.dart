@@ -93,6 +93,16 @@ class RecordingController {
   /// Active long-session limits.
   final RecordingLimits limits;
 
+  /// Organisation cap (MDM `max_recording_minutes`, LIC-04). The recording
+  /// stops at the smaller of this and [RecordingLimits.maxDuration], so it
+  /// can only shorten a recording (SEC-09).
+  Duration? managedMaxDuration;
+
+  Duration get _effectiveMax {
+    final cap = managedMaxDuration;
+    return cap != null && cap < limits.maxDuration ? cap : limits.maxDuration;
+  }
+
   final _states = StreamController<RecordingState>.broadcast();
   final _notices = StreamController<CaptureNotice>.broadcast();
   StreamSubscription<CaptureNotice>? _noticeSub;
@@ -406,7 +416,7 @@ class RecordingController {
   void _onTick() {
     if (_phase != RecordingPhase.recording) return;
     final e = elapsed;
-    if (e >= limits.maxDuration) {
+    if (e >= _effectiveMax) {
       unawaited(stop(cause: StopCause.maxDuration));
       return;
     }

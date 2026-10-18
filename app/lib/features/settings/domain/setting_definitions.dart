@@ -47,13 +47,21 @@ final class ChoiceSetting extends SettingDef<String> {
     required super.section,
     required super.defaultValue,
     required this.options,
+    this.alsoDecodes,
   });
 
   final List<String> options;
 
+  /// Extra values [decode] accepts although the user cannot pick them
+  /// (e.g. a managed `days_N` retention, LIC-04). [accepts] stays strict.
+  final bool Function(String value)? alsoDecodes;
+
   @override
   String decode(Object? json) =>
-      json is String && options.contains(json) ? json : defaultValue;
+      json is String &&
+          (options.contains(json) || alsoDecodes?.call(json) == true)
+      ? json
+      : defaultValue;
 
   @override
   bool accepts(Object? value) => value is String && options.contains(value);
@@ -114,6 +122,15 @@ abstract final class RetentionOption {
   static const days7 = 'days_7';
   static const days30 = 'days_30';
   static const days90 = 'days_90';
+
+  /// `days_N` (N = 1..3650): the managed `audio_retention_days` value.
+  static int? daysOf(String option) {
+    final m = RegExp(r'^days_([1-9][0-9]{0,3})$').firstMatch(option);
+    final n = m == null ? null : int.parse(m.group(1)!);
+    return n != null && n <= 3650 ? n : null;
+  }
+
+  static bool isDays(String option) => daysOf(option) != null;
 }
 
 /// Every setting the Settings screen edits, in display order. Defaults
@@ -174,6 +191,7 @@ abstract final class AppSettings {
       RetentionOption.days30,
       RetentionOption.days7,
     ],
+    alsoDecodes: RetentionOption.isDays,
   );
 
   static const autoProcess = ToggleSetting(

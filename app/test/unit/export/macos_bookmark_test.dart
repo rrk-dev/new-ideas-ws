@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
 import 'package:vaultvoice/features/export/data/bookmark_vault_writer.dart';
 import 'package:vaultvoice/features/export/data/export_providers.dart';
+import 'package:vaultvoice/features/export/data/managed_vault_folder_access.dart';
 import 'package:vaultvoice/features/export/data/pigeon/bookmark_api.g.dart';
 import 'package:vaultvoice/features/export/domain/vault_folder.dart';
 
@@ -38,7 +39,7 @@ void main() {
     addTearDown(() => debugDefaultTargetPlatformOverride = null);
     expect(
       createContainer().read(vaultFolderAccessProvider),
-      isA<BookmarkFolderAccess>(),
+      isA<ManagedVaultFolderAccess>(),
     );
 
     final swift = File('../packages/vv_native/macos/MacBookmarkPanel.swift')

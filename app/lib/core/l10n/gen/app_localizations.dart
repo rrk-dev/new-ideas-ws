@@ -3016,6 +3016,48 @@ abstract class AppLocalizations {
   /// **'Managed by your organization'**
   String get settingManaged;
 
+  /// No description provided for @managedConfigTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Managed by your organization'**
+  String get managedConfigTitle;
+
+  /// No description provided for @managedConfigNoIssues.
+  ///
+  /// In en, this message translates to:
+  /// **'Organization settings are applied.'**
+  String get managedConfigNoIssues;
+
+  /// No description provided for @managedConfigLicenseInstalled.
+  ///
+  /// In en, this message translates to:
+  /// **'Enterprise license installed.'**
+  String get managedConfigLicenseInstalled;
+
+  /// No description provided for @managedConfigLicenseRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'Your organization’s license was not accepted.'**
+  String get managedConfigLicenseRejected;
+
+  /// No description provided for @managedConfigPacksInstalled.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 profile pack installed.} other{{count} profile packs installed.}}'**
+  String managedConfigPacksInstalled(int count);
+
+  /// No description provided for @managedConfigPacksRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 profile pack was not accepted.} other{{count} profile packs were not accepted.}}'**
+  String managedConfigPacksRejected(int count);
+
+  /// No description provided for @vaultFoldersManagedBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Your organization does not allow this kind of folder.'**
+  String get vaultFoldersManagedBlocked;
+
   /// No description provided for @settingSaveFailed.
   ///
   /// In en, this message translates to:

@@ -52,6 +52,13 @@ NetworkActivityLog networkActivityLog(Ref ref) {
   return log;
 }
 
+/// Organisation policy that switches the network off (MDM
+/// `network_disabled`). The default is "not managed"; `bootstrap` overrides
+/// it with the LIC-04 managed configuration.
+@Riverpod(keepAlive: true)
+Future<bool> Function() managedNetworkDisabled(Ref ref) =>
+    () async => false;
+
 @Riverpod(keepAlive: true)
 NetworkGateway networkGateway(Ref ref) {
   final gateway = NetworkGateway(
@@ -60,6 +67,7 @@ NetworkGateway networkGateway(Ref ref) {
     now: ref.watch(clockProvider).now,
     // Checked before every request; unreadable → refused (fail closed).
     networkDisabled: () async {
+      if (await ref.read(managedNetworkDisabledProvider)()) return true;
       final value = await ref
           .read(settingsRepositoryProvider)
           .get(kNetworkDisabledKey);

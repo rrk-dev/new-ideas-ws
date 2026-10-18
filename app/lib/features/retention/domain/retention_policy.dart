@@ -12,7 +12,10 @@ sealed class RetentionPolicy {
     RetentionOption.days7 => const DeleteAfterDays(7),
     RetentionOption.days30 => const DeleteAfterDays(30),
     RetentionOption.days90 => const DeleteAfterDays(90),
-    _ => const KeepForever(),
+    _ => switch (RetentionOption.daysOf(option)) {
+      final int d => DeleteAfterDays(d),
+      null => const KeepForever(),
+    },
   };
 
   /// Whether data of a recording created at [createdAt] is due for deletion

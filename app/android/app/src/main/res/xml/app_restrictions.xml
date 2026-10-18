@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- LIC-04: managed configuration schema (Android "Managed configurations").
+     Keys match docs/mdm-config.md. Static strings only. -->
+<restrictions xmlns:android="http://schemas.android.com/apk/res/android">
+    <restriction
+        android:key="license"
+        android:restrictionType="string"
+        android:title="@string/mdm_license_title"
+        android:description="@string/mdm_license_description" />
+    <restriction
+        android:key="profile_packs"
+        android:restrictionType="bundle_array"
+        android:title="@string/mdm_profile_packs_title"
+        android:description="@string/mdm_profile_packs_description">
+        <restriction
+            android:key="pack"
+            android:restrictionType="string"
+            android:title="@string/mdm_profile_pack_title" />
+    </restriction>
+    <restriction
+        android:key="allowed_target_kinds"
+        android:restrictionType="multi-select"
+        android:title="@string/mdm_target_kinds_title"
+        android:description="@string/mdm_target_kinds_description"
+        android:entries="@array/mdm_target_kinds"
+        android:entryValues="@array/mdm_target_kinds" />
+    <restriction
+        android:key="audio_retention_days"
+        android:restrictionType="integer"
+        android:title="@string/mdm_retention_title"
+        android:description="@string/mdm_retention_description" />
+    <restriction
+        android:key="network_disabled"
+        android:restrictionType="bool"
+        android:defaultValue="false"
+        android:title="@string/mdm_network_title" />
+    <restriction
+        android:key="lock_settings"
+        android:restrictionType="multi-select"
+        android:title="@string/mdm_lock_title"
+        android:description="@string/mdm_lock_description"
+        android:entries="@array/mdm_lockable_settings"
+        android:entryValues="@array/mdm_lockable_settings" />
+    <restriction
+        android:key="force_app_lock"
+        android:restrictionType="bool"
+        android:defaultValue="false"
+        android:title="@string/mdm_app_lock_title" />
+    <restriction
+        android:key="disable_custom_models"
+        android:restrictionType="bool"
+        android:defaultValue="false"
+        android:title="@string/mdm_custom_models_title" />
+    <restriction
+        android:key="force_consent_confirmation"
+        android:restrictionType="bool"
+        android:defaultValue="false"
+        android:title="@string/mdm_consent_title" />
+    <restriction
+        android:key="max_recording_minutes"
+        android:restrictionType="integer"
+        android:title="@string/mdm_max_recording_title"
+        android:description="@string/mdm_max_recording_description" />
+</restrictions>

@@ -4,6 +4,7 @@ import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/db_providers.dart';
 import 'package:vaultvoice/core/db/enums.dart';
 import 'package:vaultvoice/core/diagnostics/diagnostics_providers.dart';
+import 'package:vaultvoice/core/errors/failure.dart';
 import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/core/l10n/l10n.dart';
 import 'package:vaultvoice/core/logging/logger.dart';
@@ -14,6 +15,7 @@ import 'package:vaultvoice/core/theme/app_tokens.dart';
 import 'package:vaultvoice/core/utils/ids.dart';
 import 'package:vaultvoice/core/widgets/status_message.dart';
 import 'package:vaultvoice/features/export/data/export_providers.dart';
+import 'package:vaultvoice/features/export/data/managed_vault_folder_access.dart';
 import 'package:vaultvoice/features/export/data/routing_providers.dart';
 import 'package:vaultvoice/features/export/domain/routing_rule.dart';
 import 'package:vaultvoice/features/export/domain/vault_folder.dart';
@@ -57,7 +59,10 @@ final class VaultFolderPickCancelled extends VaultFolderPick {
 
 /// Picker unavailable, access refused or the row could not be saved.
 final class VaultFolderPickFailed extends VaultFolderPick {
-  const VaultFolderPickFailed();
+  const VaultFolderPickFailed({this.blockedByPolicy = false});
+
+  /// The organisation's `allowed_target_kinds` forbids this folder kind.
+  final bool blockedByPolicy;
 }
 
 /// Opens the system folder picker (EXP-03 SAF / EXP-04 bookmarks) and saves
@@ -75,7 +80,11 @@ Future<VaultFolderPick> pickAndSaveVaultFolder(
         ref
             .read(loggerProvider)
             .failure('vault', failure, level: LogLevel.warning);
-        return const VaultFolderPickFailed();
+        return VaultFolderPickFailed(
+          blockedByPolicy:
+              failure is PermissionFailure &&
+              failure.permission == kManagedTargetKindPermission,
+        );
       case Ok(value: null):
         return const VaultFolderPickCancelled();
       case Ok(value: final VaultFolder folder):
@@ -138,9 +147,17 @@ class VaultFoldersScreen extends ConsumerWidget {
       return;
     }
     // APP-01: the picker + save flow shared with onboarding.
-    if (await pickAndSaveVaultFolder(ref, l10n) is VaultFolderPickFailed) {
+    if (await pickAndSaveVaultFolder(ref, l10n) case VaultFolderPickFailed(
+      :final blockedByPolicy,
+    )) {
       messenger.showSnackBar(
-        SnackBar(content: Text(l10n.vaultFoldersAddFailed)),
+        SnackBar(
+          content: Text(
+            blockedByPolicy
+                ? l10n.vaultFoldersManagedBlocked
+                : l10n.vaultFoldersAddFailed,
+          ),
+        ),
       );
     }
   }

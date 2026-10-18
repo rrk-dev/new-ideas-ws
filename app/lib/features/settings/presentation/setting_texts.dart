@@ -83,7 +83,10 @@ abstract final class SettingTexts {
     'off' => l.optionOff,
     'on_demand' => l.optionMindMapOnDemand,
     'auto' => l.optionMindMapAuto,
-    _ => option,
+    _ => switch (RetentionOption.daysOf(option)) {
+      final int d => l.optionDays(d),
+      null => option,
+    },
   };
 
   static String patternError(AppLocalizations l, String code) => switch (code) {

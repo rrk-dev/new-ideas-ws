@@ -5,11 +5,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vaultvoice/core/platform/vault_writer.dart';
 import 'package:vaultvoice/features/export/data/app_local_vault_writer.dart';
 import 'package:vaultvoice/features/export/data/bookmark_vault_writer.dart';
+import 'package:vaultvoice/features/export/data/managed_vault_folder_access.dart';
 import 'package:vaultvoice/features/export/data/pigeon/bookmark_api.g.dart';
 import 'package:vaultvoice/features/export/data/pigeon/saf_api.g.dart';
 import 'package:vaultvoice/features/export/data/saf_vault_writer.dart';
 import 'package:vaultvoice/features/export/domain/vault_access_guard.dart';
 import 'package:vaultvoice/features/export/domain/vault_folder.dart';
+import 'package:vaultvoice/features/licensing/data/managed_config_providers.dart';
+import 'package:vaultvoice/features/licensing/domain/managed_config.dart';
 
 part 'export_providers.g.dart';
 
@@ -20,12 +23,21 @@ part 'export_providers.g.dart';
 /// macOS uses the same [BookmarkFolderAccess] as EXP-04. The panel is
 /// `NSOpenPanel` (`packages/vv_native/macos/MacBookmarkPanel.swift`).
 @Riverpod(keepAlive: true)
-VaultFolderAccess vaultFolderAccess(Ref ref) => switch (defaultTargetPlatform) {
-  TargetPlatform.android => SafFolderAccess(),
-  TargetPlatform.iOS => BookmarkFolderAccess(),
-  TargetPlatform.macOS => BookmarkFolderAccess(),
-  _ => throw UnsupportedError('no vault folder access on this platform'),
-};
+VaultFolderAccess vaultFolderAccess(Ref ref) {
+  final (access, kind) = switch (defaultTargetPlatform) {
+    TargetPlatform.android => (SafFolderAccess(), VaultTargetKind.saf),
+    TargetPlatform.iOS => (BookmarkFolderAccess(), VaultTargetKind.bookmark),
+    TargetPlatform.macOS => (BookmarkFolderAccess(), VaultTargetKind.bookmark),
+    _ => throw UnsupportedError('no vault folder access on this platform'),
+  };
+  // MDM `allowed_target_kinds` (LIC-04); the policy is read at every call.
+  final config = ref.watch(managedConfigProvider);
+  return ManagedVaultFolderAccess(
+    access,
+    pickKind: kind,
+    policy: () => config.value ?? ManagedConfig.none,
+  );
+}
 
 /// Detects revoked access and drives the re-grant flow.
 @Riverpod(keepAlive: true)

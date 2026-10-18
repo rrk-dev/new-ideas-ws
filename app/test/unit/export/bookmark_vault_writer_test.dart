@@ -9,8 +9,8 @@ import 'package:vaultvoice/core/platform/vault_writer.dart';
 import 'package:vaultvoice/features/export/data/app_local_vault_writer.dart';
 import 'package:vaultvoice/features/export/data/bookmark_vault_writer.dart';
 import 'package:vaultvoice/features/export/data/export_providers.dart';
+import 'package:vaultvoice/features/export/data/managed_vault_folder_access.dart';
 import 'package:vaultvoice/features/export/data/pigeon/bookmark_api.g.dart';
-import 'package:vaultvoice/features/export/data/saf_vault_writer.dart';
 import 'package:vaultvoice/features/export/data/vault_platform_errors.dart';
 import 'package:vaultvoice/features/export/domain/vault_access_guard.dart';
 import 'package:vaultvoice/features/export/domain/vault_folder.dart';
@@ -288,13 +288,19 @@ void main() {
     test('pick the platform implementation', () {
       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
       var c = createContainer();
-      expect(c.read(vaultFolderAccessProvider), isA<BookmarkFolderAccess>());
+      expect(
+        c.read(vaultFolderAccessProvider),
+        isA<ManagedVaultFolderAccess>(),
+      );
       expect(c.read(appLocalVaultWriterProvider), isA<AppLocalVaultWriter>());
       expect(c.read(vaultAccessGuardProvider), isA<VaultAccessGuard>());
 
       debugDefaultTargetPlatformOverride = TargetPlatform.android;
       c = createContainer();
-      expect(c.read(vaultFolderAccessProvider), isA<SafFolderAccess>());
+      expect(
+        c.read(vaultFolderAccessProvider),
+        isA<ManagedVaultFolderAccess>(),
+      );
       expect(c.read(appLocalVaultWriterProvider), isA<AppLocalVaultWriter>());
 
       debugDefaultTargetPlatformOverride = TargetPlatform.linux;

@@ -21,7 +21,16 @@ part 'profile_transfer_providers.g.dart';
 /// license's `org_profile_pubkey`; until then no key is trusted and signed
 /// packs are refused (`untrustedKey`). PRODUCT-DECISION: no built-in key.
 @Riverpod(keepAlive: true)
-List<OrgProfileKey> orgProfileKeys(Ref ref) => const [];
+class OrgProfileKeys extends _$OrgProfileKeys {
+  @override
+  List<OrgProfileKey> build() => const [];
+
+  /// The installed enterprise licence's `org_profile_pubkey` (null = none).
+  /// Memory only, like the entitlement: the MDM `license` is re-installed at
+  /// every start (LIC-04).
+  void setFrom(List<int>? key) =>
+      state = key == null ? const [] : [OrgProfileKey(key)];
+}
 
 /// Picks one `.vvprofile` file (system picker, import mode).
 abstract interface class ProfileBundlePicker {

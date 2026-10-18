@@ -23,11 +23,16 @@ class DenyCustomModels implements CustomModelEntitlement {
 /// The LIC-01 entitlement check: `EntitlementService.has(sideloadCustomModel)`
 /// at the moment of the import (follows plan changes and expiry).
 class EntitlementCustomModels implements CustomModelEntitlement {
-  const EntitlementCustomModels(this._entitlements);
+  const EntitlementCustomModels(this._entitlements, {this.isManagedOff});
 
   final EntitlementService _entitlements;
 
+  /// Organisation policy (MDM `disable_custom_models`): true = refuse.
+  final Future<bool> Function()? isManagedOff;
+
   @override
-  Future<bool> allowsCustomModels() async =>
-      _entitlements.has(Feature.sideloadCustomModel);
+  Future<bool> allowsCustomModels() async {
+    if (await isManagedOff?.call() ?? false) return false;
+    return _entitlements.has(Feature.sideloadCustomModel);
+  }
 }

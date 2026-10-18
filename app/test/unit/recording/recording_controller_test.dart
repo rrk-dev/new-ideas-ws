@@ -369,6 +369,27 @@ void main() {
       });
     });
 
+    test('[LIC-04/AC1] a managed cap shortens the limit and never extends '
+        'it', () {
+      fakeAsync((async) {
+        final h = _Harness(async);
+        h.controller.managedMaxDuration = const Duration(minutes: 30);
+        h.start();
+        async.elapse(const Duration(minutes: 29));
+        expect(h.phase, RecordingPhase.recording);
+        async.elapse(const Duration(minutes: 2));
+        expect(h.phase, RecordingPhase.stopped);
+        expect(h.controller.state.stopCause, StopCause.maxDuration);
+      });
+      fakeAsync((async) {
+        final h = _Harness(async);
+        h.controller.managedMaxDuration = const Duration(hours: 7);
+        h.start();
+        async.elapse(const Duration(hours: 4, seconds: 2));
+        expect(h.phase, RecordingPhase.stopped);
+      });
+    });
+
     test('[SEC-09/AC5] max duration is user-configurable up to 8 h', () {
       expect(
         RecordingLimits(maxDuration: const Duration(hours: 12)).maxDuration,

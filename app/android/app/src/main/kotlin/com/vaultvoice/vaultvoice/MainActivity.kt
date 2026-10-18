@@ -65,6 +65,8 @@ class MainActivity : FlutterActivity() {
         }
         // APP-01: "Open settings" recovery after a denied permission.
         flutterEngine.plugins.add(AppSettingsPlugin())
+        // LIC-04: managed configuration (MDM application restrictions).
+        flutterEngine.plugins.add(ManagedConfigPlugin())
         // SEC-01: Keystore-wrapped data keys (sqlite3mc database key).
         flutterEngine.plugins.add(SecureStoragePlugin())
         // SEC-03: device authentication + FLAG_SECURE privacy screen.

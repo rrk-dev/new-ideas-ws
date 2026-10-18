@@ -323,6 +323,65 @@ final class NetworkActivityLogProvider
 String _$networkActivityLogHash() =>
     r'8e0bd3fb441a36394a42bac11d5f0ad77edaf10e';
 
+/// Organisation policy that switches the network off (MDM
+/// `network_disabled`). The default is "not managed"; `bootstrap` overrides
+/// it with the LIC-04 managed configuration.
+
+@ProviderFor(managedNetworkDisabled)
+final managedNetworkDisabledProvider = ManagedNetworkDisabledProvider._();
+
+/// Organisation policy that switches the network off (MDM
+/// `network_disabled`). The default is "not managed"; `bootstrap` overrides
+/// it with the LIC-04 managed configuration.
+
+final class ManagedNetworkDisabledProvider
+    extends
+        $FunctionalProvider<
+          Future<bool> Function(),
+          Future<bool> Function(),
+          Future<bool> Function()
+        >
+    with $Provider<Future<bool> Function()> {
+  /// Organisation policy that switches the network off (MDM
+  /// `network_disabled`). The default is "not managed"; `bootstrap` overrides
+  /// it with the LIC-04 managed configuration.
+  ManagedNetworkDisabledProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'managedNetworkDisabledProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$managedNetworkDisabledHash();
+
+  @$internal
+  @override
+  $ProviderElement<Future<bool> Function()> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  Future<bool> Function() create(Ref ref) {
+    return managedNetworkDisabled(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Future<bool> Function() value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Future<bool> Function()>(value),
+    );
+  }
+}
+
+String _$managedNetworkDisabledHash() =>
+    r'9f189fc42fe1c5dcd09297f79cdffb4dc9e6dd8d';
+
 @ProviderFor(networkGateway)
 final networkGatewayProvider = NetworkGatewayProvider._();
 
@@ -362,4 +421,4 @@ final class NetworkGatewayProvider
   }
 }
 
-String _$networkGatewayHash() => r'1d0fa9bc7acc074aaa41144b14ed1b5a51230423';
+String _$networkGatewayHash() => r'c25618c1a9cbe3e3c1db695022eef8fa784a7b80';

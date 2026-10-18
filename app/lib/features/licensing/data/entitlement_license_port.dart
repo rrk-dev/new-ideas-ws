@@ -19,7 +19,11 @@ class EntitlementLicensePort implements LicenseSettingsPort {
     this.verifier,
     this.now = DateTime.now,
     this.restore,
+    this.onInstalled,
   });
+
+  /// Called with each verified licence (the org profile key is read from it).
+  final void Function(EnterpriseLicense license)? onInstalled;
 
   final Future<Result<void>> Function()? restore;
 
@@ -71,6 +75,7 @@ class EntitlementLicensePort implements LicenseSettingsPort {
 
   Result<void> _apply(EnterpriseLicense license, DateTime now) {
     _entitlements.update(license.toEntitlement(now));
+    onInstalled?.call(license);
     return const Ok(null);
   }
 }

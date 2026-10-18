@@ -1752,6 +1752,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingManaged => 'Managed by your organization';
 
   @override
+  String get managedConfigTitle => 'Managed by your organization';
+
+  @override
+  String get managedConfigNoIssues => 'Organization settings are applied.';
+
+  @override
+  String get managedConfigLicenseInstalled => 'Enterprise license installed.';
+
+  @override
+  String get managedConfigLicenseRejected =>
+      'Your organization’s license was not accepted.';
+
+  @override
+  String managedConfigPacksInstalled(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count profile packs installed.',
+      one: '1 profile pack installed.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String managedConfigPacksRejected(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count profile packs were not accepted.',
+      one: '1 profile pack was not accepted.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vaultFoldersManagedBlocked =>
+      'Your organization does not allow this kind of folder.';
+
+  @override
   String get settingSaveFailed => 'Could not save the setting.';
 
   @override

@@ -30,7 +30,7 @@ before the signature passes.
 
 ## Delivery
 File import (Settings → License → "Install enterprise licence") or MDM managed config key
-`license` (base64 of the file; LIC-04). Both call `EnterpriseLicenseService.install`.
+`license` (base64 of the file; LIC-04, see `docs/mdm-config.md`). Both call `EnterpriseLicenseService.install`.
 
 ## Seats
 `seats` is informational in the app. No device counting, no identifiers, no network.
