@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- QCP-03 static launcher shortcut: opens the Record screen only (navigate-only).
+     Per flavor because targetPackage cannot use a manifest placeholder. -->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="record"
+        android:enabled="true"
+        android:icon="@drawable/ic_quick_capture"
+        android:shortcutShortLabel="@string/quick_capture_shortcut_short"
+        android:shortcutLongLabel="@string/quick_capture_shortcut_long">
+        <intent
+            android:action="com.vaultvoice.vaultvoice.action.QUICK_CAPTURE"
+            android:targetClass="com.vaultvoice.vaultvoice.MainActivity"
+            android:targetPackage="com.vaultvoice.vaultvoice">
+            <extra
+                android:name="quick_capture_entry"
+                android:value="androidShortcut" />
+        </intent>
+    </shortcut>
+</shortcuts>

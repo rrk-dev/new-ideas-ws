@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- QCP-03: static strings only. Nothing here may derive from recordings. -->
+<resources>
+    <string name="quick_capture_record">Record</string>
+    <string name="quick_capture_brand">Lumen</string>
+    <string name="quick_capture_widget_description">Open Lumen on the Record screen</string>
+    <string name="quick_capture_shortcut_short">Record</string>
+    <string name="quick_capture_shortcut_long">Open the Record screen</string>
+    <string name="quick_capture_tile_label">Record</string>
+</resources>

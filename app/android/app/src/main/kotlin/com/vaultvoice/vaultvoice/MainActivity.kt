@@ -3,10 +3,14 @@ package com.vaultvoice.vaultvoice
 import com.vaultvoice.vaultvoice.billing.PurchasePlugin
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import com.vaultvoice.vaultvoice.audioimport.AudioImportFlutterApi
 import com.vaultvoice.vaultvoice.audioimport.AudioImportHostApi
 import com.vaultvoice.vaultvoice.audioimport.AudioImportHostApiImpl
 import com.vaultvoice.vaultvoice.modeldownload.ModelDownloadPlugin
+import com.vaultvoice.vaultvoice.quickcapture.QuickCaptureHostApi
+import com.vaultvoice.vaultvoice.quickcapture.QuickCaptureHostApiImpl
+import com.vaultvoice.vaultvoice.quickcapture.QuickCaptureIntents
 import com.vaultvoice.vaultvoice.saf.SafHostApi
 import com.vaultvoice.vaultvoice.saf.SafHostApiImpl
 import com.vaultvoice.vaultvoice.security.AppLockPlugin
@@ -36,6 +40,14 @@ class MainActivity : FlutterActivity() {
         }
         RetainedEngine.engine = null
         return true
+    }
+
+    // QCP-03: a widget / tile / shortcut tap only records "open the Record
+    // screen"; Dart polls it. A restored activity (savedInstanceState) is not
+    // a new tap, so its original launch intent is ignored.
+    override fun onCreate(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) QuickCaptureIntents.submitFrom(intent)
+        super.onCreate(savedInstanceState)
     }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
@@ -68,6 +80,7 @@ class MainActivity : FlutterActivity() {
         imports.flutterApi = AudioImportFlutterApi(flutterEngine.dartExecutor.binaryMessenger)
         importApi = imports
         AudioImportHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, imports)
+        QuickCaptureHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, QuickCaptureHostApiImpl())
         if (!launchIntentHandled) {
             launchIntentHandled = true
             imports.handleIntent(intent)
@@ -77,12 +90,14 @@ class MainActivity : FlutterActivity() {
     // AUD-06: a file shared while the app is already open (singleTop).
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+        QuickCaptureIntents.submitFrom(intent)
         importApi?.handleIntent(intent)
     }
 
     override fun cleanUpFlutterEngine(flutterEngine: FlutterEngine) {
         SafHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, null)
         AudioImportHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, null)
+        QuickCaptureHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, null)
         importApi?.dispose()
         importApi = null
         safApi?.dispose()

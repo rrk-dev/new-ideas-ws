@@ -190,7 +190,8 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
 struct QuickCaptureRequestMessage: Hashable, CustomStringConvertible {
   /// Random UUIDv4.
   var id: String
-  /// Issuing surface (`iosWidget` / `iosControl`); routing only.
+  /// Issuing surface (`iosWidget`, `iosControl`, `androidWidget`,
+  /// `androidTile`, `androidShortcut`); routing only.
   var entry: String
   /// Always `navigate`.
   var mode: String

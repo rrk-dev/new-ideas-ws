@@ -1,8 +1,8 @@
 import 'package:vaultvoice/core/logging/logger.dart';
 import 'package:vaultvoice/core/logging/redaction.dart';
 
-/// Quick-capture hand-off (QCP-02, ADR-QCP-01 → "Single-use hand-off
-/// request").
+/// Quick-capture hand-off (QCP-02 iOS, QCP-03 Android; ADR-QCP-01 →
+/// "Single-use hand-off request").
 ///
 /// A widget or Lock Screen control tap only *opens the app on the Record
 /// screen*. The native side keeps one in-memory request; this class validates
@@ -14,7 +14,10 @@ import 'package:vaultvoice/core/logging/redaction.dart';
 /// a `StartSource`.
 enum QuickCaptureEntry {
   iosWidget,
-  iosControl;
+  iosControl,
+  androidWidget,
+  androidTile,
+  androidShortcut;
 
   static QuickCaptureEntry? tryParse(String? name) {
     for (final e in values) {
@@ -52,7 +55,8 @@ class QuickCaptureMessage {
   final int remainingMs;
 }
 
-/// Native in-memory store (`ios/Runner/QuickCaptureStore.swift`).
+/// Native in-memory store (`ios/QuickCaptureShared/QuickCaptureStore.swift`,
+/// `android/.../quickcapture/QuickCaptureStore.kt`).
 abstract interface class QuickCaptureSource {
   /// Returns the pending request and deletes it atomically; null if none.
   Future<QuickCaptureMessage?> consumeRequest();

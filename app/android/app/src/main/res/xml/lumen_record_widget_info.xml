@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- QCP-03: no update period (static content), no configuration activity. -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/quick_capture_widget_description"
+    android:initialLayout="@layout/lumen_record_widget"
+    android:minWidth="110dp"
+    android:minHeight="110dp"
+    android:resizeMode="none"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen" />

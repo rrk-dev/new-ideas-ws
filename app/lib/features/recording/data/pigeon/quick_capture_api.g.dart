@@ -109,7 +109,8 @@ class QuickCaptureRequestMessage {
   /// Random UUIDv4.
   String id;
 
-  /// Issuing surface (`iosWidget` / `iosControl`); routing only.
+  /// Issuing surface (`iosWidget`, `iosControl`, `androidWidget`,
+  /// `androidTile`, `androidShortcut`); routing only.
   String entry;
 
   /// Always `navigate`.

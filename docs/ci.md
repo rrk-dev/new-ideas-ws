@@ -20,6 +20,13 @@ background mode and no network**; the hand-off is memory-only and uses the `lume
 (`CFBundleURLTypes` in the Runner Info.plist). `check_recording_policy.sh` and `check_egress.sh` scan both
 new directories.
 
+Android quick capture (QCP-03): a plain `AppWidgetProvider` widget (`RecordWidgetProvider`, RemoteViews, no
+Compose/Glance), a `TileService` (`QuickCaptureTileService`, `BIND_QUICK_SETTINGS_TILE`, API 34+ uses the
+`PendingIntent` overload) and a static launcher shortcut (`res/xml/shortcuts.xml` per flavor) all open
+`MainActivity` with one static extra. No new permission, no new foreground service or type. The android job
+only assembles the debug APK; behaviour is covered by `docs/test-plans/device/QCP-03.md`. The Kotlin sources
+are under `app/android/app/src`, already a `check_recording_policy.py` and `check_egress.sh` root.
+
 Release (`.github/workflows/release.yml`): the android and ios jobs run `size_check.sh` on the signed
 AAB / IPA after the fastlane upload (REL-03 budget, no bundled models).
 
