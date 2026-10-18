@@ -11,6 +11,8 @@ import 'package:vaultvoice/core/platform/app_paths.dart';
 import 'package:vaultvoice/core/platform/providers.dart';
 import 'package:vaultvoice/core/security/security_providers.dart';
 import 'package:vaultvoice/core/security/sqlite3mc_cipher.dart';
+import 'package:vaultvoice/features/ask/data/db_ask_history.dart';
+import 'package:vaultvoice/features/ask/domain/ask_history.dart';
 import 'package:vaultvoice/features/export/data/export_providers.dart';
 import 'package:vaultvoice/features/export/domain/vault_folder.dart';
 import 'package:vaultvoice/features/retention/data/recording_purger.dart';
@@ -151,6 +153,12 @@ class RetentionScheduler {
           log.info('retention', 'sweep', fields: value.toLogFields());
         case Err(:final failure):
           log.failure('retention', failure);
+      }
+      // ASK-03: stored Ask chats expire after 30 days (human decision).
+      final expired = await DbAskHistory(_ref.read(vaultVoiceDatabaseProvider))
+          .deleteOlderThan(DateTime.now().subtract(kAskHistoryExpiry));
+      if (expired case Ok(:final value) when value > 0) {
+        log.info('retention', 'ask_expiry', fields: {'threads': value});
       }
     } on Object catch (e) {
       if (kDebugMode) debugPrint('retention sweep failed: ${e.runtimeType}');

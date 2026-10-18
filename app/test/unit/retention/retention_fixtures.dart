@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:drift/drift.dart' show Variable;
+import 'package:drift/drift.dart' show Value, Variable;
 import 'package:path/path.dart' as p;
 import 'package:vaultvoice/core/db/database.dart';
 import 'package:vaultvoice/core/db/enums.dart';
@@ -157,6 +157,38 @@ Future<String> seedFullRecording(
           contentHash: 'h',
           status: exported ? ExportStatus.written : ExportStatus.pending,
           updatedAt: t0,
+        ),
+      );
+  await db
+      .into(db.askThreads)
+      .insert(
+        AskThreadsCompanion.insert(
+          id: 'ask-$id',
+          recordingId: Value(id),
+          createdAt: t0,
+          updatedAt: t0,
+        ),
+      );
+  await db
+      .into(db.askTurns)
+      .insert(
+        AskTurnsCompanion.insert(
+          id: 'turn-$id',
+          threadId: 'ask-$id',
+          seq: 0,
+          question: 'What was said? $secret',
+          answer: secret,
+          found: true,
+          createdAt: t0,
+        ),
+      );
+  await db
+      .into(db.askCitations)
+      .insert(
+        AskCitationsCompanion.insert(
+          turnId: 'turn-$id',
+          recordingId: id,
+          tMs: 1000,
         ),
       );
   File(paths.renderedFile(id))

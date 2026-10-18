@@ -3,281 +3,6 @@
 part of 'database.dart';
 
 // ignore_for_file: type=lint
-class SearchIndex extends Table
-    with
-        TableInfo<SearchIndex, SearchIndexData>,
-        VirtualTableInfo<SearchIndex, SearchIndexData> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  SearchIndex(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _recordingIdMeta = const VerificationMeta(
-    'recordingId',
-  );
-  late final GeneratedColumn<String> recordingId = GeneratedColumn<String>(
-    'recording_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: '',
-  );
-  static const VerificationMeta _kindMeta = const VerificationMeta('kind');
-  late final GeneratedColumn<String> kind = GeneratedColumn<String>(
-    'kind',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: '',
-  );
-  static const VerificationMeta _bodyMeta = const VerificationMeta('body');
-  late final GeneratedColumn<String> body = GeneratedColumn<String>(
-    'body',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: '',
-  );
-  @override
-  List<GeneratedColumn> get $columns => [recordingId, kind, body];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'search_index';
-  @override
-  VerificationContext validateIntegrity(
-    Insertable<SearchIndexData> instance, {
-    bool isInserting = false,
-  }) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('recording_id')) {
-      context.handle(
-        _recordingIdMeta,
-        recordingId.isAcceptableOrUnknown(
-          data['recording_id']!,
-          _recordingIdMeta,
-        ),
-      );
-    } else if (isInserting) {
-      context.missing(_recordingIdMeta);
-    }
-    if (data.containsKey('kind')) {
-      context.handle(
-        _kindMeta,
-        kind.isAcceptableOrUnknown(data['kind']!, _kindMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_kindMeta);
-    }
-    if (data.containsKey('body')) {
-      context.handle(
-        _bodyMeta,
-        body.isAcceptableOrUnknown(data['body']!, _bodyMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_bodyMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => const {};
-  @override
-  SearchIndexData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return SearchIndexData(
-      recordingId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}recording_id'],
-      )!,
-      kind: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}kind'],
-      )!,
-      body: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}body'],
-      )!,
-    );
-  }
-
-  @override
-  SearchIndex createAlias(String alias) {
-    return SearchIndex(attachedDatabase, alias);
-  }
-
-  @override
-  bool get dontWriteConstraints => true;
-  @override
-  String get moduleAndArgs =>
-      'fts5(recording_id UNINDEXED, kind UNINDEXED, body, tokenize = \'unicode61 remove_diacritics 2\')';
-}
-
-class SearchIndexData extends DataClass implements Insertable<SearchIndexData> {
-  final String recordingId;
-  final String kind;
-  final String body;
-  const SearchIndexData({
-    required this.recordingId,
-    required this.kind,
-    required this.body,
-  });
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['recording_id'] = Variable<String>(recordingId);
-    map['kind'] = Variable<String>(kind);
-    map['body'] = Variable<String>(body);
-    return map;
-  }
-
-  SearchIndexCompanion toCompanion(bool nullToAbsent) {
-    return SearchIndexCompanion(
-      recordingId: Value(recordingId),
-      kind: Value(kind),
-      body: Value(body),
-    );
-  }
-
-  factory SearchIndexData.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return SearchIndexData(
-      recordingId: serializer.fromJson<String>(json['recording_id']),
-      kind: serializer.fromJson<String>(json['kind']),
-      body: serializer.fromJson<String>(json['body']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'recording_id': serializer.toJson<String>(recordingId),
-      'kind': serializer.toJson<String>(kind),
-      'body': serializer.toJson<String>(body),
-    };
-  }
-
-  SearchIndexData copyWith({String? recordingId, String? kind, String? body}) =>
-      SearchIndexData(
-        recordingId: recordingId ?? this.recordingId,
-        kind: kind ?? this.kind,
-        body: body ?? this.body,
-      );
-  SearchIndexData copyWithCompanion(SearchIndexCompanion data) {
-    return SearchIndexData(
-      recordingId: data.recordingId.present
-          ? data.recordingId.value
-          : this.recordingId,
-      kind: data.kind.present ? data.kind.value : this.kind,
-      body: data.body.present ? data.body.value : this.body,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('SearchIndexData(')
-          ..write('recordingId: $recordingId, ')
-          ..write('kind: $kind, ')
-          ..write('body: $body')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(recordingId, kind, body);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is SearchIndexData &&
-          other.recordingId == this.recordingId &&
-          other.kind == this.kind &&
-          other.body == this.body);
-}
-
-class SearchIndexCompanion extends UpdateCompanion<SearchIndexData> {
-  final Value<String> recordingId;
-  final Value<String> kind;
-  final Value<String> body;
-  final Value<int> rowid;
-  const SearchIndexCompanion({
-    this.recordingId = const Value.absent(),
-    this.kind = const Value.absent(),
-    this.body = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  SearchIndexCompanion.insert({
-    required String recordingId,
-    required String kind,
-    required String body,
-    this.rowid = const Value.absent(),
-  }) : recordingId = Value(recordingId),
-       kind = Value(kind),
-       body = Value(body);
-  static Insertable<SearchIndexData> custom({
-    Expression<String>? recordingId,
-    Expression<String>? kind,
-    Expression<String>? body,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (recordingId != null) 'recording_id': recordingId,
-      if (kind != null) 'kind': kind,
-      if (body != null) 'body': body,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  SearchIndexCompanion copyWith({
-    Value<String>? recordingId,
-    Value<String>? kind,
-    Value<String>? body,
-    Value<int>? rowid,
-  }) {
-    return SearchIndexCompanion(
-      recordingId: recordingId ?? this.recordingId,
-      kind: kind ?? this.kind,
-      body: body ?? this.body,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (recordingId.present) {
-      map['recording_id'] = Variable<String>(recordingId.value);
-    }
-    if (kind.present) {
-      map['kind'] = Variable<String>(kind.value);
-    }
-    if (body.present) {
-      map['body'] = Variable<String>(body.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('SearchIndexCompanion(')
-          ..write('recordingId: $recordingId, ')
-          ..write('kind: $kind, ')
-          ..write('body: $body, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
 class $RecordingsTable extends Recordings
     with TableInfo<$RecordingsTable, RecordingRow> {
   @override
@@ -1018,6 +743,2901 @@ class RecordingsCompanion extends UpdateCompanion<RecordingRow> {
           ..write('importAttestedAt: $importAttestedAt, ')
           ..write('stopReason: $stopReason, ')
           ..write('recovered: $recovered, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AskThreadsTable extends AskThreads
+    with TableInfo<$AskThreadsTable, AskThreadRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AskThreadsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _recordingIdMeta = const VerificationMeta(
+    'recordingId',
+  );
+  @override
+  late final GeneratedColumn<String> recordingId = GeneratedColumn<String>(
+    'recording_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES recordings (id) ON DELETE CASCADE',
+    ),
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<DateTime, int> createdAt =
+      GeneratedColumn<int>(
+        'created_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($AskThreadsTable.$convertercreatedAt);
+  @override
+  late final GeneratedColumnWithTypeConverter<DateTime, int> updatedAt =
+      GeneratedColumn<int>(
+        'updated_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($AskThreadsTable.$converterupdatedAt);
+  @override
+  List<GeneratedColumn> get $columns => [id, recordingId, createdAt, updatedAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'ask_threads';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AskThreadRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('recording_id')) {
+      context.handle(
+        _recordingIdMeta,
+        recordingId.isAcceptableOrUnknown(
+          data['recording_id']!,
+          _recordingIdMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AskThreadRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AskThreadRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      recordingId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}recording_id'],
+      ),
+      createdAt: $AskThreadsTable.$convertercreatedAt.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}created_at'],
+        )!,
+      ),
+      updatedAt: $AskThreadsTable.$converterupdatedAt.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}updated_at'],
+        )!,
+      ),
+    );
+  }
+
+  @override
+  $AskThreadsTable createAlias(String alias) {
+    return $AskThreadsTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<DateTime, int> $convertercreatedAt =
+      const EpochMsConverter();
+  static TypeConverter<DateTime, int> $converterupdatedAt =
+      const EpochMsConverter();
+}
+
+class AskThreadRow extends DataClass implements Insertable<AskThreadRow> {
+  final String id;
+  final String? recordingId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const AskThreadRow({
+    required this.id,
+    this.recordingId,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    if (!nullToAbsent || recordingId != null) {
+      map['recording_id'] = Variable<String>(recordingId);
+    }
+    {
+      map['created_at'] = Variable<int>(
+        $AskThreadsTable.$convertercreatedAt.toSql(createdAt),
+      );
+    }
+    {
+      map['updated_at'] = Variable<int>(
+        $AskThreadsTable.$converterupdatedAt.toSql(updatedAt),
+      );
+    }
+    return map;
+  }
+
+  AskThreadsCompanion toCompanion(bool nullToAbsent) {
+    return AskThreadsCompanion(
+      id: Value(id),
+      recordingId: recordingId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(recordingId),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory AskThreadRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AskThreadRow(
+      id: serializer.fromJson<String>(json['id']),
+      recordingId: serializer.fromJson<String?>(json['recordingId']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'recordingId': serializer.toJson<String?>(recordingId),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  AskThreadRow copyWith({
+    String? id,
+    Value<String?> recordingId = const Value.absent(),
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) => AskThreadRow(
+    id: id ?? this.id,
+    recordingId: recordingId.present ? recordingId.value : this.recordingId,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  AskThreadRow copyWithCompanion(AskThreadsCompanion data) {
+    return AskThreadRow(
+      id: data.id.present ? data.id.value : this.id,
+      recordingId: data.recordingId.present
+          ? data.recordingId.value
+          : this.recordingId,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AskThreadRow(')
+          ..write('id: $id, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, recordingId, createdAt, updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AskThreadRow &&
+          other.id == this.id &&
+          other.recordingId == this.recordingId &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class AskThreadsCompanion extends UpdateCompanion<AskThreadRow> {
+  final Value<String> id;
+  final Value<String?> recordingId;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const AskThreadsCompanion({
+    this.id = const Value.absent(),
+    this.recordingId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AskThreadsCompanion.insert({
+    required String id,
+    this.recordingId = const Value.absent(),
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<AskThreadRow> custom({
+    Expression<String>? id,
+    Expression<String>? recordingId,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (recordingId != null) 'recording_id': recordingId,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AskThreadsCompanion copyWith({
+    Value<String>? id,
+    Value<String?>? recordingId,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+    Value<int>? rowid,
+  }) {
+    return AskThreadsCompanion(
+      id: id ?? this.id,
+      recordingId: recordingId ?? this.recordingId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (recordingId.present) {
+      map['recording_id'] = Variable<String>(recordingId.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(
+        $AskThreadsTable.$convertercreatedAt.toSql(createdAt.value),
+      );
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(
+        $AskThreadsTable.$converterupdatedAt.toSql(updatedAt.value),
+      );
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AskThreadsCompanion(')
+          ..write('id: $id, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AskTurnsTable extends AskTurns
+    with TableInfo<$AskTurnsTable, AskTurnRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AskTurnsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _threadIdMeta = const VerificationMeta(
+    'threadId',
+  );
+  @override
+  late final GeneratedColumn<String> threadId = GeneratedColumn<String>(
+    'thread_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES ask_threads (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _seqMeta = const VerificationMeta('seq');
+  @override
+  late final GeneratedColumn<int> seq = GeneratedColumn<int>(
+    'seq',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _questionMeta = const VerificationMeta(
+    'question',
+  );
+  @override
+  late final GeneratedColumn<String> question = GeneratedColumn<String>(
+    'question',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _answerMeta = const VerificationMeta('answer');
+  @override
+  late final GeneratedColumn<String> answer = GeneratedColumn<String>(
+    'answer',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _foundMeta = const VerificationMeta('found');
+  @override
+  late final GeneratedColumn<bool> found = GeneratedColumn<bool>(
+    'found',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("found" IN (0, 1))',
+    ),
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<DateTime, int> createdAt =
+      GeneratedColumn<int>(
+        'created_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($AskTurnsTable.$convertercreatedAt);
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    threadId,
+    seq,
+    question,
+    answer,
+    found,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'ask_turns';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AskTurnRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('thread_id')) {
+      context.handle(
+        _threadIdMeta,
+        threadId.isAcceptableOrUnknown(data['thread_id']!, _threadIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_threadIdMeta);
+    }
+    if (data.containsKey('seq')) {
+      context.handle(
+        _seqMeta,
+        seq.isAcceptableOrUnknown(data['seq']!, _seqMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_seqMeta);
+    }
+    if (data.containsKey('question')) {
+      context.handle(
+        _questionMeta,
+        question.isAcceptableOrUnknown(data['question']!, _questionMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_questionMeta);
+    }
+    if (data.containsKey('answer')) {
+      context.handle(
+        _answerMeta,
+        answer.isAcceptableOrUnknown(data['answer']!, _answerMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_answerMeta);
+    }
+    if (data.containsKey('found')) {
+      context.handle(
+        _foundMeta,
+        found.isAcceptableOrUnknown(data['found']!, _foundMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_foundMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+    {threadId, seq},
+  ];
+  @override
+  AskTurnRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AskTurnRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      threadId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}thread_id'],
+      )!,
+      seq: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}seq'],
+      )!,
+      question: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}question'],
+      )!,
+      answer: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}answer'],
+      )!,
+      found: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}found'],
+      )!,
+      createdAt: $AskTurnsTable.$convertercreatedAt.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}created_at'],
+        )!,
+      ),
+    );
+  }
+
+  @override
+  $AskTurnsTable createAlias(String alias) {
+    return $AskTurnsTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<DateTime, int> $convertercreatedAt =
+      const EpochMsConverter();
+}
+
+class AskTurnRow extends DataClass implements Insertable<AskTurnRow> {
+  final String id;
+  final String threadId;
+  final int seq;
+  final String question;
+  final String answer;
+  final bool found;
+  final DateTime createdAt;
+  const AskTurnRow({
+    required this.id,
+    required this.threadId,
+    required this.seq,
+    required this.question,
+    required this.answer,
+    required this.found,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['thread_id'] = Variable<String>(threadId);
+    map['seq'] = Variable<int>(seq);
+    map['question'] = Variable<String>(question);
+    map['answer'] = Variable<String>(answer);
+    map['found'] = Variable<bool>(found);
+    {
+      map['created_at'] = Variable<int>(
+        $AskTurnsTable.$convertercreatedAt.toSql(createdAt),
+      );
+    }
+    return map;
+  }
+
+  AskTurnsCompanion toCompanion(bool nullToAbsent) {
+    return AskTurnsCompanion(
+      id: Value(id),
+      threadId: Value(threadId),
+      seq: Value(seq),
+      question: Value(question),
+      answer: Value(answer),
+      found: Value(found),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory AskTurnRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AskTurnRow(
+      id: serializer.fromJson<String>(json['id']),
+      threadId: serializer.fromJson<String>(json['threadId']),
+      seq: serializer.fromJson<int>(json['seq']),
+      question: serializer.fromJson<String>(json['question']),
+      answer: serializer.fromJson<String>(json['answer']),
+      found: serializer.fromJson<bool>(json['found']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'threadId': serializer.toJson<String>(threadId),
+      'seq': serializer.toJson<int>(seq),
+      'question': serializer.toJson<String>(question),
+      'answer': serializer.toJson<String>(answer),
+      'found': serializer.toJson<bool>(found),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  AskTurnRow copyWith({
+    String? id,
+    String? threadId,
+    int? seq,
+    String? question,
+    String? answer,
+    bool? found,
+    DateTime? createdAt,
+  }) => AskTurnRow(
+    id: id ?? this.id,
+    threadId: threadId ?? this.threadId,
+    seq: seq ?? this.seq,
+    question: question ?? this.question,
+    answer: answer ?? this.answer,
+    found: found ?? this.found,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  AskTurnRow copyWithCompanion(AskTurnsCompanion data) {
+    return AskTurnRow(
+      id: data.id.present ? data.id.value : this.id,
+      threadId: data.threadId.present ? data.threadId.value : this.threadId,
+      seq: data.seq.present ? data.seq.value : this.seq,
+      question: data.question.present ? data.question.value : this.question,
+      answer: data.answer.present ? data.answer.value : this.answer,
+      found: data.found.present ? data.found.value : this.found,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AskTurnRow(')
+          ..write('id: $id, ')
+          ..write('threadId: $threadId, ')
+          ..write('seq: $seq, ')
+          ..write('question: $question, ')
+          ..write('answer: $answer, ')
+          ..write('found: $found, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, threadId, seq, question, answer, found, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AskTurnRow &&
+          other.id == this.id &&
+          other.threadId == this.threadId &&
+          other.seq == this.seq &&
+          other.question == this.question &&
+          other.answer == this.answer &&
+          other.found == this.found &&
+          other.createdAt == this.createdAt);
+}
+
+class AskTurnsCompanion extends UpdateCompanion<AskTurnRow> {
+  final Value<String> id;
+  final Value<String> threadId;
+  final Value<int> seq;
+  final Value<String> question;
+  final Value<String> answer;
+  final Value<bool> found;
+  final Value<DateTime> createdAt;
+  final Value<int> rowid;
+  const AskTurnsCompanion({
+    this.id = const Value.absent(),
+    this.threadId = const Value.absent(),
+    this.seq = const Value.absent(),
+    this.question = const Value.absent(),
+    this.answer = const Value.absent(),
+    this.found = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AskTurnsCompanion.insert({
+    required String id,
+    required String threadId,
+    required int seq,
+    required String question,
+    required String answer,
+    required bool found,
+    required DateTime createdAt,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       threadId = Value(threadId),
+       seq = Value(seq),
+       question = Value(question),
+       answer = Value(answer),
+       found = Value(found),
+       createdAt = Value(createdAt);
+  static Insertable<AskTurnRow> custom({
+    Expression<String>? id,
+    Expression<String>? threadId,
+    Expression<int>? seq,
+    Expression<String>? question,
+    Expression<String>? answer,
+    Expression<bool>? found,
+    Expression<int>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (threadId != null) 'thread_id': threadId,
+      if (seq != null) 'seq': seq,
+      if (question != null) 'question': question,
+      if (answer != null) 'answer': answer,
+      if (found != null) 'found': found,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AskTurnsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? threadId,
+    Value<int>? seq,
+    Value<String>? question,
+    Value<String>? answer,
+    Value<bool>? found,
+    Value<DateTime>? createdAt,
+    Value<int>? rowid,
+  }) {
+    return AskTurnsCompanion(
+      id: id ?? this.id,
+      threadId: threadId ?? this.threadId,
+      seq: seq ?? this.seq,
+      question: question ?? this.question,
+      answer: answer ?? this.answer,
+      found: found ?? this.found,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (threadId.present) {
+      map['thread_id'] = Variable<String>(threadId.value);
+    }
+    if (seq.present) {
+      map['seq'] = Variable<int>(seq.value);
+    }
+    if (question.present) {
+      map['question'] = Variable<String>(question.value);
+    }
+    if (answer.present) {
+      map['answer'] = Variable<String>(answer.value);
+    }
+    if (found.present) {
+      map['found'] = Variable<bool>(found.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(
+        $AskTurnsTable.$convertercreatedAt.toSql(createdAt.value),
+      );
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AskTurnsCompanion(')
+          ..write('id: $id, ')
+          ..write('threadId: $threadId, ')
+          ..write('seq: $seq, ')
+          ..write('question: $question, ')
+          ..write('answer: $answer, ')
+          ..write('found: $found, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AskCitationsTable extends AskCitations
+    with TableInfo<$AskCitationsTable, AskCitationRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AskCitationsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _turnIdMeta = const VerificationMeta('turnId');
+  @override
+  late final GeneratedColumn<String> turnId = GeneratedColumn<String>(
+    'turn_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES ask_turns (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _recordingIdMeta = const VerificationMeta(
+    'recordingId',
+  );
+  @override
+  late final GeneratedColumn<String> recordingId = GeneratedColumn<String>(
+    'recording_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES recordings (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _tMsMeta = const VerificationMeta('tMs');
+  @override
+  late final GeneratedColumn<int> tMs = GeneratedColumn<int>(
+    't_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, turnId, recordingId, tMs];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'ask_citations';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AskCitationRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('turn_id')) {
+      context.handle(
+        _turnIdMeta,
+        turnId.isAcceptableOrUnknown(data['turn_id']!, _turnIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_turnIdMeta);
+    }
+    if (data.containsKey('recording_id')) {
+      context.handle(
+        _recordingIdMeta,
+        recordingId.isAcceptableOrUnknown(
+          data['recording_id']!,
+          _recordingIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_recordingIdMeta);
+    }
+    if (data.containsKey('t_ms')) {
+      context.handle(
+        _tMsMeta,
+        tMs.isAcceptableOrUnknown(data['t_ms']!, _tMsMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_tMsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AskCitationRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AskCitationRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      turnId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}turn_id'],
+      )!,
+      recordingId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}recording_id'],
+      )!,
+      tMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}t_ms'],
+      )!,
+    );
+  }
+
+  @override
+  $AskCitationsTable createAlias(String alias) {
+    return $AskCitationsTable(attachedDatabase, alias);
+  }
+}
+
+class AskCitationRow extends DataClass implements Insertable<AskCitationRow> {
+  final int id;
+  final String turnId;
+  final String recordingId;
+  final int tMs;
+  const AskCitationRow({
+    required this.id,
+    required this.turnId,
+    required this.recordingId,
+    required this.tMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['turn_id'] = Variable<String>(turnId);
+    map['recording_id'] = Variable<String>(recordingId);
+    map['t_ms'] = Variable<int>(tMs);
+    return map;
+  }
+
+  AskCitationsCompanion toCompanion(bool nullToAbsent) {
+    return AskCitationsCompanion(
+      id: Value(id),
+      turnId: Value(turnId),
+      recordingId: Value(recordingId),
+      tMs: Value(tMs),
+    );
+  }
+
+  factory AskCitationRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AskCitationRow(
+      id: serializer.fromJson<int>(json['id']),
+      turnId: serializer.fromJson<String>(json['turnId']),
+      recordingId: serializer.fromJson<String>(json['recordingId']),
+      tMs: serializer.fromJson<int>(json['tMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'turnId': serializer.toJson<String>(turnId),
+      'recordingId': serializer.toJson<String>(recordingId),
+      'tMs': serializer.toJson<int>(tMs),
+    };
+  }
+
+  AskCitationRow copyWith({
+    int? id,
+    String? turnId,
+    String? recordingId,
+    int? tMs,
+  }) => AskCitationRow(
+    id: id ?? this.id,
+    turnId: turnId ?? this.turnId,
+    recordingId: recordingId ?? this.recordingId,
+    tMs: tMs ?? this.tMs,
+  );
+  AskCitationRow copyWithCompanion(AskCitationsCompanion data) {
+    return AskCitationRow(
+      id: data.id.present ? data.id.value : this.id,
+      turnId: data.turnId.present ? data.turnId.value : this.turnId,
+      recordingId: data.recordingId.present
+          ? data.recordingId.value
+          : this.recordingId,
+      tMs: data.tMs.present ? data.tMs.value : this.tMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AskCitationRow(')
+          ..write('id: $id, ')
+          ..write('turnId: $turnId, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('tMs: $tMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, turnId, recordingId, tMs);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AskCitationRow &&
+          other.id == this.id &&
+          other.turnId == this.turnId &&
+          other.recordingId == this.recordingId &&
+          other.tMs == this.tMs);
+}
+
+class AskCitationsCompanion extends UpdateCompanion<AskCitationRow> {
+  final Value<int> id;
+  final Value<String> turnId;
+  final Value<String> recordingId;
+  final Value<int> tMs;
+  const AskCitationsCompanion({
+    this.id = const Value.absent(),
+    this.turnId = const Value.absent(),
+    this.recordingId = const Value.absent(),
+    this.tMs = const Value.absent(),
+  });
+  AskCitationsCompanion.insert({
+    this.id = const Value.absent(),
+    required String turnId,
+    required String recordingId,
+    required int tMs,
+  }) : turnId = Value(turnId),
+       recordingId = Value(recordingId),
+       tMs = Value(tMs);
+  static Insertable<AskCitationRow> custom({
+    Expression<int>? id,
+    Expression<String>? turnId,
+    Expression<String>? recordingId,
+    Expression<int>? tMs,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (turnId != null) 'turn_id': turnId,
+      if (recordingId != null) 'recording_id': recordingId,
+      if (tMs != null) 't_ms': tMs,
+    });
+  }
+
+  AskCitationsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? turnId,
+    Value<String>? recordingId,
+    Value<int>? tMs,
+  }) {
+    return AskCitationsCompanion(
+      id: id ?? this.id,
+      turnId: turnId ?? this.turnId,
+      recordingId: recordingId ?? this.recordingId,
+      tMs: tMs ?? this.tMs,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (turnId.present) {
+      map['turn_id'] = Variable<String>(turnId.value);
+    }
+    if (recordingId.present) {
+      map['recording_id'] = Variable<String>(recordingId.value);
+    }
+    if (tMs.present) {
+      map['t_ms'] = Variable<int>(tMs.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AskCitationsCompanion(')
+          ..write('id: $id, ')
+          ..write('turnId: $turnId, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('tMs: $tMs')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AudioChunksTable extends AudioChunks
+    with TableInfo<$AudioChunksTable, AudioChunkRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AudioChunksTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _recordingIdMeta = const VerificationMeta(
+    'recordingId',
+  );
+  @override
+  late final GeneratedColumn<String> recordingId = GeneratedColumn<String>(
+    'recording_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES recordings (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _seqMeta = const VerificationMeta('seq');
+  @override
+  late final GeneratedColumn<int> seq = GeneratedColumn<int>(
+    'seq',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _pathMeta = const VerificationMeta('path');
+  @override
+  late final GeneratedColumn<String> path = GeneratedColumn<String>(
+    'path',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _sampleRateMeta = const VerificationMeta(
+    'sampleRate',
+  );
+  @override
+  late final GeneratedColumn<int> sampleRate = GeneratedColumn<int>(
+    'sample_rate',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _startMsMeta = const VerificationMeta(
+    'startMs',
+  );
+  @override
+  late final GeneratedColumn<int> startMs = GeneratedColumn<int>(
+    'start_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _endMsMeta = const VerificationMeta('endMs');
+  @override
+  late final GeneratedColumn<int> endMs = GeneratedColumn<int>(
+    'end_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _bytesMeta = const VerificationMeta('bytes');
+  @override
+  late final GeneratedColumn<int> bytes = GeneratedColumn<int>(
+    'bytes',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _sha256Meta = const VerificationMeta('sha256');
+  @override
+  late final GeneratedColumn<String> sha256 = GeneratedColumn<String>(
+    'sha256',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    recordingId,
+    seq,
+    path,
+    sampleRate,
+    startMs,
+    endMs,
+    bytes,
+    sha256,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'audio_chunks';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AudioChunkRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('recording_id')) {
+      context.handle(
+        _recordingIdMeta,
+        recordingId.isAcceptableOrUnknown(
+          data['recording_id']!,
+          _recordingIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_recordingIdMeta);
+    }
+    if (data.containsKey('seq')) {
+      context.handle(
+        _seqMeta,
+        seq.isAcceptableOrUnknown(data['seq']!, _seqMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_seqMeta);
+    }
+    if (data.containsKey('path')) {
+      context.handle(
+        _pathMeta,
+        path.isAcceptableOrUnknown(data['path']!, _pathMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_pathMeta);
+    }
+    if (data.containsKey('sample_rate')) {
+      context.handle(
+        _sampleRateMeta,
+        sampleRate.isAcceptableOrUnknown(data['sample_rate']!, _sampleRateMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_sampleRateMeta);
+    }
+    if (data.containsKey('start_ms')) {
+      context.handle(
+        _startMsMeta,
+        startMs.isAcceptableOrUnknown(data['start_ms']!, _startMsMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_startMsMeta);
+    }
+    if (data.containsKey('end_ms')) {
+      context.handle(
+        _endMsMeta,
+        endMs.isAcceptableOrUnknown(data['end_ms']!, _endMsMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_endMsMeta);
+    }
+    if (data.containsKey('bytes')) {
+      context.handle(
+        _bytesMeta,
+        bytes.isAcceptableOrUnknown(data['bytes']!, _bytesMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_bytesMeta);
+    }
+    if (data.containsKey('sha256')) {
+      context.handle(
+        _sha256Meta,
+        sha256.isAcceptableOrUnknown(data['sha256']!, _sha256Meta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+    {recordingId, seq},
+  ];
+  @override
+  AudioChunkRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AudioChunkRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      recordingId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}recording_id'],
+      )!,
+      seq: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}seq'],
+      )!,
+      path: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}path'],
+      )!,
+      sampleRate: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}sample_rate'],
+      )!,
+      startMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}start_ms'],
+      )!,
+      endMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}end_ms'],
+      )!,
+      bytes: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}bytes'],
+      )!,
+      sha256: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sha256'],
+      ),
+    );
+  }
+
+  @override
+  $AudioChunksTable createAlias(String alias) {
+    return $AudioChunksTable(attachedDatabase, alias);
+  }
+}
+
+class AudioChunkRow extends DataClass implements Insertable<AudioChunkRow> {
+  final int id;
+  final String recordingId;
+  final int seq;
+  final String path;
+  final int sampleRate;
+  final int startMs;
+  final int endMs;
+  final int bytes;
+  final String? sha256;
+  const AudioChunkRow({
+    required this.id,
+    required this.recordingId,
+    required this.seq,
+    required this.path,
+    required this.sampleRate,
+    required this.startMs,
+    required this.endMs,
+    required this.bytes,
+    this.sha256,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['recording_id'] = Variable<String>(recordingId);
+    map['seq'] = Variable<int>(seq);
+    map['path'] = Variable<String>(path);
+    map['sample_rate'] = Variable<int>(sampleRate);
+    map['start_ms'] = Variable<int>(startMs);
+    map['end_ms'] = Variable<int>(endMs);
+    map['bytes'] = Variable<int>(bytes);
+    if (!nullToAbsent || sha256 != null) {
+      map['sha256'] = Variable<String>(sha256);
+    }
+    return map;
+  }
+
+  AudioChunksCompanion toCompanion(bool nullToAbsent) {
+    return AudioChunksCompanion(
+      id: Value(id),
+      recordingId: Value(recordingId),
+      seq: Value(seq),
+      path: Value(path),
+      sampleRate: Value(sampleRate),
+      startMs: Value(startMs),
+      endMs: Value(endMs),
+      bytes: Value(bytes),
+      sha256: sha256 == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sha256),
+    );
+  }
+
+  factory AudioChunkRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AudioChunkRow(
+      id: serializer.fromJson<int>(json['id']),
+      recordingId: serializer.fromJson<String>(json['recordingId']),
+      seq: serializer.fromJson<int>(json['seq']),
+      path: serializer.fromJson<String>(json['path']),
+      sampleRate: serializer.fromJson<int>(json['sampleRate']),
+      startMs: serializer.fromJson<int>(json['startMs']),
+      endMs: serializer.fromJson<int>(json['endMs']),
+      bytes: serializer.fromJson<int>(json['bytes']),
+      sha256: serializer.fromJson<String?>(json['sha256']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'recordingId': serializer.toJson<String>(recordingId),
+      'seq': serializer.toJson<int>(seq),
+      'path': serializer.toJson<String>(path),
+      'sampleRate': serializer.toJson<int>(sampleRate),
+      'startMs': serializer.toJson<int>(startMs),
+      'endMs': serializer.toJson<int>(endMs),
+      'bytes': serializer.toJson<int>(bytes),
+      'sha256': serializer.toJson<String?>(sha256),
+    };
+  }
+
+  AudioChunkRow copyWith({
+    int? id,
+    String? recordingId,
+    int? seq,
+    String? path,
+    int? sampleRate,
+    int? startMs,
+    int? endMs,
+    int? bytes,
+    Value<String?> sha256 = const Value.absent(),
+  }) => AudioChunkRow(
+    id: id ?? this.id,
+    recordingId: recordingId ?? this.recordingId,
+    seq: seq ?? this.seq,
+    path: path ?? this.path,
+    sampleRate: sampleRate ?? this.sampleRate,
+    startMs: startMs ?? this.startMs,
+    endMs: endMs ?? this.endMs,
+    bytes: bytes ?? this.bytes,
+    sha256: sha256.present ? sha256.value : this.sha256,
+  );
+  AudioChunkRow copyWithCompanion(AudioChunksCompanion data) {
+    return AudioChunkRow(
+      id: data.id.present ? data.id.value : this.id,
+      recordingId: data.recordingId.present
+          ? data.recordingId.value
+          : this.recordingId,
+      seq: data.seq.present ? data.seq.value : this.seq,
+      path: data.path.present ? data.path.value : this.path,
+      sampleRate: data.sampleRate.present
+          ? data.sampleRate.value
+          : this.sampleRate,
+      startMs: data.startMs.present ? data.startMs.value : this.startMs,
+      endMs: data.endMs.present ? data.endMs.value : this.endMs,
+      bytes: data.bytes.present ? data.bytes.value : this.bytes,
+      sha256: data.sha256.present ? data.sha256.value : this.sha256,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AudioChunkRow(')
+          ..write('id: $id, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('seq: $seq, ')
+          ..write('path: $path, ')
+          ..write('sampleRate: $sampleRate, ')
+          ..write('startMs: $startMs, ')
+          ..write('endMs: $endMs, ')
+          ..write('bytes: $bytes, ')
+          ..write('sha256: $sha256')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    recordingId,
+    seq,
+    path,
+    sampleRate,
+    startMs,
+    endMs,
+    bytes,
+    sha256,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AudioChunkRow &&
+          other.id == this.id &&
+          other.recordingId == this.recordingId &&
+          other.seq == this.seq &&
+          other.path == this.path &&
+          other.sampleRate == this.sampleRate &&
+          other.startMs == this.startMs &&
+          other.endMs == this.endMs &&
+          other.bytes == this.bytes &&
+          other.sha256 == this.sha256);
+}
+
+class AudioChunksCompanion extends UpdateCompanion<AudioChunkRow> {
+  final Value<int> id;
+  final Value<String> recordingId;
+  final Value<int> seq;
+  final Value<String> path;
+  final Value<int> sampleRate;
+  final Value<int> startMs;
+  final Value<int> endMs;
+  final Value<int> bytes;
+  final Value<String?> sha256;
+  const AudioChunksCompanion({
+    this.id = const Value.absent(),
+    this.recordingId = const Value.absent(),
+    this.seq = const Value.absent(),
+    this.path = const Value.absent(),
+    this.sampleRate = const Value.absent(),
+    this.startMs = const Value.absent(),
+    this.endMs = const Value.absent(),
+    this.bytes = const Value.absent(),
+    this.sha256 = const Value.absent(),
+  });
+  AudioChunksCompanion.insert({
+    this.id = const Value.absent(),
+    required String recordingId,
+    required int seq,
+    required String path,
+    required int sampleRate,
+    required int startMs,
+    required int endMs,
+    required int bytes,
+    this.sha256 = const Value.absent(),
+  }) : recordingId = Value(recordingId),
+       seq = Value(seq),
+       path = Value(path),
+       sampleRate = Value(sampleRate),
+       startMs = Value(startMs),
+       endMs = Value(endMs),
+       bytes = Value(bytes);
+  static Insertable<AudioChunkRow> custom({
+    Expression<int>? id,
+    Expression<String>? recordingId,
+    Expression<int>? seq,
+    Expression<String>? path,
+    Expression<int>? sampleRate,
+    Expression<int>? startMs,
+    Expression<int>? endMs,
+    Expression<int>? bytes,
+    Expression<String>? sha256,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (recordingId != null) 'recording_id': recordingId,
+      if (seq != null) 'seq': seq,
+      if (path != null) 'path': path,
+      if (sampleRate != null) 'sample_rate': sampleRate,
+      if (startMs != null) 'start_ms': startMs,
+      if (endMs != null) 'end_ms': endMs,
+      if (bytes != null) 'bytes': bytes,
+      if (sha256 != null) 'sha256': sha256,
+    });
+  }
+
+  AudioChunksCompanion copyWith({
+    Value<int>? id,
+    Value<String>? recordingId,
+    Value<int>? seq,
+    Value<String>? path,
+    Value<int>? sampleRate,
+    Value<int>? startMs,
+    Value<int>? endMs,
+    Value<int>? bytes,
+    Value<String?>? sha256,
+  }) {
+    return AudioChunksCompanion(
+      id: id ?? this.id,
+      recordingId: recordingId ?? this.recordingId,
+      seq: seq ?? this.seq,
+      path: path ?? this.path,
+      sampleRate: sampleRate ?? this.sampleRate,
+      startMs: startMs ?? this.startMs,
+      endMs: endMs ?? this.endMs,
+      bytes: bytes ?? this.bytes,
+      sha256: sha256 ?? this.sha256,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (recordingId.present) {
+      map['recording_id'] = Variable<String>(recordingId.value);
+    }
+    if (seq.present) {
+      map['seq'] = Variable<int>(seq.value);
+    }
+    if (path.present) {
+      map['path'] = Variable<String>(path.value);
+    }
+    if (sampleRate.present) {
+      map['sample_rate'] = Variable<int>(sampleRate.value);
+    }
+    if (startMs.present) {
+      map['start_ms'] = Variable<int>(startMs.value);
+    }
+    if (endMs.present) {
+      map['end_ms'] = Variable<int>(endMs.value);
+    }
+    if (bytes.present) {
+      map['bytes'] = Variable<int>(bytes.value);
+    }
+    if (sha256.present) {
+      map['sha256'] = Variable<String>(sha256.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AudioChunksCompanion(')
+          ..write('id: $id, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('seq: $seq, ')
+          ..write('path: $path, ')
+          ..write('sampleRate: $sampleRate, ')
+          ..write('startMs: $startMs, ')
+          ..write('endMs: $endMs, ')
+          ..write('bytes: $bytes, ')
+          ..write('sha256: $sha256')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SpeechSegmentsTable extends SpeechSegments
+    with TableInfo<$SpeechSegmentsTable, SpeechSegmentRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SpeechSegmentsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _recordingIdMeta = const VerificationMeta(
+    'recordingId',
+  );
+  @override
+  late final GeneratedColumn<String> recordingId = GeneratedColumn<String>(
+    'recording_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES recordings (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _startMsMeta = const VerificationMeta(
+    'startMs',
+  );
+  @override
+  late final GeneratedColumn<int> startMs = GeneratedColumn<int>(
+    'start_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _endMsMeta = const VerificationMeta('endMs');
+  @override
+  late final GeneratedColumn<int> endMs = GeneratedColumn<int>(
+    'end_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, recordingId, startMs, endMs];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'speech_segments';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SpeechSegmentRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('recording_id')) {
+      context.handle(
+        _recordingIdMeta,
+        recordingId.isAcceptableOrUnknown(
+          data['recording_id']!,
+          _recordingIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_recordingIdMeta);
+    }
+    if (data.containsKey('start_ms')) {
+      context.handle(
+        _startMsMeta,
+        startMs.isAcceptableOrUnknown(data['start_ms']!, _startMsMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_startMsMeta);
+    }
+    if (data.containsKey('end_ms')) {
+      context.handle(
+        _endMsMeta,
+        endMs.isAcceptableOrUnknown(data['end_ms']!, _endMsMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_endMsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SpeechSegmentRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SpeechSegmentRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      recordingId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}recording_id'],
+      )!,
+      startMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}start_ms'],
+      )!,
+      endMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}end_ms'],
+      )!,
+    );
+  }
+
+  @override
+  $SpeechSegmentsTable createAlias(String alias) {
+    return $SpeechSegmentsTable(attachedDatabase, alias);
+  }
+}
+
+class SpeechSegmentRow extends DataClass
+    implements Insertable<SpeechSegmentRow> {
+  final int id;
+  final String recordingId;
+  final int startMs;
+  final int endMs;
+  const SpeechSegmentRow({
+    required this.id,
+    required this.recordingId,
+    required this.startMs,
+    required this.endMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['recording_id'] = Variable<String>(recordingId);
+    map['start_ms'] = Variable<int>(startMs);
+    map['end_ms'] = Variable<int>(endMs);
+    return map;
+  }
+
+  SpeechSegmentsCompanion toCompanion(bool nullToAbsent) {
+    return SpeechSegmentsCompanion(
+      id: Value(id),
+      recordingId: Value(recordingId),
+      startMs: Value(startMs),
+      endMs: Value(endMs),
+    );
+  }
+
+  factory SpeechSegmentRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SpeechSegmentRow(
+      id: serializer.fromJson<int>(json['id']),
+      recordingId: serializer.fromJson<String>(json['recordingId']),
+      startMs: serializer.fromJson<int>(json['startMs']),
+      endMs: serializer.fromJson<int>(json['endMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'recordingId': serializer.toJson<String>(recordingId),
+      'startMs': serializer.toJson<int>(startMs),
+      'endMs': serializer.toJson<int>(endMs),
+    };
+  }
+
+  SpeechSegmentRow copyWith({
+    int? id,
+    String? recordingId,
+    int? startMs,
+    int? endMs,
+  }) => SpeechSegmentRow(
+    id: id ?? this.id,
+    recordingId: recordingId ?? this.recordingId,
+    startMs: startMs ?? this.startMs,
+    endMs: endMs ?? this.endMs,
+  );
+  SpeechSegmentRow copyWithCompanion(SpeechSegmentsCompanion data) {
+    return SpeechSegmentRow(
+      id: data.id.present ? data.id.value : this.id,
+      recordingId: data.recordingId.present
+          ? data.recordingId.value
+          : this.recordingId,
+      startMs: data.startMs.present ? data.startMs.value : this.startMs,
+      endMs: data.endMs.present ? data.endMs.value : this.endMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SpeechSegmentRow(')
+          ..write('id: $id, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('startMs: $startMs, ')
+          ..write('endMs: $endMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, recordingId, startMs, endMs);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SpeechSegmentRow &&
+          other.id == this.id &&
+          other.recordingId == this.recordingId &&
+          other.startMs == this.startMs &&
+          other.endMs == this.endMs);
+}
+
+class SpeechSegmentsCompanion extends UpdateCompanion<SpeechSegmentRow> {
+  final Value<int> id;
+  final Value<String> recordingId;
+  final Value<int> startMs;
+  final Value<int> endMs;
+  const SpeechSegmentsCompanion({
+    this.id = const Value.absent(),
+    this.recordingId = const Value.absent(),
+    this.startMs = const Value.absent(),
+    this.endMs = const Value.absent(),
+  });
+  SpeechSegmentsCompanion.insert({
+    this.id = const Value.absent(),
+    required String recordingId,
+    required int startMs,
+    required int endMs,
+  }) : recordingId = Value(recordingId),
+       startMs = Value(startMs),
+       endMs = Value(endMs);
+  static Insertable<SpeechSegmentRow> custom({
+    Expression<int>? id,
+    Expression<String>? recordingId,
+    Expression<int>? startMs,
+    Expression<int>? endMs,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (recordingId != null) 'recording_id': recordingId,
+      if (startMs != null) 'start_ms': startMs,
+      if (endMs != null) 'end_ms': endMs,
+    });
+  }
+
+  SpeechSegmentsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? recordingId,
+    Value<int>? startMs,
+    Value<int>? endMs,
+  }) {
+    return SpeechSegmentsCompanion(
+      id: id ?? this.id,
+      recordingId: recordingId ?? this.recordingId,
+      startMs: startMs ?? this.startMs,
+      endMs: endMs ?? this.endMs,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (recordingId.present) {
+      map['recording_id'] = Variable<String>(recordingId.value);
+    }
+    if (startMs.present) {
+      map['start_ms'] = Variable<int>(startMs.value);
+    }
+    if (endMs.present) {
+      map['end_ms'] = Variable<int>(endMs.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SpeechSegmentsCompanion(')
+          ..write('id: $id, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('startMs: $startMs, ')
+          ..write('endMs: $endMs')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $MarkersTable extends Markers with TableInfo<$MarkersTable, MarkerRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MarkersTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _recordingIdMeta = const VerificationMeta(
+    'recordingId',
+  );
+  @override
+  late final GeneratedColumn<String> recordingId = GeneratedColumn<String>(
+    'recording_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES recordings (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _atMsMeta = const VerificationMeta('atMs');
+  @override
+  late final GeneratedColumn<int> atMs = GeneratedColumn<int>(
+    'at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<MarkerKind, String> kind =
+      GeneratedColumn<String>(
+        'kind',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<MarkerKind>($MarkersTable.$converterkind);
+  static const VerificationMeta _labelMeta = const VerificationMeta('label');
+  @override
+  late final GeneratedColumn<String> label = GeneratedColumn<String>(
+    'label',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, recordingId, atMs, kind, label];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'markers';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<MarkerRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('recording_id')) {
+      context.handle(
+        _recordingIdMeta,
+        recordingId.isAcceptableOrUnknown(
+          data['recording_id']!,
+          _recordingIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_recordingIdMeta);
+    }
+    if (data.containsKey('at_ms')) {
+      context.handle(
+        _atMsMeta,
+        atMs.isAcceptableOrUnknown(data['at_ms']!, _atMsMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_atMsMeta);
+    }
+    if (data.containsKey('label')) {
+      context.handle(
+        _labelMeta,
+        label.isAcceptableOrUnknown(data['label']!, _labelMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  MarkerRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MarkerRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      recordingId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}recording_id'],
+      )!,
+      atMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}at_ms'],
+      )!,
+      kind: $MarkersTable.$converterkind.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}kind'],
+        )!,
+      ),
+      label: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}label'],
+      ),
+    );
+  }
+
+  @override
+  $MarkersTable createAlias(String alias) {
+    return $MarkersTable(attachedDatabase, alias);
+  }
+
+  static JsonTypeConverter2<MarkerKind, String, String> $converterkind =
+      const EnumNameConverter<MarkerKind>(MarkerKind.values);
+}
+
+class MarkerRow extends DataClass implements Insertable<MarkerRow> {
+  final int id;
+  final String recordingId;
+  final int atMs;
+  final MarkerKind kind;
+  final String? label;
+  const MarkerRow({
+    required this.id,
+    required this.recordingId,
+    required this.atMs,
+    required this.kind,
+    this.label,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['recording_id'] = Variable<String>(recordingId);
+    map['at_ms'] = Variable<int>(atMs);
+    {
+      map['kind'] = Variable<String>($MarkersTable.$converterkind.toSql(kind));
+    }
+    if (!nullToAbsent || label != null) {
+      map['label'] = Variable<String>(label);
+    }
+    return map;
+  }
+
+  MarkersCompanion toCompanion(bool nullToAbsent) {
+    return MarkersCompanion(
+      id: Value(id),
+      recordingId: Value(recordingId),
+      atMs: Value(atMs),
+      kind: Value(kind),
+      label: label == null && nullToAbsent
+          ? const Value.absent()
+          : Value(label),
+    );
+  }
+
+  factory MarkerRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MarkerRow(
+      id: serializer.fromJson<int>(json['id']),
+      recordingId: serializer.fromJson<String>(json['recordingId']),
+      atMs: serializer.fromJson<int>(json['atMs']),
+      kind: $MarkersTable.$converterkind.fromJson(
+        serializer.fromJson<String>(json['kind']),
+      ),
+      label: serializer.fromJson<String?>(json['label']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'recordingId': serializer.toJson<String>(recordingId),
+      'atMs': serializer.toJson<int>(atMs),
+      'kind': serializer.toJson<String>(
+        $MarkersTable.$converterkind.toJson(kind),
+      ),
+      'label': serializer.toJson<String?>(label),
+    };
+  }
+
+  MarkerRow copyWith({
+    int? id,
+    String? recordingId,
+    int? atMs,
+    MarkerKind? kind,
+    Value<String?> label = const Value.absent(),
+  }) => MarkerRow(
+    id: id ?? this.id,
+    recordingId: recordingId ?? this.recordingId,
+    atMs: atMs ?? this.atMs,
+    kind: kind ?? this.kind,
+    label: label.present ? label.value : this.label,
+  );
+  MarkerRow copyWithCompanion(MarkersCompanion data) {
+    return MarkerRow(
+      id: data.id.present ? data.id.value : this.id,
+      recordingId: data.recordingId.present
+          ? data.recordingId.value
+          : this.recordingId,
+      atMs: data.atMs.present ? data.atMs.value : this.atMs,
+      kind: data.kind.present ? data.kind.value : this.kind,
+      label: data.label.present ? data.label.value : this.label,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MarkerRow(')
+          ..write('id: $id, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('atMs: $atMs, ')
+          ..write('kind: $kind, ')
+          ..write('label: $label')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, recordingId, atMs, kind, label);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MarkerRow &&
+          other.id == this.id &&
+          other.recordingId == this.recordingId &&
+          other.atMs == this.atMs &&
+          other.kind == this.kind &&
+          other.label == this.label);
+}
+
+class MarkersCompanion extends UpdateCompanion<MarkerRow> {
+  final Value<int> id;
+  final Value<String> recordingId;
+  final Value<int> atMs;
+  final Value<MarkerKind> kind;
+  final Value<String?> label;
+  const MarkersCompanion({
+    this.id = const Value.absent(),
+    this.recordingId = const Value.absent(),
+    this.atMs = const Value.absent(),
+    this.kind = const Value.absent(),
+    this.label = const Value.absent(),
+  });
+  MarkersCompanion.insert({
+    this.id = const Value.absent(),
+    required String recordingId,
+    required int atMs,
+    required MarkerKind kind,
+    this.label = const Value.absent(),
+  }) : recordingId = Value(recordingId),
+       atMs = Value(atMs),
+       kind = Value(kind);
+  static Insertable<MarkerRow> custom({
+    Expression<int>? id,
+    Expression<String>? recordingId,
+    Expression<int>? atMs,
+    Expression<String>? kind,
+    Expression<String>? label,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (recordingId != null) 'recording_id': recordingId,
+      if (atMs != null) 'at_ms': atMs,
+      if (kind != null) 'kind': kind,
+      if (label != null) 'label': label,
+    });
+  }
+
+  MarkersCompanion copyWith({
+    Value<int>? id,
+    Value<String>? recordingId,
+    Value<int>? atMs,
+    Value<MarkerKind>? kind,
+    Value<String?>? label,
+  }) {
+    return MarkersCompanion(
+      id: id ?? this.id,
+      recordingId: recordingId ?? this.recordingId,
+      atMs: atMs ?? this.atMs,
+      kind: kind ?? this.kind,
+      label: label ?? this.label,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (recordingId.present) {
+      map['recording_id'] = Variable<String>(recordingId.value);
+    }
+    if (atMs.present) {
+      map['at_ms'] = Variable<int>(atMs.value);
+    }
+    if (kind.present) {
+      map['kind'] = Variable<String>(
+        $MarkersTable.$converterkind.toSql(kind.value),
+      );
+    }
+    if (label.present) {
+      map['label'] = Variable<String>(label.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MarkersCompanion(')
+          ..write('id: $id, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('atMs: $atMs, ')
+          ..write('kind: $kind, ')
+          ..write('label: $label')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SpeakersTable extends Speakers
+    with TableInfo<$SpeakersTable, SpeakerRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SpeakersTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _recordingIdMeta = const VerificationMeta(
+    'recordingId',
+  );
+  @override
+  late final GeneratedColumn<String> recordingId = GeneratedColumn<String>(
+    'recording_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES recordings (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _labelMeta = const VerificationMeta('label');
+  @override
+  late final GeneratedColumn<String> label = GeneratedColumn<String>(
+    'label',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _displayNameMeta = const VerificationMeta(
+    'displayName',
+  );
+  @override
+  late final GeneratedColumn<String> displayName = GeneratedColumn<String>(
+    'display_name',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, recordingId, label, displayName];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'speakers';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SpeakerRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('recording_id')) {
+      context.handle(
+        _recordingIdMeta,
+        recordingId.isAcceptableOrUnknown(
+          data['recording_id']!,
+          _recordingIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_recordingIdMeta);
+    }
+    if (data.containsKey('label')) {
+      context.handle(
+        _labelMeta,
+        label.isAcceptableOrUnknown(data['label']!, _labelMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_labelMeta);
+    }
+    if (data.containsKey('display_name')) {
+      context.handle(
+        _displayNameMeta,
+        displayName.isAcceptableOrUnknown(
+          data['display_name']!,
+          _displayNameMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+    {recordingId, label},
+  ];
+  @override
+  SpeakerRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SpeakerRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      recordingId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}recording_id'],
+      )!,
+      label: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}label'],
+      )!,
+      displayName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}display_name'],
+      ),
+    );
+  }
+
+  @override
+  $SpeakersTable createAlias(String alias) {
+    return $SpeakersTable(attachedDatabase, alias);
+  }
+}
+
+class SpeakerRow extends DataClass implements Insertable<SpeakerRow> {
+  final int id;
+  final String recordingId;
+  final String label;
+  final String? displayName;
+  const SpeakerRow({
+    required this.id,
+    required this.recordingId,
+    required this.label,
+    this.displayName,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['recording_id'] = Variable<String>(recordingId);
+    map['label'] = Variable<String>(label);
+    if (!nullToAbsent || displayName != null) {
+      map['display_name'] = Variable<String>(displayName);
+    }
+    return map;
+  }
+
+  SpeakersCompanion toCompanion(bool nullToAbsent) {
+    return SpeakersCompanion(
+      id: Value(id),
+      recordingId: Value(recordingId),
+      label: Value(label),
+      displayName: displayName == null && nullToAbsent
+          ? const Value.absent()
+          : Value(displayName),
+    );
+  }
+
+  factory SpeakerRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SpeakerRow(
+      id: serializer.fromJson<int>(json['id']),
+      recordingId: serializer.fromJson<String>(json['recordingId']),
+      label: serializer.fromJson<String>(json['label']),
+      displayName: serializer.fromJson<String?>(json['displayName']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'recordingId': serializer.toJson<String>(recordingId),
+      'label': serializer.toJson<String>(label),
+      'displayName': serializer.toJson<String?>(displayName),
+    };
+  }
+
+  SpeakerRow copyWith({
+    int? id,
+    String? recordingId,
+    String? label,
+    Value<String?> displayName = const Value.absent(),
+  }) => SpeakerRow(
+    id: id ?? this.id,
+    recordingId: recordingId ?? this.recordingId,
+    label: label ?? this.label,
+    displayName: displayName.present ? displayName.value : this.displayName,
+  );
+  SpeakerRow copyWithCompanion(SpeakersCompanion data) {
+    return SpeakerRow(
+      id: data.id.present ? data.id.value : this.id,
+      recordingId: data.recordingId.present
+          ? data.recordingId.value
+          : this.recordingId,
+      label: data.label.present ? data.label.value : this.label,
+      displayName: data.displayName.present
+          ? data.displayName.value
+          : this.displayName,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SpeakerRow(')
+          ..write('id: $id, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('label: $label, ')
+          ..write('displayName: $displayName')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, recordingId, label, displayName);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SpeakerRow &&
+          other.id == this.id &&
+          other.recordingId == this.recordingId &&
+          other.label == this.label &&
+          other.displayName == this.displayName);
+}
+
+class SpeakersCompanion extends UpdateCompanion<SpeakerRow> {
+  final Value<int> id;
+  final Value<String> recordingId;
+  final Value<String> label;
+  final Value<String?> displayName;
+  const SpeakersCompanion({
+    this.id = const Value.absent(),
+    this.recordingId = const Value.absent(),
+    this.label = const Value.absent(),
+    this.displayName = const Value.absent(),
+  });
+  SpeakersCompanion.insert({
+    this.id = const Value.absent(),
+    required String recordingId,
+    required String label,
+    this.displayName = const Value.absent(),
+  }) : recordingId = Value(recordingId),
+       label = Value(label);
+  static Insertable<SpeakerRow> custom({
+    Expression<int>? id,
+    Expression<String>? recordingId,
+    Expression<String>? label,
+    Expression<String>? displayName,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (recordingId != null) 'recording_id': recordingId,
+      if (label != null) 'label': label,
+      if (displayName != null) 'display_name': displayName,
+    });
+  }
+
+  SpeakersCompanion copyWith({
+    Value<int>? id,
+    Value<String>? recordingId,
+    Value<String>? label,
+    Value<String?>? displayName,
+  }) {
+    return SpeakersCompanion(
+      id: id ?? this.id,
+      recordingId: recordingId ?? this.recordingId,
+      label: label ?? this.label,
+      displayName: displayName ?? this.displayName,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (recordingId.present) {
+      map['recording_id'] = Variable<String>(recordingId.value);
+    }
+    if (label.present) {
+      map['label'] = Variable<String>(label.value);
+    }
+    if (displayName.present) {
+      map['display_name'] = Variable<String>(displayName.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SpeakersCompanion(')
+          ..write('id: $id, ')
+          ..write('recordingId: $recordingId, ')
+          ..write('label: $label, ')
+          ..write('displayName: $displayName')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class SearchIndex extends Table
+    with
+        TableInfo<SearchIndex, SearchIndexData>,
+        VirtualTableInfo<SearchIndex, SearchIndexData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  SearchIndex(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _recordingIdMeta = const VerificationMeta(
+    'recordingId',
+  );
+  late final GeneratedColumn<String> recordingId = GeneratedColumn<String>(
+    'recording_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: '',
+  );
+  static const VerificationMeta _kindMeta = const VerificationMeta('kind');
+  late final GeneratedColumn<String> kind = GeneratedColumn<String>(
+    'kind',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: '',
+  );
+  static const VerificationMeta _bodyMeta = const VerificationMeta('body');
+  late final GeneratedColumn<String> body = GeneratedColumn<String>(
+    'body',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: '',
+  );
+  @override
+  List<GeneratedColumn> get $columns => [recordingId, kind, body];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'search_index';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SearchIndexData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('recording_id')) {
+      context.handle(
+        _recordingIdMeta,
+        recordingId.isAcceptableOrUnknown(
+          data['recording_id']!,
+          _recordingIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_recordingIdMeta);
+    }
+    if (data.containsKey('kind')) {
+      context.handle(
+        _kindMeta,
+        kind.isAcceptableOrUnknown(data['kind']!, _kindMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_kindMeta);
+    }
+    if (data.containsKey('body')) {
+      context.handle(
+        _bodyMeta,
+        body.isAcceptableOrUnknown(data['body']!, _bodyMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_bodyMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => const {};
+  @override
+  SearchIndexData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SearchIndexData(
+      recordingId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}recording_id'],
+      )!,
+      kind: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}kind'],
+      )!,
+      body: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}body'],
+      )!,
+    );
+  }
+
+  @override
+  SearchIndex createAlias(String alias) {
+    return SearchIndex(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+  @override
+  String get moduleAndArgs =>
+      'fts5(recording_id UNINDEXED, kind UNINDEXED, body, tokenize = \'unicode61 remove_diacritics 2\')';
+}
+
+class SearchIndexData extends DataClass implements Insertable<SearchIndexData> {
+  final String recordingId;
+  final String kind;
+  final String body;
+  const SearchIndexData({
+    required this.recordingId,
+    required this.kind,
+    required this.body,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['recording_id'] = Variable<String>(recordingId);
+    map['kind'] = Variable<String>(kind);
+    map['body'] = Variable<String>(body);
+    return map;
+  }
+
+  SearchIndexCompanion toCompanion(bool nullToAbsent) {
+    return SearchIndexCompanion(
+      recordingId: Value(recordingId),
+      kind: Value(kind),
+      body: Value(body),
+    );
+  }
+
+  factory SearchIndexData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SearchIndexData(
+      recordingId: serializer.fromJson<String>(json['recording_id']),
+      kind: serializer.fromJson<String>(json['kind']),
+      body: serializer.fromJson<String>(json['body']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'recording_id': serializer.toJson<String>(recordingId),
+      'kind': serializer.toJson<String>(kind),
+      'body': serializer.toJson<String>(body),
+    };
+  }
+
+  SearchIndexData copyWith({String? recordingId, String? kind, String? body}) =>
+      SearchIndexData(
+        recordingId: recordingId ?? this.recordingId,
+        kind: kind ?? this.kind,
+        body: body ?? this.body,
+      );
+  SearchIndexData copyWithCompanion(SearchIndexCompanion data) {
+    return SearchIndexData(
+      recordingId: data.recordingId.present
+          ? data.recordingId.value
+          : this.recordingId,
+      kind: data.kind.present ? data.kind.value : this.kind,
+      body: data.body.present ? data.body.value : this.body,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SearchIndexData(')
+          ..write('recordingId: $recordingId, ')
+          ..write('kind: $kind, ')
+          ..write('body: $body')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(recordingId, kind, body);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SearchIndexData &&
+          other.recordingId == this.recordingId &&
+          other.kind == this.kind &&
+          other.body == this.body);
+}
+
+class SearchIndexCompanion extends UpdateCompanion<SearchIndexData> {
+  final Value<String> recordingId;
+  final Value<String> kind;
+  final Value<String> body;
+  final Value<int> rowid;
+  const SearchIndexCompanion({
+    this.recordingId = const Value.absent(),
+    this.kind = const Value.absent(),
+    this.body = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SearchIndexCompanion.insert({
+    required String recordingId,
+    required String kind,
+    required String body,
+    this.rowid = const Value.absent(),
+  }) : recordingId = Value(recordingId),
+       kind = Value(kind),
+       body = Value(body);
+  static Insertable<SearchIndexData> custom({
+    Expression<String>? recordingId,
+    Expression<String>? kind,
+    Expression<String>? body,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (recordingId != null) 'recording_id': recordingId,
+      if (kind != null) 'kind': kind,
+      if (body != null) 'body': body,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SearchIndexCompanion copyWith({
+    Value<String>? recordingId,
+    Value<String>? kind,
+    Value<String>? body,
+    Value<int>? rowid,
+  }) {
+    return SearchIndexCompanion(
+      recordingId: recordingId ?? this.recordingId,
+      kind: kind ?? this.kind,
+      body: body ?? this.body,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (recordingId.present) {
+      map['recording_id'] = Variable<String>(recordingId.value);
+    }
+    if (kind.present) {
+      map['kind'] = Variable<String>(kind.value);
+    }
+    if (body.present) {
+      map['body'] = Variable<String>(body.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SearchIndexCompanion(')
+          ..write('recordingId: $recordingId, ')
+          ..write('kind: $kind, ')
+          ..write('body: $body, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -3147,1537 +5767,6 @@ class ActionItemsCompanion extends UpdateCompanion<ActionItemRow> {
           ..write('tMs: $tMs, ')
           ..write('done: $done, ')
           ..write('doneAt: $doneAt')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $AudioChunksTable extends AudioChunks
-    with TableInfo<$AudioChunksTable, AudioChunkRow> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $AudioChunksTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'PRIMARY KEY AUTOINCREMENT',
-    ),
-  );
-  static const VerificationMeta _recordingIdMeta = const VerificationMeta(
-    'recordingId',
-  );
-  @override
-  late final GeneratedColumn<String> recordingId = GeneratedColumn<String>(
-    'recording_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES recordings (id) ON DELETE CASCADE',
-    ),
-  );
-  static const VerificationMeta _seqMeta = const VerificationMeta('seq');
-  @override
-  late final GeneratedColumn<int> seq = GeneratedColumn<int>(
-    'seq',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _pathMeta = const VerificationMeta('path');
-  @override
-  late final GeneratedColumn<String> path = GeneratedColumn<String>(
-    'path',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _sampleRateMeta = const VerificationMeta(
-    'sampleRate',
-  );
-  @override
-  late final GeneratedColumn<int> sampleRate = GeneratedColumn<int>(
-    'sample_rate',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _startMsMeta = const VerificationMeta(
-    'startMs',
-  );
-  @override
-  late final GeneratedColumn<int> startMs = GeneratedColumn<int>(
-    'start_ms',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _endMsMeta = const VerificationMeta('endMs');
-  @override
-  late final GeneratedColumn<int> endMs = GeneratedColumn<int>(
-    'end_ms',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _bytesMeta = const VerificationMeta('bytes');
-  @override
-  late final GeneratedColumn<int> bytes = GeneratedColumn<int>(
-    'bytes',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _sha256Meta = const VerificationMeta('sha256');
-  @override
-  late final GeneratedColumn<String> sha256 = GeneratedColumn<String>(
-    'sha256',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
-  @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    recordingId,
-    seq,
-    path,
-    sampleRate,
-    startMs,
-    endMs,
-    bytes,
-    sha256,
-  ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'audio_chunks';
-  @override
-  VerificationContext validateIntegrity(
-    Insertable<AudioChunkRow> instance, {
-    bool isInserting = false,
-  }) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('recording_id')) {
-      context.handle(
-        _recordingIdMeta,
-        recordingId.isAcceptableOrUnknown(
-          data['recording_id']!,
-          _recordingIdMeta,
-        ),
-      );
-    } else if (isInserting) {
-      context.missing(_recordingIdMeta);
-    }
-    if (data.containsKey('seq')) {
-      context.handle(
-        _seqMeta,
-        seq.isAcceptableOrUnknown(data['seq']!, _seqMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_seqMeta);
-    }
-    if (data.containsKey('path')) {
-      context.handle(
-        _pathMeta,
-        path.isAcceptableOrUnknown(data['path']!, _pathMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_pathMeta);
-    }
-    if (data.containsKey('sample_rate')) {
-      context.handle(
-        _sampleRateMeta,
-        sampleRate.isAcceptableOrUnknown(data['sample_rate']!, _sampleRateMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_sampleRateMeta);
-    }
-    if (data.containsKey('start_ms')) {
-      context.handle(
-        _startMsMeta,
-        startMs.isAcceptableOrUnknown(data['start_ms']!, _startMsMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_startMsMeta);
-    }
-    if (data.containsKey('end_ms')) {
-      context.handle(
-        _endMsMeta,
-        endMs.isAcceptableOrUnknown(data['end_ms']!, _endMsMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_endMsMeta);
-    }
-    if (data.containsKey('bytes')) {
-      context.handle(
-        _bytesMeta,
-        bytes.isAcceptableOrUnknown(data['bytes']!, _bytesMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_bytesMeta);
-    }
-    if (data.containsKey('sha256')) {
-      context.handle(
-        _sha256Meta,
-        sha256.isAcceptableOrUnknown(data['sha256']!, _sha256Meta),
-      );
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  List<Set<GeneratedColumn>> get uniqueKeys => [
-    {recordingId, seq},
-  ];
-  @override
-  AudioChunkRow map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return AudioChunkRow(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}id'],
-      )!,
-      recordingId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}recording_id'],
-      )!,
-      seq: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}seq'],
-      )!,
-      path: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}path'],
-      )!,
-      sampleRate: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}sample_rate'],
-      )!,
-      startMs: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}start_ms'],
-      )!,
-      endMs: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}end_ms'],
-      )!,
-      bytes: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}bytes'],
-      )!,
-      sha256: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}sha256'],
-      ),
-    );
-  }
-
-  @override
-  $AudioChunksTable createAlias(String alias) {
-    return $AudioChunksTable(attachedDatabase, alias);
-  }
-}
-
-class AudioChunkRow extends DataClass implements Insertable<AudioChunkRow> {
-  final int id;
-  final String recordingId;
-  final int seq;
-  final String path;
-  final int sampleRate;
-  final int startMs;
-  final int endMs;
-  final int bytes;
-  final String? sha256;
-  const AudioChunkRow({
-    required this.id,
-    required this.recordingId,
-    required this.seq,
-    required this.path,
-    required this.sampleRate,
-    required this.startMs,
-    required this.endMs,
-    required this.bytes,
-    this.sha256,
-  });
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['recording_id'] = Variable<String>(recordingId);
-    map['seq'] = Variable<int>(seq);
-    map['path'] = Variable<String>(path);
-    map['sample_rate'] = Variable<int>(sampleRate);
-    map['start_ms'] = Variable<int>(startMs);
-    map['end_ms'] = Variable<int>(endMs);
-    map['bytes'] = Variable<int>(bytes);
-    if (!nullToAbsent || sha256 != null) {
-      map['sha256'] = Variable<String>(sha256);
-    }
-    return map;
-  }
-
-  AudioChunksCompanion toCompanion(bool nullToAbsent) {
-    return AudioChunksCompanion(
-      id: Value(id),
-      recordingId: Value(recordingId),
-      seq: Value(seq),
-      path: Value(path),
-      sampleRate: Value(sampleRate),
-      startMs: Value(startMs),
-      endMs: Value(endMs),
-      bytes: Value(bytes),
-      sha256: sha256 == null && nullToAbsent
-          ? const Value.absent()
-          : Value(sha256),
-    );
-  }
-
-  factory AudioChunkRow.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return AudioChunkRow(
-      id: serializer.fromJson<int>(json['id']),
-      recordingId: serializer.fromJson<String>(json['recordingId']),
-      seq: serializer.fromJson<int>(json['seq']),
-      path: serializer.fromJson<String>(json['path']),
-      sampleRate: serializer.fromJson<int>(json['sampleRate']),
-      startMs: serializer.fromJson<int>(json['startMs']),
-      endMs: serializer.fromJson<int>(json['endMs']),
-      bytes: serializer.fromJson<int>(json['bytes']),
-      sha256: serializer.fromJson<String?>(json['sha256']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'recordingId': serializer.toJson<String>(recordingId),
-      'seq': serializer.toJson<int>(seq),
-      'path': serializer.toJson<String>(path),
-      'sampleRate': serializer.toJson<int>(sampleRate),
-      'startMs': serializer.toJson<int>(startMs),
-      'endMs': serializer.toJson<int>(endMs),
-      'bytes': serializer.toJson<int>(bytes),
-      'sha256': serializer.toJson<String?>(sha256),
-    };
-  }
-
-  AudioChunkRow copyWith({
-    int? id,
-    String? recordingId,
-    int? seq,
-    String? path,
-    int? sampleRate,
-    int? startMs,
-    int? endMs,
-    int? bytes,
-    Value<String?> sha256 = const Value.absent(),
-  }) => AudioChunkRow(
-    id: id ?? this.id,
-    recordingId: recordingId ?? this.recordingId,
-    seq: seq ?? this.seq,
-    path: path ?? this.path,
-    sampleRate: sampleRate ?? this.sampleRate,
-    startMs: startMs ?? this.startMs,
-    endMs: endMs ?? this.endMs,
-    bytes: bytes ?? this.bytes,
-    sha256: sha256.present ? sha256.value : this.sha256,
-  );
-  AudioChunkRow copyWithCompanion(AudioChunksCompanion data) {
-    return AudioChunkRow(
-      id: data.id.present ? data.id.value : this.id,
-      recordingId: data.recordingId.present
-          ? data.recordingId.value
-          : this.recordingId,
-      seq: data.seq.present ? data.seq.value : this.seq,
-      path: data.path.present ? data.path.value : this.path,
-      sampleRate: data.sampleRate.present
-          ? data.sampleRate.value
-          : this.sampleRate,
-      startMs: data.startMs.present ? data.startMs.value : this.startMs,
-      endMs: data.endMs.present ? data.endMs.value : this.endMs,
-      bytes: data.bytes.present ? data.bytes.value : this.bytes,
-      sha256: data.sha256.present ? data.sha256.value : this.sha256,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('AudioChunkRow(')
-          ..write('id: $id, ')
-          ..write('recordingId: $recordingId, ')
-          ..write('seq: $seq, ')
-          ..write('path: $path, ')
-          ..write('sampleRate: $sampleRate, ')
-          ..write('startMs: $startMs, ')
-          ..write('endMs: $endMs, ')
-          ..write('bytes: $bytes, ')
-          ..write('sha256: $sha256')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-    id,
-    recordingId,
-    seq,
-    path,
-    sampleRate,
-    startMs,
-    endMs,
-    bytes,
-    sha256,
-  );
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is AudioChunkRow &&
-          other.id == this.id &&
-          other.recordingId == this.recordingId &&
-          other.seq == this.seq &&
-          other.path == this.path &&
-          other.sampleRate == this.sampleRate &&
-          other.startMs == this.startMs &&
-          other.endMs == this.endMs &&
-          other.bytes == this.bytes &&
-          other.sha256 == this.sha256);
-}
-
-class AudioChunksCompanion extends UpdateCompanion<AudioChunkRow> {
-  final Value<int> id;
-  final Value<String> recordingId;
-  final Value<int> seq;
-  final Value<String> path;
-  final Value<int> sampleRate;
-  final Value<int> startMs;
-  final Value<int> endMs;
-  final Value<int> bytes;
-  final Value<String?> sha256;
-  const AudioChunksCompanion({
-    this.id = const Value.absent(),
-    this.recordingId = const Value.absent(),
-    this.seq = const Value.absent(),
-    this.path = const Value.absent(),
-    this.sampleRate = const Value.absent(),
-    this.startMs = const Value.absent(),
-    this.endMs = const Value.absent(),
-    this.bytes = const Value.absent(),
-    this.sha256 = const Value.absent(),
-  });
-  AudioChunksCompanion.insert({
-    this.id = const Value.absent(),
-    required String recordingId,
-    required int seq,
-    required String path,
-    required int sampleRate,
-    required int startMs,
-    required int endMs,
-    required int bytes,
-    this.sha256 = const Value.absent(),
-  }) : recordingId = Value(recordingId),
-       seq = Value(seq),
-       path = Value(path),
-       sampleRate = Value(sampleRate),
-       startMs = Value(startMs),
-       endMs = Value(endMs),
-       bytes = Value(bytes);
-  static Insertable<AudioChunkRow> custom({
-    Expression<int>? id,
-    Expression<String>? recordingId,
-    Expression<int>? seq,
-    Expression<String>? path,
-    Expression<int>? sampleRate,
-    Expression<int>? startMs,
-    Expression<int>? endMs,
-    Expression<int>? bytes,
-    Expression<String>? sha256,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (recordingId != null) 'recording_id': recordingId,
-      if (seq != null) 'seq': seq,
-      if (path != null) 'path': path,
-      if (sampleRate != null) 'sample_rate': sampleRate,
-      if (startMs != null) 'start_ms': startMs,
-      if (endMs != null) 'end_ms': endMs,
-      if (bytes != null) 'bytes': bytes,
-      if (sha256 != null) 'sha256': sha256,
-    });
-  }
-
-  AudioChunksCompanion copyWith({
-    Value<int>? id,
-    Value<String>? recordingId,
-    Value<int>? seq,
-    Value<String>? path,
-    Value<int>? sampleRate,
-    Value<int>? startMs,
-    Value<int>? endMs,
-    Value<int>? bytes,
-    Value<String?>? sha256,
-  }) {
-    return AudioChunksCompanion(
-      id: id ?? this.id,
-      recordingId: recordingId ?? this.recordingId,
-      seq: seq ?? this.seq,
-      path: path ?? this.path,
-      sampleRate: sampleRate ?? this.sampleRate,
-      startMs: startMs ?? this.startMs,
-      endMs: endMs ?? this.endMs,
-      bytes: bytes ?? this.bytes,
-      sha256: sha256 ?? this.sha256,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (recordingId.present) {
-      map['recording_id'] = Variable<String>(recordingId.value);
-    }
-    if (seq.present) {
-      map['seq'] = Variable<int>(seq.value);
-    }
-    if (path.present) {
-      map['path'] = Variable<String>(path.value);
-    }
-    if (sampleRate.present) {
-      map['sample_rate'] = Variable<int>(sampleRate.value);
-    }
-    if (startMs.present) {
-      map['start_ms'] = Variable<int>(startMs.value);
-    }
-    if (endMs.present) {
-      map['end_ms'] = Variable<int>(endMs.value);
-    }
-    if (bytes.present) {
-      map['bytes'] = Variable<int>(bytes.value);
-    }
-    if (sha256.present) {
-      map['sha256'] = Variable<String>(sha256.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('AudioChunksCompanion(')
-          ..write('id: $id, ')
-          ..write('recordingId: $recordingId, ')
-          ..write('seq: $seq, ')
-          ..write('path: $path, ')
-          ..write('sampleRate: $sampleRate, ')
-          ..write('startMs: $startMs, ')
-          ..write('endMs: $endMs, ')
-          ..write('bytes: $bytes, ')
-          ..write('sha256: $sha256')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $SpeechSegmentsTable extends SpeechSegments
-    with TableInfo<$SpeechSegmentsTable, SpeechSegmentRow> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $SpeechSegmentsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'PRIMARY KEY AUTOINCREMENT',
-    ),
-  );
-  static const VerificationMeta _recordingIdMeta = const VerificationMeta(
-    'recordingId',
-  );
-  @override
-  late final GeneratedColumn<String> recordingId = GeneratedColumn<String>(
-    'recording_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES recordings (id) ON DELETE CASCADE',
-    ),
-  );
-  static const VerificationMeta _startMsMeta = const VerificationMeta(
-    'startMs',
-  );
-  @override
-  late final GeneratedColumn<int> startMs = GeneratedColumn<int>(
-    'start_ms',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _endMsMeta = const VerificationMeta('endMs');
-  @override
-  late final GeneratedColumn<int> endMs = GeneratedColumn<int>(
-    'end_ms',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
-  @override
-  List<GeneratedColumn> get $columns => [id, recordingId, startMs, endMs];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'speech_segments';
-  @override
-  VerificationContext validateIntegrity(
-    Insertable<SpeechSegmentRow> instance, {
-    bool isInserting = false,
-  }) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('recording_id')) {
-      context.handle(
-        _recordingIdMeta,
-        recordingId.isAcceptableOrUnknown(
-          data['recording_id']!,
-          _recordingIdMeta,
-        ),
-      );
-    } else if (isInserting) {
-      context.missing(_recordingIdMeta);
-    }
-    if (data.containsKey('start_ms')) {
-      context.handle(
-        _startMsMeta,
-        startMs.isAcceptableOrUnknown(data['start_ms']!, _startMsMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_startMsMeta);
-    }
-    if (data.containsKey('end_ms')) {
-      context.handle(
-        _endMsMeta,
-        endMs.isAcceptableOrUnknown(data['end_ms']!, _endMsMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_endMsMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  SpeechSegmentRow map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return SpeechSegmentRow(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}id'],
-      )!,
-      recordingId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}recording_id'],
-      )!,
-      startMs: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}start_ms'],
-      )!,
-      endMs: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}end_ms'],
-      )!,
-    );
-  }
-
-  @override
-  $SpeechSegmentsTable createAlias(String alias) {
-    return $SpeechSegmentsTable(attachedDatabase, alias);
-  }
-}
-
-class SpeechSegmentRow extends DataClass
-    implements Insertable<SpeechSegmentRow> {
-  final int id;
-  final String recordingId;
-  final int startMs;
-  final int endMs;
-  const SpeechSegmentRow({
-    required this.id,
-    required this.recordingId,
-    required this.startMs,
-    required this.endMs,
-  });
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['recording_id'] = Variable<String>(recordingId);
-    map['start_ms'] = Variable<int>(startMs);
-    map['end_ms'] = Variable<int>(endMs);
-    return map;
-  }
-
-  SpeechSegmentsCompanion toCompanion(bool nullToAbsent) {
-    return SpeechSegmentsCompanion(
-      id: Value(id),
-      recordingId: Value(recordingId),
-      startMs: Value(startMs),
-      endMs: Value(endMs),
-    );
-  }
-
-  factory SpeechSegmentRow.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return SpeechSegmentRow(
-      id: serializer.fromJson<int>(json['id']),
-      recordingId: serializer.fromJson<String>(json['recordingId']),
-      startMs: serializer.fromJson<int>(json['startMs']),
-      endMs: serializer.fromJson<int>(json['endMs']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'recordingId': serializer.toJson<String>(recordingId),
-      'startMs': serializer.toJson<int>(startMs),
-      'endMs': serializer.toJson<int>(endMs),
-    };
-  }
-
-  SpeechSegmentRow copyWith({
-    int? id,
-    String? recordingId,
-    int? startMs,
-    int? endMs,
-  }) => SpeechSegmentRow(
-    id: id ?? this.id,
-    recordingId: recordingId ?? this.recordingId,
-    startMs: startMs ?? this.startMs,
-    endMs: endMs ?? this.endMs,
-  );
-  SpeechSegmentRow copyWithCompanion(SpeechSegmentsCompanion data) {
-    return SpeechSegmentRow(
-      id: data.id.present ? data.id.value : this.id,
-      recordingId: data.recordingId.present
-          ? data.recordingId.value
-          : this.recordingId,
-      startMs: data.startMs.present ? data.startMs.value : this.startMs,
-      endMs: data.endMs.present ? data.endMs.value : this.endMs,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('SpeechSegmentRow(')
-          ..write('id: $id, ')
-          ..write('recordingId: $recordingId, ')
-          ..write('startMs: $startMs, ')
-          ..write('endMs: $endMs')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, recordingId, startMs, endMs);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is SpeechSegmentRow &&
-          other.id == this.id &&
-          other.recordingId == this.recordingId &&
-          other.startMs == this.startMs &&
-          other.endMs == this.endMs);
-}
-
-class SpeechSegmentsCompanion extends UpdateCompanion<SpeechSegmentRow> {
-  final Value<int> id;
-  final Value<String> recordingId;
-  final Value<int> startMs;
-  final Value<int> endMs;
-  const SpeechSegmentsCompanion({
-    this.id = const Value.absent(),
-    this.recordingId = const Value.absent(),
-    this.startMs = const Value.absent(),
-    this.endMs = const Value.absent(),
-  });
-  SpeechSegmentsCompanion.insert({
-    this.id = const Value.absent(),
-    required String recordingId,
-    required int startMs,
-    required int endMs,
-  }) : recordingId = Value(recordingId),
-       startMs = Value(startMs),
-       endMs = Value(endMs);
-  static Insertable<SpeechSegmentRow> custom({
-    Expression<int>? id,
-    Expression<String>? recordingId,
-    Expression<int>? startMs,
-    Expression<int>? endMs,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (recordingId != null) 'recording_id': recordingId,
-      if (startMs != null) 'start_ms': startMs,
-      if (endMs != null) 'end_ms': endMs,
-    });
-  }
-
-  SpeechSegmentsCompanion copyWith({
-    Value<int>? id,
-    Value<String>? recordingId,
-    Value<int>? startMs,
-    Value<int>? endMs,
-  }) {
-    return SpeechSegmentsCompanion(
-      id: id ?? this.id,
-      recordingId: recordingId ?? this.recordingId,
-      startMs: startMs ?? this.startMs,
-      endMs: endMs ?? this.endMs,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (recordingId.present) {
-      map['recording_id'] = Variable<String>(recordingId.value);
-    }
-    if (startMs.present) {
-      map['start_ms'] = Variable<int>(startMs.value);
-    }
-    if (endMs.present) {
-      map['end_ms'] = Variable<int>(endMs.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('SpeechSegmentsCompanion(')
-          ..write('id: $id, ')
-          ..write('recordingId: $recordingId, ')
-          ..write('startMs: $startMs, ')
-          ..write('endMs: $endMs')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $MarkersTable extends Markers with TableInfo<$MarkersTable, MarkerRow> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $MarkersTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'PRIMARY KEY AUTOINCREMENT',
-    ),
-  );
-  static const VerificationMeta _recordingIdMeta = const VerificationMeta(
-    'recordingId',
-  );
-  @override
-  late final GeneratedColumn<String> recordingId = GeneratedColumn<String>(
-    'recording_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES recordings (id) ON DELETE CASCADE',
-    ),
-  );
-  static const VerificationMeta _atMsMeta = const VerificationMeta('atMs');
-  @override
-  late final GeneratedColumn<int> atMs = GeneratedColumn<int>(
-    'at_ms',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
-  @override
-  late final GeneratedColumnWithTypeConverter<MarkerKind, String> kind =
-      GeneratedColumn<String>(
-        'kind',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      ).withConverter<MarkerKind>($MarkersTable.$converterkind);
-  static const VerificationMeta _labelMeta = const VerificationMeta('label');
-  @override
-  late final GeneratedColumn<String> label = GeneratedColumn<String>(
-    'label',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
-  @override
-  List<GeneratedColumn> get $columns => [id, recordingId, atMs, kind, label];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'markers';
-  @override
-  VerificationContext validateIntegrity(
-    Insertable<MarkerRow> instance, {
-    bool isInserting = false,
-  }) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('recording_id')) {
-      context.handle(
-        _recordingIdMeta,
-        recordingId.isAcceptableOrUnknown(
-          data['recording_id']!,
-          _recordingIdMeta,
-        ),
-      );
-    } else if (isInserting) {
-      context.missing(_recordingIdMeta);
-    }
-    if (data.containsKey('at_ms')) {
-      context.handle(
-        _atMsMeta,
-        atMs.isAcceptableOrUnknown(data['at_ms']!, _atMsMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_atMsMeta);
-    }
-    if (data.containsKey('label')) {
-      context.handle(
-        _labelMeta,
-        label.isAcceptableOrUnknown(data['label']!, _labelMeta),
-      );
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  MarkerRow map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return MarkerRow(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}id'],
-      )!,
-      recordingId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}recording_id'],
-      )!,
-      atMs: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}at_ms'],
-      )!,
-      kind: $MarkersTable.$converterkind.fromSql(
-        attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}kind'],
-        )!,
-      ),
-      label: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}label'],
-      ),
-    );
-  }
-
-  @override
-  $MarkersTable createAlias(String alias) {
-    return $MarkersTable(attachedDatabase, alias);
-  }
-
-  static JsonTypeConverter2<MarkerKind, String, String> $converterkind =
-      const EnumNameConverter<MarkerKind>(MarkerKind.values);
-}
-
-class MarkerRow extends DataClass implements Insertable<MarkerRow> {
-  final int id;
-  final String recordingId;
-  final int atMs;
-  final MarkerKind kind;
-  final String? label;
-  const MarkerRow({
-    required this.id,
-    required this.recordingId,
-    required this.atMs,
-    required this.kind,
-    this.label,
-  });
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['recording_id'] = Variable<String>(recordingId);
-    map['at_ms'] = Variable<int>(atMs);
-    {
-      map['kind'] = Variable<String>($MarkersTable.$converterkind.toSql(kind));
-    }
-    if (!nullToAbsent || label != null) {
-      map['label'] = Variable<String>(label);
-    }
-    return map;
-  }
-
-  MarkersCompanion toCompanion(bool nullToAbsent) {
-    return MarkersCompanion(
-      id: Value(id),
-      recordingId: Value(recordingId),
-      atMs: Value(atMs),
-      kind: Value(kind),
-      label: label == null && nullToAbsent
-          ? const Value.absent()
-          : Value(label),
-    );
-  }
-
-  factory MarkerRow.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return MarkerRow(
-      id: serializer.fromJson<int>(json['id']),
-      recordingId: serializer.fromJson<String>(json['recordingId']),
-      atMs: serializer.fromJson<int>(json['atMs']),
-      kind: $MarkersTable.$converterkind.fromJson(
-        serializer.fromJson<String>(json['kind']),
-      ),
-      label: serializer.fromJson<String?>(json['label']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'recordingId': serializer.toJson<String>(recordingId),
-      'atMs': serializer.toJson<int>(atMs),
-      'kind': serializer.toJson<String>(
-        $MarkersTable.$converterkind.toJson(kind),
-      ),
-      'label': serializer.toJson<String?>(label),
-    };
-  }
-
-  MarkerRow copyWith({
-    int? id,
-    String? recordingId,
-    int? atMs,
-    MarkerKind? kind,
-    Value<String?> label = const Value.absent(),
-  }) => MarkerRow(
-    id: id ?? this.id,
-    recordingId: recordingId ?? this.recordingId,
-    atMs: atMs ?? this.atMs,
-    kind: kind ?? this.kind,
-    label: label.present ? label.value : this.label,
-  );
-  MarkerRow copyWithCompanion(MarkersCompanion data) {
-    return MarkerRow(
-      id: data.id.present ? data.id.value : this.id,
-      recordingId: data.recordingId.present
-          ? data.recordingId.value
-          : this.recordingId,
-      atMs: data.atMs.present ? data.atMs.value : this.atMs,
-      kind: data.kind.present ? data.kind.value : this.kind,
-      label: data.label.present ? data.label.value : this.label,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('MarkerRow(')
-          ..write('id: $id, ')
-          ..write('recordingId: $recordingId, ')
-          ..write('atMs: $atMs, ')
-          ..write('kind: $kind, ')
-          ..write('label: $label')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, recordingId, atMs, kind, label);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is MarkerRow &&
-          other.id == this.id &&
-          other.recordingId == this.recordingId &&
-          other.atMs == this.atMs &&
-          other.kind == this.kind &&
-          other.label == this.label);
-}
-
-class MarkersCompanion extends UpdateCompanion<MarkerRow> {
-  final Value<int> id;
-  final Value<String> recordingId;
-  final Value<int> atMs;
-  final Value<MarkerKind> kind;
-  final Value<String?> label;
-  const MarkersCompanion({
-    this.id = const Value.absent(),
-    this.recordingId = const Value.absent(),
-    this.atMs = const Value.absent(),
-    this.kind = const Value.absent(),
-    this.label = const Value.absent(),
-  });
-  MarkersCompanion.insert({
-    this.id = const Value.absent(),
-    required String recordingId,
-    required int atMs,
-    required MarkerKind kind,
-    this.label = const Value.absent(),
-  }) : recordingId = Value(recordingId),
-       atMs = Value(atMs),
-       kind = Value(kind);
-  static Insertable<MarkerRow> custom({
-    Expression<int>? id,
-    Expression<String>? recordingId,
-    Expression<int>? atMs,
-    Expression<String>? kind,
-    Expression<String>? label,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (recordingId != null) 'recording_id': recordingId,
-      if (atMs != null) 'at_ms': atMs,
-      if (kind != null) 'kind': kind,
-      if (label != null) 'label': label,
-    });
-  }
-
-  MarkersCompanion copyWith({
-    Value<int>? id,
-    Value<String>? recordingId,
-    Value<int>? atMs,
-    Value<MarkerKind>? kind,
-    Value<String?>? label,
-  }) {
-    return MarkersCompanion(
-      id: id ?? this.id,
-      recordingId: recordingId ?? this.recordingId,
-      atMs: atMs ?? this.atMs,
-      kind: kind ?? this.kind,
-      label: label ?? this.label,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (recordingId.present) {
-      map['recording_id'] = Variable<String>(recordingId.value);
-    }
-    if (atMs.present) {
-      map['at_ms'] = Variable<int>(atMs.value);
-    }
-    if (kind.present) {
-      map['kind'] = Variable<String>(
-        $MarkersTable.$converterkind.toSql(kind.value),
-      );
-    }
-    if (label.present) {
-      map['label'] = Variable<String>(label.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('MarkersCompanion(')
-          ..write('id: $id, ')
-          ..write('recordingId: $recordingId, ')
-          ..write('atMs: $atMs, ')
-          ..write('kind: $kind, ')
-          ..write('label: $label')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $SpeakersTable extends Speakers
-    with TableInfo<$SpeakersTable, SpeakerRow> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $SpeakersTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'PRIMARY KEY AUTOINCREMENT',
-    ),
-  );
-  static const VerificationMeta _recordingIdMeta = const VerificationMeta(
-    'recordingId',
-  );
-  @override
-  late final GeneratedColumn<String> recordingId = GeneratedColumn<String>(
-    'recording_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES recordings (id) ON DELETE CASCADE',
-    ),
-  );
-  static const VerificationMeta _labelMeta = const VerificationMeta('label');
-  @override
-  late final GeneratedColumn<String> label = GeneratedColumn<String>(
-    'label',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _displayNameMeta = const VerificationMeta(
-    'displayName',
-  );
-  @override
-  late final GeneratedColumn<String> displayName = GeneratedColumn<String>(
-    'display_name',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
-  @override
-  List<GeneratedColumn> get $columns => [id, recordingId, label, displayName];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'speakers';
-  @override
-  VerificationContext validateIntegrity(
-    Insertable<SpeakerRow> instance, {
-    bool isInserting = false,
-  }) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('recording_id')) {
-      context.handle(
-        _recordingIdMeta,
-        recordingId.isAcceptableOrUnknown(
-          data['recording_id']!,
-          _recordingIdMeta,
-        ),
-      );
-    } else if (isInserting) {
-      context.missing(_recordingIdMeta);
-    }
-    if (data.containsKey('label')) {
-      context.handle(
-        _labelMeta,
-        label.isAcceptableOrUnknown(data['label']!, _labelMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_labelMeta);
-    }
-    if (data.containsKey('display_name')) {
-      context.handle(
-        _displayNameMeta,
-        displayName.isAcceptableOrUnknown(
-          data['display_name']!,
-          _displayNameMeta,
-        ),
-      );
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  List<Set<GeneratedColumn>> get uniqueKeys => [
-    {recordingId, label},
-  ];
-  @override
-  SpeakerRow map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return SpeakerRow(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}id'],
-      )!,
-      recordingId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}recording_id'],
-      )!,
-      label: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}label'],
-      )!,
-      displayName: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}display_name'],
-      ),
-    );
-  }
-
-  @override
-  $SpeakersTable createAlias(String alias) {
-    return $SpeakersTable(attachedDatabase, alias);
-  }
-}
-
-class SpeakerRow extends DataClass implements Insertable<SpeakerRow> {
-  final int id;
-  final String recordingId;
-  final String label;
-  final String? displayName;
-  const SpeakerRow({
-    required this.id,
-    required this.recordingId,
-    required this.label,
-    this.displayName,
-  });
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['recording_id'] = Variable<String>(recordingId);
-    map['label'] = Variable<String>(label);
-    if (!nullToAbsent || displayName != null) {
-      map['display_name'] = Variable<String>(displayName);
-    }
-    return map;
-  }
-
-  SpeakersCompanion toCompanion(bool nullToAbsent) {
-    return SpeakersCompanion(
-      id: Value(id),
-      recordingId: Value(recordingId),
-      label: Value(label),
-      displayName: displayName == null && nullToAbsent
-          ? const Value.absent()
-          : Value(displayName),
-    );
-  }
-
-  factory SpeakerRow.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return SpeakerRow(
-      id: serializer.fromJson<int>(json['id']),
-      recordingId: serializer.fromJson<String>(json['recordingId']),
-      label: serializer.fromJson<String>(json['label']),
-      displayName: serializer.fromJson<String?>(json['displayName']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'recordingId': serializer.toJson<String>(recordingId),
-      'label': serializer.toJson<String>(label),
-      'displayName': serializer.toJson<String?>(displayName),
-    };
-  }
-
-  SpeakerRow copyWith({
-    int? id,
-    String? recordingId,
-    String? label,
-    Value<String?> displayName = const Value.absent(),
-  }) => SpeakerRow(
-    id: id ?? this.id,
-    recordingId: recordingId ?? this.recordingId,
-    label: label ?? this.label,
-    displayName: displayName.present ? displayName.value : this.displayName,
-  );
-  SpeakerRow copyWithCompanion(SpeakersCompanion data) {
-    return SpeakerRow(
-      id: data.id.present ? data.id.value : this.id,
-      recordingId: data.recordingId.present
-          ? data.recordingId.value
-          : this.recordingId,
-      label: data.label.present ? data.label.value : this.label,
-      displayName: data.displayName.present
-          ? data.displayName.value
-          : this.displayName,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('SpeakerRow(')
-          ..write('id: $id, ')
-          ..write('recordingId: $recordingId, ')
-          ..write('label: $label, ')
-          ..write('displayName: $displayName')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, recordingId, label, displayName);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is SpeakerRow &&
-          other.id == this.id &&
-          other.recordingId == this.recordingId &&
-          other.label == this.label &&
-          other.displayName == this.displayName);
-}
-
-class SpeakersCompanion extends UpdateCompanion<SpeakerRow> {
-  final Value<int> id;
-  final Value<String> recordingId;
-  final Value<String> label;
-  final Value<String?> displayName;
-  const SpeakersCompanion({
-    this.id = const Value.absent(),
-    this.recordingId = const Value.absent(),
-    this.label = const Value.absent(),
-    this.displayName = const Value.absent(),
-  });
-  SpeakersCompanion.insert({
-    this.id = const Value.absent(),
-    required String recordingId,
-    required String label,
-    this.displayName = const Value.absent(),
-  }) : recordingId = Value(recordingId),
-       label = Value(label);
-  static Insertable<SpeakerRow> custom({
-    Expression<int>? id,
-    Expression<String>? recordingId,
-    Expression<String>? label,
-    Expression<String>? displayName,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (recordingId != null) 'recording_id': recordingId,
-      if (label != null) 'label': label,
-      if (displayName != null) 'display_name': displayName,
-    });
-  }
-
-  SpeakersCompanion copyWith({
-    Value<int>? id,
-    Value<String>? recordingId,
-    Value<String>? label,
-    Value<String?>? displayName,
-  }) {
-    return SpeakersCompanion(
-      id: id ?? this.id,
-      recordingId: recordingId ?? this.recordingId,
-      label: label ?? this.label,
-      displayName: displayName ?? this.displayName,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (recordingId.present) {
-      map['recording_id'] = Variable<String>(recordingId.value);
-    }
-    if (label.present) {
-      map['label'] = Variable<String>(label.value);
-    }
-    if (displayName.present) {
-      map['display_name'] = Variable<String>(displayName.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('SpeakersCompanion(')
-          ..write('id: $id, ')
-          ..write('recordingId: $recordingId, ')
-          ..write('label: $label, ')
-          ..write('displayName: $displayName')
           ..write(')'))
         .toString();
   }
@@ -8813,8 +9902,23 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
 abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
   _$VaultVoiceDatabase(QueryExecutor e) : super(e);
   $VaultVoiceDatabaseManager get managers => $VaultVoiceDatabaseManager(this);
-  late final SearchIndex searchIndex = SearchIndex(this);
   late final $RecordingsTable recordings = $RecordingsTable(this);
+  late final $AskThreadsTable askThreads = $AskThreadsTable(this);
+  late final $AskTurnsTable askTurns = $AskTurnsTable(this);
+  late final $AskCitationsTable askCitations = $AskCitationsTable(this);
+  late final Trigger askCitationDelete = Trigger(
+    'CREATE TRIGGER ask_citation_delete AFTER DELETE ON ask_citations BEGIN DELETE FROM ask_turns WHERE id = old.turn_id;END',
+    'ask_citation_delete',
+  );
+  late final Trigger askTurnDelete = Trigger(
+    'CREATE TRIGGER ask_turn_delete AFTER DELETE ON ask_turns BEGIN DELETE FROM ask_threads WHERE id = old.thread_id AND NOT EXISTS (SELECT 1 FROM ask_turns WHERE thread_id = old.thread_id);END',
+    'ask_turn_delete',
+  );
+  late final $AudioChunksTable audioChunks = $AudioChunksTable(this);
+  late final $SpeechSegmentsTable speechSegments = $SpeechSegmentsTable(this);
+  late final $MarkersTable markers = $MarkersTable(this);
+  late final $SpeakersTable speakers = $SpeakersTable(this);
+  late final SearchIndex searchIndex = SearchIndex(this);
   late final Trigger searchRecordingInsert = Trigger(
     'CREATE TRIGGER search_recording_insert AFTER INSERT ON recordings BEGIN INSERT INTO search_index (recording_id, kind, body) SELECT new.id, \'title\', new.title || \' \' || COALESCE((SELECT group_concat(value, \' \') FROM json_each(new.tags)), \'\');END',
     'search_recording_insert',
@@ -8856,10 +9960,6 @@ abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
     'search_extraction_delete',
   );
   late final $ActionItemsTable actionItems = $ActionItemsTable(this);
-  late final $AudioChunksTable audioChunks = $AudioChunksTable(this);
-  late final $SpeechSegmentsTable speechSegments = $SpeechSegmentsTable(this);
-  late final $MarkersTable markers = $MarkersTable(this);
-  late final $SpeakersTable speakers = $SpeakersTable(this);
   late final $JobsTable jobs = $JobsTable(this);
   late final $ProfilesTable profiles = $ProfilesTable(this);
   late final $TemplatesTable templates = $TemplatesTable(this);
@@ -8901,8 +10001,17 @@ abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
-    searchIndex,
     recordings,
+    askThreads,
+    askTurns,
+    askCitations,
+    askCitationDelete,
+    askTurnDelete,
+    audioChunks,
+    speechSegments,
+    markers,
+    speakers,
+    searchIndex,
     searchRecordingInsert,
     searchRecordingUpdate,
     searchRecordingDelete,
@@ -8916,10 +10025,6 @@ abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
     searchExtractionUpdate,
     searchExtractionDelete,
     actionItems,
-    audioChunks,
-    speechSegments,
-    markers,
-    speakers,
     jobs,
     profiles,
     templates,
@@ -8932,6 +10037,76 @@ abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'recordings',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('ask_threads', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'ask_threads',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('ask_turns', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'ask_turns',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('ask_citations', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'recordings',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('ask_citations', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'ask_citations',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('ask_turns', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'ask_turns',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('ask_threads', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'recordings',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('audio_chunks', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'recordings',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('speech_segments', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'recordings',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('markers', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'recordings',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('speakers', kind: UpdateKind.delete)],
+    ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(
         'recordings',
@@ -9050,34 +10225,6 @@ abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
         'recordings',
         limitUpdateKind: UpdateKind.delete,
       ),
-      result: [TableUpdate('audio_chunks', kind: UpdateKind.delete)],
-    ),
-    WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'recordings',
-        limitUpdateKind: UpdateKind.delete,
-      ),
-      result: [TableUpdate('speech_segments', kind: UpdateKind.delete)],
-    ),
-    WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'recordings',
-        limitUpdateKind: UpdateKind.delete,
-      ),
-      result: [TableUpdate('markers', kind: UpdateKind.delete)],
-    ),
-    WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'recordings',
-        limitUpdateKind: UpdateKind.delete,
-      ),
-      result: [TableUpdate('speakers', kind: UpdateKind.delete)],
-    ),
-    WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'recordings',
-        limitUpdateKind: UpdateKind.delete,
-      ),
       result: [TableUpdate('jobs', kind: UpdateKind.delete)],
     ),
     WritePropagation(
@@ -9118,177 +10265,6 @@ abstract class _$VaultVoiceDatabase extends GeneratedDatabase {
   ]);
 }
 
-typedef $SearchIndexCreateCompanionBuilder = SearchIndexCompanion Function({
-  required String recordingId,
-  required String kind,
-  required String body,
-  Value<int> rowid,
-});
-typedef $SearchIndexUpdateCompanionBuilder = SearchIndexCompanion Function({
-  Value<String> recordingId,
-  Value<String> kind,
-  Value<String> body,
-  Value<int> rowid,
-});
-
-class $SearchIndexFilterComposer
-    extends Composer<_$VaultVoiceDatabase, SearchIndex> {
-  $SearchIndexFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<String> get recordingId => $composableBuilder(
-    column: $table.recordingId,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get kind => $composableBuilder(
-    column: $table.kind,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get body => $composableBuilder(
-    column: $table.body,
-    builder: (column) => ColumnFilters(column),
-  );
-}
-
-class $SearchIndexOrderingComposer
-    extends Composer<_$VaultVoiceDatabase, SearchIndex> {
-  $SearchIndexOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<String> get recordingId => $composableBuilder(
-    column: $table.recordingId,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get kind => $composableBuilder(
-    column: $table.kind,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get body => $composableBuilder(
-    column: $table.body,
-    builder: (column) => ColumnOrderings(column),
-  );
-}
-
-class $SearchIndexAnnotationComposer
-    extends Composer<_$VaultVoiceDatabase, SearchIndex> {
-  $SearchIndexAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<String> get recordingId => $composableBuilder(
-    column: $table.recordingId,
-    builder: (column) => column,
-  );
-
-  GeneratedColumn<String> get kind =>
-      $composableBuilder(column: $table.kind, builder: (column) => column);
-
-  GeneratedColumn<String> get body =>
-      $composableBuilder(column: $table.body, builder: (column) => column);
-}
-
-class $SearchIndexTableManager
-    extends
-        RootTableManager<
-          _$VaultVoiceDatabase,
-          SearchIndex,
-          SearchIndexData,
-          $SearchIndexFilterComposer,
-          $SearchIndexOrderingComposer,
-          $SearchIndexAnnotationComposer,
-          $SearchIndexCreateCompanionBuilder,
-          $SearchIndexUpdateCompanionBuilder,
-          (
-            SearchIndexData,
-            BaseReferences<_$VaultVoiceDatabase, SearchIndex, SearchIndexData>,
-          ),
-          SearchIndexData,
-          PrefetchHooks Function()
-        > {
-  $SearchIndexTableManager(_$VaultVoiceDatabase db, SearchIndex table)
-    : super(
-        TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $SearchIndexFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $SearchIndexOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $SearchIndexAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<String> recordingId = const Value.absent(),
-                Value<String> kind = const Value.absent(),
-                Value<String> body = const Value.absent(),
-                Value<int> rowid = const Value.absent(),
-              }) => SearchIndexCompanion(
-                recordingId: recordingId,
-                kind: kind,
-                body: body,
-                rowid: rowid,
-              ),
-          createCompanionCallback:
-              ({
-                required String recordingId,
-                required String kind,
-                required String body,
-                Value<int> rowid = const Value.absent(),
-              }) => SearchIndexCompanion.insert(
-                recordingId: recordingId,
-                kind: kind,
-                body: body,
-                rowid: rowid,
-              ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable<SearchIndex, SearchIndexData>(table),
-                  BaseReferences<
-                    _$VaultVoiceDatabase,
-                    SearchIndex,
-                    SearchIndexData
-                  >(db, table, e),
-                ),
-              )
-              .toList(),
-          prefetchHooksCallback: null,
-        ),
-      );
-}
-
-typedef $SearchIndexProcessedTableManager =
-    ProcessedTableManager<
-      _$VaultVoiceDatabase,
-      SearchIndex,
-      SearchIndexData,
-      $SearchIndexFilterComposer,
-      $SearchIndexOrderingComposer,
-      $SearchIndexAnnotationComposer,
-      $SearchIndexCreateCompanionBuilder,
-      $SearchIndexUpdateCompanionBuilder,
-      (
-        SearchIndexData,
-        BaseReferences<_$VaultVoiceDatabase, SearchIndex, SearchIndexData>,
-      ),
-      SearchIndexData,
-      PrefetchHooks Function()
-    >;
 typedef $$RecordingsTableCreateCompanionBuilder = RecordingsCompanion Function({
   required String id,
   Value<String> title,
@@ -9325,58 +10301,39 @@ final class $$RecordingsTableReferences
         BaseReferences<_$VaultVoiceDatabase, $RecordingsTable, RecordingRow> {
   $$RecordingsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static MultiTypedResultKey<$TranscriptsTable, List<TranscriptRow>>
-  _transcriptsRefsTable(_$VaultVoiceDatabase db) =>
+  static MultiTypedResultKey<$AskThreadsTable, List<AskThreadRow>>
+  _askThreadsRefsTable(_$VaultVoiceDatabase db) =>
       MultiTypedResultKey.fromTable(
-        db.transcripts,
-        aliasName: 'recordings__id__transcripts__recording_id',
+        db.askThreads,
+        aliasName: 'recordings__id__ask_threads__recording_id',
       );
 
-  $$TranscriptsTableProcessedTableManager get transcriptsRefs {
-    final manager = $$TranscriptsTableTableManager(
+  $$AskThreadsTableProcessedTableManager get askThreadsRefs {
+    final manager = $$AskThreadsTableTableManager(
       $_db,
-      $_db.transcripts,
+      $_db.askThreads,
     ).filter((f) => f.recordingId.id.sqlEquals($_itemColumn<String>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(_transcriptsRefsTable($_db));
+    final cache = $_typedResult.readTableOrNull(_askThreadsRefsTable($_db));
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
 
-  static MultiTypedResultKey<$ExtractionsTable, List<ExtractionRow>>
-  _extractionsRefsTable(_$VaultVoiceDatabase db) =>
+  static MultiTypedResultKey<$AskCitationsTable, List<AskCitationRow>>
+  _askCitationsRefsTable(_$VaultVoiceDatabase db) =>
       MultiTypedResultKey.fromTable(
-        db.extractions,
-        aliasName: 'recordings__id__extractions__recording_id',
+        db.askCitations,
+        aliasName: 'recordings__id__ask_citations__recording_id',
       );
 
-  $$ExtractionsTableProcessedTableManager get extractionsRefs {
-    final manager = $$ExtractionsTableTableManager(
+  $$AskCitationsTableProcessedTableManager get askCitationsRefs {
+    final manager = $$AskCitationsTableTableManager(
       $_db,
-      $_db.extractions,
+      $_db.askCitations,
     ).filter((f) => f.recordingId.id.sqlEquals($_itemColumn<String>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(_extractionsRefsTable($_db));
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
-  }
-
-  static MultiTypedResultKey<$ActionItemsTable, List<ActionItemRow>>
-  _actionItemsRefsTable(_$VaultVoiceDatabase db) =>
-      MultiTypedResultKey.fromTable(
-        db.actionItems,
-        aliasName: 'recordings__id__action_items__recording_id',
-      );
-
-  $$ActionItemsTableProcessedTableManager get actionItemsRefs {
-    final manager = $$ActionItemsTableTableManager(
-      $_db,
-      $_db.actionItems,
-    ).filter((f) => f.recordingId.id.sqlEquals($_itemColumn<String>('id')!));
-
-    final cache = $_typedResult.readTableOrNull(_actionItemsRefsTable($_db));
+    final cache = $_typedResult.readTableOrNull(_askCitationsRefsTable($_db));
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -9452,6 +10409,63 @@ final class $$RecordingsTableReferences
     ).filter((f) => f.recordingId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_speakersRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$TranscriptsTable, List<TranscriptRow>>
+  _transcriptsRefsTable(_$VaultVoiceDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.transcripts,
+        aliasName: 'recordings__id__transcripts__recording_id',
+      );
+
+  $$TranscriptsTableProcessedTableManager get transcriptsRefs {
+    final manager = $$TranscriptsTableTableManager(
+      $_db,
+      $_db.transcripts,
+    ).filter((f) => f.recordingId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_transcriptsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$ExtractionsTable, List<ExtractionRow>>
+  _extractionsRefsTable(_$VaultVoiceDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.extractions,
+        aliasName: 'recordings__id__extractions__recording_id',
+      );
+
+  $$ExtractionsTableProcessedTableManager get extractionsRefs {
+    final manager = $$ExtractionsTableTableManager(
+      $_db,
+      $_db.extractions,
+    ).filter((f) => f.recordingId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_extractionsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$ActionItemsTable, List<ActionItemRow>>
+  _actionItemsRefsTable(_$VaultVoiceDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.actionItems,
+        aliasName: 'recordings__id__action_items__recording_id',
+      );
+
+  $$ActionItemsTableProcessedTableManager get actionItemsRefs {
+    final manager = $$ActionItemsTableTableManager(
+      $_db,
+      $_db.actionItems,
+    ).filter((f) => f.recordingId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_actionItemsRefsTable($_db));
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -9590,22 +10604,22 @@ class $$RecordingsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  Expression<bool> transcriptsRefs(
-    Expression<bool> Function($$TranscriptsTableFilterComposer f) f,
+  Expression<bool> askThreadsRefs(
+    Expression<bool> Function($$AskThreadsTableFilterComposer f) f,
   ) {
-    final $$TranscriptsTableFilterComposer composer = $composerBuilder(
+    final $$AskThreadsTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
-      referencedTable: $db.transcripts,
+      referencedTable: $db.askThreads,
       getReferencedColumn: (t) => t.recordingId,
       builder:
           (
             joinBuilder, {
             $addJoinBuilderToRootComposer,
             $removeJoinBuilderFromRootComposer,
-          }) => $$TranscriptsTableFilterComposer(
+          }) => $$AskThreadsTableFilterComposer(
             $db: $db,
-            $table: $db.transcripts,
+            $table: $db.askThreads,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -9615,47 +10629,22 @@ class $$RecordingsTableFilterComposer
     return f(composer);
   }
 
-  Expression<bool> extractionsRefs(
-    Expression<bool> Function($$ExtractionsTableFilterComposer f) f,
+  Expression<bool> askCitationsRefs(
+    Expression<bool> Function($$AskCitationsTableFilterComposer f) f,
   ) {
-    final $$ExtractionsTableFilterComposer composer = $composerBuilder(
+    final $$AskCitationsTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
-      referencedTable: $db.extractions,
+      referencedTable: $db.askCitations,
       getReferencedColumn: (t) => t.recordingId,
       builder:
           (
             joinBuilder, {
             $addJoinBuilderToRootComposer,
             $removeJoinBuilderFromRootComposer,
-          }) => $$ExtractionsTableFilterComposer(
+          }) => $$AskCitationsTableFilterComposer(
             $db: $db,
-            $table: $db.extractions,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return f(composer);
-  }
-
-  Expression<bool> actionItemsRefs(
-    Expression<bool> Function($$ActionItemsTableFilterComposer f) f,
-  ) {
-    final $$ActionItemsTableFilterComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.id,
-      referencedTable: $db.actionItems,
-      getReferencedColumn: (t) => t.recordingId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$ActionItemsTableFilterComposer(
-            $db: $db,
-            $table: $db.actionItems,
+            $table: $db.askCitations,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -9756,6 +10745,81 @@ class $$RecordingsTableFilterComposer
           }) => $$SpeakersTableFilterComposer(
             $db: $db,
             $table: $db.speakers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> transcriptsRefs(
+    Expression<bool> Function($$TranscriptsTableFilterComposer f) f,
+  ) {
+    final $$TranscriptsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.transcripts,
+      getReferencedColumn: (t) => t.recordingId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TranscriptsTableFilterComposer(
+            $db: $db,
+            $table: $db.transcripts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> extractionsRefs(
+    Expression<bool> Function($$ExtractionsTableFilterComposer f) f,
+  ) {
+    final $$ExtractionsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.extractions,
+      getReferencedColumn: (t) => t.recordingId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExtractionsTableFilterComposer(
+            $db: $db,
+            $table: $db.extractions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> actionItemsRefs(
+    Expression<bool> Function($$ActionItemsTableFilterComposer f) f,
+  ) {
+    final $$ActionItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.actionItems,
+      getReferencedColumn: (t) => t.recordingId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ActionItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.actionItems,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -9967,22 +11031,22 @@ class $$RecordingsTableAnnotationComposer
   GeneratedColumn<bool> get recovered =>
       $composableBuilder(column: $table.recovered, builder: (column) => column);
 
-  Expression<T> transcriptsRefs<T extends Object>(
-    Expression<T> Function($$TranscriptsTableAnnotationComposer a) f,
+  Expression<T> askThreadsRefs<T extends Object>(
+    Expression<T> Function($$AskThreadsTableAnnotationComposer a) f,
   ) {
-    final $$TranscriptsTableAnnotationComposer composer = $composerBuilder(
+    final $$AskThreadsTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
-      referencedTable: $db.transcripts,
+      referencedTable: $db.askThreads,
       getReferencedColumn: (t) => t.recordingId,
       builder:
           (
             joinBuilder, {
             $addJoinBuilderToRootComposer,
             $removeJoinBuilderFromRootComposer,
-          }) => $$TranscriptsTableAnnotationComposer(
+          }) => $$AskThreadsTableAnnotationComposer(
             $db: $db,
-            $table: $db.transcripts,
+            $table: $db.askThreads,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -9992,47 +11056,22 @@ class $$RecordingsTableAnnotationComposer
     return f(composer);
   }
 
-  Expression<T> extractionsRefs<T extends Object>(
-    Expression<T> Function($$ExtractionsTableAnnotationComposer a) f,
+  Expression<T> askCitationsRefs<T extends Object>(
+    Expression<T> Function($$AskCitationsTableAnnotationComposer a) f,
   ) {
-    final $$ExtractionsTableAnnotationComposer composer = $composerBuilder(
+    final $$AskCitationsTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
-      referencedTable: $db.extractions,
+      referencedTable: $db.askCitations,
       getReferencedColumn: (t) => t.recordingId,
       builder:
           (
             joinBuilder, {
             $addJoinBuilderToRootComposer,
             $removeJoinBuilderFromRootComposer,
-          }) => $$ExtractionsTableAnnotationComposer(
+          }) => $$AskCitationsTableAnnotationComposer(
             $db: $db,
-            $table: $db.extractions,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return f(composer);
-  }
-
-  Expression<T> actionItemsRefs<T extends Object>(
-    Expression<T> Function($$ActionItemsTableAnnotationComposer a) f,
-  ) {
-    final $$ActionItemsTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.id,
-      referencedTable: $db.actionItems,
-      getReferencedColumn: (t) => t.recordingId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$ActionItemsTableAnnotationComposer(
-            $db: $db,
-            $table: $db.actionItems,
+            $table: $db.askCitations,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -10142,6 +11181,81 @@ class $$RecordingsTableAnnotationComposer
     return f(composer);
   }
 
+  Expression<T> transcriptsRefs<T extends Object>(
+    Expression<T> Function($$TranscriptsTableAnnotationComposer a) f,
+  ) {
+    final $$TranscriptsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.transcripts,
+      getReferencedColumn: (t) => t.recordingId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TranscriptsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.transcripts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> extractionsRefs<T extends Object>(
+    Expression<T> Function($$ExtractionsTableAnnotationComposer a) f,
+  ) {
+    final $$ExtractionsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.extractions,
+      getReferencedColumn: (t) => t.recordingId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ExtractionsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.extractions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> actionItemsRefs<T extends Object>(
+    Expression<T> Function($$ActionItemsTableAnnotationComposer a) f,
+  ) {
+    final $$ActionItemsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.actionItems,
+      getReferencedColumn: (t) => t.recordingId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ActionItemsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.actionItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
   Expression<T> jobsRefs<T extends Object>(
     Expression<T> Function($$JobsTableAnnotationComposer a) f,
   ) {
@@ -10232,13 +11346,15 @@ class $$RecordingsTableTableManager
           (RecordingRow, $$RecordingsTableReferences),
           RecordingRow,
           PrefetchHooks Function({
-            bool transcriptsRefs,
-            bool extractionsRefs,
-            bool actionItemsRefs,
+            bool askThreadsRefs,
+            bool askCitationsRefs,
             bool audioChunksRefs,
             bool speechSegmentsRefs,
             bool markersRefs,
             bool speakersRefs,
+            bool transcriptsRefs,
+            bool extractionsRefs,
+            bool actionItemsRefs,
             bool jobsRefs,
             bool mindMapsRefs,
             bool exportsRefs,
@@ -10325,13 +11441,15 @@ class $$RecordingsTableTableManager
               .toList(),
           prefetchHooksCallback:
               ({
-                transcriptsRefs = false,
-                extractionsRefs = false,
-                actionItemsRefs = false,
+                askThreadsRefs = false,
+                askCitationsRefs = false,
                 audioChunksRefs = false,
                 speechSegmentsRefs = false,
                 markersRefs = false,
                 speakersRefs = false,
+                transcriptsRefs = false,
+                extractionsRefs = false,
+                actionItemsRefs = false,
                 jobsRefs = false,
                 mindMapsRefs = false,
                 exportsRefs = false,
@@ -10339,13 +11457,15 @@ class $$RecordingsTableTableManager
                 return PrefetchHooks(
                   db: db,
                   explicitlyWatchedTables: [
-                    if (transcriptsRefs) db.transcripts,
-                    if (extractionsRefs) db.extractions,
-                    if (actionItemsRefs) db.actionItems,
+                    if (askThreadsRefs) db.askThreads,
+                    if (askCitationsRefs) db.askCitations,
                     if (audioChunksRefs) db.audioChunks,
                     if (speechSegmentsRefs) db.speechSegments,
                     if (markersRefs) db.markers,
                     if (speakersRefs) db.speakers,
+                    if (transcriptsRefs) db.transcripts,
+                    if (extractionsRefs) db.extractions,
+                    if (actionItemsRefs) db.actionItems,
                     if (jobsRefs) db.jobs,
                     if (mindMapsRefs) db.mindMaps,
                     if (exportsRefs) db.exports,
@@ -10353,63 +11473,42 @@ class $$RecordingsTableTableManager
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
                     return [
-                      if (transcriptsRefs)
+                      if (askThreadsRefs)
                         await $_getPrefetchedData<
                           RecordingRow,
                           $RecordingsTable,
-                          TranscriptRow
+                          AskThreadRow
                         >(
                           currentTable: table,
                           referencedTable: $$RecordingsTableReferences
-                              ._transcriptsRefsTable(db),
+                              ._askThreadsRefsTable(db),
                           managerFromTypedResult: (p0) =>
                               $$RecordingsTableReferences(
                                 db,
                                 table,
                                 p0,
-                              ).transcriptsRefs,
+                              ).askThreadsRefs,
                           referencedItemsForCurrentItem:
                               (item, referencedItems) => referencedItems.where(
                                 (e) => e.recordingId == item.id,
                               ),
                           typedResults: items,
                         ),
-                      if (extractionsRefs)
+                      if (askCitationsRefs)
                         await $_getPrefetchedData<
                           RecordingRow,
                           $RecordingsTable,
-                          ExtractionRow
+                          AskCitationRow
                         >(
                           currentTable: table,
                           referencedTable: $$RecordingsTableReferences
-                              ._extractionsRefsTable(db),
+                              ._askCitationsRefsTable(db),
                           managerFromTypedResult: (p0) =>
                               $$RecordingsTableReferences(
                                 db,
                                 table,
                                 p0,
-                              ).extractionsRefs,
-                          referencedItemsForCurrentItem:
-                              (item, referencedItems) => referencedItems.where(
-                                (e) => e.recordingId == item.id,
-                              ),
-                          typedResults: items,
-                        ),
-                      if (actionItemsRefs)
-                        await $_getPrefetchedData<
-                          RecordingRow,
-                          $RecordingsTable,
-                          ActionItemRow
-                        >(
-                          currentTable: table,
-                          referencedTable: $$RecordingsTableReferences
-                              ._actionItemsRefsTable(db),
-                          managerFromTypedResult: (p0) =>
-                              $$RecordingsTableReferences(
-                                db,
-                                table,
-                                p0,
-                              ).actionItemsRefs,
+                              ).askCitationsRefs,
                           referencedItemsForCurrentItem:
                               (item, referencedItems) => referencedItems.where(
                                 (e) => e.recordingId == item.id,
@@ -10500,6 +11599,69 @@ class $$RecordingsTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (transcriptsRefs)
+                        await $_getPrefetchedData<
+                          RecordingRow,
+                          $RecordingsTable,
+                          TranscriptRow
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordingsTableReferences
+                              ._transcriptsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordingsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).transcriptsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordingId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (extractionsRefs)
+                        await $_getPrefetchedData<
+                          RecordingRow,
+                          $RecordingsTable,
+                          ExtractionRow
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordingsTableReferences
+                              ._extractionsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordingsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).extractionsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordingId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (actionItemsRefs)
+                        await $_getPrefetchedData<
+                          RecordingRow,
+                          $RecordingsTable,
+                          ActionItemRow
+                        >(
+                          currentTable: table,
+                          referencedTable: $$RecordingsTableReferences
+                              ._actionItemsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$RecordingsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).actionItemsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.recordingId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                       if (jobsRefs)
                         await $_getPrefetchedData<
                           RecordingRow,
@@ -10584,17 +11746,2692 @@ typedef $$RecordingsTableProcessedTableManager =
       (RecordingRow, $$RecordingsTableReferences),
       RecordingRow,
       PrefetchHooks Function({
-        bool transcriptsRefs,
-        bool extractionsRefs,
-        bool actionItemsRefs,
+        bool askThreadsRefs,
+        bool askCitationsRefs,
         bool audioChunksRefs,
         bool speechSegmentsRefs,
         bool markersRefs,
         bool speakersRefs,
+        bool transcriptsRefs,
+        bool extractionsRefs,
+        bool actionItemsRefs,
         bool jobsRefs,
         bool mindMapsRefs,
         bool exportsRefs,
       })
+    >;
+typedef $$AskThreadsTableCreateCompanionBuilder = AskThreadsCompanion Function({
+  required String id,
+  Value<String?> recordingId,
+  required DateTime createdAt,
+  required DateTime updatedAt,
+  Value<int> rowid,
+});
+typedef $$AskThreadsTableUpdateCompanionBuilder = AskThreadsCompanion Function({
+  Value<String> id,
+  Value<String?> recordingId,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+
+final class $$AskThreadsTableReferences
+    extends
+        BaseReferences<_$VaultVoiceDatabase, $AskThreadsTable, AskThreadRow> {
+  $$AskThreadsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $RecordingsTable _recordingIdTable(_$VaultVoiceDatabase db) =>
+      db.recordings.createAlias('ask_threads__recording_id__recordings__id');
+
+  $$RecordingsTableProcessedTableManager? get recordingId {
+    final $_column = $_itemColumn<String>('recording_id');
+    if ($_column == null) return null;
+    final manager = $$RecordingsTableTableManager(
+      $_db,
+      $_db.recordings,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordingIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$AskTurnsTable, List<AskTurnRow>>
+  _askTurnsRefsTable(_$VaultVoiceDatabase db) => MultiTypedResultKey.fromTable(
+    db.askTurns,
+    aliasName: 'ask_threads__id__ask_turns__thread_id',
+  );
+
+  $$AskTurnsTableProcessedTableManager get askTurnsRefs {
+    final manager = $$AskTurnsTableTableManager(
+      $_db,
+      $_db.askTurns,
+    ).filter((f) => f.threadId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_askTurnsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$AskThreadsTableFilterComposer
+    extends Composer<_$VaultVoiceDatabase, $AskThreadsTable> {
+  $$AskThreadsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<DateTime, DateTime, int> get createdAt =>
+      $composableBuilder(
+        column: $table.createdAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnWithTypeConverterFilters<DateTime, DateTime, int> get updatedAt =>
+      $composableBuilder(
+        column: $table.updatedAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  $$RecordingsTableFilterComposer get recordingId {
+    final $$RecordingsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableFilterComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> askTurnsRefs(
+    Expression<bool> Function($$AskTurnsTableFilterComposer f) f,
+  ) {
+    final $$AskTurnsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.askTurns,
+      getReferencedColumn: (t) => t.threadId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AskTurnsTableFilterComposer(
+            $db: $db,
+            $table: $db.askTurns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$AskThreadsTableOrderingComposer
+    extends Composer<_$VaultVoiceDatabase, $AskThreadsTable> {
+  $$AskThreadsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$RecordingsTableOrderingComposer get recordingId {
+    final $$RecordingsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableOrderingComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AskThreadsTableAnnotationComposer
+    extends Composer<_$VaultVoiceDatabase, $AskThreadsTable> {
+  $$AskThreadsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<DateTime, int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<DateTime, int> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  $$RecordingsTableAnnotationComposer get recordingId {
+    final $$RecordingsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> askTurnsRefs<T extends Object>(
+    Expression<T> Function($$AskTurnsTableAnnotationComposer a) f,
+  ) {
+    final $$AskTurnsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.askTurns,
+      getReferencedColumn: (t) => t.threadId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AskTurnsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.askTurns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$AskThreadsTableTableManager
+    extends
+        RootTableManager<
+          _$VaultVoiceDatabase,
+          $AskThreadsTable,
+          AskThreadRow,
+          $$AskThreadsTableFilterComposer,
+          $$AskThreadsTableOrderingComposer,
+          $$AskThreadsTableAnnotationComposer,
+          $$AskThreadsTableCreateCompanionBuilder,
+          $$AskThreadsTableUpdateCompanionBuilder,
+          (AskThreadRow, $$AskThreadsTableReferences),
+          AskThreadRow,
+          PrefetchHooks Function({bool recordingId, bool askTurnsRefs})
+        > {
+  $$AskThreadsTableTableManager(_$VaultVoiceDatabase db, $AskThreadsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AskThreadsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AskThreadsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AskThreadsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String?> recordingId = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AskThreadsCompanion(
+                id: id,
+                recordingId: recordingId,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                Value<String?> recordingId = const Value.absent(),
+                required DateTime createdAt,
+                required DateTime updatedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => AskThreadsCompanion.insert(
+                id: id,
+                recordingId: recordingId,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$AskThreadsTable, AskThreadRow>(table),
+                  $$AskThreadsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({recordingId = false, askTurnsRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (askTurnsRefs) db.askTurns],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordingId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.recordingId,
+                        referencedTable: $$AskThreadsTableReferences
+                            ._recordingIdTable(db),
+                        referencedColumn: $$AskThreadsTableReferences
+                            ._recordingIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (askTurnsRefs)
+                    await $_getPrefetchedData<
+                      AskThreadRow,
+                      $AskThreadsTable,
+                      AskTurnRow
+                    >(
+                      currentTable: table,
+                      referencedTable: $$AskThreadsTableReferences
+                          ._askTurnsRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $$AskThreadsTableReferences(
+                            db,
+                            table,
+                            p0,
+                          ).askTurnsRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where((e) => e.threadId == item.id),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$AskThreadsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$VaultVoiceDatabase,
+      $AskThreadsTable,
+      AskThreadRow,
+      $$AskThreadsTableFilterComposer,
+      $$AskThreadsTableOrderingComposer,
+      $$AskThreadsTableAnnotationComposer,
+      $$AskThreadsTableCreateCompanionBuilder,
+      $$AskThreadsTableUpdateCompanionBuilder,
+      (AskThreadRow, $$AskThreadsTableReferences),
+      AskThreadRow,
+      PrefetchHooks Function({bool recordingId, bool askTurnsRefs})
+    >;
+typedef $$AskTurnsTableCreateCompanionBuilder = AskTurnsCompanion Function({
+  required String id,
+  required String threadId,
+  required int seq,
+  required String question,
+  required String answer,
+  required bool found,
+  required DateTime createdAt,
+  Value<int> rowid,
+});
+typedef $$AskTurnsTableUpdateCompanionBuilder = AskTurnsCompanion Function({
+  Value<String> id,
+  Value<String> threadId,
+  Value<int> seq,
+  Value<String> question,
+  Value<String> answer,
+  Value<bool> found,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+
+final class $$AskTurnsTableReferences
+    extends BaseReferences<_$VaultVoiceDatabase, $AskTurnsTable, AskTurnRow> {
+  $$AskTurnsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $AskThreadsTable _threadIdTable(_$VaultVoiceDatabase db) =>
+      db.askThreads.createAlias('ask_turns__thread_id__ask_threads__id');
+
+  $$AskThreadsTableProcessedTableManager get threadId {
+    final $_column = $_itemColumn<String>('thread_id')!;
+
+    final manager = $$AskThreadsTableTableManager(
+      $_db,
+      $_db.askThreads,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_threadIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$AskCitationsTable, List<AskCitationRow>>
+  _askCitationsRefsTable(_$VaultVoiceDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.askCitations,
+        aliasName: 'ask_turns__id__ask_citations__turn_id',
+      );
+
+  $$AskCitationsTableProcessedTableManager get askCitationsRefs {
+    final manager = $$AskCitationsTableTableManager(
+      $_db,
+      $_db.askCitations,
+    ).filter((f) => f.turnId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_askCitationsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$AskTurnsTableFilterComposer
+    extends Composer<_$VaultVoiceDatabase, $AskTurnsTable> {
+  $$AskTurnsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get seq => $composableBuilder(
+    column: $table.seq,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get question => $composableBuilder(
+    column: $table.question,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get answer => $composableBuilder(
+    column: $table.answer,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get found => $composableBuilder(
+    column: $table.found,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<DateTime, DateTime, int> get createdAt =>
+      $composableBuilder(
+        column: $table.createdAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  $$AskThreadsTableFilterComposer get threadId {
+    final $$AskThreadsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.threadId,
+      referencedTable: $db.askThreads,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AskThreadsTableFilterComposer(
+            $db: $db,
+            $table: $db.askThreads,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> askCitationsRefs(
+    Expression<bool> Function($$AskCitationsTableFilterComposer f) f,
+  ) {
+    final $$AskCitationsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.askCitations,
+      getReferencedColumn: (t) => t.turnId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AskCitationsTableFilterComposer(
+            $db: $db,
+            $table: $db.askCitations,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$AskTurnsTableOrderingComposer
+    extends Composer<_$VaultVoiceDatabase, $AskTurnsTable> {
+  $$AskTurnsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get seq => $composableBuilder(
+    column: $table.seq,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get question => $composableBuilder(
+    column: $table.question,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get answer => $composableBuilder(
+    column: $table.answer,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get found => $composableBuilder(
+    column: $table.found,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$AskThreadsTableOrderingComposer get threadId {
+    final $$AskThreadsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.threadId,
+      referencedTable: $db.askThreads,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AskThreadsTableOrderingComposer(
+            $db: $db,
+            $table: $db.askThreads,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AskTurnsTableAnnotationComposer
+    extends Composer<_$VaultVoiceDatabase, $AskTurnsTable> {
+  $$AskTurnsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get seq =>
+      $composableBuilder(column: $table.seq, builder: (column) => column);
+
+  GeneratedColumn<String> get question =>
+      $composableBuilder(column: $table.question, builder: (column) => column);
+
+  GeneratedColumn<String> get answer =>
+      $composableBuilder(column: $table.answer, builder: (column) => column);
+
+  GeneratedColumn<bool> get found =>
+      $composableBuilder(column: $table.found, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<DateTime, int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$AskThreadsTableAnnotationComposer get threadId {
+    final $$AskThreadsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.threadId,
+      referencedTable: $db.askThreads,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AskThreadsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.askThreads,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> askCitationsRefs<T extends Object>(
+    Expression<T> Function($$AskCitationsTableAnnotationComposer a) f,
+  ) {
+    final $$AskCitationsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.askCitations,
+      getReferencedColumn: (t) => t.turnId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AskCitationsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.askCitations,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$AskTurnsTableTableManager
+    extends
+        RootTableManager<
+          _$VaultVoiceDatabase,
+          $AskTurnsTable,
+          AskTurnRow,
+          $$AskTurnsTableFilterComposer,
+          $$AskTurnsTableOrderingComposer,
+          $$AskTurnsTableAnnotationComposer,
+          $$AskTurnsTableCreateCompanionBuilder,
+          $$AskTurnsTableUpdateCompanionBuilder,
+          (AskTurnRow, $$AskTurnsTableReferences),
+          AskTurnRow,
+          PrefetchHooks Function({bool threadId, bool askCitationsRefs})
+        > {
+  $$AskTurnsTableTableManager(_$VaultVoiceDatabase db, $AskTurnsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AskTurnsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AskTurnsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AskTurnsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> threadId = const Value.absent(),
+                Value<int> seq = const Value.absent(),
+                Value<String> question = const Value.absent(),
+                Value<String> answer = const Value.absent(),
+                Value<bool> found = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AskTurnsCompanion(
+                id: id,
+                threadId: threadId,
+                seq: seq,
+                question: question,
+                answer: answer,
+                found: found,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String threadId,
+                required int seq,
+                required String question,
+                required String answer,
+                required bool found,
+                required DateTime createdAt,
+                Value<int> rowid = const Value.absent(),
+              }) => AskTurnsCompanion.insert(
+                id: id,
+                threadId: threadId,
+                seq: seq,
+                question: question,
+                answer: answer,
+                found: found,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$AskTurnsTable, AskTurnRow>(table),
+                  $$AskTurnsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({threadId = false, askCitationsRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (askCitationsRefs) db.askCitations,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (threadId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.threadId,
+                            referencedTable: $$AskTurnsTableReferences
+                                ._threadIdTable(db),
+                            referencedColumn: $$AskTurnsTableReferences
+                                ._threadIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (askCitationsRefs)
+                        await $_getPrefetchedData<
+                          AskTurnRow,
+                          $AskTurnsTable,
+                          AskCitationRow
+                        >(
+                          currentTable: table,
+                          referencedTable: $$AskTurnsTableReferences
+                              ._askCitationsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$AskTurnsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).askCitationsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.turnId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$AskTurnsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$VaultVoiceDatabase,
+      $AskTurnsTable,
+      AskTurnRow,
+      $$AskTurnsTableFilterComposer,
+      $$AskTurnsTableOrderingComposer,
+      $$AskTurnsTableAnnotationComposer,
+      $$AskTurnsTableCreateCompanionBuilder,
+      $$AskTurnsTableUpdateCompanionBuilder,
+      (AskTurnRow, $$AskTurnsTableReferences),
+      AskTurnRow,
+      PrefetchHooks Function({bool threadId, bool askCitationsRefs})
+    >;
+typedef $$AskCitationsTableCreateCompanionBuilder =
+    AskCitationsCompanion Function({
+      Value<int> id,
+      required String turnId,
+      required String recordingId,
+      required int tMs,
+    });
+typedef $$AskCitationsTableUpdateCompanionBuilder =
+    AskCitationsCompanion Function({
+      Value<int> id,
+      Value<String> turnId,
+      Value<String> recordingId,
+      Value<int> tMs,
+    });
+
+final class $$AskCitationsTableReferences
+    extends
+        BaseReferences<
+          _$VaultVoiceDatabase,
+          $AskCitationsTable,
+          AskCitationRow
+        > {
+  $$AskCitationsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $AskTurnsTable _turnIdTable(_$VaultVoiceDatabase db) =>
+      db.askTurns.createAlias('ask_citations__turn_id__ask_turns__id');
+
+  $$AskTurnsTableProcessedTableManager get turnId {
+    final $_column = $_itemColumn<String>('turn_id')!;
+
+    final manager = $$AskTurnsTableTableManager(
+      $_db,
+      $_db.askTurns,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_turnIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $RecordingsTable _recordingIdTable(_$VaultVoiceDatabase db) =>
+      db.recordings.createAlias('ask_citations__recording_id__recordings__id');
+
+  $$RecordingsTableProcessedTableManager get recordingId {
+    final $_column = $_itemColumn<String>('recording_id')!;
+
+    final manager = $$RecordingsTableTableManager(
+      $_db,
+      $_db.recordings,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordingIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$AskCitationsTableFilterComposer
+    extends Composer<_$VaultVoiceDatabase, $AskCitationsTable> {
+  $$AskCitationsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get tMs => $composableBuilder(
+    column: $table.tMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$AskTurnsTableFilterComposer get turnId {
+    final $$AskTurnsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.turnId,
+      referencedTable: $db.askTurns,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AskTurnsTableFilterComposer(
+            $db: $db,
+            $table: $db.askTurns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$RecordingsTableFilterComposer get recordingId {
+    final $$RecordingsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableFilterComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AskCitationsTableOrderingComposer
+    extends Composer<_$VaultVoiceDatabase, $AskCitationsTable> {
+  $$AskCitationsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get tMs => $composableBuilder(
+    column: $table.tMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$AskTurnsTableOrderingComposer get turnId {
+    final $$AskTurnsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.turnId,
+      referencedTable: $db.askTurns,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AskTurnsTableOrderingComposer(
+            $db: $db,
+            $table: $db.askTurns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$RecordingsTableOrderingComposer get recordingId {
+    final $$RecordingsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableOrderingComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AskCitationsTableAnnotationComposer
+    extends Composer<_$VaultVoiceDatabase, $AskCitationsTable> {
+  $$AskCitationsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get tMs =>
+      $composableBuilder(column: $table.tMs, builder: (column) => column);
+
+  $$AskTurnsTableAnnotationComposer get turnId {
+    final $$AskTurnsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.turnId,
+      referencedTable: $db.askTurns,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AskTurnsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.askTurns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$RecordingsTableAnnotationComposer get recordingId {
+    final $$RecordingsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AskCitationsTableTableManager
+    extends
+        RootTableManager<
+          _$VaultVoiceDatabase,
+          $AskCitationsTable,
+          AskCitationRow,
+          $$AskCitationsTableFilterComposer,
+          $$AskCitationsTableOrderingComposer,
+          $$AskCitationsTableAnnotationComposer,
+          $$AskCitationsTableCreateCompanionBuilder,
+          $$AskCitationsTableUpdateCompanionBuilder,
+          (AskCitationRow, $$AskCitationsTableReferences),
+          AskCitationRow,
+          PrefetchHooks Function({bool turnId, bool recordingId})
+        > {
+  $$AskCitationsTableTableManager(
+    _$VaultVoiceDatabase db,
+    $AskCitationsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AskCitationsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AskCitationsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AskCitationsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> turnId = const Value.absent(),
+                Value<String> recordingId = const Value.absent(),
+                Value<int> tMs = const Value.absent(),
+              }) => AskCitationsCompanion(
+                id: id,
+                turnId: turnId,
+                recordingId: recordingId,
+                tMs: tMs,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String turnId,
+                required String recordingId,
+                required int tMs,
+              }) => AskCitationsCompanion.insert(
+                id: id,
+                turnId: turnId,
+                recordingId: recordingId,
+                tMs: tMs,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$AskCitationsTable, AskCitationRow>(table),
+                  $$AskCitationsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({turnId = false, recordingId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (turnId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.turnId,
+                        referencedTable: $$AskCitationsTableReferences
+                            ._turnIdTable(db),
+                        referencedColumn: $$AskCitationsTableReferences
+                            ._turnIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+                    if (recordingId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.recordingId,
+                        referencedTable: $$AskCitationsTableReferences
+                            ._recordingIdTable(db),
+                        referencedColumn: $$AskCitationsTableReferences
+                            ._recordingIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$AskCitationsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$VaultVoiceDatabase,
+      $AskCitationsTable,
+      AskCitationRow,
+      $$AskCitationsTableFilterComposer,
+      $$AskCitationsTableOrderingComposer,
+      $$AskCitationsTableAnnotationComposer,
+      $$AskCitationsTableCreateCompanionBuilder,
+      $$AskCitationsTableUpdateCompanionBuilder,
+      (AskCitationRow, $$AskCitationsTableReferences),
+      AskCitationRow,
+      PrefetchHooks Function({bool turnId, bool recordingId})
+    >;
+typedef $$AudioChunksTableCreateCompanionBuilder =
+    AudioChunksCompanion Function({
+      Value<int> id,
+      required String recordingId,
+      required int seq,
+      required String path,
+      required int sampleRate,
+      required int startMs,
+      required int endMs,
+      required int bytes,
+      Value<String?> sha256,
+    });
+typedef $$AudioChunksTableUpdateCompanionBuilder =
+    AudioChunksCompanion Function({
+      Value<int> id,
+      Value<String> recordingId,
+      Value<int> seq,
+      Value<String> path,
+      Value<int> sampleRate,
+      Value<int> startMs,
+      Value<int> endMs,
+      Value<int> bytes,
+      Value<String?> sha256,
+    });
+
+final class $$AudioChunksTableReferences
+    extends
+        BaseReferences<_$VaultVoiceDatabase, $AudioChunksTable, AudioChunkRow> {
+  $$AudioChunksTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $RecordingsTable _recordingIdTable(_$VaultVoiceDatabase db) =>
+      db.recordings.createAlias('audio_chunks__recording_id__recordings__id');
+
+  $$RecordingsTableProcessedTableManager get recordingId {
+    final $_column = $_itemColumn<String>('recording_id')!;
+
+    final manager = $$RecordingsTableTableManager(
+      $_db,
+      $_db.recordings,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordingIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$AudioChunksTableFilterComposer
+    extends Composer<_$VaultVoiceDatabase, $AudioChunksTable> {
+  $$AudioChunksTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get seq => $composableBuilder(
+    column: $table.seq,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get path => $composableBuilder(
+    column: $table.path,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get sampleRate => $composableBuilder(
+    column: $table.sampleRate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get startMs => $composableBuilder(
+    column: $table.startMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get endMs => $composableBuilder(
+    column: $table.endMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get bytes => $composableBuilder(
+    column: $table.bytes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get sha256 => $composableBuilder(
+    column: $table.sha256,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$RecordingsTableFilterComposer get recordingId {
+    final $$RecordingsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableFilterComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AudioChunksTableOrderingComposer
+    extends Composer<_$VaultVoiceDatabase, $AudioChunksTable> {
+  $$AudioChunksTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get seq => $composableBuilder(
+    column: $table.seq,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get path => $composableBuilder(
+    column: $table.path,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get sampleRate => $composableBuilder(
+    column: $table.sampleRate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get startMs => $composableBuilder(
+    column: $table.startMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get endMs => $composableBuilder(
+    column: $table.endMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get bytes => $composableBuilder(
+    column: $table.bytes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get sha256 => $composableBuilder(
+    column: $table.sha256,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$RecordingsTableOrderingComposer get recordingId {
+    final $$RecordingsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableOrderingComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AudioChunksTableAnnotationComposer
+    extends Composer<_$VaultVoiceDatabase, $AudioChunksTable> {
+  $$AudioChunksTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get seq =>
+      $composableBuilder(column: $table.seq, builder: (column) => column);
+
+  GeneratedColumn<String> get path =>
+      $composableBuilder(column: $table.path, builder: (column) => column);
+
+  GeneratedColumn<int> get sampleRate => $composableBuilder(
+    column: $table.sampleRate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get startMs =>
+      $composableBuilder(column: $table.startMs, builder: (column) => column);
+
+  GeneratedColumn<int> get endMs =>
+      $composableBuilder(column: $table.endMs, builder: (column) => column);
+
+  GeneratedColumn<int> get bytes =>
+      $composableBuilder(column: $table.bytes, builder: (column) => column);
+
+  GeneratedColumn<String> get sha256 =>
+      $composableBuilder(column: $table.sha256, builder: (column) => column);
+
+  $$RecordingsTableAnnotationComposer get recordingId {
+    final $$RecordingsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AudioChunksTableTableManager
+    extends
+        RootTableManager<
+          _$VaultVoiceDatabase,
+          $AudioChunksTable,
+          AudioChunkRow,
+          $$AudioChunksTableFilterComposer,
+          $$AudioChunksTableOrderingComposer,
+          $$AudioChunksTableAnnotationComposer,
+          $$AudioChunksTableCreateCompanionBuilder,
+          $$AudioChunksTableUpdateCompanionBuilder,
+          (AudioChunkRow, $$AudioChunksTableReferences),
+          AudioChunkRow,
+          PrefetchHooks Function({bool recordingId})
+        > {
+  $$AudioChunksTableTableManager(
+    _$VaultVoiceDatabase db,
+    $AudioChunksTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AudioChunksTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AudioChunksTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AudioChunksTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> recordingId = const Value.absent(),
+                Value<int> seq = const Value.absent(),
+                Value<String> path = const Value.absent(),
+                Value<int> sampleRate = const Value.absent(),
+                Value<int> startMs = const Value.absent(),
+                Value<int> endMs = const Value.absent(),
+                Value<int> bytes = const Value.absent(),
+                Value<String?> sha256 = const Value.absent(),
+              }) => AudioChunksCompanion(
+                id: id,
+                recordingId: recordingId,
+                seq: seq,
+                path: path,
+                sampleRate: sampleRate,
+                startMs: startMs,
+                endMs: endMs,
+                bytes: bytes,
+                sha256: sha256,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String recordingId,
+                required int seq,
+                required String path,
+                required int sampleRate,
+                required int startMs,
+                required int endMs,
+                required int bytes,
+                Value<String?> sha256 = const Value.absent(),
+              }) => AudioChunksCompanion.insert(
+                id: id,
+                recordingId: recordingId,
+                seq: seq,
+                path: path,
+                sampleRate: sampleRate,
+                startMs: startMs,
+                endMs: endMs,
+                bytes: bytes,
+                sha256: sha256,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$AudioChunksTable, AudioChunkRow>(table),
+                  $$AudioChunksTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({recordingId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordingId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.recordingId,
+                        referencedTable: $$AudioChunksTableReferences
+                            ._recordingIdTable(db),
+                        referencedColumn: $$AudioChunksTableReferences
+                            ._recordingIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$AudioChunksTableProcessedTableManager =
+    ProcessedTableManager<
+      _$VaultVoiceDatabase,
+      $AudioChunksTable,
+      AudioChunkRow,
+      $$AudioChunksTableFilterComposer,
+      $$AudioChunksTableOrderingComposer,
+      $$AudioChunksTableAnnotationComposer,
+      $$AudioChunksTableCreateCompanionBuilder,
+      $$AudioChunksTableUpdateCompanionBuilder,
+      (AudioChunkRow, $$AudioChunksTableReferences),
+      AudioChunkRow,
+      PrefetchHooks Function({bool recordingId})
+    >;
+typedef $$SpeechSegmentsTableCreateCompanionBuilder =
+    SpeechSegmentsCompanion Function({
+      Value<int> id,
+      required String recordingId,
+      required int startMs,
+      required int endMs,
+    });
+typedef $$SpeechSegmentsTableUpdateCompanionBuilder =
+    SpeechSegmentsCompanion Function({
+      Value<int> id,
+      Value<String> recordingId,
+      Value<int> startMs,
+      Value<int> endMs,
+    });
+
+final class $$SpeechSegmentsTableReferences
+    extends
+        BaseReferences<
+          _$VaultVoiceDatabase,
+          $SpeechSegmentsTable,
+          SpeechSegmentRow
+        > {
+  $$SpeechSegmentsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $RecordingsTable _recordingIdTable(_$VaultVoiceDatabase db) => db
+      .recordings
+      .createAlias('speech_segments__recording_id__recordings__id');
+
+  $$RecordingsTableProcessedTableManager get recordingId {
+    final $_column = $_itemColumn<String>('recording_id')!;
+
+    final manager = $$RecordingsTableTableManager(
+      $_db,
+      $_db.recordings,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordingIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$SpeechSegmentsTableFilterComposer
+    extends Composer<_$VaultVoiceDatabase, $SpeechSegmentsTable> {
+  $$SpeechSegmentsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get startMs => $composableBuilder(
+    column: $table.startMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get endMs => $composableBuilder(
+    column: $table.endMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$RecordingsTableFilterComposer get recordingId {
+    final $$RecordingsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableFilterComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SpeechSegmentsTableOrderingComposer
+    extends Composer<_$VaultVoiceDatabase, $SpeechSegmentsTable> {
+  $$SpeechSegmentsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get startMs => $composableBuilder(
+    column: $table.startMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get endMs => $composableBuilder(
+    column: $table.endMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$RecordingsTableOrderingComposer get recordingId {
+    final $$RecordingsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableOrderingComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SpeechSegmentsTableAnnotationComposer
+    extends Composer<_$VaultVoiceDatabase, $SpeechSegmentsTable> {
+  $$SpeechSegmentsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get startMs =>
+      $composableBuilder(column: $table.startMs, builder: (column) => column);
+
+  GeneratedColumn<int> get endMs =>
+      $composableBuilder(column: $table.endMs, builder: (column) => column);
+
+  $$RecordingsTableAnnotationComposer get recordingId {
+    final $$RecordingsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SpeechSegmentsTableTableManager
+    extends
+        RootTableManager<
+          _$VaultVoiceDatabase,
+          $SpeechSegmentsTable,
+          SpeechSegmentRow,
+          $$SpeechSegmentsTableFilterComposer,
+          $$SpeechSegmentsTableOrderingComposer,
+          $$SpeechSegmentsTableAnnotationComposer,
+          $$SpeechSegmentsTableCreateCompanionBuilder,
+          $$SpeechSegmentsTableUpdateCompanionBuilder,
+          (SpeechSegmentRow, $$SpeechSegmentsTableReferences),
+          SpeechSegmentRow,
+          PrefetchHooks Function({bool recordingId})
+        > {
+  $$SpeechSegmentsTableTableManager(
+    _$VaultVoiceDatabase db,
+    $SpeechSegmentsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SpeechSegmentsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SpeechSegmentsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SpeechSegmentsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> recordingId = const Value.absent(),
+                Value<int> startMs = const Value.absent(),
+                Value<int> endMs = const Value.absent(),
+              }) => SpeechSegmentsCompanion(
+                id: id,
+                recordingId: recordingId,
+                startMs: startMs,
+                endMs: endMs,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String recordingId,
+                required int startMs,
+                required int endMs,
+              }) => SpeechSegmentsCompanion.insert(
+                id: id,
+                recordingId: recordingId,
+                startMs: startMs,
+                endMs: endMs,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$SpeechSegmentsTable, SpeechSegmentRow>(table),
+                  $$SpeechSegmentsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({recordingId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordingId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.recordingId,
+                        referencedTable: $$SpeechSegmentsTableReferences
+                            ._recordingIdTable(db),
+                        referencedColumn: $$SpeechSegmentsTableReferences
+                            ._recordingIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$SpeechSegmentsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$VaultVoiceDatabase,
+      $SpeechSegmentsTable,
+      SpeechSegmentRow,
+      $$SpeechSegmentsTableFilterComposer,
+      $$SpeechSegmentsTableOrderingComposer,
+      $$SpeechSegmentsTableAnnotationComposer,
+      $$SpeechSegmentsTableCreateCompanionBuilder,
+      $$SpeechSegmentsTableUpdateCompanionBuilder,
+      (SpeechSegmentRow, $$SpeechSegmentsTableReferences),
+      SpeechSegmentRow,
+      PrefetchHooks Function({bool recordingId})
+    >;
+typedef $$MarkersTableCreateCompanionBuilder = MarkersCompanion Function({
+  Value<int> id,
+  required String recordingId,
+  required int atMs,
+  required MarkerKind kind,
+  Value<String?> label,
+});
+typedef $$MarkersTableUpdateCompanionBuilder = MarkersCompanion Function({
+  Value<int> id,
+  Value<String> recordingId,
+  Value<int> atMs,
+  Value<MarkerKind> kind,
+  Value<String?> label,
+});
+
+final class $$MarkersTableReferences
+    extends BaseReferences<_$VaultVoiceDatabase, $MarkersTable, MarkerRow> {
+  $$MarkersTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $RecordingsTable _recordingIdTable(_$VaultVoiceDatabase db) =>
+      db.recordings.createAlias('markers__recording_id__recordings__id');
+
+  $$RecordingsTableProcessedTableManager get recordingId {
+    final $_column = $_itemColumn<String>('recording_id')!;
+
+    final manager = $$RecordingsTableTableManager(
+      $_db,
+      $_db.recordings,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordingIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$MarkersTableFilterComposer
+    extends Composer<_$VaultVoiceDatabase, $MarkersTable> {
+  $$MarkersTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get atMs => $composableBuilder(
+    column: $table.atMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<MarkerKind, MarkerKind, String> get kind =>
+      $composableBuilder(
+        column: $table.kind,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnFilters<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$RecordingsTableFilterComposer get recordingId {
+    final $$RecordingsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableFilterComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MarkersTableOrderingComposer
+    extends Composer<_$VaultVoiceDatabase, $MarkersTable> {
+  $$MarkersTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get atMs => $composableBuilder(
+    column: $table.atMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$RecordingsTableOrderingComposer get recordingId {
+    final $$RecordingsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableOrderingComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MarkersTableAnnotationComposer
+    extends Composer<_$VaultVoiceDatabase, $MarkersTable> {
+  $$MarkersTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get atMs =>
+      $composableBuilder(column: $table.atMs, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<MarkerKind, String> get kind =>
+      $composableBuilder(column: $table.kind, builder: (column) => column);
+
+  GeneratedColumn<String> get label =>
+      $composableBuilder(column: $table.label, builder: (column) => column);
+
+  $$RecordingsTableAnnotationComposer get recordingId {
+    final $$RecordingsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MarkersTableTableManager
+    extends
+        RootTableManager<
+          _$VaultVoiceDatabase,
+          $MarkersTable,
+          MarkerRow,
+          $$MarkersTableFilterComposer,
+          $$MarkersTableOrderingComposer,
+          $$MarkersTableAnnotationComposer,
+          $$MarkersTableCreateCompanionBuilder,
+          $$MarkersTableUpdateCompanionBuilder,
+          (MarkerRow, $$MarkersTableReferences),
+          MarkerRow,
+          PrefetchHooks Function({bool recordingId})
+        > {
+  $$MarkersTableTableManager(_$VaultVoiceDatabase db, $MarkersTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$MarkersTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$MarkersTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$MarkersTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> recordingId = const Value.absent(),
+                Value<int> atMs = const Value.absent(),
+                Value<MarkerKind> kind = const Value.absent(),
+                Value<String?> label = const Value.absent(),
+              }) => MarkersCompanion(
+                id: id,
+                recordingId: recordingId,
+                atMs: atMs,
+                kind: kind,
+                label: label,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String recordingId,
+                required int atMs,
+                required MarkerKind kind,
+                Value<String?> label = const Value.absent(),
+              }) => MarkersCompanion.insert(
+                id: id,
+                recordingId: recordingId,
+                atMs: atMs,
+                kind: kind,
+                label: label,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$MarkersTable, MarkerRow>(table),
+                  $$MarkersTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({recordingId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordingId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.recordingId,
+                        referencedTable: $$MarkersTableReferences
+                            ._recordingIdTable(db),
+                        referencedColumn: $$MarkersTableReferences
+                            ._recordingIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$MarkersTableProcessedTableManager =
+    ProcessedTableManager<
+      _$VaultVoiceDatabase,
+      $MarkersTable,
+      MarkerRow,
+      $$MarkersTableFilterComposer,
+      $$MarkersTableOrderingComposer,
+      $$MarkersTableAnnotationComposer,
+      $$MarkersTableCreateCompanionBuilder,
+      $$MarkersTableUpdateCompanionBuilder,
+      (MarkerRow, $$MarkersTableReferences),
+      MarkerRow,
+      PrefetchHooks Function({bool recordingId})
+    >;
+typedef $$SpeakersTableCreateCompanionBuilder = SpeakersCompanion Function({
+  Value<int> id,
+  required String recordingId,
+  required String label,
+  Value<String?> displayName,
+});
+typedef $$SpeakersTableUpdateCompanionBuilder = SpeakersCompanion Function({
+  Value<int> id,
+  Value<String> recordingId,
+  Value<String> label,
+  Value<String?> displayName,
+});
+
+final class $$SpeakersTableReferences
+    extends BaseReferences<_$VaultVoiceDatabase, $SpeakersTable, SpeakerRow> {
+  $$SpeakersTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $RecordingsTable _recordingIdTable(_$VaultVoiceDatabase db) =>
+      db.recordings.createAlias('speakers__recording_id__recordings__id');
+
+  $$RecordingsTableProcessedTableManager get recordingId {
+    final $_column = $_itemColumn<String>('recording_id')!;
+
+    final manager = $$RecordingsTableTableManager(
+      $_db,
+      $_db.recordings,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_recordingIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$SpeakersTableFilterComposer
+    extends Composer<_$VaultVoiceDatabase, $SpeakersTable> {
+  $$SpeakersTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get displayName => $composableBuilder(
+    column: $table.displayName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$RecordingsTableFilterComposer get recordingId {
+    final $$RecordingsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableFilterComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SpeakersTableOrderingComposer
+    extends Composer<_$VaultVoiceDatabase, $SpeakersTable> {
+  $$SpeakersTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get displayName => $composableBuilder(
+    column: $table.displayName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$RecordingsTableOrderingComposer get recordingId {
+    final $$RecordingsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableOrderingComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SpeakersTableAnnotationComposer
+    extends Composer<_$VaultVoiceDatabase, $SpeakersTable> {
+  $$SpeakersTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get label =>
+      $composableBuilder(column: $table.label, builder: (column) => column);
+
+  GeneratedColumn<String> get displayName => $composableBuilder(
+    column: $table.displayName,
+    builder: (column) => column,
+  );
+
+  $$RecordingsTableAnnotationComposer get recordingId {
+    final $$RecordingsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.recordingId,
+      referencedTable: $db.recordings,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$RecordingsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.recordings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SpeakersTableTableManager
+    extends
+        RootTableManager<
+          _$VaultVoiceDatabase,
+          $SpeakersTable,
+          SpeakerRow,
+          $$SpeakersTableFilterComposer,
+          $$SpeakersTableOrderingComposer,
+          $$SpeakersTableAnnotationComposer,
+          $$SpeakersTableCreateCompanionBuilder,
+          $$SpeakersTableUpdateCompanionBuilder,
+          (SpeakerRow, $$SpeakersTableReferences),
+          SpeakerRow,
+          PrefetchHooks Function({bool recordingId})
+        > {
+  $$SpeakersTableTableManager(_$VaultVoiceDatabase db, $SpeakersTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SpeakersTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SpeakersTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SpeakersTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> recordingId = const Value.absent(),
+                Value<String> label = const Value.absent(),
+                Value<String?> displayName = const Value.absent(),
+              }) => SpeakersCompanion(
+                id: id,
+                recordingId: recordingId,
+                label: label,
+                displayName: displayName,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String recordingId,
+                required String label,
+                Value<String?> displayName = const Value.absent(),
+              }) => SpeakersCompanion.insert(
+                id: id,
+                recordingId: recordingId,
+                label: label,
+                displayName: displayName,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$SpeakersTable, SpeakerRow>(table),
+                  $$SpeakersTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({recordingId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (recordingId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.recordingId,
+                        referencedTable: $$SpeakersTableReferences
+                            ._recordingIdTable(db),
+                        referencedColumn: $$SpeakersTableReferences
+                            ._recordingIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$SpeakersTableProcessedTableManager =
+    ProcessedTableManager<
+      _$VaultVoiceDatabase,
+      $SpeakersTable,
+      SpeakerRow,
+      $$SpeakersTableFilterComposer,
+      $$SpeakersTableOrderingComposer,
+      $$SpeakersTableAnnotationComposer,
+      $$SpeakersTableCreateCompanionBuilder,
+      $$SpeakersTableUpdateCompanionBuilder,
+      (SpeakerRow, $$SpeakersTableReferences),
+      SpeakerRow,
+      PrefetchHooks Function({bool recordingId})
+    >;
+typedef $SearchIndexCreateCompanionBuilder = SearchIndexCompanion Function({
+  required String recordingId,
+  required String kind,
+  required String body,
+  Value<int> rowid,
+});
+typedef $SearchIndexUpdateCompanionBuilder = SearchIndexCompanion Function({
+  Value<String> recordingId,
+  Value<String> kind,
+  Value<String> body,
+  Value<int> rowid,
+});
+
+class $SearchIndexFilterComposer
+    extends Composer<_$VaultVoiceDatabase, SearchIndex> {
+  $SearchIndexFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get recordingId => $composableBuilder(
+    column: $table.recordingId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get body => $composableBuilder(
+    column: $table.body,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $SearchIndexOrderingComposer
+    extends Composer<_$VaultVoiceDatabase, SearchIndex> {
+  $SearchIndexOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get recordingId => $composableBuilder(
+    column: $table.recordingId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get body => $composableBuilder(
+    column: $table.body,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $SearchIndexAnnotationComposer
+    extends Composer<_$VaultVoiceDatabase, SearchIndex> {
+  $SearchIndexAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get recordingId => $composableBuilder(
+    column: $table.recordingId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get kind =>
+      $composableBuilder(column: $table.kind, builder: (column) => column);
+
+  GeneratedColumn<String> get body =>
+      $composableBuilder(column: $table.body, builder: (column) => column);
+}
+
+class $SearchIndexTableManager
+    extends
+        RootTableManager<
+          _$VaultVoiceDatabase,
+          SearchIndex,
+          SearchIndexData,
+          $SearchIndexFilterComposer,
+          $SearchIndexOrderingComposer,
+          $SearchIndexAnnotationComposer,
+          $SearchIndexCreateCompanionBuilder,
+          $SearchIndexUpdateCompanionBuilder,
+          (
+            SearchIndexData,
+            BaseReferences<_$VaultVoiceDatabase, SearchIndex, SearchIndexData>,
+          ),
+          SearchIndexData,
+          PrefetchHooks Function()
+        > {
+  $SearchIndexTableManager(_$VaultVoiceDatabase db, SearchIndex table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $SearchIndexFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $SearchIndexOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $SearchIndexAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> recordingId = const Value.absent(),
+                Value<String> kind = const Value.absent(),
+                Value<String> body = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SearchIndexCompanion(
+                recordingId: recordingId,
+                kind: kind,
+                body: body,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String recordingId,
+                required String kind,
+                required String body,
+                Value<int> rowid = const Value.absent(),
+              }) => SearchIndexCompanion.insert(
+                recordingId: recordingId,
+                kind: kind,
+                body: body,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<SearchIndex, SearchIndexData>(table),
+                  BaseReferences<
+                    _$VaultVoiceDatabase,
+                    SearchIndex,
+                    SearchIndexData
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $SearchIndexProcessedTableManager =
+    ProcessedTableManager<
+      _$VaultVoiceDatabase,
+      SearchIndex,
+      SearchIndexData,
+      $SearchIndexFilterComposer,
+      $SearchIndexOrderingComposer,
+      $SearchIndexAnnotationComposer,
+      $SearchIndexCreateCompanionBuilder,
+      $SearchIndexUpdateCompanionBuilder,
+      (
+        SearchIndexData,
+        BaseReferences<_$VaultVoiceDatabase, SearchIndex, SearchIndexData>,
+      ),
+      SearchIndexData,
+      PrefetchHooks Function()
     >;
 typedef $$TranscriptsTableCreateCompanionBuilder =
     TranscriptsCompanion Function({
@@ -12410,1296 +16247,6 @@ typedef $$ActionItemsTableProcessedTableManager =
       (ActionItemRow, $$ActionItemsTableReferences),
       ActionItemRow,
       PrefetchHooks Function({bool recordingId, bool extractionId})
-    >;
-typedef $$AudioChunksTableCreateCompanionBuilder =
-    AudioChunksCompanion Function({
-      Value<int> id,
-      required String recordingId,
-      required int seq,
-      required String path,
-      required int sampleRate,
-      required int startMs,
-      required int endMs,
-      required int bytes,
-      Value<String?> sha256,
-    });
-typedef $$AudioChunksTableUpdateCompanionBuilder =
-    AudioChunksCompanion Function({
-      Value<int> id,
-      Value<String> recordingId,
-      Value<int> seq,
-      Value<String> path,
-      Value<int> sampleRate,
-      Value<int> startMs,
-      Value<int> endMs,
-      Value<int> bytes,
-      Value<String?> sha256,
-    });
-
-final class $$AudioChunksTableReferences
-    extends
-        BaseReferences<_$VaultVoiceDatabase, $AudioChunksTable, AudioChunkRow> {
-  $$AudioChunksTableReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static $RecordingsTable _recordingIdTable(_$VaultVoiceDatabase db) =>
-      db.recordings.createAlias('audio_chunks__recording_id__recordings__id');
-
-  $$RecordingsTableProcessedTableManager get recordingId {
-    final $_column = $_itemColumn<String>('recording_id')!;
-
-    final manager = $$RecordingsTableTableManager(
-      $_db,
-      $_db.recordings,
-    ).filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_recordingIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
-  }
-}
-
-class $$AudioChunksTableFilterComposer
-    extends Composer<_$VaultVoiceDatabase, $AudioChunksTable> {
-  $$AudioChunksTableFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get seq => $composableBuilder(
-    column: $table.seq,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get path => $composableBuilder(
-    column: $table.path,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get sampleRate => $composableBuilder(
-    column: $table.sampleRate,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get startMs => $composableBuilder(
-    column: $table.startMs,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get endMs => $composableBuilder(
-    column: $table.endMs,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get bytes => $composableBuilder(
-    column: $table.bytes,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get sha256 => $composableBuilder(
-    column: $table.sha256,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  $$RecordingsTableFilterComposer get recordingId {
-    final $$RecordingsTableFilterComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.recordingId,
-      referencedTable: $db.recordings,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecordingsTableFilterComposer(
-            $db: $db,
-            $table: $db.recordings,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-}
-
-class $$AudioChunksTableOrderingComposer
-    extends Composer<_$VaultVoiceDatabase, $AudioChunksTable> {
-  $$AudioChunksTableOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get seq => $composableBuilder(
-    column: $table.seq,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get path => $composableBuilder(
-    column: $table.path,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get sampleRate => $composableBuilder(
-    column: $table.sampleRate,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get startMs => $composableBuilder(
-    column: $table.startMs,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get endMs => $composableBuilder(
-    column: $table.endMs,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get bytes => $composableBuilder(
-    column: $table.bytes,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get sha256 => $composableBuilder(
-    column: $table.sha256,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  $$RecordingsTableOrderingComposer get recordingId {
-    final $$RecordingsTableOrderingComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.recordingId,
-      referencedTable: $db.recordings,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecordingsTableOrderingComposer(
-            $db: $db,
-            $table: $db.recordings,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-}
-
-class $$AudioChunksTableAnnotationComposer
-    extends Composer<_$VaultVoiceDatabase, $AudioChunksTable> {
-  $$AudioChunksTableAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<int> get seq =>
-      $composableBuilder(column: $table.seq, builder: (column) => column);
-
-  GeneratedColumn<String> get path =>
-      $composableBuilder(column: $table.path, builder: (column) => column);
-
-  GeneratedColumn<int> get sampleRate => $composableBuilder(
-    column: $table.sampleRate,
-    builder: (column) => column,
-  );
-
-  GeneratedColumn<int> get startMs =>
-      $composableBuilder(column: $table.startMs, builder: (column) => column);
-
-  GeneratedColumn<int> get endMs =>
-      $composableBuilder(column: $table.endMs, builder: (column) => column);
-
-  GeneratedColumn<int> get bytes =>
-      $composableBuilder(column: $table.bytes, builder: (column) => column);
-
-  GeneratedColumn<String> get sha256 =>
-      $composableBuilder(column: $table.sha256, builder: (column) => column);
-
-  $$RecordingsTableAnnotationComposer get recordingId {
-    final $$RecordingsTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.recordingId,
-      referencedTable: $db.recordings,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecordingsTableAnnotationComposer(
-            $db: $db,
-            $table: $db.recordings,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-}
-
-class $$AudioChunksTableTableManager
-    extends
-        RootTableManager<
-          _$VaultVoiceDatabase,
-          $AudioChunksTable,
-          AudioChunkRow,
-          $$AudioChunksTableFilterComposer,
-          $$AudioChunksTableOrderingComposer,
-          $$AudioChunksTableAnnotationComposer,
-          $$AudioChunksTableCreateCompanionBuilder,
-          $$AudioChunksTableUpdateCompanionBuilder,
-          (AudioChunkRow, $$AudioChunksTableReferences),
-          AudioChunkRow,
-          PrefetchHooks Function({bool recordingId})
-        > {
-  $$AudioChunksTableTableManager(
-    _$VaultVoiceDatabase db,
-    $AudioChunksTable table,
-  ) : super(
-        TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $$AudioChunksTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$AudioChunksTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$AudioChunksTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<String> recordingId = const Value.absent(),
-                Value<int> seq = const Value.absent(),
-                Value<String> path = const Value.absent(),
-                Value<int> sampleRate = const Value.absent(),
-                Value<int> startMs = const Value.absent(),
-                Value<int> endMs = const Value.absent(),
-                Value<int> bytes = const Value.absent(),
-                Value<String?> sha256 = const Value.absent(),
-              }) => AudioChunksCompanion(
-                id: id,
-                recordingId: recordingId,
-                seq: seq,
-                path: path,
-                sampleRate: sampleRate,
-                startMs: startMs,
-                endMs: endMs,
-                bytes: bytes,
-                sha256: sha256,
-              ),
-          createCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                required String recordingId,
-                required int seq,
-                required String path,
-                required int sampleRate,
-                required int startMs,
-                required int endMs,
-                required int bytes,
-                Value<String?> sha256 = const Value.absent(),
-              }) => AudioChunksCompanion.insert(
-                id: id,
-                recordingId: recordingId,
-                seq: seq,
-                path: path,
-                sampleRate: sampleRate,
-                startMs: startMs,
-                endMs: endMs,
-                bytes: bytes,
-                sha256: sha256,
-              ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable<$AudioChunksTable, AudioChunkRow>(table),
-                  $$AudioChunksTableReferences(db, table, e),
-                ),
-              )
-              .toList(),
-          prefetchHooksCallback: ({recordingId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins:
-                  <
-                    T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic
-                    >
-                  >(state) {
-                    if (recordingId) {
-                      state = state.withJoin(
-                        currentTable: table,
-                        currentColumn: table.recordingId,
-                        referencedTable: $$AudioChunksTableReferences
-                            ._recordingIdTable(db),
-                        referencedColumn: $$AudioChunksTableReferences
-                            ._recordingIdTable(db)
-                            .id,
-                      ) as T;
-                    }
-
-                    return state;
-                  },
-              getPrefetchedDataCallback: (items) async {
-                return [];
-              },
-            );
-          },
-        ),
-      );
-}
-
-typedef $$AudioChunksTableProcessedTableManager =
-    ProcessedTableManager<
-      _$VaultVoiceDatabase,
-      $AudioChunksTable,
-      AudioChunkRow,
-      $$AudioChunksTableFilterComposer,
-      $$AudioChunksTableOrderingComposer,
-      $$AudioChunksTableAnnotationComposer,
-      $$AudioChunksTableCreateCompanionBuilder,
-      $$AudioChunksTableUpdateCompanionBuilder,
-      (AudioChunkRow, $$AudioChunksTableReferences),
-      AudioChunkRow,
-      PrefetchHooks Function({bool recordingId})
-    >;
-typedef $$SpeechSegmentsTableCreateCompanionBuilder =
-    SpeechSegmentsCompanion Function({
-      Value<int> id,
-      required String recordingId,
-      required int startMs,
-      required int endMs,
-    });
-typedef $$SpeechSegmentsTableUpdateCompanionBuilder =
-    SpeechSegmentsCompanion Function({
-      Value<int> id,
-      Value<String> recordingId,
-      Value<int> startMs,
-      Value<int> endMs,
-    });
-
-final class $$SpeechSegmentsTableReferences
-    extends
-        BaseReferences<
-          _$VaultVoiceDatabase,
-          $SpeechSegmentsTable,
-          SpeechSegmentRow
-        > {
-  $$SpeechSegmentsTableReferences(
-    super.$_db,
-    super.$_table,
-    super.$_typedResult,
-  );
-
-  static $RecordingsTable _recordingIdTable(_$VaultVoiceDatabase db) => db
-      .recordings
-      .createAlias('speech_segments__recording_id__recordings__id');
-
-  $$RecordingsTableProcessedTableManager get recordingId {
-    final $_column = $_itemColumn<String>('recording_id')!;
-
-    final manager = $$RecordingsTableTableManager(
-      $_db,
-      $_db.recordings,
-    ).filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_recordingIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
-  }
-}
-
-class $$SpeechSegmentsTableFilterComposer
-    extends Composer<_$VaultVoiceDatabase, $SpeechSegmentsTable> {
-  $$SpeechSegmentsTableFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get startMs => $composableBuilder(
-    column: $table.startMs,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get endMs => $composableBuilder(
-    column: $table.endMs,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  $$RecordingsTableFilterComposer get recordingId {
-    final $$RecordingsTableFilterComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.recordingId,
-      referencedTable: $db.recordings,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecordingsTableFilterComposer(
-            $db: $db,
-            $table: $db.recordings,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-}
-
-class $$SpeechSegmentsTableOrderingComposer
-    extends Composer<_$VaultVoiceDatabase, $SpeechSegmentsTable> {
-  $$SpeechSegmentsTableOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get startMs => $composableBuilder(
-    column: $table.startMs,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get endMs => $composableBuilder(
-    column: $table.endMs,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  $$RecordingsTableOrderingComposer get recordingId {
-    final $$RecordingsTableOrderingComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.recordingId,
-      referencedTable: $db.recordings,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecordingsTableOrderingComposer(
-            $db: $db,
-            $table: $db.recordings,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-}
-
-class $$SpeechSegmentsTableAnnotationComposer
-    extends Composer<_$VaultVoiceDatabase, $SpeechSegmentsTable> {
-  $$SpeechSegmentsTableAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<int> get startMs =>
-      $composableBuilder(column: $table.startMs, builder: (column) => column);
-
-  GeneratedColumn<int> get endMs =>
-      $composableBuilder(column: $table.endMs, builder: (column) => column);
-
-  $$RecordingsTableAnnotationComposer get recordingId {
-    final $$RecordingsTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.recordingId,
-      referencedTable: $db.recordings,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecordingsTableAnnotationComposer(
-            $db: $db,
-            $table: $db.recordings,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-}
-
-class $$SpeechSegmentsTableTableManager
-    extends
-        RootTableManager<
-          _$VaultVoiceDatabase,
-          $SpeechSegmentsTable,
-          SpeechSegmentRow,
-          $$SpeechSegmentsTableFilterComposer,
-          $$SpeechSegmentsTableOrderingComposer,
-          $$SpeechSegmentsTableAnnotationComposer,
-          $$SpeechSegmentsTableCreateCompanionBuilder,
-          $$SpeechSegmentsTableUpdateCompanionBuilder,
-          (SpeechSegmentRow, $$SpeechSegmentsTableReferences),
-          SpeechSegmentRow,
-          PrefetchHooks Function({bool recordingId})
-        > {
-  $$SpeechSegmentsTableTableManager(
-    _$VaultVoiceDatabase db,
-    $SpeechSegmentsTable table,
-  ) : super(
-        TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $$SpeechSegmentsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$SpeechSegmentsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$SpeechSegmentsTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<String> recordingId = const Value.absent(),
-                Value<int> startMs = const Value.absent(),
-                Value<int> endMs = const Value.absent(),
-              }) => SpeechSegmentsCompanion(
-                id: id,
-                recordingId: recordingId,
-                startMs: startMs,
-                endMs: endMs,
-              ),
-          createCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                required String recordingId,
-                required int startMs,
-                required int endMs,
-              }) => SpeechSegmentsCompanion.insert(
-                id: id,
-                recordingId: recordingId,
-                startMs: startMs,
-                endMs: endMs,
-              ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable<$SpeechSegmentsTable, SpeechSegmentRow>(table),
-                  $$SpeechSegmentsTableReferences(db, table, e),
-                ),
-              )
-              .toList(),
-          prefetchHooksCallback: ({recordingId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins:
-                  <
-                    T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic
-                    >
-                  >(state) {
-                    if (recordingId) {
-                      state = state.withJoin(
-                        currentTable: table,
-                        currentColumn: table.recordingId,
-                        referencedTable: $$SpeechSegmentsTableReferences
-                            ._recordingIdTable(db),
-                        referencedColumn: $$SpeechSegmentsTableReferences
-                            ._recordingIdTable(db)
-                            .id,
-                      ) as T;
-                    }
-
-                    return state;
-                  },
-              getPrefetchedDataCallback: (items) async {
-                return [];
-              },
-            );
-          },
-        ),
-      );
-}
-
-typedef $$SpeechSegmentsTableProcessedTableManager =
-    ProcessedTableManager<
-      _$VaultVoiceDatabase,
-      $SpeechSegmentsTable,
-      SpeechSegmentRow,
-      $$SpeechSegmentsTableFilterComposer,
-      $$SpeechSegmentsTableOrderingComposer,
-      $$SpeechSegmentsTableAnnotationComposer,
-      $$SpeechSegmentsTableCreateCompanionBuilder,
-      $$SpeechSegmentsTableUpdateCompanionBuilder,
-      (SpeechSegmentRow, $$SpeechSegmentsTableReferences),
-      SpeechSegmentRow,
-      PrefetchHooks Function({bool recordingId})
-    >;
-typedef $$MarkersTableCreateCompanionBuilder = MarkersCompanion Function({
-  Value<int> id,
-  required String recordingId,
-  required int atMs,
-  required MarkerKind kind,
-  Value<String?> label,
-});
-typedef $$MarkersTableUpdateCompanionBuilder = MarkersCompanion Function({
-  Value<int> id,
-  Value<String> recordingId,
-  Value<int> atMs,
-  Value<MarkerKind> kind,
-  Value<String?> label,
-});
-
-final class $$MarkersTableReferences
-    extends BaseReferences<_$VaultVoiceDatabase, $MarkersTable, MarkerRow> {
-  $$MarkersTableReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static $RecordingsTable _recordingIdTable(_$VaultVoiceDatabase db) =>
-      db.recordings.createAlias('markers__recording_id__recordings__id');
-
-  $$RecordingsTableProcessedTableManager get recordingId {
-    final $_column = $_itemColumn<String>('recording_id')!;
-
-    final manager = $$RecordingsTableTableManager(
-      $_db,
-      $_db.recordings,
-    ).filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_recordingIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
-  }
-}
-
-class $$MarkersTableFilterComposer
-    extends Composer<_$VaultVoiceDatabase, $MarkersTable> {
-  $$MarkersTableFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<int> get atMs => $composableBuilder(
-    column: $table.atMs,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnWithTypeConverterFilters<MarkerKind, MarkerKind, String> get kind =>
-      $composableBuilder(
-        column: $table.kind,
-        builder: (column) => ColumnWithTypeConverterFilters(column),
-      );
-
-  ColumnFilters<String> get label => $composableBuilder(
-    column: $table.label,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  $$RecordingsTableFilterComposer get recordingId {
-    final $$RecordingsTableFilterComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.recordingId,
-      referencedTable: $db.recordings,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecordingsTableFilterComposer(
-            $db: $db,
-            $table: $db.recordings,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-}
-
-class $$MarkersTableOrderingComposer
-    extends Composer<_$VaultVoiceDatabase, $MarkersTable> {
-  $$MarkersTableOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<int> get atMs => $composableBuilder(
-    column: $table.atMs,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get kind => $composableBuilder(
-    column: $table.kind,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get label => $composableBuilder(
-    column: $table.label,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  $$RecordingsTableOrderingComposer get recordingId {
-    final $$RecordingsTableOrderingComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.recordingId,
-      referencedTable: $db.recordings,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecordingsTableOrderingComposer(
-            $db: $db,
-            $table: $db.recordings,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-}
-
-class $$MarkersTableAnnotationComposer
-    extends Composer<_$VaultVoiceDatabase, $MarkersTable> {
-  $$MarkersTableAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<int> get atMs =>
-      $composableBuilder(column: $table.atMs, builder: (column) => column);
-
-  GeneratedColumnWithTypeConverter<MarkerKind, String> get kind =>
-      $composableBuilder(column: $table.kind, builder: (column) => column);
-
-  GeneratedColumn<String> get label =>
-      $composableBuilder(column: $table.label, builder: (column) => column);
-
-  $$RecordingsTableAnnotationComposer get recordingId {
-    final $$RecordingsTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.recordingId,
-      referencedTable: $db.recordings,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecordingsTableAnnotationComposer(
-            $db: $db,
-            $table: $db.recordings,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-}
-
-class $$MarkersTableTableManager
-    extends
-        RootTableManager<
-          _$VaultVoiceDatabase,
-          $MarkersTable,
-          MarkerRow,
-          $$MarkersTableFilterComposer,
-          $$MarkersTableOrderingComposer,
-          $$MarkersTableAnnotationComposer,
-          $$MarkersTableCreateCompanionBuilder,
-          $$MarkersTableUpdateCompanionBuilder,
-          (MarkerRow, $$MarkersTableReferences),
-          MarkerRow,
-          PrefetchHooks Function({bool recordingId})
-        > {
-  $$MarkersTableTableManager(_$VaultVoiceDatabase db, $MarkersTable table)
-    : super(
-        TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $$MarkersTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$MarkersTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$MarkersTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<String> recordingId = const Value.absent(),
-                Value<int> atMs = const Value.absent(),
-                Value<MarkerKind> kind = const Value.absent(),
-                Value<String?> label = const Value.absent(),
-              }) => MarkersCompanion(
-                id: id,
-                recordingId: recordingId,
-                atMs: atMs,
-                kind: kind,
-                label: label,
-              ),
-          createCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                required String recordingId,
-                required int atMs,
-                required MarkerKind kind,
-                Value<String?> label = const Value.absent(),
-              }) => MarkersCompanion.insert(
-                id: id,
-                recordingId: recordingId,
-                atMs: atMs,
-                kind: kind,
-                label: label,
-              ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable<$MarkersTable, MarkerRow>(table),
-                  $$MarkersTableReferences(db, table, e),
-                ),
-              )
-              .toList(),
-          prefetchHooksCallback: ({recordingId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins:
-                  <
-                    T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic
-                    >
-                  >(state) {
-                    if (recordingId) {
-                      state = state.withJoin(
-                        currentTable: table,
-                        currentColumn: table.recordingId,
-                        referencedTable: $$MarkersTableReferences
-                            ._recordingIdTable(db),
-                        referencedColumn: $$MarkersTableReferences
-                            ._recordingIdTable(db)
-                            .id,
-                      ) as T;
-                    }
-
-                    return state;
-                  },
-              getPrefetchedDataCallback: (items) async {
-                return [];
-              },
-            );
-          },
-        ),
-      );
-}
-
-typedef $$MarkersTableProcessedTableManager =
-    ProcessedTableManager<
-      _$VaultVoiceDatabase,
-      $MarkersTable,
-      MarkerRow,
-      $$MarkersTableFilterComposer,
-      $$MarkersTableOrderingComposer,
-      $$MarkersTableAnnotationComposer,
-      $$MarkersTableCreateCompanionBuilder,
-      $$MarkersTableUpdateCompanionBuilder,
-      (MarkerRow, $$MarkersTableReferences),
-      MarkerRow,
-      PrefetchHooks Function({bool recordingId})
-    >;
-typedef $$SpeakersTableCreateCompanionBuilder = SpeakersCompanion Function({
-  Value<int> id,
-  required String recordingId,
-  required String label,
-  Value<String?> displayName,
-});
-typedef $$SpeakersTableUpdateCompanionBuilder = SpeakersCompanion Function({
-  Value<int> id,
-  Value<String> recordingId,
-  Value<String> label,
-  Value<String?> displayName,
-});
-
-final class $$SpeakersTableReferences
-    extends BaseReferences<_$VaultVoiceDatabase, $SpeakersTable, SpeakerRow> {
-  $$SpeakersTableReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static $RecordingsTable _recordingIdTable(_$VaultVoiceDatabase db) =>
-      db.recordings.createAlias('speakers__recording_id__recordings__id');
-
-  $$RecordingsTableProcessedTableManager get recordingId {
-    final $_column = $_itemColumn<String>('recording_id')!;
-
-    final manager = $$RecordingsTableTableManager(
-      $_db,
-      $_db.recordings,
-    ).filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_recordingIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
-  }
-}
-
-class $$SpeakersTableFilterComposer
-    extends Composer<_$VaultVoiceDatabase, $SpeakersTable> {
-  $$SpeakersTableFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get label => $composableBuilder(
-    column: $table.label,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get displayName => $composableBuilder(
-    column: $table.displayName,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  $$RecordingsTableFilterComposer get recordingId {
-    final $$RecordingsTableFilterComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.recordingId,
-      referencedTable: $db.recordings,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecordingsTableFilterComposer(
-            $db: $db,
-            $table: $db.recordings,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-}
-
-class $$SpeakersTableOrderingComposer
-    extends Composer<_$VaultVoiceDatabase, $SpeakersTable> {
-  $$SpeakersTableOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get label => $composableBuilder(
-    column: $table.label,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  ColumnOrderings<String> get displayName => $composableBuilder(
-    column: $table.displayName,
-    builder: (column) => ColumnOrderings(column),
-  );
-
-  $$RecordingsTableOrderingComposer get recordingId {
-    final $$RecordingsTableOrderingComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.recordingId,
-      referencedTable: $db.recordings,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecordingsTableOrderingComposer(
-            $db: $db,
-            $table: $db.recordings,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-}
-
-class $$SpeakersTableAnnotationComposer
-    extends Composer<_$VaultVoiceDatabase, $SpeakersTable> {
-  $$SpeakersTableAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get label =>
-      $composableBuilder(column: $table.label, builder: (column) => column);
-
-  GeneratedColumn<String> get displayName => $composableBuilder(
-    column: $table.displayName,
-    builder: (column) => column,
-  );
-
-  $$RecordingsTableAnnotationComposer get recordingId {
-    final $$RecordingsTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.recordingId,
-      referencedTable: $db.recordings,
-      getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecordingsTableAnnotationComposer(
-            $db: $db,
-            $table: $db.recordings,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-}
-
-class $$SpeakersTableTableManager
-    extends
-        RootTableManager<
-          _$VaultVoiceDatabase,
-          $SpeakersTable,
-          SpeakerRow,
-          $$SpeakersTableFilterComposer,
-          $$SpeakersTableOrderingComposer,
-          $$SpeakersTableAnnotationComposer,
-          $$SpeakersTableCreateCompanionBuilder,
-          $$SpeakersTableUpdateCompanionBuilder,
-          (SpeakerRow, $$SpeakersTableReferences),
-          SpeakerRow,
-          PrefetchHooks Function({bool recordingId})
-        > {
-  $$SpeakersTableTableManager(_$VaultVoiceDatabase db, $SpeakersTable table)
-    : super(
-        TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $$SpeakersTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$SpeakersTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$SpeakersTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                Value<String> recordingId = const Value.absent(),
-                Value<String> label = const Value.absent(),
-                Value<String?> displayName = const Value.absent(),
-              }) => SpeakersCompanion(
-                id: id,
-                recordingId: recordingId,
-                label: label,
-                displayName: displayName,
-              ),
-          createCompanionCallback:
-              ({
-                Value<int> id = const Value.absent(),
-                required String recordingId,
-                required String label,
-                Value<String?> displayName = const Value.absent(),
-              }) => SpeakersCompanion.insert(
-                id: id,
-                recordingId: recordingId,
-                label: label,
-                displayName: displayName,
-              ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable<$SpeakersTable, SpeakerRow>(table),
-                  $$SpeakersTableReferences(db, table, e),
-                ),
-              )
-              .toList(),
-          prefetchHooksCallback: ({recordingId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins:
-                  <
-                    T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic
-                    >
-                  >(state) {
-                    if (recordingId) {
-                      state = state.withJoin(
-                        currentTable: table,
-                        currentColumn: table.recordingId,
-                        referencedTable: $$SpeakersTableReferences
-                            ._recordingIdTable(db),
-                        referencedColumn: $$SpeakersTableReferences
-                            ._recordingIdTable(db)
-                            .id,
-                      ) as T;
-                    }
-
-                    return state;
-                  },
-              getPrefetchedDataCallback: (items) async {
-                return [];
-              },
-            );
-          },
-        ),
-      );
-}
-
-typedef $$SpeakersTableProcessedTableManager =
-    ProcessedTableManager<
-      _$VaultVoiceDatabase,
-      $SpeakersTable,
-      SpeakerRow,
-      $$SpeakersTableFilterComposer,
-      $$SpeakersTableOrderingComposer,
-      $$SpeakersTableAnnotationComposer,
-      $$SpeakersTableCreateCompanionBuilder,
-      $$SpeakersTableUpdateCompanionBuilder,
-      (SpeakerRow, $$SpeakersTableReferences),
-      SpeakerRow,
-      PrefetchHooks Function({bool recordingId})
     >;
 typedef $$JobsTableCreateCompanionBuilder = JobsCompanion Function({
   required String id,
@@ -16827,18 +19374,14 @@ typedef $$SettingsTableProcessedTableManager =
 class $VaultVoiceDatabaseManager {
   final _$VaultVoiceDatabase _db;
   $VaultVoiceDatabaseManager(this._db);
-  $SearchIndexTableManager get searchIndex =>
-      $SearchIndexTableManager(_db, _db.searchIndex);
   $$RecordingsTableTableManager get recordings =>
       $$RecordingsTableTableManager(_db, _db.recordings);
-  $$TranscriptsTableTableManager get transcripts =>
-      $$TranscriptsTableTableManager(_db, _db.transcripts);
-  $$TranscriptSegmentsTableTableManager get transcriptSegments =>
-      $$TranscriptSegmentsTableTableManager(_db, _db.transcriptSegments);
-  $$ExtractionsTableTableManager get extractions =>
-      $$ExtractionsTableTableManager(_db, _db.extractions);
-  $$ActionItemsTableTableManager get actionItems =>
-      $$ActionItemsTableTableManager(_db, _db.actionItems);
+  $$AskThreadsTableTableManager get askThreads =>
+      $$AskThreadsTableTableManager(_db, _db.askThreads);
+  $$AskTurnsTableTableManager get askTurns =>
+      $$AskTurnsTableTableManager(_db, _db.askTurns);
+  $$AskCitationsTableTableManager get askCitations =>
+      $$AskCitationsTableTableManager(_db, _db.askCitations);
   $$AudioChunksTableTableManager get audioChunks =>
       $$AudioChunksTableTableManager(_db, _db.audioChunks);
   $$SpeechSegmentsTableTableManager get speechSegments =>
@@ -16847,6 +19390,16 @@ class $VaultVoiceDatabaseManager {
       $$MarkersTableTableManager(_db, _db.markers);
   $$SpeakersTableTableManager get speakers =>
       $$SpeakersTableTableManager(_db, _db.speakers);
+  $SearchIndexTableManager get searchIndex =>
+      $SearchIndexTableManager(_db, _db.searchIndex);
+  $$TranscriptsTableTableManager get transcripts =>
+      $$TranscriptsTableTableManager(_db, _db.transcripts);
+  $$TranscriptSegmentsTableTableManager get transcriptSegments =>
+      $$TranscriptSegmentsTableTableManager(_db, _db.transcriptSegments);
+  $$ExtractionsTableTableManager get extractions =>
+      $$ExtractionsTableTableManager(_db, _db.extractions);
+  $$ActionItemsTableTableManager get actionItems =>
+      $$ActionItemsTableTableManager(_db, _db.actionItems);
   $$JobsTableTableManager get jobs => $$JobsTableTableManager(_db, _db.jobs);
   $$ProfilesTableTableManager get profiles =>
       $$ProfilesTableTableManager(_db, _db.profiles);

@@ -112,6 +112,15 @@ class RecordingPurger {
             await (db.delete(
               db.mindMaps,
             )..where((m) => m.recordingId.equals(id))).go();
+            // ASK-03: answers, passages and citations derived from the
+            // transcript go too. Deleting the citations removes their turns
+            // (trigger); a per-recording thread goes with its transcript.
+            await (db.delete(
+              db.askCitations,
+            )..where((c) => c.recordingId.equals(id))).go();
+            await (db.delete(
+              db.askThreads,
+            )..where((t) => t.recordingId.equals(id))).go();
         }
       });
     });

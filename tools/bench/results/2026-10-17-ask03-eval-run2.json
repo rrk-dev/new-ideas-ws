@@ -1,0 +1,908 @@
+{
+ "model_note": "Llama-3.2-3B-Instruct-Q4_K_M.gguf",
+ "n_ctx": 6144,
+ "arms": {
+  "base": {
+   "n_answerable": 36,
+   "n_unanswerable": 8,
+   "metrics": {
+    "answer_correctness": 0.7777777777777778,
+    "citation_precision": 0.8205128205128205,
+    "unanswerable_refused": 0.75,
+    "hallucination_rate": 0.16666666666666666,
+    "seg_recall@10": 0.9166666666666666
+   },
+   "by_type": {
+    "exact": {
+     "n": 12,
+     "answer_correctness": 0.9166666666666666,
+     "seg_recall@10": 1.0
+    },
+    "paraphrase": {
+     "n": 10,
+     "answer_correctness": 0.8,
+     "seg_recall@10": 0.9
+    },
+    "multi": {
+     "n": 8,
+     "answer_correctness": 0.5,
+     "seg_recall@10": 0.875
+    },
+    "date": {
+     "n": 6,
+     "answer_correctness": 0.8333333333333334,
+     "seg_recall@10": 0.8333333333333334
+    }
+   },
+   "citations_returned": 78,
+   "citations_on_gold_recording": 64,
+   "outcomes": {
+    "answered": 36,
+    "notFound": 8
+   },
+   "not_answered_answerable": [
+    "E02",
+    "D05"
+   ],
+   "wrongly_answered_unanswerable": [
+    "U02",
+    "U04"
+   ],
+   "latency_ms": {
+    "median": 18400.5,
+    "p95": 57830,
+    "max": 96030
+   },
+   "per_question": [
+    {
+     "id": "E01",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 57830
+    },
+    {
+     "id": "E02",
+     "type": "exact",
+     "outcome": "notFound",
+     "recall": 1.0,
+     "correct": false,
+     "hallucinated": false,
+     "citations": 0,
+     "citations_ok": 0,
+     "ms": 31934
+    },
+    {
+     "id": "E03",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 3,
+     "citations_ok": 3,
+     "ms": 46156
+    },
+    {
+     "id": "E04",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 31512
+    },
+    {
+     "id": "E05",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 26730
+    },
+    {
+     "id": "E06",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 15455
+    },
+    {
+     "id": "E07",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 54006
+    },
+    {
+     "id": "E08",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 36109
+    },
+    {
+     "id": "E09",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 1,
+     "ms": 22846
+    },
+    {
+     "id": "E10",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 3,
+     "citations_ok": 3,
+     "ms": 42671
+    },
+    {
+     "id": "E11",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 1,
+     "ms": 34152
+    },
+    {
+     "id": "E12",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 20091
+    },
+    {
+     "id": "P01",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 1,
+     "citations_ok": 1,
+     "ms": 29463
+    },
+    {
+     "id": "P02",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 33508
+    },
+    {
+     "id": "P03",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": false,
+     "hallucinated": true,
+     "citations": 2,
+     "citations_ok": 0,
+     "ms": 65689
+    },
+    {
+     "id": "P04",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 44615
+    },
+    {
+     "id": "P05",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 1,
+     "citations_ok": 1,
+     "ms": 38458
+    },
+    {
+     "id": "P06",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 0.0,
+     "correct": false,
+     "hallucinated": true,
+     "citations": 3,
+     "citations_ok": 2,
+     "ms": 46149
+    },
+    {
+     "id": "P07",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 3,
+     "citations_ok": 1,
+     "ms": 35296
+    },
+    {
+     "id": "P08",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 4,
+     "citations_ok": 4,
+     "ms": 96030
+    },
+    {
+     "id": "P09",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 4,
+     "citations_ok": 1,
+     "ms": 17690
+    },
+    {
+     "id": "P10",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 1,
+     "ms": 11727
+    },
+    {
+     "id": "M01",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 0.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 20239
+    },
+    {
+     "id": "M02",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": false,
+     "hallucinated": true,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 9339
+    },
+    {
+     "id": "M03",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 4,
+     "citations_ok": 4,
+     "ms": 12506
+    },
+    {
+     "id": "M04",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 13186
+    },
+    {
+     "id": "M05",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": false,
+     "hallucinated": true,
+     "citations": 3,
+     "citations_ok": 3,
+     "ms": 9817
+    },
+    {
+     "id": "M06",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 3,
+     "citations_ok": 3,
+     "ms": 14891
+    },
+    {
+     "id": "M07",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": false,
+     "hallucinated": true,
+     "citations": 2,
+     "citations_ok": 1,
+     "ms": 12952
+    },
+    {
+     "id": "M08",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": false,
+     "hallucinated": true,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 13114
+    },
+    {
+     "id": "D01",
+     "type": "date",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 1,
+     "citations_ok": 1,
+     "ms": 5385
+    },
+    {
+     "id": "D02",
+     "type": "date",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 1,
+     "ms": 12033
+    },
+    {
+     "id": "D03",
+     "type": "date",
+     "outcome": "answered",
+     "recall": 0.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 1,
+     "ms": 7988
+    },
+    {
+     "id": "D04",
+     "type": "date",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 3,
+     "citations_ok": 3,
+     "ms": 8591
+    },
+    {
+     "id": "D05",
+     "type": "date",
+     "outcome": "notFound",
+     "recall": 1.0,
+     "correct": false,
+     "hallucinated": false,
+     "citations": 0,
+     "citations_ok": 0,
+     "ms": 5706
+    },
+    {
+     "id": "D06",
+     "type": "date",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 12460
+    }
+   ]
+  },
+  "rewrite": {
+   "n_answerable": 36,
+   "n_unanswerable": 8,
+   "metrics": {
+    "answer_correctness": 0.7222222222222222,
+    "citation_precision": 0.8421052631578947,
+    "unanswerable_refused": 0.875,
+    "hallucination_rate": 0.1388888888888889,
+    "seg_recall@10": 0.8055555555555556
+   },
+   "by_type": {
+    "exact": {
+     "n": 12,
+     "answer_correctness": 0.9166666666666666,
+     "seg_recall@10": 0.9166666666666666
+    },
+    "paraphrase": {
+     "n": 10,
+     "answer_correctness": 0.5,
+     "seg_recall@10": 0.6
+    },
+    "multi": {
+     "n": 8,
+     "answer_correctness": 0.75,
+     "seg_recall@10": 0.875
+    },
+    "date": {
+     "n": 6,
+     "answer_correctness": 0.6666666666666666,
+     "seg_recall@10": 0.8333333333333334
+    }
+   },
+   "citations_returned": 76,
+   "citations_on_gold_recording": 64,
+   "outcomes": {
+    "answered": 32,
+    "notFound": 12
+   },
+   "not_answered_answerable": [
+    "P01",
+    "P02",
+    "P10",
+    "D01",
+    "D05"
+   ],
+   "wrongly_answered_unanswerable": [
+    "U02"
+   ],
+   "latency_ms": {
+    "median": 13217.0,
+    "p95": 25684,
+    "max": 33090
+   },
+   "per_question": [
+    {
+     "id": "E01",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 33090
+    },
+    {
+     "id": "E02",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 1,
+     "citations_ok": 1,
+     "ms": 17203
+    },
+    {
+     "id": "E03",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 19683
+    },
+    {
+     "id": "E04",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 3,
+     "citations_ok": 3,
+     "ms": 28451
+    },
+    {
+     "id": "E05",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 18372
+    },
+    {
+     "id": "E06",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 11681
+    },
+    {
+     "id": "E07",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 3,
+     "citations_ok": 3,
+     "ms": 20301
+    },
+    {
+     "id": "E08",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 25684
+    },
+    {
+     "id": "E09",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 1,
+     "ms": 13598
+    },
+    {
+     "id": "E10",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 0.0,
+     "correct": false,
+     "hallucinated": true,
+     "citations": 2,
+     "citations_ok": 1,
+     "ms": 11079
+    },
+    {
+     "id": "E11",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 1,
+     "ms": 13922
+    },
+    {
+     "id": "E12",
+     "type": "exact",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 10666
+    },
+    {
+     "id": "P01",
+     "type": "paraphrase",
+     "outcome": "notFound",
+     "recall": 0.0,
+     "correct": false,
+     "hallucinated": false,
+     "citations": 0,
+     "citations_ok": 0,
+     "ms": 10736
+    },
+    {
+     "id": "P02",
+     "type": "paraphrase",
+     "outcome": "notFound",
+     "recall": 1.0,
+     "correct": false,
+     "hallucinated": false,
+     "citations": 0,
+     "citations_ok": 0,
+     "ms": 11334
+    },
+    {
+     "id": "P03",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": false,
+     "hallucinated": true,
+     "citations": 3,
+     "citations_ok": 2,
+     "ms": 17422
+    },
+    {
+     "id": "P04",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 12836
+    },
+    {
+     "id": "P05",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 0.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 15634
+    },
+    {
+     "id": "P06",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 0.0,
+     "correct": false,
+     "hallucinated": true,
+     "citations": 3,
+     "citations_ok": 2,
+     "ms": 12457
+    },
+    {
+     "id": "P07",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 1,
+     "citations_ok": 0,
+     "ms": 12642
+    },
+    {
+     "id": "P08",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 4,
+     "citations_ok": 4,
+     "ms": 14147
+    },
+    {
+     "id": "P09",
+     "type": "paraphrase",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 4,
+     "citations_ok": 2,
+     "ms": 19315
+    },
+    {
+     "id": "P10",
+     "type": "paraphrase",
+     "outcome": "notFound",
+     "recall": 0.0,
+     "correct": false,
+     "hallucinated": false,
+     "citations": 0,
+     "citations_ok": 0,
+     "ms": 11359
+    },
+    {
+     "id": "M01",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 0.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 4,
+     "citations_ok": 3,
+     "ms": 24756
+    },
+    {
+     "id": "M02",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 1,
+     "ms": 17742
+    },
+    {
+     "id": "M03",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 4,
+     "citations_ok": 4,
+     "ms": 15742
+    },
+    {
+     "id": "M04",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 13849
+    },
+    {
+     "id": "M05",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": false,
+     "hallucinated": true,
+     "citations": 3,
+     "citations_ok": 3,
+     "ms": 12147
+    },
+    {
+     "id": "M06",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 3,
+     "citations_ok": 3,
+     "ms": 17188
+    },
+    {
+     "id": "M07",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 14391
+    },
+    {
+     "id": "M08",
+     "type": "multi",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": false,
+     "hallucinated": true,
+     "citations": 3,
+     "citations_ok": 3,
+     "ms": 16471
+    },
+    {
+     "id": "D01",
+     "type": "date",
+     "outcome": "notFound",
+     "recall": 1.0,
+     "correct": false,
+     "hallucinated": false,
+     "citations": 0,
+     "citations_ok": 0,
+     "ms": 5874
+    },
+    {
+     "id": "D02",
+     "type": "date",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 1,
+     "ms": 11221
+    },
+    {
+     "id": "D03",
+     "type": "date",
+     "outcome": "answered",
+     "recall": 0.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 1,
+     "ms": 6670
+    },
+    {
+     "id": "D04",
+     "type": "date",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 3,
+     "citations_ok": 3,
+     "ms": 8901
+    },
+    {
+     "id": "D05",
+     "type": "date",
+     "outcome": "notFound",
+     "recall": 1.0,
+     "correct": false,
+     "hallucinated": false,
+     "citations": 0,
+     "citations_ok": 0,
+     "ms": 7122
+    },
+    {
+     "id": "D06",
+     "type": "date",
+     "outcome": "answered",
+     "recall": 1.0,
+     "correct": true,
+     "hallucinated": false,
+     "citations": 2,
+     "citations_ok": 2,
+     "ms": 10688
+    }
+   ]
+  }
+ }
+}
