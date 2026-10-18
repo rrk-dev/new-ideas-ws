@@ -13,6 +13,7 @@ class VaultTargetOptions {
     this.filenamePattern,
     this.transcriptSidecar = false,
     this.audioSidecar = false,
+    this.mindMapSidecar = false,
   });
 
   factory VaultTargetOptions.fromJson(Object? raw) {
@@ -28,6 +29,7 @@ class VaultTargetOptions {
           : null,
       transcriptSidecar: raw['transcript_sidecar'] == true,
       audioSidecar: raw['audio_sidecar'] == true,
+      mindMapSidecar: raw['mind_map_sidecar'] == true,
     );
   }
 
@@ -43,6 +45,9 @@ class VaultTargetOptions {
   /// Also copy the recording's audio into `attachments/` in the target.
   final bool audioSidecar;
 
+  /// Also write `<note>.mindmap.md` (the nested-list mind map, MAP-02).
+  final bool mindMapSidecar;
+
   static const defaults = VaultTargetOptions();
 
   Map<String, Object?> toJson() => {
@@ -50,6 +55,7 @@ class VaultTargetOptions {
     if (filenamePattern != null) 'filename_pattern': filenamePattern,
     'transcript_sidecar': transcriptSidecar,
     'audio_sidecar': audioSidecar,
+    'mind_map_sidecar': mindMapSidecar,
   };
 
   VaultTargetOptions copyWith({
@@ -57,6 +63,7 @@ class VaultTargetOptions {
     String? Function()? filenamePattern,
     bool? transcriptSidecar,
     bool? audioSidecar,
+    bool? mindMapSidecar,
   }) => VaultTargetOptions(
     collision: collision == null ? this.collision : collision(),
     filenamePattern: filenamePattern == null
@@ -64,6 +71,7 @@ class VaultTargetOptions {
         : filenamePattern(),
     transcriptSidecar: transcriptSidecar ?? this.transcriptSidecar,
     audioSidecar: audioSidecar ?? this.audioSidecar,
+    mindMapSidecar: mindMapSidecar ?? this.mindMapSidecar,
   );
 
   @override
@@ -72,11 +80,17 @@ class VaultTargetOptions {
       other.collision == collision &&
       other.filenamePattern == filenamePattern &&
       other.transcriptSidecar == transcriptSidecar &&
-      other.audioSidecar == audioSidecar;
+      other.audioSidecar == audioSidecar &&
+      other.mindMapSidecar == mindMapSidecar;
 
   @override
-  int get hashCode =>
-      Object.hash(collision, filenamePattern, transcriptSidecar, audioSidecar);
+  int get hashCode => Object.hash(
+    collision,
+    filenamePattern,
+    transcriptSidecar,
+    audioSidecar,
+    mindMapSidecar,
+  );
 }
 
 /// Decodes the `export.target_options` setting.
@@ -100,6 +114,9 @@ abstract final class SidecarPaths {
   /// `Meetings/2026-10-14-meeting-x.md` → `…-x.transcript.md`.
   static String transcript(String notePath) =>
       '${_stem(notePath)}.transcript.md';
+
+  /// `Meetings/note.md` → `Meetings/note.mindmap.md`.
+  static String mindMap(String notePath) => '${_stem(notePath)}.mindmap.md';
 
   /// `Meetings/note.md` + `m4a` → `Meetings/attachments/note.m4a`.
   static String audio(String notePath, String extension) {

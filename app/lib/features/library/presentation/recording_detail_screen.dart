@@ -17,6 +17,7 @@ import 'package:vaultvoice/features/library/domain/recording_detail.dart';
 import 'package:vaultvoice/features/library/presentation/library_texts.dart';
 import 'package:vaultvoice/features/library/presentation/transcript_lines_screen.dart';
 import 'package:vaultvoice/features/library/presentation/transcript_navigation.dart';
+import 'package:vaultvoice/features/mindmap/presentation/mind_map_tab.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_progress.dart';
 import 'package:vaultvoice/features/pipeline/domain/job_state.dart';
 import 'package:vaultvoice/features/pipeline/presentation/job_commands.dart';
@@ -552,8 +553,8 @@ class _ActionItemsTab extends StatelessWidget {
   }
 }
 
-/// A section a future feature adds to the recording hub (Mind map MAP-02,
-/// Ask ASK-04). No slot is registered yet, so no tab shows.
+/// A section a feature adds to the recording hub (Mind map MAP-02, Ask
+/// ASK-04).
 class RecordingHubSlot {
   const RecordingHubSlot({
     required this.id,
@@ -566,10 +567,15 @@ class RecordingHubSlot {
   final Widget Function(BuildContext context, String recordingId) builder;
 }
 
-/// Extra hub sections, appended after Action items. Empty until the features
-/// exist; override to register one.
+/// Extra hub sections, appended after Action items: the mind map (MAP-02).
 final recordingHubSlotsProvider = Provider<List<RecordingHubSlot>>(
-  (ref) => const [],
+  (ref) => [
+    RecordingHubSlot(
+      id: 'mind-map',
+      label: (l10n) => l10n.recordingTabMindMap,
+      builder: (context, recordingId) => MindMapTab(recordingId: recordingId),
+    ),
+  ],
 );
 
 enum _Action { review, reExtract, changeProfile, reExport, delete }

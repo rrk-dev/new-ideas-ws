@@ -101,6 +101,7 @@ ExportRequest request({
   String? title = 'Planning',
   List<String> tags = const [],
   String? transcript,
+  String? mindMap,
 }) => ExportRequest(
   recordingId: recordingId,
   markdown: markdown,
@@ -112,6 +113,7 @@ ExportRequest request({
     title: title,
   ),
   transcriptMarkdown: transcript,
+  mindMapMarkdown: mindMap,
 );
 
 const _notePath = '2026-10-14-meeting-planning.md';
@@ -355,6 +357,34 @@ void main() {
     expect(out, isA<ExportFailed>());
     expect(w.notes[sidecar], "another recording's note");
   });
+
+  test('[MAP-02/AC3] the mind-map sidecar is written only when the vault '
+      'opts in and the recording has a map', () async {
+    await f.target('v');
+    await f.exporter.export(request(mindMap: '# M\n'));
+    expect(f.writers['v']!.notes.keys, [_notePath]);
+
+    await f.options({'v': const VaultTargetOptions(mindMapSidecar: true)});
+    await f.exporter.export(request(mindMap: '# M\n'));
+    final w = f.writers['v']!;
+    expect(w.notes['2026-10-14-meeting-planning.mindmap.md'], '# M\n');
+    await f.exporter.export(request(mindMap: '# M2\n'));
+    expect(w.notes['2026-10-14-meeting-planning.mindmap.md'], '# M2\n');
+  });
+
+  test(
+    '[MAP-02/AC3] a mind-map sidecar never overwrites a foreign file',
+    () async {
+      await f.target('v');
+      await f.options({'v': const VaultTargetOptions(mindMapSidecar: true)});
+      final w = f.writers['v']!;
+      const sidecar = '2026-10-14-meeting-planning.mindmap.md';
+      w.notes[sidecar] = "another recording's note";
+      final out = await f.exporter.export(request(mindMap: '# M\n'));
+      expect(out, isA<ExportFailed>());
+      expect(w.notes[sidecar], "another recording's note");
+    },
+  );
 
   test('[EXP-06] an unreadable existing note is never overwritten', () async {
     await f.target('v');

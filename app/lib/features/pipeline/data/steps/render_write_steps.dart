@@ -15,6 +15,8 @@ import 'package:vaultvoice/features/export/data/export_request_builder.dart';
 import 'package:vaultvoice/features/export/data/vault_exporter.dart';
 import 'package:vaultvoice/features/export/domain/export_collision.dart';
 import 'package:vaultvoice/features/export/domain/filename_pattern.dart';
+import 'package:vaultvoice/features/mindmap/domain/mind_map.dart';
+import 'package:vaultvoice/features/mindmap/domain/mind_map_markdown.dart';
 import 'package:vaultvoice/features/pipeline/data/pipeline_engines.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/review_gate.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/step_support.dart';
@@ -30,6 +32,7 @@ class NoteInput {
     required this.extraction,
     required this.segments,
     this.speakerNames = const {},
+    this.mindMap,
   });
 
   final RecordingRow recording;
@@ -39,6 +42,9 @@ class NoteInput {
   /// STT-05: the user's names by speaker label ("Speaker 2" → "Priya");
   /// unnamed speakers keep their label.
   final Map<String, String> speakerNames;
+
+  /// MAP-02: the recording's mind map, rendered as a section of the note.
+  final MindMapNode? mindMap;
 }
 
 /// Renders Markdown. EXP-01/02 replace the placeholder with Mustache
@@ -178,6 +184,9 @@ class RenderStep implements PipelineStep {
         ? const <TranscriptSegmentRow>[]
         : unwrap(await db.transcriptsRepository.segments(transcript.id));
     final ext = extraction.valueOrNull!;
+    final mapRow = unwrap(
+      await db.mindMapsRepository.forRecording(job.recordingId),
+    );
     final render = loader == null ? renderer : await loader!();
     final markdown = render(
       NoteInput(
@@ -187,6 +196,7 @@ class RenderStep implements PipelineStep {
         speakerNames: unwrap(
           await db.recordingsRepository.speakerNames(job.recordingId),
         ),
+        mindMap: mapRow == null ? null : mindMapFromJson(mapRow.json),
       ),
     );
     await writeFileAtomic(paths.renderedFile(job.recordingId), markdown);

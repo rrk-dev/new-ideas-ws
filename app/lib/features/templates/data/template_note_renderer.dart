@@ -1,4 +1,5 @@
 import 'package:vaultvoice/core/errors/result.dart';
+import 'package:vaultvoice/features/mindmap/domain/mind_map_markdown.dart';
 import 'package:vaultvoice/features/pipeline/data/steps/render_write_steps.dart';
 import 'package:vaultvoice/features/profiles/domain/builtin_profiles.dart';
 import 'package:vaultvoice/features/profiles/domain/profile.dart';
@@ -99,7 +100,10 @@ class TemplateNoteRenderer {
       warnings.addAll(fallback.warnings);
       note = fallback;
     }
-    final result = RenderedNote(note.markdown, warnings: warnings);
+    final result = RenderedNote(
+      appendMindMapSection(note.markdown, input.mindMap),
+      warnings: warnings,
+    );
     if (result.hasWarnings) onWarnings?.call(result.warnings);
     return result;
   }

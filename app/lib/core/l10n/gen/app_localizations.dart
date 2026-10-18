@@ -4977,6 +4977,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Purchases checked. Your feature access has been updated.'**
   String get purchaseRestored;
+
+  /// No description provided for @settingMindMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Mind maps'**
+  String get settingMindMap;
+
+  /// No description provided for @settingMindMapDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic adds a model pass to every recording. On demand builds one when you ask for it in the recording.'**
+  String get settingMindMapDescription;
+
+  /// No description provided for @optionMindMapAuto.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get optionMindMapAuto;
+
+  /// No description provided for @optionMindMapOnDemand.
+  ///
+  /// In en, this message translates to:
+  /// **'On demand'**
+  String get optionMindMapOnDemand;
+
+  /// No description provided for @vaultTargetMindMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Also write the mind map'**
+  String get vaultTargetMindMap;
+
+  /// No description provided for @vaultTargetMindMapHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Writes the mind map as a separate nested-list note next to each note that has one.'**
+  String get vaultTargetMindMapHelp;
+
+  /// No description provided for @recordingTabMindMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Mind map'**
+  String get recordingTabMindMap;
+
+  /// No description provided for @mindMapNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No mind map yet. Build one from this recording’s transcript.'**
+  String get mindMapNone;
+
+  /// No description provided for @mindMapNeedsTranscript.
+  ///
+  /// In en, this message translates to:
+  /// **'Process the recording first: a mind map is built from its transcript.'**
+  String get mindMapNeedsTranscript;
+
+  /// No description provided for @mindMapGenerating.
+  ///
+  /// In en, this message translates to:
+  /// **'Building the mind map…'**
+  String get mindMapGenerating;
+
+  /// No description provided for @mindMapFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The mind map could not be built.'**
+  String get mindMapFailed;
+
+  /// No description provided for @mindMapGenerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate mind map'**
+  String get mindMapGenerate;
+
+  /// No description provided for @mindMapRegenerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Regenerate'**
+  String get mindMapRegenerate;
+
+  /// No description provided for @mindMapRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get mindMapRetry;
+
+  /// No description provided for @mindMapExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export to vault'**
+  String get mindMapExport;
+
+  /// No description provided for @mindMapExportQueued.
+  ///
+  /// In en, this message translates to:
+  /// **'The note and its mind map will be written to your vault.'**
+  String get mindMapExportQueued;
+
+  /// No description provided for @mindMapShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share as Markdown'**
+  String get mindMapShare;
+
+  /// No description provided for @mindMapShareFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Sharing is not available.'**
+  String get mindMapShareFailed;
+
+  /// No description provided for @mindMapExpand.
+  ///
+  /// In en, this message translates to:
+  /// **'Expand {label}'**
+  String mindMapExpand(String label);
+
+  /// No description provided for @mindMapCollapse.
+  ///
+  /// In en, this message translates to:
+  /// **'Collapse {label}'**
+  String mindMapCollapse(String label);
+
+  /// No description provided for @mindMapNodeSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{label}, level {level}'**
+  String mindMapNodeSemantics(String label, int level);
+
+  /// No description provided for @mindMapSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Mind map “{title}”, 1 item} other{Mind map “{title}”, {count} items}}'**
+  String mindMapSummary(int count, String title);
+
+  /// No description provided for @mindMapEvidenceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Evidence'**
+  String get mindMapEvidenceTitle;
+
+  /// No description provided for @mindMapEvidenceAt.
+  ///
+  /// In en, this message translates to:
+  /// **'From the transcript at {time}'**
+  String mindMapEvidenceAt(String time);
+
+  /// No description provided for @mindMapNoEvidence.
+  ///
+  /// In en, this message translates to:
+  /// **'This item has no transcript time.'**
+  String get mindMapNoEvidence;
+
+  /// No description provided for @mindMapOpenTranscript.
+  ///
+  /// In en, this message translates to:
+  /// **'Open transcript at {time}'**
+  String mindMapOpenTranscript(String time);
 }
 
 class _AppLocalizationsDelegate

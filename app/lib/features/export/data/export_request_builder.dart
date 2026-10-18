@@ -3,6 +3,7 @@ import 'package:vaultvoice/core/errors/result.dart';
 import 'package:vaultvoice/features/export/data/vault_exporter.dart';
 import 'package:vaultvoice/features/export/domain/filename_pattern.dart';
 import 'package:vaultvoice/features/export/domain/routing_engine.dart';
+import 'package:vaultvoice/features/mindmap/domain/mind_map_markdown.dart';
 import 'package:vaultvoice/features/recording/domain/recording_session.dart'
     show recordingDestinationKey;
 import 'package:vaultvoice/features/templates/domain/note_context.dart'
@@ -39,6 +40,9 @@ Future<ExportRequest> buildExportRequest(
       ? const <TranscriptSegmentRow>[]
       : (await db.transcriptsRepository.segments(transcript.id)).valueOrNull ??
             const <TranscriptSegmentRow>[];
+  final mapRow = (await db.mindMapsRepository.forRecording(recordingId))
+      .valueOrNull;
+  final mindMap = mapRow == null ? null : mindMapFromJson(mapRow.json);
   final names = {for (final s in speakers) s.label: s.displayName ?? s.label};
   final chosen = (await db.settingsRepository.get(
     recordingDestinationKey(recordingId),
@@ -70,6 +74,9 @@ Future<ExportRequest> buildExportRequest(
       profileId: profileId,
       title: title,
     ),
+    mindMapMarkdown: mindMap == null
+        ? null
+        : mindMapStandaloneMarkdown(mindMap),
     transcriptMarkdown: segments.isEmpty
         ? null
         : transcriptSidecarMarkdown(
