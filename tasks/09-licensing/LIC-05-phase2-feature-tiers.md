@@ -1,7 +1,7 @@
 # LIC-05 — Free / Pro / Enterprise placement for the Phase 2 features
 
 **Workstream:** Licensing | **Phase:** 5 | **Size:** S | **Depends on:** LIC-01, LIC-02, ASK-01, TPL-04, MAP-01, TSK-01, QCP-01 | **Source:** User decision 2026-10-16 (product Phase 2); product decision required
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-licensing-iap, vv-flutter-architecture, vv-testing
 
 ## Goal
