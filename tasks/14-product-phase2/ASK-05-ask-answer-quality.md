@@ -1,7 +1,7 @@
 # ASK-05 — Ask answer quality (citation precision and refusal)
 
 **Workstream:** Product Phase 2 | **Phase:** 5 | **Size:** M | **Depends on:** ASK-03 | **Source:** ASK-03 eval, gates AC1 missed
-**Status:** todo
+**Status:** in-progress
 **Skills:** vv-task-workflow, vv-llm-inference, vv-benchmark-eval, vv-decision-records
 
 ## Goal
