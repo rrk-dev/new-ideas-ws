@@ -1,0 +1,32 @@
+app/lib/core/l10n/gen/app_localizations.dart
+  s_5a534bed398a49::t_95e5561a47f732 2419-2430
+app/test/widget/processing_status_test.dart
+  s_5a534bed398a49::t_5de7a8898b0e69 257-281
+app/lib/features/pipeline/presentation/processing_status_card.dart
+  s_5a534bed398a49::t_aa7eae23acb0d3 21-22,38-43,132-137,200-230
+  s_5a534bed398a49::t_e60c6bb5909c13 231-236
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_5a534bed398a49::t_95e5561a47f732 1386-1391
+app/lib/core/l10n/arb/app_en.arb
+  s_5a534bed398a49::t_aa7eae23acb0d3 460-461
+app/lib/features/pipeline/presentation/job_commands.dart
+  s_5a534bed398a49::t_aa7eae23acb0d3 58-60,94-97,99,113-118,120-130,138-142
+  s_5a534bed398a49::t_95e5561a47f732 1,4-5,18-19,98,119,131-137
+  s_5a534bed398a49::t_2fa6a7f660207f 143-144
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "711ffdf66d56c23fe3a6e93b17fdeeb9fb3fabee",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
