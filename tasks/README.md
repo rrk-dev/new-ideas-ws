@@ -194,6 +194,7 @@ Scope confirmed by the user: quick capture, more summary templates, ask-your-not
 | [ASK-03](14-product-phase2/ASK-03-ask-engine.md) | Ask-your-notes engine | 5 | L | User decision 2026-10-16 |
 | [ASK-04](14-product-phase2/ASK-04-ask-ui.md) | Ask-your-notes UI | 5 | M | User decision 2026-10-16 |
 | [ASK-05](14-product-phase2/ASK-05-ask-answer-quality.md) | Ask answer quality (citation precision and refusal) | 5 | M | ASK-03 eval gates |
+| [ASK-06](14-product-phase2/ASK-06-larger-ask-model.md) | Larger Ask model (≈7–9B) with download warning | 5 | L | ASK-05 follow-up; user decision 2026-10-19 |
 | [MAP-01](14-product-phase2/MAP-01-mind-map-generation.md) | Mind-map generation | 5 | M | User decision 2026-10-16 |
 | [MAP-02](14-product-phase2/MAP-02-mind-map-viewer-export.md) | Mind-map viewer and export | 5 | M | User decision 2026-10-16 |
 | [MAP-03](14-product-phase2/MAP-03-graphic-mind-map.md) | Graphical mind map view | 5 | M | Owner request 2026-10-18 |
