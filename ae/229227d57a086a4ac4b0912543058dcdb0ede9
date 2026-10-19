@@ -1,0 +1,21 @@
+tasks/14-product-phase2/ASK-06-larger-ask-model.md
+  s_32ff7c6645b94e::t_56f2af14dae294 1-27
+tasks/README.md
+  s_32ff7c6645b94e::t_4ccff17df08ad7 197
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ae229227d57a086a4ac4b0912543058dcdb0ede9",
+  "prompts": {},
+  "sessions": {
+    "s_32ff7c6645b94e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "5ae6674e-034c-4790-954f-2a5fe59954b6",
+        "model": "unknown"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
