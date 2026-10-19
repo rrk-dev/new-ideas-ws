@@ -19,6 +19,20 @@ class MainFlutterWindow: NSWindow {
 
     styleMask.formUnion([.titled, .closable, .miniaturizable, .resizable])
     contentMinSize = NSSize(width: 800, height: 600)
+    // Open large enough to show a whole screen without scrolling.
+    if let visible = (self.screen ?? NSScreen.main)?.visibleFrame {
+      let size = NSSize(
+        width: min(1100, visible.width * 0.9),
+        height: min(820, visible.height * 0.92)
+      )
+      setContentSize(size)
+      setFrameOrigin(
+        NSPoint(
+          x: visible.midX - frame.width / 2,
+          y: visible.midY - frame.height / 2
+        )
+      )
+    }
     if let displayName = Bundle.main.object(
       forInfoDictionaryKey: "CFBundleDisplayName"
     ) as? String, !displayName.isEmpty {

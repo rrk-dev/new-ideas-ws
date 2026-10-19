@@ -342,38 +342,51 @@ class _RecordScreenState extends ConsumerState<RecordScreen>
               ],
             ),
             body: SafeArea(
-              child: ListView(
-                padding: const EdgeInsets.all(AppSpacing.lg),
-                children: [
-                  RecordingSetupPickers(
-                    setup: _setup,
-                    enabled: !active,
-                    onChanged: (s) => setState(() => _setup = s),
+              // Fits the window without scrolling when there is room; scrolls
+              // only when the window is shorter than the content.
+              child: LayoutBuilder(
+                builder: (context, constraints) => SingleChildScrollView(
+                  padding: const EdgeInsets.all(AppSpacing.lg),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight - AppSpacing.lg * 2,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        RecordingSetupPickers(
+                          setup: _setup,
+                          enabled: !active,
+                          onChanged: (s) => setState(() => _setup = s),
+                        ),
+                        const SizedBox(height: AppSpacing.lg),
+                        _StatusText(state: state, blocked: _blocked),
+                        if (_storageWarning) ...[
+                          const SizedBox(height: AppSpacing.sm),
+                          _Banner(text: l10n.recordLowStorageWarning),
+                        ],
+                        const SizedBox(height: AppSpacing.lg),
+                        _Timer(state: state),
+                        const SizedBox(height: AppSpacing.md),
+                        LiveWaveform(
+                          key: const ValueKey('live-waveform'),
+                          active: phase == RecordingPhase.recording,
+                        ),
+                        const SizedBox(height: AppSpacing.xl),
+                        _Controls(
+                          phase: phase,
+                          inCall: _blocked == _Blocked.inCall && !active,
+                          onRecord: _record,
+                          onPause: _pause,
+                          onResume: _resume,
+                          onStop: _stop,
+                          onMark: _mark,
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: AppSpacing.lg),
-                  _StatusText(state: state, blocked: _blocked),
-                  if (_storageWarning) ...[
-                    const SizedBox(height: AppSpacing.sm),
-                    _Banner(text: l10n.recordLowStorageWarning),
-                  ],
-                  const SizedBox(height: AppSpacing.lg),
-                  _Timer(state: state),
-                  const SizedBox(height: AppSpacing.md),
-                  LiveWaveform(
-                    key: const ValueKey('live-waveform'),
-                    active: phase == RecordingPhase.recording,
-                  ),
-                  const SizedBox(height: AppSpacing.xxl),
-                  _Controls(
-                    phase: phase,
-                    inCall: _blocked == _Blocked.inCall && !active,
-                    onRecord: _record,
-                    onPause: _pause,
-                    onResume: _resume,
-                    onStop: _stop,
-                    onMark: _mark,
-                  ),
-                ],
+                ),
               ),
             ),
           ),
