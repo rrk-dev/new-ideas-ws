@@ -2692,6 +2692,12 @@ abstract class AppLocalizations {
   /// **'Too loud — move the phone further away.'**
   String get clippingHint;
 
+  /// No description provided for @noInputSignalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'No sound from the microphone. Check that the right input is selected in your system sound settings, and that the lid is open.'**
+  String get noInputSignalHint;
+
   /// No description provided for @recordingLevelLabel.
   ///
   /// In en, this message translates to:

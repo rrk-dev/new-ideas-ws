@@ -1565,6 +1565,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clippingHint => 'Too loud — move the phone further away.';
 
   @override
+  String get noInputSignalHint =>
+      'No sound from the microphone. Check that the right input is selected in your system sound settings, and that the lid is open.';
+
+  @override
   String get recordingLevelLabel => 'Input level';
 
   @override
