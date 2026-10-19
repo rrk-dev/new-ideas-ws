@@ -89,62 +89,97 @@ class _LegalAcceptanceScreenState extends ConsumerState<LegalAcceptanceScreen> {
     return Scaffold(
       key: const ValueKey('legal-gate'),
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(AppSpacing.lg),
-          children: [
-            Text(l10n.legalGateTitle, style: theme.textTheme.headlineSmall),
-            const SizedBox(height: AppSpacing.md),
-            Text(l10n.legalGateIntro),
-            const SizedBox(height: AppSpacing.md),
-            Text(l10n.legalRecordingResponsibility),
-            const SizedBox(height: AppSpacing.md),
-            Wrap(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 640),
+            // The checkboxes and the button stay pinned so they never need
+            // scrolling; only the explanatory text scrolls on small windows.
+            child: Column(
               children: [
-                TextButton(
-                  key: const ValueKey('legal-read-terms'),
-                  onPressed: () => setState(() => _reading = kTermsAsset),
-                  child: Text(l10n.legalReadTerms),
+                Expanded(
+                  child: ListView(
+                    padding: const EdgeInsets.fromLTRB(
+                      AppSpacing.lg,
+                      AppSpacing.lg,
+                      AppSpacing.lg,
+                      0,
+                    ),
+                    children: [
+                      Text(
+                        l10n.legalGateTitle,
+                        style: theme.textTheme.headlineSmall,
+                      ),
+                      const SizedBox(height: AppSpacing.md),
+                      Text(l10n.legalGateIntro),
+                      const SizedBox(height: AppSpacing.md),
+                      Text(l10n.legalRecordingResponsibility),
+                      const SizedBox(height: AppSpacing.sm),
+                      Wrap(
+                        children: [
+                          TextButton(
+                            key: const ValueKey('legal-read-terms'),
+                            onPressed: () =>
+                                setState(() => _reading = kTermsAsset),
+                            child: Text(l10n.legalReadTerms),
+                          ),
+                          TextButton(
+                            key: const ValueKey('legal-read-privacy'),
+                            onPressed: () =>
+                                setState(() => _reading = kPrivacyAsset),
+                            child: Text(l10n.legalReadPrivacy),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                TextButton(
-                  key: const ValueKey('legal-read-privacy'),
-                  onPressed: () => setState(() => _reading = kPrivacyAsset),
-                  child: Text(l10n.legalReadPrivacy),
+                Padding(
+                  padding: const EdgeInsets.all(AppSpacing.lg),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      CheckboxListTile(
+                        key: const ValueKey('legal-age'),
+                        contentPadding: EdgeInsets.zero,
+                        controlAffinity: ListTileControlAffinity.leading,
+                        value: _age,
+                        onChanged: (v) => setState(() => _age = v ?? false),
+                        title: Text(l10n.legalAgeConfirm),
+                      ),
+                      CheckboxListTile(
+                        key: const ValueKey('legal-agree'),
+                        contentPadding: EdgeInsets.zero,
+                        controlAffinity: ListTileControlAffinity.leading,
+                        value: _agree,
+                        onChanged: (v) => setState(() => _agree = v ?? false),
+                        title: Text(l10n.legalAgreeConfirm),
+                      ),
+                      const SizedBox(height: AppSpacing.sm),
+                      if (_failed)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                          child: Text(
+                            l10n.legalSaveFailed,
+                            style: TextStyle(color: theme.colorScheme.error),
+                          ),
+                        ),
+                      FilledButton(
+                        key: const ValueKey('legal-accept'),
+                        onPressed: _age && _agree && !_busy ? _accept : null,
+                        child: Text(l10n.legalAgreeButton),
+                      ),
+                      const SizedBox(height: AppSpacing.sm),
+                      Text(
+                        l10n.legalDeclineHint,
+                        style: theme.textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-            CheckboxListTile(
-              key: const ValueKey('legal-age'),
-              contentPadding: EdgeInsets.zero,
-              controlAffinity: ListTileControlAffinity.leading,
-              value: _age,
-              onChanged: (v) => setState(() => _age = v ?? false),
-              title: Text(l10n.legalAgeConfirm),
-            ),
-            CheckboxListTile(
-              key: const ValueKey('legal-agree'),
-              contentPadding: EdgeInsets.zero,
-              controlAffinity: ListTileControlAffinity.leading,
-              value: _agree,
-              onChanged: (v) => setState(() => _agree = v ?? false),
-              title: Text(l10n.legalAgreeConfirm),
-            ),
-            const SizedBox(height: AppSpacing.md),
-            if (_failed)
-              Padding(
-                padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-                child: Text(
-                  l10n.legalSaveFailed,
-                  style: TextStyle(color: theme.colorScheme.error),
-                ),
-              ),
-            FilledButton(
-              key: const ValueKey('legal-accept'),
-              onPressed: _age && _agree && !_busy ? _accept : null,
-              child: Text(l10n.legalAgreeButton),
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            Text(l10n.legalDeclineHint, style: theme.textTheme.bodySmall),
-          ],
+          ),
         ),
       ),
     );

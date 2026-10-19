@@ -1,3 +1,4 @@
+import 'package:vaultvoice/core/platform/providers.dart' show clockProvider;
 import 'package:vaultvoice/features/library/presentation/library_screen.dart';
 import 'package:vaultvoice/features/onboarding/domain/onboarding_keys.dart';
 import 'package:vaultvoice/features/recording/data/recording_providers.dart';
@@ -7,6 +8,7 @@ import 'package:vaultvoice/features/settings/presentation/settings_providers.dar
 
 import '../fakes/fake_call_guard.dart';
 import '../fakes/fake_capture_backend.dart';
+import '../fakes/fake_clock.dart';
 import '../fakes/fake_recording_indicator.dart';
 import '../fakes/fake_settings_store.dart';
 import '../helpers/golden.dart';
@@ -36,7 +38,13 @@ void main() {
   goldenTest(
     '[APP-02] Library screen [APP-08/AC4]',
     fileName: 'library_screen',
-    overrides: libraryOverrides(),
+    // Pinned: the date groups ('Today', 'This week') depend on the clock.
+    overrides: [
+      ...libraryOverrides(),
+      clockProvider.overrideWithValue(
+        FakeClock(libraryT0.add(const Duration(days: 2))),
+      ),
+    ],
     builder: (_) => const LibraryScreen(),
   );
 }
