@@ -1,0 +1,27 @@
+tasks/15-product-phase3/VOX-03-voice-questions.md
+  s_5a534bed398a49::t_f0e3b954725612 1-26
+tasks/15-product-phase3/VOX-01-voice-engine-decision.md
+  s_5a534bed398a49::t_f0e3b954725612 1-23
+tasks/15-product-phase3/VOX-02-read-aloud.md
+  s_5a534bed398a49::t_f0e3b954725612 1-24
+tasks/README.md
+  s_5a534bed398a49::t_f0e3b954725612 204-213
+tasks/15-product-phase3/VOX-04-better-voice-pack.md
+  s_5a534bed398a49::t_f0e3b954725612 1-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "99ad6feba9268f3db66842819f6a3c859f23fcce",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
