@@ -44,6 +44,15 @@ bool askEnabled(Ref ref) =>
     ref.watch(settingStateProvider(SettingKeys.askEnabled)).value?.value ==
     true;
 
+/// Memory the Ask model may count on. macOS reports "free" memory low
+/// because it keeps caches and compresses/swaps on demand, so on a Mac at
+/// least half of the physical RAM is usable (the model file is mmap'd).
+int _usableBytes((int, int) memory) {
+  final (total, available) = memory;
+  if (!Platform.isMacOS) return available;
+  return available > total ~/ 2 ? available : total ~/ 2;
+}
+
 /// `ask.save_history` (default on, PRODUCT-DECISION human 2026-10-17).
 @riverpod
 bool askSaveHistoryEnabled(Ref ref) =>
@@ -129,7 +138,7 @@ Future<AskEngine> askEngine(Ref ref) async {
         loadGate: (requested) {
           final plan = planLlmLoad(
             modelFileBytes: m.sizeBytes,
-            availableBytes: vv.deviceMemory.$2,
+            availableBytes: _usableBytes(vv.deviceMemory),
             requestedContext: requested,
           );
           return plan.allowed
@@ -158,7 +167,7 @@ Future<AskEngine> askEngine(Ref ref) async {
             .value
             ?.any((v) => v.job.state.isActive) ??
         false,
-    availableBytes: () => open().deviceMemory.$2,
+    availableBytes: () => _usableBytes(open().deviceMemory),
     log: ref.watch(loggerProvider),
     history: ref.watch(askHistoryStoreProvider),
     saveHistory: () => ref.read(askSaveHistoryEnabledProvider),
