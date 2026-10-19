@@ -201,6 +201,16 @@ Scope confirmed by the user: quick capture, more summary templates, ask-your-not
 | [TSK-02](14-product-phase2/TSK-02-apple-reminders-export.md) | Apple Reminders export | 5 | M | User decision 2026-10-16 |
 | [UIX-01](14-product-phase2/UIX-01-reference-driven-ui-refresh.md) | Reference-driven UI refresh | 5 | M | User decision 2026-10-16 |
 
+### 15 — Product Phase 3 (user request 2026-10-18, backlog, not started)
+Talk to the processed notes: read summaries and action items aloud, then tap-to-talk questions with spoken answers. Deferred on purpose: voice adds CPU, RAM and size. Order: VOX-01 (decision) → VOX-02 → VOX-03 → VOX-04 (optional).
+
+| ID | Task | Phase | Size | Source |
+|---|---|---|---|---|
+| [VOX-01](15-product-phase3/VOX-01-voice-engine-decision.md) | Text-to-speech engine decision | 6 | M | User request 2026-10-18 |
+| [VOX-02](15-product-phase3/VOX-02-read-aloud.md) | Read aloud: summary and action items | 6 | M | User request 2026-10-18 |
+| [VOX-03](15-product-phase3/VOX-03-voice-questions.md) | Tap-to-talk questions with spoken answers | 6 | L | User request 2026-10-18 |
+| [VOX-04](15-product-phase3/VOX-04-better-voice-pack.md) | Optional better-voice pack (Piper or Kokoro) | 6 | L | User request 2026-10-18 |
+
 ## Critical Path
 
 ```
