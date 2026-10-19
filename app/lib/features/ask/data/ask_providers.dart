@@ -36,8 +36,9 @@ import 'package:vv_native/vv_native.dart';
 
 part 'ask_providers.g.dart';
 
-/// `ask.enabled` (default off): the whole Ask entry is hidden while false.
-/// PRODUCT-DECISION (ASK-04): the ASK-03 quality gates are not met.
+/// `ask.enabled` (default off on iOS/Android, on for macOS): the whole Ask
+/// entry is hidden while false. PRODUCT-DECISION (ASK-04): the ASK-03
+/// quality gates are not met; the owner enabled it on macOS (2026-10-18).
 @riverpod
 bool askEnabled(Ref ref) =>
     ref.watch(settingStateProvider(SettingKeys.askEnabled)).value?.value ==

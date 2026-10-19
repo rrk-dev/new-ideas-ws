@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 
 /// Settings screen sections (APP-03), in display order.
@@ -230,12 +232,12 @@ abstract final class AppSettings {
     options: ['on_demand', 'auto'],
   );
 
-  /// ASK-04. PRODUCT-DECISION: off by default; the Ask entry stays hidden
-  /// until the ASK-03 quality gates pass or the human decides otherwise.
-  static const askEnabled = ToggleSetting(
+  /// ASK-04. PRODUCT-DECISION: off by default on iOS and Android until the
+  /// ASK-03 quality gates pass; on by default on macOS (owner, 2026-10-18).
+  static final askEnabled = ToggleSetting(
     key: SettingKeys.askEnabled,
     section: SettingSection.processing,
-    defaultValue: false,
+    defaultValue: Platform.isMacOS,
   );
 
   /// ASK-03/ASK-04. PRODUCT-DECISION (human, 2026-10-17): chats are saved
@@ -303,7 +305,7 @@ abstract final class AppSettings {
     defaultValue: false,
   );
 
-  static const List<SettingDef<Object>> all = [
+  static final List<SettingDef<Object>> all = [
     inputDevice,
     agc,
     noiseSuppression,
