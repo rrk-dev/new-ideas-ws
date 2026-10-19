@@ -1,0 +1,23 @@
+app/lib/features/recording/presentation/recording_screen.dart
+  s_5a534bed398a49::t_fc08b8fe257622 345-387,389
+app/macos/Runner/MainFlutterWindow.swift
+  s_5a534bed398a49::t_fc08b8fe257622 22-35
+app/lib/features/legal/presentation/legal_gate.dart
+  s_5a534bed398a49::t_fc08b8fe257622 92-97,99-134,136-178,182
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cf11433794b47f200c77ae83226a17d69ff2c1be",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
