@@ -51,9 +51,8 @@ final class DbAskRetriever implements AskRetriever {
 
         final match = query.ftsMatch;
         if (match == null) {
-          return query.dateOnly
-              ? await _recordingsIn(where, args)
-              : <AskPassage>[];
+          if (query.dateOnly) return await _recordingsIn(where, args);
+          return await _scopedExtraction(query, where, args, const []);
         }
         final rows = await db
             .customSelect(
@@ -118,8 +117,25 @@ final class DbAskRetriever implements AskRetriever {
             );
           }
         }
-        return ranked;
+        return await _scopedExtraction(query, where, args, ranked);
       });
+
+  /// Asked inside one recording, its summary and action items are always
+  /// context: words like "action items" are keys, not indexed values, so
+  /// the search alone can miss them.
+  Future<List<AskPassage>> _scopedExtraction(
+    AskQuery query,
+    String where,
+    List<Variable<Object>> args,
+    List<AskPassage> ranked,
+  ) async {
+    if (query.recordingId == null ||
+        ranked.any((p) => p.kind == AskPassageKind.extraction)) {
+      return ranked;
+    }
+    final own = await _recordingsIn(where, args);
+    return [...own.where((p) => p.text.isNotEmpty), ...ranked];
+  }
 
   Future<List<AskPassage>> _recordingsIn(
     String where,

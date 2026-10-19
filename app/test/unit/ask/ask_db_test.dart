@@ -89,6 +89,39 @@ void main() {
     expect({for (final p in all) p.recordingId}, {'r1', 'r2'});
   });
 
+  test("a per-recording Ask always carries that recording's extraction, even "
+      'when only its title matches', () async {
+    await seed(db, 'r1', ['How are you?'], at: t0);
+    await db
+        .into(db.extractions)
+        .insert(
+          ExtractionsCompanion.insert(
+            id: 'e1',
+            recordingId: 'r1',
+            profileId: 'meeting',
+            profileVersion: 1,
+            modelId: 'm',
+            json: {
+              'action_items': [
+                {'text': 'Call the plumber'},
+              ],
+            },
+            valid: true,
+            createdAt: t0,
+          ),
+        );
+    await db.customStatement("UPDATE recordings SET title = 'Debug2'");
+    final out = expectOk(
+      await retriever.retrieve(
+        q('What is the action item in Debug2', recordingId: 'r1'),
+      ),
+    );
+    expect(
+      out.where((e) => e.kind == AskPassageKind.extraction).map((e) => e.text),
+      [contains('Call the plumber')],
+    );
+  });
+
   test(
     "a date with no keyword hit falls back to that day's recordings",
     () async {
