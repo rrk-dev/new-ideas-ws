@@ -1,0 +1,41 @@
+app/lib/features/export/domain/filename_pattern.dart
+  s_5a534bed398a49::t_f208833ee78b86 176,181-186,208-213,231,239-244,248-250
+  s_5a534bed398a49::t_0787cb87bb49df 245-247
+  s_5a534bed398a49::t_1c53e058cee64c 251
+app/lib/core/l10n/gen/app_localizations.dart
+  s_5a534bed398a49::t_14b46a683d3059 2695-2700
+app/lib/features/recording/presentation/live_waveform.dart
+  s_5a534bed398a49::t_14b46a683d3059 21-24,29-32,41,50,76-78,128-143
+app/lib/features/transcription/domain/digital_silence.dart
+  s_5a534bed398a49::t_62b8af4dea0f4b 1-22
+app/lib/core/l10n/gen/app_localizations_en.dart
+  s_5a534bed398a49::t_14b46a683d3059 1568-1570
+  s_5a534bed398a49::t_d5fd47919706a8 1567
+app/test/unit/transcription/transcribe_step_vad_test.dart
+  s_5a534bed398a49::t_2eb64fac3a4835 2,121-137
+  s_5a534bed398a49::t_c3471601abba5e 138
+app/lib/core/l10n/arb/app_en.arb
+  s_5a534bed398a49::t_14b46a683d3059 524
+app/test/unit/export/filename_pattern_test.dart
+  s_5a534bed398a49::t_0787cb87bb49df 179-205
+app/test/widget/live_waveform_test.dart
+  s_5a534bed398a49::t_084fc4898fcce2 116-134
+app/lib/features/pipeline/data/steps/transcribe_step.dart
+  s_5a534bed398a49::t_62b8af4dea0f4b 21,227-234,316-320,324
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9628c1cf2dc18f26d5c4dbbdf0d34e4974aecab5",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
