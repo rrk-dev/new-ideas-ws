@@ -18,9 +18,17 @@ class WaveformBuffer extends ChangeNotifier {
   final List<AudioLevel> _ring;
   var _next = 0;
   var _count = 0;
+  var _deadRun = 0;
+
+  /// Peak below this is exact digital silence, not a quiet room.
+  static const deadPeakDbfs = -85.0;
 
   /// Number of real readings held (≤ [capacity]).
   int get length => _count;
+
+  /// Consecutive readings of digital silence (an input that delivers only
+  /// zeros: wrong or closed-lid microphone), 0 after any real signal.
+  int get deadRun => _deadRun;
 
   /// The latest reading, or [AudioLevel.silent] when empty.
   AudioLevel get latest =>
@@ -30,6 +38,7 @@ class WaveformBuffer extends ChangeNotifier {
     _ring[_next] = level;
     _next = (_next + 1) % capacity;
     _count = math.min(_count + 1, capacity);
+    _deadRun = level.peakDbfs <= deadPeakDbfs ? _deadRun + 1 : 0;
     notifyListeners();
   }
 
@@ -38,6 +47,7 @@ class WaveformBuffer extends ChangeNotifier {
     _ring.fillRange(0, capacity, AudioLevel.silent);
     _next = 0;
     _count = 0;
+    _deadRun = 0;
     notifyListeners();
   }
 
@@ -62,6 +72,9 @@ class LiveWaveform extends ConsumerStatefulWidget {
   @override
   ConsumerState<LiveWaveform> createState() => _LiveWaveformState();
 }
+
+/// About 3 s of readings (one per 50 ms) before the no-signal hint shows.
+const int _deadReadings = 60;
 
 class _LiveWaveformState extends ConsumerState<LiveWaveform> {
   final _buffer = WaveformBuffer(AppSizes.waveformCapacity);
@@ -112,7 +125,22 @@ class _LiveWaveformState extends ConsumerState<LiveWaveform> {
         ),
         ListenableBuilder(
           listenable: _buffer,
-          builder: (context, _) => _buffer.latest.clipping
+          builder: (context, _) => _buffer.deadRun >= _deadReadings
+              ? Padding(
+                  padding: const EdgeInsets.only(top: AppSpacing.xs),
+                  child: Semantics(
+                    liveRegion: true,
+                    child: Text(
+                      l10n.noInputSignalHint,
+                      key: const ValueKey('no-input-hint'),
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: scheme.error,
+                      ),
+                    ),
+                  ),
+                )
+              : _buffer.latest.clipping
               ? Padding(
                   padding: const EdgeInsets.only(top: AppSpacing.xs),
                   child: Semantics(

@@ -113,6 +113,25 @@ void main() {
     expect(find.byKey(const ValueKey('clipping-hint')), findsOneWidget);
   });
 
+  testWidgets('3 s of digital silence shows the no-input hint until a signal '
+      'returns', (t) async {
+    final levels = StreamController<AudioLevel>();
+    addTearDown(levels.close);
+    await pumpHost(t, levels.stream);
+    const hint = ValueKey('no-input-hint');
+    for (var i = 0; i < 59; i++) {
+      levels.add(_lv(-90));
+      await t.pump(const Duration(milliseconds: 1));
+    }
+    expect(find.byKey(hint), findsNothing);
+    levels.add(_lv(-90));
+    await t.pump(const Duration(milliseconds: 1));
+    expect(find.byKey(hint), findsOneWidget);
+    levels.add(_lv(-40));
+    await t.pump(const Duration(milliseconds: 1));
+    expect(find.byKey(hint), findsNothing);
+  });
+
   testWidgets('[APP-09/AC3] with reduced motion the bars do not scroll', (
     t,
   ) async {

@@ -173,11 +173,17 @@ class FilenamePattern {
   }
 
   static String _renderSegment(List<_Part> parts, FilenameValues v) {
+    final withProfile = parts.any((p) => p is _Token && p.name == 'profile');
     final texts = [
       for (final p in parts)
         switch (p) {
           _Literal(:final text) => text,
-          _Token(:final name, :final arg) => _value(name, arg, v),
+          _Token(:final name, :final arg) => _value(
+            name,
+            arg,
+            v,
+            dropProfilePrefix: withProfile,
+          ),
         },
     ];
     // Drop one joiner next to an empty token: "date--slug" → "date-slug",
@@ -199,7 +205,12 @@ class FilenamePattern {
   static bool _endsWithJoiner(String s) =>
       s.isNotEmpty && _joiners.contains(s[s.length - 1]);
 
-  static String _value(String name, String? arg, FilenameValues v) {
+  static String _value(
+    String name,
+    String? arg,
+    FilenameValues v, {
+    bool dropProfilePrefix = false,
+  }) {
     String two(int n) => n.toString().padLeft(2, '0');
     final t = v.createdAt;
     String date(String fmt) => fmt.replaceAllMapped(
@@ -217,12 +228,25 @@ class FilenamePattern {
       'date' => date(arg ?? 'YYYY-MM-DD'),
       'time' => date('HHmm'),
       'title' => v.title ?? '',
-      'slug' => slugify(v.title ?? ''),
+      'slug' => _slug(v, dropProfilePrefix),
       'profile' => v.profileId,
       _ =>
         v.recordingId.length > 8
             ? v.recordingId.substring(0, 8)
             : v.recordingId,
     };
+  }
+
+  /// "meeting-meeting-notes" → "meeting-notes" when the pattern already
+  /// prints the profile before the slug.
+  static String _slug(FilenameValues v, bool dropProfilePrefix) {
+    final slug = slugify(v.title ?? '');
+    final prefix = '${slugify(v.profileId)}-';
+    if (dropProfilePrefix &&
+        slug.startsWith(prefix) &&
+        slug.length > prefix.length) {
+      return slug.substring(prefix.length);
+    }
+    return slug;
   }
 }

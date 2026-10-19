@@ -176,6 +176,33 @@ void main() {
       expect(pattern('{{title}}/x').render(noTitle), 'untitled/x.md');
     });
 
+    test(
+      'the slug drops a leading profile word the pattern already prints',
+      () {
+        final v = FilenameValues(
+          recordingId: 'r',
+          createdAt: DateTime(2026, 1, 2),
+          profileId: 'meeting',
+          title: 'Meeting Notes',
+        );
+        expect(
+          pattern(kDefaultFilenamePattern).render(v),
+          '2026-01-02-meeting-notes.md',
+        );
+        expect(pattern('{{slug}}').render(v), 'meeting-notes.md');
+        final only = FilenameValues(
+          recordingId: 'r',
+          createdAt: DateTime(2026, 1, 2),
+          profileId: 'meeting',
+          title: 'Meeting',
+        );
+        expect(
+          pattern(kDefaultFilenamePattern).render(only),
+          '2026-01-02-meeting-meeting.md',
+        );
+      },
+    );
+
     test('slug is ≤ 60 characters', () {
       final v = FilenameValues(
         recordingId: 'r',

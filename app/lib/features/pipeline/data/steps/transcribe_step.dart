@@ -18,6 +18,7 @@ import 'package:vaultvoice/features/pipeline/domain/pipeline_step.dart';
 import 'package:vaultvoice/features/profiles/domain/vocabulary_hints.dart';
 import 'package:vaultvoice/features/settings/domain/setting_keys.dart';
 import 'package:vaultvoice/features/transcription/data/window_result_cache.dart';
+import 'package:vaultvoice/features/transcription/domain/digital_silence.dart';
 import 'package:vaultvoice/features/transcription/domain/hallucination_guards.dart';
 import 'package:vaultvoice/features/transcription/domain/window_planner.dart';
 
@@ -223,6 +224,14 @@ class TranscribeStep implements PipelineStep {
       final chunk = chunks[next];
       final done = next;
       final file = paths.resolve(chunk.path);
+      if (await isDigitalSilence(file)) {
+        await ctx.saveCheckpoint(
+          checkpoint(next + 1),
+          progress: (next + 1) / total,
+          writes: () async {},
+        );
+        continue;
+      }
       final speech = await _chunkSpeech(vadModel, file, chunk, job, ctx);
       final result = await stt.transcribe(
         file,
@@ -304,11 +313,15 @@ class TranscribeStep implements PipelineStep {
     String? vocabulary,
   ) async {
     final job = ctx.job;
-    final speech = await _speechSpans(job.recordingId, chunks, ctx, vadModel);
+    final audible = <AudioChunkRow>[
+      for (final c in chunks)
+        if (!await isDigitalSilence(paths.resolve(c.path))) c,
+    ];
+    final speech = await _speechSpans(job.recordingId, audible, ctx, vadModel);
     if (speech case Err(:final failure)) return StepFailed(failure);
     final plan = planWindows(
       chunks: [
-        for (final c in chunks)
+        for (final c in audible)
           PlanChunk(
             seq: c.seq,
             path: paths.resolve(c.path),

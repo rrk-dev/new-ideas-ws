@@ -521,6 +521,7 @@
   "settingRawCapture": "Raw capture",
   "settingRawCaptureDescription": "Turns off all audio processing. For external microphones and testing.",
   "clippingHint": "Too loud — move the phone further away.",
+  "noInputSignalHint": "No sound from the microphone. Check that the right input is selected in your system sound settings, and that the lid is open.",
   "recordingLevelLabel": "Input level",
   "settingAutoPause": "Auto-pause on silence",
   "settingAutoPauseDescription": "Pauses after 2 minutes of silence. Tap Resume to continue. Needs the voice detection model.",

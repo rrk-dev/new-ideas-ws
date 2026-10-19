@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as p;
@@ -116,6 +117,24 @@ void main() {
     );
     return paths.resolve(rel);
   }
+
+  test('chunks that are digital silence are not transcribed (no invented '
+      '"Thank you")', () async {
+    for (var seq = 0; seq < 2; seq++) {
+      File(paths.resolve(p.join('audio', 'r1', 'chunk_$seq.wav')))
+        ..createSync(recursive: true)
+        ..writeAsBytesSync(Uint8List(44 + 3200));
+    }
+    final stt = FakeSttEngine();
+    final step = TranscribeStep(
+      db: db,
+      paths: paths,
+      stt: stt,
+      config: const PipelineConfig(),
+    );
+    expect(await step.run(_Ctx(db, _job())), isA<StepSucceeded>());
+    expect(stt.calls, isEmpty);
+  });
 
   Future<List<SpeechSegmentRow>> speech() =>
       db.recordingsRepository.watchSpeechSegments('r1').first;
