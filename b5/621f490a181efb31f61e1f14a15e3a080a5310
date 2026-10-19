@@ -1,0 +1,22 @@
+app/test/unit/ask/ask_db_test.dart
+  s_5a534bed398a49::t_541a8101d965ba 92-124
+app/lib/features/ask/data/db_ask_retriever.dart
+  s_5a534bed398a49::t_c4670de4f30c2a 54-55,120,123-138
+  s_5a534bed398a49::t_85560883ee6b7a 139
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b5621f490a181efb31f61e1f14a15e3a080a5310",
+  "prompts": {},
+  "sessions": {
+    "s_5a534bed398a49": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b70d784d-12dc-4792-bbd6-bbc79269d401",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Rajeshkumar Reddy <rajeshkumar.msc@gmail.com>"
+    }
+  }
+}
